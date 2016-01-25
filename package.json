@@ -1,0 +1,13 @@
+{
+    "name": "fcui",
+    "version": "2.0.0",
+    "description": "fcui 2.0.0",
+    "main": "index",
+    "dependencies": {
+        "react-tools": ">=0.0.0"
+    },
+    "author": "lihaitao03@baidu.com",
+    "repository": "empty",
+    "license": "MIT",
+    "readme": "README"
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>FC demo: Material List in ReactJS</title>
+<link rel="stylesheet" href="src/css/main.css"/>
+</head>
+<body>
+<div id="main"></div>
+<script type="text/javascript" src="./dep/jquery.min.js"></script>
+<script type="text/javascript" src="./dep/react.min.js"></script>
+<script type="text/javascript" src="./dep/require.min.js"></script>
+<script type="text/javascript">
+    require.config({
+        baseUrl: './src',
+        paths: {
+            component: './component',
+            fcui: '../dep/fcui/2.0.0',
+            redux: '../dep/redux.min'
+        },
+        packages: [
+            {
+                'name': 'request',
+                'location': '../dep/fc-ajax-II/src',
+                'main': 'request'
+            },
+            {
+                'name': 'eoo',
+                'location': '../dep/eoo/0.1.4/src',
+                'main': 'main'
+            },
+            {
+                'name': 'er',
+                'location': '../dep/er/3.1.0-rc.2/src',
+                'main': 'main'
+            },
+            {
+                'name': 'etpl',
+                'location': '../dep/etpl/3.0.0/src',
+                'main': 'main'
+            },
+            {
+                'name': 'mini-event',
+                'location': '../dep/mini-event/1.0.2/src',
+                'main': 'main'
+            },
+            {
+                name: 'fcajax',
+                location: '../dep/fc-ajax-II/src',
+                main: 'main'
+            },
+            {
+                name: 'promise',
+                location: '../dep/promise/1.0.0/src',
+                main: 'main'
+            }
+        ]
+    });
+    require(['main']);
+</script>
+</body>
+</html>
