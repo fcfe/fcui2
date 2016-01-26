@@ -1,0 +1,54 @@
+@import "../skin.less";
+.ui-button {
+    position: relative;
+    display: inline-block;
+    height: @height-normal;
+    border: @border-normal;
+    padding: @padding-normal;
+    color: @fontcolor-normal;
+    background-color: @bgcolor-normal;
+    line-height: @lineheight-normal;
+    font-size: @fontsize-button;
+    font-family: @normal-font;
+    text-align: center;
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    cursor: default;
+    .font-icon {
+        display: inline-block;
+        float: left;
+        line-height: @lineheight-normal;
+        margin-right: 3px;
+        font-size: @fontsize-icon;
+    }
+}
+.ui-button:hover {
+    -webkit-box-shadow: @shadow-normal;
+    -moz-box-shadow: @shadow-normal;
+    box-shadow: @shadow-normal;
+}
+.ui-button-active {
+    border-color: @color-active !important;
+}
+.ui-button-disable {
+    color: @color-disable !important;
+}
+.ui-button-important {
+    border-color: @color-active !important;
+    background-color: @bgcolor-important;
+    color: @fontcolor-important !important;
+}
+.ui-button-important:hover {
+    background-color: @bgcolor-important-hover;
+}
+.ui-button-important:active {
+    background-color: @bgcolor-important;
+}
+.ui-button-highlight {
+    color: @fontcolor-highlight !important;
+}

@@ -1,10 +1,8 @@
-exports.port = 8846;
+exports.port = 8847;
 exports.directoryIndexes = true;
 exports.documentRoot = __dirname;
 
 var jsxMidlayer = require(__dirname + '/edp-midlayer-react');
-var mockservice = require('mockservice');
-mockservice.config({dir: './debug'});
 
 // 导入配置
 exports.getLocations = function () {
@@ -15,10 +13,6 @@ exports.getLocations = function () {
                 file(),
                 jsxMidlayer.compileHTML()
             ]
-        },
-        {
-            location: /\/request.ajax/,
-            handler: mockservice.request()
         },
         {
             location: /\/$/,
