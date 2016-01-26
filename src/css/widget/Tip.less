@@ -1,0 +1,51 @@
+@import "../skin.less";
+.ui-tip {
+    position: relative;
+    top: 2px;
+    cursor: pointer;
+    .tip-layer {
+        position: absolute;
+        display: none;
+        text-align: left;
+        border: @border-normal;
+        background-color: @bgcolor-active;
+        -webkit-box-shadow: @shadow-normal;
+        -moz-box-shadow: @shadow-normal;
+        box-shadow: @shadow-normal;
+    }
+    .tip-title {
+        margin: 10px 10px 0 10px;
+        white-space: nowrap;
+        font-size: @fontsize-button;
+        font-weight: @fontweight-title;
+    }
+    .tip-content {
+        margin: 10px;
+        min-width: 250px;
+        max-width: 400px;
+        font-size: @fontsize-button;
+        line-height: @lineheight-layer;
+    }
+    .left-top {
+        right: 15px;
+        bottom: 15px;
+    }
+    .right-top {
+        left: 15px;
+        bottom: 15px;
+    }
+    .left-bottom {
+        right: 15px;
+        top: 15px;
+    }
+    .right-bottom {
+        left: 15px;
+        top: 15px;
+    }
+    &:hover {
+        .tip-layer {
+            display: block;
+            z-index: 999;
+        }
+    }
+}
