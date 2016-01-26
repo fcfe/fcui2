@@ -37,17 +37,12 @@ define(function (require) {
             }
         },
         render: function () {
-
-            var textBoxProp = this.props.textBoxProp;
-            textBoxProp.checkout = [checker.maxLength(10, '最多10个字符')];
-            textBoxProp.onChange = this.textBoxChangeHandler;
-
             return (
                 <div>
                     <h1>FCUI v2.0.0 Demos</h1>
                     <hr/>
                     Example1:
-                    <TextBox {...textBoxProp} ref="textbox"/>
+                    <TextBox {...this.props.textBoxProp} ref="textbox" checkout={[checker.maxLength(10, '最多10个字符')]} onChange={this.textBoxChangeHandler}/>
                     <Button {...this.props.button1} onClick={this.buttonClickHandler}/>
                     <Button label="disable/enable" cmd="disable textbox" onClick={this.buttonClickHandler}/>
                     <hr/>
@@ -55,8 +50,9 @@ define(function (require) {
                     <Button skin="important" label="确定" ref="button1"/>
                     <Button skin="highlight" ref="button2" icon="font-icon-check-square2" label="四个汉字"/>
                     <Button label="普通按钮" ref="button3"/>
-                    <Button label="disable/enable" cmd="disable button" onClick={this.buttonClickHandler}/>
+                    <Button skin="important" icon="font-icon-check-square2" label="disable/enable" cmd="disable button" onClick={this.buttonClickHandler}/>
                     <hr/>
+                    Example3:
                 </div>
             );
         }
