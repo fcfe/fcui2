@@ -1,0 +1,93 @@
+@import "../skin.less";
+.ui-dropdownlist {
+    display: inline-block;
+    position: relative;
+    height: @height-normal;
+    border: @border-normal;
+    padding: @padding-dropdownlist;
+    color: @fontcolor-normal;
+    background-color: @bgcolor-normal;
+    line-height: @lineheight-normal;
+    font-size: @fontsize-button;
+    font-family: @normal-font;
+    text-align: center;
+    cursor: default;
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    .icon-left {
+        float: left;
+        margin-left: -5px;
+        margin-right: 3px;
+    }
+    .icon-right {
+        float: right;
+        width: 20px;
+    }
+    .font-icon {
+        display: inline-block;
+        line-height: @lineheight-normal;
+        font-size: @fontsize-icon;
+    }
+    .layer {
+        position: absolute;
+        padding: @padding-layer-list;
+        border: @border-normal;
+        background-color: @bgcolor-active;
+        -webkit-box-shadow: @shadow-normal;
+        -moz-box-shadow: @shadow-normal;
+        box-shadow: @shadow-normal;
+        white-space: nowrap;
+    }
+    .bottom-layer {
+        display: none;
+        top: @height-normal;
+        margin-top: 1px;
+        left: -1px;
+        min-width: 100%;
+    }
+    .right-layer {
+        display: none;
+        margin-left: 100%;
+        top: 0px;
+    }
+    .disable-layer {
+        display: none;
+    }
+    .item {
+        position: relative;
+        span {
+            margin: @margin-normal;
+        }
+    }
+    .item:hover {
+        background-color: @bgcolor-item-hover;
+        >.right-layer {
+            display: block;
+            z-index: 9999;
+        }
+    }
+    .disable {
+        color: @color-disable;
+        >.right-layer {
+            display: none !important;
+        }
+    }
+    .disable:hover {
+        background-color: @bgcolor-active !important;
+    }
+    &:hover {
+        border-color: @color-active !important;
+        .font-icon-largeable-caret-down {
+            color: @color-active;
+        }
+        .bottom-layer {
+            display: block;
+            z-index: 9999;
+        }
+    }
+}

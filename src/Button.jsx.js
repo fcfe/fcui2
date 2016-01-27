@@ -4,7 +4,7 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 minWidth: 40,
-                label: '按钮',
+                label: 'Button',
                 icon: '',
                 cmd: '',
                 skin: '',

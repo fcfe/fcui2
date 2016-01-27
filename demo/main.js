@@ -19,6 +19,7 @@ define(function (require) {
                     ui.setProps(this);
                     return;
                 default:
+                    console.log(e);
                     return;
             };
         }
