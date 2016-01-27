@@ -6,6 +6,7 @@ define(function (require) {
                 width: 200,
                 label: '',
                 value: '',
+                disable: false,
                 checkout: [],
                 onChange: function () {}
             };
@@ -24,9 +25,9 @@ define(function (require) {
                 // 脏数据，初始由外界导入
                 value: prop.value,
                 label: prop.label,
+                disable: this.state && this.state.hasOwnProperty('disable') ? this.state.disable : prop.disable,
                 // 局部控制数据，外部可读，可setState
-                disable: this.state && this.state.hasOwnProperty('disable') ? this.state.disable : false,
-                checkPassed: true  
+                checkPassed: true
             };
         },
         changeHandler: function (e) {
@@ -52,9 +53,7 @@ define(function (require) {
         render: function () {
             var containerProp = {
                 className: 'ui-textbox',
-                style: {
-                    width: this.props.width
-                }
+                style: {width: this.props.width}
             };
             var labelProp = {
                 style: {
@@ -64,9 +63,7 @@ define(function (require) {
             var inputProp = {
                 type: 'text',
                 value: this.state.value,
-                style: {
-                    width: this.props.width - 20
-                },
+                style: {width: this.props.width - 20},
                 onChange: this.changeHandler
             };
             if (this.state.disable) {

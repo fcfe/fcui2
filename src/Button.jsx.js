@@ -8,6 +8,7 @@ define(function (require) {
                 icon: '',
                 cmd: '',
                 skin: '',
+                disable: false,
                 onClick: function () {}
             };
         },
@@ -15,7 +16,7 @@ define(function (require) {
         getInitialState: function () {
             return {
                 active: false,
-                disable: this.props.hasOwnProperty('disable') ? this.props.disable : false
+                disable: this.props.disable
             };
         },
         // 这样写的原因是：css:active在IE中不好使，因为react自动加span把label包了起来
@@ -27,14 +28,15 @@ define(function (require) {
         },
         clickHandler: function () {
             if (this.state.disable) return;
-            this.props.onClick({target: this});
+            this.props.onClick({
+                target: this,
+                value: this.props.cmd
+            });
         },
         render: function () {
             var containerProp = {
                 className: 'ui-button',
-                style: {
-                    minWidth: this.props.minWidth
-                },
+                style: {minWidth: this.props.minWidth},
                 onMouseDown: this.mouseDownHandler,
                 onMouseUp: this.mouseUpHandler,
                 onClick: this.clickHandler

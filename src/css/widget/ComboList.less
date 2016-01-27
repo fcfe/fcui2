@@ -1,17 +1,11 @@
 @import "../skin.less";
-.ui-dropdownlist {
+.ui-combolist {
     display: inline-block;
     position: relative;
-    height: @height-normal;
-    border: @border-normal;
-    padding: @padding-dropdownlist;
-    color: @fontcolor-normal;
-    background-color: @bgcolor-normal;
-    line-height: @lineheight-normal;
     font-size: @fontsize-button;
     font-family: @normal-font;
-    text-align: center;
     cursor: default;
+    line-height: @lineheight-normal;
     moz-user-select: -moz-none;
     -moz-user-select: none;
     -o-user-select:none;
@@ -19,14 +13,30 @@
     -webkit-user-select:none;
     -ms-user-select:none;
     user-select:none;
-    .icon-right {
+    .font-icon-largeable-caret-down {
         float: right;
+        display: inline-block;
         width: 20px;
+        text-align: center;  
+        line-height: @lineheight-normal;
+        color: @fontcolor-important;
+        background-color: @bgcolor-important;
+        border: @border-active;
+        cursor: pointer;
+        margin-left: -1px;
     }
     .font-icon {
         display: inline-block;
         line-height: @lineheight-normal;
         font-size: @fontsize-icon;
+    }
+    .font-icon-largeable-caret-down:hover {
+        background-color: @bgcolor-active;
+        color: @fontcolor-focus;
+    }
+    .icon-right {
+        float: right;
+        width: 20px;
     }
     .layer {
         position: absolute;
@@ -78,26 +88,21 @@
             z-index: 9999;
         }
     }
-    &:hover {
-        border-color: @color-active !important;
-        .font-icon-largeable-caret-down {
-            color: @color-active;
-        }
-        .bottom-layer {
-            display: block;
-            z-index: 9999;
-        }
-    }
 }
-.ui-dropdownlist-disable {
-    color: @color-disable !important;
-}
-.ui-dropdownlist-disable:hover {
-    border-color: @color-disable !important;
-    .font-icon-largeable-caret-down {
-        color: @color-disable !important;
-    }
+.ui-combolist-showlayer {
     .bottom-layer {
-        display: none !important;
+        display: block;
+        z-index: 9999;
+    }
+    .font-icon-largeable-caret-down {
+        background-color: @bgcolor-active !important;
+        color: @fontcolor-focus !important;
+    }
+}
+.ui-combolist-disable {
+    .font-icon-largeable-caret-down {
+        background-color: @bgcolor-normal !important;
+        color: @color-disable !important;
+        border-color: @color-disable !important;
     }
 }
