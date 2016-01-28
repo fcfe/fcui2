@@ -37,13 +37,20 @@
         -moz-box-shadow: @shadow-normal;
         box-shadow: @shadow-normal;
         white-space: nowrap;
+        text-align: left;
+    }
+    .up-layer {
+        display: none;
+        bottom: @height-normal;
+        left: -1px;
+        min-width: 100%;
     }
     .bottom-layer {
         display: none;
         top: @height-normal;
-        margin-top: 1px;
         left: -1px;
         min-width: 100%;
+        margin-top: 1px;
     }
     .right-layer {
         display: none;
@@ -83,7 +90,7 @@
         .font-icon-largeable-caret-down {
             color: @color-active;
         }
-        .bottom-layer {
+        .bottom-layer,.up-layer {
             display: block;
             z-index: 9999;
         }
@@ -97,7 +104,7 @@
     .font-icon-largeable-caret-down {
         color: @color-disable !important;
     }
-    .bottom-layer {
+    .bottom-layer,.up-layer {
         display: none !important;
     }
 }

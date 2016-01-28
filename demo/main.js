@@ -19,7 +19,7 @@ define(function (require) {
                     ui.setProps(this);
                     return;
                 default:
-                    console.log(e);
+                    ui.setState({outputmsg: e.toString()});
                     return;
             };
         }

@@ -13,6 +13,10 @@ define(function (require) {
             };
         },
         // @override
+        componentWillReceiveProps: function (props) {
+            this.setState({disable: props.disable});
+        },
+        // @override
         getInitialState: function () {
             return {
                 active: false,

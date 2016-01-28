@@ -48,6 +48,12 @@
         box-shadow: @shadow-normal;
         white-space: nowrap;
     }
+    .up-layer {
+        display: none;
+        bottom: @height-normal;
+        left: -1px;
+        min-width: 100%;
+    }
     .bottom-layer {
         display: none;
         top: @height-normal;
@@ -90,7 +96,7 @@
     }
 }
 .ui-combolist-showlayer {
-    .bottom-layer {
+    .bottom-layer,.up-layer {
         display: block;
         z-index: 9999;
     }

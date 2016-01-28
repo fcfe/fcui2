@@ -13,22 +13,19 @@ define(function (require) {
         },
         // @override
         getInitialState: function () {
-            return this.getStateFromProp(this.props);
+            return {
+                value: this.props.value,
+                label: this.props.label,
+                disable: this.props.disable,
+                checkPassed: true
+            };
         },
         // @override
         componentWillReceiveProps: function (props) {
-            this.setState(this.getStateFromProp(props));
-        },
-        // 从prop中导出部分数据到state，此方法原则上应深度克隆数据
-        getStateFromProp: function (prop) {
-            return {
-                // 脏数据，初始由外界导入
-                value: prop.value,
-                label: prop.label,
-                disable: this.state && this.state.hasOwnProperty('disable') ? this.state.disable : prop.disable,
-                // 局部控制数据，外部可读，可setState
-                checkPassed: true
-            };
+            this.setState({
+                label: props.label,
+                disable: props.disable
+            });
         },
         changeHandler: function (e) {
             if (this.state.disable) return;

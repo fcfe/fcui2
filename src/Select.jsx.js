@@ -4,11 +4,12 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                label: 'DropDownList',
                 minWidth: 60,
+                label: 'please select',
                 disable: false,
-                datasource: [],         // {label: <string>, cmd: <string>, disable: <boolean>}
-                onClick: function () {}
+                value: '',
+                datasource: [],         // {label: <string>, value: <string>, disable: <boolean>}
+                onChange: function () {}
             };
         },
         // @override
@@ -22,6 +23,7 @@ define(function (require) {
         getInitialState: function () {
             return {
                 disable: this.props.disable,
+                value: this.props.value + '',
                 datasource: JSON.parse(JSON.stringify(this.props.datasource)),
                 layerPosition: 'bottom-layer'
             };
@@ -29,7 +31,8 @@ define(function (require) {
         clickHandler: function (e) {
             var dataset = util.getDataset(e.target);
             if (this.state.disable || !dataset.uiCmd) return;
-            this.props.onClick({
+            this.setState({value: dataset.uiCmd});
+            this.props.onChange({
                 target: this,
                 value: dataset.uiCmd
             });
@@ -50,37 +53,32 @@ define(function (require) {
                 className: 'layer ' + this.state.layerPosition,
                 ref: 'layer'
             };
+            var label = this.props.label;
+            for (var i = 0; i < this.state.datasource.length; i++) {
+                if (this.state.datasource[i].value + '' === this.state.value + '') {
+                    label = this.state.datasource[i].label;
+                    break;
+                }
+            }
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
-                    <span>{this.props.label}</span>
+                    <span>{label}</span>
                     <div {...layerProp}>{this.state.datasource.map(produceItem)}</div>
                 </div>
             );
             function produceItem(item) {
-                var children = item.datasource instanceof Array ? item.datasource : [];
                 var itemProp = {
                     onClick: me.clickHandler,
                     className: 'item' + (me.state.disable || item.disable ? ' disable' : '')
                 };
                 var spanProp = {onClick: me.clickHandler};
-                var rightArrowProp = {
-                    className: 'icon-right font-icon font-icon-largeable-caret-right',
-                    style: {
-                        visibility: children.length > 0 ? 'visible' : 'hidden'
-                    }
-                };
-                var rightLayerProp = {
-                    className: 'layer ' + (children.length > 0 ? 'right-layer' : 'disable-layer')
-                };
                 if (!(me.state.disable || item.disable)) {
-                    itemProp['data-ui-cmd'] = spanProp['data-ui-cmd'] = item.cmd;
+                    itemProp['data-ui-cmd'] = spanProp['data-ui-cmd'] = item.value;
                 }
                 return (
                     <div {...itemProp}>
-                        <div {...rightArrowProp}></div>
                         <span {...spanProp}>{item.label}</span>
-                        <div {...rightLayerProp}>{children.map(produceItem)}</div>
                     </div>
                 );
             }

@@ -15,7 +15,7 @@ define(function (require) {
                 layerPosition: 'layer-left'
             };
         },
-        mouseOverHandler: function (e) {
+        fixedLayerPosition: function (e) {
             var layer = this.refs.layer.getDOMNode();
             var pos = util.getDOMPosition(e.target);
             var position = pos.x + e.target.offsetWidth + layer.offsetWidth > document.body.offsetWidth
@@ -30,7 +30,7 @@ define(function (require) {
                 style: {
                     display: (this.props.title + this.props.content).length > 0 ? 'inline-block' : 'none'
                 },
-                onMouseOver: this.mouseOverHandler
+                onMouseEnter: this.fixedLayerPosition
             };
             var layer = {
                 className: 'tip-layer ' + this.state.layerPosition,
