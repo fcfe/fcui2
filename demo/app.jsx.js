@@ -9,6 +9,7 @@ define(function (require) {
     var DropDownList = require('fcui/DropDownList.jsx');
     var ComboList = require('fcui/ComboList.jsx');
     var Select = require('fcui/Select.jsx');
+    var NumberBox = require('fcui/NumberBox.jsx');
 
     return React.createClass({
         getInitialState: function () {
@@ -18,7 +19,7 @@ define(function (require) {
             this.props.dispatch();
         },
         textBoxChangeHandler: function (e) {
-            this.setState({outputmsg: e.check});
+            this.setState({outputmsg: e.check === true ? e.value : e.check});
         },
         listClickHandler: function (e) {
             this.props.dispatch(e.value);
@@ -65,6 +66,10 @@ define(function (require) {
                     <Select ref="select" datasource={config.selectData()} label="请选择选项"
                         onChange={this.listClickHandler}/>
                     <h3>Example5</h3>
+                    <NumberBox ref="number1" value={1} showButton={false} onChange={this.textBoxChangeHandler}/>
+                    <NumberBox ref="number1" value="34" onChange={this.textBoxChangeHandler}/>
+                    <NumberBox ref="number2" max="10" min="-10" fixed="2"
+                        type="float" onChange={this.textBoxChangeHandler} width="80" step="0.5"/>
                 </div>
             </div>);
         }
