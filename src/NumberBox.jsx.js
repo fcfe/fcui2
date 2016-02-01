@@ -89,7 +89,6 @@ define(function (require) {
             }
             v = arr.join('.');
             return v.length > 0 ? v : 'NaN';
-
         },
         check: function (v) {
             for (var i = 0; i < this.props.checkout.length; i++) {

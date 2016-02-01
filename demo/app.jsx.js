@@ -10,6 +10,7 @@ define(function (require) {
     var ComboList = require('fcui/ComboList.jsx');
     var Select = require('fcui/Select.jsx');
     var NumberBox = require('fcui/NumberBox.jsx');
+    var Pager = require('fcui/Pager.jsx');
 
     return React.createClass({
         getInitialState: function () {
@@ -41,35 +42,37 @@ define(function (require) {
                 <div className="leftContainer">{this.state.outputmsg}</div>
                 <div className="topHeader"><h1>FCUI v2.0.0 Demos</h1></div>
                 <div className="rightContainer">
-                    <h3>Example0</h3>
+                    <h3>Example0: disable all components</h3>
                     <Button label="disable/enable all widgets" cmd="disable all" onClick={this.buttonClickHandler}/>
-                    <h3>Example1</h3>
+                    <h3>Example1: Tip</h3>
                     <Tip title="这是标题" content="这是内容这是内容这是。<br>内容这是内容这是内容这是内容这是"/>
                     <Tip icon="font-icon-check-square2" title="如果说这个tip有啥特别" content="可以在layer里面写html"/>
                     <Tip content="没有标题也是可以的"/>
                     <Tip content="layer里的dom的事件本ui不负责挂。<input type='button' value='呵呵'/>"/>
-                    <h3>Example2</h3>
+                    <h3>Example2: TextBox</h3>
                     <TextBox ref="textbox" {...this.props.textBoxProp}
                         checkout={[checker.maxLength(10, '最多10个字符')]} onChange={this.textBoxChangeHandler}/>
                     <Button {...this.props.button1} onClick={this.buttonClickHandler}/>
-                    <h3>Example3</h3>
+                    <h3>Example3: Button</h3>
                     <Button ref="button1" skin="important" label="确定"/>
                     <Button ref="button2" skin="highlight" icon="font-icon-check-square2" label="四个汉字"/>
                     <Button ref="button3" label="普通按钮" />
                     <Button ref="button4" skin="important" icon="font-icon-check-square2"
                         label="带ICON的长很长的button"/>
-                    <h3>Example4</h3>
+                    <h3>Example4: DropDownList & ComboList</h3>
                     <DropDownList ref="dropdownlist" onClick={this.listClickHandler} label="编辑"
                         datasource={config.listDatasource()}/>
                     <ComboList ref="combolist" cmd="combolist" icon="font-icon-dot" datasource={config.listDatasource()}
                         onClick={this.listClickHandler}/>
                     <Select ref="select" datasource={config.selectData()} label="请选择选项"
                         onChange={this.listClickHandler}/>
-                    <h3>Example5</h3>
+                    <h3>Example5: NumberBox</h3>
                     <NumberBox ref="number1" value={1} showButton={false} onChange={this.textBoxChangeHandler}/>
                     <NumberBox ref="number1" value="34" onChange={this.textBoxChangeHandler}/>
                     <NumberBox ref="number2" max="10" min="-10" fixed="2"
                         type="float" onChange={this.textBoxChangeHandler} width="80" step="0.5"/>
+                    <h3>Example6: Pager</h3>
+                    <Pager ref="pager" min="1" max="20" value="10" onChange={this.listClickHandler}/>
                 </div>
             </div>);
         }

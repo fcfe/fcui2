@@ -4,6 +4,7 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 minWidth: 40,
+                maxWidth: null,
                 label: 'Button',
                 icon: '',
                 cmd: '',
@@ -58,6 +59,10 @@ define(function (require) {
                 if (this.props.skin.length > 0) {
                     containerProp.className += ' ui-button-' + this.props.skin;
                 }
+            }
+            if (this.props.maxWidth != null) {
+                delete containerProp.style.minWidth;
+                containerProp.style.maxWidth = this.props.maxWidth;
             }
             return (
                 <div {...containerProp}>
