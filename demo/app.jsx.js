@@ -19,6 +19,13 @@ define(function (require) {
 
 
     return React.createClass({
+        // @override
+        getDefaultProps: function () {
+            return {
+                demoTitle: 'FCUI v2.0.0 Demos'
+            };
+        },
+        // @override
         getInitialState: function () {
             return {outputmsg: ''};
         },
@@ -89,7 +96,7 @@ define(function (require) {
         render: function () {
             return (<div>
                 <div className="leftContainer">{this.state.outputmsg}</div>
-                <div className="topHeader"><h1>FCUI v2.0.0 Demos</h1></div>
+                <div className="topHeader"><h1>{this.props.demoTitle}</h1></div>
                 <div className="rightContainer">
                     <h3>Example0: disable all components</h3>
                     <Button label="disable/enable all widgets" cmd="disable all" onClick={this.buttonClickHandler}/>
