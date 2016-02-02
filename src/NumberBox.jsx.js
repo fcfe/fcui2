@@ -54,20 +54,6 @@ define(function (require) {
             var v = this.fix(parseFloat(this.state.value) - parseFloat(this.props.step));
             this.dispatch(v);
         },
-        dispatch: function (v) {
-            var value = parseFloat(this.fix(v));
-            var check = this.check(value);
-            this.setState({
-                value: value,
-                display: this.fix(v),
-                checkPassed: check === true ? true : false
-            });
-            this.props.onChange({
-                target: this,
-                value: value,
-                check: check
-            });
-        },
         fix: function (v) {
             v = v > parseFloat(this.props.max) ? parseFloat(this.props.max) : v;
             v = v < parseFloat(this.props.min) ? parseFloat(this.props.min) : v;
@@ -96,6 +82,23 @@ define(function (require) {
                 if (result !== true) return result;
             }
             return true;
+        },
+        dispatch: function (v) {
+            var value = parseFloat(this.fix(v));
+            var check = this.check(value);
+            this.setState({
+                value: value,
+                display: this.fix(v),
+                checkPassed: check === true ? true : false
+            });
+            this.props.onChange({
+                target: this,
+                value: value,
+                check: check
+            });
+        },
+        focus: function () {
+            this.refs.inputbox.getDOMNode().focus();
         },
         render: function () {
             var containerProp = {
@@ -128,7 +131,7 @@ define(function (require) {
                         <div className="font-icon font-icon-largeable-caret-up" onClick={this.add}></div>
                         <div className="font-icon font-icon-largeable-caret-down" onClick={this.sub}></div>
                     </div>
-                    <input {...inputProp} disabled={this.state.disable}/>
+                    <input {...inputProp} disabled={this.state.disable} ref="inputbox"/>
                 </div>
             );
         }

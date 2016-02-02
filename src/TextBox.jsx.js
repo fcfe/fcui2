@@ -47,6 +47,9 @@ define(function (require) {
             });
             this.props.onChange(evt);
         },
+        focus: function () {
+            this.refs.inputbox.getDOMNode().focus();
+        },
         render: function () {
             var containerProp = {
                 className: 'ui-textbox',
@@ -72,7 +75,7 @@ define(function (require) {
             return (
                 <div {...containerProp}>
                     <div {...labelProp}>{this.state.label}</div>
-                    <input {...inputProp} disabled={this.state.disable}/>
+                    <input {...inputProp} disabled={this.state.disable} ref="inputbox"/>
                 </div>
             );
         }

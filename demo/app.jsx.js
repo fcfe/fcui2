@@ -1,7 +1,5 @@
 define(function (require) {
 
-    var checker = require('fcui/core/checker');
-    var config = require('./config');
 
     var TextBox = require('fcui/TextBox.jsx');
     var Button = require('fcui/Button.jsx');
@@ -11,19 +9,70 @@ define(function (require) {
     var Select = require('fcui/Select.jsx');
     var NumberBox = require('fcui/NumberBox.jsx');
     var Pager = require('fcui/Pager.jsx');
+    var Dialog = require('fcui/Dialog.jsx');
+
+
+    var checker = require('fcui/core/checker');
+    var config = require('./config');
+    var dialog = new Dialog();
+    var subApp = require('./subApp.jsx');
+
 
     return React.createClass({
         getInitialState: function () {
             return {outputmsg: ''};
-        },
-        changeHandler: function () {
-            this.props.dispatch();
         },
         textBoxChangeHandler: function (e) {
             this.setState({outputmsg: e.check === true ? e.value : e.check});
         },
         listClickHandler: function (e) {
             this.props.dispatch(e.value);
+        },
+        popWindowHandler: function () {
+            var me = this;
+            dialog.pop({
+                title: '注册',
+                focus: 'agebox',
+                content: subApp,
+                contentProps: {
+                    label1: '姓名',
+                    label2: '年龄'
+                },
+                onBeforeClose: function (evt) {
+                    // 阻止关闭
+                    // evt.returnValue = false;
+                },
+                onClose: function () {
+                    me.props.dispatch('close register dialog');
+                }
+            });
+        },
+        alertHandler: function () {
+            var me = this;
+            dialog.alert({
+                title: '这样做是错误的！',
+                message: '因为是错误的，所以提示icon是红色的',
+                iconColor: '#f00',
+                onClose: function () {
+                    me.props.dispatch('close alert dialog');
+                }
+            });
+        },
+        confirmHandler: function () {
+            var me = this;
+            dialog.confirm({
+                title: '是否确定做某件事呢？',
+                message: '点"确定"、点"取消"、点"x"会触发不同的回调，看上去虽然麻烦，但写业务时只挂一个onEnter回调就行了',
+                onEnter: function () {
+                    me.props.dispatch('confirm dialog return "enter"');
+                },
+                onCancel: function () {
+                    me.props.dispatch('confirm dialog return "cancel"');
+                },
+                onClose: function () {
+                    me.props.dispatch('confirm dialog return "close"');
+                }
+            });
         },
         buttonClickHandler: function (e) {
             // 内部状态机
@@ -73,6 +122,10 @@ define(function (require) {
                         type="float" onChange={this.textBoxChangeHandler} width="80" step="0.5"/>
                     <h3>Example6: Pager</h3>
                     <Pager ref="pager" min="1" max="20" value="10" onChange={this.listClickHandler}/>
+                    <h3>Example7: Dialog</h3>
+                    <Button label="Pop Dialog" onClick={this.popWindowHandler}/>
+                    <Button label="Alert" onClick={this.alertHandler}/>
+                    <Button label="Confirm" onClick={this.confirmHandler}/>
                 </div>
             </div>);
         }

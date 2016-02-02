@@ -1,0 +1,62 @@
+@import "../skin.less";
+.ui-dialog {
+    position: fixed;
+    z-index: 9999;
+    min-width: 200px;
+    min-height: 90px;
+    background-color: @bgcolor-active;
+    .title-bar {
+        cursor: default;
+        background-color: @bgcolor-window-title;
+        color: @fontcolor-important;
+        font-weight: @fontweight-title;
+        padding: @padding-normal;
+        line-height: @lineheight-window-title;
+        .font-icon-times {
+            float: right;
+            font-size: @fontsize-close-button;
+            line-height: @lineheight-window-title;
+            color: @fontcolor-close-button;
+        }
+        .font-icon-times:hover {
+            color: @fontcolor-important;
+        }
+    }
+    .content {
+        padding: @padding-window-content;
+    }
+}
+.ui-dialog-background {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    z-index: 9998;
+    background-color: @bgcolor-window-background;
+}
+.ui-dialog-alert {
+    position: relative;
+    min-width: 400px;
+    min-height: 100px;
+    span {
+        font-size: @fontsize-button;
+    }
+    .font-icon {
+        position: relative;
+        top: @fontsize-alert-icon / 3;
+        margin: @margin-normal;
+        display: inline-block;
+        font-size: @fontsize-alert-icon;
+    }
+    .button-bar {
+        position: absolute;
+        width: 100%;
+        bottom: 0px;
+        text-align: center;
+        .ui-button {
+            margin: @margin-normal;
+        }
+    }
+}
