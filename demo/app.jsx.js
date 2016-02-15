@@ -156,7 +156,11 @@ define(function (require) {
                     <Button label="Alert" onClick={this.alertHandler}/>
                     <Button label="Confirm" onClick={this.confirmHandler}/>
                     <h3>Example ...: Tree</h3>
-                    <Tree treeNodes={treeNodes} />
+                    <Tree treeNodes={treeNodes}
+                        onTreeNodeExpandClicked={(node, nodes) => {console.log(this, node, nodes);}}
+                        onTreeNodeRemoveClicked={(node, nodes) => {console.log(this, node, nodes);}}
+                        onTreeNodeClicked={(node, nodes) => {console.log(this, node, nodes);}}
+                    />
                 </div>
             </div>);
         }
