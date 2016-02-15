@@ -1,0 +1,53 @@
+@import "../skin.less";
+.fcui2-table {
+    .td-editor {
+        position: relative;
+        font-size: @fontsize-button;
+        .alert {
+            margin-left: 5px;
+            color: @color-alert;
+        }
+        .fcui2-button {
+            margin-left: 5px;
+        }
+        .link {
+            border: @border-hidden;
+            color: @color-active;
+            cursor: pointer;
+        }
+        .font-icon {
+            float: right;
+            display: inline-block;
+            visibility:hidden;
+            font-size: @fontsize-icon-button;
+            line-height: @lineheight-window-title;
+            color: @color-active;
+            cursor: pointer;
+        }
+        .editor {
+            position: absolute;
+            top: -5px;
+            display: none;
+            background-color: @bgcolor-normal;
+            border: @border-normal;
+            z-index: 1;
+            white-space: nowrap;
+            padding: @padding-td-big-layer;
+        }
+        .editor-left {
+            right: -1px;
+        }
+        .editor-right {
+            left: -5px;
+        }
+        &:hover {
+            .link {
+                border: @border-normal;
+                background-color: @bgcolor-active;
+            }
+            .font-icon {
+                visibility: visible;
+            }
+        }
+    }
+}

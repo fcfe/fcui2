@@ -1,0 +1,23 @@
+@import "../skin.less";
+.fcui2-table {
+    .table-header,
+    .table-summary {
+        background-color: @bgcolor-table-header !important;
+        font-weight: @fontweight-title;
+        font-size: @fontsize-button !important;
+        .sort-button {
+            float: right;
+            position: relative;
+            line-height: @lineheight-window-title;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .sort-button:hover {
+            color: @color-active !important;
+        }
+        .fcui2-tip {
+            font-size: @fontsize-icon-button;
+            top: 2px;
+        }
+    } 
+}
