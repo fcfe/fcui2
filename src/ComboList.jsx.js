@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var Button = require('./button.jsx');
+    var Button = require('./Button.jsx');
     var util = require('./core/util');
 
     return React.createClass({

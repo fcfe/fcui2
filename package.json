@@ -1,14 +1,30 @@
 {
-    "name": "fcui",
-    "version": "2.0.0",
-    "description": "fcui 2.0.0",
-    "main": "index",
-    "dependencies": {
-        "react-tools": ">=0.0.0",
-        "edp": ">=0.0.0"
-    },
-    "author": "lihaitao03@baidu.com",
-    "repository": "empty",
-    "license": "MIT",
-    "readme": "README"
+    "name": "fcui2",
+    "version": "0.0.1-alpha.1",
+    "maintainers": [
+        {
+            "name": "Li Haitao",
+            "email": "lihaitao03@baidu.com"
+        }
+    ],
+    "contributors": [
+	{
+	    "name": "Han Bingfeng",
+	    "email": "hanbingfeng@baidu.com"
+        }
+    ],
+    "dependencies": {},
+    "main": "main",
+    "description": "新FCUI，基于React实现的符合OneUX标准的组件库。",
+    "homepage": "http://gitlab.baidu.com/fc-fe/fcui2",
+    "repository": "ssh://g@gitlab.baidu.com:8022/fc-fe/fcui2.git",
+    "edp": {
+        "wwwroot": "/",
+        "depDir": "dep",
+        "srcDir": "src",
+        "loaderAutoConfig": "js,htm,html,tpl,vm,phtml",
+        "loaderUrl": "http://s1.bdstatic.com/r/www/cache/ecom/esl/1-8-6/esl.js",
+        "dependencies": {
+        }
+    }
 }

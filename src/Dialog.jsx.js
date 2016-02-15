@@ -1,7 +1,7 @@
 define(function (require) {
 
 
-    var Button = require('fcui/Button.jsx');
+    var Button = require('./Button.jsx');
 
 
     // 窗口，包含title bar 和content container
