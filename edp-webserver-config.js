@@ -2,16 +2,19 @@ exports.port = 8847;
 exports.directoryIndexes = true;
 exports.documentRoot = __dirname;
 
-var jsxMidlayer = require(__dirname + '/edp-midlayer-react');
-
 // 导入配置
 exports.getLocations = function () {
     return [
+        // babel 同时对付es6和react
         {
-            location: /\.jsx.js($|\?)/,
+            location: /\.es6|\.jsx\.js/,
+            // babelOptions, forceTransform 无论是否有`define`都强制转成UMD/AMD模块
             handler: [
-                file(),
-                jsxMidlayer.compileHTML()
+                babel({
+                    sourceMaps: 'both'
+                }, {
+                    forceTransform: true
+                })
             ]
         },
         {
