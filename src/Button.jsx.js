@@ -40,7 +40,7 @@ define(function (require) {
         },
         render: function () {
             var containerProp = {
-                className: 'ui-button',
+                className: 'fcui2-button',
                 style: {minWidth: this.props.minWidth},
                 onMouseDown: this.mouseDownHandler,
                 onMouseUp: this.mouseUpHandler,
@@ -50,14 +50,14 @@ define(function (require) {
                 className: 'font-icon ' + this.props.icon
             };
             if (this.state.disable) {
-                containerProp.className += ' ui-button-disable';
+                containerProp.className += ' fcui2-button-disable';
             }
             else {
                 if (this.state.active) {
-                    containerProp.className += ' ui-button-active';
+                    containerProp.className += ' fcui2-button-active';
                 }
                 if (this.props.skin.length > 0) {
-                    containerProp.className += ' ui-button-' + this.props.skin;
+                    containerProp.className += ' fcui2-button-' + this.props.skin;
                 }
             }
             if (this.props.maxWidth != null) {

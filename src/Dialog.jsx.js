@@ -83,7 +83,7 @@ define(function (require) {
         render: function () {
             var icon = 'font-icon ' + this.props.icon
             return (
-                <div className="ui-dialog-alert">
+                <div className="fcui2-dialog-alert">
                     <div className={icon} style={{color: this.props.iconColor}}></div>
                     <span>{this.props.message}</span>
                     <div className="button-bar">
@@ -117,7 +117,7 @@ define(function (require) {
         render: function () {
             var icon = 'font-icon ' + this.props.icon
             return (
-                <div className="ui-dialog-alert">
+                <div className="fcui2-dialog-alert">
                     <div className={icon} style={{color: this.props.iconColor}}></div>
                     <span>{this.props.message}</span>
                     <div className="button-bar">
@@ -136,8 +136,8 @@ define(function (require) {
     function Dialog() {
         this.container = document.createElement('div');
         this.background = document.createElement('div');
-        this.container.className = 'ui-dialog';
-        this.background.className = 'ui-dialog-background';
+        this.container.className = 'fcui2-dialog';
+        this.background.className = 'fcui2-dialog-background';
         this.ui = null;
     }
 

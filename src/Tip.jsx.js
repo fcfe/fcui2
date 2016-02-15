@@ -26,7 +26,7 @@ define(function (require) {
         },
         render: function () {
             var tip = {
-                className: 'ui-tip font-icon ' + this.props.icon,
+                className: 'fcui2-tip font-icon ' + this.props.icon,
                 style: {
                     display: (this.props.title + this.props.content).length > 0 ? 'inline-block' : 'none'
                 },

@@ -52,7 +52,7 @@ define(function (require) {
         },
         render: function () {
             var containerProp = {
-                className: 'ui-textbox',
+                className: 'fcui2-textbox',
                 style: {width: this.props.width}
             };
             var labelProp = {
@@ -67,10 +67,10 @@ define(function (require) {
                 onChange: this.changeHandler
             };
             if (this.state.disable) {
-                containerProp.className += ' ui-textbox-disable'
+                containerProp.className += ' fcui2-textbox-disable'
             }
             else if (!this.state.checkPassed) {
-                containerProp.className += ' ui-textbox-reject'
+                containerProp.className += ' fcui2-textbox-reject'
             }
             return (
                 <div {...containerProp}>

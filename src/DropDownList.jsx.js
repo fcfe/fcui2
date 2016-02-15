@@ -41,7 +41,7 @@ define(function (require) {
         render: function () {
             var me = this;
             var containerProp = {
-                className: 'ui-dropdownlist' + (this.state.disable ? ' ui-dropdownlist-disable' : ''),
+                className: 'fcui2-dropdownlist' + (this.state.disable ? ' fcui2-dropdownlist-disable' : ''),
                 style: {minWidth: this.props.minWidth},
                 onClick: this.clickHandler,
                 onMouseEnter: this.fixedLayerPosition

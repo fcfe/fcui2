@@ -43,7 +43,7 @@ define(function (require) {
         },
         render: function () {
             var me = this;
-            var containerProp = {className: 'ui-pager'};
+            var containerProp = {className: 'fcui2-pager'};
             return (
                 <div {...containerProp}>{produceButtons()}</div>
             );

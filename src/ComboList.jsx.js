@@ -66,7 +66,7 @@ define(function (require) {
         render: function () {
             var me = this;
             var containerProp = {
-                className: 'ui-combolist',
+                className: 'fcui2-combolist',
                 onMouseLeave: this.hideLayer
             };
             var mainButtonProp = {
@@ -82,10 +82,10 @@ define(function (require) {
                 ref: 'layer'
             };
             if (this.state.disable) {
-                containerProp.className += ' ui-combolist-disable';
+                containerProp.className += ' fcui2-combolist-disable';
             }
             else if (this.state.showLayer) {
-                containerProp.className += ' ui-combolist-showlayer';
+                containerProp.className += ' fcui2-combolist-showlayer';
             }
             return (
                 <div {...containerProp}>

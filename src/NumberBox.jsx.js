@@ -102,7 +102,7 @@ define(function (require) {
         },
         render: function () {
             var containerProp = {
-                className: 'ui-numberbox',
+                className: 'fcui2-numberbox',
                 style: {width: this.props.width}
             };
             var inputProp = {
@@ -120,10 +120,10 @@ define(function (require) {
                 }
             };
             if (this.state.disable) {
-                containerProp.className += ' ui-numberbox-disable'
+                containerProp.className += ' fcui2-numberbox-disable'
             }
             else if (!this.state.checkPassed) {
-                containerProp.className += ' ui-numberbox-reject'
+                containerProp.className += ' fcui2-numberbox-reject'
             }
             return (
                 <div {...containerProp}>
