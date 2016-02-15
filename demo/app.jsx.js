@@ -10,7 +10,7 @@ define(function (require) {
     var NumberBox = require('fcui/NumberBox.jsx');
     var Pager = require('fcui/Pager.jsx');
     var Dialog = require('fcui/Dialog.jsx');
-
+    var Tree = require('fcui/Tree.jsx');
 
     var checker = require('fcui/core/checker');
     var config = require('./config');
@@ -94,6 +94,28 @@ define(function (require) {
             }
         },
         render: function () {
+            var treeNodes = [
+                {
+                    id: '1',
+                    name: 'Node 1',
+                    isChildrenLoading: true
+                },
+                {
+                    id: '2',
+                    name: 'Node 2',
+                    isExpanded: true,
+                    children: [
+                        {
+                            id: '2.1',
+                            name: 'Node 2.1'
+                        },
+                        {
+                            id: '2.2',
+                            name: 'Node 2.2'
+                        }
+                    ]
+                }
+            ];
             return (<div>
                 <div className="leftContainer">{this.state.outputmsg}</div>
                 <div className="topHeader"><h1>{this.props.demoTitle}</h1></div>
@@ -133,6 +155,8 @@ define(function (require) {
                     <Button label="Pop Dialog" onClick={this.popWindowHandler}/>
                     <Button label="Alert" onClick={this.alertHandler}/>
                     <Button label="Confirm" onClick={this.confirmHandler}/>
+                    <h3>Example ...: Tree</h3>
+                    <Tree treeNodes={treeNodes} />
                 </div>
             </div>);
         }
