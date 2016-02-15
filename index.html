@@ -17,9 +17,14 @@
                 name: 'fcui',
                 location: '../src',
                 main: 'main'
+            },
+            {
+                name: 'underscore',
+                location: '../dep/underscore/1.8.5/src',
+                main: 'underscore'
             }
         ]
     });
-    require(['main']);
+    require(['underscore', 'main']);
 </script>
 </html>

@@ -8,9 +8,9 @@
         }
     ],
     "contributors": [
-	{
-	    "name": "Han Bingfeng",
-	    "email": "hanbingfeng@baidu.com"
+        {
+            "name": "Han Bingfeng",
+            "email": "hanbingfeng@baidu.com"
         }
     ],
     "dependencies": {},
@@ -25,6 +25,7 @@
         "loaderAutoConfig": "js,htm,html,tpl,vm,phtml",
         "loaderUrl": "http://s1.bdstatic.com/r/www/cache/ecom/esl/1-8-6/esl.js",
         "dependencies": {
+            "underscore": "~1.8.5"
         }
     }
 }
