@@ -7,20 +7,7 @@ define(function (require) {
     var u = require('underscore');
     var React = require('react');
     var Tree = require('./Tree.jsx');
-
-    function makeParentLink(nodes, parent) {
-        nodes.forEach((node) => {
-            if (node.children) {
-                makeParentLink(node.children, node);
-            }
-
-            if (node.parent != null || parent == null) {
-                return;
-            }
-
-            node.parent = parent;
-        });
-    }
+    var util = require('./core/util.es6');
 
     var DualTreeSelector = React.createClass({
         propTypes: {
@@ -39,14 +26,46 @@ define(function (require) {
         },
 
         getInitialState: function () {
-            return u.pick(this.props, 'leftTreeNodes', 'rightTreeNodes');
+            return u.chain(this.props)
+                .pick('leftTreeNodes', 'rightTreeNodes')
+                .mapObject(
+                    (treeNodes) => util.tree.makeParentLink(treeNodes)
+                ).value();
         },
 
         onTreeNodeRemoveClicked: function (treeNodes, tree, treeNode) {
-            var source = tree;
-            var target = this.refs.leftTree === source ? this.refs.rightTree : this.refs.leftTree;
+            var sourceTreeNodes;
+            var targetTreeNodes;
+            if (this.refs.leftTree === tree) {
+                sourceTreeNodes = this.state.leftTreeNodes;
+                targetTreeNodes = this.state.rightTreeNodes;
+            }
+            else {
+                sourceTreeNodes = this.state.rightTreeNodes;
+                targetTreeNodes = this.state.leftTreeNodes;
+            }
+            // 从source tree挪走treeNode
+            var {
+                treeNodes: newSourceTreeNodes,
+                removedTreeNode: removedSourceTreeNode
+            } = util.tree.removeNodeFromTreeNodes(treeNode, sourceTreeNodes);
 
-
+            var newTargetTreeNodes = targetTreeNodes.slice();
+            util.tree.copyNodeToTreeNodes(
+                util.tree.getPathToRoot(removedSourceTreeNode),
+                newTargetTreeNodes
+            );
+            util.tree.makeParentLink(newTargetTreeNodes);
+            var newState = this.refs.leftTree === tree
+                ? {
+                    leftTreeNodes: newSourceTreeNodes,
+                    rightTreeNodes: newTargetTreeNodes
+                }
+                : {
+                    leftTreeNodes: newTargetTreeNodes,
+                    rightTreeNodes: newSourceTreeNodes
+                };
+            this.setState(newState);
         },
 
         render: function () {

@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var util = require('./core/util');
+    var util = require('./core/util.es6');
     var React = require('react');
 
     return React.createClass({

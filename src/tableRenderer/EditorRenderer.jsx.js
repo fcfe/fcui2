@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var util = require('../core/util');
+    var util = require('../core/util.es6');
     var TextBox = require('../TextBox.jsx');
     var Button = require('../Button.jsx');
     var config = require('../core/language');

@@ -2,7 +2,7 @@ define(function (require) {
 
     var React = require('react');
     var Button = require('./Button.jsx');
-    var util = require('./core/util');
+    var util = require('./core/util.es6');
 
     return React.createClass({
         // @override

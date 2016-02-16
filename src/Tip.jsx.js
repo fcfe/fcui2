@@ -1,7 +1,7 @@
 define(function (require) {
 
     var React = require('react');
-    var util = require('./core/util');
+    var util = require('./core/util.es6');
 
     return React.createClass({
         getDefaultProps: function () {

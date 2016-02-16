@@ -76,7 +76,7 @@ define(function (require) {
                 this._handlers = u.chain(this.props)
                     .pick('onTreeNodeExpandClicked', 'onTreeNodeRemoveClicked', 'onTreeNodeClicked')
                     .mapObject((handler) => {
-                        return u.partial(handler, this.state.treeNodes || this.props.treeNodes, this);
+                        return u.partial(handler, this.props.treeNodes, this);
                     })
                     .value();
             }
@@ -95,10 +95,6 @@ define(function (require) {
                 getTreeLevelStyle,
                 ...other
             } = this.props;
-
-            if (this.state.treeNodes != null) {
-                treeNodes = this.state.treeNodes;
-            }
 
             var nextTreeLevel = treeLevel + 1;
 
