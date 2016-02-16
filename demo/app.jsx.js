@@ -1,6 +1,9 @@
 define(function (require) {
 
 
+    var React = require('react');
+
+
     var TextBox = require('fcui/TextBox.jsx');
     var Button = require('fcui/Button.jsx');
     var Tip = require('fcui/Tip.jsx');
@@ -12,11 +15,12 @@ define(function (require) {
     var Dialog = require('fcui/Dialog.jsx');
     var Tree = require('fcui/Tree.jsx');
     var DualTreeSelector = require('fcui/DualTreeSelector.jsx');
-
+    var Table = require('fcui/Table.jsx');
     var checker = require('fcui/core/checker');
     var config = require('./config');
     var dialog = new Dialog();
     var subApp = require('./subApp.jsx');
+    var tableField = require('./tableFieldConfig');
 
 
     return React.createClass({
@@ -29,6 +33,10 @@ define(function (require) {
         // @override
         getInitialState: function () {
             return {outputmsg: ''};
+        },
+        tableHandler: function (type, param) {
+            var msg = type + ';' + JSON.stringify(param);
+            this.setState({outputmsg: msg});
         },
         textBoxChangeHandler: function (e) {
             this.setState({outputmsg: e.check === true ? e.value : e.check});
@@ -117,6 +125,14 @@ define(function (require) {
                     ]
                 }
             ];
+            var tableProps = {
+                summary: {},
+                //summary: this.props.planSummary,
+                datasource: this.props.tableData,
+                conf: tableField,
+                onAction: this.tableHandler
+            };
+
             return (<div>
                 <div className="leftContainer">{this.state.outputmsg}</div>
                 <div className="topHeader"><h1>{this.props.demoTitle}</h1></div>
@@ -156,14 +172,16 @@ define(function (require) {
                     <Button label="Pop Dialog" onClick={this.popWindowHandler}/>
                     <Button label="Alert" onClick={this.alertHandler}/>
                     <Button label="Confirm" onClick={this.confirmHandler}/>
-                    <h3>Example ...: Tree</h3>
+                    <h3>Example8: Tree</h3>
                     <Tree treeNodes={treeNodes}
                         onTreeNodeExpandClicked={(node, nodes) => {console.log(this, node, nodes);}}
                         onTreeNodeRemoveClicked={(node, nodes) => {console.log(this, node, nodes);}}
                         onTreeNodeClicked={(node, nodes) => {console.log(this, node, nodes);}}
                     />
-                    <h3>Example ...: Dual Tree Selector</h3>
+                    <h3>Example9: Dual Tree Selector</h3>
                     <DualTreeSelector leftTreeNodes={treeNodes} rightTreeNodes={[]} />
+                    <h3>Example10: Complex Table</h3>
+                    <Table {...tableProps}/>
                 </div>
             </div>);
         }

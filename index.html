@@ -6,12 +6,16 @@
 <link rel="stylesheet" href="src/css/main.css"/>
 <link rel="stylesheet" href="demo/css/main.css"/>
 </head>
-<body></body>
-<script type="text/javascript" src="./dep/react.js"></script>
+<body><div id="react-container"></div></body>
+<script type="text/javascript" src="./dep/jquery.min.js"></script>
 <script type="text/javascript" src="./dep/require.min.js"></script>
 <script type="text/javascript">
     require.config({
         baseUrl: './demo',
+        paths: {
+            'react-dom': '../dep/react-dom',
+            'react': '../dep/react'
+        },
         packages: [
             {
                 name: 'fcui',

@@ -1,5 +1,6 @@
 define(function (require) {
 
+    var React = require('react');
     var Button = require('./Button.jsx');
     var util = require('./core/util');
 
@@ -32,7 +33,7 @@ define(function (require) {
             };
         },
         fixedLayerPosition: function () {
-            util.fixedLayerPositionTB(this.getDOMNode(), this.refs.layer.getDOMNode(), this);
+            util.fixedLayerPositionTB(this.refs.container, this.refs.layer, this);
         },
         clickHandler: function (e) {
             var dataset = util.getDataset(e.target);
@@ -67,7 +68,8 @@ define(function (require) {
             var me = this;
             var containerProp = {
                 className: 'fcui2-combolist',
-                onMouseLeave: this.hideLayer
+                onMouseLeave: this.hideLayer,
+                ref: 'container'
             };
             var mainButtonProp = {
                 label: this.props.label,
@@ -94,11 +96,12 @@ define(function (require) {
                     <div {...layerProp}>{this.state.datasource.map(produceItem)}</div>
                 </div>
             );
-            function produceItem(item) {
+            function produceItem(item, index) {
                 var children = item.datasource instanceof Array ? item.datasource : [];
                 var itemProp = {
                     onClick: me.clickHandler,
-                    className: 'item' + (me.state.disable || item.disable ? ' disable' : '')
+                    className: 'item' + (me.state.disable || item.disable ? ' disable' : ''),
+                    key: index
                 };
                 var spanProp = {onClick: me.clickHandler};
                 var rightArrowProp = {

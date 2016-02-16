@@ -1,5 +1,6 @@
 define(function (require) {
 
+    var React = require('react');
     var util = require('./core/util');
 
     return React.createClass({
@@ -16,7 +17,7 @@ define(function (require) {
             };
         },
         fixedLayerPosition: function (e) {
-            var layer = this.refs.layer.getDOMNode();
+            var layer = this.refs.layer;
             var pos = util.getDOMPosition(e.target);
             var position = pos.x + e.target.offsetWidth + layer.offsetWidth > document.body.offsetWidth
                 ? 'left' : 'right';
@@ -32,13 +33,13 @@ define(function (require) {
                 },
                 onMouseEnter: this.fixedLayerPosition
             };
-            var layer = {
+            var layerProp = {
                 className: 'tip-layer ' + this.state.layerPosition,
                 ref: 'layer'
             };
             return (
                 <div {...tip}>
-                    <div {...layer}>
+                    <div {...layerProp}>
                         <div className="tip-title">{this.props.title}</div>
                         <div className="tip-content" dangerouslySetInnerHTML={{__html: this.props.content}}></div>
                     </div>

@@ -1,5 +1,8 @@
 define(function (require) {
+
     var util = require('./core/util');
+    var React = require('react');
+
     return React.createClass({
         // @override
         getDefaultProps: function () {
@@ -36,7 +39,7 @@ define(function (require) {
             e.stopPropagation();
         },
         fixedLayerPosition: function () {
-            util.fixedLayerPositionTB(this.getDOMNode(), this.refs.layer.getDOMNode(), this);
+            util.fixedLayerPositionTB(this.refs.container, this.refs.layer, this);
         },
         render: function () {
             var me = this;
@@ -44,7 +47,8 @@ define(function (require) {
                 className: 'fcui2-dropdownlist' + (this.state.disable ? ' fcui2-dropdownlist-disable' : ''),
                 style: {minWidth: this.props.minWidth},
                 onClick: this.clickHandler,
-                onMouseEnter: this.fixedLayerPosition
+                onMouseEnter: this.fixedLayerPosition,
+                ref: 'container'
             };
             var layerProp = {
                 className: 'layer ' + this.state.layerPosition,
@@ -57,11 +61,12 @@ define(function (require) {
                     <div {...layerProp}>{this.state.datasource.map(produceItem)}</div>
                 </div>
             );
-            function produceItem(item) {
+            function produceItem(item, index) {
                 var children = item.datasource instanceof Array ? item.datasource : [];
                 var itemProp = {
                     onClick: me.clickHandler,
-                    className: 'item' + (me.state.disable || item.disable ? ' disable' : '')
+                    className: 'item' + (me.state.disable || item.disable ? ' disable' : ''),
+                    key: index
                 };
                 var spanProp = {onClick: me.clickHandler};
                 var rightArrowProp = {

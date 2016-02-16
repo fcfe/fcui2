@@ -2,6 +2,8 @@ define(function (require) {
 
 
     var Button = require('./Button.jsx');
+    var React = require('react');
+    var ReactDOM = require('react-dom');
 
 
     // 窗口，包含title bar 和content container
@@ -28,9 +30,9 @@ define(function (require) {
                     contentProps.close = function () {
                         me.closeHandler();
                     };
-                    me.content = React.render(
+                    me.content = ReactDOM.render(
                         React.createElement(me.props.content, contentProps),
-                        me.refs.content.getDOMNode(),
+                        me.refs.content,
                         function () {me.resize();}
                     );
                 }
@@ -50,7 +52,7 @@ define(function (require) {
             this.props.close(evt);
         },
         resize: function () {
-            var dom = this.getDOMNode().parentNode;
+            var dom = this.refs.container.parentNode;
             var doc = document.documentElement;
             var left = 0.5 * (doc.clientWidth - dom.clientWidth);
             var top = 0.38 * (doc.clientHeight - dom.clientHeight);
@@ -59,7 +61,7 @@ define(function (require) {
         },
         render: function () {
             return (
-                <div>
+                <div ref="container">
                     <div className="title-bar">
                         <span>{this.props.title}</span>
                         <div className="font-icon font-icon-times" onClick={this.closeHandler}></div>
@@ -167,7 +169,7 @@ define(function (require) {
             param.dispose();
             param.onClose();
         };
-        me.ui = React.render(React.createElement(popWindow, param), me.container, loaded);
+        me.ui = ReactDOM.render(React.createElement(popWindow, param), me.container, loaded);
         function loaded() {
             var timer = setInterval(function () {
                 if (!me.ui) return;
@@ -226,7 +228,7 @@ define(function (require) {
      * 销毁窗体
      */
     Dialog.prototype.dispose = function () {
-        React.unmountComponentAtNode(this.container);
+        ReactDOM.unmountComponentAtNode(this.container);
         document.body.removeChild(this.container);
         document.body.removeChild(this.background);
         this.ui = null;

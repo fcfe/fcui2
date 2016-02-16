@@ -2,9 +2,10 @@
  * @file 一个树形选择控件。
  * @author Han Bing Feng (hanbingfeng@baidu.com)
  */
-/* global React */
+
 define(function (require) {
     var u = require('underscore');
+    var React = require('react');
 
     var treeNode = React.PropTypes.shape({
         id: React.PropTypes.oneOfType([

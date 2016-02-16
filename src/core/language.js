@@ -6,6 +6,10 @@ define(function (require) {
             pager: {
                 previousPage: '上一页',
                 nextPage: '下一页'
+            },
+            button: {
+                enter: '确定',
+                cancel: '取消'
             }
         }
     };

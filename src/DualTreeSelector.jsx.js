@@ -2,9 +2,10 @@
  * @file 双树选择器。
  * @author Han Bing Feng (hanbingfeng@baidu.com)
  */
- /* global React */
+
 define(function (require) {
     var u = require('underscore');
+    var React = require('react');
     var Tree = require('./Tree.jsx');
 
     function makeParentLink(nodes, parent) {
@@ -38,23 +39,13 @@ define(function (require) {
         },
 
         getInitialState: function () {
-            return {};
-        },
-
-        componentWillMount: function () {
-            this.setState(u.chain(this.props)
-                .pick('leftTreeNodes', 'rightTreeNodes')
-                .mapObject((treeNodes) => {
-                    makeParentLink(treeNodes);
-                })
-                .value()
-            );
+            return u.pick(this.props, 'leftTreeNodes', 'rightTreeNodes');
         },
 
         onTreeNodeRemoveClicked: function (treeNodes, tree, treeNode) {
             var source = tree;
             var target = this.refs.leftTree === source ? this.refs.rightTree : this.refs.leftTree;
-            
+
 
         },
 
