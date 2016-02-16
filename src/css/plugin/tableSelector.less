@@ -1,0 +1,27 @@
+@import "../skin.less";
+.fcui2-table {
+    .tableSelector {
+        position: relative;
+        padding: 0px !important;
+        width: 40px !important;
+        .font-icon-largeable-caret-down {
+            float: right;
+        }
+        .layer {
+            position: absolute;
+            left: -1px;
+            top: 29px;
+            display: none;
+        }
+        &:hover {
+            .layer {
+                display: block;
+            }
+        }
+        .item {
+            span {
+                font-weight: normal !important;
+            }
+        }
+    }
+}

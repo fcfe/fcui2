@@ -75,7 +75,7 @@ define(function (require) {
         {
             label: '注意',
             field: 'name',
-            width: 30,
+            width: 50,
             renderer: require('fcui/tableRenderer/OptRenderer.jsx'),
             buttonLabel: '确定',
             color: function (v) {
@@ -83,17 +83,6 @@ define(function (require) {
             },
             content: function (v) {
                 return v.name;
-            }
-        },
-        {
-            label: '行内按钮',
-            field: 'name',
-            align: 'right',
-            width: 100,
-            button: 'font-icon-edit',
-            renderer: require('fcui/tableRenderer/ButtonRenderer.jsx'),
-            content: function (a) {
-                return a.indexOf('啥') > 0 ? '关闭1' : '开启1';
             }
         }
     ];
