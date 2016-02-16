@@ -11,6 +11,7 @@ define(function (require) {
     var Pager = require('fcui/Pager.jsx');
     var Dialog = require('fcui/Dialog.jsx');
     var Tree = require('fcui/Tree.jsx');
+    var DualTreeSelector = require('fcui/DualTreeSelector.jsx');
 
     var checker = require('fcui/core/checker');
     var config = require('./config');
@@ -161,6 +162,8 @@ define(function (require) {
                         onTreeNodeRemoveClicked={(node, nodes) => {console.log(this, node, nodes);}}
                         onTreeNodeClicked={(node, nodes) => {console.log(this, node, nodes);}}
                     />
+                    <h3>Example ...: Dual Tree Selector</h3>
+                    <DualTreeSelector leftTreeNodes={treeNodes} rightTreeNodes={[]} />
                 </div>
             </div>);
         }

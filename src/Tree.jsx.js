@@ -3,7 +3,7 @@
  * @author Han Bing Feng (hanbingfeng@baidu.com)
  */
 /* global React */
-define(function () {
+define(function (require) {
     var u = require('underscore');
 
     var treeNode = React.PropTypes.shape({
@@ -16,8 +16,7 @@ define(function () {
         isChildrenLoading: React.PropTypes.bool,
         isChildrenLoaded: React.PropTypes.bool,
         isRemovable: React.PropTypes.bool,
-        children: React.PropTypes.arrayOf(treeNode),
-        parent: treeNode
+        children: React.PropTypes.arrayOf(treeNode)
     });
 
     var Tree = React.createClass({
@@ -76,7 +75,7 @@ define(function () {
                 this._handlers = u.chain(this.props)
                     .pick('onTreeNodeExpandClicked', 'onTreeNodeRemoveClicked', 'onTreeNodeClicked')
                     .mapObject((handler) => {
-                        return u.partial(handler, u, this.props.treeNodes);
+                        return u.partial(handler, this.state.treeNodes || this.props.treeNodes, this);
                     })
                     .value();
             }
@@ -188,6 +187,8 @@ define(function () {
             );
         }
     });
+
+    Tree.treeNodeType = treeNode;
 
     return Tree;
 });
