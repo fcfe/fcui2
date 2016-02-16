@@ -1,0 +1,26 @@
+/**
+ * 凤巢font icon mixin less。
+ * 调用方通过import这个文件来使用font icon mixin。
+ * 这个文件只实现不可输出的内容
+ */
+
+@fc-icon-version: 0.0.4;
+
+// variables
+@import "./variable";
+
+#fc-icon {
+    .use-font-icon(@content) {
+        display: inline-block;
+        font-family: 'fcIcon';
+        speak: none;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: @content;
+    }    
+}
+
