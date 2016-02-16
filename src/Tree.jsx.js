@@ -146,7 +146,8 @@ define(function (require) {
             return {
                 isExpanded: false,
                 isChildrenLoading: false,
-                isChildrenLoaded: false
+                isChildrenLoaded: false,
+                isRemoved: false
             };
         },
 
@@ -162,6 +163,7 @@ define(function (require) {
                 isChildrenLoading,
                 isChildrenLoaded,
                 isRemovable,
+                isRemoved,
                 isTreeNodesRemovable,
                 children,
                 parent,
@@ -180,6 +182,10 @@ define(function (require) {
             }
 
             className = 'fcui2-tree-node ' + className;
+
+            if (isRemoved) {
+                className += ' fcui2-tree-node-removed';
+            }
 
             return (
                 <div {...other} className={className} onClick={() => {
@@ -200,6 +206,9 @@ define(function (require) {
                     {isRemovable
                         ? <span className='fcui2-tree-node-remove-handle'
                             onClick={(e) => {
+                                if (this.props.isRemoved) {
+                                    return;
+                                }
                                 onTreeNodeRemoveClicked(this.props);
                                 e.stopPropagation();
                             }}></span>

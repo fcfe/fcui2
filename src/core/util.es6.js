@@ -99,22 +99,45 @@ define(function (require) {
              *
              * @param {treeNode} treeNode 待移除的treeNode
              * @param {Array<treeNode>} treeNodes 全体treeNodes
+             * @param {boolean} shouldOnlyMarkIsRemoved 只标记isRemoved而不是真的移除节点
              * @return {Object} 移除treeNode后的全体treeNodes（keyed treeNodes）， 以及被移除的treeNode（keyed treeNode）。
              */
-            removeNodeFromTreeNodes: function (treeNode, treeNodes) {
+            removeNodeFromTreeNodes: function (treeNode, treeNodes, shouldOnlyMarkIsRemoved) {
+                // 执行移除操作，返回移除后的nodes
+                function performRemove(node, nodes) {
+                    if (shouldOnlyMarkIsRemoved) {
+                        return nodes.map((n) => {
+                            if (n.id === node.id) {
+                                n.isRemoved = true;
+                            }
+                            return n;
+                        });
+                    }
+                    return nodes.filter((n) => n.id !== node.id);
+                }
                 if (treeNode.parent == null) {
                     // 若treeNode没有parent， 则treeNodes深度为1， 直接移除
                     return {
-                        treeNodes: treeNodes.filter((node) => node.id !== treeNode.id),
+                        treeNodes: performRemove(treeNode, treeNodes),
                         removedTreeNode: treeNode
+                    };
+                }
+
+                var childrenLength = treeNode.parent.children.length;
+                treeNode.parent.children.forEach((node) => {
+                    if (node.isRemoved) {
+                        childrenLength--;
                     }
+                });
+
+                if (childrenLength === 1) {
+                    if (shouldOnlyMarkIsRemoved) {
+                        treeNode.parent.children = performRemove(treeNode, treeNode.parent.children);
+                    }
+                    return exports.tree.removeNodeFromTreeNodes(treeNode.parent, treeNodes, shouldOnlyMarkIsRemoved);
                 }
 
-                if (treeNode.parent.children.length === 1) {
-                    return exports.tree.removeNodeFromTreeNodes(treeNode.parent, treeNodes);
-                }
-
-                treeNode.parent.children = treeNode.parent.children.filter((node) => node.id !== treeNode.id);
+                treeNode.parent.children = performRemove(treeNode, treeNode.parent.children);
                 return {
                     treeNodes: treeNodes,
                     removedTreeNode: treeNode
@@ -130,9 +153,10 @@ define(function (require) {
             copyNodeToTreeNodes: function (srcTreeNode, dstTreeNodes) {
                 var matchedTreeNode = dstTreeNodes.find((node) => node.id === srcTreeNode.id);
                 if (matchedTreeNode == null) {
-                    matchedTreeNode = u.omit(srcTreeNode, 'parent', 'children');
+                    matchedTreeNode = u.omit(srcTreeNode, 'parent', 'children', 'isRemoved');
                     dstTreeNodes.push(matchedTreeNode);
                 }
+                matchedTreeNode.isRemoved = false;
                 if (srcTreeNode.children && srcTreeNode.children.length) {
                     if (matchedTreeNode.children == null) {
                         matchedTreeNode.children = [];

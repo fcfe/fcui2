@@ -74,7 +74,7 @@ define(function (require) {
             var {
                 treeNodes: newSourceTreeNodes,
                 removedTreeNode: removedSourceTreeNode
-            } = util.tree.removeNodeFromTreeNodes(treeNode, sourceTreeNodes);
+            } = util.tree.removeNodeFromTreeNodes(treeNode, sourceTreeNodes, this.refs.leftTree === tree);
 
             var newTargetTreeNodes = targetTreeNodes.slice();
             util.tree.copyNodeToTreeNodes(
