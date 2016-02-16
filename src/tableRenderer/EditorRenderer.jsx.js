@@ -4,6 +4,7 @@ define(function (require) {
     var TextBox = require('../TextBox.jsx');
     var Button = require('../Button.jsx');
     var config = require('../core/language');
+    var React = require('react');
 
     return React.createClass({
         getDefaultProps: function () {
@@ -39,8 +40,8 @@ define(function (require) {
             this.setState({errorMsg: e.check === true ? '' : e.check});
         },
         openEditor: function () {
-            var editor = this.refs.editor.getDOMNode();
-            var root = this.refs.rootContainer.getDOMNode();
+            var editor = this.refs.editor;
+            var root = this.refs.rootContainer;
             var pos = util.getDOMPosition(root);
             root.style.zIndex = 999;
             editor.style.display = 'block';
@@ -48,8 +49,8 @@ define(function (require) {
                 ? 'editor editor-left' : 'editor editor-right';
         },
         closeEditor: function () {
-            var editor = this.refs.editor.getDOMNode();
-            var root = this.refs.rootContainer.getDOMNode();
+            var editor = this.refs.editor;
+            var root = this.refs.rootContainer;
             root.style.zIndex = 0;
             editor.style.display = 'none';
             editor.className = 'editor';

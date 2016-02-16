@@ -1,6 +1,7 @@
 define(function (require) {
 
     var Tip = require('../Tip.jsx');
+    var React = require('react');
 
     return React.createClass({
         getInitialState: function () {

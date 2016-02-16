@@ -1,6 +1,9 @@
 define(function (require) {
+
     var Button = require('./Button.jsx');
     var language = require('./core/language');
+    var React = require('react');
+    
     return React.createClass({
         // @override
         getDefaultProps: function () {
@@ -58,7 +61,7 @@ define(function (require) {
                 if (value > min) {
                     btns.push(
                         <Button label={language.pager.previousPage} cmd="-1"
-                            onClick={me.clickHandler} disable={me.state.disable}/>
+                            onClick={me.clickHandler} disable={me.state.disable} key="-1"/>
                     );
                 }
                 while(i < max + 1) {
@@ -71,7 +74,7 @@ define(function (require) {
                     if (i < value - 3 && i !== min) {
                         if (!before) {
                             before = true;
-                            btns.push(<Button {...prop} label="..." cmd={value - 4}/>);
+                            btns.push(<Button {...prop} label="..." cmd={value - 4} key={value - 4}/>);
                         }
                         i++;
                         continue;
@@ -79,18 +82,18 @@ define(function (require) {
                     if (i > value + 3 && i !== max) {
                         if (!after) {
                             after = true;
-                            btns.push(<Button {...prop} label="..." cmd={value + 4}/>);
+                            btns.push(<Button {...prop} label="..." cmd={value + 4} key={value + 4}/>);
                         }
                         i++;
                         continue;
                     }
-                    btns.push(<Button {...prop} label={i} cmd={i}/>);
+                    btns.push(<Button {...prop} label={i} cmd={i} key={i}/>);
                     i++;
                 }
                 if (value < max) {
                     btns.push(
                         <Button label={language.pager.nextPage} cmd="-2"
-                            onClick={me.clickHandler} disable={me.state.disable}/>
+                            onClick={me.clickHandler} disable={me.state.disable} key="-2"/>
                     );
                 }
                 return btns;

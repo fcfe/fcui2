@@ -1,6 +1,9 @@
 define(function (require) {
 
 
+    var React = require('react');
+
+
     var TextBox = require('fcui/TextBox.jsx');
     var Button = require('fcui/Button.jsx');
     var Tip = require('fcui/Tip.jsx');
@@ -114,7 +117,7 @@ define(function (require) {
                     <h3>Example0: disable all components</h3>
                     <Button label="disable/enable all widgets" cmd="disable all" onClick={this.buttonClickHandler}/>
                     <h3>Example1: Tip</h3>
-                    <Tip title="这是标题" content="这是内容这是内容这是。<br>内容这是内容这是内容这是内容这是"/>
+                    <Tip title="这是标题" content="这是内容这是内容这是。<br>内容这是内容这是内容这是内容这是"/>                    
                     <Tip icon="font-icon-check-square2" title="如果说这个tip有啥特别" content="可以在layer里面写html"/>
                     <Tip content="没有标题也是可以的"/>
                     <Tip content="layer里的dom的事件本ui不负责挂。<input type='button' value='呵呵'/>"/>

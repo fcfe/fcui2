@@ -1,4 +1,7 @@
 define(function (require) {
+
+    var React = require('react');
+
     return React.createClass({
         render: function () {
             var item = this.props.item;
@@ -28,4 +31,5 @@ define(function (require) {
             return (<td {...tdProp}>{value}</td>);
         }
     });
+
 }); 

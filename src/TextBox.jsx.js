@@ -1,4 +1,5 @@
 define(function (require) {
+    var React = require('react');
     return React.createClass({
         // @override
         getDefaultProps: function () {
@@ -48,7 +49,7 @@ define(function (require) {
             this.props.onChange(evt);
         },
         focus: function () {
-            this.refs.inputbox.getDOMNode().focus();
+            this.refs.inputbox.focus();
         },
         render: function () {
             var containerProp = {

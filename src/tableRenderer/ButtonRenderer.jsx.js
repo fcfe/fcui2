@@ -1,4 +1,7 @@
 define(function (require) {
+
+    var React = require('react');
+
     return React.createClass({
         getDefaultProps: function () {
             return {

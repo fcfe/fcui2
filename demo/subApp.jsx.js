@@ -3,6 +3,7 @@ define(function (require) {
     var TextBox = require('fcui/TextBox.jsx');
     var Button = require('fcui/Button.jsx');
     var NumberBox = require('fcui/NumberBox.jsx');
+    var React = require('react');
 
     return React.createClass({
         getInitialState: function () {

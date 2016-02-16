@@ -2,6 +2,7 @@ define(function (require) {
 
     var TableHeader = require('./tableRenderer/TableHeader.jsx');
     var NormalRenderer = require('./tableRenderer/NormalRenderer.jsx');
+    var React = require('react');
 
     return React.createClass({
         // @override
@@ -29,16 +30,6 @@ define(function (require) {
         componentDidUpdate: function () {
             this.updateWidth();
         },
-        updateWidth: function () {
-            var container = this.refs.container.getDOMNode();
-            var table = this.refs.table.getDOMNode();
-            var conf = this.props.conf;
-            var d = container.offsetWidth - table.offsetWidth;
-            if (d < 15) return;
-            var last = conf[conf.length - 1];
-            last.width += d + 10;
-            this.setState({conf: conf}); 
-        },
         sortHandler: function (e) {
             this.props.onAction('sort', {
                 field: e.field,
@@ -47,6 +38,16 @@ define(function (require) {
         },
         actionHandler: function (type, param) {
             this.props.onAction(type, param);
+        },
+        updateWidth: function () {
+            var container = this.refs.container;
+            var table = this.refs.table;
+            var conf = this.props.conf;
+            var d = container.offsetWidth - table.offsetWidth;
+            if (d < 15) return;
+            var last = conf[conf.length - 1];
+            last.width += d + 10;
+            this.setState({conf: conf}); 
         },
         // @override
         render: function () {
@@ -57,12 +58,16 @@ define(function (require) {
             return (
                 <div className="fcui2-table" ref="container">
                     <table cellSpacing="0" cellPadding="0" ref="table">
+                        <tbody>
                         {headerFactory()}
                         {this.props.datasource.map(lineFactory)}
+                        </tbody>
                     </table>
                     <div className="fcui2-fixed-header">
                         <table cellSpacing="0" cellPadding="0">
+                            <tbody>
                             {headerFactory()}
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -71,9 +76,10 @@ define(function (require) {
             function headerFactory(ref) {
                 var td = [];
                 for (var i = 0; i < conf.length; i++) {
-                    td.push(<TableHeader {...conf[i]} onSort={me.sortHandler} sortField={me.state.sortField}/>);
+                    var key = 'head-' + i;
+                    td.push(<TableHeader {...conf[i]} onSort={me.sortHandler} sortField={me.state.sortField} key={key}/>);
                 }
-                return <tr className="table-header">{td}</tr>;
+                return <tr className="table-header" key="head">{td}</tr>;
             }
             // 生成数据行
             function lineFactory(item, index, arr) {
@@ -83,7 +89,8 @@ define(function (require) {
                         item: item,
                         index: index,
                         conf: conf[i],
-                        onAction: me.actionHandler
+                        onAction: me.actionHandler,
+                        key: 'column-' + i
                     };
                     if (conf[i].hasOwnProperty('color')) {
                         if (typeof conf[i].color === 'function') {
@@ -96,7 +103,7 @@ define(function (require) {
                     var renderer = typeof conf[i].renderer === 'function' ? conf[i].renderer : NormalRenderer;
                     td.push(React.createElement(renderer, React.__spread({}, props)));
                 }
-                return <tr>{td}</tr>;
+                return <tr key={'row-' + index}>{td}</tr>;
             }
             // // 生成统计栏
             // function summaryFactory() {

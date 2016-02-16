@@ -1,4 +1,6 @@
 define(function (require) {
+    var ReactDOM = require('react-dom');
+    var React = require('react');
     var app = require('./app.jsx');
     var ui = null;
     var fixedHelper = require('fcui/core/fixedHelper');
@@ -45,7 +47,10 @@ define(function (require) {
                 case 'change textbox':
                     this.textBoxProp.label = '还能不能输入内容了？';
                     this.textBoxProp.width = this.textBoxProp.width === 200 ? 300 : 200;
-                    ui.setProps(this);
+                    ui = ReactDOM.render(
+                        React.createElement(app, this),
+                        document.getElementById('react-container')
+                    );
                     return;
                 default:
                     ui.setState({outputmsg: e.toString()});
@@ -53,9 +58,9 @@ define(function (require) {
             };
         }
     };
-    ui = React.render(
+    ui = ReactDOM.render(
         React.createElement(app, props),
-        document.body
+        document.getElementById('react-container')
     );
     fixedHelper.add('.fcui2-table .fcui2-fixed-header', 80, 100);
 });
