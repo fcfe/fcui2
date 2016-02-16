@@ -4,7 +4,7 @@ define(function (require) {
     var TableSelector = require('./tableRenderer/TableSelector.jsx');
     var NormalRenderer = require('./tableRenderer/NormalRenderer.jsx');
     var React = require('react');
-    var util = require('./core/util')
+    var util = require('./core/util.es6');
     var language = require('./core/language')
 
     return React.createClass({
@@ -64,7 +64,7 @@ define(function (require) {
             if (d < 15) return;
             var last = conf[conf.length - 1];
             last.width += d + 10;
-            this.setState({conf: conf}); 
+            this.setState({conf: conf});
         },
         closeMessageBar: function () {
             this.setState({message: ''});

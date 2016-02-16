@@ -49,7 +49,11 @@ define(function (require) {
              * @param node 当前被删除的treeNode
              * @param treeNodes 全体treeNode
              */
-            onTreeNodeRemoveClicked: React.PropTypes.func
+            onTreeNodeRemoveClicked: React.PropTypes.func,
+            /**
+             * 节点加载中时的话术
+             */
+            textLoading: React.PropTypes.string
         },
 
         getDefaultProps: function () {
@@ -61,14 +65,23 @@ define(function (require) {
                 onTreeNodeClicked: u.noop,
                 getTreeLevelStyle: function (level) {
                     return {
-                        marginLeft: (level * 2) + 'em'
+                        paddingLeft: (level * 0.5) + 'em'
                     };
-                }
+                },
+                textLoading: '加载中...'
             };
         },
 
         getInitialState: function () {
-            return {};
+            return {
+                focusedTreeNode: this.props.focusedTreeNode || {}
+            };
+        },
+
+        componentWillReceiveProps: function (nextProps) {
+            if (this.props.treeLevel > 0 && nextProps.focusedTreeNode != null) {
+                this.setState({focusedTreeNode: nextProps.focusedTreeNode});
+            }
         },
 
         componentWillMount: function () {
@@ -79,10 +92,14 @@ define(function (require) {
                         return u.partial(handler, this.props.treeNodes, this);
                     })
                     .value();
+                this._handlers.innerOnTreeNodeClicked = (treeNode) => {
+                    this.setState({focusedTreeNode: treeNode});
+                }
             }
             else {
                 this._handlers = u.pick(
-                    this.props, 'onTreeNodeExpandClicked', 'onTreeNodeRemoveClicked', 'onTreeNodeClicked'
+                    this.props,
+                    'onTreeNodeExpandClicked', 'onTreeNodeRemoveClicked', 'onTreeNodeClicked', 'innerOnTreeNodeClicked'
                 );
             }
         },
@@ -97,6 +114,7 @@ define(function (require) {
             } = this.props;
 
             var nextTreeLevel = treeLevel + 1;
+            var focusedTreeNode = this.state.focusedTreeNode;
 
             return (
                 <div {...other}
@@ -106,11 +124,12 @@ define(function (require) {
                 >
                     {treeNodes.map((node) => {
                         return <div key={node.id}>
-                            <Tree.TreeNode {...node} {...this._handlers}
+                            <Tree.TreeNode {...node} {...this._handlers} textLoading={other.textLoading}
                                 isTreeNodesRemovable={isTreeNodesRemovable}
+                                className={focusedTreeNode.id === node.id ? 'fcui2-tree-node-focused' : ''}
                                 treeLevel={treeLevel} />
                                     {node.isExpanded && node.children && node.children.length
-                                        ? <Tree {...this.props} {...this._handlers}
+                                        ? <Tree {...this.props} {...this.state} {...this._handlers}
                                             treeNodes={node.children}
                                             treeLevel={nextTreeLevel}/>
                                         : ''
@@ -150,6 +169,9 @@ define(function (require) {
                 onTreeNodeExpandClicked,
                 onTreeNodeRemoveClicked,
                 onTreeNodeClicked,
+                innerOnTreeNodeClicked,
+                textLoading,
+                className,
                 ...other
             } = this.props;
 
@@ -157,9 +179,12 @@ define(function (require) {
                 isRemovable = isTreeNodesRemovable;
             }
 
+            className = 'fcui2-tree-node ' + className;
+
             return (
-                <div {...other} className='fcui2-tree-node' onClick={() => {
+                <div {...other} className={className} onClick={() => {
                     onTreeNodeClicked(this.props);
+                    innerOnTreeNodeClicked(this.props);
                 }}>
                     <span className={isExpanded ? 'fcui2-tree-node-expanded' : 'fcui2-tree-node-collapsed'}
                         onClick={(e) => {
@@ -169,7 +194,7 @@ define(function (require) {
                     ></span>
                     <span className='fcui2-tree-node-name'>{name}</span>
                     {isChildrenLoading
-                        ? <span className='fcui2-tree-node-loading'>加载中...</span>
+                        ? <span className='fcui2-tree-node-loading'>{textLoading}</span>
                         : ''
                     }
                     {isRemovable

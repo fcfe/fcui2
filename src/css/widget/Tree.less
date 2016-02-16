@@ -1,21 +1,62 @@
+@import "../icon/fc-icon-mixin.less";
+@import "../skin.less";
+
 .fcui2-tree {
     .fcui2-tree-node {
+        line-height: 30px;
+        position: relative;
+
+        &:hover {
+            background-color: @bgcolor-item-hover;
+        }
+
+        &-focused {
+            background-color: #ebf3ff;
+            font-weight: bold;
+        }
+
+        .fcui2-tree-node-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding-right: 40px;
+        }
+
+        .fcui2-tree-node-loading {
+            color: @fontcolor-normal;
+            font-size: 80%;
+            margin-right: 10px;
+        }
+
+        .fcui2-tree-node-collapsed {
+            &:after {
+                #fc-icon > .use-font-icon(@font-icon-caret-right);
+            }
+        }
+        .fcui2-tree-node-expanded {
+            &:after {
+                #fc-icon > .use-font-icon(@font-icon-caret-down);
+            }
+        }
+        .fcui2-tree-node-remove-handle {
+            float: right;
+            color: #00B3F8;
+            margin-right: 10px;
+            &:after {
+                #fc-icon > .use-font-icon(@font-icon-plus);
+            }
+        }
+        .fcui2-tree-node-collapsed,
+        .fcui2-tree-node-expanded {
+            color: #888;
+            width: 16px;
+            height: 15px;
+            margin: 7px 10px 7px 10px;
+        }
         .fcui2-tree-node-collapsed,
         .fcui2-tree-node-expanded,
         .fcui2-tree-node-remove-handle {
-            display: inline-block;
-            width: 40px;
-            height: 20px;
             cursor: pointer;
-        }
-        .fcui2-tree-node-collapsed {
-            background-color: #f00;
-        }
-        .fcui2-tree-node-expanded {
-            background-color: #0f0;
-        }
-        .fcui2-tree-node-remove-handle {
-            background-color: #00f;
         }
     }
 }
