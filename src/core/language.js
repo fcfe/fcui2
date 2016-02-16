@@ -9,7 +9,12 @@ define(function (require) {
             },
             button: {
                 enter: '确定',
-                cancel: '取消'
+                cancel: '取消',
+                fresh: '刷新'
+            },
+            tableSelector: {
+                selectAll: '选择全部',
+                selectCurrentPage: '选择当前页'
             }
         }
     };

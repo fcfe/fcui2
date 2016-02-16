@@ -25,4 +25,47 @@
         position: absolute;
         top: 0px;
     }
+    .tr-selected {
+        background-color: @bgcolor-item-hover !important;
+    }
+    .td-selector-container {
+        text-align: center;
+    }
+    .tr-selector {
+        width: @fontsize-icon-button;
+        height: @fontsize-icon-button;
+        position: relative;
+        top: 3px;
+    }
+    .table-message {
+        background-color: @bgcolor-information;
+        text-align: center;
+        cursor: default;
+        font-size: @fontsize-button;
+        .link {
+            cursor: pointer;
+            margin-left: 10px;
+            color: @fontcolor-highlight;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+        .font-icon-times {
+            float: right;
+            font-size: @fontsize-icon-button;
+            line-height: @lineheight-window-title;
+            visibility: hidden;
+        }
+        .font-icon-times:hover {
+            color: @fontcolor-highlight;
+        }
+        &:hover {
+            .font-icon-times {
+                visibility: visible;
+            }
+        }
+    }
+    .table-message:hover {
+        background-color: @bgcolor-information !important;
+    }
 }

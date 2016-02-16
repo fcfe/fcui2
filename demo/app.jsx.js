@@ -126,8 +126,8 @@ define(function (require) {
                 }
             ];
             var tableProps = {
-                summary: {},
-                //summary: this.props.planSummary,
+                message: '这是外部导入的一个信息',
+                summary: this.props.tableSummary,
                 datasource: this.props.tableData,
                 conf: tableField,
                 onAction: this.tableHandler
