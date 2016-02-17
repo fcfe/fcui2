@@ -117,13 +117,11 @@ define(function (require) {
             };
 
             return <div className='fcui2-dual-tree-selector'>
-                <div className='fcui2-dual-tree-selector-left-tree-wrapper'
-                    style={{width: leftTreeWidth, height: height}}>
+                <div className='fcui2-dual-tree-selector-left-tree-wrapper'>
                     <div className="fcui2-dual-tree-selector-tree-title">{leftTreeTitle}</div>
-                    <Tree {...treeProps}
-                        className=''
+                    <Tree {...treeProps} style={{width: leftTreeWidth, height: height}}
                         treeNodes={this.state.leftTreeNodes}
-                        ref='leftTree'/>
+                        ref='leftTree' />
                     <div className='fcui2-dual-tree-selector-tree-footer'>
                         <span className='fcui2-dual-tree-selector-tree-footer-summary'>{textLeftTreeSummary}</span>
                         <span className='fcui2-dual-tree-selector-tree-footer-add-all-handle'>
@@ -132,11 +130,9 @@ define(function (require) {
                     </div>
                 </div>
                 <div className='fcui2-dual-tree-selector-separator' style={{lineHeight: height + 'px'}}></div>
-                <div className='fcui2-dual-tree-selector-right-tree-wrapper'
-                    style={{width: rightTreeWidth, height: height}}>
+                <div className='fcui2-dual-tree-selector-right-tree-wrapper'>
                     <div className='fcui2-dual-tree-selector-tree-title'>{rightTreeTitle}</div>
-                    <Tree {...treeProps}
-                        className='fcui2-dual-tree-selector-right-tree'
+                    <Tree {...treeProps} style={{width: rightTreeWidth, height: height}}
                         treeNodes={this.state.rightTreeNodes}
                         ref='rightTree' />
                     <div className='fcui2-dual-tree-selector-tree-footer'>

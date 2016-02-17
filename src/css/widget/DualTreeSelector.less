@@ -5,7 +5,9 @@
     .fcui2-dual-tree-selector-left-tree-wrapper,
     .fcui2-dual-tree-selector-right-tree-wrapper {
         float: left;
-        border: 1px solid #d8d8d8;
+        .fcui2-tree:not(.fcui2-tree-inner) {
+            border: 1px solid #d8d8d8;
+        }
     }
 
     .fcui2-dual-tree-selector-separator {

@@ -39,17 +39,21 @@ define(function (require) {
              */
             getTreeLevelStyle: React.PropTypes.func,
             /**
-             * 节点展开时的回调。
+             * 节点展开按钮被点击时的回调。
              * @param node 当前被展开的treeNode
              * @param treeNodes 全体treeNode
              */
             onTreeNodeExpandClicked: React.PropTypes.func,
             /**
-             * 节点被删除时的回调
+             * 节点删除按钮被点击时的回调。
              * @param node 当前被删除的treeNode
              * @param treeNodes 全体treeNode
              */
             onTreeNodeRemoveClicked: React.PropTypes.func,
+            /**
+             * 节点本身被点击时的回调。
+             */
+            onTreeNodeClicked: React.PropTypes.func,
             /**
              * 节点加载中时的话术
              */
@@ -94,7 +98,7 @@ define(function (require) {
                     .value();
                 this._handlers.innerOnTreeNodeClicked = (treeNode) => {
                     this.setState({focusedTreeNode: treeNode});
-                }
+                };
             }
             else {
                 this._handlers = _.pick(
@@ -110,30 +114,42 @@ define(function (require) {
                 isTreeNodesRemovable,
                 treeLevel,
                 getTreeLevelStyle,
+                style,
+                textLoading,
+                className,
                 ...other
             } = this.props;
 
             var nextTreeLevel = treeLevel + 1;
             var focusedTreeNode = this.state.focusedTreeNode;
+            style = _.extend({}, getTreeLevelStyle(treeLevel), style);
+            var treeNodeProps = _.pick(this.props, 'textLoading', 'isTreeNodesRemovable', 'treeLevel');
+            var innerTreeProps = _.omit(this.props, 'className', 'style');
+            if (className == null) {
+                className = '';
+            }
 
             return (
                 <div {...other}
                     data-tree-level={treeLevel}
-                    style={getTreeLevelStyle(treeLevel)}
-                    className={treeLevel > 0 ? 'fcui2-tree fcui2-tree-inner' : 'fcui2-tree'}
+                    style={style}
+                    className={[
+                        className,
+                        treeLevel > 0 ? 'fcui2-tree fcui2-tree-inner' : 'fcui2-tree'
+                    ].join(' ')}
                 >
                     {treeNodes.map((node) => {
                         return <div key={node.id}>
-                            <Tree.TreeNode {...node} {...this._handlers} textLoading={other.textLoading}
-                                isTreeNodesRemovable={isTreeNodesRemovable}
-                                className={focusedTreeNode.id === node.id ? 'fcui2-tree-node-focused' : ''}
-                                treeLevel={treeLevel} />
-                                    {node.isExpanded && node.children && node.children.length
-                                        ? <Tree {...this.props} {...this.state} {...this._handlers}
-                                            treeNodes={node.children}
-                                            treeLevel={nextTreeLevel}/>
-                                        : ''
-                                    }
+                            <Tree.TreeNode {...node} {...this._handlers} {...treeNodeProps}
+                                className={[
+                                    focusedTreeNode.id === node.id ? 'fcui2-tree-node-focused' : ''
+                                ].join(' ')}
+                            />
+                                {node.isExpanded && node.children && node.children.length
+                                    ? <Tree {...this.innerTreeProps} {...this.state} {...this._handlers}
+                                        treeNodes={node.children} treeLevel={nextTreeLevel} />
+                                    : ''
+                                }
                         </div>;
                     })}
                 </div>
