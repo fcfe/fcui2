@@ -7,7 +7,7 @@ define(function (require) {
     var u = require('underscore');
     var React = require('react');
     var Tree = require('./Tree.jsx');
-    var util = require('./core/util.es6');
+    var treeUtil = require('./core/treeUtil.es6');
 
     var DualTreeSelector = React.createClass({
         propTypes: {
@@ -55,7 +55,7 @@ define(function (require) {
             return u.chain(this.props)
                 .pick('leftTreeNodes', 'rightTreeNodes')
                 .mapObject(
-                    (treeNodes) => util.tree.makeParentLink(treeNodes)
+                    (treeNodes) => treeUtil.makeParentLink(treeNodes)
                 ).value();
         },
 
@@ -74,14 +74,14 @@ define(function (require) {
             var {
                 treeNodes: newSourceTreeNodes,
                 removedTreeNode: removedSourceTreeNode
-            } = util.tree.removeNodeFromTreeNodes(treeNode, sourceTreeNodes, this.refs.leftTree === tree);
+            } = treeUtil.removeNodeFromTreeNodes(treeNode, sourceTreeNodes, this.refs.leftTree === tree);
 
             var newTargetTreeNodes = targetTreeNodes.slice();
-            util.tree.copyNodeToTreeNodes(
-                util.tree.getPathToRoot(removedSourceTreeNode),
+            treeUtil.copyNodeToTreeNodes(
+                treeUtil.getPathToRoot(removedSourceTreeNode),
                 newTargetTreeNodes
             );
-            util.tree.makeParentLink(newTargetTreeNodes);
+            treeUtil.makeParentLink(newTargetTreeNodes);
             var newState = this.refs.leftTree === tree
                 ? {
                     leftTreeNodes: newSourceTreeNodes,
