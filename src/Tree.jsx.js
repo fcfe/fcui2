@@ -116,7 +116,7 @@ define(function (require) {
                 getTreeLevelStyle,
                 style,
                 textLoading,
-                className,
+                className = '',
                 ...other
             } = this.props;
 
@@ -125,9 +125,6 @@ define(function (require) {
             style = _.extend({}, getTreeLevelStyle(treeLevel), style);
             var treeNodeProps = _.pick(this.props, 'textLoading', 'isTreeNodesRemovable', 'treeLevel');
             var innerTreeProps = _.omit(this.props, 'className', 'style');
-            if (className == null) {
-                className = '';
-            }
 
             return (
                 <div {...other}
@@ -146,7 +143,7 @@ define(function (require) {
                                 ].join(' ')}
                             />
                                 {node.isExpanded && node.children && node.children.length
-                                    ? <Tree {...this.innerTreeProps} {...this.state} {...this._handlers}
+                                    ? <Tree {...innerTreeProps} {...this.state} {...this._handlers}
                                         treeNodes={node.children} treeLevel={nextTreeLevel} />
                                     : ''
                                 }

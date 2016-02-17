@@ -124,8 +124,8 @@ define(function (require) {
                         ref='leftTree' />
                     <div className='fcui2-dual-tree-selector-tree-footer'>
                         <span className='fcui2-dual-tree-selector-tree-footer-summary'>{textLeftTreeSummary}</span>
-                        <span className='fcui2-dual-tree-selector-tree-footer-add-all-handle'>
-                            <a onClick=''>全部添加</a>
+                        <span className='fcui2-dual-tree-selector-tree-footer-add-all'>
+                            <a href='javascript:;' onClick=''>全部添加</a>
                         </span>
                     </div>
                 </div>
@@ -138,8 +138,8 @@ define(function (require) {
                     <div className='fcui2-dual-tree-selector-tree-footer'>
                         <span className='fcui2-dual-tree-selector-tree-footer-summary'>
                         </span>
-                        <span className='fcui2-dual-tree-selector-tree-footer-remove-all-handle'>
-                            <a onClick=''>全部删除</a>
+                        <span className='fcui2-dual-tree-selector-tree-footer-remove-all'>
+                            <a href='javascript:;' onClick=''>全部删除</a>
                         </span>
                     </div>
                 </div>

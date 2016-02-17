@@ -7,6 +7,7 @@
         float: left;
         .fcui2-tree:not(.fcui2-tree-inner) {
             border: 1px solid #d8d8d8;
+            border-top: none;
         }
     }
 
@@ -35,5 +36,22 @@
         line-height: 30px;
         padding-left: 10px;
         background-color: @bgcolor-normal;
+        border: 1px solid #d8d8d8;
+        border-bottom: none;
+    }
+
+    .fcui2-dual-tree-selector-tree-footer {
+        position: relative;
+        line-height: 20px;
+        padding: 5px;
+        .fcui2-dual-tree-selector-tree-footer-summary {
+        }
+        .fcui2-dual-tree-selector-tree-footer-add-all,
+        .fcui2-dual-tree-selector-tree-footer-remove-all {
+            float: right;
+            a {
+                color: #00B3F8;
+            }
+        }
     }
 }
