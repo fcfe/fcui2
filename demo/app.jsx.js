@@ -78,7 +78,7 @@ define(function (require) {
             var me = this;
             dialog.confirm({
                 title: '是否确定做某件事呢？',
-                message: '点"确定"、点"取消"、点"x"会触发不同的回调，看上去虽然麻烦，但写业务时只挂一个onEnter回调就行了',
+                message: '点"确定"、点"取消"、点"x"会触发不同的回调，看上去虽然麻烦，但写业务时只挂一个onEnter回调就行了。这个提示很长，看上去是不是很难看，所以应该避免这么长的提示。如果字再多点会是什么样子呢？占用占用占用占用占用占用占用占用占用占用占用占占用占用占用占占用占用占用占用，好像也不怎么难看就是下面的按钮有点儿近',
                 onEnter: function () {
                     me.props.dispatch('confirm dialog return "enter"');
                 },

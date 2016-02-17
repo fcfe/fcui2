@@ -54,10 +54,11 @@ define(function (require) {
         resize: function () {
             var dom = this.refs.container.parentNode;
             var doc = document.documentElement;
-            var left = 0.5 * (doc.clientWidth - dom.clientWidth);
-            var top = 0.38 * (doc.clientHeight - dom.clientHeight);
-            top = top < 0 ? 0 : top;
-            dom.style.cssText = 'left:' + left + 'px;top:' + top + 'px';
+            var content = this.refs.content;
+            dom.style.height = (content.scrollHeight + 50)+ 'px';
+            dom.style.width = (content.scrollWidth + 20) + 'px';
+            dom.style.left = 0.5 * (doc.clientWidth - dom.clientWidth) + 'px';
+            dom.style.top = 0.38 * (doc.clientHeight - dom.clientHeight) + 'px';
         },
         render: function () {
             return (
@@ -77,17 +78,17 @@ define(function (require) {
     var alert = React.createClass({
         getDefaultProps : function () {
             return {
-                icon: 'font-icon-warning',
+                icon: 'font-icon-hint-exclamation-s',
                 iconColor: '#FBBC05',
                 message: 'Message'
             };
         },
         render: function () {
-            var icon = 'font-icon ' + this.props.icon
+            var icon = 'message-icon font-icon ' + this.props.icon
             return (
                 <div className="fcui2-dialog-alert">
                     <div className={icon} style={{color: this.props.iconColor}}></div>
-                    <span>{this.props.message}</span>
+                    <div className="message">{this.props.message}</div>
                     <div className="button-bar">
                         <Button skin="important" label="确定" onClick={this.props.close}/>
                     </div>
@@ -101,7 +102,7 @@ define(function (require) {
     var confirm = React.createClass({
         getDefaultProps : function () {
             return {
-                icon: 'font-icon-warning',
+                icon: 'font-icon-hint-exclamation-s',
                 iconColor: '#FBBC05',
                 message: 'Message',
                 onEnter: function () {},
@@ -117,11 +118,11 @@ define(function (require) {
             this.props.dispose();
         },
         render: function () {
-            var icon = 'font-icon ' + this.props.icon
+            var icon = 'message-icon font-icon ' + this.props.icon;
             return (
                 <div className="fcui2-dialog-alert">
                     <div className={icon} style={{color: this.props.iconColor}}></div>
-                    <span>{this.props.message}</span>
+                    <div className="message">{this.props.message}</div> 
                     <div className="button-bar">
                         <Button skin="important" label="确定" onClick={this.enterHandler}/>
                         <Button label="取消" onClick={this.cancelHandler}/>
@@ -153,10 +154,16 @@ define(function (require) {
      * @param {?string} param.title 标题
      */
     Dialog.prototype.pop = function (param) {
+
         var me = this;
         var doc = document.documentElement;
+
+        me.container.style.maxWidth = doc.clientWidth + 'px';
+        me.container.style.maxHeight = doc.clientHeight + 'px';
         document.body.appendChild(me.background);
         document.body.appendChild(me.container);
+        document.body.style.overflow = 'hidden';
+
         param = param || {};
         param.onBeforeClose = typeof param.onBeforeClose === 'function' ? param.onBeforeClose : function () {};
         param.onClose = typeof param.onClose === 'function' ? param.onClose : function () {};
@@ -169,7 +176,9 @@ define(function (require) {
             param.dispose();
             param.onClose();
         };
+
         me.ui = ReactDOM.render(React.createElement(popWindow, param), me.container, loaded);
+
         function loaded() {
             var timer = setInterval(function () {
                 if (!me.ui) return;
@@ -231,6 +240,9 @@ define(function (require) {
         ReactDOM.unmountComponentAtNode(this.container);
         document.body.removeChild(this.container);
         document.body.removeChild(this.background);
+        document.body.style.overflow = '';
+        this.container.style.height = '10px';
+        this.container.style.width = '10px';
         this.ui = null;
     };
 
