@@ -4,7 +4,7 @@
  */
 
 define(function (require) {
-    var u = require('underscore');
+    var _ = require('underscore');
     var React = require('react');
     var Tree = require('./Tree.jsx');
     var treeUtil = require('./core/treeUtil.es6');
@@ -38,7 +38,15 @@ define(function (require) {
             /**
              * 右树的标题
              */
-            rightTreeTitle: React.PropTypes.string
+            rightTreeTitle: React.PropTypes.string,
+            /**
+             * 左树左下角的提示话术
+             */
+            textLeftTreeSummary: React.PropTypes.string,
+            /**
+             * 右树的节点叶子限制
+             */
+            rightTreeLimit: React.PropTypes.number
         },
 
         getDefaultProps: function () {
@@ -52,7 +60,7 @@ define(function (require) {
         },
 
         getInitialState: function () {
-            return u.chain(this.props)
+            return _.chain(this.props)
                 .pick('leftTreeNodes', 'rightTreeNodes')
                 .mapObject(
                     (treeNodes) => treeUtil.makeParentLink(treeNodes)
@@ -100,7 +108,8 @@ define(function (require) {
                 rightTreeWidth,
                 leftTreeTitle,
                 rightTreeTitle,
-                height
+                height,
+                textLeftTreeSummary
             } = this.props;
 
             var treeProps = {
@@ -110,20 +119,33 @@ define(function (require) {
             return <div className='fcui2-dual-tree-selector'>
                 <div className='fcui2-dual-tree-selector-left-tree-wrapper'
                     style={{width: leftTreeWidth, height: height}}>
-                <div className="fcui2-dual-tree-selector-tree-title">{leftTreeTitle}</div>
-                <Tree {...treeProps}
-                    className=''
-                    treeNodes={this.state.leftTreeNodes}
-                    ref='leftTree'/>
+                    <div className="fcui2-dual-tree-selector-tree-title">{leftTreeTitle}</div>
+                    <Tree {...treeProps}
+                        className=''
+                        treeNodes={this.state.leftTreeNodes}
+                        ref='leftTree'/>
+                    <div className='fcui2-dual-tree-selector-tree-footer'>
+                        <span className='fcui2-dual-tree-selector-tree-footer-summary'>{textLeftTreeSummary}</span>
+                        <span className='fcui2-dual-tree-selector-tree-footer-add-all-handle'>
+                            <a onClick=''>全部添加</a>
+                        </span>
+                    </div>
                 </div>
                 <div className='fcui2-dual-tree-selector-separator' style={{lineHeight: height + 'px'}}></div>
                 <div className='fcui2-dual-tree-selector-right-tree-wrapper'
                     style={{width: rightTreeWidth, height: height}}>
-                <div className="fcui2-dual-tree-selector-tree-title">{rightTreeTitle}</div>
-                <Tree {...treeProps}
-                    className='fcui2-dual-tree-selector-right-tree'
-                    treeNodes={this.state.rightTreeNodes}
-                    ref='rightTree' />
+                    <div className='fcui2-dual-tree-selector-tree-title'>{rightTreeTitle}</div>
+                    <Tree {...treeProps}
+                        className='fcui2-dual-tree-selector-right-tree'
+                        treeNodes={this.state.rightTreeNodes}
+                        ref='rightTree' />
+                    <div className='fcui2-dual-tree-selector-tree-footer'>
+                        <span className='fcui2-dual-tree-selector-tree-footer-summary'>
+                        </span>
+                        <span className='fcui2-dual-tree-selector-tree-footer-remove-all-handle'>
+                            <a onClick=''>全部删除</a>
+                        </span>
+                    </div>
                 </div>
                 <div style={{clear: 'both'}}></div>
             </div>;

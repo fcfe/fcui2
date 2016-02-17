@@ -3,7 +3,7 @@
  * @author Han Bing Feng (hanbingfeng@)
  */
 define(function (require) {
-    var u = require('underscore');
+    var _ = require('underscore');
     var exports = {
 
         /**
@@ -90,7 +90,7 @@ define(function (require) {
         copyNodeToTreeNodes: function (srcTreeNode, dstTreeNodes) {
             var matchedTreeNode = dstTreeNodes.find((node) => node.id === srcTreeNode.id);
             if (matchedTreeNode == null) {
-                matchedTreeNode = u.omit(srcTreeNode, 'parent', 'children', 'isRemoved');
+                matchedTreeNode = _.omit(srcTreeNode, 'parent', 'children', 'isRemoved');
                 dstTreeNodes.push(matchedTreeNode);
             }
             matchedTreeNode.isRemoved = false;
@@ -114,9 +114,9 @@ define(function (require) {
          * @return {treeNode} 根节点
          */
         getPathToRoot: function (treeNode) {
-            treeNode = u.extend({}, treeNode);
+            treeNode = _.extend({}, treeNode);
             while (treeNode.parent != null) {
-                var parentNode = u.omit(treeNode.parent, 'children');
+                var parentNode = _.omit(treeNode.parent, 'children');
                 parentNode.children = [treeNode];
                 treeNode = parentNode;
             }

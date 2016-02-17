@@ -1,5 +1,4 @@
 define(function (require) {
-    var u = require('underscore');
     var exports = {
 
         /**

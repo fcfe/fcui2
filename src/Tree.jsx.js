@@ -4,7 +4,7 @@
  */
 
 define(function (require) {
-    var u = require('underscore');
+    var _ = require('underscore');
     var React = require('react');
 
     var treeNode = React.PropTypes.shape({
@@ -60,9 +60,9 @@ define(function (require) {
             return {
                 treeLevel: 0,
                 isTreeNodesRemovable: true,
-                onTreeNodeExpandClicked: u.noop,
-                onTreeNodeRemoveClicked: u.noop,
-                onTreeNodeClicked: u.noop,
+                onTreeNodeExpandClicked: _.noop,
+                onTreeNodeRemoveClicked: _.noop,
+                onTreeNodeClicked: _.noop,
                 getTreeLevelStyle: function (level) {
                     return {
                         paddingLeft: (level * 0.5) + 'em'
@@ -86,10 +86,10 @@ define(function (require) {
 
         componentWillMount: function () {
             if (this.props.treeLevel === 0) {
-                this._handlers = u.chain(this.props)
+                this._handlers = _.chain(this.props)
                     .pick('onTreeNodeExpandClicked', 'onTreeNodeRemoveClicked', 'onTreeNodeClicked')
                     .mapObject((handler) => {
-                        return u.partial(handler, this.props.treeNodes, this);
+                        return _.partial(handler, this.props.treeNodes, this);
                     })
                     .value();
                 this._handlers.innerOnTreeNodeClicked = (treeNode) => {
@@ -97,7 +97,7 @@ define(function (require) {
                 }
             }
             else {
-                this._handlers = u.pick(
+                this._handlers = _.pick(
                     this.props,
                     'onTreeNodeExpandClicked', 'onTreeNodeRemoveClicked', 'onTreeNodeClicked', 'innerOnTreeNodeClicked'
                 );
