@@ -28,35 +28,58 @@ define(function (require) {
                 disable: this.props.disable,
                 value: this.props.value + '',
                 datasource: JSON.parse(JSON.stringify(this.props.datasource)),
+                showLayer: false,
                 layerPosition: 'bottom-layer'
             };
         },
         clickHandler: function (e) {
             var dataset = util.getDataset(e.target);
-            if (this.state.disable || !dataset.uiCmd) return;
+            if (this.state.disable || !dataset.uiCmd || this.state.value === dataset.uiCmd) {
+                this.hideLayer(e);
+                return;
+            }
             this.setState({value: dataset.uiCmd});
             this.props.onChange({
                 target: this,
                 value: dataset.uiCmd
             });
+            this.hideLayer(e);
             e.stopPropagation();
         },
         fixedLayerPosition: function () {
             util.fixedLayerPositionTB(this.refs.container, this.refs.layer, this);
         },
+        showLayer: function (e) {
+            if (this.state.disable) return;
+            this.setState({showLayer: !this.state.showLayer});
+            this.fixedLayerPosition();
+            e.stopPropagation();
+        },
+        hideLayer: function (e) {
+            if (this.state.disable) return;
+            this.setState({showLayer: false});
+            e.stopPropagation();
+        },
         render: function () {
             var me = this;
             var containerProp = {
-                className: 'fcui2-dropdownlist' + (this.state.disable ? ' fcui2-dropdownlist-disable' : ''),
+                className: 'fcui2-dropdownlist layer-container',
                 style: {minWidth: this.props.minWidth},
                 onClick: this.clickHandler,
-                onMouseEnter: this.fixedLayerPosition,
+                onMouseEnter: this.showLayer,
+                onMouseLeave: this.hideLayer,
                 ref: 'container'
             };
             var layerProp = {
                 className: 'layer ' + this.state.layerPosition,
                 ref: 'layer'
             };
+            if (this.state.disable) {
+                containerProp.className += ' fcui2-dropdownlist-disable';
+            }
+            else if (this.state.showLayer) {
+                containerProp.className += ' layer-container-showlayer';
+            }
             var label = this.props.label;
             for (var i = 0; i < this.state.datasource.length; i++) {
                 if (this.state.datasource[i].value + '' === this.state.value + '') {

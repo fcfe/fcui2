@@ -19,80 +19,14 @@
     -webkit-user-select:none;
     -ms-user-select:none;
     user-select:none;
-    .icon-right {
-        float: right;
-        width: 20px;
-    }
     .font-icon {
         display: inline-block;
         line-height: @lineheight-normal;
-        font-size: @fontsize-icon;
-    }
-    .layer {
-        position: absolute;
-        padding: @padding-layer-list;
-        border: @border-normal;
-        background-color: @bgcolor-active;
-        -webkit-box-shadow: @shadow-normal;
-        -moz-box-shadow: @shadow-normal;
-        box-shadow: @shadow-normal;
-        white-space: nowrap;
-        text-align: left;
-    }
-    .up-layer {
-        display: none;
-        bottom: @height-normal;
-        left: -1px;
-        min-width: 100%;
-    }
-    .bottom-layer {
-        display: none;
-        top: @height-normal;
-        left: -1px;
-        min-width: 100%;
-        margin-top: 1px;
-    }
-    .right-layer {
-        display: none;
-        margin-left: 100%;
-        top: 0px;
-    }
-    .disable-layer {
-        display: none;
-    }
-    .disable {
-        color: @color-disable;
-        >.right-layer {
-            display: none !important;
-        }
-    }
-    .disable:hover {
-        background-color: @bgcolor-active !important;
-    }
-    .item {
-        position: relative;
-        span {
-            margin: @margin-normal;
-        }
-    }
-    .item:hover {
-        background-color: @bgcolor-item-hover;
-        >.font-icon-largeable-caret-right {
-            color: @color-active;
-        }
-        >.right-layer {
-            display: block;
-            z-index: 9999;
-        }
     }
     &:hover {
         border-color: @color-active !important;
         .font-icon-largeable-caret-down {
             color: @color-active;
-        }
-        .bottom-layer,.up-layer {
-            display: block;
-            z-index: 9999;
         }
     }
 }
@@ -103,8 +37,5 @@
     border-color: @color-disable !important;
     .font-icon-largeable-caret-down {
         color: @color-disable !important;
-    }
-    .bottom-layer,.up-layer {
-        display: none !important;
     }
 }

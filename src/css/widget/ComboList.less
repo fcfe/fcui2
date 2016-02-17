@@ -25,83 +25,8 @@
         cursor: pointer;
         margin-left: -1px;
     }
-    .font-icon {
-        display: inline-block;
-        line-height: @lineheight-normal;
-        font-size: @fontsize-icon;
-    }
     .font-icon-largeable-caret-down:hover {
         background-color: @bgcolor-important-hover;
-    }
-    .icon-right {
-        float: right;
-        width: 20px;
-    }
-    .layer {
-        position: absolute;
-        padding: @padding-layer-list;
-        border: @border-normal;
-        background-color: @bgcolor-active;
-        -webkit-box-shadow: @shadow-normal;
-        -moz-box-shadow: @shadow-normal;
-        box-shadow: @shadow-normal;
-        white-space: nowrap;
-    }
-    .up-layer {
-        display: none;
-        bottom: @height-normal;
-        left: -1px;
-        min-width: 100%;
-    }
-    .bottom-layer {
-        display: none;
-        top: @height-normal;
-        margin-top: 1px;
-        left: -1px;
-        min-width: 100%;
-    }
-    .right-layer {
-        display: none;
-        margin-left: 100%;
-        top: 0px;
-    }
-    .disable-layer {
-        display: none;
-    }
-    .disable {
-        color: @color-disable;
-        >.right-layer {
-            display: none !important;
-        }
-    }
-    .disable:hover {
-        background-color: @bgcolor-active !important;
-    }
-    .item {
-        position: relative;
-        span {
-            margin: @margin-normal;
-        }
-    }
-    .item:hover {
-        background-color: @bgcolor-item-hover;
-        >.font-icon-largeable-caret-right {
-            color: @color-active;
-        }
-        >.right-layer {
-            display: block;
-            z-index: 9999;
-        }
-    }
-}
-.fcui2-combolist-showlayer {
-    .bottom-layer,.up-layer {
-        display: block;
-        z-index: 9999;
-    }
-    .font-icon-largeable-caret-down {
-        background-color: @bgcolor-active !important;
-        color: @fontcolor-focus !important;
     }
 }
 .fcui2-combolist-disable {

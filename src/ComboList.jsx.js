@@ -32,9 +32,6 @@ define(function (require) {
                 layerPosition: 'bottom-layer'
             };
         },
-        fixedLayerPosition: function () {
-            util.fixedLayerPositionTB(this.refs.container, this.refs.layer, this);
-        },
         clickHandler: function (e) {
             var dataset = util.getDataset(e.target);
             if (this.state.disable || !dataset.uiCmd) return;
@@ -42,6 +39,7 @@ define(function (require) {
                 target: this,
                 value: dataset.uiCmd
             });
+            this.hideLayer(e);
             e.stopPropagation();
         },
         mainButtonHandler: function (e) {
@@ -50,8 +48,12 @@ define(function (require) {
                 target: this,
                 value: this.props.cmd
             });
+            this.hideLayer(e);
         },
-        dropdownButtonHandler: function (e) {
+        fixedLayerPosition: function () {
+            util.fixedLayerPositionTB(this.refs.container, this.refs.layer, this);
+        },
+        showLayer: function (e) {
             if (this.state.disable) return;
             this.setState({showLayer: !this.state.showLayer});
             this.fixedLayerPosition();
@@ -59,15 +61,13 @@ define(function (require) {
         },
         hideLayer: function (e) {
             if (this.state.disable) return;
-            this.setState({
-                showLayer: false
-            });
+            this.setState({showLayer: false});
             e.stopPropagation();
         },
         render: function () {
             var me = this;
             var containerProp = {
-                className: 'fcui2-combolist',
+                className: 'fcui2-combolist layer-container',
                 onMouseLeave: this.hideLayer,
                 ref: 'container'
             };
@@ -87,11 +87,11 @@ define(function (require) {
                 containerProp.className += ' fcui2-combolist-disable';
             }
             else if (this.state.showLayer) {
-                containerProp.className += ' fcui2-combolist-showlayer';
+                containerProp.className += ' layer-container-showlayer';
             }
             return (
                 <div {...containerProp}>
-                    <div className="font-icon font-icon-largeable-caret-down" onClick={this.dropdownButtonHandler}></div>
+                    <div className="font-icon font-icon-largeable-caret-down" onClick={this.showLayer}></div>
                     <Button {...mainButtonProp}/>
                     <div {...layerProp}>{this.state.datasource.map(produceItem)}</div>
                 </div>
