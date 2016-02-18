@@ -4,6 +4,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                className: '',
                 width: 200,
                 label: '',
                 value: '',
@@ -53,7 +54,7 @@ define(function (require) {
         },
         render: function () {
             var containerProp = {
-                className: 'fcui2-textbox',
+                className: 'fcui2-textbox ' + this.props.className,
                 style: {width: this.props.width}
             };
             var labelProp = {

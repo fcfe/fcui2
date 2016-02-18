@@ -11,6 +11,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                className: '',
                 label: 'ComboList',
                 icon: '',
                 cmd: '',
@@ -55,7 +56,7 @@ define(function (require) {
         render: function () {
             var me = this;
             var containerProp = {
-                className: 'fcui2-combolist layer-container',
+                className: 'fcui2-combolist layer-container ' + this.props.className,
                 onMouseLeave: this.hideLayer,
                 ref: 'container'
             };

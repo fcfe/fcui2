@@ -11,6 +11,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                className: '',
                 conf: [],
                 datasource: [],
                 summary: {},
@@ -115,7 +116,7 @@ define(function (require) {
             var me = this;
             var conf = this.props.conf;
             return (
-                <div className="fcui2-table" ref="container">
+                <div className={'fcui2-table ' + this.props.className} ref="container">
                     <table cellSpacing="0" cellPadding="0" ref="table">
                         <tbody>
                         {headerFactory()}

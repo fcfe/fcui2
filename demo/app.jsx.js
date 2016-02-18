@@ -153,7 +153,7 @@ define(function (require) {
                         checkout={[checker.maxLength(10, '最多10个字符')]} onChange={this.textBoxChangeHandler}/>
                     <Button {...this.props.button1} onClick={this.buttonClickHandler}/>
                     <h3>Example3: Button</h3>
-                    <Button ref="button1" skin="important" label="确定"/>
+                    <Button className="MyClass" ref="button1" skin="important" label="确定"/>
                     <Button ref="button2" skin="highlight" icon="font-icon-check-square2" label="四个汉字"/>
                     <Button ref="button3" label="普通按钮" />
                     <Button ref="button4" skin="important" icon="font-icon-check-square2"

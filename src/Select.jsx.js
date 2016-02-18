@@ -10,6 +10,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                className: '',
                 minWidth: 60,
                 label: 'please select',
                 value: '',
@@ -51,7 +52,7 @@ define(function (require) {
         render: function () {
             var me = this;
             var containerProp = {
-                className: 'fcui2-dropdownlist layer-container',
+                className: 'fcui2-dropdownlist layer-container ' + this.props.className,
                 style: {minWidth: this.props.minWidth},
                 onClick: this.clickHandler,
                 onMouseEnter: this.showLayer,
