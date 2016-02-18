@@ -4,8 +4,10 @@
  */
 
 define(function (require) {
-    var u = require('underscore');
+    var _ = require('underscore');
     var React = require('react');
+    var util = require('./core/util.es6');
+    var treeUtil = require('./core/treeUtil.es6');
 
     var treeNode = React.PropTypes.shape({
         id: React.PropTypes.oneOfType([
@@ -39,17 +41,24 @@ define(function (require) {
              */
             getTreeLevelStyle: React.PropTypes.func,
             /**
-             * 节点展开时的回调。
+             * 节点展开按钮被点击时的回调。
              * @param node 当前被展开的treeNode
              * @param treeNodes 全体treeNode
+             * @return {bool} 返回true则阻止默认的行为
              */
             onTreeNodeExpandClicked: React.PropTypes.func,
             /**
-             * 节点被删除时的回调
+             * 节点删除按钮被点击时的回调。
              * @param node 当前被删除的treeNode
              * @param treeNodes 全体treeNode
+             * @return {bool} 返回true则阻止默认的行为
              */
             onTreeNodeRemoveClicked: React.PropTypes.func,
+            /**
+             * 节点本身被点击时的回调。
+             * @return {bool} 返回true则阻止默认的行为
+             */
+            onTreeNodeClicked: React.PropTypes.func,
             /**
              * 节点加载中时的话术
              */
@@ -60,9 +69,9 @@ define(function (require) {
             return {
                 treeLevel: 0,
                 isTreeNodesRemovable: true,
-                onTreeNodeExpandClicked: u.noop,
-                onTreeNodeRemoveClicked: u.noop,
-                onTreeNodeClicked: u.noop,
+                onTreeNodeExpandClicked: _.noop,
+                onTreeNodeRemoveClicked: _.noop,
+                onTreeNodeClicked: _.noop,
                 getTreeLevelStyle: function (level) {
                     return {
                         paddingLeft: (level * 0.5) + 'em'
@@ -73,67 +82,102 @@ define(function (require) {
         },
 
         getInitialState: function () {
-            return {
-                focusedTreeNode: this.props.focusedTreeNode || {}
-            };
+            var initialState = {focusedTreeNode: this.props.focusedTreeNode || {}};
+            if (this.props.treeLevel === 0) {
+                var freezer = treeUtil.getFrozenTreeNodes(this.props.treeNodes);
+                util.bindFreezerAndComponent(freezer.treeNodesFreezer, this, 'treeNodes');
+                _.extend(initialState, freezer);
+            }
+            else {
+                initialState.treeNodes = this.props.treeNodes;
+            }
+            return initialState;
         },
 
         componentWillReceiveProps: function (nextProps) {
-            if (this.props.treeLevel > 0 && nextProps.focusedTreeNode != null) {
+            if (nextProps.focusedTreeNode != null && nextProps.focusedTreeNode !== this.state.focusedTreeNode) {
                 this.setState({focusedTreeNode: nextProps.focusedTreeNode});
+            }
+            if (nextProps.treeNodes != null && nextProps.treeNodes !== this.state.treeNodes) {
+                if (this.props.treeLevel === 0) {
+                    var freezer = treeUtil.getFrozenTreeNodes(this.props.treeNodes);
+                    util.bindFreezerAndComponent(freezer.treeNodesFreezer, this, 'treeNodes');
+                    this.setState(freezer);
+                }
+                else {
+                    this.setState({treeNodes: nextProps.treeNodes});
+                }
             }
         },
 
         componentWillMount: function () {
+            this._handlers = {};
             if (this.props.treeLevel === 0) {
-                this._handlers = u.chain(this.props)
-                    .pick('onTreeNodeExpandClicked', 'onTreeNodeRemoveClicked', 'onTreeNodeClicked')
-                    .mapObject((handler) => {
-                        return u.partial(handler, this.props.treeNodes, this);
-                    })
-                    .value();
-                this._handlers.innerOnTreeNodeClicked = (treeNode) => {
-                    this.setState({focusedTreeNode: treeNode});
-                }
+                this._handlers.onTreeNodeExpandClicked = util.chainFunctions(
+                    this.props.onTreeNodeExpandClicked,
+                    (treeNode) => {
+                        treeNode.set('isExpanded', !treeNode.isExpanded);
+                    }
+                );
+                this._handlers.onTreeNodeClicked = util.chainFunctions(
+                    this.props.onTreeNodeClicked,
+                    (treeNode) => {
+                        this.setState({focusedTreeNode: treeNode});
+                    }
+                );
+                this._handlers.onTreeNodeRemoveClicked = this.props.onTreeNodeRemoveClicked;
             }
             else {
-                this._handlers = u.pick(
+                this._handlers = _.pick(
                     this.props,
-                    'onTreeNodeExpandClicked', 'onTreeNodeRemoveClicked', 'onTreeNodeClicked', 'innerOnTreeNodeClicked'
+                    'onTreeNodeExpandClicked', 'onTreeNodeRemoveClicked', 'onTreeNodeClicked'
                 );
             }
         },
 
         render: function () {
             var {
-                treeNodes,
                 isTreeNodesRemovable,
                 treeLevel,
                 getTreeLevelStyle,
+                style,
+                textLoading,
+                className = '',
                 ...other
             } = this.props;
 
             var nextTreeLevel = treeLevel + 1;
-            var focusedTreeNode = this.state.focusedTreeNode;
+            style = _.extend({}, getTreeLevelStyle(treeLevel), style);
+            var treeNodeProps = _.extend(
+                _.pick(this.props, 'textLoading', 'isTreeNodesRemovable', 'treeLevel'),
+                this._handlers
+            );
+            var innerTreeProps = _.extend(
+                _.omit(this.props, 'className', 'style'),
+                _.pick(this.state, 'focusedTreeNode'),
+                this._handlers
+            );
 
             return (
                 <div {...other}
                     data-tree-level={treeLevel}
-                    style={getTreeLevelStyle(treeLevel)}
-                    className={treeLevel > 0 ? 'fcui2-tree fcui2-tree-inner' : 'fcui2-tree'}
+                    style={style}
+                    className={[
+                        className,
+                        treeLevel > 0 ? 'fcui2-tree fcui2-tree-inner' : 'fcui2-tree'
+                    ].join(' ')}
                 >
-                    {treeNodes.map((node) => {
+                    {this.state.treeNodes.map((node) => {
                         return <div key={node.id}>
-                            <Tree.TreeNode {...node} {...this._handlers} textLoading={other.textLoading}
-                                isTreeNodesRemovable={isTreeNodesRemovable}
-                                className={focusedTreeNode.id === node.id ? 'fcui2-tree-node-focused' : ''}
-                                treeLevel={treeLevel} />
-                                    {node.isExpanded && node.children && node.children.length
-                                        ? <Tree {...this.props} {...this.state} {...this._handlers}
-                                            treeNodes={node.children}
-                                            treeLevel={nextTreeLevel}/>
-                                        : ''
-                                    }
+                            <Tree.TreeNode {...treeNodeProps} treeNode={node}
+                                className={[
+                                    this.state.focusedTreeNode === node ? 'fcui2-tree-node-focused' : ''
+                                ].join(' ')}
+                            />
+                                {node.isExpanded && node.children && node.children.length
+                                    ? <Tree {...innerTreeProps} treeNodes={node.children} treeLevel={nextTreeLevel} />
+                                    : ''
+                                }
                         </div>;
                     })}
                 </div>
@@ -142,74 +186,58 @@ define(function (require) {
     });
 
     Tree.TreeNode = React.createClass({
-        getDefaultProps: function () {
-            return {
-                isExpanded: false,
-                isChildrenLoading: false,
-                isChildrenLoaded: false,
-                isRemoved: false
-            };
-        },
-
-        getInitialState: function () {
-            return {};
+        propTypes: {
+            treeNode: treeNode,
+            onTreeNodeExpandClicked: React.PropTypes.func,
+            onTreeNodeRemoveClicked: React.PropTypes.func,
+            onTreeNodeClicked: React.PropTypes.func,
+            isTreeNodesRemovable: React.PropTypes.bool,
+            textLoading: React.PropTypes.string,
+            className: React.PropTypes.string
         },
 
         render: function () {
             var {
-                id,
-                name,
-                isExpanded,
-                isChildrenLoading,
-                isChildrenLoaded,
-                isRemovable,
-                isRemoved,
+                treeNode,
                 isTreeNodesRemovable,
-                children,
-                parent,
-                treeLevel,
                 onTreeNodeExpandClicked,
                 onTreeNodeRemoveClicked,
                 onTreeNodeClicked,
-                innerOnTreeNodeClicked,
                 textLoading,
                 className,
                 ...other
             } = this.props;
 
-            if (isRemovable == null) {
-                isRemovable = isTreeNodesRemovable;
-            }
+            var isRemovable = treeNode.isRemovable == null ? isTreeNodesRemovable : treeNode.isRemovable;
 
-            className = 'fcui2-tree-node ' + className;
-
-            if (isRemoved) {
-                className += ' fcui2-tree-node-removed';
-            }
+            className = [
+                'fcui2-tree-node',
+                treeNode.isRemoved ? 'fcui2-tree-node-removed' : '',
+                className
+            ].join(' ');
 
             return (
                 <div {...other} className={className} onClick={() => {
-                    onTreeNodeClicked(this.props);
-                    innerOnTreeNodeClicked(this.props);
+                    onTreeNodeClicked.call(this, treeNode);
                 }}>
-                    <span className={isExpanded ? 'fcui2-tree-node-expanded' : 'fcui2-tree-node-collapsed'}
+                    <span className={treeNode.isExpanded ? 'fcui2-tree-node-expanded' : 'fcui2-tree-node-collapsed'}
                         onClick={(e) => {
-                            onTreeNodeExpandClicked(this.props);
+                            onTreeNodeExpandClicked.call(this, treeNode);
                             e.stopPropagation();
                         }}
                     ></span>
-                    <span className='fcui2-tree-node-name'>{name}</span>
-                    {isChildrenLoading
+                    <span className='fcui2-tree-node-name'>{treeNode.name}</span>
+                    {treeNode.isChildrenLoading
                         ? <span className='fcui2-tree-node-loading'>{textLoading}</span>
                         : ''
                     }
                     {isRemovable
                         ? <span className='fcui2-tree-node-remove-handle'
                             onClick={(e) => {
-                                if (this.props.isRemoved) {
+                                if (treeNode.isRemoved) {
                                     return;
                                 }
-                                onTreeNodeRemoveClicked(this.props);
+                                onTreeNodeRemoveClicked.call(this, treeNode);
                                 e.stopPropagation();
                             }}></span>
                         : ''

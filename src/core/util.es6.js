@@ -3,8 +3,8 @@
  * 原则上，这里放置通用工具，跨组件使用，甚至可以跨框架使用
  */
 define(function (require) {
-    var u = require('underscore');
     var exports = {
+
         /**
          * 绑定函数上下文
          *
@@ -17,6 +17,7 @@ define(function (require) {
                 return func.apply(me, arguments);
             };
         },
+
         /**
          * 获取dom节点的位置
          *
@@ -84,122 +85,49 @@ define(function (require) {
         },
 
         /**
-         * 封装树及树选择器相关的方法
+         * 生成function调用chain，从第一个functon开始调用，若返回true则中止调用链
+         *
+         * @param {Array} funcs funcs
+         * @return {Function} chain函数
          */
-        tree: {
-            /**
-             * 将nodes中每个节点，放置一个parent属性连接到它的父节点。
-             *
-             * @param {Array<treeNode>} nodes 要连接的treeNode全体
-             * @param {treeNode} nodes 当前递归到的父节点
-             * @return {Array<treeNode>} 连接好的treeNode全体
-             */
-            makeParentLink: function (nodes, parent) {
-                nodes.forEach((node) => {
-                    if (node.children) {
-                        exports.tree.makeParentLink(node.children, node);
-                    }
+        chainFunctions: function (...funcs) {
+            return function (...args) {
+                funcs.find((handler) => handler.apply(this, args));
+            };
+        },
 
-                    if (node.parent === parent || parent == null) {
-                        return;
-                    }
+        /**
+         * 将freezer的update事件bind到React Component的setState中
+         *
+         * @param {Freezer} freezer freezer
+         * @param {ReactComponent} theComponent The React component
+         * @param {string} stateName stateName
+         */
+        bindFreezerAndComponent: function (freezer, theComponent, stateName) {
+            freezer.on('update', () => {
+                var newState = {};
+                newState[stateName] = freezer.get();
+                theComponent.setState(newState);
+            });
+        },
 
-                    node.parent = parent;
-                });
-                return nodes;
-            },
-
-            /**
-             * 从treeNodes集合中移除treeNode
-             *
-             * @param {treeNode} treeNode 待移除的treeNode
-             * @param {Array<treeNode>} treeNodes 全体treeNodes
-             * @param {boolean} shouldOnlyMarkIsRemoved 只标记isRemoved而不是真的移除节点
-             * @return {Object} 移除treeNode后的全体treeNodes（keyed treeNodes）， 以及被移除的treeNode（keyed treeNode）。
-             */
-            removeNodeFromTreeNodes: function (treeNode, treeNodes, shouldOnlyMarkIsRemoved) {
-                // 执行移除操作，返回移除后的nodes
-                function performRemove(node, nodes) {
-                    if (shouldOnlyMarkIsRemoved) {
-                        return nodes.map((n) => {
-                            if (n.id === node.id) {
-                                n.isRemoved = true;
-                            }
-                            return n;
-                        });
-                    }
-                    return nodes.filter((n) => n.id !== node.id);
-                }
-                if (treeNode.parent == null) {
-                    // 若treeNode没有parent， 则treeNodes深度为1， 直接移除
-                    return {
-                        treeNodes: performRemove(treeNode, treeNodes),
-                        removedTreeNode: treeNode
-                    };
-                }
-
-                var childrenLength = treeNode.parent.children.length;
-                treeNode.parent.children.forEach((node) => {
-                    if (node.isRemoved) {
-                        childrenLength--;
-                    }
-                });
-
-                if (childrenLength === 1) {
-                    if (shouldOnlyMarkIsRemoved) {
-                        treeNode.parent.children = performRemove(treeNode, treeNode.parent.children);
-                    }
-                    return exports.tree.removeNodeFromTreeNodes(treeNode.parent, treeNodes, shouldOnlyMarkIsRemoved);
-                }
-
-                treeNode.parent.children = performRemove(treeNode, treeNode.parent.children);
-                return {
-                    treeNodes: treeNodes,
-                    removedTreeNode: treeNode
-                };
-            },
-
-            /**
-             * 将srcTreeNode从root到children拷贝到dstTreeNodes。
-             *
-             * @param {treeNode} srcTreeNode srcTreeNode
-             * @param {treeNode} dstTreeNodes dstTreeNode
-             */
-            copyNodeToTreeNodes: function (srcTreeNode, dstTreeNodes) {
-                var matchedTreeNode = dstTreeNodes.find((node) => node.id === srcTreeNode.id);
-                if (matchedTreeNode == null) {
-                    matchedTreeNode = u.omit(srcTreeNode, 'parent', 'children', 'isRemoved');
-                    dstTreeNodes.push(matchedTreeNode);
-                }
-                matchedTreeNode.isRemoved = false;
-                if (srcTreeNode.children && srcTreeNode.children.length) {
-                    if (matchedTreeNode.children == null) {
-                        matchedTreeNode.children = [];
-                    }
-                    srcTreeNode.children.forEach((node) => {
-                        exports.tree.copyNodeToTreeNodes(
-                            node,
-                            matchedTreeNode.children
-                        );
-                    });
-                }
-            },
-
-            /**
-             * 给定树节点，到树根为止制作一条路径，含有且只含有途径的每一个节点的拷贝。
-             *
-             * @param {treeNode} treeNode treeNode
-             * @return {treeNode} 根节点
-             */
-            getPathToRoot: function (treeNode) {
-                treeNode = u.extend({}, treeNode);
-                while (treeNode.parent != null) {
-                    var parentNode = u.omit(treeNode.parent, 'children');
-                    parentNode.children = [treeNode];
-                    treeNode = parentNode;
-                }
-                return treeNode;
+        /**
+         * 完成一个Frozen包装的 object 的transaction
+         *
+         * @param {Freezer} freezed freezed object 如果不是freezed object，则立即执行后面的func
+         * @param {Function} func transaction function
+         *
+         * @return {Freezer} transaction result
+         */
+        doInFrozenTransaction: function (freezed, func) {
+            if (typeof freezed.transact !== 'function') {
+                func(freezed, freezed);
+                return freezed;
             }
+
+            var mutable = freezed.transact();
+            func(mutable, freezed);
+            return freezed.run();
         }
     };
 
