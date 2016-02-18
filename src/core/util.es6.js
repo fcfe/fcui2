@@ -1,6 +1,5 @@
 define(function (require) {
     var exports = {
-
         /**
          * 获取dom节点的位置
          *
@@ -65,6 +64,18 @@ define(function (require) {
                     ? 'bottom-layer' : 'up-layer';
                 node.setState({layerPosition: position});
             }, 5);
+        },
+
+        /**
+         * 生成function调用chain，从第一个functon开始调用，若返回true则中止调用链
+         *
+         * @param {Array} funcs funcs
+         * @return {Function} chain函数
+         */
+        chainFunctions: function (...funcs) {
+            return function (...args) {
+                funcs.find((handler) => handler.apply(this, args));
+            };
         }
     };
 

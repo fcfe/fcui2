@@ -4,81 +4,83 @@
  */
 define(function (require) {
     var _ = require('underscore');
+    var Freezer = require('./freezer');
+
+    // 确保object被frozen过了
+    function assertFreezerFronzen(object) {
+        if (object.__ == null) {
+            throw new Error('没有在', object, '中发现"__"，用Freezer包装过了吗？');
+        }
+    }
+
     var exports = {
 
         /**
-         * 将nodes中每个节点，放置一个parent属性连接到它的父节点。
+         * 返回Freezer包装了的treeNodes。
          *
-         * @param {Array<treeNode>} nodes 要连接的treeNode全体
-         * @param {treeNode} parent 当前递归到的父节点
-         * @return {Array<treeNode>} 连接好的treeNode全体
+         * @param {Array<treeNode>} treeNodes treeNodes
+         * @return {Frozen} frozen的treeNodes
          */
-        makeParentLink: function (nodes, parent) {
-            nodes.forEach((node) => {
-                if (node.children) {
-                    exports.makeParentLink(node.children, node);
-                }
-
-                if (node.parent === parent || parent == null) {
-                    return;
-                }
-
-                node.parent = parent;
-            });
-            return nodes;
+        getFrozenTreeNodes: function (treeNodes) {
+            return new Freezer(treeNodes).get();
         },
 
         /**
-         * 从treeNodes集合中移除treeNode
+         * NASTY!! 从Freezer在节点中放置的私有parents属性里拿父节点，只返回object的parent
+         *
+         * @param {Object} object treeNode
+         * @return {treeNode} 父节点，或者null，如果没有父节点或者出错了
+         */
+        getParent: function (object) {
+            assertFreezerFronzen(object);
+
+            var parents = object.__.parents;
+            if (parents == null) {
+                throw new Error('没有在"__"', object.__, '中发现parents，Freezer改了吗？');
+            }
+
+            if (parents.length > 1) {
+                console.warn('parents', parents, '长度大于1了，只返回第一个object parent');
+            }
+
+            if (_.isArray(parents[0])) {
+                return exports.getParent(parents[0]);
+            }
+
+            return parents[0];
+        },
+
+        /**
+         * 从treeNodes集合中移除treeNode，只放置isRemoved标记而不是真的删除。
          *
          * @param {treeNode} treeNode 待移除的treeNode
-         * @param {Array<treeNode>} treeNodes 全体treeNodes
-         * @param {boolean} shouldOnlyMarkIsRemoved 只标记isRemoved而不是真的移除节点
-         * @return {Object} 移除treeNode后的全体treeNodes（keyed treeNodes）， 以及被移除的treeNode（keyed treeNode）。
          */
-        removeNodeFromTreeNodes: function (treeNode, treeNodes, shouldOnlyMarkIsRemoved) {
-            // 执行移除操作，返回移除后的nodes
-            function performRemove(node, nodes) {
-                if (shouldOnlyMarkIsRemoved) {
-                    return nodes.map((n) => {
-                        if (n.id === node.id) {
-                            n.isRemoved = true;
-                            if (n.children && n.children.length) {
-                                // mark 所有的孩子
-                            }
-                        }
-                        return n;
-                    });
-                }
-                return nodes.filter((n) => n.id !== node.id);
-            }
-            if (treeNode.parent == null) {
-                // 若treeNode没有parent， 则treeNodes深度为1， 直接移除
-                return {
-                    treeNodes: performRemove(treeNode, treeNodes),
-                    removedTreeNode: treeNode
-                };
-            }
+        markTreeNodeRemoved: function (treeNode) {
+            assertFreezerFronzen(treeNode);
 
-            var childrenLength = treeNode.parent.children.length;
-            treeNode.parent.children.forEach((node) => {
-                if (node.isRemoved) {
-                    childrenLength--;
-                }
-            });
-
-            if (childrenLength === 1) {
-                if (shouldOnlyMarkIsRemoved) {
-                    treeNode.parent.children = performRemove(treeNode, treeNode.parent.children);
-                }
-                return exports.removeNodeFromTreeNodes(treeNode.parent, treeNodes, shouldOnlyMarkIsRemoved);
+            treeNode.set('isRemoved', true);
+            // 向下移除所有的孩子
+            if (treeNode.children && treeNode.children.length) {
+                treeNode.children.forEach((node) => {
+                    exports.markTreeNodeRemoved(node);
+                });
             }
-
-            treeNode.parent.children = performRemove(treeNode, treeNode.parent.children);
-            return {
-                treeNodes: treeNodes,
-                removedTreeNode: treeNode
-            };
+            // 向上检查所有parent
+            var parent = exports.getParent(treeNode);
+            while (parent != null) {
+                if (parent.children && parent.children.length) {
+                    var childrenLength = parent.children.reduce((value, treeNode) => {
+                        return treeNode.isRemoved ? value : value + 1;
+                    }, 0);
+                    if (childrenLength === 0) {
+                        parent.set('isRemoved', true);
+                        parent = exports.getParent(parent);
+                    }
+                    else {
+                        break;
+                    }
+                }
+            }
         },
 
         /**
@@ -88,9 +90,9 @@ define(function (require) {
          * @param {treeNode} dstTreeNodes dstTreeNode
          */
         copyNodeToTreeNodes: function (srcTreeNode, dstTreeNodes) {
-            var matchedTreeNode = dstTreeNodes.find((node) => node.id === srcTreeNode.id);
+            var matchedTreeNode = dstTreeNodes.find((treeNode) => treeNode.id === srcTreeNode.id);
             if (matchedTreeNode == null) {
-                matchedTreeNode = _.omit(srcTreeNode, 'parent', 'children', 'isRemoved');
+                matchedTreeNode = _.omit(srcTreeNode, 'children', 'isRemoved');
                 dstTreeNodes.push(matchedTreeNode);
             }
             matchedTreeNode.isRemoved = false;
@@ -108,19 +110,21 @@ define(function (require) {
         },
 
         /**
-         * 给定树节点，到树根为止制作一条路径，含有且只含有途径的每一个节点的拷贝。
+         * 给定树节点，到树根为止制作一条路径，含有且只含有途径的每一个节点的拷贝。***但是***，给定树节点可能的有的孩子没有拷贝。
          *
          * @param {treeNode} treeNode treeNode
          * @return {treeNode} 根节点
          */
         getPathToRoot: function (treeNode) {
-            treeNode = _.extend({}, treeNode);
-            while (treeNode.parent != null) {
-                var parentNode = _.omit(treeNode.parent, 'children');
-                parentNode.children = [treeNode];
-                treeNode = parentNode;
+            var clonedTreeNode = _.extend({}, treeNode);
+            var parentTreeNode = exports.getParent(treeNode);
+            while (parentTreeNode != null) {
+                var tmpTreeNode = _.omit(parentTreeNode, 'children');
+                tmpTreeNode.children = [clonedTreeNode];
+                parentTreeNode = exports.getParent(parentTreeNode);
+                clonedTreeNode = tmpTreeNode;
             }
-            return treeNode;
+            return clonedTreeNode;
         }
     };
 
