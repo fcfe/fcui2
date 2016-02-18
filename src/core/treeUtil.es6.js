@@ -56,6 +56,24 @@ define(function (require) {
         },
 
         /**
+         * 先深遍历所有节点，遍历回调将发生在frozen transaction中，回调第1个参数为mutable的节点
+         * @param {treeNode} treeNode treeNode
+         * @param {Function} cb cb
+         * @return {treeNode} treeNode out of transaction
+         */
+        walk: function (treeNode, cb) {
+            return util.doInFrozenTransaction(treeNode, (mutableTreeNode) => {
+                cb(mutableTreeNode);
+                // 向下访问所有的孩子
+                if (mutableTreeNode.children && mutableTreeNode.children.length) {
+                    mutableTreeNode.children.forEach(
+                        (node) => exports.walk(node, cb)
+                    );
+                }
+            });
+        },
+
+        /**
          * 从treeNodes集合中移除treeNode，只放置isRemoved标记而不是真的删除。
          *
          * @param {treeNode} treeNode 待移除的treeNode
@@ -63,19 +81,9 @@ define(function (require) {
         markTreeNodeRemoved: function (treeNode) {
             assertFreezerFronzen(treeNode);
 
-            function markSelfAndAllChildren(treeNode) {
-                return util.doInFrozenTransaction(treeNode, (mutableTreeNode) => {
-                    mutableTreeNode.isRemoved = true;
-                    // 向下移除所有的孩子
-                    if (mutableTreeNode.children && mutableTreeNode.children.length) {
-                        mutableTreeNode.children.forEach((node) => {
-                            markSelfAndAllChildren(node);
-                        });
-                    }
-                });
-            }
-
-            treeNode = markSelfAndAllChildren(treeNode);
+            treeNode = exports.walk(treeNode, (mutableNode) => {
+                mutableNode.isRemoved = true;
+            });
 
             // 向上检查所有parent
             var parent = exports.getParent(treeNode);

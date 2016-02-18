@@ -76,6 +76,20 @@ define(function (require) {
             treeUtil.copyNodeToTreeNodes(pathToRoot, dstTreeNodes);
         },
 
+        removeAll: function (from) {
+            if (from == 'left') {
+                throw new Error('从左树移除节点尚不支持。');
+            }
+            else {
+                this.refs.rightTree.state.treeNodes.reset([]);
+                this.refs.leftTree.state.treeNodes.forEach((node) => {
+                    treeUtil.walk(node, (mutableNode) => {
+                        mutableNode.isRemoved = false;
+                    });
+                });
+            }
+        },
+
         render: function () {
             var {
                 leftTreeWidth,
@@ -112,7 +126,9 @@ define(function (require) {
                         <span className='fcui2-dual-tree-selector-tree-footer-summary'>
                         </span>
                         <span className='fcui2-dual-tree-selector-tree-footer-remove-all'>
-                            <a href='javascript:;' onClick=''>全部删除</a>
+                            <a href='javascript:;' onClick={() => {
+                                this.removeAll('right');
+                            }}>全部删除</a>
                         </span>
                     </div>
                 </div>
