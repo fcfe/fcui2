@@ -11,6 +11,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                className: '',
                 conf: [],
                 datasource: [],
                 summary: {},
@@ -115,7 +116,7 @@ define(function (require) {
             var me = this;
             var conf = this.props.conf;
             return (
-                <div className="fcui2-table" ref="container">
+                <div className={'fcui2-table ' + this.props.className} ref="container">
                     <table cellSpacing="0" cellPadding="0" ref="table">
                         <tbody>
                         {headerFactory()}
@@ -170,14 +171,13 @@ define(function (require) {
                     var item = conf[i];
                     var tdStyle = {};
                     var text = summary.hasOwnProperty(item.field) ? summary[item.field] : '-';
-                    text = (text + '').indexOf('.') > -1 ? text.toFixed(2) : text;
                     if (typeof item.width === 'number') {
                         tdStyle.width = item.width;
                     }
                     tdStyle.textAlign = isNaN(text) ? 'left' : 'right';
                     td.push(<td style={tdStyle} key={'summary-' + i}>{text}</td>);
                 }
-                return <tr className="table-summary" key="summray">{td}</tr>
+                return <tr className="table-summary" key="summray" style={{fontWeight: 700}}>{td}</tr>
             }
             // 生成message栏目
             function messageFactory() {

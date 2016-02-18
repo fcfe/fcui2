@@ -16,6 +16,8 @@ define(function (require) {
     var Tree = require('fcui/Tree.jsx');
     var DualTreeSelector = require('fcui/DualTreeSelector.jsx');
     var Table = require('fcui/Table.jsx');
+
+
     var checker = require('fcui/core/checker');
     var config = require('./config');
     var dialog = new Dialog();
@@ -34,6 +36,8 @@ define(function (require) {
         getInitialState: function () {
             return {outputmsg: ''};
         },
+        // @override
+        componentDidMount: function () {},
         tableHandler: function (type, param) {
             var msg = type + ';' + JSON.stringify(param);
             this.setState({outputmsg: msg});
@@ -78,7 +82,7 @@ define(function (require) {
             var me = this;
             dialog.confirm({
                 title: '是否确定做某件事呢？',
-                message: '点"确定"、点"取消"、点"x"会触发不同的回调，看上去虽然麻烦，但写业务时只挂一个onEnter回调就行了',
+                message: '点"确定"、点"取消"、点"x"会触发不同的回调，看上去虽然麻烦，但写业务时只挂一个onEnter回调就行了。这个提示很长，看上去是不是很难看，所以应该避免这么长的提示。如果字再多点会是什么样子呢？占用占用占用占用占用占用占用占用占用占用占用占占用占用占用占占用占用占用占用，好像也不怎么难看就是下面的按钮有点儿近',
                 onEnter: function () {
                     me.props.dispatch('confirm dialog return "enter"');
                 },
@@ -149,7 +153,7 @@ define(function (require) {
                         checkout={[checker.maxLength(10, '最多10个字符')]} onChange={this.textBoxChangeHandler}/>
                     <Button {...this.props.button1} onClick={this.buttonClickHandler}/>
                     <h3>Example3: Button</h3>
-                    <Button ref="button1" skin="important" label="确定"/>
+                    <Button className="MyClass" ref="button1" skin="important" label="确定"/>
                     <Button ref="button2" skin="highlight" icon="font-icon-check-square2" label="四个汉字"/>
                     <Button ref="button3" label="普通按钮" />
                     <Button ref="button4" skin="important" icon="font-icon-check-square2"
@@ -166,6 +170,7 @@ define(function (require) {
                     <NumberBox ref="number1" value="34" onChange={this.textBoxChangeHandler}/>
                     <NumberBox ref="number2" max="10" min="-10" fixed="2"
                         type="float" onChange={this.textBoxChangeHandler} width="80" step="0.5"/>
+                    <h3>Example 5.1: Form</h3>
                     <h3>Example6: Pager</h3>
                     <Pager ref="pager" min="1" max="20" value="10" onChange={this.listClickHandler}/>
                     <h3>Example7: Dialog</h3>

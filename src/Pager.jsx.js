@@ -8,6 +8,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                className: '',
                 min: 1,
                 max: 10,
                 value: 1,
@@ -46,7 +47,9 @@ define(function (require) {
         },
         render: function () {
             var me = this;
-            var containerProp = {className: 'fcui2-pager'};
+            var containerProp = {
+                className: 'fcui2-pager ' + this.props.className
+            };
             return (
                 <div {...containerProp}>{produceButtons()}</div>
             );

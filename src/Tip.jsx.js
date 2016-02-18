@@ -6,6 +6,7 @@ define(function (require) {
     return React.createClass({
         getDefaultProps: function () {
             return {
+                className: '',
                 title: '',
                 content: '',
                 icon: 'font-icon-hint-question-s'
@@ -27,7 +28,7 @@ define(function (require) {
         },
         render: function () {
             var tip = {
-                className: 'fcui2-tip font-icon ' + this.props.icon,
+                className: this.props.className + ' fcui2-tip font-icon ' + this.props.icon,
                 style: {
                     display: (this.props.title + this.props.content).length > 0 ? 'inline-block' : 'none'
                 },

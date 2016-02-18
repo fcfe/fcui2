@@ -4,6 +4,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                className: '',
                 minWidth: 40,
                 maxWidth: null,
                 label: 'Button',
@@ -16,7 +17,9 @@ define(function (require) {
         },
         // @override
         componentWillReceiveProps: function (props) {
-            this.setState({disable: props.disable});
+            this.setState({
+                disable: props.disable
+            });
         },
         // @override
         getInitialState: function () {
@@ -41,7 +44,7 @@ define(function (require) {
         },
         render: function () {
             var containerProp = {
-                className: 'fcui2-button',
+                className: 'fcui2-button ' + this.props.className,
                 style: {minWidth: this.props.minWidth},
                 onMouseDown: this.mouseDownHandler,
                 onMouseUp: this.mouseUpHandler,

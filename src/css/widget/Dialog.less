@@ -2,8 +2,6 @@
 .fcui2-dialog {
     position: fixed;
     z-index: 9999;
-    min-width: 200px;
-    min-height: 90px;
     background-color: @bgcolor-active;
     .title-bar {
         cursor: default;
@@ -23,7 +21,12 @@
         }
     }
     .content {
-        padding: @padding-window-content;
+        position: absolute;
+        left: 0px;
+        top: 40px;
+        right: 0px;
+        bottom: 0px;
+        overflow: auto;
     }
 }
 .fcui2-dialog-background {
@@ -40,15 +43,18 @@
     position: relative;
     min-width: 400px;
     min-height: 100px;
-    span {
-        font-size: @fontsize-button;
-    }
-    .font-icon {
-        position: relative;
-        top: @fontsize-alert-icon / 3;
-        margin: @margin-normal;
-        display: inline-block;
+    .message-icon  {
+        float: left;
+        width: @fontsize-alert-icon;
         font-size: @fontsize-alert-icon;
+        margin-left: 10px;
+        margin-top: 20px;
+    }
+    .message {
+        padding: 30px 10px;
+        margin-left: @fontsize-alert-icon + 10;
+        font-size: @fontsize-icon;
+        line-height: @fontsize-icon * 1.5;
     }
     .button-bar {
         position: absolute;

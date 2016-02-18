@@ -4,6 +4,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                className: '',
                 width: 60,
                 value: 0,
                 max: Number.POSITIVE_INFINITY,
@@ -19,9 +20,10 @@ define(function (require) {
         },
         // @override
         getInitialState: function () {
+            var value = isNaN(this.props.value) ? 0 : this.props.value * 1;
             return {
-                value: isNaN(this.props.value) ? 0 : this.props.value * 1, // 真实数据
-                display: this.fix(isNaN(this.props.value) ? 0 : this.props.value * 1), // 用于显示的数据
+                value: value, // 真实数据
+                display: this.fix(value), // 用于显示的数据
                 disable: this.props.disable,
                 showButton: this.props.showButton,
                 checkPassed: true
@@ -29,7 +31,9 @@ define(function (require) {
         },
         // @override
         componentWillReceiveProps: function (props) {
-            this.setState({disable: props.disable});
+            this.setState({
+                disable: props.disable
+            });
         },
         changeHandler: function (e) {
             if (this.state.disable) return;
@@ -103,7 +107,7 @@ define(function (require) {
         },
         render: function () {
             var containerProp = {
-                className: 'fcui2-numberbox',
+                className: 'fcui2-numberbox ' + this.props.className,
                 style: {width: this.props.width}
             };
             var inputProp = {

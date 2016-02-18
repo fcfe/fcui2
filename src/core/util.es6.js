@@ -1,3 +1,7 @@
+/**
+ * @file全局工具集
+ * 原则上，这里放置通用工具，跨组件使用，甚至可以跨框架使用
+ */
 define(function (require) {
     var exports = {
         /**
