@@ -82,12 +82,16 @@ define(function (require) {
         },
 
         getInitialState: function () {
-            return {
-                focusedTreeNode: this.props.focusedTreeNode || {},
-                treeNodes: this.props.treeLevel === 0
-                            ? treeUtil.getFrozenTreeNodes(this.props.treeNodes)
-                            : this.props.treeNodes
+            var initialState = {focusedTreeNode: this.props.focusedTreeNode || {}};
+            if (this.props.treeLevel === 0) {
+                var freezer = treeUtil.getFrozenTreeNodes(this.props.treeNodes);
+                util.bindFreezerAndComponent(freezer.treeNodesFreezer, this, 'treeNodes');
+                _.extend(initialState, freezer);
             }
+            else {
+                initialState.treeNodes = this.props.treeNodes;
+            }
+            return initialState;
         },
 
         componentWillReceiveProps: function (nextProps) {
@@ -95,10 +99,14 @@ define(function (require) {
                 this.setState({focusedTreeNode: nextProps.focusedTreeNode});
             }
             if (nextProps.treeNodes != null && nextProps.treeNodes !== this.state.treeNodes) {
-                this.setState({treeNodes: this.props.treeLevel === 0
-                    ? treeUtil.getFrozenTreeNodes(this.props.treeNodes)
-                    : this.props.treeNodes
-                });
+                if (this.props.treeLevel === 0) {
+                    var freezer = treeUtil.getFrozenTreeNodes(this.props.treeNodes);
+                    util.bindFreezerAndComponent(freezer.treeNodesFreezer, this, 'treeNodes');
+                    this.setState(freezer);
+                }
+                else {
+                    this.setState('treeNodes', this.props.treeNodes);
+                }
             }
         },
 
@@ -214,11 +222,11 @@ define(function (require) {
 
             return (
                 <div {...other} className={className} onClick={() => {
-                    onTreeNodeClicked(treeNode);
+                    onTreeNodeClicked.call(this, treeNode);
                 }}>
                     <span className={treeNode.isExpanded ? 'fcui2-tree-node-expanded' : 'fcui2-tree-node-collapsed'}
                         onClick={(e) => {
-                            onTreeNodeExpandClicked(treeNode);
+                            onTreeNodeExpandClicked.call(this, treeNode);
                             e.stopPropagation();
                         }}
                     ></span>
@@ -233,7 +241,7 @@ define(function (require) {
                                 if (treeNode.isRemoved) {
                                     return;
                                 }
-                                onTreeNodeRemoveClicked(treeNode);
+                                onTreeNodeRemoveClicked.call(this, treeNode);
                                 e.stopPropagation();
                             }}></span>
                         : ''

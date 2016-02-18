@@ -59,47 +59,17 @@ define(function (require) {
             };
         },
 
-        getInitialState: function () {
-            return _.chain(this.props)
-                .pick('leftTreeNodes', 'rightTreeNodes')
-                .mapObject(
-                    (treeNodes) => treeUtil.makeParentLink(treeNodes)
-                ).value();
-        },
+        onTreeNodeRemoveClicked: function (removedTreeNode, from) {
+            var dstTreeNodes = this.ref[
+                from === 'left' ? 'rightTree' : 'leftTree'
+            ].state.treeNodes;
 
-        onTreeNodeRemoveClicked: function (treeNodes, tree, treeNode) {
-            var sourceTreeNodes;
-            var targetTreeNodes;
-            if (this.refs.leftTree === tree) {
-                sourceTreeNodes = this.state.leftTreeNodes;
-                targetTreeNodes = this.state.rightTreeNodes;
-            }
-            else {
-                sourceTreeNodes = this.state.rightTreeNodes;
-                targetTreeNodes = this.state.leftTreeNodes;
-            }
-            // 从source tree挪走treeNode
-            var {
-                treeNodes: newSourceTreeNodes,
-                removedTreeNode: removedSourceTreeNode
-            } = treeUtil.removeNodeFromTreeNodes(treeNode, sourceTreeNodes, this.refs.leftTree === tree);
+            treeUtil.markTreeNodeRemoved(removedTreeNode);
 
-            var newTargetTreeNodes = targetTreeNodes.slice();
             treeUtil.copyNodeToTreeNodes(
-                treeUtil.getPathToRoot(removedSourceTreeNode),
-                newTargetTreeNodes
+                treeUtil.getPathToRoot(removedTreeNode),
+                dstTreeNodes
             );
-            treeUtil.makeParentLink(newTargetTreeNodes);
-            var newState = this.refs.leftTree === tree
-                ? {
-                    leftTreeNodes: newSourceTreeNodes,
-                    rightTreeNodes: newTargetTreeNodes
-                }
-                : {
-                    leftTreeNodes: newTargetTreeNodes,
-                    rightTreeNodes: newSourceTreeNodes
-                };
-            this.setState(newState);
         },
 
         render: function () {
@@ -112,28 +82,27 @@ define(function (require) {
                 textLeftTreeSummary
             } = this.props;
 
-            var treeProps = {
-                onTreeNodeRemoveClicked: this.onTreeNodeRemoveClicked
-            };
-
             return <div className='fcui2-dual-tree-selector'>
                 <div className='fcui2-dual-tree-selector-left-tree-wrapper'>
                     <div className="fcui2-dual-tree-selector-tree-title">{leftTreeTitle}</div>
-                    <Tree {...treeProps} style={{width: leftTreeWidth, height: height}}
+                    <Tree style={{width: leftTreeWidth, height: height}}
                         treeNodes={this.state.leftTreeNodes}
+                        onTreeNodeRemoveClicked={(treeNode) => {
+                            this.moveTreeNode(treeNode, 'left');
+                        }}
                         ref='leftTree' />
                     <div className='fcui2-dual-tree-selector-tree-footer'>
                         <span className='fcui2-dual-tree-selector-tree-footer-summary'>{textLeftTreeSummary}</span>
-                        <span className='fcui2-dual-tree-selector-tree-footer-add-all'>
-                            <a href='javascript:;' onClick=''>全部添加</a>
-                        </span>
                     </div>
                 </div>
                 <div className='fcui2-dual-tree-selector-separator' style={{lineHeight: height + 'px'}}></div>
                 <div className='fcui2-dual-tree-selector-right-tree-wrapper'>
                     <div className='fcui2-dual-tree-selector-tree-title'>{rightTreeTitle}</div>
-                    <Tree {...treeProps} style={{width: rightTreeWidth, height: height}}
+                    <Tree style={{width: rightTreeWidth, height: height}}
                         treeNodes={this.state.rightTreeNodes}
+                        onTreeNodeRemoveClicked={(treeNode) => {
+                            this.moveTreeNode(treeNode, 'right');
+                        }}
                         ref='rightTree' />
                     <div className='fcui2-dual-tree-selector-tree-footer'>
                         <span className='fcui2-dual-tree-selector-tree-footer-summary'>

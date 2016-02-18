@@ -76,6 +76,21 @@ define(function (require) {
             return function (...args) {
                 funcs.find((handler) => handler.apply(this, args));
             };
+        },
+
+        /**
+         * 将freezer的update事件bind到React Component的setState中
+         *
+         * @param {Freezer} freezer freezer
+         * @param {ReactComponent} theComponent The React component
+         * @param {string} stateName stateName
+         */
+        bindFreezerAndComponent: function (freezer, theComponent, stateName) {
+            freezer.on('update', () => {
+                var newState = {};
+                newState[stateName] = freezer.get();
+                theComponent.setState(newState);
+            });
         }
     };
 

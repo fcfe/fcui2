@@ -22,7 +22,11 @@ define(function (require) {
          * @return {Frozen} frozen的treeNodes
          */
         getFrozenTreeNodes: function (treeNodes) {
-            return new Freezer(treeNodes).get();
+            var freezer = new Freezer(treeNodes);
+            return {
+                treeNodesFreezer: freezer,
+                treeNodes: freezer.get()
+            };
         },
 
         /**
