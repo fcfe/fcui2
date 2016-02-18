@@ -98,6 +98,42 @@ define(function (require) {
         },
 
         /**
+         * 从treeNodes集合中移除treeNode。
+         *
+         * @param {treeNode} treeNode treeNode
+         */
+        removeTreeNode: function (treeNode) {
+            assertFreezerFronzen(treeNode);
+
+            // 向上检查所有parent
+            var parent = exports.getParent(treeNode);
+            var child = treeNode;
+
+            while (parent != null) {
+                if (parent.children && parent.children.length) {
+                    var childrenLength = parent.children.reduce((value, treeNode) => {
+                        return treeNode.isRemoved ? value : value + 1;
+                    }, 0);
+                    if (childrenLength === 1) {
+                        child = parent;
+                        parent = exports.getParent(parent);
+                    }
+                    else {
+                        break;
+                    }
+                }
+            }
+            // remove child from parent's children
+            if (parent == null) {
+                // child being this tree's only node
+                child.__.parents[0].shift();
+            }
+            else {
+                parent.children.splice(parent.children.indexOf(child), 1);
+            }
+        },
+
+        /**
          * 将srcTreeNode从root到children拷贝到dstTreeNodes。
          *
          * @param {treeNode} srcTreeNode srcTreeNode

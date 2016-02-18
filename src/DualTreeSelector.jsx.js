@@ -64,12 +64,16 @@ define(function (require) {
                 from === 'left' ? 'rightTree' : 'leftTree'
             ].state.treeNodes;
 
-            treeUtil.markTreeNodeRemoved(removedTreeNode);
+            var pathToRoot = treeUtil.getPathToRoot(removedTreeNode);
 
-            treeUtil.copyNodeToTreeNodes(
-                treeUtil.getPathToRoot(removedTreeNode),
-                dstTreeNodes
-            );
+            if (from === 'left') {
+                treeUtil.markTreeNodeRemoved(removedTreeNode);
+            }
+            else {
+                treeUtil.removeTreeNode(removedTreeNode);
+            }
+
+            treeUtil.copyNodeToTreeNodes(pathToRoot, dstTreeNodes);
         },
 
         render: function () {
