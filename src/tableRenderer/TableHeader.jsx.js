@@ -42,7 +42,7 @@ define(function (require) {
             }
             return (
                 <td {...tdProp}>
-                    {this.props.label}
+                    <span style={{fontWeight: 700}}>{this.props.label}</span>
                     <Tip title={this.props.tipTitle} content={this.props.tipContent}/>
                     <div {...sortButtonProp}></div>
                 </td>

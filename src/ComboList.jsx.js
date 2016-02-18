@@ -3,8 +3,11 @@ define(function (require) {
     var React = require('react');
     var Button = require('./Button.jsx');
     var util = require('./core/util.es6');
+    var mixins = require('./core/mixins.jsx');
 
     return React.createClass({
+        // @override
+        mixins: [mixins.layerContainer, mixins.layerList],
         // @override
         getDefaultProps: function () {
             return {
@@ -12,7 +15,7 @@ define(function (require) {
                 icon: '',
                 cmd: '',
                 disable: false,
-                datasource: [],         // {label: <string>, cmd: <string>, disable: <boolean>}
+                datasource: [], // {label: <string>, cmd: <string>, disable: <boolean>, datasource:[#self]}
                 onClick: function () {}
             };
         },
@@ -39,8 +42,7 @@ define(function (require) {
                 target: this,
                 value: dataset.uiCmd
             });
-            this.hideLayer(e);
-            e.stopPropagation();
+            this.hideLayer();
         },
         mainButtonHandler: function (e) {
             if (this.state.disable) return;
@@ -48,21 +50,7 @@ define(function (require) {
                 target: this,
                 value: this.props.cmd
             });
-            this.hideLayer(e);
-        },
-        fixedLayerPosition: function () {
-            util.fixedLayerPositionTB(this.refs.container, this.refs.layer, this);
-        },
-        showLayer: function (e) {
-            if (this.state.disable) return;
-            this.setState({showLayer: !this.state.showLayer});
-            this.fixedLayerPosition();
-            e.stopPropagation();
-        },
-        hideLayer: function (e) {
-            if (this.state.disable) return;
-            this.setState({showLayer: false});
-            e.stopPropagation();
+            this.hideLayer();
         },
         render: function () {
             var me = this;
@@ -93,37 +81,9 @@ define(function (require) {
                 <div {...containerProp}>
                     <div className="font-icon font-icon-largeable-caret-down" onClick={this.showLayer}></div>
                     <Button {...mainButtonProp}/>
-                    <div {...layerProp}>{this.state.datasource.map(produceItem)}</div>
+                    <div {...layerProp}>{this.state.datasource.map(this.produceList)}</div>
                 </div>
             );
-            function produceItem(item, index) {
-                var children = item.datasource instanceof Array ? item.datasource : [];
-                var itemProp = {
-                    onClick: me.clickHandler,
-                    className: 'item' + (me.state.disable || item.disable ? ' disable' : ''),
-                    key: index
-                };
-                var spanProp = {onClick: me.clickHandler};
-                var rightArrowProp = {
-                    className: 'icon-right font-icon font-icon-largeable-caret-right',
-                    style: {
-                        visibility: children.length > 0 ? 'visible' : 'hidden'
-                    }
-                };
-                var rightLayerProp = {
-                    className: 'layer ' + (children.length > 0 ? 'right-layer' : 'disable-layer')
-                };
-                if (!(me.state.disable || item.disable)) {
-                    itemProp['data-ui-cmd'] = spanProp['data-ui-cmd'] = item.cmd;
-                }
-                return (
-                    <div {...itemProp}>
-                        <div {...rightArrowProp}></div>
-                        <span {...spanProp}>{item.label}</span>
-                        <div {...rightLayerProp}>{children.map(produceItem)}</div>
-                    </div>
-                );
-            }
         }
     });
 });
