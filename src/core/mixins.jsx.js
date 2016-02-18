@@ -93,9 +93,10 @@ define(function (require) {
                 var data = {};
                 data[field] = state.value;
                 for (var key in this.registedField) {
+                    if (key === field) continue;
                     var inputState = this.registedField[key].state;
                     checkPassed = checkPassed && inputState.checkPassed;
-                    if (inputState.changed !== true || key === field) continue;
+                    if (inputState.changed !== true) continue;
                     data[key] = inputState.value;
                 }
                 var formCheckResult = formLevelCheck(data, this.props.checkout);
