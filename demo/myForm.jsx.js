@@ -80,7 +80,8 @@ define(function (require) {
             });
         },
         submit: function () {
-            console.log(this.registedField);
+            var result = this.getFormData();
+            alert(JSON.stringify(result));
         },
         render: function () {
             return (
