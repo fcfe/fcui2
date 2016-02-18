@@ -5,6 +5,7 @@
 define(function (require) {
     var _ = require('underscore');
     var Freezer = require('./freezer');
+    var util = require('./util.es6');
 
     // 确保object被frozen过了
     function assertFreezerFronzen(object) {
@@ -62,13 +63,20 @@ define(function (require) {
         markTreeNodeRemoved: function (treeNode) {
             assertFreezerFronzen(treeNode);
 
-            treeNode.set('isRemoved', true);
-            // 向下移除所有的孩子
-            if (treeNode.children && treeNode.children.length) {
-                treeNode.children.forEach((node) => {
-                    exports.markTreeNodeRemoved(node);
+            function markSelfAndAllChildren(treeNode) {
+                return util.doInFrozenTransaction(treeNode, (mutableTreeNode) => {
+                    mutableTreeNode.isRemoved = true;
+                    // 向下移除所有的孩子
+                    if (mutableTreeNode.children && mutableTreeNode.children.length) {
+                        mutableTreeNode.children.forEach((node) => {
+                            markSelfAndAllChildren(node);
+                        });
+                    }
                 });
             }
+
+            treeNode = markSelfAndAllChildren(treeNode);
+
             // 向上检查所有parent
             var parent = exports.getParent(treeNode);
             while (parent != null) {
@@ -77,7 +85,9 @@ define(function (require) {
                         return treeNode.isRemoved ? value : value + 1;
                     }, 0);
                     if (childrenLength === 0) {
-                        parent.set('isRemoved', true);
+                        parent = util.doInFrozenTransaction(parent, (mutableNode) => {
+                            mutableNode.isRemoved = true;
+                        });
                         parent = exports.getParent(parent);
                     }
                     else {
@@ -94,23 +104,28 @@ define(function (require) {
          * @param {treeNode} dstTreeNodes dstTreeNode
          */
         copyNodeToTreeNodes: function (srcTreeNode, dstTreeNodes) {
-            var matchedTreeNode = dstTreeNodes.find((treeNode) => treeNode.id === srcTreeNode.id);
-            if (matchedTreeNode == null) {
-                matchedTreeNode = _.omit(srcTreeNode, 'children', 'isRemoved');
-                dstTreeNodes.push(matchedTreeNode);
-            }
-            matchedTreeNode.isRemoved = false;
-            if (srcTreeNode.children && srcTreeNode.children.length) {
-                if (matchedTreeNode.children == null) {
-                    matchedTreeNode.children = [];
+            util.doInFrozenTransaction(dstTreeNodes, (mutableTreeNodes) => {
+                var matchedTreeNode = mutableTreeNodes.find((treeNode) => treeNode.id === srcTreeNode.id);
+                if (matchedTreeNode == null) {
+                    matchedTreeNode = _.omit(srcTreeNode, 'children', 'isRemoved');
+                    mutableTreeNodes.push(matchedTreeNode);
                 }
-                srcTreeNode.children.forEach((node) => {
-                    exports.copyNodeToTreeNodes(
-                        node,
-                        matchedTreeNode.children
-                    );
+                util.doInFrozenTransaction(matchedTreeNode, (mutableNode) => {
+                    mutableNode.isRemoved = false;
+                    if (srcTreeNode.children && srcTreeNode.children.length) {
+                        if (mutableNode.children == null) {
+                            mutableNode.children = [];
+                        }
+                        srcTreeNode.children.forEach((node) => {
+                            exports.copyNodeToTreeNodes(
+                                node,
+                                mutableNode.children
+                            );
+                        });
+                    }
                 });
-            }
+            });
+
         },
 
         /**

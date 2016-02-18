@@ -107,28 +107,6 @@ define(function (require) {
             }
         },
         render: function () {
-            var treeNodes = [
-                {
-                    id: '1',
-                    name: 'Node 1',
-                    isChildrenLoading: true
-                },
-                {
-                    id: '2',
-                    name: 'Node 2',
-                    isExpanded: true,
-                    children: [
-                        {
-                            id: '2.1',
-                            name: 'Node 2.1'
-                        },
-                        {
-                            id: '2.2',
-                            name: 'Node 2.2'
-                        }
-                    ]
-                }
-            ];
             var tableProps = {
                 message: '这是外部导入的一个信息',
                 summary: this.props.tableSummary,
@@ -136,6 +114,8 @@ define(function (require) {
                 conf: tableField,
                 onAction: this.tableHandler
             };
+
+            var treeProps = require('./treeProps');
 
             return (<div>
                 <div className="leftContainer">{this.state.outputmsg}</div>
@@ -178,13 +158,9 @@ define(function (require) {
                     <Button label="Alert" onClick={this.alertHandler}/>
                     <Button label="Confirm" onClick={this.confirmHandler}/>
                     <h3>Example8: Tree</h3>
-                    <Tree treeNodes={treeNodes}
-                        onTreeNodeExpandClicked={(node, nodes) => {console.log(this, node, nodes);}}
-                        onTreeNodeRemoveClicked={(node, nodes) => {console.log(this, node, nodes);}}
-                        onTreeNodeClicked={(node, nodes) => {console.log(this, node, nodes);}}
-                    />
+                    <Tree {...treeProps.tree} />
                     <h3>Example9: Dual Tree Selector</h3>
-                    <DualTreeSelector leftTreeNodes={treeNodes} rightTreeNodes={[]} />
+                    <DualTreeSelector {...treeProps.dualTreeSelector} />
                     <h3>Example10: Complex Table</h3>
                     <Table {...tableProps}/>
                 </div>

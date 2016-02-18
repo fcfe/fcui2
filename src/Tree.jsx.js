@@ -105,7 +105,7 @@ define(function (require) {
                     this.setState(freezer);
                 }
                 else {
-                    this.setState('treeNodes', this.props.treeNodes);
+                    this.setState({treeNodes: nextProps.treeNodes});
                 }
             }
         },
@@ -116,7 +116,7 @@ define(function (require) {
                 this._handlers.onTreeNodeExpandClicked = util.chainFunctions(
                     this.props.onTreeNodeExpandClicked,
                     (treeNode) => {
-                        treeNode.set('isExpanded', true);
+                        treeNode.set('isExpanded', !treeNode.isExpanded);
                     }
                 );
                 this._handlers.onTreeNodeClicked = util.chainFunctions(
@@ -145,10 +145,6 @@ define(function (require) {
                 className = '',
                 ...other
             } = this.props;
-            var {
-                focusedTreeNode,
-                treeNodes
-            } = this.state;
 
             var nextTreeLevel = treeLevel + 1;
             style = _.extend({}, getTreeLevelStyle(treeLevel), style);
@@ -171,11 +167,11 @@ define(function (require) {
                         treeLevel > 0 ? 'fcui2-tree fcui2-tree-inner' : 'fcui2-tree'
                     ].join(' ')}
                 >
-                    {treeNodes.map((node) => {
+                    {this.state.treeNodes.map((node) => {
                         return <div key={node.id}>
                             <Tree.TreeNode {...treeNodeProps} treeNode={node}
                                 className={[
-                                    focusedTreeNode === node ? 'fcui2-tree-node-focused' : ''
+                                    this.state.focusedTreeNode === node ? 'fcui2-tree-node-focused' : ''
                                 ].join(' ')}
                             />
                                 {node.isExpanded && node.children && node.children.length

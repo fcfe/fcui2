@@ -59,8 +59,8 @@ define(function (require) {
             };
         },
 
-        onTreeNodeRemoveClicked: function (removedTreeNode, from) {
-            var dstTreeNodes = this.ref[
+        moveTreeNode: function (removedTreeNode, from) {
+            var dstTreeNodes = this.refs[
                 from === 'left' ? 'rightTree' : 'leftTree'
             ].state.treeNodes;
 
@@ -86,7 +86,7 @@ define(function (require) {
                 <div className='fcui2-dual-tree-selector-left-tree-wrapper'>
                     <div className="fcui2-dual-tree-selector-tree-title">{leftTreeTitle}</div>
                     <Tree style={{width: leftTreeWidth, height: height}}
-                        treeNodes={this.state.leftTreeNodes}
+                        treeNodes={this.props.leftTreeNodes}
                         onTreeNodeRemoveClicked={(treeNode) => {
                             this.moveTreeNode(treeNode, 'left');
                         }}
@@ -99,7 +99,7 @@ define(function (require) {
                 <div className='fcui2-dual-tree-selector-right-tree-wrapper'>
                     <div className='fcui2-dual-tree-selector-tree-title'>{rightTreeTitle}</div>
                     <Tree style={{width: rightTreeWidth, height: height}}
-                        treeNodes={this.state.rightTreeNodes}
+                        treeNodes={this.props.rightTreeNodes}
                         onTreeNodeRemoveClicked={(treeNode) => {
                             this.moveTreeNode(treeNode, 'right');
                         }}

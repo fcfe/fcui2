@@ -95,6 +95,25 @@ define(function (require) {
                 newState[stateName] = freezer.get();
                 theComponent.setState(newState);
             });
+        },
+
+        /**
+         * 完成一个Frozen包装的 object 的transaction
+         *
+         * @param {Freezer} freezed freezed object 如果不是freezed object，则立即执行后面的func
+         * @param {Function} func transaction function
+         *
+         * @return {Freezer} transaction result
+         */
+        doInFrozenTransaction(freezed, func) {
+            if (typeof freezed.transact !== 'function') {
+                func(freezed, freezed);
+                return freezed;
+            }
+
+            var mutable = freezed.transact();
+            func(mutable, freezed);
+            return freezed.run();
         }
     };
 
