@@ -22,6 +22,7 @@ define(function (require) {
     var config = require('./config');
     var dialog = new Dialog();
     var subApp = require('./subApp.jsx');
+    var MyForm = require('./myForm.jsx');
     var tableField = require('./tableFieldConfig');
 
 
@@ -171,6 +172,7 @@ define(function (require) {
                     <NumberBox ref="number2" max="10" min="-10" fixed="2"
                         type="float" onChange={this.textBoxChangeHandler} width="80" step="0.5"/>
                     <h3>Example 5.1: Form</h3>
+                    <MyForm ref="myform"/>
                     <h3>Example6: Pager</h3>
                     <Pager ref="pager" min="1" max="20" value="10" onChange={this.listClickHandler}/>
                     <h3>Example7: Dialog</h3>

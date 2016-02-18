@@ -5,7 +5,18 @@
 define(function (require) {
     var u = require('underscore');
     var exports = {
-
+        /**
+         * 绑定函数上下文
+         *
+         * @param {Function} func 需要绑定的函数
+         * @param {Object} me 绑定到函数的上下文
+         * @return {Function} 通过闭包形式返回上下文绑定好的函数。
+         */
+        bind: function (func, me) {
+            return function () {
+                return func.apply(me, arguments);
+            };
+        },
         /**
          * 获取dom节点的位置
          *

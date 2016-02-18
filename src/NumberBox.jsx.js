@@ -1,6 +1,11 @@
 define(function (require) {
+
     var React = require('react');
+    var mixins = require('./core/mixins.jsx');
+
     return React.createClass({
+        // @override
+        mixins: [mixins.formField],
         // @override
         getDefaultProps: function () {
             return {
@@ -15,7 +20,10 @@ define(function (require) {
                 checkout: [],
                 disable: false,
                 showButton: true,
-                onChange: function () {}
+                onChange: function () {},
+                form: {},   // 父form component
+                formField: '', // 本输入的域名称
+                formFeedback: '' // 错误的提示框
             };
         },
         // @override
@@ -26,7 +34,9 @@ define(function (require) {
                 display: this.fix(value), // 用于显示的数据
                 disable: this.props.disable,
                 showButton: this.props.showButton,
-                checkPassed: true
+                checkPassed: true,
+                checkMessage: '',
+                changed: false
             };
         },
         // @override
@@ -41,8 +51,11 @@ define(function (require) {
             var v = this.fix(parseFloat(display));
             if (v === 'NaN') {
                 this.setState({
-                    display: display,
-                    checkPassed: false
+                    value: 'NaN',
+                    display: '',
+                    checkPassed: false,
+                    checkMessage: '',
+                    changed: true
                 });
             }
             else {
@@ -50,18 +63,21 @@ define(function (require) {
             }
         },
         add: function () {
-            if (this.state.disable) return;
+            if (this.state.disable || isNaN(this.state.value)) return;
             var v = this.fix(parseFloat(this.state.value) + parseFloat(this.props.step));
             this.dispatch(v);
         },
         sub: function () {
-            if (this.state.disable) return;
+            if (this.state.disable || isNaN(this.state.value)) return;
             var v = this.fix(parseFloat(this.state.value) - parseFloat(this.props.step));
             this.dispatch(v);
         },
         fix: function (v) {
-            v = v > parseFloat(this.props.max) ? parseFloat(this.props.max) : v;
-            v = v < parseFloat(this.props.min) ? parseFloat(this.props.min) : v;
+            var max = parseFloat(this.props.max);
+            var min = parseFloat(this.props.min);
+            var fixed = parseInt(this.props.fixed, 10);
+            v = v > max ? max : v;
+            v = v < min ? min : v;
             if (this.props.type === 'int') {
                 return parseInt(v, 10) + '';
             }
@@ -74,32 +90,26 @@ define(function (require) {
                 result += char;
             }
             var arr = result.split('.').slice(0, 2);
-            var fixed =  parseInt(this.props.fixed, 10);
             if (arr.length > 1 && arr[1].length > fixed) {
                 arr[1] = arr[1].slice(0, fixed);
             }
             v = arr.join('.');
             return v.length > 0 ? v : 'NaN';
         },
-        check: function (v) {
-            for (var i = 0; i < this.props.checkout.length; i++) {
-                var result = this.props.checkout[i](v);
-                if (result !== true) return result;
-            }
-            return true;
-        },
         dispatch: function (v) {
             var value = parseFloat(this.fix(v));
-            var check = this.check(value);
-            this.setState({
-                value: value,
-                display: this.fix(v),
-                checkPassed: check === true ? true : false
-            });
+            var result = this.checkValue(value);
             this.props.onChange({
                 target: this,
                 value: value,
-                check: check
+                check: result
+            });
+            this.setState({
+                value: value,
+                display: this.fix(v),
+                checkPassed: result === true ? true : false,
+                checkMessage: result,
+                changed: true
             });
         },
         focus: function () {
