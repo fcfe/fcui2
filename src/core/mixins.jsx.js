@@ -1,7 +1,9 @@
 define(function (require) {
 
+
     var util = require('./util.es6');
     var React = require('react');
+
 
     // 更新表单数据域回馈信息
     function updateFeedback(v, feedback) {
@@ -13,6 +15,7 @@ define(function (require) {
             feedback.setState({value: v});
         }
     }
+
 
     // 表单级别校验
     function formLevelCheck(data, checkers, isSubmit) {
@@ -36,7 +39,75 @@ define(function (require) {
         }
     }
 
+
     return {
+        // 用于随window resize进行特殊渲染处理的组件，如table header
+        resizeContainer: {
+            resizeTimer: null,
+            resizeHandler: function () {
+                if (this.resizeTimer) {
+                    clearTimeout(this.resizeTimer);
+                }
+                var me = this;
+                me.resizeTimer = setTimeout(function () {
+                    if (typeof me.resizing === 'function') {
+                        me.resizing();
+                    }
+                }, 1000 / 60);
+            }
+        },
+        // 用于含有随滚动条fixed dom的组件，如table，需要fixed header
+        fixedContainer: {
+            scrollTimer: null,
+            scrollHandler: function () {
+                if (this.scrollTimer) {
+                    clearTimeout(this.scrollTimer);
+                }
+                var me = this;
+                me.scrollTimer = setTimeout(function () {
+                    me.scrolling();
+                }, 1000 / 60);
+            },
+            scrolling: function () {
+                if (!(this.props.fixedPosition instanceof Array)) return;
+                var fixedArray = this.props.fixedPosition;
+                for (var i = 0; i < fixedArray.length; i++) {
+                    var obj = fixedArray[i];
+                    var dom = this.refs[obj.ref];
+                    if (!dom) continue;
+                    obj.top = isNaN(obj.top) ? 0 : obj.top * 1;
+                    var pos = util.getDOMPosition(dom);
+                    if (window.scrollY - dom.__posY + obj.top < 0 && dom.__fixed) {
+                        dom.__fixed = false;
+                        dom.className = dom.className.replace(' fcui2-fixed-with-scroll', '');
+                        dom.style.zIndex = dom.__zIndex;
+                        dom.style.top = dom.__top
+                        return;
+                    }
+                    if (pos.y < obj.top) {
+                        dom.__fixed = true;
+                        dom.className = dom.className + ' fcui2-fixed-with-scroll';
+                        dom.style.top = obj.top + 'px';
+                        dom.style.zIndex = obj.zIndex;
+                    }
+                }
+            },
+            recordFixedDOMPosition: function () {
+                if (!(this.props.fixedPosition instanceof Array)) return;
+                var fixedArray = this.props.fixedPosition;
+                for (var i = 0; i < fixedArray.length; i++) {
+                    var obj = fixedArray[i];
+                    var dom = this.refs[obj.ref];
+                    if (!dom) continue;
+                    var pos = util.getDOMPosition(dom);
+                    dom.__posY = pos.top;
+                    dom.__fixed = false;
+                    dom.__zIndex = dom.style.zIndex;
+                    dom.__top = dom.style.top;
+                }
+            }
+        },
+        // 用于想作为表单的组件
         formContainer: {
             registedField: {},
             registField: function (child) {
@@ -67,7 +138,7 @@ define(function (require) {
                     updateFeedback(result !== true ? result : '', this.refs[child.props.formFeedback]);
                     
                 }
-                // 表单界别校验
+                // 表单级别校验
                 var formCheckResult = formLevelCheck(data, this.props.checkout, 1);
                 formCheckResult.checkPassed = formCheckResult.checkPassed && checkPassed;
                 this.setState(formCheckResult);
@@ -104,6 +175,7 @@ define(function (require) {
                 this.setState(formCheckResult);
             }
         },
+        // 用于表单输入域
         formField: {
             // @override
             componentDidMount: function () {
@@ -138,6 +210,7 @@ define(function (require) {
                 return true;
             }
         },
+        // 用于含有layer浮层的容器
         layerContainer: {
             fixedLayerPosition: function () {
                 util.fixedLayerPositionTB(this.refs.container, this.refs.layer, this);
@@ -152,6 +225,7 @@ define(function (require) {
                 this.setState({showLayer: false});
             }
         },
+        // 用于生成纯list列表的layer内容
         layerList: {
             produceList: function (item, index) {
                 var me = this;

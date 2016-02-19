@@ -28,7 +28,7 @@ define(function (require) {
                     value = (value * 100).toFixed(2) + '%';
                     break;
             }
-            return (<td {...tdProp}>{value}</td>);
+            return (<td {...tdProp}><div>{value}</div></td>);
         }
     });
 

@@ -3,7 +3,7 @@
     position: relative;
     border-bottom: 0px;
     border: @border-normal;
-    table {
+    .table-data {
         width: 100%;
     }
     tr:hover {
@@ -18,27 +18,21 @@
         border-right:  @border-normal;
         border-bottom:  @border-normal;
         line-height: 40px;
-        //padding: @padding-td;
+        padding: 0 !important;
         word-break: break-all;
+        >div {
+            margin: 0 5px;
+        }
     }
     td:last-child {
         border-right: 0px;
     }
-    .table-header {
-        .table-header-item {
-            display: inline-block;
-        }
-    }
-
-
-
-
-
 
     .fcui2-fixed-header {
-        position: absolute;
-        top: 0px;
+
     }
+
+
     .tr-selected {
         background-color: @bgcolor-item-hover !important;
     }

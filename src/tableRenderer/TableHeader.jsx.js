@@ -41,11 +41,11 @@ define(function (require) {
                 tdProp.style.width = this.props.width;
             }
             return (
-                <td {...tdProp}>
+                <td {...tdProp}><div>
                     <span style={{fontWeight: 700}}>{this.props.label}</span>
                     <Tip title={this.props.tipTitle} content={this.props.tipContent}/>
                     <div {...sortButtonProp}></div>
-                </td>
+                </div></td>
             );
         }
     });

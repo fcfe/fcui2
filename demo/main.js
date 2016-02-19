@@ -3,7 +3,6 @@ define(function (require) {
     var React = require('react');
     var app = require('./app.jsx');
     var ui = null;
-    var fixedHelper = require('fcui/core/fixedHelper');
     var props = {
         textBoxProp: {
             label: '请输入内容',
@@ -66,5 +65,7 @@ define(function (require) {
         React.createElement(app, props),
         document.getElementById('react-container')
     );
-    fixedHelper.add('.fcui2-table .fcui2-fixed-header', 80, 100);
+    // setTimeout(function () {
+    //     ReactDOM.unmountComponentAtNode(document.getElementById('react-container'));
+    // }, 2000);
 });

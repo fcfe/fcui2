@@ -1,13 +1,17 @@
 define(function (require) {
 
+
     var TableHeader = require('./tableRenderer/TableHeader.jsx');
     var TableSelector = require('./tableRenderer/TableSelector.jsx');
     var NormalRenderer = require('./tableRenderer/NormalRenderer.jsx');
     var React = require('react');
     var util = require('./core/util.es6');
-    var language = require('./core/language')
+    var mixins = require('./core/mixins.jsx');
+    var language = require('./core/language');
+
 
     return React.createClass({
+        mixins: [mixins.fixedContainer, mixins.resizeContainer],
         // @override
         getDefaultProps: function () {
             return {
@@ -17,16 +21,19 @@ define(function (require) {
                 summary: {},
                 message: '',
                 messageButtonLabel: language.button.fresh,
+                fixedPosition: [
+                    {
+                        ref: 'tableHead',
+                        top: 80,
+                        zIndex: 999
+                    }
+                ],
                 showHeader: true,
                 showSummary: true,
                 showMessage: true,
                 showSelector: true,
                 onAction: function () {}
             };
-        },
-        // @override
-        componentWillReceiveProps: function () {
-            // console.log(arguments);
         },
         // @override
         getInitialState: function () {
@@ -39,10 +46,21 @@ define(function (require) {
         },
         // @override
         componentDidMount: function () {
+            window.addEventListener('scroll', this.scrollHandler);
+            window.addEventListener('resize', this.resizeHandler);
             this.updateWidth();
+            this.recordFixedDOMPosition();
+        },
+        // @override
+        componentWillUnmount: function () {
+            window.removeEventListener('scroll', this.scrollHandler);
+            window.removeEventListener('resize', this.resizeHandler);
         },
         // @override
         componentDidUpdate: function () {
+            this.updateWidth();
+        },
+        resizing: function () {
             this.updateWidth();
         },
         sortHandler: function (e) {
@@ -50,6 +68,7 @@ define(function (require) {
                 field: e.field,
                 order: e.sortType
             });
+            this.setState({sortField: e.field});
         },
         messageBarClickHandler: function (e) {
             this.props.onAction('TableMessageBarClick', {});
@@ -58,14 +77,17 @@ define(function (require) {
             this.props.onAction(type, param);
         },
         updateWidth: function () {
-            var container = this.refs.container;
-            var table = this.refs.table;
-            var conf = this.props.conf;
-            var d = container.offsetWidth - table.offsetWidth;
-            if (d < 15) return;
-            var last = conf[conf.length - 1];
-            last.width += d + 10;
-            this.setState({conf: conf});
+            this.refs.tableHead.style.width = this.refs.tableData.offsetWidth + 'px';
+            var tbody = this.refs.tbody;
+            var thead = this.refs.thead;
+            if (tbody.childNodes.length === 0 || tbody.childNodes.length === 0) return;
+            var tr = tbody.childNodes[0];
+            var th = thead.childNodes[0];
+            for (var i = 0; i < tr.childNodes.length; i++) {
+                var width = tr.childNodes[i].offsetWidth;
+                if (i >= th.childNodes.length) break;
+                th.childNodes[i].style.width = width + 'px';
+            }
         },
         closeMessageBar: function () {
             this.setState({message: ''});
@@ -116,28 +138,35 @@ define(function (require) {
             var me = this;
             var conf = this.props.conf;
             return (
-                <div className={'fcui2-table ' + this.props.className} ref="container">
-                    <table cellSpacing="0" cellPadding="0" ref="table">
-                        <tbody>
+                <div className={'fcui2-table ' + this.props.className} ref="container" onResize={function () {console.log(1)}}>
+                    <table ref="tableHead" cellSpacing="0" cellPadding="0">
+                        <tbody ref="thead">
                         {headerFactory()}
                         {summaryFactory()}
                         {messageFactory()}
+                        </tbody>
+                    </table>
+                    <table cellSpacing="0" cellPadding="0" ref="tableData" className="table-data">
+                        {colgroupFactory()}
+                        <tbody ref="tbody">
                         {this.props.datasource.map(lineFactory)}
                         </tbody>
                     </table>
-                    <div className="fcui2-fixed-header">
-                        <table cellSpacing="0" cellPadding="0">
-                            <tbody>
-                            {headerFactory()}
-                            {summaryFactory()}
-                            {messageFactory()}
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             );
+            // 生成列宽度
+            function colgroupFactory() {
+                var td = [];
+                if (me.props.showSelector) {
+                    td.push(<col minWidth={50} maxWidth={50} width={50} key='col-selector'/>);
+                }
+                for (var i = 0; i < conf.length; i++) {
+                    td.push(<col width={conf[i].width} key={'col-' + i}/>);
+                }
+                return <colgroup>{td}</colgroup>
+            }
             // 生成表头
-            function headerFactory(ref) {
+            function headerFactory() {
                 if (!me.props.showHeader) {
                     return (<tr></tr>);
                 }
@@ -149,13 +178,13 @@ define(function (require) {
                         datasource: me.state.selectedIndex,
                         onAction: me.rowSelected
                     }
-                    td.push(<td key="head-select"><TableSelector {...selectorProp}/></td>);
+                    td.push(<td key="head-select" style={{textAlign: 'center'}}><TableSelector {...selectorProp}/></td>);
                 }
                 for (var i = 0; i < conf.length; i++) {
                     var key = 'head-' + i;
                     td.push(<TableHeader {...conf[i]} onSort={me.sortHandler} sortField={me.state.sortField} key={key}/>);
                 }
-                return <tr className="table-header" key="head">{td}</tr>;
+                return <tr className="table-header" key="table-head">{td}</tr>;
             }
             // 生成统计栏
             function summaryFactory() {

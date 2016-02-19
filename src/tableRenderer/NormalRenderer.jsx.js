@@ -22,9 +22,7 @@ define(function (require) {
             //     tdProp.style.width = conf.width;
             // }
             return (
-                <td {...tdProp}>
-                    {value}
-                </td>
+                <td {...tdProp}><div>{value}</div></td>
             );
         }
     });

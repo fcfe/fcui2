@@ -70,7 +70,7 @@ define(function (require) {
             }
             //tdProp.style.width = typeof conf.width === 'number' ? conf.width : undefined;
             return (
-                <td {...tdProp}>
+                <td {...tdProp}><div>
                     <div className="font-icon font-icon-edit" onClick={this.openEditor}></div>
                     <div className="link" onClick={this.clickHandler}>{value}</div>
                     <div className="editor" ref="editor">
@@ -79,7 +79,7 @@ define(function (require) {
                         <Button onClick={this.submit} skin="important" disable={this.state.errorMsg.length > 0} label={config.button.enter}/>
                         <Button onClick={this.closeEditor} label={config.button.cancel}/>
                     </div>
-                </td>
+                </div></td>
             );
         }
     });

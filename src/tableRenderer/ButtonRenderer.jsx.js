@@ -51,10 +51,10 @@ define(function (require) {
             //     tdProp.style.width = conf.width;
             // }
             return (
-                <td {...tdProp}>
+                <td {...tdProp}><div>
                     {value}
                     <div {...btnProp}></div>
-                </td>
+                </div></td>
             );
         }
     });
