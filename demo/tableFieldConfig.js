@@ -35,7 +35,7 @@ define(function (require) {
         {
             label: '年龄',
             field: 'age',
-            width: 50, //这一项必须配置，否则table header吸顶时会出现问题
+            width: 60, //这一项必须配置，否则table header吸顶时会出现问题
             sortAble: true,
             renderer: require('fcui/tableRenderer/NumberRenderer.jsx')
         },

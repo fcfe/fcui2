@@ -7,17 +7,26 @@
  */
 define(function (require) {
     
+    var util = require('./util.es6');
+
     // 需要刷新的配置，数组索引决定了fixed后的zIndex
     var elements = [];
 
     // 注册全局scroll，已优化
     var scrollTimer = null;
+    var resizeTimer = null;
     window.onscroll = function () {
         if (scrollTimer) {
             clearTimeout(scrollTimer);
         }
         scrollTimer = setTimeout(scrollHandler, 1000 / 60);
-    }
+    };
+    window.onresize = function () {
+        if (resizeTimer) {
+            clearTimeout(resizeTimer);
+        }
+        resizeTimer = setTimeout(resizeTimer, 1000 / 60);
+    };
 
     // scroll事件句柄
     function scrollHandler() {
@@ -33,6 +42,13 @@ define(function (require) {
         }
     }
 
+    //resize句柄
+    function resizeTimer() {
+        for (var i = 0; i < elements.length; i++) {
+            record(elements[i].key);
+        }
+    }
+
     // 对每个配置做更新
     function update(selector, scrollTop, fixedTop, zIndex) {
         var doms = $(selector);
@@ -41,26 +57,33 @@ define(function (require) {
         }
         doms.each(function () {
             var me = $(this);
-            if (this.oldTop === undefined) {
-                this.oldzIndex = me.css('zIndex');
-                this.oldTop = me.css('top');
-                this.oldOffsetTop = me.offset().top;
+            var pos = util.getDOMPosition(this);
+            if (scrollTop - this.oldPos + fixedTop < 0 && this.isFixed) {
+                this.isFixed = false;
+                me.removeClass('fcui2-fixed-with-scroll').css({
+                    top: this.oldTop,
+                    zIndex: this.oldzIndex
+                });
+                return;
             }
-            if (scrollTop - this.oldOffsetTop + fixedTop > 0) {
+            if (pos.y < fixedTop) {
+                this.isFixed = true;
                 me.addClass('fcui2-fixed-with-scroll').css({
                     top: fixedTop,
                     zIndex: zIndex
                 });
             }
-            else {
-                me.removeClass('fcui2-fixed-with-scroll').css({
-                    top: this.oldTop,
-                    zIndex: this.oldzIndex
-                });
-            }
         });
     }
 
+    function record(selector) {
+        $(selector).each(function () {
+            var me = $(this);
+            this.oldTop = me.css('top');
+            this.oldzIndex = me.css('zIndex');
+            this.oldPos = util.getDOMPosition(this).top;
+        });
+    }
 
     return {
         add: function (selector, top, zIndex) {
@@ -69,6 +92,7 @@ define(function (require) {
                 value: isNaN(top) ? 0 : parseInt(top, 10),
                 zIndex: !isNaN(zIndex) ? parseInt(zIndex, 10): null
             });
+            record(selector);
         },
         remove: function (selector) {
             var arr = [];

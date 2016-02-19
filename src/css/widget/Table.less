@@ -3,6 +3,9 @@
     position: relative;
     border-bottom: 0px;
     border: @border-normal;
+    table {
+        width: 100%;
+    }
     tr:hover {
         background-color: @bgcolor-item-hover;
         .td-button {
@@ -15,12 +18,23 @@
         border-right:  @border-normal;
         border-bottom:  @border-normal;
         line-height: 40px;
-        padding: @padding-td;
+        //padding: @padding-td;
         word-break: break-all;
     }
     td:last-child {
         border-right: 0px;
     }
+    .table-header {
+        .table-header-item {
+            display: inline-block;
+        }
+    }
+
+
+
+
+
+
     .fcui2-fixed-header {
         position: absolute;
         top: 0px;

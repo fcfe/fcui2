@@ -20,33 +20,37 @@ define(function (require) {
         componentDidMount: function () {
             var me = this;
             if (typeof me.props.content === 'function') {
-                try {
-                    var contentProps = me.props.contentProps || {};
-                    // content调用dispose直接销毁窗口，不触发任何事件
-                    contentProps.dispose = function () {
-                        me.props.dispose();
-                    };
-                    // content调用close会相继触发onBeforeClose、onClose
-                    contentProps.close = function () {
-                        me.closeHandler();
-                    };
-                    me.content = ReactDOM.render(
-                        React.createElement(me.props.content, contentProps),
-                        me.refs.content,
-                        function () {me.resize();}
-                    );
-                }
-                catch (e) {
-                    console.error('Fail to load dialog content.');
-                    me.resize();
-                }
+                me.updateContentProps(me.props.contentProps);
             }
             else {
                 me.resize();
             }
         },
+        updateContentProps: function (props) {
+            var me = this;
+            try {
+                var contentProps = props || {};
+                // content调用dispose直接销毁窗口，不触发任何事件
+                contentProps.dispose = function () {
+                    me.props.dispose();
+                };
+                // content调用close会相继触发onBeforeClose、onClose
+                contentProps.close = function () {
+                    me.close();
+                };
+                me.content = ReactDOM.render(
+                    React.createElement(me.props.content, contentProps),
+                    me.refs.content,
+                    function () {me.resize();}
+                );
+            }
+            catch (e) {
+                console.error('Fail to load dialog content.');
+                me.resize();
+            }
+        },
         // 点击Title Bar的关闭会触发，content内部调用props.close也会触发
-        closeHandler: function () {
+        close: function () {
             var evt = document.createEvent('UIEvents');
             evt.fcuiTarget = this;
             this.props.close(evt);
@@ -65,7 +69,7 @@ define(function (require) {
                 <div ref="container">
                     <div className="title-bar">
                         <span>{this.props.title}</span>
-                        <div className="font-icon font-icon-times" onClick={this.closeHandler}></div>
+                        <div className="font-icon font-icon-times" onClick={this.close}></div>
                     </div>
                     <div ref="content" className="content"></div>
                 </div>
@@ -193,6 +197,15 @@ define(function (require) {
                 } 
             }, 10);
         }
+    };
+
+
+    /**
+     * 更新弹出窗体的content的props 
+     */
+    Dialog.prototype.updatePopContentProps = function (props) {
+        if (!me.ui) return;
+        me.ui.updateContentProps(props);
     };
 
 

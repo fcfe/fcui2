@@ -43,9 +43,9 @@ define(function (require) {
             if (conf.hasOwnProperty('color')) {
                 iconProp.style.color = typeof conf.color === 'function' ? conf.color(item) : conf.color + '';
             }
-            if (typeof conf.width === 'number') {
-                tdProp.style.width = conf.width;
-            }
+            // if (typeof conf.width === 'number') {
+            //     tdProp.style.width = conf.width;
+            // }
             var message = typeof conf.content === 'function' ? conf.content(item) : conf.content + '';
             var buttonLabel = typeof conf.buttonLabel === 'function' ? conf.buttonLabel(item) : conf.buttonLabel + '';
             return (

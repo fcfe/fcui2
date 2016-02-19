@@ -67,7 +67,6 @@ define(function (require) {
         // @override
         getInitialState: function () {
             return {
-                data: {},
                 disable: this.props.disable,
                 checkPassed: true,
                 checkMessage: ''

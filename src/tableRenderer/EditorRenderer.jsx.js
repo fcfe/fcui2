@@ -68,7 +68,7 @@ define(function (require) {
             if (typeof conf.content === 'function') {
                 value = conf.content(value, item);
             }
-            tdProp.style.width = typeof conf.width === 'number' ? conf.width : undefined;
+            //tdProp.style.width = typeof conf.width === 'number' ? conf.width : undefined;
             return (
                 <td {...tdProp}>
                     <div className="font-icon font-icon-edit" onClick={this.openEditor}></div>
