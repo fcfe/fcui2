@@ -1,6 +1,7 @@
 @import "../skin.less";
 .fcui2-table {
     position: relative;
+    z-index: 0;
     table {
         border-left: @border-normal;
     }
@@ -69,10 +70,11 @@
         height: 0px;
         overflow-y: hidden;
         border-top: @border-normal;
+        border-bottom: @border-normal;
         table {
             position: absolute;
             bottom: 0px;
-            z-index: 99;
+            z-index: 1;
         }
     }
     .table-container {
