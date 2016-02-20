@@ -1,43 +1,36 @@
 @import "../skin.less";
-
-.layer-container {
-    position: relative !important;
-    .font-icon {
-        display: inline-block;
-        line-height: @lineheight-normal;
-    }
+.fcui2-list {
+    font-size: @fontsize-button;
+    line-height: @lineheight-normal;
+    white-space: nowrap;
+    text-align: left;
+    margin: 5px 0;
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
     .icon-right {
         float: right;
         width: 20px;
-    }
-    .layer {
-        position: absolute;
-        padding: @padding-layer-list;
-        border: @border-normal;
-        background-color: @bgcolor-active;
-        -webkit-box-shadow: @shadow-normal;
-        -moz-box-shadow: @shadow-normal;
-        box-shadow: @shadow-normal;
-        white-space: nowrap;
-        text-align: left;
-    }
-    .up-layer {
-        display: none;
-        bottom: @height-normal;
-        left: -1px;
-        min-width: 100%;
-    }
-    .bottom-layer {
-        display: none;
-        top: @height-normal;
-        left: -1px;
-        min-width: 100%;
-        margin-top: 1px;
+        display: inline-block;
+        line-height: @lineheight-normal;
     }
     .right-layer {
+        position: absolute;
+        padding: 5px 0;
         display: none;
         margin-left: 100%;
         top: 0px;
+        border: 1px solid #F00;
+        background-color: @bgcolor-active;
+        border: @border-normal;
+        -webkit-box-shadow: @shadow-normal;
+        -moz-box-shadow: @shadow-normal;
+        box-shadow: @shadow-normal;
+        z-index: 10000;
     }
     .disable-layer {
         display: none;
@@ -53,6 +46,8 @@
     }
     .item {
         position: relative;
+        overflow: show;
+        cursor: default;
         span {
             margin: @margin-normal;
         }
@@ -66,11 +61,5 @@
             display: block;
             z-index: 9999;
         }
-    }
-}
-.layer-container-showlayer {
-    .bottom-layer,.up-layer {
-        display: block;
-        z-index: 9999;
     }
 }

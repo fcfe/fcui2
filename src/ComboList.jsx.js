@@ -2,12 +2,11 @@ define(function (require) {
 
     var React = require('react');
     var Button = require('./Button.jsx');
-    var util = require('./core/util.es6');
     var mixins = require('./core/mixins.jsx');
 
     return React.createClass({
         // @override
-        mixins: [mixins.layerContainer, mixins.layerList],
+        mixins: [mixins.layerContainer, mixins.mouseContainer],
         // @override
         getDefaultProps: function () {
             return {
@@ -17,7 +16,9 @@ define(function (require) {
                 cmd: '',
                 disable: false,
                 datasource: [], // {label: <string>, cmd: <string>, disable: <boolean>, datasource:[#self]}
-                onClick: function () {}
+                onClick: function () {},
+                layerContent: require('./List.jsx'),
+                layerProps: {}
             };
         },
         // @override
@@ -30,34 +31,27 @@ define(function (require) {
         // @override
         getInitialState: function () {
             return {
+                mouseover: false,
                 disable: this.props.disable,
-                datasource: JSON.parse(JSON.stringify(this.props.datasource)),
-                showLayer: false,
-                layerPosition: 'bottom-layer'
+                datasource: JSON.parse(JSON.stringify(this.props.datasource))
             };
         },
-        clickHandler: function (e) {
-            var dataset = util.getDataset(e.target);
-            if (this.state.disable || !dataset.uiCmd) return;
-            this.props.onClick({
-                target: this,
-                value: dataset.uiCmd
-            });
-            this.hideLayer();
-        },
-        mainButtonHandler: function (e) {
+        layerAction: function (type, value) {
             if (this.state.disable) return;
-            this.props.onClick({
-                target: this,
-                value: this.props.cmd
-            });
-            this.hideLayer();
+            this.props.onClick({target: this, value: value});
+            this.layerHide();
+        },
+        mainCommand: function (e) {
+            if (this.state.disable) return;
+            this.props.onClick({target: this, value: this.props.cmd});
+            this.layerHide();
         },
         render: function () {
             var me = this;
             var containerProp = {
-                className: 'fcui2-combolist layer-container ' + this.props.className,
-                onMouseLeave: this.hideLayer,
+                className: 'fcui2-combolist ' + this.props.className,
+                onMouseEnter: this.mouseenter,
+                onMouseLeave: this.mouseleave,
                 ref: 'container'
             };
             var mainButtonProp = {
@@ -66,23 +60,15 @@ define(function (require) {
                 cmd: this.props.cmd,
                 icon: this.props.icon,
                 skin: 'important',
-                onClick: this.mainButtonHandler
-            };
-            var layerProp = {
-                className: 'layer ' + this.state.layerPosition,
-                ref: 'layer'
+                onClick: this.mainCommand
             };
             if (this.state.disable) {
                 containerProp.className += ' fcui2-combolist-disable';
             }
-            else if (this.state.showLayer) {
-                containerProp.className += ' layer-container-showlayer';
-            }
             return (
                 <div {...containerProp}>
-                    <div className="font-icon font-icon-largeable-caret-down" onClick={this.showLayer}></div>
+                    <div className="font-icon font-icon-largeable-caret-down" onClick={this.layerShow}></div>
                     <Button {...mainButtonProp}/>
-                    <div {...layerProp}>{this.state.datasource.map(this.produceList)}</div>
                 </div>
             );
         }

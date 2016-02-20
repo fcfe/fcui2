@@ -28,14 +28,17 @@ define(function (require) {
                 disable: this.props.disable
             };
         },
-        // 这样写的原因是：css:active在IE中不好使，因为react自动加span把label包了起来
-        mouseDownHandler: function () {
+        // 这样写的原因是：react自动加span把label包了起来，导致css:active在IE中不好使
+        mouseDownHandler: function (e) {
+            e.stopPropagation();
             this.setState({active: true});
         },
-        mouseUpHandler: function () {
+        mouseUpHandler: function (e) {
+            e.stopPropagation();
             this.setState({active: false});
         },
-        clickHandler: function () {
+        clickHandler: function (e) {
+            e.stopPropagation();
             if (this.state.disable) return;
             this.props.onClick({
                 target: this,
@@ -45,7 +48,9 @@ define(function (require) {
         render: function () {
             var containerProp = {
                 className: 'fcui2-button ' + this.props.className,
-                style: {minWidth: this.props.minWidth},
+                style: {
+                    minWidth: this.props.minWidth
+                },
                 onMouseDown: this.mouseDownHandler,
                 onMouseUp: this.mouseUpHandler,
                 onClick: this.clickHandler

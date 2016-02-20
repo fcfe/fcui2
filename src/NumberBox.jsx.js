@@ -46,6 +46,7 @@ define(function (require) {
             });
         },
         changeHandler: function (e) {
+            e.stopPropagation();
             if (this.state.disable) return;
             var display = e.target.value;
             var v = this.fix(parseFloat(display));

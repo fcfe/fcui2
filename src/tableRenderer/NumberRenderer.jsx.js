@@ -14,9 +14,6 @@ define(function (require) {
                     color: this.props.color || '#000'                    
                 }
             };
-            // if (typeof conf.width === 'number') {
-            //     tdProp.style.width = conf.width;
-            // }
             switch (conf.renderType) {
                 case 'int':
                     value = parseInt(value, 10);
@@ -28,7 +25,7 @@ define(function (require) {
                     value = (value * 100).toFixed(2) + '%';
                     break;
             }
-            return (<td {...tdProp}><div>{value}</div></td>);
+            return (<td {...tdProp}>{value}</td>);
         }
     });
 

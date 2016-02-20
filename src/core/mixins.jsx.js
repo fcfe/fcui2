@@ -3,6 +3,7 @@ define(function (require) {
 
     var util = require('./util.es6');
     var React = require('react');
+    var ReactDOM = require('react-dom');
 
 
     // 更新表单数据域回馈信息
@@ -41,6 +42,17 @@ define(function (require) {
 
 
     return {
+        // 用于需要记录鼠标状态的组件，如layer
+        mouseContainer: {
+            mouseleave: function (e) {
+                e.stopPropagation();
+                this.setState({mouseover: false});
+            },
+            mouseenter: function (e) {
+                e.stopPropagation();
+                this.setState({mouseover: true});
+            },
+        },
         // 用于随window resize进行特殊渲染处理的组件，如table header
         resizeContainer: {
             resizeTimer: null,
@@ -82,7 +94,7 @@ define(function (require) {
                         dom.className = dom.className.replace(' fcui2-fixed-with-scroll', '');
                         dom.style.zIndex = dom.__zIndex;
                         dom.style.top = dom.__top
-                        return;
+                        continue;
                     }
                     if (pos.y < obj.top) {
                         dom.__fixed = true;
@@ -212,51 +224,64 @@ define(function (require) {
         },
         // 用于含有layer浮层的容器
         layerContainer: {
-            fixedLayerPosition: function () {
-                util.fixedLayerPositionTB(this.refs.container, this.refs.layer, this);
-            },
-            showLayer: function () {
-                if (this.state.disable) return;
-                this.setState({showLayer: !this.state.showLayer});
-                this.fixedLayerPosition();
-            },
-            hideLayer: function () {
-                if (this.state.disable) return;
-                this.setState({showLayer: false});
-            }
-        },
-        // 用于生成纯list列表的layer内容
-        layerList: {
-            produceList: function (item, index) {
+            layerContainer: null,
+            layerShow: function () {
                 var me = this;
-                var children = item.datasource instanceof Array ? item.datasource : [];
-                var itemProp = {
-                    onClick: me.clickHandler,
-                    className: 'item' + (me.state.disable || item.disable ? ' disable' : ''),
-                    key: index
-                };
-                var spanProp = {
-                    onClick: me.clickHandler
-                };
-                var rightArrowProp = {
-                    className: 'icon-right font-icon font-icon-largeable-caret-right',
-                    style: {
-                        visibility: children.length > 0 ? 'visible' : 'hidden'
-                    }
-                };
-                var rightLayerProp = {
-                    className: 'layer ' + (children.length > 0 ? 'right-layer' : 'disable-layer')
-                };
-                if (!(me.state.disable || item.disable)) {
-                    itemProp['data-ui-cmd'] = spanProp['data-ui-cmd'] = item.value;
+                if (me.layerContainer == null) {
+                    me.layerContainer = document.createElement('div');
+                    me.layerContainer.className = 'fcui2-layer'
                 }
-                return (
-                    <div {...itemProp}>
-                        <div {...rightArrowProp}></div>
-                        <span {...spanProp}>{item.label}</span>
-                        <div {...rightLayerProp}>{children.map(this.produceList)}</div>
-                    </div>
-                );
+                if (me.layer || typeof me.props.layerContent !== 'function') return;
+                document.body.appendChild(me.layerContainer);
+                var props = {
+                    parent: me,
+                    datasource: me.props.datasource,
+                    onAction: me.layerAction
+                };
+                var timer = null;
+                if (typeof me.props.layerProps === 'object') {
+                    for (var key in me.props.layerProps) {
+                        if (props.hasOwnProperty('key')) continue;
+                        props[key] = me.props.layerProps[key];
+                    }
+                }
+                me.layer = ReactDOM.render(React.createElement(me.props.layerContent, props), me.layerContainer);
+                timer = setInterval(fixedPosition, 5);
+                function fixedPosition() {
+                    var height = me.layerContainer.offsetHeight;
+                    var container = me.refs.container;
+                    var layer = me.layerContainer;
+                    if (!me.state.mouseover || !container) {
+                        clearInterval(timer);
+                        return;
+                    }
+                    if (height === 0) return;
+                    clearInterval(timer);
+                    var pos = util.getDOMPosition(container); 
+                    var top = (pos.y + container.offsetHeight + height < document.documentElement.clientHeight)
+                        ? (pos.y + container.offsetHeight) : (pos.y - height);
+                    var left = pos.x;
+                    layer.style.left = left + 'px';
+                    layer.style.top = top + 'px';
+                    timer = setInterval(autoHide, 1000);
+                }
+                function autoHide() {
+                    if (me.layer == null) {
+                        clearInterval(timer);
+                        return;
+                    }
+                    if (me.state.mouseover || me.layer.state.mouseover) return;
+                    clearInterval(timer);
+                    me.layerHide();
+                }
+            },
+            layerHide: function () {
+                this.layer = null;
+                try {
+                    document.body.removeChild(this.layerContainer);
+                } catch (e) {
+                    // TODO
+                }
             }
         }
     };

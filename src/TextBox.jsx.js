@@ -53,6 +53,7 @@ define(function (require) {
                 checkMessage: evt.check,
                 changed: true
             });
+            e.stopPropagation();
         },
         focus: function () {
             this.refs.inputbox.focus();

@@ -15,43 +15,43 @@ define(function (require) {
 
     return React.createClass({
         // @override
-        mixins: [mixins.layerContainer],
+        mixins: [mixins.layerContainer, mixins.mouseContainer],
         // @override
         getDefaultProps: function () {
             return {
-                datasource: {},
-                onAction: function () {}
-            };
-        },
-        // @override
-        getInitialState: function () {
-            return {
-                showLayer: false,
-                layerPosition: 'bottom-layer'
+                selectedIndex: {},
+                datasource: [
+                    {label: language.tableSelector.selectCurrentPage, value: '-2'},
+                    {label: language.tableSelector.selectAll, value: '-1'}
+                ],
+                onAction: function () {},
+                layerContent: require('../List.jsx'),
+                layerProps: {}
             };
         },
         // @override
         componentDidUpdate: function () {
-            var i = getSelect(this.props.datasource);
+            var i = getSelect(this.props.selectedIndex);
             var mainCheckbox = this.refs.mainCheckbox;
             mainCheckbox.indeterminate = i !== -1 && i > 0;
         },
-        selectAll: function () {
-            this.props.onAction(-1);
-        },
-        selectCurrentPage: function () {
-            this.props.onAction(-2);
+        layerAction: function (e, value) {
+            this.props.onAction(value * 1);
         },
         mainSelectorHandler: function () {
             this.props.onAction(this.props.isAllSelected ? -3 : -2);
         },
+        mouseEnterHandler: function (e) {
+            this.mouseenter(e);
+            this.layerShow();
+        },
         // @override
         render: function () {
-            var i = getSelect(this.props.datasource);
+            var i = getSelect(this.props.selectedIndex);
             var containerProp = {
-                className: 'tableSelector fcui2-dropdownlist layer-container',
-                onMouseEnter: this.showLayer,
-                onMouseLeave: this.hideLayer,
+                className: 'table-selector fcui2-dropdownlist',
+                onMouseEnter: this.mouseEnterHandler,
+                onMouseLeave: this.mouseleave,
                 ref: 'container'
             };
             var mainCheckboxProp = {
@@ -61,25 +61,10 @@ define(function (require) {
                 ref: 'mainCheckbox',
                 onClick: this.mainSelectorHandler
             };
-            var layerProp = {
-                className: 'layer ' + this.state.layerPosition,
-                ref: 'layer'
-            };
-            if (this.state.showLayer) {
-                containerProp.className += ' layer-container-showlayer';
-            }
             return (
                 <div {...containerProp}>
                     <div className="font-icon font-icon-largeable-caret-down"></div>
                     <input {...mainCheckboxProp}/>
-                    <div {...layerProp} onClick={this.hideLayer}>
-                        <div className="item" onClick={this.selectCurrentPage}>
-                            <span onClick={this.selectCurrentPage}>{language.tableSelector.selectCurrentPage}</span>
-                        </div>
-                        <div className="item" onClick={this.selectAll}>
-                            <span onClick={this.selectAll}>{language.tableSelector.selectAll}</span>
-                        </div>
-                    </div>
                 </div>
             );
         }

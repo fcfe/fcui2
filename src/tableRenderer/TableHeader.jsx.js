@@ -37,15 +37,12 @@ define(function (require) {
                     textAlign: this.props.align || 'left'
                 }
             };
-            if (typeof this.props.width === 'number') {
-                tdProp.style.width = this.props.width;
-            }
             return (
-                <td {...tdProp}><div>
+                <td {...tdProp}>
                     <span style={{fontWeight: 700}}>{this.props.label}</span>
                     <Tip title={this.props.tipTitle} content={this.props.tipContent}/>
                     <div {...sortButtonProp}></div>
-                </div></td>
+                </td>
             );
         }
     });

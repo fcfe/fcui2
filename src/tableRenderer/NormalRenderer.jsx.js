@@ -18,11 +18,8 @@ define(function (require) {
             if (typeof conf.content === 'function') {
                 value = conf.content(value, item);
             }
-            // if (typeof conf.width === 'number') {
-            //     tdProp.style.width = conf.width;
-            // }
             return (
-                <td {...tdProp}><div>{value}</div></td>
+                <td {...tdProp}>{value}</td>
             );
         }
     });

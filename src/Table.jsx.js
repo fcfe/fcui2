@@ -1,6 +1,5 @@
 define(function (require) {
 
-
     var TableHeader = require('./tableRenderer/TableHeader.jsx');
     var TableSelector = require('./tableRenderer/TableSelector.jsx');
     var NormalRenderer = require('./tableRenderer/NormalRenderer.jsx');
@@ -9,8 +8,75 @@ define(function (require) {
     var mixins = require('./core/mixins.jsx');
     var language = require('./core/language');
 
+    // 生成列宽度
+    function colgroupFactory(me) {
+        var td = [];
+        var conf = me.props.conf
+        if (me.props.showSelector) {
+            td.push(<col width="45" key='col-selector'/>);
+        }
+        for (var i = 0; i < conf.length; i++) {
+            td.push(<col width={conf[i].width} key={'col-' + i}/>);
+        }
+        return <colgroup>{td}</colgroup>
+    }
+
+    // 生成表头
+    function headerFactory(me) {
+        if (!me.props.showHeader) return (<tr></tr>);
+        var td = [];
+        var conf = me.props.conf;
+        if (me.props.showSelector) {
+            var selectorProp = {
+                isAllSelected: me.state.selectedIndex[-1] || me.props.datasource.length === me.state.selectedItems.length,
+                selectedIndex: me.state.selectedIndex,
+                onAction: me.rowSelected
+            }
+            td.push(<td key="head-select"><TableSelector {...selectorProp}/></td>);
+        }
+        for (var i = 0; i < conf.length; i++) {
+            var key = 'head-' + i;
+            td.push(<TableHeader {...conf[i]} onSort={me.sortHandler} sortField={me.state.sortField} key={key}/>);
+        }
+        return <tr className="table-header" key="table-head">{td}</tr>;
+    }
+
+    // 生成统计栏
+    function summaryFactory(me) {
+        if (!me.props.showSummary) return (<tr></tr>);
+        var td = [];
+        var conf = me.props.conf;
+        var summary = me.props.summary;
+        if (me.props.showSelector) td.push(<td key="summary-select"></td>);
+        for (var i = 0; i < conf.length; i++) {
+            var item = conf[i];
+            var tdStyle = {};
+            var text = summary.hasOwnProperty(item.field) ? summary[item.field] : '-';
+            if (typeof item.width === 'number') tdStyle.width = item.width;
+            tdStyle.textAlign = isNaN(text) ? 'left' : 'right';
+            td.push(<td style={tdStyle} key={'summary-' + i}>{text}</td>);
+        }
+        return <tr className="table-summary" key="table-summray" style={{fontWeight: 700}}>{td}</tr>
+    }
+
+    // 生成message栏目
+    function messageFactory(me) {
+        var message = me.state.message;
+        var conf = me.props.conf;
+        if (message.length === 0 || !me.props.showMessage) return (<tr></tr>);
+        return (
+            <tr className="table-message">
+                <td colSpan={conf.length + 10}>
+                    <div className="font-icon font-icon-times" onClick={me.closeMessageBar}></div>
+                    <span>{message}</span>
+                    <span onClick={me.messageBarClickHandler} className="link">{me.props.messageButtonLabel}</span>
+                </td>
+            </tr>
+        );
+    }
 
     return React.createClass({
+        // @override
         mixins: [mixins.fixedContainer, mixins.resizeContainer],
         // @override
         getDefaultProps: function () {
@@ -22,11 +88,7 @@ define(function (require) {
                 message: '',
                 messageButtonLabel: language.button.fresh,
                 fixedPosition: [
-                    {
-                        ref: 'tableHead',
-                        top: 80,
-                        zIndex: 999
-                    }
+                    {ref: 'shadowTableContainer', top: 0, zIndex: 999}
                 ],
                 showHeader: true,
                 showSummary: true,
@@ -77,17 +139,20 @@ define(function (require) {
             this.props.onAction(type, param);
         },
         updateWidth: function () {
-            this.refs.tableHead.style.width = this.refs.tableData.offsetWidth + 'px';
+            var width = this.refs.container.offsetWidth - 2;
+            var table = this.refs.table;
+            var shadow = this.refs.shadow;
             var tbody = this.refs.tbody;
-            var thead = this.refs.thead;
-            if (tbody.childNodes.length === 0 || tbody.childNodes.length === 0) return;
-            var tr = tbody.childNodes[0];
-            var th = thead.childNodes[0];
-            for (var i = 0; i < tr.childNodes.length; i++) {
-                var width = tr.childNodes[i].offsetWidth;
-                if (i >= th.childNodes.length) break;
-                th.childNodes[i].style.width = width + 'px';
+            var shadowContainer = this.refs.shadowTableContainer;
+            var height = 0;
+            table.style.maxWidth = shadow.style.maxWidth = width + 'px';
+            table.style.minWidth = shadow.style.minWidth = width + 'px';
+            for (var i = 0; i < tbody.childNodes.length; i++) {
+                var tr = tbody.childNodes[i];
+                if (tr.className.indexOf('tr-data') > -1) break;
+                height += tr.offsetHeight;
             }
+            shadowContainer.style.height = height + 'px';
         },
         closeMessageBar: function () {
             this.setState({message: ''});
@@ -125,140 +190,73 @@ define(function (require) {
                     items[i] = this.props.datasource[items[i]];
                 }
             }
-            this.setState({
-                selectedIndex: select,
-                selectedItems: items
-            });
-            this.props.onAction('TableSelect', {
-                items: items
-            });
+            this.setState({selectedIndex: select, selectedItems: items});
+            this.props.onAction('TableSelect', {items: items});
+        },
+        lineFactory: function (item, index, arr) {
+            var td = [];
+            var me = this;
+            var conf = this.props.conf;
+            var selected = me.state.selectedIndex[index] || me.state.selectedIndex[-1];
+            if (me.props.showSelector) {
+                var selectorProp = {
+                    type: 'checkbox',
+                    className: 'tr-selector',
+                    checked: selected,
+                    'data-ui-cmd': index,
+                    onChange: me.rowSelected,
+                };
+                td.push(<td key="row-select" className="td-selector-container"><input {...selectorProp}/></td>);
+            }
+            for (var i = 0; i < conf.length; i++) {
+                var props = {
+                    item: item,
+                    index: index,
+                    conf: conf[i],
+                    onAction: me.actionHandler,
+                    key: 'column-' + i
+                };
+                if (conf[i].hasOwnProperty('color')) {
+                    if (typeof conf[i].color === 'function') {
+                        props.color = conf[i].color(item);
+                    }
+                    else {
+                        props.color = conf[i].color + '';
+                    }
+                }
+                var renderer = typeof conf[i].renderer === 'function' ? conf[i].renderer : NormalRenderer;
+                td.push(React.createElement(renderer, React.__spread({}, props)));
+            }
+            return <tr key={'row-' + index} className={selected ? 'tr-data tr-selected' : 'tr-data'}>{td}</tr>;
         },
         // @override
         render: function () {
-            var me = this;
-            var conf = this.props.conf;
             return (
-                <div className={'fcui2-table ' + this.props.className} ref="container" onResize={function () {console.log(1)}}>
-                    <table ref="tableHead" cellSpacing="0" cellPadding="0">
-                        <tbody ref="thead">
-                        {headerFactory()}
-                        {summaryFactory()}
-                        {messageFactory()}
-                        </tbody>
-                    </table>
-                    <table cellSpacing="0" cellPadding="0" ref="tableData" className="table-data">
-                        {colgroupFactory()}
-                        <tbody ref="tbody">
-                        {this.props.datasource.map(lineFactory)}
-                        </tbody>
-                    </table>
+                <div className={'fcui2-table ' + this.props.className} ref="container">
+                    <div ref="realTable" className="table-container">
+                        <table ref="table" cellSpacing="0" cellPadding="0">
+                            {colgroupFactory(this)}
+                            <tbody ref="tbody">
+                            {headerFactory(this)}
+                            {summaryFactory(this)}
+                            {messageFactory(this)}
+                            {this.props.datasource.map(this.lineFactory)}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div ref="shadowTableContainer" className="shadow-container">
+                        <table ref="shadow" cellSpacing="0" cellPadding="0">
+                            {colgroupFactory(this)}
+                            <tbody>
+                            {this.props.datasource.map(this.lineFactory)}
+                            {headerFactory(this)}
+                            {summaryFactory(this)}
+                            {messageFactory(this)}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             );
-            // 生成列宽度
-            function colgroupFactory() {
-                var td = [];
-                if (me.props.showSelector) {
-                    td.push(<col minWidth={50} maxWidth={50} width={50} key='col-selector'/>);
-                }
-                for (var i = 0; i < conf.length; i++) {
-                    td.push(<col width={conf[i].width} key={'col-' + i}/>);
-                }
-                return <colgroup>{td}</colgroup>
-            }
-            // 生成表头
-            function headerFactory() {
-                if (!me.props.showHeader) {
-                    return (<tr></tr>);
-                }
-                var td = [];
-                if (me.props.showSelector) {
-                    var selectorProp = {
-                        isAllSelected: me.state.selectedIndex[-1]
-                            || me.props.datasource.length === me.state.selectedItems.length,
-                        datasource: me.state.selectedIndex,
-                        onAction: me.rowSelected
-                    }
-                    td.push(<td key="head-select" style={{textAlign: 'center'}}><TableSelector {...selectorProp}/></td>);
-                }
-                for (var i = 0; i < conf.length; i++) {
-                    var key = 'head-' + i;
-                    td.push(<TableHeader {...conf[i]} onSort={me.sortHandler} sortField={me.state.sortField} key={key}/>);
-                }
-                return <tr className="table-header" key="table-head">{td}</tr>;
-            }
-            // 生成统计栏
-            function summaryFactory() {
-                if (!me.props.showSummary) {
-                    return (<tr></tr>);
-                }
-                var td = [];
-                var summary = me.props.summary;
-                if (me.props.showSelector) {
-                    td.push(<td key="summary-select"></td>);
-                }
-                for (var i = 0; i < conf.length; i++) {
-                    var item = conf[i];
-                    var tdStyle = {};
-                    var text = summary.hasOwnProperty(item.field) ? summary[item.field] : '-';
-                    if (typeof item.width === 'number') {
-                        tdStyle.width = item.width;
-                    }
-                    tdStyle.textAlign = isNaN(text) ? 'left' : 'right';
-                    td.push(<td style={tdStyle} key={'summary-' + i}>{text}</td>);
-                }
-                return <tr className="table-summary" key="summray" style={{fontWeight: 700}}>{td}</tr>
-            }
-            // 生成message栏目
-            function messageFactory() {
-                var message = me.state.message;
-                if (message.length === 0 || !me.props.showMessage) {
-                    return (<tr></tr>);
-                }
-                return (
-                    <tr className="table-message">
-                        <td colSpan={conf.length + 10}>
-                            <div className="font-icon font-icon-times" onClick={me.closeMessageBar}></div>
-                            <span>{message}</span>
-                            <span onClick={me.messageBarClickHandler} className="link">{me.props.messageButtonLabel}</span>
-                        </td>
-                    </tr>
-                );
-            }
-            // 生成数据行
-            function lineFactory(item, index, arr) {
-                var td = [];
-                var selected = me.state.selectedIndex[index] || me.state.selectedIndex[-1];
-                if (me.props.showSelector) {
-                    var selectorProp = {
-                        type: 'checkbox',
-                        className: 'tr-selector',
-                        checked: selected,
-                        'data-ui-cmd': index,
-                        onChange: me.rowSelected,
-                    };
-                    td.push(<td key="row-select" className="td-selector-container"><input {...selectorProp}/></td>);
-                }
-                for (var i = 0; i < conf.length; i++) {
-                    var props = {
-                        item: item,
-                        index: index,
-                        conf: conf[i],
-                        onAction: me.actionHandler,
-                        key: 'column-' + i
-                    };
-                    if (conf[i].hasOwnProperty('color')) {
-                        if (typeof conf[i].color === 'function') {
-                            props.color = conf[i].color(item);
-                        }
-                        else {
-                            props.color = conf[i].color + '';
-                        }
-                    }
-                    var renderer = typeof conf[i].renderer === 'function' ? conf[i].renderer : NormalRenderer;
-                    td.push(React.createElement(renderer, React.__spread({}, props)));
-                }
-                return <tr key={'row-' + index} className={selected ? 'tr-selected' : ''}>{td}</tr>;
-            }
         }
     });
 });

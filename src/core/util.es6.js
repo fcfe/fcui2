@@ -66,25 +66,6 @@ define(function (require) {
         },
 
         /**
-         * 自动调整弹出浮层位置，只调整上下，不调整左右
-         *
-         * @param {HtmlElement} container layer外部的dom容器
-         * @param {HtmlElement} layer layer根容器
-         * @param {React Node} node layer所在的react组件
-         */
-        fixedLayerPositionTB: function (container, layer, node) {
-            var pos = this.getDOMPosition(container);
-            var timer = setInterval(function () {
-                var height = layer.offsetHeight;
-                if (height === 0) return;
-                clearInterval(timer);
-                var position = pos.y + container.offsetHeight + height < document.documentElement.clientHeight
-                    ? 'bottom-layer' : 'up-layer';
-                node.setState({layerPosition: position});
-            }, 5);
-        },
-
-        /**
          * 生成function调用chain，从第一个functon开始调用，若返回true则中止调用链
          *
          * @param {Array} funcs funcs
