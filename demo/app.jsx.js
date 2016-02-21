@@ -23,6 +23,7 @@ define(function (require) {
     var dialog = new Dialog();
     var subApp = require('./subApp.jsx');
     var MyForm = require('./myForm.jsx');
+    var ListSelector = require('./ListSelector.jsx');
     var tableField = require('./tableFieldConfig');
 
 
@@ -139,6 +140,8 @@ define(function (require) {
                     <Button ref="button3" label="普通按钮" />
                     <Button ref="button4" skin="important" icon="font-icon-check-square2"
                         label="带ICON的长很长的button"/>
+                    <h3>Example3.1: ListSelector</h3>
+                    <ListSelector datasource={config.listSelector}/>
                     <h3>Example4: DropDownList & ComboList</h3>
                     <DropDownList ref="dropdownlist" onClick={this.listClickHandler} label="编辑"
                         datasource={config.listDatasource()}/>

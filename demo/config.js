@@ -1,5 +1,19 @@
 define(function (require) {
     return {
+        listSelector: [
+            {key: '1', label: 'Node1'},
+            {key: '2', label: 'Node2'},
+            {key: '3', label: 'Node3'},
+            {key: '4', label: 'Node4'},
+            {key: '5', label: 'Node5'},
+            {key: '6', label: 'Node6'},
+            {key: '7', label: 'Node7'},
+            {key: '8', label: 'Node8'},
+            {key: '9', label: 'Node9'},
+            {key: '10', label: 'Node10'},
+            {key: '11', label: 'Node11'},
+            {key: '12', label: 'Node12'}
+        ],
         listDatasource: function () {
             return [
                 {
