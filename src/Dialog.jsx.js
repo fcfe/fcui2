@@ -28,16 +28,20 @@ define(function (require) {
         },
         updateContentProps: function (props) {
             var me = this;
+            var contentProps = props || {};
+            // content调用dispose直接销毁窗口，不触发任何事件
+            contentProps.dispose = function () {
+                me.props.dispose();
+            };
+            // content调用close会相继触发onBeforeClose、onClose
+            contentProps.close = function () {
+                me.close();
+            };
+            // content调用resize会触发dialog重新计算尺寸和位置，一般在componentDidUpdate中使用
+            contentProps.resize = function () {
+                me.resize();
+            };
             try {
-                var contentProps = props || {};
-                // content调用dispose直接销毁窗口，不触发任何事件
-                contentProps.dispose = function () {
-                    me.props.dispose();
-                };
-                // content调用close会相继触发onBeforeClose、onClose
-                contentProps.close = function () {
-                    me.close();
-                };
                 me.content = ReactDOM.render(
                     React.createElement(me.props.content, contentProps),
                     me.refs.content,
@@ -56,18 +60,31 @@ define(function (require) {
             this.props.close(evt);
         },
         resize: function () {
-            var dom = this.refs.container.parentNode;
             var doc = document.documentElement;
+            var container = this.props.dialogContainer;
+            var title = this.refs.title;
             var content = this.refs.content;
-            dom.style.height = (content.scrollHeight + 50)+ 'px';
-            dom.style.width = (content.scrollWidth + 20) + 'px';
-            dom.style.left = 0.5 * (doc.clientWidth - dom.clientWidth) + 'px';
-            dom.style.top = 0.38 * (doc.clientHeight - dom.clientHeight) + 'px';
+            var width = 0;
+            var height = 0;
+            // 将窗体移出可视区并让content充分展开
+            content.className = 'content';
+            container.style.left = container.style.top = '-9999px';
+            container.style.width = container.style.height = '9999px;'
+            // 获取content尺寸并判断是否需要纵向滚动条
+            width = content.offsetWidth;
+            height = content.offsetHeight + title.offsetHeight;
+            if (height > doc.clientHeight) width += 20;
+            // 设置尺寸并移入可视区
+            container.style.width = width + 'px';
+            container.style.height = height + 'px';
+            container.style.left = 0.5 * (doc.clientWidth - container.clientWidth) + 'px';
+            container.style.top = 0.38 * (doc.clientHeight - container.clientHeight) + 'px';
+            content.className = 'content content-fixed';
         },
         render: function () {
             return (
                 <div ref="container">
-                    <div className="title-bar">
+                    <div className="title-bar" ref="title">
                         <span>{this.props.title}</span>
                         <div className="font-icon font-icon-times" onClick={this.close}></div>
                     </div>
@@ -161,14 +178,20 @@ define(function (require) {
 
         var me = this;
         var doc = document.documentElement;
+        var container = this.container;
 
-        me.container.style.maxWidth = doc.clientWidth + 'px';
-        me.container.style.maxHeight = doc.clientHeight + 'px';
+        // dialog不应该撑破window，初始化时应在可视区域意外，并尺寸应该足够大，方便计算content尺寸
+        container.style.maxWidth = doc.clientWidth + 'px';
+        container.style.maxHeight = doc.clientHeight + 'px';
+        container.style.left = container.style.top = '-9999px';
+        container.style.width = container.style.height = '9999px;'
         document.body.appendChild(me.background);
         document.body.appendChild(me.container);
         document.body.style.overflow = 'hidden';
 
+        // dialog的props
         param = param || {};
+        param.dialogContainer = container;
         param.onBeforeClose = typeof param.onBeforeClose === 'function' ? param.onBeforeClose : function () {};
         param.onClose = typeof param.onClose === 'function' ? param.onClose : function () {};
         param.dispose = function () {
@@ -181,12 +204,14 @@ define(function (require) {
             param.onClose();
         };
 
+        // 弹出
         me.ui = ReactDOM.render(React.createElement(popWindow, param), me.container, loaded);
 
         function loaded() {
             var timer = setInterval(function () {
                 if (!me.ui) return;
                 clearInterval(timer);
+                // 设置输入焦点，如果指定了。
                 if (
                     param.focus
                     && me.ui.content
@@ -201,7 +226,7 @@ define(function (require) {
 
 
     /**
-     * 更新弹出窗体的content的props 
+     * 更新弹出窗体的content的props，此方法会自动触发resize
      */
     Dialog.prototype.updatePopContentProps = function (props) {
         if (!me.ui) return;
@@ -254,8 +279,6 @@ define(function (require) {
         document.body.removeChild(this.container);
         document.body.removeChild(this.background);
         document.body.style.overflow = '';
-        this.container.style.height = '10px';
-        this.container.style.width = '10px';
         this.ui = null;
     };
 

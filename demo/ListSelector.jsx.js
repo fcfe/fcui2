@@ -9,7 +9,7 @@ define(function (require) {
         for (var i = 0; i < datasource.length; i++) {
             var item = datasource[i];
             items.push(
-                <div className={'item' + (selected[item.key] ? '' : ' item-notselected')} data-ui-key={item.key}>
+                <div key={i} className={'item' + (selected[item.key] ? '' : ' item-notselected')} data-ui-key={item.key}>
                     <span>{item.label}</span>
                     <div onClick={me.add} className={'font-icon font-icon-plus' + (selected[item.key] ? ' disable' : '')}></div>
                     <div onClick={me.del} className="font-icon font-icon-times"></div>
