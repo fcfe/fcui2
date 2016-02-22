@@ -57,28 +57,32 @@ define(function (require) {
         resizeContainer: {
             resizeTimer: null,
             resizeHandler: function () {
-                if (this.resizeTimer) {
-                    clearTimeout(this.resizeTimer);
-                }
+                // if (this.resizeTimer) {
+                //     clearTimeout(this.resizeTimer);
+                // }
                 var me = this;
-                me.resizeTimer = setTimeout(function () {
-                    if (typeof me.resizing === 'function') {
-                        me.resizing();
-                    }
-                }, 1000 / 60);
+                // me.resizeTimer = setTimeout(function () {
+                //     if (typeof me.resizing === 'function') {
+                //         me.resizing();
+                //     }
+                // }, 50);
+                if (typeof me.resizing === 'function') {
+                    me.resizing();
+                }
             }
         },
         // 用于含有随滚动条fixed dom的组件，如table，需要fixed header
         fixedContainer: {
             scrollTimer: null,
             scrollHandler: function () {
-                if (this.scrollTimer) {
-                    clearTimeout(this.scrollTimer);
-                }
+                // if (this.scrollTimer) {
+                //     clearTimeout(this.scrollTimer);
+                // }
                 var me = this;
-                me.scrollTimer = setTimeout(function () {
-                    me.scrolling();
-                }, 1000 / 60);
+                // me.scrollTimer = setTimeout(function () {
+                //     me.scrolling();
+                // }, 50);
+                me.scrolling();
             },
             scrolling: function () {
                 if (!(this.props.fixedPosition instanceof Array)) return;
@@ -91,12 +95,12 @@ define(function (require) {
                     var pos = util.getDOMPosition(dom);
                     var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
                     if (scrollY - dom.__posTop + obj.top < 0) {
-                        dom.className = dom.className.replace(' fcui2-fixed-with-scroll', '');
+                        dom.className = dom.__className;
                         dom.style.zIndex = dom.__zIndex;
                         dom.style.top = dom.__top
                     }
                     else if (pos.y < obj.top) {
-                        dom.className = dom.className + ' fcui2-fixed-with-scroll';
+                        dom.className = dom.__className + ' fcui2-fixed-with-scroll';
                         dom.style.top = obj.top + 'px';
                         dom.style.zIndex = obj.zIndex;
                     }
@@ -110,6 +114,7 @@ define(function (require) {
                     var dom = this.refs[obj.ref];
                     if (!dom) continue;
                     var pos = util.getDOMPosition(dom);
+                    dom.__className = dom.className;
                     dom.__posTop = pos.top;
                     dom.__zIndex = dom.style.zIndex;
                     dom.__top = dom.style.top;

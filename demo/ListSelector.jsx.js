@@ -23,7 +23,8 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                datasource: []
+                datasource: [],
+                onChange: function () {}
             };
         },
         // @override
@@ -32,6 +33,16 @@ define(function (require) {
                 selected: {},
                 value: []
             };
+        },
+        componentWillReceiveProps: function (nextProps) {
+            var selected = this.state.selected;
+            var newKeys = {};
+            var newSelected = {};
+            for (var i = 0; i < nextProps.datasource.length; i++)
+                newKeys[nextProps.datasource[i].key] = true;
+            for (var key in selected)
+                if (newKey[key]) newSelected[key] = true;
+            this.setState({selected: newSelected});
         },
         add: function (e) {
             var key = e.target.parentNode.dataset.uiKey;
@@ -49,6 +60,7 @@ define(function (require) {
             var value = [];
             for (var key in selected) {value.push(key);}
             this.setState({value: value, selected: selected});
+            this.props.onChange({value: value});
         },
         render: function () {
             return (
