@@ -89,15 +89,13 @@ define(function (require) {
                     if (!dom) continue;
                     obj.top = isNaN(obj.top) ? 0 : obj.top * 1;
                     var pos = util.getDOMPosition(dom);
-                    if (window.scrollY - dom.__posY + obj.top < 0 && dom.__fixed) {
-                        dom.__fixed = false;
+                    var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+                    if (scrollY - dom.__posTop + obj.top < 0) {
                         dom.className = dom.className.replace(' fcui2-fixed-with-scroll', '');
                         dom.style.zIndex = dom.__zIndex;
                         dom.style.top = dom.__top
-                        continue;
                     }
-                    if (pos.y < obj.top) {
-                        dom.__fixed = true;
+                    else if (pos.y < obj.top) {
                         dom.className = dom.className + ' fcui2-fixed-with-scroll';
                         dom.style.top = obj.top + 'px';
                         dom.style.zIndex = obj.zIndex;
@@ -112,8 +110,7 @@ define(function (require) {
                     var dom = this.refs[obj.ref];
                     if (!dom) continue;
                     var pos = util.getDOMPosition(dom);
-                    dom.__posY = pos.top;
-                    dom.__fixed = false;
+                    dom.__posTop = pos.top;
                     dom.__zIndex = dom.style.zIndex;
                     dom.__top = dom.style.top;
                 }
@@ -257,7 +254,7 @@ define(function (require) {
                     }
                     if (height === 0) return;
                     clearInterval(timer);
-                    var pos = util.getDOMPosition(container); 
+                    var pos = util.getDOMPosition(container);
                     var top = (pos.y + container.offsetHeight + height < document.documentElement.clientHeight)
                         ? (pos.y + container.offsetHeight) : (pos.y - height);
                     var left = pos.x;

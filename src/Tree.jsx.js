@@ -100,7 +100,7 @@ define(function (require) {
             }
             if (nextProps.treeNodes != null && nextProps.treeNodes !== this.state.treeNodes) {
                 if (this.props.treeLevel === 0) {
-                    var freezer = treeUtil.getFrozenTreeNodes(this.props.treeNodes);
+                    var freezer = treeUtil.getFrozenTreeNodes(nextProps.treeNodes);
                     util.bindFreezerAndComponent(freezer.treeNodesFreezer, this, 'treeNodes');
                     this.setState(freezer);
                 }

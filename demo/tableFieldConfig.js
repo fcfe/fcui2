@@ -7,8 +7,15 @@ define(function (require) {
     var checker = require('fcui/core/checker');
     return [
         {
-            label: '注册',
+            label: '',
             field: 'name',
+            icon: 'font-icon-flag',
+            iconStyle: {
+                color: 'grey',
+                marginRight: 5,
+                position: 'relative',
+                top: 5
+            },
             width: 200,
             renderer: require('fcui/tableRenderer/EditorRenderer.jsx'),
             editorProp: {

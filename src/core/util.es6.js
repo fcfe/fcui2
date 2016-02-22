@@ -19,24 +19,38 @@ define(function (require) {
         },
 
         /**
+         * 获取dom某个css属性，不论这个属性是写在style里的，还是通过css设置的
+         *
+         * @param {HtmlElement} dom dom节点
+         * @param {string} attr style属性名称，驼峰格式
+         * @return {*} 对应的属性值
+         */
+        getStyle: function (dom, attr) {
+            return dom.currentStyle ? dom.currentStyle[attr] : document.defaultView.getComputedStyle(dom, null)[attr];
+        },
+
+        /**
          * 获取dom节点的位置
          *
-         * @param {HtmlElement} el dom节点
+         * @param {HtmlElement} e dom节点
          * @return {Object} 位置对象，left、top相对于body左上角；x、y相对于可见区域左上角;
          */
-        getDOMPosition: function (el) {
-            var x = 0, y = 0;
-            while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-                x += el.offsetLeft - el.scrollLeft;
-                y += el.offsetTop - el.scrollTop;
-                el = el.offsetParent;
+        getDOMPosition: function (e) {
+            var t = e.offsetTop;   
+            var l = e.offsetLeft;   
+            var isFixed = false;
+            while (e = e.offsetParent) {
+                if (this.getStyle(e, 'position') === 'fixed') isFixed = true;
+                t += e.offsetTop;   
+                l += e.offsetLeft;   
             }
-            return {
-                x: x,
-                y: y,
-                left: x + document.body.scrollLeft,
-                top: y + document.body.scrollTop
-            }
+            var pos = {
+                x: l - (isFixed ? 0 : (document.documentElement.scrollLeft || document.body.scrollLeft)),
+                y: t - (isFixed ? 0 : (document.documentElement.scrollTop || document.body.scrollTop)),
+                left: l,
+                top: t
+            };
+            return pos;
         },
 
         /**

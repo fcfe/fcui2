@@ -54,9 +54,9 @@ define(function (require) {
             var text = summary.hasOwnProperty(item.field) ? summary[item.field] : '-';
             if (typeof item.width === 'number') tdStyle.width = item.width;
             tdStyle.textAlign = isNaN(text) ? 'left' : 'right';
-            td.push(<td style={tdStyle} key={'summary-' + i}>{text}</td>);
+            td.push(<td style={tdStyle} key={'summary-' + i}><span style={{fontWeight: 700}}>{text}</span></td>);
         }
-        return <tr className="table-summary" key="table-summray" style={{fontWeight: 700}}>{td}</tr>
+        return <tr className="table-summary" key="table-summray">{td}</tr>
     }
 
     // 生成message栏目

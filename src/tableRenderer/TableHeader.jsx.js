@@ -37,8 +37,13 @@ define(function (require) {
                     textAlign: this.props.align || 'left'
                 }
             };
+            var iconProp = {
+                className: 'font-icon ' + this.props.icon,
+                style: this.props.iconStyle
+            };
             return (
                 <td {...tdProp}>
+                    <div {...iconProp}></div>
                     <span style={{fontWeight: 700}}>{this.props.label}</span>
                     <Tip title={this.props.tipTitle} content={this.props.tipContent}/>
                     <div {...sortButtonProp}></div>

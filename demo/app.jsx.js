@@ -135,13 +135,13 @@ define(function (require) {
                         checkout={[checker.maxLength(10, '最多10个字符')]} onChange={this.textBoxChangeHandler}/>
                     <Button {...this.props.button1} onClick={this.buttonClickHandler}/>
                     <h3>Example3: Button</h3>
+                    <h3>Example3.1: ListSelector</h3>
+                    <ListSelector datasource={config.listSelector}/>
                     <Button className="MyClass" ref="button1" skin="important" label="确定"/>
                     <Button ref="button2" skin="highlight" icon="font-icon-check-square2" label="四个汉字"/>
                     <Button ref="button3" label="普通按钮" />
                     <Button ref="button4" skin="important" icon="font-icon-check-square2"
                         label="带ICON的长很长的button"/>
-                    <h3>Example3.1: ListSelector</h3>
-                    <ListSelector datasource={config.listSelector}/>
                     <h3>Example4: DropDownList & ComboList</h3>
                     <DropDownList ref="dropdownlist" onClick={this.listClickHandler} label="编辑"
                         datasource={config.listDatasource()}/>
