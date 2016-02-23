@@ -57,17 +57,8 @@ define(function (require) {
         resizeContainer: {
             resizeTimer: null,
             resizeHandler: function () {
-                // if (this.resizeTimer) {
-                //     clearTimeout(this.resizeTimer);
-                // }
-                var me = this;
-                // me.resizeTimer = setTimeout(function () {
-                //     if (typeof me.resizing === 'function') {
-                //         me.resizing();
-                //     }
-                // }, 50);
-                if (typeof me.resizing === 'function') {
-                    me.resizing();
+                if (typeof this.resizing === 'function') {
+                    this.resizing();
                 }
             }
         },
@@ -75,14 +66,7 @@ define(function (require) {
         fixedContainer: {
             scrollTimer: null,
             scrollHandler: function () {
-                // if (this.scrollTimer) {
-                //     clearTimeout(this.scrollTimer);
-                // }
-                var me = this;
-                // me.scrollTimer = setTimeout(function () {
-                //     me.scrolling();
-                // }, 50);
-                me.scrolling();
+                this.scrolling();
             },
             scrolling: function () {
                 if (!(this.props.fixedPosition instanceof Array)) return;
@@ -126,11 +110,7 @@ define(function (require) {
             registedField: {},
             registField: function (child) {
                 var field = child.props.formField;
-                if (
-                    typeof field !== 'string'
-                    || this.registedField[field]
-                    || typeof child.changeHandler !== 'function'
-                ) {
+                if (typeof field !== 'string' || this.registedField[field]) {
                     return;
                 }
                 this.registedField[field] = child;

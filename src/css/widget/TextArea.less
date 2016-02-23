@@ -1,43 +1,43 @@
 @import "../skin.less";
-.fcui2-textbox {
+.fcui2-textarea {
     position: relative;
-    left: 0px;
-    top: 9px;
-    display: inline-block;
-    height: @height-normal;
-    input {
+    display: block;
+    min-width: 100px;
+    min-height: 30px;
+    textarea {
         position: absolute;
         left: 0px;
         top: 0px;
+        padding: 10px;
         outline: none;
-        height: @height-normal;
         border: @border-normal;
-        padding: @padding-normal;
         background-color: transparent;
+        resize: none;
+        line-height: 20px;
     }
-    input:hover {
+    textarea:hover {
         border: @border-active;
     }
-    input:focus {
+    textarea:focus {
         border: @border-active;
     }
     div {
         position: absolute;
         left: 0px;
-        top: 0px;
+        top: 7px;
         line-height: @lineheight-normal;
         padding: @padding-normal;
         color: @color-disable;
         font-size: @fontsize-button;
     }
 }
-.fcui2-textbox-reject {
-    input {
+.fcui2-textarea-reject {
+    textarea {
         border-color: #F00 !important;
     }
 }
-.fcui2-textbox-disable {
-    input:hover {
+.fcui2-textarea-disable {
+    textarea:hover {
         border: @border-normal !important;
     }
 }

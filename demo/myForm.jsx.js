@@ -4,6 +4,8 @@ define(function (require) {
     var TextBox = require('fcui/TextBox.jsx');
     var NumberBox = require('fcui/NumberBox.jsx');
     var Button = require('fcui/Button.jsx');
+    var Select = require('fcui/Select.jsx');
+    var TextArea = require('fcui/TextArea.jsx');
 
 
     var React = require('react');
@@ -11,6 +13,14 @@ define(function (require) {
     var checker = require('fcui/core/checker');
 
 
+    var sexProps = {
+        label: '请选择',
+        datasource: [
+            {value: '0', label: '女'},
+            {value: '1', label: '男'},
+            {value: '-1', label: '保密'}
+        ]
+    };
     var nameCheckers = [
         checker.maxLength(4, '长度不能大于4'),
         checker.minLength(1, '姓名不能为空')
@@ -23,6 +33,17 @@ define(function (require) {
     var ageCheckers = [
         function (e) {
             return e > 18 ? true : '必须大于18岁，嘿嘿嘿';
+        }
+    ];
+    var sexCheckers = [
+        function (e) {
+            return e === '' ? '请选择性别' : true;
+        }
+    ];
+    var introCheckers = [
+        function (e) {
+            if (e.length === 0) return true;
+            if (e.length < 10) return '简介得大于10个字。';
         }
     ];
 
@@ -119,6 +140,22 @@ define(function (require) {
                             formField="age"
                             formFeedback="ageFeedback"/>
                         <span className="alert" ref="ageFeedback"></span>
+                    </div>
+                    <div className="fieldItem">
+                        <span className="label">性别：</span>
+                        <Select {...sexProps}
+                            checkout={sexCheckers} form={this} formField="sex" formFeedback="sexFeedback"/>
+                        <span className="alert" ref="sexFeedback"></span>
+                    </div>
+                    <div className="fieldItem">
+                        <span className="label">简介：</span>
+                        <div style={{marginLeft: 35, marginTop: -15}}>
+                            <TextArea width="400" height="300"
+                                value="" label="可以不写，但写就要超过10个字"
+                                checkout={introCheckers}
+                                form={this} formField="introduction" formFeedback="introFeedback"/>
+                            <span className="alert" ref="introFeedback"></span>
+                        </div>
                     </div>
                     <div className="alert">{this.state.checkMessage}</div>
                     <Button className="button-submit" skin="important" label="确定"

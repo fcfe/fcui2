@@ -28,7 +28,7 @@ define(function (require) {
                 ),
                 style: {
                     display: this.props.sortAble ? 'inline-block' : 'none',
-                    color: (this.props.sortField !== this.props.field || this.state.sortType === '') ? 'grey' : '#2F82F5'
+                    color: (this.props.sortField !== this.props.field || this.state.sortType === '') ? '#DEDEDE' : '#2F82F5'
                 },
                 onClick: this.sortHandler
             };
