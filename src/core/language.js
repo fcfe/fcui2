@@ -15,6 +15,9 @@ define(function (require) {
             tableSelector: {
                 selectAll: '选择全部',
                 selectCurrentPage: '选择当前页'
+            },
+            table: {
+                noData: '没有数据'
             }
         }
     };

@@ -1,5 +1,6 @@
 define(function (require) {
 
+
     var TableHeader = require('./tableRenderer/TableHeader.jsx');
     var TableSelector = require('./tableRenderer/TableSelector.jsx');
     var NormalRenderer = require('./tableRenderer/NormalRenderer.jsx');
@@ -7,6 +8,7 @@ define(function (require) {
     var util = require('./core/util.es6');
     var mixins = require('./core/mixins.jsx');
     var language = require('./core/language');
+
 
     // 生成列宽度
     function colgroupFactory(me) {
@@ -74,6 +76,53 @@ define(function (require) {
             </tr>
         );
     }
+
+    // 生成列
+    function lineFactory(me) {
+        var lines = [];
+        var conf = me.props.conf;
+        var datasource = me.props.datasource;
+        if (datasource.length === 0) {
+            return (<tr><td colSpan={conf.length + 10} style={{textAlign:'center'}}><div className="table-nodata">{language.table.noData}</div></td></tr>);
+        }
+        for (var index = 0; index < datasource.length; index++) {
+            var item = datasource[index];
+            var td = [];
+            var selected = me.state.selectedIndex[index] || me.state.selectedIndex[-1];
+            if (me.props.showSelector) {
+                var selectorProp = {
+                    type: 'checkbox',
+                    className: 'tr-selector',
+                    checked: selected,
+                    'data-ui-cmd': index,
+                    onChange: me.rowSelected,
+                };
+                td.push(<td key="row-select" className="td-selector-container"><input {...selectorProp}/></td>);
+            }
+            for (var j = 0; j < conf.length; j++) {
+                var props = {
+                    item: item,
+                    index: index,
+                    conf: conf[j],
+                    onAction: me.actionHandler,
+                    key: 'column-' + j
+                };
+                if (conf[j].hasOwnProperty('color')) {
+                    if (typeof conf[j].color === 'function') {
+                        props.color = conf[j].color(item);
+                    }
+                    else {
+                        props.color = conf[j].color + '';
+                    }
+                }
+                var renderer = typeof conf[j].renderer === 'function' ? conf[j].renderer : NormalRenderer;
+                td.push(React.createElement(renderer, React.__spread({}, props)));
+            }
+            lines.push(<tr key={'row-' + index} className={selected ? 'tr-data tr-selected' : 'tr-data'}>{td}</tr>);
+        }
+        return lines;
+    }
+
 
     return React.createClass({
         // @override
@@ -193,42 +242,6 @@ define(function (require) {
             this.setState({selectedIndex: select, selectedItems: items});
             this.props.onAction('TableSelect', {items: items});
         },
-        lineFactory: function (item, index, arr) {
-            var td = [];
-            var me = this;
-            var conf = this.props.conf;
-            var selected = me.state.selectedIndex[index] || me.state.selectedIndex[-1];
-            if (me.props.showSelector) {
-                var selectorProp = {
-                    type: 'checkbox',
-                    className: 'tr-selector',
-                    checked: selected,
-                    'data-ui-cmd': index,
-                    onChange: me.rowSelected,
-                };
-                td.push(<td key="row-select" className="td-selector-container"><input {...selectorProp}/></td>);
-            }
-            for (var i = 0; i < conf.length; i++) {
-                var props = {
-                    item: item,
-                    index: index,
-                    conf: conf[i],
-                    onAction: me.actionHandler,
-                    key: 'column-' + i
-                };
-                if (conf[i].hasOwnProperty('color')) {
-                    if (typeof conf[i].color === 'function') {
-                        props.color = conf[i].color(item);
-                    }
-                    else {
-                        props.color = conf[i].color + '';
-                    }
-                }
-                var renderer = typeof conf[i].renderer === 'function' ? conf[i].renderer : NormalRenderer;
-                td.push(React.createElement(renderer, React.__spread({}, props)));
-            }
-            return <tr key={'row-' + index} className={selected ? 'tr-data tr-selected' : 'tr-data'}>{td}</tr>;
-        },
         // @override
         render: function () {
             return (
@@ -237,10 +250,10 @@ define(function (require) {
                         <table ref="table" cellSpacing="0" cellPadding="0">
                             {colgroupFactory(this)}
                             <tbody ref="tbody">
-                            {headerFactory(this)}
-                            {messageFactory(this)}
-                            {summaryFactory(this)}
-                            {this.props.datasource.map(this.lineFactory)}
+                                {headerFactory(this)}
+                                {messageFactory(this)}
+                                {summaryFactory(this)}
+                                {lineFactory(this)}
                             </tbody>
                         </table>
                     </div>
@@ -248,10 +261,10 @@ define(function (require) {
                         <table ref="shadow" cellSpacing="0" cellPadding="0">
                             {colgroupFactory(this)}
                             <tbody>
-                            {summaryFactory(this)}
-                            {this.props.datasource.map(this.lineFactory)}
-                            {headerFactory(this)}
-                            {messageFactory(this)}
+                                {summaryFactory(this)}
+                                {lineFactory(this)}
+                                {headerFactory(this)}
+                                {messageFactory(this)}
                             </tbody>
                         </table>
                     </div>

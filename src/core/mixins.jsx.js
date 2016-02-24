@@ -6,7 +6,7 @@ define(function (require) {
     var ReactDOM = require('react-dom');
 
 
-    // 更新表单数据域回馈信息
+    // 更新输入组件的信息反馈
     function updateFeedback(v, feedback) {
         if (!feedback) return;
         if (feedback.tagName) {
@@ -19,14 +19,14 @@ define(function (require) {
 
 
     // 表单级别校验
-    function formLevelCheck(data, checkers, isSubmit) {
+    function formLevelCheck(data, checkers, isSubmiting) {
         var checkPassed = true;
         var checkMessage = '';
         if (checkers instanceof Array) {
             for (var i = 0; i < checkers.length; i++) {
                 var func = checkers[i];
                 if (typeof func !== 'function') continue;
-                var result = func(data, isSubmit);
+                var result = func(data, isSubmiting);
                 if (result !== true) {
                     checkPassed = false;
                     checkMessage = result;
@@ -105,9 +105,17 @@ define(function (require) {
                 }
             }
         },
-        // 用于想作为表单的组件
+        /**
+         * 表单form mixin，任何component引入此mixin后会变身成表单
+         */
         formContainer: {
+            /**
+             * 已经注册的输入组件hash
+             */
             registedField: {},
+            /**
+             * 注册输入组件到form，此方法由输入组件的生命周期componentDidMount调用
+             */
             registField: function (child) {
                 var field = child.props.formField;
                 if (typeof field !== 'string' || this.registedField[field]) {
@@ -115,10 +123,34 @@ define(function (require) {
                 }
                 this.registedField[field] = child;
             },
+            /**
+             * 还原表单所有域
+             */
+            resetForm: function () {
+                for (var key in this.registedField) {
+                    var child = this.registedField[key];
+                    if (typeof child.reset === 'function') {
+                        child.reset();
+                    }
+                    else {
+                        var state = child.getInitialState();
+                        child.setState(state);
+                    }
+                }
+            },
+            /**
+             * 获取form中所有域的值及校验结果，此方法form外部手动调用
+             */
             getFormData: function () {
+                // 表单数据
                 var data = {};
+                // 表单是否全部校验完毕
                 var checkPassed = true;
-                // 获取数据域，并进行域校验
+                // 输入域的校验，遍历每个输入域
+                // 读取state.value，调用输入组件的校验方法进行校验
+                // 将校验结果和输入的value合并到form上
+                // 更新输入组件的校验状态
+                // 在表单中反馈输入组件的校验信息
                 for (var key in this.registedField) {
                     if (!this.registedField.hasOwnProperty(key)) continue;
                     var child = this.registedField[key];
@@ -133,45 +165,66 @@ define(function (require) {
                     
                 }
                 // 表单级别校验
+                // 记录校验结果，设置表单的输入反馈
                 var formCheckResult = formLevelCheck(data, this.props.checkout, 1);
                 formCheckResult.checkPassed = formCheckResult.checkPassed && checkPassed;
                 this.setState(formCheckResult);
+                // 返回校验结果和表单数据
                 return {
                     data: data,
                     checkPassed: formCheckResult.checkPassed
                 };
             },
+            /**
+             * 更新表单域，由注册的输入组件生命周期componentWillUpdate自动触发
+             */
             registedFieldUpdate: function (field, state) {
                 if (!this.registedField[field]) return;
-                // 检测单一域
+                // 读取发生onChange组件的校验信息，在表单中反馈校验结果
                 var child = this.registedField[field];
                 var checkPassed = state.checkPassed;
                 updateFeedback(checkPassed !== true ? state.checkMessage : '', this.refs[child.props.formFeedback]);
+                // 域未通过校验，将校验结同步到表单，并直接返回
                 if (checkPassed !== true) {
                     this.setState({checkPassed: false});
                     return;
                 }
+                // 没有表单级别校验，直接返回
                 if (!(this.props.checkout instanceof Array) || this.props.checkout.length === 0) {
                     return;
                 }
-                // 表单联合校验
+                // 域通过了校验，开始表单级别校验
                 var data = {};
                 data[field] = state.value;
+                // 遍历除了当前域外的所有域，拼装数据
                 for (var key in this.registedField) {
                     if (key === field) continue;
                     var inputState = this.registedField[key].state;
+                    // 同步校验结果到form
                     checkPassed = checkPassed && inputState.checkPassed;
+                    // 如果输入组件还没有被用户操作过，数据不进入表单
                     if (inputState.changed !== true) continue;
                     data[key] = inputState.value;
                 }
+                // 表单级别校验，并同步校验结果到form中
                 var formCheckResult = formLevelCheck(data, this.props.checkout);
                 formCheckResult.checkPassed = formCheckResult.checkPassed && checkPassed;
                 this.setState(formCheckResult);
             }
         },
-        // 用于表单输入域
+        /**
+         * 输入组件mixin，引入此mixin的组件将会变成form可自动检验的组件，要求组件有以下特性：
+         * 1：{Any type} state.value，存储用户输入值
+         * 2：{boolean} state.checkPassed，输入组件是否通过了自身校验
+         * 3：{string} state.checkMessage，输入组件如果没通过自身校验，这里存储校验错误提示，否则为空串
+         * 4  {ReactComponent} props.form form组件，不一定父亲，可以是任何祖先甚至其他，不建议其他
+         * 5：{string} props.formField，输入组件值在form中的域名，相当于name
+         * 6. {string} props.formFeedback，输入组件在form中的结果显示框，可以是dom，也可以是含有state.value的组件，对应form中的某个ref
+         * 7：{Array.<function>} props.checkout，输入组件的校验队列
+         */
         formField: {
             // @override
+            // 输入组件自动注册自身到form中
             componentDidMount: function () {
                 if (
                     typeof this.props.form === 'object'
@@ -181,6 +234,8 @@ define(function (require) {
                 }
             },
             // @override
+            // 输入组件响应用户行为后，自身onChange中进行checkValue，将校验结果和输入值同步到state中
+            // setState后，在此方法截获用户更新的state，并将值通知给form，此方法为只读，不影响setState操作
             componentWillUpdate: function (props, state) {
                 if (
                     typeof this.props.form === 'object'
@@ -190,6 +245,7 @@ define(function (require) {
                     this.props.form.registedFieldUpdate(this.props.formField, state);
                 }
             },
+            // 输入组件公共校验方法，循环调用校验队列中的函数，并返回校验结果
             checkValue: function (v) {
                 if (
                     !(this.props.checkout instanceof Array)
