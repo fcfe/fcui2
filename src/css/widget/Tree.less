@@ -38,7 +38,7 @@
                 #fc-icon > .use-font-icon(@font-icon-caret-down);
             }
         }
-        .fcui2-tree-node-remove-handle {
+        .fcui2-tree-node-oper-handle {
             float: right;
             color: #00B3F8;
             margin-right: 10px;
@@ -55,12 +55,12 @@
         }
         .fcui2-tree-node-collapsed,
         .fcui2-tree-node-expanded,
-        .fcui2-tree-node-remove-handle {
+        .fcui2-tree-node-oper-handle {
             cursor: pointer;
         }
 
-        &-removed {
-            .fcui2-tree-node-remove-handle {
+        &-marked {
+            .fcui2-tree-node-oper-handle {
                 cursor: default;
                 color: @color-disable;
             }

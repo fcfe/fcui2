@@ -36,13 +36,13 @@ define(function (require) {
          * @return {Object} 位置对象，left、top相对于body左上角；x、y相对于可见区域左上角;
          */
         getDOMPosition: function (e) {
-            var t = e.offsetTop;   
-            var l = e.offsetLeft;   
+            var t = e.offsetTop;
+            var l = e.offsetLeft;
             var isFixed = false;
             while (e = e.offsetParent) {
                 if (this.getStyle(e, 'position') === 'fixed') isFixed = true;
-                t += e.offsetTop;   
-                l += e.offsetLeft;   
+                t += e.offsetTop;
+                l += e.offsetLeft;
             }
             var pos = {
                 x: l - (isFixed ? 0 : (document.documentElement.scrollLeft || document.body.scrollLeft)),
@@ -89,40 +89,6 @@ define(function (require) {
             return function (...args) {
                 funcs.find((handler) => handler.apply(this, args));
             };
-        },
-
-        /**
-         * 将freezer的update事件bind到React Component的setState中
-         *
-         * @param {Freezer} freezer freezer
-         * @param {ReactComponent} theComponent The React component
-         * @param {string} stateName stateName
-         */
-        bindFreezerAndComponent: function (freezer, theComponent, stateName) {
-            freezer.on('update', () => {
-                var newState = {};
-                newState[stateName] = freezer.get();
-                theComponent.setState(newState);
-            });
-        },
-
-        /**
-         * 完成一个Frozen包装的 object 的transaction
-         *
-         * @param {Freezer} freezed freezed object 如果不是freezed object，则立即执行后面的func
-         * @param {Function} func transaction function
-         *
-         * @return {Freezer} transaction result
-         */
-        doInFrozenTransaction: function (freezed, func) {
-            if (typeof freezed.transact !== 'function') {
-                func(freezed, freezed);
-                return freezed;
-            }
-
-            var mutable = freezed.transact();
-            func(mutable, freezed);
-            return freezed.run();
         }
     };
 

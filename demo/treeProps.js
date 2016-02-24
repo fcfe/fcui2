@@ -33,8 +33,7 @@ define(function (require) {
         },
 
         dualTreeSelector: {
-            leftTreeNodes: treeNodes,
-            rightTreeNodes: []
+            treeNodes: treeNodes
         }
     };
 

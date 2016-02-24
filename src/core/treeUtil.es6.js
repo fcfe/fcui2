@@ -4,190 +4,211 @@
  */
 define(function (require) {
     var _ = require('underscore');
-    var Freezer = require('./freezer');
-    var util = require('./util.es6');
-
-    // 确保object被frozen过了
-    function assertFreezerFronzen(object) {
-        if (object.__ == null) {
-            throw new Error('没有在', object, '中发现"__"，用Freezer包装过了吗？');
-        }
-    }
 
     var exports = {
 
         /**
-         * 返回Freezer包装了的treeNodes。
+         * 先深遍历所有节点，遍历回调将发生在frozen transaction中，回调第1个参数为mutable的节点
          *
-         * @param {Array<treeNode>} treeNodes treeNodes
-         * @return {Frozen} frozen的treeNodes
+         * @param {Function} cb 回调函数
+         * @param {treeNode} treeNode treeNode
+         * @param {treeNode} parentTreeNode parentTreeNode
          */
-        getFrozenTreeNodes: function (treeNodes) {
-            var freezer = new Freezer(treeNodes);
+        walk: function (cb, treeNode, parentTreeNode) {
+            if (treeNode.id == null) {
+                return;
+            }
+            if (cb(treeNode, parentTreeNode)) {
+                return;
+            }
+            // 向下访问所有的孩子
+            if (treeNode.children && treeNode.children.length) {
+                treeNode.children.forEach(
+                    (node) => exports.walk(cb, node, treeNode)
+                );
+            }
+        },
+
+        /**
+         * 生成一个父子关系，以及tree id对tree节点的cache map
+         *
+         * @param {treeNode} treeNode treeNode
+         * @return {Object} 父子关系map，子节点id做key，父节点实例做value，以及tree node id对tree node实例的cache
+         */
+        getCache: function (treeNodes) {
+            var parentCache = {};
+            var nodeCache = {};
+            treeNodes.forEach((treeNode) => {
+                nodeCache[treeNode.id] = treeNode;
+                exports.walk((node, parentTreeNode) => {
+                    nodeCache[node.id] = node;
+                    if (parentTreeNode != null) {
+                        parentCache[node.id] = parentTreeNode;
+                    }
+                }, treeNode);
+            });
             return {
-                treeNodesFreezer: freezer,
-                treeNodes: freezer.get()
+                parentCache: parentCache,
+                nodeCache: nodeCache
             };
         },
 
         /**
-         * NASTY!! 从Freezer在节点中放置的私有parents属性里拿父节点，只返回object的parent
+         * 计数所有的叶子节点
          *
-         * @param {Object} object treeNode
-         * @return {treeNode} 父节点，或者null，如果没有父节点或者出错了
+         * @param {treeNode} treeNode 计数起始的节点
+         * @return {number} 叶子节点总数
          */
-        getParent: function (object) {
-            assertFreezerFronzen(object);
-
-            var parents = object.__.parents;
-            if (parents == null) {
-                throw new Error('没有在"__"', object.__, '中发现parents，Freezer改了吗？');
-            }
-
-            if (parents.length > 1) {
-                console.warn('parents', parents, '长度大于1了，只返回第一个object parent');
-            }
-
-            if (_.isArray(parents[0])) {
-                return exports.getParent(parents[0]);
-            }
-
-            return parents[0];
-        },
-
-        /**
-         * 先深遍历所有节点，遍历回调将发生在frozen transaction中，回调第1个参数为mutable的节点
-         * @param {treeNode} treeNode treeNode
-         * @param {Function} cb cb
-         * @return {treeNode} treeNode out of transaction
-         */
-        walk: function (treeNode, cb) {
-            return util.doInFrozenTransaction(treeNode, (mutableTreeNode) => {
-                cb(mutableTreeNode);
-                // 向下访问所有的孩子
-                if (mutableTreeNode.children && mutableTreeNode.children.length) {
-                    mutableTreeNode.children.forEach(
-                        (node) => exports.walk(node, cb)
-                    );
+        countLeaf: function (treeNodes) {
+            var count = 0;
+            treeNodes.forEach((treeNode) => {
+                if (!treeNode.children || treeNode.children.length === 0) {
+                    count++;
+                    return;
                 }
+                exports.walk((node) => {
+                    if (!node.children || node.children.length === 0) {
+                        count++;
+                    }
+                }, treeNode);
             });
+            return count;
         },
 
         /**
-         * 从treeNodes集合中移除treeNode，只放置isRemoved标记而不是真的删除。
+         * 从treeNode起始做标记。会将treeNode的所有孩子以及treeNode的parent层叠或冒泡的做标记。
          *
          * @param {treeNode} treeNode 待移除的treeNode
+         * @param {Object} markedTreeNodeId 已标记节点
+         * @param {Object} parentCache parentCache
+         * @param {string} bubbleOption，可为 bubbleWhenAllMarked 或 bubbleWhenNoneMarked
+         *  当parent的所有节点都标记，或都不标记的时候，将parent做标记。
+         * @return {Object} 新的做了标记的treeNodeId集合
          */
-        markTreeNodeRemoved: function (treeNode) {
-            assertFreezerFronzen(treeNode);
+        _markNode: function (treeNode, markedTreeNodeId, parentCache, bubbleOption) {
+            var newMarked = {};
 
-            treeNode = exports.walk(treeNode, (mutableNode) => {
-                mutableNode.isRemoved = true;
-            });
+            exports.walk((node) => {
+                newMarked[node.id] = true;
+            }, treeNode);
+
+            // 返回node中未被标记的children的个数
+            function countUnmarkedChildren(parent, marked) {
+                return parent.children.reduce((value, node) => {
+                    return marked[node.id] ? value : value + 1;
+                }, 0);
+            }
 
             // 向上检查所有parent
-            var parent = exports.getParent(treeNode);
+            var parent = parentCache[treeNode.id];
             while (parent != null) {
                 if (parent.children && parent.children.length) {
-                    var childrenLength = parent.children.reduce((value, treeNode) => {
-                        return treeNode.isRemoved ? value : value + 1;
-                    }, 0);
-                    if (childrenLength === 0) {
-                        parent = util.doInFrozenTransaction(parent, (mutableNode) => {
-                            mutableNode.isRemoved = true;
-                        });
-                        parent = exports.getParent(parent);
+                    var existingChildrenLength = countUnmarkedChildren(parent, markedTreeNodeId);
+                    if (
+                        bubbleOption === 'bubbleWhenAllMarked'
+                        ? existingChildrenLength === 1
+                        : existingChildrenLength === parent.children.length - 1
+                    ) {
+                        newMarked[parent.id] = true;
+                        parent = parentCache[parent.id];
                     }
                     else {
                         break;
                     }
                 }
             }
+            return newMarked;
         },
 
         /**
-         * 从treeNodes集合中移除treeNode。
+         * 从treeNode起始标记节点及其所有孩子被移除。返回被移除的节点列表。
          *
-         * @param {treeNode} treeNode treeNode
+         * @param {treeNode} treeNode 待移除的treeNode
+         * @param {Object} removedTreeNodeId 待移除的
+         * @param {Object} parentCache parentCache
+         * @return {Object} 被移除了的节点的数组
          */
-        removeTreeNode: function (treeNode) {
-            assertFreezerFronzen(treeNode);
+        markTreeNodeRemoved: function (treeNode, removedTreeNodeId, parentCache) {
+            if (removedTreeNodeId[treeNode.id]) {
+                // 逗我玩呢？
+                return removedTreeNodeId;
+            }
 
-            // 向上检查所有parent
-            var parent = exports.getParent(treeNode);
-            var child = treeNode;
+            return _.extend(exports._markNode(
+                treeNode, removedTreeNodeId, parentCache, 'bubbleWhenAllMarked'
+            ), removedTreeNodeId);
+        },
 
-            while (parent != null) {
-                if (parent.children && parent.children.length) {
-                    var childrenLength = parent.children.reduce((value, treeNode) => {
-                        return treeNode.isRemoved ? value : value + 1;
-                    }, 0);
-                    if (childrenLength === 1) {
-                        child = parent;
-                        parent = exports.getParent(parent);
+        /**
+         * 从removedTreeNodeId中移除treeNode。是markTreeNodeRemoved的反函数
+         *
+         * @param {treeNode} treeNode 待移除的treeNode
+         * @param {Object} removedTreeNodeId 待移除的
+         * @param {Object} parentCache parentCache
+         * @return {Object} 移除了treeNode后的removedTreeNodeId集合
+         */
+        unmarkTreeNodeRemoved: function (treeNode, removedTreeNodeId, parentCache) {
+            if (!removedTreeNodeId[treeNode.id]) {
+                // 逗我玩呢？
+                return removedTreeNodeId;
+            }
+
+            return _.omit(removedTreeNodeId, Object.keys(exports._markNode(
+                treeNode, removedTreeNodeId, parentCache, 'bubbleWhenNoneMarked'
+            )));
+        },
+
+        /**
+         * 获取已选择的tree。
+         *
+         * @param {Array<treeNode>} treeNodes 根节点
+         * @param {Object} markedTreeNodeId markedTreeNodeId
+         * @param {Object} parentCache parentCache
+         * @param {Object} nodeCache nodeCache
+         * @return {Array<treeNode>} 已选中树节点
+         */
+        getMarkedTreeNodes: function (treeNodes, markedTreeNodeId, parentCache, nodeCache) {
+            var markedTreeNodes = [];
+            var markedTreeNodesCache = {};
+
+            // 从node开始，逆回根节点，将根节点插入markedTreeNodes
+            function put(node) {
+                if (markedTreeNodesCache[node.id]) {
+                    return;
+                }
+
+                markedTreeNodesCache[node.id] = node;
+                var parent = parentCache[node.id];
+                if (parent == null) {
+                    markedTreeNodes.push(node);
+                    return;
+                }
+
+                if (markedTreeNodesCache[parent.id]) {
+                    parent = markedTreeNodesCache[parent.id];
+                    if (!parent.children) {
+                        parent.children = [node];
                     }
                     else {
-                        break;
+                        parent.children.push(node);
                     }
+                    return;
                 }
-            }
-            // remove child from parent's children
-            if (parent == null) {
-                // child being this tree's only node
-                child.__.parents[0].shift();
-            }
-            else {
-                parent.children.splice(parent.children.indexOf(child), 1);
-            }
-        },
 
-        /**
-         * 将srcTreeNode从root到children拷贝到dstTreeNodes。
-         *
-         * @param {treeNode} srcTreeNode srcTreeNode
-         * @param {treeNode} dstTreeNodes dstTreeNode
-         */
-        copyNodeToTreeNodes: function (srcTreeNode, dstTreeNodes) {
-            util.doInFrozenTransaction(dstTreeNodes, (mutableTreeNodes) => {
-                var matchedTreeNode = mutableTreeNodes.find((treeNode) => treeNode.id === srcTreeNode.id);
-                if (matchedTreeNode == null) {
-                    matchedTreeNode = _.omit(srcTreeNode, 'children', 'isRemoved');
-                    mutableTreeNodes.push(matchedTreeNode);
+                parent = _.omit(parent, 'children');
+                parent.children = [node];
+                put(parent);
+            }
+
+            Object.keys(markedTreeNodeId).forEach((nodeId) => {
+                var node = nodeCache[nodeId];
+                if (node == null) {
+                    return;
                 }
-                util.doInFrozenTransaction(matchedTreeNode, (mutableNode) => {
-                    mutableNode.isRemoved = false;
-                    if (srcTreeNode.children && srcTreeNode.children.length) {
-                        if (mutableNode.children == null) {
-                            mutableNode.children = [];
-                        }
-                        srcTreeNode.children.forEach((node) => {
-                            exports.copyNodeToTreeNodes(
-                                node,
-                                mutableNode.children
-                            );
-                        });
-                    }
-                });
+                put(_.omit(node, 'children'));
             });
 
-        },
-
-        /**
-         * 给定树节点，到树根为止制作一条路径，含有且只含有途径的每一个节点的拷贝。***但是***，给定树节点可能的有的孩子没有拷贝。
-         *
-         * @param {treeNode} treeNode treeNode
-         * @return {treeNode} 根节点
-         */
-        getPathToRoot: function (treeNode) {
-            var clonedTreeNode = _.extend({}, treeNode);
-            var parentTreeNode = exports.getParent(treeNode);
-            while (parentTreeNode != null) {
-                var tmpTreeNode = _.omit(parentTreeNode, 'children');
-                tmpTreeNode.children = [clonedTreeNode];
-                parentTreeNode = exports.getParent(parentTreeNode);
-                clonedTreeNode = tmpTreeNode;
-            }
-            return clonedTreeNode;
+            return markedTreeNodes;
         }
     };
 

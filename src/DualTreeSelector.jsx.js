@@ -12,13 +12,9 @@ define(function (require) {
     var DualTreeSelector = React.createClass({
         propTypes: {
             /**
-             * 左子树的初始节点列表
+             * 全部可选节点的列表
              */
-            leftTreeNodes: React.PropTypes.arrayOf(Tree.treeNodeType),
-            /**
-             * 右子树的初始节点列表
-             */
-            rightTreeNodes: React.PropTypes.arrayOf(Tree.treeNodeType),
+            treeNodes: React.PropTypes.arrayOf(Tree.treeNodeType),
             /**
              * 左子树的宽度，px
              */
@@ -46,7 +42,24 @@ define(function (require) {
             /**
              * 右树的节点叶子限制
              */
-            rightTreeLimit: React.PropTypes.number
+            rightTreeLimit: React.PropTypes.number,
+            /**
+             * 已选节点的id集合
+             */
+            selectedTreeNodeId: React.PropTypes.objectOf(React.PropTypes.bool)
+        },
+
+        getInitialState: function () {
+            return _.extend(
+                {selectedTreeNodeId: this.props.selectedTreeNodeId || {}},
+                treeUtil.getCache(this.props.treeNodes)
+            );
+        },
+
+        componentWillReceiveProps: function (nextProps) {
+            this.setState(
+                _.extend(_.pick(nextProps, 'selectedTreeNodeId'), treeUtil.getCache(this.props.treeNodes))
+            );
         },
 
         getDefaultProps: function () {
@@ -60,33 +73,23 @@ define(function (require) {
         },
 
         moveTreeNode: function (removedTreeNode, from) {
-            var dstTreeNodes = this.refs[
-                from === 'left' ? 'rightTree' : 'leftTree'
-            ].state.treeNodes;
-
-            var pathToRoot = treeUtil.getPathToRoot(removedTreeNode);
-
-            if (from === 'left') {
-                treeUtil.markTreeNodeRemoved(removedTreeNode);
-            }
-            else {
-                treeUtil.removeTreeNode(removedTreeNode);
-            }
-
-            treeUtil.copyNodeToTreeNodes(pathToRoot, dstTreeNodes);
+            this.setState({
+                selectedTreeNodeId: from === 'left'
+                    ? treeUtil.markTreeNodeRemoved(
+                        removedTreeNode, this.state.selectedTreeNodeId, this.state.parentCache
+                    )
+                    : treeUtil.unmarkTreeNodeRemoved(
+                        removedTreeNode, this.state.selectedTreeNodeId, this.state.parentCache
+                    )
+            });
         },
 
         removeAll: function (from) {
-            if (from == 'left') {
+            if (from === 'left') {
                 throw new Error('从左树移除节点尚不支持。');
             }
             else {
-                this.refs.rightTree.state.treeNodes.reset([]);
-                this.refs.leftTree.state.treeNodes.forEach((node) => {
-                    treeUtil.walk(node, (mutableNode) => {
-                        mutableNode.isRemoved = false;
-                    });
-                });
+                this.setState({selectedTreeNodeId: {}});
             }
         },
 
@@ -100,12 +103,17 @@ define(function (require) {
                 textLeftTreeSummary
             } = this.props;
 
+            var selectedTreeNodes = treeUtil.getMarkedTreeNodes(
+                this.props.treeNodes, this.state.selectedTreeNodeId, this.state.parentCache, this.state.nodeCache
+            );
+
             return <div className='fcui2-dual-tree-selector'>
                 <div className='fcui2-dual-tree-selector-left-tree-wrapper'>
                     <div className="fcui2-dual-tree-selector-tree-title">{leftTreeTitle}</div>
                     <Tree style={{width: leftTreeWidth, height: height}}
-                        treeNodes={this.props.leftTreeNodes}
-                        onTreeNodeRemoveClicked={(treeNode) => {
+                        treeNodes={this.props.treeNodes}
+                        markedTreeNodeId={this.state.selectedTreeNodeId}
+                        onTreeNodeOperationClicked={(treeNode) => {
                             this.moveTreeNode(treeNode, 'left');
                         }}
                         ref='leftTree' />
@@ -117,13 +125,17 @@ define(function (require) {
                 <div className='fcui2-dual-tree-selector-right-tree-wrapper'>
                     <div className='fcui2-dual-tree-selector-tree-title'>{rightTreeTitle}</div>
                     <Tree style={{width: rightTreeWidth, height: height}}
-                        treeNodes={this.props.rightTreeNodes}
-                        onTreeNodeRemoveClicked={(treeNode) => {
+                        treeNodes={selectedTreeNodes}
+                        onTreeNodeOperationClicked={(treeNode) => {
                             this.moveTreeNode(treeNode, 'right');
                         }}
                         ref='rightTree' />
                     <div className='fcui2-dual-tree-selector-tree-footer'>
                         <span className='fcui2-dual-tree-selector-tree-footer-summary'>
+                            {treeUtil.countLeaf(selectedTreeNodes)}
+                            {this.props.rightTreeLimit
+                                ? ' / ' + this.props.rightTreeLimit
+                                : ''}
                         </span>
                         <span className='fcui2-dual-tree-selector-tree-footer-remove-all'>
                             <a href='javascript:;' onClick={() => {
