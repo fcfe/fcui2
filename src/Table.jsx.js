@@ -149,7 +149,7 @@ define(function (require) {
             table.style.minWidth = shadow.style.minWidth = width + 'px';
             for (var i = 0; i < tbody.childNodes.length; i++) {
                 var tr = tbody.childNodes[i];
-                if (tr.className.indexOf('tr-data') > -1) break;
+                if (tr.className.indexOf('table-summary') > -1) break;
                 height += tr.offsetHeight;
             }
             shadowContainer.style.height = height + 'px';
@@ -238,8 +238,8 @@ define(function (require) {
                             {colgroupFactory(this)}
                             <tbody ref="tbody">
                             {headerFactory(this)}
-                            {summaryFactory(this)}
                             {messageFactory(this)}
+                            {summaryFactory(this)}
                             {this.props.datasource.map(this.lineFactory)}
                             </tbody>
                         </table>
@@ -248,9 +248,9 @@ define(function (require) {
                         <table ref="shadow" cellSpacing="0" cellPadding="0">
                             {colgroupFactory(this)}
                             <tbody>
+                            {summaryFactory(this)}
                             {this.props.datasource.map(this.lineFactory)}
                             {headerFactory(this)}
-                            {summaryFactory(this)}
                             {messageFactory(this)}
                             </tbody>
                         </table>

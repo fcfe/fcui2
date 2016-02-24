@@ -44,6 +44,7 @@ define(function (require) {
         function (e) {
             if (e.length === 0) return true;
             if (e.length < 10) return '简介得大于10个字。';
+            return true;
         }
     ];
 
