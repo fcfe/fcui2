@@ -50,7 +50,11 @@ define(function (require) {
             /**
              * 当所做选择会使得右树超量时的回调，参数为超量后的右树叶子数
              */
-            onRightTreeOverLimit: React.PropTypes.func
+            onRightTreeOverLimit: React.PropTypes.func,
+            /**
+             * 当树节点移动完成时的回调，参数为被移动节点，移动来源
+             */
+            onTreeNodeMoved: React.PropTypes.func
         },
 
         getInitialState: function () {
@@ -77,10 +81,15 @@ define(function (require) {
         },
 
         moveTreeNode: function (removedTreeNode, from) {
+            function afterMove() {
+                if (this.props.onTreeNodeMoved) {
+                    this.props.onTreeNodeMoved.call(this, removedTreeNode, from);
+                }
+            }
             if (from === 'right') {
                 this.setState({selectedTreeNodeId: treeUtil.unmarkTreeNodeRemoved(
                     removedTreeNode, this.state.selectedTreeNodeId, this.state.parentCache
-                )});
+                )}, afterMove);
                 return;
             }
 
@@ -102,7 +111,22 @@ define(function (require) {
                 }
             }
 
-            this.setState({selectedTreeNodeId: selectedTreeNodeId});
+            // 同时让挪到右边的节点都展开，将新加入的节点id加入expanded tree node id
+            var expandedTreeNodeId = this.refs.rightTree.state.expandedTreeNodeId;
+            var newAdded = _.difference(selectedTreeNodeId, this.state.selectedTreeNodeId);
+            var newExpanded = {};
+            var treeNodes = treeUtil.getMarkedTreeNodes(
+                this.props.treeNodes, newAdded, this.state.parentCache, this.state.nodeCache
+            );
+            treeUtil.walk((node) => {
+                newExpanded[node.id] = true;
+            }, treeNodes);
+            this.setState({
+                selectedTreeNodeId: selectedTreeNodeId
+            }, afterMove);
+            this.refs.rightTree.setState({
+                expandedTreeNodeId: _.extend(newExpanded, expandedTreeNodeId)
+            });
         },
 
         removeAll: function (from) {

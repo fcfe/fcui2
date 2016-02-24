@@ -11,22 +11,22 @@ define(function (require) {
          * 先深遍历所有节点，遍历回调将发生在frozen transaction中，回调第1个参数为mutable的节点
          *
          * @param {Function} cb 回调函数
-         * @param {treeNode} treeNode treeNode
+         * @param {treeNode|Array<treeNode>} treeNodes treeNodes
          * @param {treeNode} parentTreeNode parentTreeNode
          */
-        walk: function (cb, treeNode, parentTreeNode) {
-            if (treeNode.id == null) {
-                return;
+        walk: function (cb, treeNodes, parentTreeNode) {
+            if (!_.isArray(treeNodes)) {
+                treeNodes = [treeNodes];
             }
-            if (cb(treeNode, parentTreeNode)) {
-                return;
-            }
-            // 向下访问所有的孩子
-            if (treeNode.children && treeNode.children.length) {
-                treeNode.children.forEach(
-                    (node) => exports.walk(cb, node, treeNode)
-                );
-            }
+            treeNodes.forEach((node) => {
+                if (cb(node, parentTreeNode)) {
+                    return;
+                }
+                // 向下访问所有的孩子
+                if (node.children && node.children.length) {
+                    exports.walk(cb, node.children, node);
+                }
+            });
         },
 
         /**
@@ -38,15 +38,13 @@ define(function (require) {
         getCache: function (treeNodes) {
             var parentCache = {};
             var nodeCache = {};
-            treeNodes.forEach((treeNode) => {
-                nodeCache[treeNode.id] = treeNode;
-                exports.walk((node, parentTreeNode) => {
-                    nodeCache[node.id] = node;
-                    if (parentTreeNode != null) {
-                        parentCache[node.id] = parentTreeNode;
-                    }
-                }, treeNode);
-            });
+            exports.walk((node, parentTreeNode) => {
+                nodeCache[node.id] = node;
+                if (parentTreeNode != null) {
+                    parentCache[node.id] = parentTreeNode;
+                }
+            }, treeNodes);
+
             return {
                 parentCache: parentCache,
                 nodeCache: nodeCache
@@ -61,17 +59,12 @@ define(function (require) {
          */
         countLeaf: function (treeNodes) {
             var count = 0;
-            treeNodes.forEach((treeNode) => {
-                if (!treeNode.children || treeNode.children.length === 0) {
+            exports.walk((node) => {
+                if (!node.children || node.children.length === 0) {
                     count++;
-                    return;
                 }
-                exports.walk((node) => {
-                    if (!node.children || node.children.length === 0) {
-                        count++;
-                    }
-                }, treeNode);
-            });
+            }, treeNodes);
+
             return count;
         },
 

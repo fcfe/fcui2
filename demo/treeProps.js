@@ -34,9 +34,11 @@ define(function (require) {
 
         dualTreeSelector: {
             treeNodes: treeNodes,
-            rightTreeLimit: 1,
             onRightTreeOverLimit: (num) => {
                 console.warn('tree overlimit at', num);
+            },
+            onTreeNodeMoved: function (treeNode, from) {
+                console.log(this, arguments);
             }
         }
     };
