@@ -46,7 +46,11 @@ define(function (require) {
             /**
              * 已选节点的id集合
              */
-            selectedTreeNodeId: React.PropTypes.objectOf(React.PropTypes.bool)
+            selectedTreeNodeId: React.PropTypes.objectOf(React.PropTypes.bool),
+            /**
+             * 当所做选择会使得右树超量时的回调，参数为超量后的右树叶子数
+             */
+            onRightTreeOverLimit: React.PropTypes.func
         },
 
         getInitialState: function () {
@@ -73,15 +77,32 @@ define(function (require) {
         },
 
         moveTreeNode: function (removedTreeNode, from) {
-            this.setState({
-                selectedTreeNodeId: from === 'left'
-                    ? treeUtil.markTreeNodeRemoved(
-                        removedTreeNode, this.state.selectedTreeNodeId, this.state.parentCache
-                    )
-                    : treeUtil.unmarkTreeNodeRemoved(
-                        removedTreeNode, this.state.selectedTreeNodeId, this.state.parentCache
-                    )
-            });
+            if (from === 'right') {
+                this.setState({selectedTreeNodeId: treeUtil.unmarkTreeNodeRemoved(
+                    removedTreeNode, this.state.selectedTreeNodeId, this.state.parentCache
+                )});
+                return;
+            }
+
+            var selectedTreeNodeId = treeUtil.markTreeNodeRemoved(
+                removedTreeNode, this.state.selectedTreeNodeId, this.state.parentCache
+            );
+
+            if (this.props.rightTreeLimit != null) {
+                var count = Object.keys(selectedTreeNodeId).reduce((count, nodeId) => {
+                    var node = this.state.nodeCache[nodeId];
+                    if (node && (!node.children || node.children.length === 0)) {
+                        return ++count;
+                    }
+                    return count;
+                }, 0);
+                if (count > this.props.rightTreeLimit) {
+                    this.props.onRightTreeOverLimit && this.props.onRightTreeOverLimit(count);
+                    return;
+                }
+            }
+
+            this.setState({selectedTreeNodeId: selectedTreeNodeId});
         },
 
         removeAll: function (from) {

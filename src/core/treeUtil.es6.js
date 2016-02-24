@@ -130,7 +130,7 @@ define(function (require) {
          */
         markTreeNodeRemoved: function (treeNode, removedTreeNodeId, parentCache) {
             if (removedTreeNodeId[treeNode.id]) {
-                // 逗我玩呢？
+                // 增加treeId到集合中，如果这个id已经加过，则它和它的孩子一定已经加过，不需要再处理。
                 return removedTreeNodeId;
             }
 
@@ -148,11 +148,7 @@ define(function (require) {
          * @return {Object} 移除了treeNode后的removedTreeNodeId集合
          */
         unmarkTreeNodeRemoved: function (treeNode, removedTreeNodeId, parentCache) {
-            if (!removedTreeNodeId[treeNode.id]) {
-                // 逗我玩呢？
-                return removedTreeNodeId;
-            }
-
+            // 去掉treeId从集合中，即使当前treeId不在集合中，其孩子也可能在，继续处理以去掉孩子。
             return _.omit(removedTreeNodeId, Object.keys(exports._markNode(
                 treeNode, removedTreeNodeId, parentCache, 'bubbleWhenNoneMarked'
             )));
