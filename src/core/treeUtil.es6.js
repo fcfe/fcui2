@@ -114,36 +114,36 @@ define(function (require) {
         },
 
         /**
-         * 从treeNode起始标记节点及其所有孩子被移除。返回被移除的节点列表。
+         * 从treeNode起始标记节点及其所有孩子被选择。返回被选择的节点列表。
          *
          * @param {treeNode} treeNode 待移除的treeNode
-         * @param {Object} removedTreeNodeId 待移除的
+         * @param {Object} selectedTreeNodeId 待移除的
          * @param {Object} parentCache parentCache
          * @return {Object} 被移除了的节点的数组
          */
-        markTreeNodeRemoved: function (treeNode, removedTreeNodeId, parentCache) {
-            if (removedTreeNodeId[treeNode.id]) {
+        markTreeNodeSelected: function (treeNode, selectedTreeNodeId, parentCache) {
+            if (selectedTreeNodeId[treeNode.id]) {
                 // 增加treeId到集合中，如果这个id已经加过，则它和它的孩子一定已经加过，不需要再处理。
-                return removedTreeNodeId;
+                return selectedTreeNodeId;
             }
 
             return _.extend(exports._markNode(
-                treeNode, removedTreeNodeId, parentCache, 'bubbleWhenAllMarked'
-            ), removedTreeNodeId);
+                treeNode, selectedTreeNodeId, parentCache, 'bubbleWhenAllMarked'
+            ), selectedTreeNodeId);
         },
 
         /**
-         * 从removedTreeNodeId中移除treeNode。是markTreeNodeRemoved的反函数
+         * 从selectedTreeNodeId中移除treeNode。
          *
          * @param {treeNode} treeNode 待移除的treeNode
-         * @param {Object} removedTreeNodeId 待移除的
+         * @param {Object} selectedTreeNodeId 待移除的
          * @param {Object} parentCache parentCache
-         * @return {Object} 移除了treeNode后的removedTreeNodeId集合
+         * @return {Object} 移除了treeNode后的selectedTreeNodeId集合
          */
-        unmarkTreeNodeRemoved: function (treeNode, removedTreeNodeId, parentCache) {
+        unmarkTreeNodeSelected: function (treeNode, selectedTreeNodeId, parentCache) {
             // 去掉treeId从集合中，即使当前treeId不在集合中，其孩子也可能在，继续处理以去掉孩子。
-            return _.omit(removedTreeNodeId, Object.keys(exports._markNode(
-                treeNode, removedTreeNodeId, parentCache, 'bubbleWhenNoneMarked'
+            return _.omit(selectedTreeNodeId, Object.keys(exports._markNode(
+                treeNode, selectedTreeNodeId, parentCache, 'bubbleWhenNoneMarked'
             )));
         },
 

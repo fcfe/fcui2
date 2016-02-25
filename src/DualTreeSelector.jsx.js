@@ -52,9 +52,13 @@ define(function (require) {
              */
             onRightTreeOverLimit: React.PropTypes.func,
             /**
-             * 当树节点移动完成时的回调，参数为被移动节点，移动来源
+             * 树节点选择动作开始前的回调，参数为被移动节点，可返回true阻止选择发生
              */
-            onTreeNodeMoved: React.PropTypes.func
+            beforeTreeNodeSelect: React.PropTypes.func,
+            /**
+             * 当树节点选择动作完成时的回调，参数为被移动节点
+             */
+            afterTreeNodeSelect: React.PropTypes.func
         },
 
         getInitialState: function () {
@@ -80,21 +84,15 @@ define(function (require) {
             };
         },
 
-        moveTreeNode: function (removedTreeNode, from) {
-            function afterMove() {
-                if (this.props.onTreeNodeMoved) {
-                    this.props.onTreeNodeMoved.call(this, removedTreeNode, from);
+        selectTreeNode: function (selectedTreeNode) {
+            if (this.props.beforeTreeNodeSelect) {
+                if (this.props.beforeTreeNodeSelect(selectedTreeNode)) {
+                    return;
                 }
             }
-            if (from === 'right') {
-                this.setState({selectedTreeNodeId: treeUtil.unmarkTreeNodeRemoved(
-                    removedTreeNode, this.state.selectedTreeNodeId, this.state.parentCache
-                )}, afterMove);
-                return;
-            }
 
-            var selectedTreeNodeId = treeUtil.markTreeNodeRemoved(
-                removedTreeNode, this.state.selectedTreeNodeId, this.state.parentCache
+            var selectedTreeNodeId = treeUtil.markTreeNodeSelected(
+                selectedTreeNode, this.state.selectedTreeNodeId, this.state.parentCache
             );
 
             if (this.props.rightTreeLimit != null) {
@@ -123,10 +121,18 @@ define(function (require) {
             }, treeNodes);
             this.setState({
                 selectedTreeNodeId: selectedTreeNodeId
-            }, afterMove);
+            }, () => {
+                this.props.afterTreeNodeSelect && this.props.afterTreeNodeSelect.call(this, selectedTreeNode);
+            });
             this.refs.rightTree.setState({
                 expandedTreeNodeId: _.extend(newExpanded, expandedTreeNodeId)
             });
+        },
+
+        unselectTreeNode: function (unselectTreeNode, from) {
+            this.setState({selectedTreeNodeId: treeUtil.unmarkTreeNodeSelected(
+                unselectTreeNode, this.state.selectedTreeNodeId, this.state.parentCache
+            )});
         },
 
         removeAll: function (from) {
@@ -159,7 +165,7 @@ define(function (require) {
                         treeNodes={this.props.treeNodes}
                         markedTreeNodeId={this.state.selectedTreeNodeId}
                         onTreeNodeOperationClicked={(treeNode) => {
-                            this.moveTreeNode(treeNode, 'left');
+                            this.selectTreeNode(treeNode);
                         }}
                         ref='leftTree' />
                     <div className='fcui2-dual-tree-selector-tree-footer'>
@@ -172,7 +178,7 @@ define(function (require) {
                     <Tree style={{width: rightTreeWidth, height: height}}
                         treeNodes={selectedTreeNodes}
                         onTreeNodeOperationClicked={(treeNode) => {
-                            this.moveTreeNode(treeNode, 'right');
+                            this.unselectTreeNode(treeNode);
                         }}
                         ref='rightTree' />
                     <div className='fcui2-dual-tree-selector-tree-footer'>
