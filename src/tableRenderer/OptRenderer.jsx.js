@@ -62,7 +62,7 @@ define(function (require) {
                         <div className="info-layer" ref="layer">
                             <div {...iconProp}></div>
                             <span className="info-text">{message}</span>
-                            <span {...buttonDisplay}>{buttonLabel}</span>
+                            <span {...buttonProp}>{buttonLabel}</span>
                         </div>
                         <div {...iconProp} data-ui-ctrl="top-icon"></div>
                     </div>
