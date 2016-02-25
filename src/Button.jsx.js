@@ -46,9 +46,6 @@ define(function (require) {
                 onMouseUp: this.mouseUpHandler,
                 onClick: this.clickHandler
             };
-            var iconProp = {
-                className: 'font-icon ' + this.props.icon
-            };
             if (this.props.disable) {
                 containerProp.className += ' fcui2-button-disable';
             }
@@ -64,12 +61,13 @@ define(function (require) {
                 delete containerProp.style.minWidth;
                 containerProp.style.width = this.props.width;
             }
-            return (
-                <div {...containerProp}>
-                    <div {...iconProp}></div>
-                    <div style={{backgroundColor: '#f00'}}>{this.props.label}</div>
-                </div>
-            );
+            var dom = [];
+            if (this.props.icon.length > 0) {
+                dom.push(<div className={'font-icon ' + this.props.icon} key="icon"></div>);
+            }
+            dom.push(<div key="label">{this.props.label}</div>);
+
+            return <div {...containerProp}>{dom}</div>;
         }
     });
 });

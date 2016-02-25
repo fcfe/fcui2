@@ -61,8 +61,8 @@ define(function (require) {
                         <ListItem demo={this.props.demo} label="NumberBox" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Select" onClick={this.changeDemo}/>
                     </div>
+                    <div className="right-top-container">{this.state.message}</div>
                     <div className="right-container demo-container">
-                        <div className="demo-message">{this.state.message}</div>
                         <ButtonDemo demo={this.props.demo} alert={this.changeMessage}/>
                     </div>
                     <div className="right-bottom-container"></div>

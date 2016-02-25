@@ -1,14 +1,19 @@
 @import "../skin.less";
 .fcui2-button {
     position: relative;
+    top: @height-normal / 2 - 3;
     display: inline-block;
     height: @height-normal;
     border: @border-normal;
     padding: @padding-normal;
     color: @fontcolor-normal;
+    cursor: default;
+    line-height: @lineheight-normal;
     background-color: @bgcolor-normal;
     font-family: @normal-font;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
     moz-user-select: -moz-none;
     -moz-user-select: none;
     -o-user-select:none;
@@ -16,16 +21,14 @@
     -webkit-user-select:none;
     -ms-user-select:none;
     user-select:none;
-    cursor: default;
     .font-icon {
         float: left;
-        margin-right: 3px;
         font-size: @fontsize-icon;
     }
     >div {
         display: inline-block;
+        height: @height-normal;
         line-height: @lineheight-normal;
-        max-height: @height-normal;
         font-size: @fontsize-button;
         overflow: hidden;
     }

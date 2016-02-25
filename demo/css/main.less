@@ -15,9 +15,26 @@ body {
     color: #FFF;
 }
 .left-container {
-    float: left;
+    position: fixed;
+    left: 0px;
+    top: 60px;
+    bottom: 0px;
     width: 200px;
-    margin-top: 60px;
+    border-right: 1px solid #272822;
+}
+.right-top-container {
+    position: fixed;
+    top: 0px;
+    left: 200px;
+    right: 0px;
+    height: 60px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 60px;
+    background-color: #272822;
+    color: #FFF;
+    z-index: 1;
 }
 .right-container {
     margin-left: 200px;
@@ -47,17 +64,9 @@ body {
     color: #FFF;
 }
 .demo-container {
-    .demo-message {
-        height: 60px;
-        text-align: center;
-        font-weight: 700;
-        font-size: 16px;
-        line-height: 60px;
-        background-color: #272822;
-        color: #FFF;
-    }
     .demo-content {
         padding: 60px;
+        margin-bottom: 300px;
     }
 }
 
