@@ -58,20 +58,26 @@ define(function (require) {
             /**
              * 当树节点选择动作完成时的回调，参数为被移动节点
              */
-            afterTreeNodeSelect: React.PropTypes.func
+            afterTreeNodeSelect: React.PropTypes.func,
+            /**
+             * 左树节点展开时的回调
+             */
+            onLeftTreeNodeExpand: React.PropTypes.func
         },
 
         getInitialState: function () {
-            return _.extend(
-                {selectedTreeNodeId: this.props.selectedTreeNodeId || {}},
-                treeUtil.getCache(this.props.treeNodes)
-            );
+            return {
+                selectedTreeNodeId: this.props.selectedTreeNodeId || {}
+            };
+        },
+
+        componentWillMount: function () {
+            this.updateCache();
         },
 
         componentWillReceiveProps: function (nextProps) {
-            this.setState(
-                _.extend(_.pick(nextProps, 'selectedTreeNodeId'), treeUtil.getCache(this.props.treeNodes))
-            );
+            this.setState(_.pick(nextProps, 'selectedTreeNodeId'));
+            this.updateCache();
         },
 
         getDefaultProps: function () {
@@ -80,24 +86,29 @@ define(function (require) {
                 rightTreeWidth: 310,
                 height: 380,
                 leftTreeTitle: '可选项目',
-                rightTreeTitle: '已选项目'
+                rightTreeTitle: '已选项目',
+                onLeftTreeNodeExpand: _.noop
             };
+        },
+
+        updateCache: function () {
+            this._cache = treeUtil.getCache(this.props.treeNodes);
         },
 
         selectTreeNode: function (selectedTreeNode) {
             if (this.props.beforeTreeNodeSelect) {
-                if (this.props.beforeTreeNodeSelect(selectedTreeNode)) {
+                if (this.props.beforeTreeNodeSelect.call(this, selectedTreeNode)) {
                     return;
                 }
             }
 
             var selectedTreeNodeId = treeUtil.markTreeNodeSelected(
-                selectedTreeNode, this.state.selectedTreeNodeId, this.state.parentCache
+                selectedTreeNode, this.state.selectedTreeNodeId, this._cache.parentCache
             );
 
             if (this.props.rightTreeLimit != null) {
                 var count = Object.keys(selectedTreeNodeId).reduce((count, nodeId) => {
-                    var node = this.state.nodeCache[nodeId];
+                    var node = this._cache.nodeCache[nodeId];
                     if (node && (!node.children || node.children.length === 0)) {
                         return ++count;
                     }
@@ -114,7 +125,7 @@ define(function (require) {
             var newAdded = _.difference(selectedTreeNodeId, this.state.selectedTreeNodeId);
             var newExpanded = {};
             var treeNodes = treeUtil.getMarkedTreeNodes(
-                this.props.treeNodes, newAdded, this.state.parentCache, this.state.nodeCache
+                this.props.treeNodes, newAdded, this._cache.parentCache, this._cache.nodeCache
             );
             treeUtil.walk((node) => {
                 newExpanded[node.id] = true;
@@ -131,7 +142,7 @@ define(function (require) {
 
         unselectTreeNode: function (unselectTreeNode, from) {
             this.setState({selectedTreeNodeId: treeUtil.unmarkTreeNodeSelected(
-                unselectTreeNode, this.state.selectedTreeNodeId, this.state.parentCache
+                unselectTreeNode, this.state.selectedTreeNodeId, this._cache.parentCache
             )});
         },
 
@@ -155,7 +166,7 @@ define(function (require) {
             } = this.props;
 
             var selectedTreeNodes = treeUtil.getMarkedTreeNodes(
-                this.props.treeNodes, this.state.selectedTreeNodeId, this.state.parentCache, this.state.nodeCache
+                this.props.treeNodes, this.state.selectedTreeNodeId, this._cache.parentCache, this._cache.nodeCache
             );
 
             return <div className='fcui2-dual-tree-selector'>
@@ -167,6 +178,7 @@ define(function (require) {
                         onTreeNodeOperationClicked={(treeNode) => {
                             this.selectTreeNode(treeNode);
                         }}
+                        onTreeNodeExpandClicked={this.props.onLeftTreeNodeExpand.bind(this)}
                         ref='leftTree' />
                     <div className='fcui2-dual-tree-selector-tree-footer'>
                         <span className='fcui2-dual-tree-selector-tree-footer-summary'>{textLeftTreeSummary}</span>

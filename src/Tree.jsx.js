@@ -220,7 +220,7 @@ define(function (require) {
                 }}>
                     <span className={isExpanded ? 'fcui2-tree-node-expanded' : 'fcui2-tree-node-collapsed'}
                         onClick={(e) => {
-                            onTreeNodeExpandClicked.call(this, treeNode);
+                            onTreeNodeExpandClicked.call(this, treeNode, !isExpanded);
                             e.stopPropagation();
                         }}
                     ></span>
