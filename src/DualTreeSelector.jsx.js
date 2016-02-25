@@ -24,6 +24,10 @@ define(function (require) {
              */
             rightTreeWidth: React.PropTypes.number,
             /**
+             * 左树的tree node name filter。
+             */
+            leftTreeFilter: React.PropTypes.string,
+            /**
              * 选择器中树的高度，px
              */
             height: React.PropTypes.number,
@@ -203,6 +207,7 @@ define(function (require) {
                 <div className='fcui2-dual-tree-selector-left-tree-wrapper'>
                     <div className="fcui2-dual-tree-selector-tree-title">{leftTreeTitle}</div>
                     <Tree style={{width: leftTreeWidth, height: height}}
+                        nameFilter={this.props.leftTreeFilter}
                         treeNodes={this.props.treeNodes}
                         markedTreeNodeId={this.state.selectedTreeNodeId}
                         onTreeNodeOperationClicked={(treeNode) => {

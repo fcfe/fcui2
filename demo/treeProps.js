@@ -7,15 +7,18 @@ define(function (require) {
     var children = [
         {
             id: '1.1',
-            name: 'Node 1.1'
+            name: 'Node 1.1',
+            isChildrenLoaded: true
         },
         {
             id: '1.2',
-            name: 'Node 1.2'
+            name: 'Node 1.2',
+            isChildrenLoaded: true
         },
         {
             id: '1.3',
-            name: 'Node 1.3'
+            name: 'Node 1.3',
+            isChildrenLoaded: true
         }
     ];
 
@@ -45,6 +48,7 @@ define(function (require) {
         },
 
         dualTreeSelector: {
+            leftTreeFilter: '1',
             treeNodes: [
                 {
                     id: '1',
@@ -63,6 +67,11 @@ define(function (require) {
                             name: 'Node 2.2'
                         }
                     ]
+                },
+                {
+                    id: '3',
+                    name: '没有子节点',
+                    isChildrenLoaded: true
                 }
             ],
             rightTreeLimit: 4,

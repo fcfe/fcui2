@@ -77,6 +77,10 @@ define(function (require) {
              */
             focusedTreeNodeId: React.PropTypes.string,
             /**
+             * filter string，不显示name中含有nameFilterString的node
+             */
+            nameFilter: React.PropTypes.string,
+            /**
              * 被展开的节点集合
              */
             expandedTreeNodeId: React.PropTypes.objectOf(React.PropTypes.bool),
@@ -98,7 +102,8 @@ define(function (require) {
                     };
                 },
                 markedTreeNodeId: {},
-                textLoading: '加载中...'
+                textLoading: '加载中...',
+                nameFilter: null
             };
         },
 
@@ -162,7 +167,7 @@ define(function (require) {
             var nextTreeLevel = treeLevel + 1;
             style = _.extend({}, getTreeLevelStyle(treeLevel), style);
             var treeNodeProps = _.extend(
-                _.pick(this.props, 'textLoading', 'treeLevel'),
+                _.pick(this.props, 'textLoading', 'treeLevel', 'nameFilter'),
                 this._handlers
             );
             var innerTreeProps = _.extend(
@@ -209,6 +214,7 @@ define(function (require) {
     Tree.TreeNode = React.createClass({
         propTypes: {
             treeNode: treeNode,
+            nameFilter: React.PropTypes.string,
             isExpanded: React.PropTypes.bool,
             onTreeNodeExpandClicked: React.PropTypes.func,
             onTreeNodeOperationClicked: React.PropTypes.func,
@@ -220,6 +226,7 @@ define(function (require) {
         render: function () {
             var {
                 treeNode,
+                nameFilter,
                 isExpanded,
                 onTreeNodeExpandClicked,
                 onTreeNodeOperationClicked,
@@ -232,10 +239,18 @@ define(function (require) {
             className = [
                 'fcui2-tree-node',
                 className
-            ].join(' ');
+            ];
+
+            if (treeNode.isChildrenLoaded && (treeNode.children == null || treeNode.children.length === 0)) {
+                className.push('fcui2-tree-node-leaf');
+            }
+
+            if (nameFilter != null && treeNode.name.indexOf(nameFilter) === -1) {
+                className.push('fcui2-tree-node-filtered');
+            }
 
             return (
-                <div {...other} className={className} onClick={() => {
+                <div {...other} className={className.join(' ')} onClick={() => {
                     onTreeNodeClicked.call(this, treeNode);
                 }}>
                     <span className={isExpanded ? 'fcui2-tree-node-expanded' : 'fcui2-tree-node-collapsed'}
