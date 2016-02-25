@@ -132,15 +132,9 @@ define(function (require) {
                 }
             }
 
-            this.setState({
-                selectedTreeNodeId: selectedTreeNodeId
-            }, () => {
-                this.props.afterTreeNodeSelect && this.props.afterTreeNodeSelect.call(this, selectedTreeNode);
-            });
-
             // 同时让挪到右边的节点都展开，将新加入的节点id加入expanded tree node id
             // 得出本次选择所新增的树节点
-            var newAdded = _.difference(selectedTreeNodeId, this.state.selectedTreeNodeId);
+            var newAdded = _.omit(selectedTreeNodeId, Object.keys(this.state.selectedTreeNodeId));
             var newExpanded = {};
             // 得到新增的树节点的树结构
             var treeNodes = treeUtil.getMarkedTreeNodes(
@@ -155,6 +149,11 @@ define(function (require) {
                 expandedTreeNodeId: _.extend(
                     newExpanded, this.refs.rightTree.state.expandedTreeNodeId
                 )
+            });
+            this.setState({
+                selectedTreeNodeId: selectedTreeNodeId
+            }, () => {
+                this.props.afterTreeNodeSelect && this.props.afterTreeNodeSelect.call(this, selectedTreeNode);
             });
         },
 
