@@ -91,10 +91,22 @@ define(function (require) {
             };
         },
 
+        /**
+         * 当this.props中的treeNodes发生了改变后，调用此方法更新本地的 parent cache 和 node cache。
+         * TODO React Pioneers: 此方法的调用不应该是外部的责任。但目前props中的数据结构是mutable的，
+         *  或者说不足够复杂，无法响应外部的修改，因此不得不让外部在修改了props中的数据结构以后调用此方法。
+         *  我们下一个问题就需要考虑，如何为 fcui2 components 乃至更远的 React 业务 Components 设计
+         *  通用的数据结构方案。
+         */
         updateCache: function () {
             this._cache = treeUtil.getCache(this.props.treeNodes);
         },
 
+        /**
+         * 选择一个树节点。
+         *
+         * @param {treeNode} selectedTreeNode selected tree node
+         */
         selectTreeNode: function (selectedTreeNode) {
             if (this.props.beforeTreeNodeSelect) {
                 if (this.props.beforeTreeNodeSelect.call(this, selectedTreeNode)) {
@@ -120,39 +132,58 @@ define(function (require) {
                 }
             }
 
-            // 同时让挪到右边的节点都展开，将新加入的节点id加入expanded tree node id
-            var expandedTreeNodeId = this.refs.rightTree.state.expandedTreeNodeId;
-            var newAdded = _.difference(selectedTreeNodeId, this.state.selectedTreeNodeId);
-            var newExpanded = {};
-            var treeNodes = treeUtil.getMarkedTreeNodes(
-                this.props.treeNodes, newAdded, this._cache.parentCache, this._cache.nodeCache
-            );
-            treeUtil.walk((node) => {
-                newExpanded[node.id] = true;
-            }, treeNodes);
             this.setState({
                 selectedTreeNodeId: selectedTreeNodeId
             }, () => {
                 this.props.afterTreeNodeSelect && this.props.afterTreeNodeSelect.call(this, selectedTreeNode);
             });
+
+            // 同时让挪到右边的节点都展开，将新加入的节点id加入expanded tree node id
+            // 得出本次选择所新增的树节点
+            var newAdded = _.difference(selectedTreeNodeId, this.state.selectedTreeNodeId);
+            var newExpanded = {};
+            // 得到新增的树节点的树结构
+            var treeNodes = treeUtil.getMarkedTreeNodes(
+                this.props.treeNodes, newAdded, this._cache.parentCache, this._cache.nodeCache
+            );
+            // 展开树结构上每一个节点
+            treeUtil.walk((node) => {
+                newExpanded[node.id] = true;
+            }, treeNodes);
+            // 更改右树的展开状态
             this.refs.rightTree.setState({
-                expandedTreeNodeId: _.extend(newExpanded, expandedTreeNodeId)
+                expandedTreeNodeId: _.extend(
+                    newExpanded, this.refs.rightTree.state.expandedTreeNodeId
+                )
             });
         },
 
-        unselectTreeNode: function (unselectTreeNode, from) {
+        /**
+         * 取消选择一个树节点。
+         *
+         * @param {treeNode} unselectTreeNode unselected tree node
+         */
+        unselectTreeNode: function (unselectTreeNode) {
             this.setState({selectedTreeNodeId: treeUtil.unmarkTreeNodeSelected(
                 unselectTreeNode, this.state.selectedTreeNodeId, this._cache.parentCache
             )});
         },
 
-        removeAll: function (from) {
-            if (from === 'left') {
-                throw new Error('从左树移除节点尚不支持。');
-            }
-            else {
-                this.setState({selectedTreeNodeId: {}});
-            }
+        /**
+         * 取消选择全部树节点。
+         */
+        unselectAll: function () {
+            this.setState({selectedTreeNodeId: {}});
+        },
+
+        /**
+         * 作为表单域，得到当前表单值
+         *
+         * @return {Object} 已选的树节点 id 集合。它是this.state中所存集合的一个拷贝。
+         */
+        getValue: function () {
+            // 复制？不复制？这是个问题。。
+            return _.extend({}, this.state.selectedTreeNodeId);
         },
 
         render: function () {
@@ -202,7 +233,7 @@ define(function (require) {
                         </span>
                         <span className='fcui2-dual-tree-selector-tree-footer-remove-all'>
                             <a href='javascript:;' onClick={() => {
-                                this.removeAll('right');
+                                this.unselectAll();
                             }}>全部删除</a>
                         </span>
                     </div>

@@ -7,13 +7,30 @@ define(function (require) {
     var _ = require('underscore');
     var React = require('react');
     var util = require('./core/util.es6');
-    var treeUtil = require('./core/treeUtil.es6');
 
+    /**
+     * 一个树节点的定义
+     */
     var treeNode = React.PropTypes.shape({
+        /**
+         * 树节点id
+         */
         id: React.PropTypes.string,
+        /**
+         * 树节点文本内容
+         */
         name: React.PropTypes.string,
+        /**
+         * 树节点的 载入中 状态
+         */
         isChildrenLoading: React.PropTypes.bool,
+        /**
+         * 树节点的 已载入 状态
+         */
         isChildrenLoaded: React.PropTypes.bool,
+        /**
+         * 所有孩子
+         */
         children: React.PropTypes.arrayOf(treeNode)
     });
 
@@ -29,12 +46,14 @@ define(function (require) {
             treeLevel: React.PropTypes.number,
             /**
              * 根据节点的层数，计算当前层的wrapper的style
+             * @param {number} level 树的层数
+             * @return {Object} 当前层的style object
              */
             getTreeLevelStyle: React.PropTypes.func,
             /**
              * 节点展开按钮被点击时的回调。
-             * @param node 当前被展开的treeNode
-             * @param treeNodes 全体treeNode
+             * @param {treeNode} node 当前被展开的treeNode
+             * @param {bool} 当前点击是要展开节点(true)，或是关闭节点
              * @return {bool} 返回true则阻止默认的行为
              */
             onTreeNodeExpandClicked: React.PropTypes.func,
@@ -45,6 +64,7 @@ define(function (require) {
             onTreeNodeOperationClicked: React.PropTypes.func,
             /**
              * 节点本身被点击时的回调。
+             * @param node 当前被操作的treeNode
              * @return {bool} 返回true则阻止默认的行为
              */
             onTreeNodeClicked: React.PropTypes.func,
@@ -61,7 +81,7 @@ define(function (require) {
              */
             expandedTreeNodeId: React.PropTypes.objectOf(React.PropTypes.bool),
             /**
-             *
+             * 被标记的节点集合
              */
             markedTreeNodeId: React.PropTypes.objectOf(React.PropTypes.bool)
         },
@@ -99,7 +119,7 @@ define(function (require) {
             if (this.props.treeLevel === 0) {
                 this._handlers.onTreeNodeExpandClicked = util.chainFunctions(
                     this.props.onTreeNodeExpandClicked,
-                    (treeNode) => {
+                    function (treeNode) {
                         var expandedTreeNodeId = null;
                         if (this.state.expandedTreeNodeId[treeNode.id]) {
                             expandedTreeNodeId = _.omit(this.state.expandedTreeNodeId, treeNode.id);
@@ -115,7 +135,7 @@ define(function (require) {
                 );
                 this._handlers.onTreeNodeClicked = util.chainFunctions(
                     this.props.onTreeNodeClicked,
-                    (treeNode) => {
+                    function (treeNode) {
                         this.setState({focusedTreeNodeId: treeNode.id});
                     }.bind(this)
                 );
