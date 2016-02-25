@@ -4,37 +4,100 @@
  */
 
 define(function (require) {
-    var treeNodes = [
+    var children = [
         {
-            id: '1',
-            name: 'Node 1',
-            isChildrenLoading: true
+            id: '1.1',
+            name: 'Node 1.1'
         },
         {
-            id: '2',
-            name: 'Node 2',
-            isExpanded: true,
-            children: [
-                {
-                    id: '2.1',
-                    name: 'Node 2.1'
-                },
-                {
-                    id: '2.2',
-                    name: 'Node 2.2'
-                }
-            ]
+            id: '1.2',
+            name: 'Node 1.2'
+        },
+        {
+            id: '1.3',
+            name: 'Node 1.3'
         }
     ];
 
     var exports = {
         tree: {
-            treeNodes: treeNodes
+            treeNodes: [
+                {
+                    id: '1',
+                    name: 'Node 1',
+                    isChildrenLoading: true
+                },
+                {
+                    id: '2',
+                    name: 'Node 2',
+                    children: [
+                        {
+                            id: '2.1',
+                            name: 'Node 2.1'
+                        },
+                        {
+                            id: '2.2',
+                            name: 'Node 2.2'
+                        }
+                    ]
+                }
+            ]
         },
 
         dualTreeSelector: {
-            leftTreeNodes: treeNodes,
-            rightTreeNodes: []
+            treeNodes: [
+                {
+                    id: '1',
+                    name: '1s后异步加载'
+                },
+                {
+                    id: '2',
+                    name: '有2个子节点的父节点',
+                    children: [
+                        {
+                            id: '2.1',
+                            name: 'Node 2.1'
+                        },
+                        {
+                            id: '2.2',
+                            name: 'Node 2.2'
+                        }
+                    ]
+                }
+            ],
+            rightTreeLimit: 4,
+            onRightTreeOverLimit: (num) => {
+                console.warn('tree overlimit at', num);
+            },
+            onLeftTreeNodeExpand: function (treeNode, isExpanded) {
+                if (isExpanded) {
+                    if (treeNode.id === '1' && !treeNode.isChildrenLoaded) {
+                        treeNode.isChildrenLoading = true;
+                        this.forceUpdate();
+                        setTimeout(() => {
+                            treeNode.isChildrenLoading = false;
+                            treeNode.isChildrenLoaded = true;
+                            treeNode.children = children;
+                            this.updateCache();
+                            this.forceUpdate();
+                        }, 1000);
+                    }
+                }
+            },
+            beforeTreeNodeSelect: function (treeNode) {
+                if (treeNode.id === '1' && !treeNode.isChildrenLoaded) {
+                    treeNode.isChildrenLoading = true;
+                    this.forceUpdate();
+                    setTimeout(() => {
+                        treeNode.isChildrenLoading = false;
+                        treeNode.isChildrenLoaded = true;
+                        treeNode.children = children;
+                        this.updateCache();
+                        this.selectTreeNode(treeNode);
+                    }, 1000);
+                    return true;
+                }
+            }
         }
     };
 
