@@ -1,7 +1,15 @@
 @import "../skin.less";
-.fcui2-dialog {
+.fcui2-dialog-container {
     position: fixed;
-    z-index: 9999;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    z-index: 10000;
+    overflow: hidden;
+}
+.fcui2-dialog-workspace {
+    position: absolute;
     left: -9999px;
     top: -9999px;
     width: 9999px;
@@ -37,15 +45,16 @@
     }
 }
 .fcui2-dialog-background {
-    position: fixed;
+    position: absolute;
     top: 0px;
     left: 0px;
-    width: 100%;
-    height: 100%;
-    opacity: 0.1;
-    z-index: 9998;
+    bottom: 0px;
+    right: 0px;
     background-color: @bgcolor-window-background;
+    opacity: 0.2;
 }
+
+
 .fcui2-dialog-alert {
     padding: 10px;
     width: 400px;

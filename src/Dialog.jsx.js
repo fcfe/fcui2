@@ -159,9 +159,13 @@ define(function (require) {
      */
     function Dialog() {
         this.container = document.createElement('div');
+        this.workspace = document.createElement('div');
         this.background = document.createElement('div');
-        this.container.className = 'fcui2-dialog';
+        this.container.className = 'fcui2-dialog-container';
+        this.workspace.className = 'fcui2-dialog-workspace';
         this.background.className = 'fcui2-dialog-background';
+        this.container.appendChild(this.background);
+        this.container.appendChild(this.workspace);
         this.ui = null;
     }
 
@@ -178,20 +182,19 @@ define(function (require) {
 
         var me = this;
         var doc = document.documentElement;
-        var container = this.container;
+        var workspace = this.workspace;
 
         // dialog不应该撑破window，初始化时应在可视区域意外，并尺寸应该足够大，方便计算content尺寸
-        container.style.maxWidth = doc.clientWidth + 'px';
-        container.style.maxHeight = doc.clientHeight + 'px';
-        container.style.left = container.style.top = '-9999px';
-        container.style.width = container.style.height = '9999px;'
-        document.body.appendChild(me.background);
+        workspace.style.maxWidth = doc.clientWidth + 'px';
+        workspace.style.maxHeight = doc.clientHeight + 'px';
+        workspace.style.left = workspace.style.top = '-9999px';
+        workspace.style.width = workspace.style.height = '9999px';
         document.body.appendChild(me.container);
         document.body.style.overflow = 'hidden';
 
         // dialog的props
         param = param || {};
-        param.dialogContainer = container;
+        param.dialogContainer = workspace;
         param.onBeforeClose = typeof param.onBeforeClose === 'function' ? param.onBeforeClose : function () {};
         param.onClose = typeof param.onClose === 'function' ? param.onClose : function () {};
         param.dispose = function () {
@@ -205,7 +208,7 @@ define(function (require) {
         };
 
         // 弹出
-        me.ui = ReactDOM.render(React.createElement(popWindow, param), me.container, loaded);
+        me.ui = ReactDOM.render(React.createElement(popWindow, param), me.workspace, loaded);
 
         function loaded() {
             var timer = setInterval(function () {
@@ -275,9 +278,8 @@ define(function (require) {
      * 销毁窗体
      */
     Dialog.prototype.dispose = function () {
-        ReactDOM.unmountComponentAtNode(this.container);
+        ReactDOM.unmountComponentAtNode(this.workspace);
         document.body.removeChild(this.container);
-        document.body.removeChild(this.background);
         document.body.style.overflow = '';
         this.ui = null;
     };
