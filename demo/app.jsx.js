@@ -18,7 +18,6 @@ define(function (require) {
     var Table = require('fcui/Table.jsx');
 
 
-    var checker = require('fcui/core/checker');
     var config = require('./config');
     var dialog = new Dialog();
     var subApp = require('./subApp.jsx');

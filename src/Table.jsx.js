@@ -77,7 +77,7 @@ define(function (require) {
         );
     }
 
-    // 生成列
+    // 生成行
     function lineFactory(me) {
         var lines = [];
         var conf = me.props.conf;

@@ -1,91 +1,64 @@
 body {
     margin: 0px;
 }
-.leftContainer {
+.logo {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    height: 60px;
+    width: 200px;
+    line-height: 60px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 700;
+    background-color: #272822;
+    color: #FFF;
+}
+.left-container {
     float: left;
-    width: 300px;
-    border-right: 1px solid #D8D8D8;
+    width: 200px;
+    margin-top: 60px;
 }
-.rightContainer {
-    margin-left: 310px;
+.right-container {
+    margin-left: 200px;
 }
-.topHeader {
-    height: 80px;
-    background-color: #FFF;
+.right-bottom-container {
+    position: fixed;
+    left: 200px;
+    right: 0px;
+    bottom: 0px;
+    height: 300px;
+    background-color: #272822;
 }
-.my-form {
-    width: 500px;
-    position: relative;
-    border: 1px solid #D8D8D8;
-    .info {
-        margin: 20px 10px 0;
-        font-size: 12px;
-    }
-    .fieldItem {
-        margin: 20px 10px 0;
-        .label {
-            font-size: 12px;
-        }
-    }
-    .button-submit {
-        margin: 0 10px 10px 10px;
-    }
-    .alert {
-        font-size: 12px;
-        color: #f00;
-        margin: 20px 10px;
-    }
+.list-item {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: default;
+    background-color: #E6E6E6;
 }
-.subAppContainer {
-    padding: 5px 5px 5px 5px;
-    margin: 20px;
+.list-item:hover {
+    background-color: #A8A8A8;
+}
+.list-item-selectd {
+    background-color: #3E3E3E;
+    color: #FFF;
+}
+.demo-container {
+    .demo-message {
+        height: 60px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 60px;
+        background-color: #272822;
+        color: #FFF;
+    }
+    .demo-content {
+        padding: 60px;
+    }
 }
 
-
-.list-selector {
-    .item {
-        line-height: 30px;
-        padding: 0 10px;
-        border: 1px solid #FFF;
-        span {
-            font-size: 12px;
-            font-weight: 700;
-        }
-        .font-icon {
-            display: inline-block;
-            font-size: 20px;
-            float: right;
-            line-height: 30px;
-            cursor: pointer;
-            color: #4593FF;
-        }
-        .font-icon:hover {
-            color: #2F82F5;
-        }
-    }
-    .item:hover {
-        background-color: #F2F8FF;
-        border: 1px solid #4593FF;
-    }
-    .left-list, .right-list {
-        border: 1px solid #D8D8D8;
-        width: 320px;
-        height: 300px;
-        overflow-y: scroll;
-    }
-    .left-list {
-        float: left;
-        .font-icon-times {
-            display: none;
-        }
-    }
-    .right-list {
-        margin-left: 330px;
-        .font-icon-plus, .item-notselected {
-            display: none;
-        }
-    }
-    .disable {
-        color: grey !important;
-    }
-}
+@import "./button.less";

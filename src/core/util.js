@@ -1,10 +1,16 @@
 /**
- * @file全局工具集
- * 原则上，这里放置通用工具，跨组件使用，甚至可以跨框架使用
+ * @file 全局工具集
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ *
+ * 此工具库所有方法，不但fcui2可以使用，其他任何项目都可以把它拿出去单独使用。
+ * 此工具库不支持ES6语法，确保所有方法在所有浏览器基础环境中都能正确运行。
+ * 不允许在此工具集中引入或使用或合并其他任何库，比如underscore, jQuery等。
+ * 此工具集包含了操作原生DOM的方法，不能在node中使用。
+ * 目前符合AMD规范，将来会支持CMD和直接引入。
  */
 define(function (require) {
     var exports = {
-
         /**
          * 绑定函数上下文
          *
@@ -54,7 +60,7 @@ define(function (require) {
         },
 
         /**
-         * 获取DOM节点dataset，shit IE9
+         * 获取DOM节点dataset，主要为了兼容最老版本的IE9
          *
          * @param {HtmlElement} dom dom节点
          * @return {Object} dataset数据集
@@ -77,52 +83,6 @@ define(function (require) {
                 dataset[key] = item.value;
             }
             return dataset;
-        },
-
-        /**
-         * 生成function调用chain，从第一个functon开始调用，若返回true则中止调用链
-         *
-         * @param {Array} funcs funcs
-         * @return {Function} chain函数
-         */
-        chainFunctions: function (...funcs) {
-            return function (...args) {
-                funcs.find((handler) => handler.apply(this, args));
-            };
-        },
-
-        /**
-         * 将freezer的update事件bind到React Component的setState中
-         *
-         * @param {Freezer} freezer freezer
-         * @param {ReactComponent} theComponent The React component
-         * @param {string} stateName stateName
-         */
-        bindFreezerAndComponent: function (freezer, theComponent, stateName) {
-            freezer.on('update', () => {
-                var newState = {};
-                newState[stateName] = freezer.get();
-                theComponent.setState(newState);
-            });
-        },
-
-        /**
-         * 完成一个Frozen包装的 object 的transaction
-         *
-         * @param {Freezer} freezed freezed object 如果不是freezed object，则立即执行后面的func
-         * @param {Function} func transaction function
-         *
-         * @return {Freezer} transaction result
-         */
-        doInFrozenTransaction: function (freezed, func) {
-            if (typeof freezed.transact !== 'function') {
-                func(freezed, freezed);
-                return freezed;
-            }
-
-            var mutable = freezed.transact();
-            func(mutable, freezed);
-            return freezed.run();
         }
     };
 

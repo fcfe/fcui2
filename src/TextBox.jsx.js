@@ -1,11 +1,8 @@
 define(function (require) {
 
     var React = require('react');
-    var mixins = require('./core/mixins.jsx');
 
     return React.createClass({
-        // @override
-        mixins: [mixins.formField],
         // @override
         getDefaultProps: function () {
             return {
@@ -14,11 +11,7 @@ define(function (require) {
                 label: '',  // 输入框下方的输入提示
                 value: '',  // 初始value
                 disable: false,
-                checkout: [],   // 校验队列
-                onChange: function () {},
-                form: {},   // 父form component
-                formField: '', // 本输入的域名称
-                formFeedback: '' // 错误的提示框
+                onChange: function () {}
             };
         },
         // @override

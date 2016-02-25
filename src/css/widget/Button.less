@@ -7,8 +7,6 @@
     padding: @padding-normal;
     color: @fontcolor-normal;
     background-color: @bgcolor-normal;
-    line-height: @lineheight-normal;
-    font-size: @fontsize-button;
     font-family: @normal-font;
     text-align: center;
     moz-user-select: -moz-none;
@@ -20,11 +18,16 @@
     user-select:none;
     cursor: default;
     .font-icon {
-        display: inline-block;
         float: left;
-        line-height: @lineheight-normal;
         margin-right: 3px;
         font-size: @fontsize-icon;
+    }
+    >div {
+        display: inline-block;
+        line-height: @lineheight-normal;
+        max-height: @height-normal;
+        font-size: @fontsize-button;
+        overflow: hidden;
     }
 }
 .fcui2-button:hover {

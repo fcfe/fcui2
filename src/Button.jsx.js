@@ -6,27 +6,18 @@ define(function (require) {
             return {
                 className: '',
                 minWidth: 40,
-                maxWidth: null,
+                width: null,
                 label: 'Button',
                 icon: '',
-                cmd: '',
+                value: '',
                 skin: '',
                 disable: false,
                 onClick: function () {}
             };
         },
         // @override
-        componentWillReceiveProps: function (props) {
-            this.setState({
-                disable: props.disable
-            });
-        },
-        // @override
         getInitialState: function () {
-            return {
-                active: false,
-                disable: this.props.disable
-            };
+            return {active: false};
         },
         // 这样写的原因是：react自动加span把label包了起来，导致css:active在IE中不好使
         mouseDownHandler: function (e) {
@@ -39,10 +30,10 @@ define(function (require) {
         },
         clickHandler: function (e) {
             e.stopPropagation();
-            if (this.state.disable) return;
+            if (this.props.disable) return;
             this.props.onClick({
                 target: this,
-                value: this.props.cmd
+                value: this.props.value
             });
         },
         render: function () {
@@ -58,7 +49,7 @@ define(function (require) {
             var iconProp = {
                 className: 'font-icon ' + this.props.icon
             };
-            if (this.state.disable) {
+            if (this.props.disable) {
                 containerProp.className += ' fcui2-button-disable';
             }
             else {
@@ -69,14 +60,14 @@ define(function (require) {
                     containerProp.className += ' fcui2-button-' + this.props.skin;
                 }
             }
-            if (this.props.maxWidth != null) {
+            if (this.props.width != null) {
                 delete containerProp.style.minWidth;
-                containerProp.style.maxWidth = this.props.maxWidth;
+                containerProp.style.width = this.props.width;
             }
             return (
                 <div {...containerProp}>
                     <div {...iconProp}></div>
-                    {this.props.label}
+                    <div style={{backgroundColor: '#f00'}}>{this.props.label}</div>
                 </div>
             );
         }
