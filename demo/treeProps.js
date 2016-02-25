@@ -79,6 +79,7 @@ define(function (require) {
                             treeNode.isChildrenLoaded = true;
                             treeNode.children = children;
                             this.updateCache();
+                            this.forceUpdate();
                         }, 1000);
                     }
                 }
