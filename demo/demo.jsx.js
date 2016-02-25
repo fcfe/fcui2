@@ -57,17 +57,19 @@ define(function (require) {
                     <div className="logo">{this.props.title}</div>
                     <div className="left-container">
                         <ListItem demo={this.props.demo} label="Button" onClick={this.changeDemo}/>
-                        <ListItem demo={this.props.demo} label="TextBox" onClick={this.changeDemo}/>
-                        <ListItem demo={this.props.demo} label="NumberBox" onClick={this.changeDemo}/>
-                        <ListItem demo={this.props.demo} label="Select" onClick={this.changeDemo}/>
                     </div>
                     <div className="right-top-container">{this.state.message}</div>
-                    <div className="right-container demo-container">
+                    <div className="right-middle-container">
                         <ButtonDemo demo={this.props.demo} alert={this.changeMessage}/>
                     </div>
-                    <div className="right-bottom-container"></div>
+                    <div className="right-bottom-container" style={{display: 'none'}}></div>
                 </div>
             );
         }
     });
 });
+/*
+                        <ListItem demo={this.props.demo} label="TextBox" onClick={this.changeDemo}/>
+                        <ListItem demo={this.props.demo} label="NumberBox" onClick={this.changeDemo}/>
+                        <ListItem demo={this.props.demo} label="Select" onClick={this.changeDemo}/>
+                        */

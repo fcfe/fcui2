@@ -7,6 +7,8 @@ define(function (require) {
                 className: '',
                 minWidth: 40,
                 width: null,
+                type: 'button',
+                name: '',
                 label: 'Button',
                 icon: '',
                 value: '',
@@ -37,14 +39,19 @@ define(function (require) {
             });
         },
         render: function () {
+            var dom = [];
             var containerProp = {
                 className: 'fcui2-button ' + this.props.className,
-                style: {
-                    minWidth: this.props.minWidth
-                },
+                style: {minWidth: this.props.minWidth},
                 onMouseDown: this.mouseDownHandler,
                 onMouseUp: this.mouseUpHandler,
                 onClick: this.clickHandler
+            };
+            var inputProp = {
+                type: 'button;submit;reset;'.indexOf(this.props.type + ';') > -1 ? this.props.type : 'button',
+                name: this.props.name,
+                value: this.props.label,
+                key: 'button' 
             };
             if (this.props.disable) {
                 containerProp.className += ' fcui2-button-disable';
@@ -61,12 +68,11 @@ define(function (require) {
                 delete containerProp.style.minWidth;
                 containerProp.style.width = this.props.width;
             }
-            var dom = [];
             if (this.props.icon.length > 0) {
-                dom.push(<div className={'font-icon ' + this.props.icon} key="icon"></div>);
+                inputProp.style = {textAlign: 'left'};
+                dom.push(<div className={'font-icon ' + this.props.icon} key="icon"/>);
             }
-            dom.push(<div key="label">{this.props.label}</div>);
-
+            dom.push(<input {...inputProp}/>);
             return <div {...containerProp}>{dom}</div>;
         }
     });

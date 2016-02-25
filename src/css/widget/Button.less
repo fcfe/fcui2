@@ -1,16 +1,15 @@
 @import "../skin.less";
 .fcui2-button {
+
+    display: inline-block;
     position: relative;
     top: @height-normal / 2 - 3;
-    display: inline-block;
     height: @height-normal;
     border: @border-normal;
     padding: @padding-normal;
-    color: @fontcolor-normal;
     cursor: default;
     line-height: @lineheight-normal;
     background-color: @bgcolor-normal;
-    font-family: @normal-font;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
@@ -21,16 +20,29 @@
     -webkit-user-select:none;
     -ms-user-select:none;
     user-select:none;
+
     .font-icon {
+        display: inline-block;
         float: left;
         font-size: @fontsize-icon;
+        margin-right: 5px;
+        color: #000 !important;
     }
-    >div {
-        display: inline-block;
+    input {
+        position: relative;
+        top: -2px;
+        border: 0;
+        outline: 0;
+        width: 100%;
+        padding: 0;
+        font-size: @fontsize-button;
+        background-color: transparent;
+        font-family: @normal-font;
+    }
+    input,.font-icon {
+        color: @fontcolor-normal;
         height: @height-normal;
         line-height: @lineheight-normal;
-        font-size: @fontsize-button;
-        overflow: hidden;
     }
 }
 .fcui2-button:hover {
@@ -42,12 +54,16 @@
     border-color: @color-active !important;
 }
 .fcui2-button-disable {
-    color: @color-disable !important;
+    input,.font-icon {
+        color: @color-disable !important;
+    }
 }
 .fcui2-button-important {
     border-color: @color-active !important;
     background-color: @bgcolor-important;
-    color: @fontcolor-important !important;
+    input,.font-icon {
+        color: @fontcolor-important !important;
+    }
 }
 .fcui2-button-important:hover {
     background-color: @bgcolor-important-hover;
@@ -56,5 +72,7 @@
     background-color: @bgcolor-important;
 }
 .fcui2-button-highlight {
-    color: @fontcolor-highlight !important;
+    input,.font-icon {
+        color: @fontcolor-important !important;
+    }
 }

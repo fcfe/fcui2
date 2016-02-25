@@ -3,29 +3,54 @@ define(function (require) {
 
     var React = require('react');
     var Button = require('fcui/Button.jsx');
-    var Dialog = require('fcui/Dialog.jsx');
-    var dialog = new Dialog();
 
-    var props = [
-        {label: 'Enter', value: 'enter button'},
-        {label: 'Submit', skin: 'important', value: 'submit button'},
-        {label: 'Button Disabled', disable: true, value: 'disabled button'},
-        {label: 'Find', icon: 'font-icon-enlarge', value: 'button width icon'},
-        {label: 'Width', minWidth: 200, value: 'button with minWidth'},
-        {label: 'Button Width Max Width 100', icon: 'font-icon-enlarge', width: 100, value: 'button with maxWidth'}
+    var items = [
+        {
+            title: 'Normal Button',
+            props: {label: 'Enter', value: 'enter button'}
+        },
+        {
+            title: 'Submit Button',
+            props: {label: 'Submit', type:'submit', name: 'submit1', skin: 'important', value: 'submit button'}
+        },
+        {
+            title: 'Active Button',
+            props: {label: 'Active', skin: 'active', value: 'active button'}
+        },
+        {
+            title: 'Disabled Button',
+            props: {label: 'Button Disabled', disable: true, value: 'disabled button'}
+        },
+        {
+            title: 'Button With ICON and SKIN',
+            props: {label: 'Find', skin:'important', width: 50, icon: 'font-icon-enlarge', value: 'button width icon'}
+        },
+        {
+            title: 'Button With MinWidth',
+            props: {label: 'Width', minWidth: 200, value: 'button with minWidth'}
+        },
+        {
+            title: 'Button With MinWidth and Long Label',
+            props: {label: 'The minWidth is 100, but the label is very long', minWidth: 100, value: 'button with minWidth 100'}
+        },
+        {
+            title: 'Button Fixed Width',
+            props: {label: 'Button Width setted 100', icon: 'font-icon-enlarge', width: 100, value: 'button with width'}
+        }  
     ];
 
-    function buttonFactory(me, props) {
+    function buttonFactory(me, items) {
         var btns = [];
-        for (var i = 0; i < props.length; i++) {
-            var prop = props[i];
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i];
+            var prop = item.props;
             var conf = JSON.stringify(prop);
             prop.onClick = me.clickHandler;
             btns.push(
                 <div className="demo-button-item" key={'button' + i}>
-                    <input type="button" style={{height: 30}} value="asdasd"/>
+                    <h3>{item.title}</h3>
+                    <div className="props">{conf}</div>
                     <Button {...prop}/>
-                    <span>{conf}</span>
                 </div>
             );
         }
@@ -41,7 +66,6 @@ define(function (require) {
             };
         },
         clickHandler: function (e) {
-            dialog.alert({message: 'abc'});
             this.props.alert('Button \'' + e.value + '\' has been clicked!');
         },
         render: function () {
@@ -51,9 +75,7 @@ define(function (require) {
                     display: this.props.demo === 'Button' ? 'block' : 'none'
                 }
             };
-            return (
-                <div className="demo-content">{buttonFactory(this, props)}</div>
-            );
+            return (<div {...containerProp}>{buttonFactory(this, items)}</div>);
         }
     });
 });
