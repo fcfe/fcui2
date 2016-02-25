@@ -29,6 +29,12 @@ define(function (require) {
         render: function () {
             var item = this.props.item;
             var conf = this.props.conf;
+            var message = typeof conf.content === 'function' ? conf.content(item) : null;
+            var buttonLabel = typeof conf.buttonLabel === 'function' ? conf.buttonLabel(item) : conf.buttonLabel + '';
+            var buttonDisplay = typeof conf.buttonDisplay === 'function' ? conf.buttonDisplay(item) : true;
+            if (!message) {
+                return <td></td>;
+            }
             var tdProp = {
                 className: 'td-optsug',
                 ref: 'rootContainer',
@@ -40,18 +46,23 @@ define(function (require) {
                     color: '#000'
                 }
             };
+            var buttonProp = {
+                className: 'info-link',
+                onClick: this.clickHandler
+            };
             if (conf.hasOwnProperty('color')) {
                 iconProp.style.color = typeof conf.color === 'function' ? conf.color(item) : conf.color + '';
             }
-            var message = typeof conf.content === 'function' ? conf.content(item) : conf.content + '';
-            var buttonLabel = typeof conf.buttonLabel === 'function' ? conf.buttonLabel(item) : conf.buttonLabel + '';
+            if (!buttonDisplay) {
+                buttonProp.style = {display: 'none'};
+            }
             return (
                 <td {...tdProp}>
                     <div className="icon-container pos-left" ref="container" onMouseOver={this.mouseOverHandler}>
                         <div className="info-layer" ref="layer">
                             <div {...iconProp}></div>
                             <span className="info-text">{message}</span>
-                            <span className="info-link" onClick={this.clickHandler}>{buttonLabel}</span>
+                            <span {...buttonProp}>{buttonLabel}</span>
                         </div>
                         <div {...iconProp} data-ui-ctrl="top-icon"></div>
                     </div>
