@@ -10,7 +10,7 @@ define(function (require) {
             props: {label: 'Enter', value: 'enter button'}
         },
         {
-            title: 'Button With Custom Class',
+            title: 'Button with ClassName',
             props: {label: 'Button', value: 'class button', className: 'marginLeft100 border2'}
         },
         {
@@ -26,19 +26,19 @@ define(function (require) {
             props: {label: 'Button Disabled', disable: true, value: 'disabled button'}
         },
         {
-            title: 'Button With ICON and SKIN',
+            title: 'Button with Icon and Skin',
             props: {label: 'Find', skin:'important', width: 50, icon: 'font-icon-enlarge', value: 'button width icon'}
         },
         {
-            title: 'Button With MinWidth',
+            title: 'Button with MinWidth',
             props: {label: 'Width', minWidth: 200, value: 'button with minWidth'}
         },
         {
-            title: 'Button With MinWidth and Long Label',
+            title: 'Button with MinWidth and a Long Label',
             props: {label: 'The minWidth is 100, but the label is very long', minWidth: 100, value: 'button with minWidth 100'}
         },
         {
-            title: 'Button Fixed Width',
+            title: 'Button with Width',
             props: {label: 'Button Width setted 100', icon: 'font-icon-enlarge', width: 100, value: 'button with width'}
         }  
     ];

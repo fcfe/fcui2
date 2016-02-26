@@ -10,7 +10,7 @@ define(function (require) {
             props: {}
         },
         {
-            title: 'TextBox With Custom Class',
+            title: 'TextBox with ClassName',
             onChange: true,
             props: {className: 'marginLeft100 border2'}
         },
@@ -30,12 +30,12 @@ define(function (require) {
             props: {placeholder: 'please input'}
         },
         {
-            title: 'TextBox with Fixed Width',
+            title: 'TextBox with Width',
             onChange: true,
             props: {width: 500}
         },
         {
-            title: 'TextBox with valueLinker',
+            title: 'TextBox with ValueLinker',
             valueLink: true,
             props: {}
         },
