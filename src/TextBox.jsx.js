@@ -1,3 +1,9 @@
+/**
+ * @file 文本输入框组件
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.1
+ */
 define(function (require) {
 
     var React = require('react');
@@ -12,7 +18,8 @@ define(function (require) {
                 className: '',
                 width: 200,
                 placeholder: '',
-                disable: false
+                disable: false,
+                valueTemplate: '' // 值的模板，当用户不通过value和valueLink传入值控制时，根据此项在state中保存临时操作值
             };
         },
         // @override
@@ -38,7 +45,7 @@ define(function (require) {
             };
             var placeholderProp = {
                 style: {
-                    visibility: value.length ? 'hidden' : 'visible'
+                    visibility: value && value.length ? 'hidden' : 'visible'
                 }
             };
             var inputProp = {

@@ -34,12 +34,21 @@ define(function (require) {
         },
 
         /**
-         * 获取value，可以从prop中，也可以从valueLink中
+         * 获取value
          *
          * @return {AnyType} 输入组件当前值
+         * 1.如果用户使用了valueLink，则返回valueLink记录的值
+         * 2.不满足1，如果用户通过props.value设置value，则返回props.value
+         * 3.不满足2，如果组件state中存储了临时值，返回这个临时值
+         * 4.不满足3，如果组件存在默认值模版，返回值模板
+         * 5.不满足4，返回null
          */
         ___getValue___: function () {
-            return this.___hasValueLink___ ? this.props.valueLink.value : this.props.value;
+            if (this.___hasValueLink___) return this.props.valueLink.value;
+            if (this.props.hasOwnProperty('value')) return this.props.value;
+            if (this.state.hasOwnProperty('___value___')) return this.state.___value___;
+            if (this.props.hasOwnProperty('valueTemplate')) return this.props.valueTemplate;
+            return null;
         },
 
         /**
@@ -47,13 +56,15 @@ define(function (require) {
          *
          * @param {event} e 触发的dom事件
          */
-        ___dispatchChange___: function (e) {
+        ___dispatchChange___: function (e, value) {
+            var value = arguments.length > 1 ? value : e.target.value;
             if (this.___hasValueLink___) {
-                this.props.valueLink.requestChange(e.target.value);
+                this.props.valueLink.requestChange(value);
             }
             else if (typeof this.props.onChange === 'function') {
                 this.props.onChange(e);
             }
+            this.setState({___value___: value});
         }
     };
 });

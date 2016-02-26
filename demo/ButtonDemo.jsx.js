@@ -10,6 +10,10 @@ define(function (require) {
             props: {label: 'Enter', value: 'enter button'}
         },
         {
+            title: 'Button With Custom Class',
+            props: {label: 'Button', value: 'class button', className: 'marginLeft100 border2'}
+        },
+        {
             title: 'Submit Button',
             props: {label: 'Submit', type:'submit', name: 'submit1', skin: 'important', value: 'submit button'}
         },
@@ -39,22 +43,22 @@ define(function (require) {
         }  
     ];
 
-    function buttonFactory(me, items) {
-        var btns = [];
+    function factory(me, items) {
+        var widgets = [];
         for (var i = 0; i < items.length; i++) {
             var item = items[i];
             var prop = item.props;
             var conf = JSON.stringify(prop);
             prop.onClick = me.clickHandler;
-            btns.push(
-                <div className="demo-button-item" key={'button' + i}>
+            widgets.push(
+                <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>
-                    <div className="props">{conf}</div>
                     <Button {...prop}/>
+                    <div className="props">{conf}</div>
                 </div>
             );
         }
-        return btns;
+        return widgets;
     }
 
     return React.createClass({
@@ -75,7 +79,7 @@ define(function (require) {
                     display: this.props.demo === 'Button' ? 'block' : 'none'
                 }
             };
-            return (<div {...containerProp}>{buttonFactory(this, items)}</div>);
+            return (<div {...containerProp}>{factory(this, items)}</div>);
         }
     });
 });
