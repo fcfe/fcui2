@@ -38,8 +38,9 @@ define(function (require) {
         if (isNaN(result)) return '';
         var max = parseFloat(config.max);
         var min = parseFloat(config.min);
-        result = result > max ? max : result;
-        result = result < min ? min : result;
+        result = result > max ? value = max : result;
+        result = result < min ? value = min : result;
+
         if (config.type === 'int') return parseInt(result, 10) + '';
 
         // 检查小数点
