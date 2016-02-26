@@ -5,17 +5,6 @@ define(function (require) {
     var ReactDOM = require('react-dom');
 
     return {
-        // 用于需要记录鼠标状态的组件，如layer
-        mouseContainer: {
-            mouseleave: function (e) {
-                e.stopPropagation();
-                this.setState({mouseover: false});
-            },
-            mouseenter: function (e) {
-                e.stopPropagation();
-                this.setState({mouseover: true});
-            },
-        },
         // 用于随window resize进行特殊渲染处理的组件，如table header
         resizeContainer: {
             resizeTimer: null,
