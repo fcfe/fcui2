@@ -58,66 +58,6 @@ define(function (require) {
             }
         },
         // 用于含有layer浮层的容器
-        layerContainer: {
-            layerContainer: null,
-            layerShow: function () {
-                var me = this;
-                if (me.layerContainer == null) {
-                    me.layerContainer = document.createElement('div');
-                    me.layerContainer.className = 'fcui2-layer'
-                }
-                if (me.layer || typeof me.props.layerContent !== 'function') return;
-                document.body.appendChild(me.layerContainer);
-                var props = {
-                    parent: me,
-                    datasource: me.props.datasource,
-                    onAction: me.layerAction
-                };
-                var timer = null;
-                if (typeof me.props.layerProps === 'object') {
-                    for (var key in me.props.layerProps) {
-                        if (props.hasOwnProperty('key')) continue;
-                        props[key] = me.props.layerProps[key];
-                    }
-                }
-                me.layer = ReactDOM.render(React.createElement(me.props.layerContent, props), me.layerContainer);
-                timer = setInterval(fixedPosition, 5);
-                function fixedPosition() {
-                    var height = me.layerContainer.offsetHeight;
-                    var container = me.refs.container;
-                    var layer = me.layerContainer;
-                    if (!me.state.mouseover || !container) {
-                        clearInterval(timer);
-                        return;
-                    }
-                    if (height === 0) return;
-                    clearInterval(timer);
-                    var pos = util.getDOMPosition(container);
-                    var top = (pos.y + container.offsetHeight + height < document.documentElement.clientHeight)
-                        ? (pos.y + container.offsetHeight) : (pos.y - height);
-                    var left = pos.x;
-                    layer.style.left = left + 'px';
-                    layer.style.top = top + 'px';
-                    timer = setInterval(autoHide, 1000);
-                }
-                function autoHide() {
-                    if (me.layer == null) {
-                        clearInterval(timer);
-                        return;
-                    }
-                    if (me.state.mouseover || me.layer.state.mouseover) return;
-                    clearInterval(timer);
-                    me.layerHide();
-                }
-            },
-            layerHide: function () {
-                this.layer = null;
-                try {
-                    document.body.removeChild(this.layerContainer);
-                } catch (e) {
-                    // TODO
-                }
-            }
-        }
+        layerContainer: 
     };
 });

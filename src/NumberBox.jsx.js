@@ -11,50 +11,6 @@ define(function (require) {
     var InputWidgetBase = require('./mixins/InputWidgetBase');
     var util = require('./core/util');
 
-    function numberFormater(value, config) {
-
-        value = value + '';
-        if (value.length === 0) return value;
-
-        // 分析并过滤掉非法字符
-        var str = '-.0123456789';
-        var result = '';
-        for (var i = 0; i < value.length; i++) {
-            var char = value.charAt(i);
-            if (
-                str.indexOf(char) < 0
-                || (char === '-' && i > 0)
-                || (char === '.' && result.indexOf('.') > -1)
-            ) {
-                continue;
-            }
-            result += char;
-        }
-        if (result === '-' || result === '.') return result;
-
-        // 检查是否在区间范围内
-        value = result;
-        result = parseFloat(result);
-        if (isNaN(result)) return '';
-        var max = parseFloat(config.max);
-        var min = parseFloat(config.min);
-        result = result > max ? value = max : result;
-        result = result < min ? value = min : result;
-
-        if (config.type === 'int') return parseInt(result, 10) + '';
-
-        // 检查小数点
-        value = value + '';
-        var fixed = parseInt(config.fixed, 10);
-        var arr = value.split('.').slice(0, 2);
-        if (arr[0].length === 0) arr[0] = 0;
-        if (arr.length > 1 && arr[1].length > fixed) {
-            arr[1] = arr[1].slice(0, fixed);
-        }
-        return arr.join('.');
-
-    }
-
 
     return React.createClass({
         // @override
@@ -143,4 +99,48 @@ define(function (require) {
             );
         }
     });
+
+
+    function numberFormater(value, config) {
+
+        value = value + '';
+        if (value.length === 0) return value;
+
+        // 分析并过滤掉非法字符
+        var str = '-.0123456789';
+        var result = '';
+        for (var i = 0; i < value.length; i++) {
+            var char = value.charAt(i);
+            if (
+                str.indexOf(char) < 0
+                || (char === '-' && i > 0)
+                || (char === '.' && result.indexOf('.') > -1)
+            ) {
+                continue;
+            }
+            result += char;
+        }
+        if (result === '-' || result === '.') return result;
+
+        // 检查是否在区间范围内
+        value = result;
+        result = parseFloat(result);
+        if (isNaN(result)) return '';
+        var max = parseFloat(config.max);
+        var min = parseFloat(config.min);
+        result = result > max ? value = max : result;
+        result = result < min ? value = min : result;
+
+        if (config.type === 'int') return parseInt(result, 10) + '';
+
+        // 检查小数点
+        value = value + '';
+        var fixed = parseInt(config.fixed, 10);
+        var arr = value.split('.').slice(0, 2);
+        if (arr[0].length === 0) arr[0] = 0;
+        if (arr.length > 1 && arr[1].length > fixed) {
+            arr[1] = arr[1].slice(0, fixed);
+        }
+        return arr.join('.');
+    }
 });

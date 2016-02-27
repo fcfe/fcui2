@@ -1,16 +1,27 @@
+/**
+ * @file 选择框组件
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.1
+ */
 define(function (require) {
+
+
     var React = require('react');
-    var util = require('./core/util.es6');
-    var mixins = require('./core/mixins.jsx');
+    var util = require('./core/util');
+    var MouseWidgetBase = require('./mixins/MouseWidgetBase');
+
+
     return React.createClass({
         // @override
-        mixins: [mixins.mouseContainer],
+        mixins: [MouseWidgetBase],
         // @override
         getDefaultProps: function () {
             return {
                 className: '',
-                datasource: [],
-                onAction: function () {}
+                datasource: [],  // {label: <string>, value: <string>, disable: <boolean>, children: [self]}
+                disable: false,
+                onClick: function () {}
             };
         },
         // @override
@@ -29,8 +40,10 @@ define(function (require) {
         },
         clickHandler: function (e) {
             var dataset = util.getDataset(e.target);
-            if (this.state.disable || !dataset.uiCmd) return;
-            this.props.onAction('ListClick', dataset.uiCmd);
+            if (dataset.uiDisable + '' === 'true' || !dataset.uiCmd || this.props.disable) return;
+            e.target.value = dataset.uiCmd;
+            this.props.onClick(e);
+            // 必须stop掉，否则外部如果用了onClick，会触发两次
             e.stopPropagation();
         },
         render: function () {
@@ -38,44 +51,51 @@ define(function (require) {
             var containerProps = {
                 ref: 'container',
                 className: 'fcui2-list ' + me.props.className,
-                onMouseEnter: this.mouseenter,
-                onMouseLeave: this.mouseleave
+                onMouseEnter: this.___mouseenterHandler___,
+                onMouseLeave: this.___mouseleaveHandler___,
+                onClick: this.clickHandler
             };
-            return (
-                <div {...containerProps}>
-                    {this.props.datasource.map(produceList)}
-                </div>
-            );
-            function produceList(item, index) {
-                var children = item.datasource instanceof Array ? item.datasource : [];
-                var itemProp = {
-                    onClick: me.clickHandler,
-                    className: 'item' + (item.disable ? ' disable' : ''),
-                    key: index
-                };
-                var spanProp = {
-                    onClick: me.clickHandler
-                };
-                var rightArrowProp = {
-                    className: 'icon-right font-icon font-icon-largeable-caret-right',
-                    style: {
-                        visibility: children.length > 0 ? 'visible' : 'hidden'
-                    }
-                };
-                var rightLayerProp = {
-                    className: 'layer ' + (children.length > 0 ? 'right-layer' : 'disable-layer')
-                };
-                if (!item.disable) {
-                    itemProp['data-ui-cmd'] = spanProp['data-ui-cmd'] = item.value;
-                }
-                return (
-                    <div {...itemProp}>
-                        <div {...rightArrowProp}></div>
-                        <span {...spanProp}>{item.label}</span>
-                        <div {...rightLayerProp}>{children.map(produceList)}</div>
-                    </div>
-                );
-            }
+            return (<div {...containerProps}>{listFactory(this.props.datasource, '0')}</div>);
         }
     });
+
+
+    function listFactory(datasource, level) {
+        if (datasource.length === 0) return <div></div>;
+        var result = [];
+        for (var index = 0; index < datasource.length; index++) {
+            var treeIndex = level + '-' + index;
+            var item = datasource[index];
+            var children = item.children instanceof Array ? item.children : [];
+            var itemProp = {
+                className: 'item' + (item.disable ? ' disable' : ''),
+                key: treeIndex,
+                'data-ui-disable': item.disable,
+                'data-ui-cmd': item.value,
+                'data-tree-index': treeIndex
+            };
+            var spanProp = {
+                'data-ui-disable': item.disable,
+                'data-ui-cmd': item.value,
+                'data-tree-index': treeIndex
+            };
+            var rightArrowProp = {
+                className: 'icon-right font-icon font-icon-largeable-caret-right',
+                style: {
+                    visibility: children.length > 0 ? 'visible' : 'hidden'
+                }
+            };
+            var rightLayerProp = {
+                className: 'layer ' + (children.length > 0 ? 'right-layer' : 'disable-layer')
+            };
+            result.push(
+                <div {...itemProp}>
+                    <div {...rightArrowProp}></div>
+                    <span {...spanProp}>{item.label}</span>
+                    <div {...rightLayerProp}>{listFactory(children, treeIndex)}</div>
+                </div>
+            );
+        }
+        return result;
+    }
 });

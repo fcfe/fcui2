@@ -5,6 +5,7 @@ define(function (require) {
     var ButtonDemo = require('./demos/Button.jsx'); 
     var TextBoxDemo = require('./demos/TextBox.jsx');
     var NumberBoxDemo = require('./demos/NumberBox.jsx');
+    var SelectDemo = require('./demos/Select.jsx');
 
 
     var ListItem = React.createClass({
@@ -61,12 +62,13 @@ define(function (require) {
                         <ListItem demo={this.props.demo} label="Button" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="TextBox" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="NumberBox" onClick={this.changeDemo}/>
+                        <ListItem demo={this.props.demo} label="Select" onClick={this.changeDemo}/>
                     </div>
                     <div className="right-top-container">{this.state.message}</div>
                     <div className="right-middle-container">
                         <ButtonDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <TextBoxDemo demo={this.props.demo} alert={this.changeMessage}/>
-                        <NumberBoxDemo demo={this.props.demo} alert={this.changeMessage}/>
+                        <SelectDemo demo={this.props.demo} alert={this.changeMessage}/>
                     </div>
                     <div className="right-bottom-container" style={{display: 'none'}}></div>
                 </div>
