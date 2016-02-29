@@ -44,11 +44,11 @@
 
 
 ## 架构组织
-- **MUST：** 组件源码以`*.jsx.js`形式命名，存放在`fcui2/src/`目录中。
+- **MUST：** 组件源码以*.jsx.js形式命名，存放在fcui2/src/目录中。
 - **MUST：** 所有组件必须能独立使用，src目录下的所有文件平等，但可以存在组合关系，如Pager使用了Button，不允许存在继承关系，所有涉及到公共的东西，用mixin做，简化一切不必要的抽象，鼓励组合设计模式和装饰者设计模式。
-- **MUST：**  组件内部使用到的其他子部分，如果不能剥离成组件，要么放在当前.jsx.js文件内部，要么放在fcui2/src/plugin/目录中。放入plugin的代码，原则上所有组件都可以使用，但外部无法直接使用
+- **MUST：**  组件内部使用到的其他子部分，如果不能剥离成组件，要么放在当前.jsx.js文件内部，要么放在fcui2/src/plugin/目录中。放入plugin的代码，原则上所有组件都可以使用，但外部无法直接使用。
 - **MUST：** 能被所有组件公共使用的方法，放在fcui2/src/core/tools.js文件中
-- **MUST：** 不但fcui2可以使用，任何其他项目都可以使用的方法，放在fcui2/src/core/util.js文件中
+- **MUST：** 不但fcui2可以使用，任何其他项目都可以使用的方法，放在fcui2/src/core/util.js文件中。
 - **MUST：** 只是某个特定组件才使用的方法，如果需要从jsx文件中提取出来，请自行在fcui2/src/core/目录中建立自己的附属文件，并在文件名中注明是哪个组件的附属，若抽离出的文件过多，请在core/中建立二级目录
 
 ## 组件编写
@@ -59,10 +59,10 @@
 - **SHOULD NOT：** 除极特殊组件如Dialog外，不建议在组件内部直接操作window, document等全局对象
 - **MUST：** 若组件需要在window或body上绑定事件，必须在销毁期生命周期解绑，且绑定行为不能出现在运行期生命周期中，如render
 - **MUST NOT：**为保证组件运行效率，禁止在运行期生命周期使用复杂度很高的算法（需要考虑引入库的时间复杂度），禁止在运行期生命周期中声明表达式函数，如在render中var a = function () {};
-- **MUST: ** 组件应以数据驱动的思维开发，不允许出现观察者模式，如自定义addEventListener方法，或on, fire等。
-- **SHOULD: ** 接上一点，开发组件时不建议考虑过多的API暴露，如写出.setWidth(), setDatasource()、setValue()这种接口，因为组件所有的信息都存放在props和state中，修改组件的属性应从外部直接设置props，读取组件的数据直接访问props或state。组件显示结果应主要依赖props，应尽量少依赖于state，原因之前已讲过
-- **SHOULD: ** 接上一点，组件this上的方法，应当以响应内部DOM事件为主，组件的外部一般不使用这些方法；纯数据操作类的方法，不建议写在this的属性中，建议写在组件外部，但可以在同一个.jsx.js文件内
-- **SHOULD: ** 对于比较复杂的组件，可能在props传入很多回调函数，建议使用一个回调接口，以路由模式回传操作，方便用户对组件的使用，如this.props.onCallback(type, param);
+- **MUST：** 组件应以数据驱动的思维开发，不允许出现观察者模式，如自定义addEventListener方法，或on, fire等。
+- **SHOULD：** 接上一点，开发组件时不建议考虑过多的API暴露，如写出.setWidth(), setDatasource()、setValue()这种接口，因为组件所有的信息都存放在props和state中，修改组件的属性应从外部直接设置props，读取组件的数据直接访问props或state。组件显示结果应主要依赖props，应尽量少依赖于state，原因之前已讲过
+- **SHOULD：** 接上一点，组件this上的方法，应当以响应内部DOM事件为主，组件的外部一般不使用这些方法；纯数据操作类的方法，不建议写在this的属性中，建议写在组件外部，但可以在同一个.jsx.js文件内
+- **SHOULD：** 对于比较复杂的组件，可能在props传入很多回调函数，建议使用一个回调接口，以路由模式回传操作，方便用户对组件的使用，如this.props.onCallback(type, param);
 - **MUST：** 所有回调，除onChange外，都应该在getDefaultProps给出空函数默认值，避免在代码中使用if (typeof this.props.onXXX === 'function')这种形式判断
 - **MUST：** 组件必须书写propTypes，规定每个默认属性的类型，方面React校验，并对propTypes加以必要说明，方便使用者和其他开发者理解
 
