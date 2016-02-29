@@ -17,11 +17,12 @@ define(function (require) {
             return {
                 className: '',
                 minWidth: 40,
-                width: null,
+                width: NaN,
+                label: 'Button',
+                title: '',
+                icon: '',
                 type: 'button', // 用于form：button, submit, reset
                 name: '',       // 用于form
-                label: 'Button',
-                icon: '',
                 value: '',
                 skin: '',
                 disable: false,
@@ -44,6 +45,7 @@ define(function (require) {
             var dom = [];
             var containerProp = {
                 className: 'fcui2-button ' + this.props.className,
+                title: this.props.title,
                 style: {minWidth: this.props.minWidth},
                 onMouseDown: this.___mousedownHandler___,
                 onMouseUp: this.___mouseupHandler___,

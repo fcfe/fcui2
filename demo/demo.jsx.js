@@ -68,6 +68,7 @@ define(function (require) {
                     <div className="right-middle-container">
                         <ButtonDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <TextBoxDemo demo={this.props.demo} alert={this.changeMessage}/>
+                        <NumberBoxDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <SelectDemo demo={this.props.demo} alert={this.changeMessage}/>
                     </div>
                     <div className="right-bottom-container" style={{display: 'none'}}></div>

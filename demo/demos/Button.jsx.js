@@ -10,6 +10,10 @@ define(function (require) {
             props: {label: 'Enter', value: 'enter button'}
         },
         {
+            title: 'Button with Title',
+            props: {label: 'Button', value: 'title button', title: 'Button With Title'}
+        },
+        {
             title: 'Button with ClassName',
             props: {label: 'Button', value: 'class button', className: 'marginLeft100 border2'}
         },

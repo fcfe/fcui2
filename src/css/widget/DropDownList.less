@@ -19,6 +19,7 @@
     -webkit-user-select:none;
     -ms-user-select:none;
     user-select:none;
+    overflow: hidden;
     .font-icon-largeable-caret-down {
         float: right;
         width: 20px;
@@ -31,9 +32,17 @@
             color: @color-active;
         }
     }
+    .label-container {
+        height: @height-normal;
+        margin-right: 21px;
+        word-break: break-all;
+　　    word-wrap: break-word;
+    }
 }
 .fcui2-dropdownlist-disable {
-    color: @color-disable !important;
+    .label-container {
+        color: @color-disable !important;
+    }
 }
 .fcui2-dropdownlist-disable:hover {
     border-color: @color-disable !important;

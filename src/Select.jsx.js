@@ -21,9 +21,10 @@ define(function (require) {
             return {
                 className: '',
                 minWidth: 60,
+                width: NaN,
                 placeholder: 'please select',
-                disable: false,
                 datasource: [],  // 见List
+                disable: false,
                 valueTemplate: '',
                 // 以下为LayerContainerBase中需要的配置
                 layerContent: require('./List.jsx'),
@@ -60,8 +61,12 @@ define(function (require) {
                 onMouseLeave: this.___mouseleaveHandler___,
                 ref: 'container'
             };
-            if (this.state.disable) {
+            if (this.props.disable) {
                 containerProp.className += ' fcui2-dropdownlist-disable';
+            }
+            if (!isNaN(this.props.width)) {
+                delete containerProp.style.minWidth;
+                containerProp.style.width = this.props.width;
             }
             var label = this.props.placeholder;
             var value = this.___getValue___();
@@ -74,7 +79,7 @@ define(function (require) {
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
-                    <span>{label}</span>
+                    <div className="label-container">{label}</div>
                 </div>
             );
         }

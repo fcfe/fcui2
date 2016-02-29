@@ -18,6 +18,95 @@ define(function (require) {
                 ],
                 layerPolicymaker: function (obj) {return obj.datasource.length > 0;}
             }
+        },
+        {
+            title: 'Disabled Select',
+            onChange: true,
+            props: {
+                placeholder: 'select',
+                disable: true,
+                datasource: [
+                    {label: 'option1', value: 'option1'},
+                    {label: 'option2', value: 'option2', disable: true},
+                    {label: 'option3', value: 'option3'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'}
+                ],
+                layerPolicymaker: function (obj) {return obj.datasource.length > 0;}
+            }
+        },
+        {
+            title: 'Readonly Select',
+            onChange: true,
+            props: {
+                placeholder: 'select',
+                value: 'option3',
+                datasource: [
+                    {label: 'option1', value: 'option1'},
+                    {label: 'option2', value: 'option2', disable: true},
+                    {label: 'option3', value: 'option3'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'}
+                ],
+                layerPolicymaker: function (obj) {return obj.datasource.length > 0;}
+            }
+        },
+        {
+            title: 'Select without Datasource',
+            props: {
+                value: 'option3',
+                datasource: [],
+                layerPolicymaker: function (obj) {return obj.datasource.length > 0;}
+            }
+        },
+        {
+            title: 'Select with MinWidth and a very long Option',
+            onChange: true,
+            props: {
+                placeholder: 'select',
+                minWidth: 200,
+                datasource: [
+                    {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
+                    {label: 'option2', value: 'option2', disable: true},
+                    {label: 'option3', value: 'option3'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'}
+                ],
+                layerPolicymaker: function (obj) {return obj.datasource.length > 0;}
+            }
+        },
+        {
+            title: 'Select with Width and a very long Option',
+            onChange: true,
+            props: {
+                placeholder: 'select',
+                width: 150,
+                datasource: [
+                    {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
+                    {label: 'option2', value: 'option2', disable: true},
+                    {label: 'option3', value: 'option3'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'}
+                ],
+                layerPolicymaker: function (obj) {return obj.datasource.length > 0;}
+            }
+        },
+        {
+            title: 'Select with ClassName',
+            onChange: true,
+            props: {
+                placeholder: 'select',
+                width: 150,
+                className: 'floatRight',
+                datasource: [
+                    {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
+                    {label: 'option2', value: 'option2', disable: true},
+                    {label: 'option3', value: 'option3'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'}
+                ],
+                layerPolicymaker: function (obj) {return obj.datasource.length > 0;}
+            }
         }
     ];
 

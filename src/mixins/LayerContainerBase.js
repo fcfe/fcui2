@@ -100,6 +100,7 @@ define(function (require) {
             function fixedPosition() {
                 var layerContainer = me.___layerContainer___;
                 var height = layerContainer.offsetHeight;
+                var width = layerContainer.offsetWidth;
                 var container = me.refs.container;
                 if (!me.state.mouseover || !container) {
                     clearInterval(timer);
@@ -111,7 +112,8 @@ define(function (require) {
                 var pos = util.getDOMPosition(container);
                 var top = (pos.y + container.offsetHeight + height < document.documentElement.clientHeight)
                     ? (pos.y + container.offsetHeight) : (pos.y - height);
-                var left = pos.x;
+                var left = pos.x + width < document.documentElement.clientWidth ?
+                    pos.x : (pos.x + container.offsetWidth - width);
                 layerContainer.style.left = left + 'px';
                 layerContainer.style.top = top + 'px';
                 // 开启自动隐藏
@@ -133,7 +135,10 @@ define(function (require) {
         layerHide: function () {
             this.___layer___ = null;
             try {
-                document.body.removeChild(this.___layerContainer___);
+                var container = this.___layerContainer___;
+                container.style.left = '-9999px';
+                container.style.top = '-9999px';
+                document.body.removeChild(container);
             }
             catch (e) {
                 // DO NOTHING    
