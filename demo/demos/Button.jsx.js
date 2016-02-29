@@ -74,7 +74,7 @@ define(function (require) {
             };
         },
         clickHandler: function (e) {
-            this.props.alert('Button \'' + e.value + '\' has been clicked!');
+            this.props.alert(e.target.value);
         },
         render: function () {
             var containerProp = {

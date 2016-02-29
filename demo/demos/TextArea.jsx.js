@@ -1,71 +1,46 @@
 define(function (require) {
 
     var React = require('react');
-    var NumberBox = require('fcui/NumberBox.jsx');
+    var TextArea = require('fcui/TextArea.jsx');
 
     var items = [
         {
-            title: 'Normal NumberBox',
+            title: 'Normal TextArea',
             onChange: true,
             props: {}
         },
         {
-            title: 'NumberBox without SpinButton',
-            onChange: true,
-            props: {showSpinButton: false}
-        },
-        {
-            title: 'Readonly NumberBox',
-            onChange: true,
-            props: {value: 235}
-        },
-        {
-            title: 'NumberBox can input Integer only',
-            onChange: true,
-            props: {type: 'int'}
-        },
-        {
-            title: 'NumberBox with Max',
-            onChange: true,
-            props: {max: 10}
-        },
-        {
-            title: 'NumberBox with Min, and an incorrect Value',
-            onChange: true,
-            props: {min: 10, value: 1}
-        },
-        {
-            title: 'NumberBox with Step',
-            onChange: true,
-            props: {min: -100, max: 100, step: 10}
-        },
-        {
-            title: 'NumberBox with Fixed',
-            onChange: true,
-            props: {fixed: 3, width: 100}
-        },
-        {
-            title: 'NumberBox with ClassName',
+            title: 'TextArea with ClassName',
             onChange: true,
             props: {className: 'marginLeft100 border2'}
         },
         {
-            title: 'Disabled NumberBox',
+            title: 'Readonly TextArea',
+            onChange: true,
+            props: {value: 'readonly'}
+        },
+        {
+            title: 'Disabled TextArea',
             onChange: true,
             props: {disable: true}
         },
         {
-            title: 'NumberBox with Width',
+            title: 'TextArea with Placeholder',
             onChange: true,
-            props: {width: 500}
+            props: {placeholder: 'please input'}
         },
         {
-            title: 'NumberBox with ValueLinker',
+            title: 'TextArea with Size',
+            onChange: true,
+            props: {width: 500, height: 300}
+        },
+        {
+            title: 'TextArea with ValueLinker',
             valueLink: true,
             props: {}
         },
         {
-            title: 'Custom Link NumberBox',
+            title: 'Custom Link TextArea',
             customLink: true,
             props: {}
         }
@@ -99,7 +74,7 @@ define(function (require) {
                 <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>
                     <div className="props">{conf}</div>
-                    <NumberBox {...prop}/>
+                    <TextArea {...prop}/>
                     <span>{me.state[item.title]}</span>
                 </div>
             );
@@ -113,7 +88,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                demo: 'NumberBox',
+                demo: 'TextArea',
                 alert: function () {}
             };
         },
@@ -128,7 +103,7 @@ define(function (require) {
             var containerProp = {
                 className: 'demo-content',
                 style: {
-                    display: this.props.demo === 'NumberBox' ? 'block' : 'none'
+                    display: this.props.demo === 'TextArea' ? 'block' : 'none'
                 }
             };
             return (<div {...containerProp}>{factory(this, items)}</div>);

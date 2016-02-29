@@ -35,10 +35,9 @@ define(function (require) {
         },
         clickHandler: function (e) {
             if (this.props.disable) return;
-            this.props.onClick({
-                target: this,
-                value: this.props.value
-            });
+            e.target = e.target.parentNode;
+            e.target.value = this.props.value;
+            this.props.onClick(e);
             e.stopPropagation();
         },
         render: function () {

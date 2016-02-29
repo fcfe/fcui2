@@ -161,7 +161,7 @@ define(function (require) {
             return {};
         },
         changeHandler: function (e) {
-            this.props.alert('Typing: ' + e.target.value);
+            this.props.alert(e.target.value);
         },
         render: function () {
             var containerProp = {

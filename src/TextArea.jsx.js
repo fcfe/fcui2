@@ -1,65 +1,46 @@
+/**
+ * @file 文本域组件
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.1
+ */
 define(function (require) {
 
+
     var React = require('react');
-    var mixins = require('./core/mixins.jsx');
+    var InputWidgetBase = require('./mixins/InputWidgetBase');
+
 
     return React.createClass({
         // @override
-        mixins: [mixins.formField],
+        mixins: [InputWidgetBase],
         // @override
         getDefaultProps: function () {
             return {
                 className: '',
                 width: 200,
                 height: 100,
-                label: '',  // 输入框下方的输入提示
-                value: '',  // 初始value
+                placeholder: '',
                 disable: false,
-                checkout: [],   // 校验队列
-                onChange: function () {},
-                form: {},   // 父form component
-                formField: '', // 本输入的域名称
-                formFeedback: '' // 错误的提示框
+                valueTemplate: ''
             };
         },
         // @override
         getInitialState: function () {
             return {
-                label: this.props.label,
-                disable: this.props.disable,
-                value: this.props.value,
-                checkPassed: true, // 是否通过校验
-                checkMessage: '',    // 检验错误提示
-                changed: false      // 是否已经改变过了
+                beOperated: false
             };
-        },
-        // @override
-        componentWillReceiveProps: function (props) {
-            this.setState({
-                label: props.label,
-                disable: props.disable
-            });
         },
         changeHandler: function (e) {
-            if (this.state.disable) return;
-            var evt = {
-                target: this,
-                value: e.target.value,
-                check: this.checkValue(e.target.value)
-            };
-            this.props.onChange(evt);
-            this.setState({
-                value: e.target.value,
-                checkPassed: evt.check === true ? true : false,
-                checkMessage: evt.check,
-                changed: true
-            });
-            e.stopPropagation();
+            if (this.props.disable) return;
+            this.___dispatchChange___(e);
+            this.setState({beOperated: true});
         },
         focus: function () {
             this.refs.inputbox.focus();
         },
         render: function () {
+            var value = this.___getValue___();
             var containerProp = {
                 className: 'fcui2-textarea ' + this.props.className,
                 style: {
@@ -69,29 +50,29 @@ define(function (require) {
             };
             var labelProp = {
                 style: {
-                    visibility: this.state.value.length ? 'hidden' : 'visible'
+                    visibility: value && value.length ? 'hidden' : 'visible'
                 }
             };
             var inputProp = {
-                value: this.state.value,
+                value: value,
                 onChange: this.changeHandler,
                 ref: 'inputbox',
-                disabled: this.state.disable,
+                disabled: this.props.disable,
                 spellCheck: false,
-                style: {
+                style: {// 其实不应该这样写，可是textarea的padding和border会导致整体尺寸变大
                     width: this.props.width - 22,
-                    height: this.props.height - 22 // 其实不应该这样写，可是textarea的padding和border会导致整体尺寸变大
+                    height: this.props.height - 22
                 }
             };
-            if (this.state.disable) {
+            if (this.props.disable) {
                 containerProp.className += ' fcui2-textarea-disable'
             }
-            else if (!this.state.checkPassed) {
+            else if (this.state.isValid === false) {
                 containerProp.className += ' fcui2-textarea-reject'
             }
             return (
                 <div {...containerProp}>
-                    <div {...labelProp}>{this.state.label}</div>
+                    <div {...labelProp}>{this.props.placeholder}</div>
                     <textarea {...inputProp}/>
                 </div>
             );

@@ -19,7 +19,6 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 className: '',
-                width: NaN,
                 datasource: [],  // {label: <string>, value: <string>, disable: <boolean>, children: [self]}
                 disable: false,
                 onClick: function () {}
@@ -56,15 +55,12 @@ define(function (require) {
                 onMouseLeave: this.___mouseleaveHandler___,
                 onClick: this.clickHandler
             };
-            if (!isNaN(this.props.width)) {
-                containerProps.style = {width: this.props.width};
-            }
-            return (<div {...containerProps}>{listFactory(this.props.datasource, '0', this.props.disable, this.props.width)}</div>);
+            return (<div {...containerProps}>{listFactory(this.props.datasource, '0')}</div>);
         }
     });
 
 
-    function listFactory(datasource, level, disable, width) {
+    function listFactory(datasource, level) {
         if (datasource.length === 0) return <div></div>;
         var result = [];
         for (var index = 0; index < datasource.length; index++) {
@@ -72,14 +68,14 @@ define(function (require) {
             var item = datasource[index];
             var children = item.children instanceof Array ? item.children : [];
             var itemProp = {
-                className: 'item' + (item.disable || disable ? ' disable' : ''),
+                className: 'item' + (item.disable ? ' disable' : ''),
                 key: treeIndex,
-                'data-ui-disable': item.disable || disable,
+                'data-ui-disable': item.disable,
                 'data-ui-cmd': item.value,
                 'data-tree-index': treeIndex
             };
             var spanProp = {
-                'data-ui-disable': item.disable || disable,
+                'data-ui-disable': item.disable,
                 'data-ui-cmd': item.value,
                 'data-tree-index': treeIndex
             };
@@ -92,19 +88,11 @@ define(function (require) {
             var rightLayerProp = {
                 className: 'layer ' + (children.length > 0 ? 'right-layer' : 'disable-layer')
             };
-            if (children.length > 0) {
-                spanProp.style = {
-                    marginRight: 20
-                }
-            }
-            if (!isNaN(width)) {
-                itemProp.style = {width: width};
-            }
             result.push(
                 <div {...itemProp}>
                     <div {...rightArrowProp}></div>
                     <span {...spanProp}>{item.label}</span>
-                    <div {...rightLayerProp}>{listFactory(children, treeIndex, disable, width)}</div>
+                    <div {...rightLayerProp}>{listFactory(children, treeIndex)}</div>
                 </div>
             );
         }
