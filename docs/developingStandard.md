@@ -70,6 +70,7 @@
 ### 组件间的设计考量
 - **MUST：** 所有组件必须能独立使用，不允许出现abstract class及继承关系。
 - **MUST：** 公共逻辑抽取仅可通过mixin实现。
+- **SHOULD：** 父子关系的组件间传递props时，应该使用React推荐的实践：https://facebook.github.io/react/docs/transferring-props.html 。即使用rest-spread语法获取或直接传递父组件的所有props给子组件。
 - **MAY：** 组件间可以发生组合，如Pager使用了Button。
 
 ### 组件内的设计考量
@@ -86,14 +87,12 @@
         string eventType, ...params
     )
 ```
-- **MUST：** 所有回调，除onChange外，都应该在getDefaultProps给出空函数默认值`_.noop`，避免在代码中使用if (typeof this.props.onXXX === 'function')这种形式判断
-
-
+- **MUST：** 所有回调，除onChange外，都应该在getDefaultProps给出空函数默认值`_.noop`，避免在代码中使用`if (typeof this.props.onXXX === 'function')`这种形式判断。
 
 
 ## input类型组件编写
-- **MUST：** input类型组件，必须支持React官方的valueLink插件，其基本实现是引入fcui2/mixins/InputWidgetBase.js插件
-- **MUST：** input类型组件，必须用props.value域导入值，用props.onChange返回输入触发（注：value和onChange不能跟valueLink同时使用，兼容判断在InputWidgetBase中已经实现）
+- **MUST：** input类型组件，必须支持React官方的valueLink插件，其基本实现是引入fcui2/mixins/InputWidgetBase.js插件。参考 https://facebook.github.io/react/docs/two-way-binding-helpers.html。
+- **MUST：** input类型组件，必须用props.value域导入值，用props.onChange返回输入触发（注：value和onChange不能跟valueLink同时使用，兼容判断在InputWidgetBase中已经实现）。
 - **MUST：** input类型组件，不得阻断React规范的数据流，即：
      
         如果外部配置了props.value，必须根据props.value做响应展示；
@@ -105,10 +104,9 @@
 - **MUST：** 接上一点，input类型组件的getDefaultProps中，应当给出valueTemplate属性，当外界不配置value或value配置有问题时，使用此属性作为value的初始值
         
 
-
 ## mixin编写
-- **MUST：** 所有mixin放在fcui2/src/mixins/目录中
-- **SHOULD：** 每个mixin尽量完成独立的功能，不依赖其他mixin，但可以依赖几个基础的mixin，mixin应尽量简单、独立，职责单一
+- **MUST：** 所有mixin放在fcui2/src/mixins/目录中。
+- **SHOULD：** 每个mixin尽量完成独立的功能，不依赖其他mixin，但可以依赖几个基础的mixin，mixin应尽量简单、独立，职责单一。
 - **SHOULD NOT：** 不建议写mixin时使用继承，因为React会改变每个方法的运行上下文，不建议用好几个mixin完成一件事情
 - **SHOULD：** 除了基础mixin，其他mixin不能影响宿主组件的正常工作，且除了mixin的引入，不应在宿主组件中添加其他代码，确保宿主组件在引入和没有引入该mixin时，都能正常工作，且前后表现一致。如必须添加额外代码才能让该mixin工作，需经讨论在基础mixin中添加
 - **SHOULD：** 不建议mixin使用getDefaultProps，因为用户往往根据这个方法学习组件的用法，一般不会在mixin中找其他属性。相应的，如果使用到某个特殊属性，应当在使用时自行判断该属性是否存在且类型是否合法。
@@ -116,11 +114,11 @@
 
 
 ## CSS编写
-- **MUST：** 所有CSS文件存放在fcui2/src/css/目录中，以less形式编写
-- **MUST：** 每个组件对应一个less文件，存放在css/widget/目录中，并在main.less中引入
-- **SHOULD：** 每个组件的less文件应引入skin.less，并使用其中的皮肤变量编写自己的样式
-- **MUST：** 每个组件的根容器必须含有表明组件身份的class，且该class应含有前缀，如.fcui2-button
-- **SHOULD：** 容器内部样式，为避免干扰，建议也加入前缀
-- **SHOULD：** 组件根容器应加入props.className，允许外部使用时挂载自定义class，方便使用者自定义样式或对组件内部样式进行hack
-
-
+- **MUST：** 所有CSS文件存放在fcui2/src/css/目录中，以less形式编写。
+- **MUST：** 每个组件对应一个less文件，存放在css/widget/目录中，并在main.less中引入。
+- **SHOULD：** 每个组件的less文件应引入skin.less，并使用其中的皮肤变量编写自己的样式。
+- **MUST：** 每个组件的根容器必须含有表明组件身份的class，且该class应含有前缀fcui2，如.fcui2-button。
+- **MUST：** 容器内部样式，为避免干扰，必须也加入前缀。
+- **SHOULD：** 组件根容器应加入props.className，允许外部使用时挂载自定义class，方便使用者自定义样式或对组件内部样式进行hack。
+- **SHOULD：** 若`render`时处理className的逻辑较复杂，如达到3行及以上，建议剥离className的计算逻辑到`this.getClassName`上。
+- **SHOULD：** 若`render`时处理style的逻辑较复杂，如达到3行及以上，建议剥离style的计算逻辑到`this.getStyle`上。
