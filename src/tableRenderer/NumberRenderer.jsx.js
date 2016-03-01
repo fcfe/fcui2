@@ -14,6 +14,9 @@ define(function (require) {
                     color: this.props.color || '#000'                    
                 }
             };
+            if (typeof conf.content === 'function') {
+                value = conf.content(value, item);
+            }
             switch (conf.renderType) {
                 case 'int':
                     value = parseInt(value, 10);
