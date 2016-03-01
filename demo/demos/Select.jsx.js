@@ -68,7 +68,7 @@ define(function (require) {
                 datasource: [
                     {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disable: true},
-                    {label: 'option3', value: 'option3'},
+                    {label: 'option3', value: 'option3', disable: true},
                     {label: 'option4', value: 'option4'},
                     {label: 'option5', value: 'option5'}
                 ],

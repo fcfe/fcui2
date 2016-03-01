@@ -57,8 +57,8 @@ define(function (require) {
             widgets.push(
                 <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>
-                    <Button {...prop}/>
                     <div className="props">{conf}</div>
+                    <Button {...prop}/>
                 </div>
             );
         }

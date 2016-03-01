@@ -56,8 +56,6 @@ define(function (require) {
                     dom.__top = dom.style.top;
                 }
             }
-        },
-        // 用于含有layer浮层的容器
-        layerContainer: 
+        } 
     };
 });

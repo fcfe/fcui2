@@ -6,8 +6,10 @@
  */
 define(function (require) {
 
+
     var React = require('react');
     var MouseWidgetBase = require('./mixins/MouseWidgetBase');
+
 
     return React.createClass({
         // @override
@@ -35,7 +37,7 @@ define(function (require) {
         },
         clickHandler: function (e) {
             if (this.props.disable) return;
-            e.target = e.target.parentNode;
+            e.target = this.refs.container;
             e.target.value = this.props.value;
             this.props.onClick(e);
             e.stopPropagation();
@@ -48,7 +50,8 @@ define(function (require) {
                 style: {minWidth: this.props.minWidth},
                 onMouseDown: this.___mousedownHandler___,
                 onMouseUp: this.___mouseupHandler___,
-                onClick: this.clickHandler
+                onClick: this.clickHandler,
+                ref: 'container'
             };
             var inputProp = {
                 type: 'button;submit;reset;'.indexOf(this.props.type + ';') > -1 ? this.props.type : 'button',

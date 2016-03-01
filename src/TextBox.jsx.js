@@ -6,8 +6,10 @@
  */
 define(function (require) {
 
+
     var React = require('react');
     var InputWidgetBase = require('./mixins/InputWidgetBase');
+
 
     return React.createClass({
         // @override

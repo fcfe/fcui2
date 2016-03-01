@@ -1,7 +1,9 @@
 define(function (require) {
 
+
     var React = require('react');
-    var util = require('./core/util.es6');
+    var util = require('./core/util');
+
 
     return React.createClass({
         // @override
@@ -18,40 +20,41 @@ define(function (require) {
         componentDidMount: function () {
             this.props.layer.className = 'fcui2-layer fcui2-tip-layer';
         },
+        layerTimer: null,
         layerShow: function (e) {
+            clearInterval(this.layerTimer);
             var layer = this.props.layer;
             var container = this.refs.container;
-            layer.innerHTML = ''
-                + '<div class="tip-title">'
-                + this.props.title
-                + '</div>'
-                + '<div class="tip-content">'
-                + this.props.content
-                + '</div>';
+            var layerHTML = [
+                '<div class="tip-title">',
+                this.props.title,
+                '</div>',
+                '<div class="tip-content">',
+                this.props.content,
+                '</div>'
+            ];
+            layer.innerHTML = layerHTML.join('');
             document.body.appendChild(layer);
-            setTimeout(show, 200);
-            function show() {
-                var pos = util.getDOMPosition(container);
-                var pWidth = container.offsetWidth;
-                var pHeight = container.offsetHeight;
-                var lWidth = layer.offsetWidth;
-                var lHeight = layer.offsetHeight;
-                layer.style.top =
-                    ((pos.y - lHeight < 0) ? (pos.y + pHeight) : (pos.y - lHeight))
-                    + 'px';
-                layer.style.left =
-                    ((pos.x + pWidth + lWidth < document.body.offsetWidth) ? (pos.x + pWidth) : (pos.x - lWidth))
-                    + 'px';
-            }  
+            var pos = util.getDOMPosition(container);
+            var pWidth = container.offsetWidth;
+            var pHeight = container.offsetHeight;
+            var lWidth = layer.offsetWidth;
+            var lHeight = layer.offsetHeight;
+            layer.style.top = ((pos.y - lHeight < 0) ? (pos.y + pHeight) : (pos.y - lHeight)) + 'px';
+            layer.style.left =
+                ((pos.x + pWidth + lWidth < document.body.offsetWidth) ? (pos.x + pWidth) : (pos.x - lWidth))
+                + 'px';
         },
         layerHide: function () {
             var layer = this.props.layer;
-            layer.style.top = '-9999px';
-            try {
-                document.body.removeChild(this.props.layer);
-            } catch (e) {
+            this.layerTimer = setTimeout(function () {
+                try {
+                    layer.style.top = '-9999px';
+                    document.body.removeChild(this.props.layer);
+                } catch (e) {
 
-            } 
+                } 
+            }, 500);
         },
         render: function () {
             var tip = {
@@ -66,4 +69,6 @@ define(function (require) {
             return (<div {...tip}></div>);
         }
     });
+
+
 });
