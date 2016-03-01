@@ -47,6 +47,7 @@ define(function (require) {
         },
         mouseEnterHandler: function (e) {
             this.___mouseenterHandler___();
+            if (this.props.datasource.length === 0 || this.props.disable) return;
             this.layerShow();
         },
         render: function () {

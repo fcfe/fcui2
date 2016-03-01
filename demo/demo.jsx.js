@@ -10,6 +10,8 @@ define(function (require) {
     var TextAreaDemo = require('./demos/TextArea.jsx');
     var PagerDemo = require('./demos/Pager.jsx');
     var TipDemo = require('./demos/Tip.jsx');
+    var DropDownListDemo = require('./demos/DropDownList.jsx');
+    var ComboListDemo = require('./demos/ComboList.jsx');
 
 
     var ListItem = React.createClass({
@@ -67,6 +69,8 @@ define(function (require) {
                         <hr/>
                         <ListItem demo={this.props.demo} label="Button" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="List" onClick={this.changeDemo}/>
+                        <ListItem demo={this.props.demo} label="DropDownList" onClick={this.changeDemo}/>
+                        <ListItem demo={this.props.demo} label="ComboList" onClick={this.changeDemo}/>
                         <hr/>
                         <ListItem demo={this.props.demo} label="TextBox" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="NumberBox" onClick={this.changeDemo}/>
@@ -84,6 +88,8 @@ define(function (require) {
                         <TextAreaDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <PagerDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <TipDemo demo={this.props.demo} alert={this.changeMessage}/>
+                        <DropDownListDemo demo={this.props.demo} alert={this.changeMessage}/>
+                        <ComboListDemo demo={this.props.demo} alert={this.changeMessage}/>
                     </div>
                     <div className="right-bottom-container" style={{display: 'none'}}></div>
                 </div>

@@ -1,14 +1,14 @@
 define(function (require) {
 
     var React = require('react');
-    var Select = require('fcui/Select.jsx');
+    var ComboList = require('fcui/ComboList.jsx');
 
     var items = [
         {
-            title: 'Normal Select',
-            onChange: true,
+            title: 'Normal ComboList',
             props: {
-                placeholder: 'select',
+                label: 'Main Command1',
+                value: 'Main Command1',
                 datasource: [
                     {label: 'option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disable: true},
@@ -19,11 +19,10 @@ define(function (require) {
             }
         },
         {
-            title: 'Disabled Select',
-            onChange: true,
+            title: 'Disabled ComboList',
             props: {
-                placeholder: 'select',
                 disable: true,
+                value: 'Main Command2',
                 datasource: [
                     {label: 'option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disable: true},
@@ -34,33 +33,17 @@ define(function (require) {
             }
         },
         {
-            title: 'Readonly Select',
-            onChange: true,
+            title: 'ComboList without Datasource',
             props: {
-                placeholder: 'select',
-                value: 'option3',
-                datasource: [
-                    {label: 'option1', value: 'option1'},
-                    {label: 'option2', value: 'option2', disable: true},
-                    {label: 'option3', value: 'option3'},
-                    {label: 'option4', value: 'option4'},
-                    {label: 'option5', value: 'option5'}
-                ]
-            }
-        },
-        {
-            title: 'Select without Datasource',
-            props: {
-                value: 'option3',
+                value: 'Main Command3',
                 datasource: []
             }
         },
         {
-            title: 'Select with MinWidth and a very long Option',
+            title: 'ComboList with a very long Option',
             onChange: true,
             props: {
-                placeholder: 'select',
-                minWidth: 200,
+                value: 'Main Command4',
                 datasource: [
                     {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disable: true},
@@ -71,11 +54,11 @@ define(function (require) {
             }
         },
         {
-            title: 'Select with Width and a very long Option',
+            title: 'ComboList with ClassName',
             onChange: true,
             props: {
-                placeholder: 'select',
-                width: 150,
+                className: 'floatRight',
+                value: 'Main Command5',
                 datasource: [
                     {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disable: true},
@@ -86,12 +69,11 @@ define(function (require) {
             }
         },
         {
-            title: 'Select with ClassName',
+            title: 'ComboList with Icon',
             onChange: true,
             props: {
-                placeholder: 'select',
-                width: 150,
-                className: 'floatRight',
+                value: 'Main Command6',
+                icon: 'font-icon-star-half',
                 datasource: [
                     {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disable: true},
@@ -117,21 +99,12 @@ define(function (require) {
             var item = items[i];
             var prop = item.props;
             var conf = JSON.stringify(prop);
-            if (item.onChange) prop.onChange = me.changeHandler;
-            if (item.valueLink) {
-                prop.valueLink = me.linkState(item.title);
-                conf = '{valueLink: this.linkState(\'message\')}';
-            }
-            if (item.customLink) {
-                prop.value = me.state[item.title];
-                prop.onChange = setter(me, item.title);
-                conf = '{value: this.state.message, onChange: this.changeHandler}';
-            }
+            prop.onClick = me.changeHandler;
             widgets.push(
                 <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>
                     <div className="props">{conf}</div>
-                    <Select {...prop}/>
+                    <ComboList {...prop}/>
                     <span>{me.state[item.title]}</span>
                 </div>
             );
@@ -145,7 +118,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                demo: 'Select',
+                demo: 'ComboList',
                 alert: function () {}
             };
         },
@@ -160,7 +133,7 @@ define(function (require) {
             var containerProp = {
                 className: 'demo-content',
                 style: {
-                    display: this.props.demo === 'Select' ? 'block' : 'none'
+                    display: this.props.demo === 'ComboList' ? 'block' : 'none'
                 }
             };
             return (<div {...containerProp}>{factory(this, items)}</div>);
