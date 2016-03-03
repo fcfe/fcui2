@@ -162,7 +162,7 @@ define(function (require) {
                         checkMessage: result === true ? '' : result
                     });
                     updateFeedback(result !== true ? result : '', this.refs[child.props.formFeedback]);
-                    
+
                 }
                 // 表单级别校验
                 // 记录校验结果，设置表单的输入反馈

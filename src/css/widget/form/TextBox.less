@@ -1,0 +1,48 @@
+@import "../../skin.less";
+.fcui2-form-textbox {
+    position: relative;
+    display: inline-block;
+    height: @height-normal;
+    input {
+        position: relative;
+        outline: none;
+        height: @height-normal;
+        border: @border-normal;
+        padding: @padding-normal;
+        background-color: transparent;
+    }
+    input:hover {
+        border: @border-active;
+    }
+    input:focus {
+        border: @border-active;
+    }
+    .fcui2-form-textbox-placeholder {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        line-height: @lineheight-normal;
+        padding: @padding-normal;
+        color: @color-disable;
+        font-size: @fontsize-button;
+    }
+    .fcui2-form-textbox-validation-label {
+        padding: 5px;
+        color: @color-alert;
+        display: none;
+    }
+}
+.fcui2-form-textbox-reject,
+.fcui2-form-textbox-external-error {
+    input {
+        border-color: #F00 !important;
+    }
+    .fcui2-form-textbox-validation-label {
+        display: block;
+    }
+}
+.fcui2-form-textbox-disable {
+    input:hover {
+        border: @border-normal !important;
+    }
+}

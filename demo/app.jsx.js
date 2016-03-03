@@ -117,7 +117,7 @@ define(function (require) {
                 onAction: this.tableHandler
             };
 
-            var treeProps = require('./treeProps');
+            //var treeProps = require('./treeProps');
 
             return (<div>
                 <div className="leftContainer">{this.state.outputmsg}</div>
@@ -163,9 +163,7 @@ define(function (require) {
                     <Button label="Alert" onClick={this.alertHandler}/>
                     <Button label="Confirm" onClick={this.confirmHandler}/>
                     <h3>Example8: Tree</h3>
-                    <Tree {...treeProps.tree} />
                     <h3>Example9: Dual Tree Selector</h3>
-                    <DualTreeSelector {...treeProps.dualTreeSelector} />
                     <h3>Example10: Complex Table</h3>
                     <Table {...tableProps}/>
                 </div>

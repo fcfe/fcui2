@@ -76,7 +76,7 @@ define(function (require) {
             ],
             rightTreeLimit: 4,
             onRightTreeOverLimit: (num) => {
-                console.warn('tree overlimit at', num);
+                //console.warn('tree overlimit at', num);
             },
             onLeftTreeNodeExpand: function (treeNode, isExpanded) {
                 if (isExpanded) {

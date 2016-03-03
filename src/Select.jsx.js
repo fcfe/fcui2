@@ -65,7 +65,7 @@ define(function (require) {
                 className: 'fcui2-dropdownlist ' + this.props.className,
                 style: {
                     minWidth: this.props.minWidth,
-                    borderColor: !this.state.checkPassed ? '#F00' : undefined 
+                    borderColor: !this.state.checkPassed ? '#F00' : undefined
                 },
                 onMouseEnter: this.mouseEnterHandler,
                 onMouseLeave: this.mouseleave,

@@ -190,7 +190,7 @@ define(function (require) {
         workspace.style.left = workspace.style.top = '-9999px';
         workspace.style.width = workspace.style.height = '9999px';
         document.body.appendChild(me.container);
-        document.body.style.overflow = 'hidden';
+        // document.body.style.overflow = 'hidden';
 
         // dialog的props
         param = param || {};
@@ -280,7 +280,7 @@ define(function (require) {
     Dialog.prototype.dispose = function () {
         ReactDOM.unmountComponentAtNode(this.workspace);
         document.body.removeChild(this.container);
-        document.body.style.overflow = '';
+        // document.body.style.overflow = '';
         this.ui = null;
     };
 
