@@ -3,11 +3,12 @@
     position: relative;
     z-index: 0;
     table {
-        border-left: @border-normal;
-    }
-    td {
         border-right: @border-normal;
         border-bottom: @border-normal;
+    }
+    td, th {
+        border-top: @border-normal;
+        border-left: @border-normal;
         line-height: 40px;
         padding: @padding-td;
         word-break: break-all;
@@ -20,6 +21,29 @@
             }
         }
     }
+    .shadow-container {
+        position: absolute;
+        top: 0px;
+        height: 0px;
+        width: 100%;
+        overflow-y: hidden;
+        table {
+            position: absolute;
+            bottom: -1px;
+            z-index: 1;
+        }
+    }
+    .table-container {
+        .table-header, .table-message {
+            visibility: hidden;
+        }
+    }
+}
+
+
+
+
+/*
     .tr-selected {
         background-color: @bgcolor-item-hover !important;
     }
@@ -73,23 +97,26 @@
     .table-message:hover {
         background-color: @bgcolor-information !important;
     }
-    .shadow-container {
-        position: absolute;
-        top: 0px;
-        width: 100%;
-        height: 0px;
-        overflow-y: hidden;
-        border-top: @border-normal;
-        border-bottom: @border-normal;
-        table {
-            position: absolute;
-            bottom: 0px;
-            z-index: 1;
+        .table-summary {
+        background-color: @bgcolor-table-header !important;
+        font-weight: @fontweight-title;
+        font-size: @fontsize-button !important;
+        .font-icon {
+            display: inline-block;
         }
-    }
-    .table-container {
-        .table-header, .table-message {
-            visibility: hidden;
+        .sort-button {
+            float: right;
+            position: relative;
+            line-height: @lineheight-window-title;
+            font-size: 18px;
+            cursor: pointer;
         }
-    }
-}
+        .sort-button:hover {
+            color: @color-active !important;
+        }
+        .fcui2-tip {
+            font-size: @fontsize-icon-button;
+            top: 2px;
+        }
+    } 
+*/

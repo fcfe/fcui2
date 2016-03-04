@@ -1,8 +1,9 @@
 define(function (require) {
 
+
     var React = require('react');
-    var language = require('../core/language');
-    var mixins = require('../core/mixins.jsx');
+    var language = require('../../core/language');
+
 
     function getSelect(obj) {
         if (obj[-1]) return -1;
@@ -15,7 +16,7 @@ define(function (require) {
 
     return React.createClass({
         // @override
-        mixins: [mixins.layerContainer, mixins.mouseContainer],
+        mixins: [],
         // @override
         getDefaultProps: function () {
             return {

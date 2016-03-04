@@ -12,6 +12,7 @@ define(function (require) {
     var TipDemo = require('./demos/Tip.jsx');
     var DropDownListDemo = require('./demos/DropDownList.jsx');
     var ComboListDemo = require('./demos/ComboList.jsx');
+    var TableDemo = require('./demos/Table.jsx');
 
 
     var ListItem = React.createClass({
@@ -77,6 +78,8 @@ define(function (require) {
                         <ListItem demo={this.props.demo} label="TextArea" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Select" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Pager" onClick={this.changeDemo}/>
+                        <hr/>
+                        <ListItem demo={this.props.demo} label="Table" onClick={this.changeDemo}/>
                     </div>
                     <div className="right-top-container">{this.state.message}</div>
                     <div className="right-middle-container">
@@ -90,6 +93,7 @@ define(function (require) {
                         <TipDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <DropDownListDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <ComboListDemo demo={this.props.demo} alert={this.changeMessage}/>
+                        <TableDemo demo={this.props.demo} alert={this.changeMessage}/>
                     </div>
                     <div className="right-bottom-container" style={{display: 'none'}}></div>
                 </div>

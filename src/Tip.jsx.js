@@ -60,7 +60,7 @@ define(function (require) {
                 } catch (e) {
 
                 } 
-            }, 500);
+            }, 200);
         },
         render: function () {
             var tip = {

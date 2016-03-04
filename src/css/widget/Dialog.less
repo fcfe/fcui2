@@ -1,13 +1,17 @@
 @import "../skin.less";
+
+
 .fcui2-dialog-container {
     position: fixed;
     top: 0px;
     left: 0px;
     bottom: 0px;
     right: 0px;
-    z-index: 10000;
+    z-index: 9999;
     overflow: hidden;
 }
+
+
 .fcui2-dialog-workspace {
     position: absolute;
     left: -9999px;
@@ -30,6 +34,7 @@
         }
         .font-icon-times:hover {
             color: @fontcolor-important;
+            cursor: pointer !important;
         }
     }
     .content {
@@ -44,6 +49,8 @@
         overflow: auto;
     }
 }
+
+
 .fcui2-dialog-background {
     position: absolute;
     top: 0px;

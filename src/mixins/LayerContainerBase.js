@@ -117,7 +117,7 @@ define(function (require) {
                 layerContainer.style.left = left + 'px';
                 layerContainer.style.top = top + 'px';
                 // 开启自动隐藏
-                timer = setInterval(autoHide, 1000);
+                timer = setInterval(autoHide, 200);
             }
 
             function autoHide() {

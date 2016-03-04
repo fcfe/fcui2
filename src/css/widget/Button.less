@@ -7,7 +7,7 @@
     height: @height-normal;
     border: @border-normal;
     padding: @padding-normal;
-    cursor: default;
+    cursor: pointer;
     line-height: @lineheight-normal;
     background-color: @bgcolor-normal;
     text-align: center;
@@ -38,6 +38,7 @@
         font-size: @fontsize-button;
         background-color: transparent;
         font-family: @normal-font;
+        cursor: pointer;
     }
     input,.font-icon {
         color: @fontcolor-normal;
@@ -54,8 +55,10 @@
     border-color: @color-active !important;
 }
 .fcui2-button-disable {
+    cursor: default !important;
     input,.font-icon {
         color: @color-disable !important;
+        cursor: default !important;
     }
 }
 .fcui2-button-important {

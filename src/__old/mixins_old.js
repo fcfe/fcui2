@@ -1,19 +1,4 @@
-define(function (require) {
 
-    var util = require('./util');
-    var React = require('react');
-    var ReactDOM = require('react-dom');
-
-    return {
-        // 用于随window resize进行特殊渲染处理的组件，如table header
-        resizeContainer: {
-            resizeTimer: null,
-            resizeHandler: function () {
-                if (typeof this.resizing === 'function') {
-                    this.resizing();
-                }
-            }
-        },
         // 用于含有随滚动条fixed dom的组件，如table，需要fixed header
         fixedContainer: {
             scrollTimer: null,
