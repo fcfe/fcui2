@@ -4,8 +4,9 @@ define(function (require) {
     var React = require('react');
 
 
-    var TableHeader = require('../components/table/TableHeader.jsx');
-    var TableSelector = require('../components/table/TableSelector.jsx');
+    var TableHeader = require('../components/table/Header.jsx');
+    var TableMessage = require('../components/table/Message.jsx');
+    var TableSelector = require('../components/table/Selector.jsx');
     var NormalRenderer = require('../components/table/NormalRenderer.jsx');
     var language = require('./language');
 
@@ -64,8 +65,10 @@ define(function (require) {
 
 
     return {
+
         // 透传内部方法
         tdPropsFactory: tdPropsFactory,
+
         // 生成列宽度
         colgroupFactory: function (me) {
             var td = [];
@@ -81,7 +84,7 @@ define(function (require) {
 
         // 生成表头
         headerFactory: function (me) {
-            if (!me.props.flags || me.props.flags.hideHeader) {
+            if (!me.props.flags || !me.props.flags.showHeader) {
                 return (<tr style={{display: 'none'}}></tr>);
             }
             var td = [];
@@ -108,38 +111,35 @@ define(function (require) {
 
         // 生成统计栏
         summaryFactory: function (me) {
-            return '';
-            // if (!me.props.showSummary) return (<tr></tr>);
-            // var td = [];
-            // var conf = me.props.conf;
-            // var summary = me.props.summary;
+            if (!me.props.flags || !me.props.flags.showSummary) {
+                return (<tr style={{display: 'none'}}></tr>);
+            }
+            var td = [];
+            var conf = me.props.fieldConfig;
+            var summary = me.props.summary;
             // if (me.props.showSelector) td.push(<td key="summary-select"></td>);
-            // for (var i = 0; i < conf.length; i++) {
-            //     var item = conf[i];
-            //     var tdStyle = {};
-            //     var text = summary.hasOwnProperty(item.field) ? summary[item.field] : '-';
-            //     if (typeof item.width === 'number') tdStyle.width = item.width;
-            //     tdStyle.textAlign = isNaN(text) ? 'left' : 'right';
-            //     td.push(<td style={tdStyle} key={'summary-' + i}><span style={{fontWeight: 700}}>{text}</span></td>);
-            // }
-            // return <tr className="table-summary" key="table-summray">{td}</tr>
+            for (var i = 0; i < conf.length; i++) {
+                var item = conf[i];
+                var tdStyle = {};
+                var text = summary.hasOwnProperty(item.field) ? summary[item.field] : '-';
+                tdStyle.textAlign = item.align || 'left';
+                td.push(<td style={tdStyle} key={'summary-' + i}>{text}</td>);
+            }
+            return <tr className="tr-summary" key="tr-summray">{td}</tr>;
         },
 
         // 生成message栏
         messageFactory: function (me) {
-            return '';
-            // var message = me.props.message;
-            // var conf = me.props.conf;
-            // if (message.length === 0 || !me.props.showMessage) return (<tr></tr>);
-            // return (
-            //     <tr className="table-message">
-            //         <td colSpan={conf.length + 10}>
-            //             <div className="font-icon font-icon-times" onClick={me.closeMessageBar}></div>
-            //             <span>{message}</span>
-            //             <span onClick={me.messageBarClickHandler} className="link">{me.props.messageButtonLabel}</span>
-            //         </td>
-            //     </tr>
-            // );
+            if (!me.props.flags || !me.props.flags.showMessage) {
+                return (<tr style={{display: 'none'}}></tr>);
+            }
+            var prop = {
+                message: me.props.message && me.props.message.content ? me.props.message.content : '',
+                buttonLabel: me.props.message && me.props.message.buttonLabel ? me.props.message.buttonLabel : '',
+                onClick: me.props.onAction,
+                colSpan: me.props.fieldConfig.length + 10
+            };
+            return (<TableMessage {...prop}/>);
         },
 
         // 生成行

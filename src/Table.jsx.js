@@ -20,10 +20,9 @@ define(function (require) {
                 fieldConfig: [],
                 flags: {
                     sortAble: false,
-                    hideHeader: true,
-                    hideSummaryBar: true,
-                    hideSelector: true,
-                    hideMessageBarCloseButton: true
+                    showHeader: false,
+                    showSummary: false,
+                    showSelector: false
                 },
                 // 数据属性
                 datasource: [],
@@ -41,8 +40,7 @@ define(function (require) {
                 valueTemplate: JSON.stringify({
                     sortField: '',
                     sortType: 'asc',
-                    hideMessageBar: true, // 这个是可以从内部修改的，所以写在value里，内部不能修改的写在flags里
-                    itemSelected: [] // 如果为全选，则此处为-1，否则，为行在datasource中的索引
+                    itemSelected: []         // 如果为全选，则此处为-1，否则，为行在datasource中的索引
                 })
             };
         },
@@ -78,7 +76,7 @@ define(function (require) {
             table.style.minWidth = shadow.style.minWidth = width + 'px';
             for (var i = 0; i < tbody.childNodes.length; i++) {
                 var tr = tbody.childNodes[i];
-                if (tr.className.indexOf('tr-data') > -1) continue;
+                if (tr.className.indexOf('tr-data') > -1 || tr.className.indexOf('tr-summary') > -1) continue;
                 height += tr.offsetHeight;
             }
             shadowContainer.style.height = height + 'px';
@@ -92,6 +90,8 @@ define(function (require) {
                             {tools.colgroupFactory(this)}
                             <tbody ref="tbody">
                                 {tools.headerFactory(this)}
+                                {tools.messageFactory(this)}
+                                {tools.summaryFactory(this)}
                                 {tools.lineFactory(this)}
                             </tbody>
                         </table>
@@ -100,8 +100,10 @@ define(function (require) {
                         <table ref="shadow" cellSpacing="0" cellPadding="0">
                             {tools.colgroupFactory(this)}
                             <tbody>
+                                {tools.summaryFactory(this)}
                                 {tools.lineFactory(this)}
                                 {tools.headerFactory(this)}
+                                {tools.messageFactory(this)}
                             </tbody>
                         </table>
                     </div>
@@ -111,16 +113,6 @@ define(function (require) {
     });
 });
 
-// {tools.headerFactory(this)}
-// {tools.messageFactory(this)}
-// {tools.summaryFactory(this)}
-// {tools.lineFactory(this)}
-
-
-// {tools.summaryFactory(this)}
-// {tools.lineFactory(this)}
-// {tools.headerFactory(this)}
-// {tools.messageFactory(this)}
 
 /*
 rowSelected: function (e) {

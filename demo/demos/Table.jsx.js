@@ -32,7 +32,7 @@ define(function (require) {
             title: 'Table with Header',
             props: {
                 flags: {
-                    hideHeader: false
+                    showHeader: true
                 },
                 datasource: datasource,
                 fieldConfig: [
@@ -44,7 +44,7 @@ define(function (require) {
             title: 'Table with Tip in Header',
             props: {
                 flags: {
-                    hideHeader: false
+                    showHeader: true
                 },
                 datasource: datasource,
                 fieldConfig: [
@@ -53,10 +53,10 @@ define(function (require) {
             }
         },
         {
-            title: 'Table with SortButton in Header',
+            title: 'Sortable Table',
             props: {
                 flags: {
-                    hideHeader: false,
+                    showHeader: true,
                     sortAble: true
                 },
                 datasource: datasource,
@@ -64,8 +64,74 @@ define(function (require) {
                     fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
                 ]
             }
+        },
+        {
+            title: 'Table with Value',
+            props: {
+                flags: {
+                    showHeader: true,
+                    sortAble: true
+                },
+                value: JSON.stringify({
+                    sortField: 'age',
+                    sortType: 'desc'
+                }),
+                datasource: datasource,
+                fieldConfig: [
+                    fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
+                ]
+            }
+        },
+        {
+            title: 'Table with ValueLink',
+            valueLink: true,
+            props: {
+                flags: {
+                    showHeader: true,
+                    sortAble: true
+                },
+                datasource: datasource,
+                fieldConfig: [
+                    fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
+                ]
+            }
+        },
+        {
+            title: 'Table with Summary',
+            props: {
+                flags: {
+                    showHeader: true,
+                    showSummary: true
+                },
+                datasource: datasource,
+                summary: {
+                    name: '老司机',
+                    age: '18'
+                },
+                fieldConfig: [
+                    fieldConfig.styleName, fieldConfig.normalAge, fieldConfig.normalBirth
+                ]
+            }
+        },
+        {
+            title: 'Table with Message',
+            props: {
+                flags: {
+                    showHeader: true,
+                    showMessage: true
+                },
+                message: {
+                    content: '这是一条信息',
+                    buttonLabel: '知道了'
+                },
+                datasource: datasource,
+                fieldConfig: [
+                    fieldConfig.styleName, fieldConfig.normalAge, fieldConfig.normalBirth
+                ]
+            }
         }
     ];
+
 
     function factory(me, items) {
         var widgets = [];
@@ -76,6 +142,7 @@ define(function (require) {
             if (item.valueLink) {
                 prop.valueLink = me.linkState(item.title);
             }
+            prop.onAction = me.actionHandler;
             widgets.push(
                 <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>
@@ -86,6 +153,7 @@ define(function (require) {
         }
         return widgets;
     }
+
 
     return React.createClass({
         mixins: [React.addons.LinkedStateMixin],
@@ -102,6 +170,9 @@ define(function (require) {
         },
         clickHandler: function (e) {
             this.props.alert(e.target.value);
+        },
+        actionHandler: function (type, param) {
+            this.props.alert(type + ' ' + JSON.stringify(param));
         },
         render: function () {
             var containerProp = {
