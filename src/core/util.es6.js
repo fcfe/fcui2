@@ -87,7 +87,10 @@ define(function (require) {
          */
         chainFunctions: function (...funcs) {
             return function (...args) {
-                funcs.find((handler) => handler.apply(this, args));
+                for (var i = 0; i < funcs.length; i++) {
+                    var func = funcs[i];
+                    if (func.apply(this, arguments)) return;
+                }
             };
         }
     };
