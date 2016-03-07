@@ -2,15 +2,16 @@ define(function (require) {
 
 
     var React = require('react');
-    var InputWidgetBase = require('./mixins/InputWidgetBase');
     var tools = require('./core/tableTools.jsx');
     var language = require('./core/language');
     var util = require('./core/util');
+    var InputWidgetBase = require('./mixins/InputWidgetBase');
+    var WidgetWithFixedDom = require('./mixins/WidgetWithFixedDom');
 
 
     return React.createClass({
         // @override
-        mixins: [InputWidgetBase],
+        mixins: [InputWidgetBase, WidgetWithFixedDom],
         // @override
         getDefaultProps: function () {
             return {
@@ -49,15 +50,11 @@ define(function (require) {
         },
         // @override
         componentDidMount: function () {
-            // window.addEventListener('scroll', this.scrollHandler);
             window.addEventListener('resize', this.updateWidth);
             this.updateWidth();
-            // this.updateWidth();
-            // this.recordFixedDOMPosition();
         },
         // @override
         componentWillUnmount: function () {
-            // window.removeEventListener('scroll', this.scrollHandler);
             window.removeEventListener('resize', this.updateWidth);
         },
         // @override
@@ -102,7 +99,6 @@ define(function (require) {
          * 选中某行
          */
         rowSelect: function (e) {
-
             if (this.props.disable) return;
             var dataset = util.getDataset(e.target);
             var index = parseInt(dataset.uiCmd, 10);
@@ -110,7 +106,6 @@ define(function (require) {
             var menuValue = e.target.value;
             var selected = this.getSelectedHash();
             var newSelected = [];
-
             // 全选取消一项
             if (selected === -1 && !value) {
                 for (var i = 0; i < this.props.datasource.length; i++) {
@@ -134,7 +129,6 @@ define(function (require) {
                     newSelected.push(i);
                 }
             }
-
             // 全部选中
             if (menuValue === '-1') {
                 newSelected = -1;
@@ -148,7 +142,6 @@ define(function (require) {
             else if (menuValue === '-3') {
                 newSelected = [];
             }
-
             // 重新组装value
             var tableValue = this.___getValue___() || '{}';
             tableValue = JSON.parse(tableValue);
