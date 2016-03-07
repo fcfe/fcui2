@@ -5,6 +5,7 @@ define(function (require) {
     var InputWidgetBase = require('./mixins/InputWidgetBase');
     var tools = require('./core/tableTools.jsx');
     var language = require('./core/language');
+    var util = require('./core/util');
 
 
     return React.createClass({
@@ -31,16 +32,14 @@ define(function (require) {
                     content: '',
                     buttonLabel: language.button.fresh
                 },
-                fixedPosition: [
-                    {ref: 'shadowTableContainer', top: 0, zIndex: 998}
-                ],
+                fixedPosition: [],  // {ref: 'shadowTableContainer', top: 0, zIndex: 998}
                 // 回调属性
                 onAction: function () {},
                 // value模板, 此项目只能为基本类型，不能为object
                 valueTemplate: JSON.stringify({
                     sortField: '',
                     sortType: 'asc',
-                    itemSelected: []         // 如果为全选，则此处为-1，否则，为行在datasource中的索引
+                    selected: []         // 如果为全选，则此处为-1，否则，为行在datasource中的索引
                 })
             };
         },
@@ -65,6 +64,9 @@ define(function (require) {
         componentDidUpdate: function () {
             this.updateWidth();
         },
+        /**
+         * 同步main table和shadow table的宽度，重新设置shadow container高度
+         */
         updateWidth: function () {
             var width = this.refs.container.offsetWidth;
             var table = this.refs.table;
@@ -80,6 +82,80 @@ define(function (require) {
                 height += tr.offsetHeight;
             }
             shadowContainer.style.height = height + 'px';
+        },
+        /**
+         * 将value中的selected域转成hash并返回
+         */
+        getSelectedHash: function () {
+            var value = this.___getValue___();
+            value = typeof value === 'string' ? JSON.parse(value) : {};
+            var selected = {};
+            if (value.selected === -1) {
+                selected = -1;
+            }
+            else if (value.selected instanceof Array) {
+                for (var s = 0; s < value.selected.length; s++) selected[value.selected[s]] = true;
+            }
+            return selected;
+        },
+        /**
+         * 选中某行
+         */
+        rowSelect: function (e) {
+
+            if (this.props.disable) return;
+            var dataset = util.getDataset(e.target);
+            var index = parseInt(dataset.uiCmd, 10);
+            var value = e.target.checked;
+            var menuValue = e.target.value;
+            var selected = this.getSelectedHash();
+            var newSelected = [];
+
+            // 全选取消一项
+            if (selected === -1 && !value) {
+                for (var i = 0; i < this.props.datasource.length; i++) {
+                    if (i === index) continue;
+                    newSelected.push(i);
+                }
+            }
+            // 选中
+            else if (selected !== -1 && value) {
+                selected[index] = true;
+                for (var i = 0; i < this.props.datasource.length; i++) {
+                    if (!selected[i]) continue;
+                    newSelected.push(i);
+                }
+            }
+            // 取消选中
+            else if (selected !== -1 && !value) {
+                selected[index] = false;
+                for (var i = 0; i < this.props.datasource.length; i++) {
+                    if (!selected[i]) continue;
+                    newSelected.push(i);
+                }
+            }
+
+            // 全部选中
+            if (menuValue === '-1') {
+                newSelected = -1;
+            }
+            // 选中当前页
+            else if (menuValue === '-2') {
+                newSelected = [];
+                for (var i = 0; i < this.props.datasource.length; i++) newSelected.push(i);
+            }
+            // 取消所有选中
+            else if (menuValue === '-3') {
+                newSelected = [];
+            }
+
+            // 重新组装value
+            var tableValue = this.___getValue___() || '{}';
+            tableValue = JSON.parse(tableValue);
+            tableValue.selected = newSelected;
+            e.target = this.refs.container;
+            e.target.value = JSON.stringify(tableValue);
+            this.___dispatchChange___(e);
         },
         // @override
         render: function () {
@@ -112,43 +188,3 @@ define(function (require) {
         }
     });
 });
-
-
-/*
-rowSelected: function (e) {
-    // var select = this.state.selectedIndex;
-    // var items = [];
-    // delete select[-1];
-    // if (e === -3) { // -3 取消当前所有选中，没有时间写常量了
-    //     select = {};
-    // }
-    // else if (e === -1 || e === -2) { // -1 全部选中；-2 选中当前页；没有时间写常量了
-    //     if (e === -1) select[-1] = true;
-    //     for (var i = 0; i < this.props.datasource.length; i++) select[i] = true;
-    // }
-    // else {
-    //     var value = e.target.checked;
-    //     var id = parseInt(util.getDataset(e.target).uiCmd);
-    //     if (value) {
-    //         select[id] = true;
-    //     }
-    //     else {
-    //         delete select[id];
-    //     }
-    // }
-    // if (select[-1]) {
-    //     items = -1;
-    // }
-    // else {
-    //     for (var key in select) {
-    //         if (select.hasOwnProperty(key)) items.push(parseInt(key, 10));
-    //     }
-    //     items.sort();
-    //     for (var i = 0; i < items.length; i++) {
-    //         items[i] = this.props.datasource[items[i]];
-    //     }
-    // }
-    // this.setState({selectedIndex: select, selectedItems: items});
-    // this.props.onAction('TableSelect', {items: items});
-}
-*/

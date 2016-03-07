@@ -36,7 +36,7 @@ define(function (require) {
                 },
                 datasource: datasource,
                 fieldConfig: [
-                    fieldConfig.styleName, fieldConfig.styleAge, fieldConfig.styleBirth
+                    fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
                 ]
             }
         },
@@ -54,6 +54,7 @@ define(function (require) {
         },
         {
             title: 'Sortable Table',
+            onChange: true,
             props: {
                 flags: {
                     showHeader: true,
@@ -109,7 +110,7 @@ define(function (require) {
                     age: '18'
                 },
                 fieldConfig: [
-                    fieldConfig.styleName, fieldConfig.normalAge, fieldConfig.normalBirth
+                    fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
                 ]
             }
         },
@@ -126,7 +127,35 @@ define(function (require) {
                 },
                 datasource: datasource,
                 fieldConfig: [
-                    fieldConfig.styleName, fieldConfig.normalAge, fieldConfig.normalBirth
+                    fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
+                ]
+            }
+        },
+        {
+            title: 'Table with Selector',
+            onChange: true,
+            props: {
+                flags: {
+                    showHeader: true,
+                    showSelector: true
+                },
+                datasource: datasource,
+                fieldConfig: [
+                    fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
+                ]
+            }
+        },
+        {
+            title: 'Disabled Table',
+            props: {
+                disable: true,
+                flags: {
+                    showHeader: true,
+                    showSelector: true
+                },
+                datasource: datasource,
+                fieldConfig: [
+                    fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
                 ]
             }
         }
@@ -139,9 +168,8 @@ define(function (require) {
             var item = items[i];
             var prop = item.props;
             var conf = JSON.stringify(prop);
-            if (item.valueLink) {
-                prop.valueLink = me.linkState(item.title);
-            }
+            if (item.valueLink) prop.valueLink = me.linkState(item.title);
+            if (item.onChange) prop.onChange = me.clickHandler;
             prop.onAction = me.actionHandler;
             widgets.push(
                 <div className="demo-item" key={i}>

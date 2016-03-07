@@ -73,9 +73,9 @@ define(function (require) {
         colgroupFactory: function (me) {
             var td = [];
             var conf = me.props.fieldConfig;
-            // if (me.props.showSelector) {
-            //     td.push(<col width="45" key='col-selector'/>);
-            // }
+            if (me.props.flags && me.props.flags.showSelector) {
+                td.push(<col width="45" key='col-selector'/>);
+            }
             for (var i = 0; i < conf.length; i++) {
                 td.push(<col width={conf[i].width} key={'colgroup-' + i} />);
             }
@@ -89,14 +89,15 @@ define(function (require) {
             }
             var td = [];
             var conf = me.props.fieldConfig;
-            // if (me.props.showSelector) {
-            //     var selectorProp = {
-            //         isAllSelected: me.state.selectedIndex[-1] || me.props.datasource.length === me.state.selectedItems.length,
-            //         selectedIndex: me.state.selectedIndex,
-            //         onAction: me.rowSelected
-            //     }
-            //     td.push(<td key="head-select"><TableSelector {...selectorProp}/></td>);
-            //}
+            if (me.props.flags && me.props.flags.showSelector) {
+                var selectorProp = {
+                    selected: me.getSelectedHash(),
+                    tableItems: me.props.datasource,
+                    disable: me.props.disable,
+                    onClick: me.rowSelect
+                };
+                td.push(<td key="head-select"><TableSelector {...selectorProp}/></td>);
+            }
             for (var i = 0; i < conf.length; i++) {
                 var headerProp = {
                     tableValue: me.___getValue___(),
@@ -117,7 +118,7 @@ define(function (require) {
             var td = [];
             var conf = me.props.fieldConfig;
             var summary = me.props.summary;
-            // if (me.props.showSelector) td.push(<td key="summary-select"></td>);
+            if (me.props.flags && me.props.flags.showSelector) td.push(<td key="summary-select"></td>);
             for (var i = 0; i < conf.length; i++) {
                 var item = conf[i];
                 var tdStyle = {};
@@ -147,6 +148,7 @@ define(function (require) {
             var lines = [];
             var config = me.props.fieldConfig instanceof Array ? me.props.fieldConfig : [];
             var datasource = me.props.datasource instanceof Array ? me.props.datasource : [];
+            // 没有数据源
             if (datasource.length === 0 || config.length === 0) {
                 return (
                     <tr>
@@ -156,26 +158,32 @@ define(function (require) {
                     </tr>
                 );
             }
+            // 获取表格当前值，并制作选中行的hash
+            var selectorFlag = me.props.flags && me.props.flags.showSelector;
+            var selectedHash = me.getSelectedHash();
+            // 渲染行
             for (var index = 0; index < datasource.length; index++) {
                 var item = datasource[index];
                 var td = [];
-                // var selected = me.state.selectedIndex[index] || me.state.selectedIndex[-1];
-                // if (me.props.showSelector) {
-                //     var selectorProp = {
-                //         type: 'checkbox',
-                //         className: 'tr-selector',
-                //         checked: selected,
-                //         'data-ui-cmd': index,
-                //         onChange: me.rowSelected,
-                //     };
-                //     td.push(<td key="row-select" className="td-selector-container"><input {...selectorProp}/></td>);
-                // }
+                var selected = selectedHash === -1 || selectedHash[index];
+                // 第一列选择器
+                if (selectorFlag) {
+                    var selectorProp = {
+                        type: 'checkbox',
+                        className: 'tr-selector',
+                        checked: selected,
+                        disabled: me.props.disable,
+                        'data-ui-cmd': index,
+                        onChange: me.rowSelect,
+                    };
+                    td.push(<td key="row-select" className="td-selector"><input {...selectorProp}/></td>);
+                }
+                // 其他列
                 for (var j = 0; j < config.length; j++) {
                     var props = tdPropsFactory(config[j], item, me, index, j);
                     var renderer = typeof config[j].renderer === 'function' ? config[j].renderer : NormalRenderer;
                     td.push(React.createElement(renderer, props));
                 }
-                var selected = false;
                 lines.push(<tr key={'row-' + index} className={selected ? 'tr-data tr-selected' : 'tr-data'}>{td}</tr>);
             }
             return lines;
