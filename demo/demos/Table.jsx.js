@@ -34,9 +34,6 @@ define(function (require) {
                 flags: {
                     showHeader: true
                 },
-                fixedPosition: [
-                    {ref: 'shadowTableContainer', top: 60, zIndex: 998}
-                ],
                 datasource: datasource,
                 fieldConfig: [
                     fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
@@ -49,6 +46,9 @@ define(function (require) {
                 flags: {
                     showHeader: true
                 },
+                fixedPosition: [
+                    {ref: 'shadowTableContainer', top: 60, zIndex: 998}
+                ],
                 datasource: datasource,
                 fieldConfig: [
                     fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
@@ -185,21 +185,13 @@ define(function (require) {
             var conf = JSON.stringify(prop);
             if (item.valueLink) prop.valueLink = me.linkState(item.title);
             if (item.onChange) prop.onChange = me.clickHandler;
-            if (prop.hasOwnProperty('fixedPosition')) {
-                prop.___oldFixedPosition = prop.fixedPosition;
-                if (me.props.demo !== 'Table') {
-                    delete prop.fixedPosition;
-                }
-            }
-            if (prop.hasOwnProperty('___oldFixedPosition') && me.props.demo === 'Table') {
-                prop.fixedPosition = prop.___oldFixedPosition;
-            }
             prop.onAction = me.actionHandler;
             widgets.push(
                 <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>
                     <div className="props">{conf}</div>
                     <Table {...prop}/>
+                    <span>{me.state[item.title]}</span>
                 </div>
             );
         }
