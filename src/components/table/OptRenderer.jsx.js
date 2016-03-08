@@ -1,22 +1,24 @@
 define(function (require) {
 
-    var util = require('../core/util.es6');
+    var util = require('../../core/util');
     var React = require('react');
 
     return React.createClass({
         getDefaultProps: function () {
             return {
-                conf: {},
+                className: '',
+                style: {},
                 item: {},
-                index: -1,
+                row: -1,
+                column: -1,
                 onAction: function () {}
             };
         },
         clickHandler: function (e) {
             this.props.onAction('OptRendererClick', {
-                field: this.props.conf.field,
                 item: this.props.item,
-                index: this.props.index
+                row: this.props.row,
+                column: this.props.column
             });
         },
         mouseOverHandler: function (e) {
@@ -27,32 +29,24 @@ define(function (require) {
                 ? 'icon-container pos-left' : 'icon-container pos-right';
         },
         render: function () {
-            var item = this.props.item;
-            var conf = this.props.conf;
-            var message = typeof conf.content === 'function' ? conf.content(item) : null;
-            var buttonLabel = typeof conf.buttonLabel === 'function' ? conf.buttonLabel(item) : conf.buttonLabel + '';
-            var buttonDisplay = typeof conf.buttonDisplay === 'function' ? conf.buttonDisplay(item) : true;
+            var message = this.props.content;
+            var buttonLabel = this.props.buttonLabel;
+            var buttonDisplay = this.props.hasOwnProperty('buttonDisplay') ? this.props.buttonDisplay : true;
             if (!message) {
                 return <td></td>;
             }
             var tdProp = {
-                className: 'td-optsug',
+                className: 'td-optsug ' + this.props.className,
                 ref: 'rootContainer',
-                style: {}
+                style: this.props.style
             };
             var iconProp = {
-                className: 'font-icon font-icon-exclamation-circle',
-                style: {
-                    color: '#000'
-                }
+                className: 'font-icon font-icon-exclamation-circle'
             };
             var buttonProp = {
                 className: 'info-link',
                 onClick: this.clickHandler
             };
-            if (conf.hasOwnProperty('color')) {
-                iconProp.style.color = typeof conf.color === 'function' ? conf.color(item) : conf.color + '';
-            }
             if (!buttonDisplay) {
                 buttonProp.style = {display: 'none'};
             }
@@ -62,7 +56,7 @@ define(function (require) {
                         <div className="info-layer" ref="layer">
                             <div {...iconProp}></div>
                             <span className="info-text">{message}</span>
-                            <span {...buttonDisplay}>{buttonLabel}</span>
+                            <span {...buttonProp}>{buttonLabel}</span>
                         </div>
                         <div {...iconProp} data-ui-ctrl="top-icon"></div>
                     </div>

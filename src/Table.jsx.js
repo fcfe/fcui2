@@ -21,7 +21,7 @@ define(function (require) {
                 disable: false,
                 fieldConfig: [],
                 flags: {
-                    sortAble: false,
+                    sortEnable: false,
                     showHeader: false,
                     showSummary: false,
                     showSelector: false

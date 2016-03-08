@@ -26,7 +26,7 @@ define(function (require) {
             this.props.onClick(e);
         },
         render: function () {
-            var sortAble = this.props.tableFlags.sortAble;
+            var sortEnable = this.props.tableFlags.sortEnable && !this.props.sortDisable;
             var tableValue = this.props.tableValue || '{}';
             tableValue = JSON.parse(tableValue);
             var sortField = tableValue.sortField || '';
@@ -38,7 +38,7 @@ define(function (require) {
                 className: 'sort-button font-icon '
                     + (sortType === 'asc' ? 'font-icon-largeable-arrow-up' : 'font-icon-largeable-arrow-down'),
                 style: {
-                    display: sortAble ? 'inline-block' : 'none',
+                    display: sortEnable ? 'inline-block' : 'none',
                     color: sortField !== this.props.field ? '#DEDEDE' : '#2F82F5'
                 },
                 onClick: this.sortHandler

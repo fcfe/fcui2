@@ -20,6 +20,14 @@ define(function (require) {
             }
         },
         {
+            title: 'Table without Datasource',
+            props: {
+                fieldConfig: [
+                    fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
+                ]
+            }
+        },
+        {
             title: 'Table with Style',
             props: {
                 datasource: datasource,
@@ -34,21 +42,6 @@ define(function (require) {
                 flags: {
                     showHeader: true
                 },
-                datasource: datasource,
-                fieldConfig: [
-                    fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
-                ]
-            }
-        },
-        {
-            title: 'Table with Fixed Header (the header position will be fixed somewhere when srolling)',
-            props: {
-                flags: {
-                    showHeader: true
-                },
-                fixedPosition: [
-                    {ref: 'shadowTableContainer', top: 60, zIndex: 998}
-                ],
                 datasource: datasource,
                 fieldConfig: [
                     fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
@@ -73,7 +66,7 @@ define(function (require) {
             props: {
                 flags: {
                     showHeader: true,
-                    sortAble: true
+                    sortEnable: true
                 },
                 datasource: datasource,
                 fieldConfig: [
@@ -86,7 +79,7 @@ define(function (require) {
             props: {
                 flags: {
                     showHeader: true,
-                    sortAble: true
+                    sortEnable: true
                 },
                 value: JSON.stringify({
                     sortField: 'age',
@@ -104,7 +97,7 @@ define(function (require) {
             props: {
                 flags: {
                     showHeader: true,
-                    sortAble: true
+                    sortEnable: true
                 },
                 datasource: datasource,
                 fieldConfig: [
@@ -171,6 +164,35 @@ define(function (require) {
                 datasource: datasource,
                 fieldConfig: [
                     fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
+                ]
+            }
+        },
+        {
+            title: 'Comprehensive Table',
+            onChange: true,
+            props: {
+                flags: {
+                    showHeader: true,
+                    showSelector: true,
+                    sortEnable: true,
+                    showMessage: true,
+                    showSummary: true
+                },
+                fixedPosition: [
+                    {ref: 'shadowTableContainer', top: 60, zIndex: 998}
+                ],
+                message: {
+                    content: '表格有新数据',
+                    buttonLabel: '刷新'
+                },
+                summary: {
+                    name: '老司机',
+                    age: 60
+                },
+                datasource: datasource.concat(datasource, datasource, datasource),
+                fieldConfig: [
+                    fieldConfig.styleName, fieldConfig.tipName, fieldConfig.tipAge,
+                    fieldConfig.buttonField, fieldConfig.optMsg, fieldConfig.numberInt
                 ]
             }
         }

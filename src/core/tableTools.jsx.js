@@ -32,13 +32,10 @@ define(function (require) {
         var props = JSON.parse(JSON.stringify(conf));
         // 导入数据、索引、回调、key
         props.item = item;
-        props.index = row;
+        props.row = row;
+        props.column = column;
         props.onAction = me.props.onAction;
         props.key = 'column-' + column;
-        // 处理prepare，将item和props回传给conf.prepare，由prepare以指针形式操作props
-        if (typeof conf.prepare === 'function') {
-            conf.prepare(props, item, row, column);
-        }
         // 对content域进行特殊处理
         if (typeof conf.content === 'function') {
             props.content = conf.content(item, row, column);
@@ -49,7 +46,7 @@ define(function (require) {
         else if (!conf.hasOwnProperty('content') && conf.hasOwnProperty('field')) {
             props.content = item[conf.field];
         }
-        else {
+        else if (typeof conf.content !== 'string'){
             props.content = '';
         }
         // 将某些style从conf中挪到props.style
@@ -59,6 +56,10 @@ define(function (require) {
             if (conf.hasOwnProperty(key) && !props.style.hasOwnProperty(styleName)) {
                 props.style[styleName] = conf[key];
             }
+        }
+        // 处理prepare，将item和props回传给conf.prepare，由prepare以指针形式操作props
+        if (typeof conf.prepare === 'function') {
+            conf.prepare(props, item, row, column);
         }
         return props;
     }
@@ -96,7 +97,7 @@ define(function (require) {
                     disable: me.props.disable,
                     onClick: me.rowSelect
                 };
-                td.push(<td key="head-select"><TableSelector {...selectorProp}/></td>);
+                td.push(<td key="head-selector" className="head-selector"><TableSelector {...selectorProp}/></td>);
             }
             for (var i = 0; i < conf.length; i++) {
                 var headerProp = {

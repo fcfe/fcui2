@@ -53,18 +53,9 @@
             height: @fontsize-icon-button;
         }
     }
-}
-.fcui2-fixed-with-scroll {
-    th {
-        border-bottom: @border-normal;
+    .head-selector {
+        background-color: @bgcolor-table-header;
     }
-}
-
-
-
-/*
-
-    
     .table-nodata {
         display: inline-block;
         margin: 20px;
@@ -75,6 +66,11 @@
         height: 40px;
         width: 150px;
     }
-    
-    
-*/
+}
+.fcui2-fixed-with-scroll {
+    tr:last-child {
+        td, td {
+            border-bottom: @border-normal;
+        }
+    }
+}
