@@ -11,20 +11,30 @@ define(function (require) {
 
     return {
         componentDidMount: function () {
-            window.addEventListener('scroll', this.___scrollHandler);
-            this.___recordFixedDOMPosition();
+            window.addEventListener('scroll', this.___scrollHandler___);
+            this.___recordFixedDOMPosition___();
         },
         componentWillUnmount: function () {
-            window.removeEventListener('scroll', this.___scrollHandler);
+            window.removeEventListener('scroll', this.___scrollHandler___);
         },
-        ___scrollHandler: function () {
+        ___scrollHandler___: function () {
             var conf = this.props.fixedPosition;
             if (!(conf instanceof Array)) return;
             for (var i = 0; i < conf.length; i++) {
+                // 获取dom
                 var obj = conf[i];
                 var dom = this.refs[obj.ref];
                 if (!dom || !dom.tagName || isNaN(obj.top)) continue;
-                obj.top = obj.top * 1;
+                // 检查是否显示
+                var parentNode = dom;
+                var display = '';
+                while (parentNode.tagName !== 'BODY') {
+                    display = util.getStyle(parentNode, 'display');
+                    if (display === 'none') break;
+                    parentNode = parentNode.parentNode;
+                }
+                if (display === 'none') continue;
+                // 检查位置并设置fixed
                 var pos = util.getDOMPosition(dom);
                 var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
                 if (scrollY - dom.__posTop + obj.top < 0) {
@@ -39,7 +49,7 @@ define(function (require) {
                 }
             }
         },
-        ___recordFixedDOMPosition: function () {
+        ___recordFixedDOMPosition___: function () {
             var conf = this.props.fixedPosition;
             if (!(conf instanceof Array)) return;
             for (var i = 0; i < conf.length; i++) {

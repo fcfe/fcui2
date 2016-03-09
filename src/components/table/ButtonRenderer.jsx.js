@@ -31,7 +31,7 @@ define(function (require) {
                 className: 'font-icon'
                     + (typeof this.props.buttonIcon === 'string' ? ' ' + this.props.buttonIcon : ''),
                 style: {
-                    float: tdProp.style.textAlign === 'left' ? 'right' : 'left'
+                    float: tdProp.style.textAlign === 'right' ? 'left' : 'right'
                 },
                 onClick: this.clickHandler
             };

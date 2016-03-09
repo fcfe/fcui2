@@ -99,9 +99,9 @@ define(function (require) {
         buttonField: {
             label: '呼叫',
             field: 'birth',
-            align: 'left',
-            width: 100,
+            width: 150,
             content: '-',
+            sortDisable: true,
             renderer: require('fcui/components/table/ButtonRenderer.jsx'),
             prepare: function (props, item, row, column) {
                 if (item.name === 'Tom Chros') {
