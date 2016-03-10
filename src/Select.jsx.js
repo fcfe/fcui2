@@ -34,15 +34,12 @@ define(function (require) {
         },
         // @override
         getInitialState: function () {
-            return {
-                beOperated: false
-            };
+            return {};
         },
         layerAction: function (e) {
             var value = this.___getValue___();
             if (this.props.disable || value === e.target.value) return;
             this.___dispatchChange___(e);
-            this.setState({beOperated: true});
             this.layerHide();
         },
         mouseEnterHandler: function (e) {

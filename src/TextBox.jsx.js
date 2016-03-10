@@ -26,15 +26,11 @@ define(function (require) {
         },
         // @override
         getInitialState: function () {
-            return {
-                // 是否已经被用户操作过了
-                beOperated: false
-            };
+            return {};
         },
         changeHandler: function (e) {
             if (this.props.disable) return;
             this.___dispatchChange___(e);
-            this.setState({beOperated: true});
         },
         focus: function () {
             this.refs.inputbox.focus();
@@ -56,6 +52,7 @@ define(function (require) {
                 style: {width: this.props.width - 20},
                 onChange: this.changeHandler
             };
+            this.___mergeInputHandlers___(inputProp, this.props);
             if (this.props.disable) {
                 containerProp.className += ' fcui2-textbox-disable'
             }

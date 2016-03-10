@@ -14,6 +14,13 @@ define(function (require) {
     var erroeMessage = 'Uncaught Invariant Violation:'
         + ' Cannot provide a valueLink and a value or onChange event. '
         + 'If you want to use value or onChange, you probably don\'t want to use valueLink.'
+    var inputHandlers = [
+        'onKeyDown', 'onKeyPress', 'onKeyUp',
+        'onBlur', 'onFocus', 'onSelect',
+        'onClick', 'onDoubleClick',
+        'onMouseDown', 'onMouseEnter', 'onMouseLeave',
+        'onMouseMove', 'onMouseOut', 'onMouseOver', 'onMouseUp'
+    ];
 
     return {
 
@@ -30,6 +37,26 @@ define(function (require) {
                 && typeof props.valueLink.requestChange === 'function';
             if (this.___hasValueLink___ && (props.hasOwnProperty('value') || props.hasOwnProperty('onChange'))) {
                 throw new Error(erroeMessage);
+            }
+        },
+
+        /**
+         * 将组件props中输入有关的回调函数merge到实际的input dom上
+         *
+         * @param {Object} inputProps input dom props
+         * @param {Object} 组件的props
+         */
+        ___mergeInputHandlers___: function (inputProps, props) {
+            for (var i = 0; i < inputHandlers.length; i++) {
+                var key = inputHandlers[i];
+                if (
+                    inputProps.hasOwnProperty(key)
+                    || !props.hasOwnProperty(key)
+                    || typeof props[key] !== 'function'
+                ) {
+                    continue;
+                }
+                inputProps[key] = props[key];
             }
         },
 

@@ -29,9 +29,7 @@ define(function (require) {
         },
         // @override
         getInitialState: function () {
-            return {
-                beOperated: false
-            };
+            return {};
         },
         clickHandler: function (e) {
 
@@ -53,7 +51,6 @@ define(function (require) {
             e.target = this.refs.container;
             e.target.value = v;
             this.___dispatchChange___(e);
-            this.setState({beOperated: true});
         },
         render: function () {
             var containerProp = {

@@ -27,14 +27,11 @@ define(function (require) {
         },
         // @override
         getInitialState: function () {
-            return {
-                beOperated: false
-            };
+            return {};
         },
         changeHandler: function (e) {
             if (this.props.disable) return;
             this.___dispatchChange___(e);
-            this.setState({beOperated: true});
         },
         focus: function () {
             this.refs.inputbox.focus();
@@ -64,6 +61,7 @@ define(function (require) {
                     height: this.props.height - 22
                 }
             };
+            this.___mergeInputHandlers___(inputProp, this.props);
             if (this.props.disable) {
                 containerProp.className += ' fcui2-textarea-disable'
             }

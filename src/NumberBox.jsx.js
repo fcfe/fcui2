@@ -38,7 +38,6 @@ define(function (require) {
             if (this.props.disable) return;
             e.target.value = numberFormater(e.target.value, this.props);
             this.___dispatchChange___(e);
-            this.setState({beOperated: true});
         },
         spinButtonHandler: function (e) {
             if (
@@ -55,7 +54,6 @@ define(function (require) {
             target.value = value + op * parseFloat(this.props.step);
             e.target = target;
             this.___dispatchChange___(e);
-            this.setState({beOperated: true});
         },
         focus: function () {
             this.refs.inputbox.focus();
@@ -74,6 +72,7 @@ define(function (require) {
                 },
                 onChange: this.changeHandler
             };
+            this.___mergeInputHandlers___(inputProp, this.props);
             var btnContainerProp = {
                 className: 'btn-container',
                 style: {
