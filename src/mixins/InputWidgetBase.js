@@ -91,7 +91,10 @@ define(function (require) {
             else if (typeof this.props.onChange === 'function') {
                 this.props.onChange(e);
             }
-            this.setState({___value___: value});
+            this.setState({
+                ___value___: value,
+                ___beOperated___: true
+            });
         }
     };
 });

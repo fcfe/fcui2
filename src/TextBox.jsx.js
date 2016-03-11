@@ -9,11 +9,11 @@ define(function (require) {
 
     var React = require('react');
     var InputWidgetBase = require('./mixins/InputWidgetBase');
-
+    var InputWidgetInForm = require('./mixins/InputWidgetInForm');
 
     return React.createClass({
         // @override
-        mixins: [InputWidgetBase],
+        mixins: [InputWidgetBase, InputWidgetInForm],
         // @override
         getDefaultProps: function () {
             return {

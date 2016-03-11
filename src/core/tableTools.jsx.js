@@ -24,7 +24,7 @@ define(function (require) {
      * @param {Object} item 数据源
      * @param {Object} me 当前react对象
      * @param {number} row item在datasource的行索引
-     * @param {number} column 当前渲染的列索引
+     * @param {number } column 当前渲染的列索引
      * @return {Object} 用于渲染row行column列的props
      */
     function tdPropsFactory(conf, item, me, row, column) {

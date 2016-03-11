@@ -11,11 +11,12 @@ define(function (require) {
     var MouseWidgetBase = require('./mixins/MouseWidgetBase');
     var LayerContainerBase = require('./mixins/LayerContainerBase');
     var InputWidgetBase = require('./mixins/InputWidgetBase');
-
+    var InputWidgetInForm = require('./mixins/InputWidgetInForm');
+    
 
     return React.createClass({
         // @override
-        mixins: [MouseWidgetBase, LayerContainerBase, InputWidgetBase],
+        mixins: [MouseWidgetBase, LayerContainerBase, InputWidgetBase, InputWidgetInForm],
         // @override
         getDefaultProps: function () {
             return {
