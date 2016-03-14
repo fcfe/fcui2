@@ -1,0 +1,38 @@
+@import "../skin.less";
+.fcui2-checkbox {
+
+    display: inline-block;
+    height: @height-normal;
+    line-height: @height-normal;
+
+    .fcui2-checkbox-label {
+        cursor: pointer;
+         moz-user-select: -moz-none;
+        -moz-user-select: none;
+        -o-user-select:none;
+        -khtml-user-select:none;
+        -webkit-user-select:none;
+        -ms-user-select:none;
+        user-select:none;
+        font-size: @fontsize-button;
+    }
+
+    input {
+        position: relative;
+        top: 2px;
+        width: @fontsize-icon;
+        height: @fontsize-icon;
+        cursor: pointer;
+    }
+
+    .right-label {
+        float: right;
+    }
+}
+.fcui2-checkbox-disable {
+    .fcui2-checkbox-label {
+        color: @color-disable;
+    }
+}
+
+

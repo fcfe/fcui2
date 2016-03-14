@@ -13,7 +13,7 @@ define(function (require) {
 
     var erroeMessage = 'Uncaught Invariant Violation:'
         + ' Cannot provide a valueLink and a value or onChange event. '
-        + 'If you want to use value or onChange, you probably don\'t want to use valueLink.'
+        + 'If you want to use value/checked or onChange, you probably don\'t want to use valueLink.'
     var inputHandlers = [
         'onKeyDown', 'onKeyPress', 'onKeyUp',
         'onBlur', 'onFocus', 'onSelect',
@@ -32,10 +32,12 @@ define(function (require) {
          */
         componentWillMount: function () {
             var props = this.props;
+            var valueField = this.props.___uitype___ === 'checkbox' || this.props.___uitype___ === 'radio'
+                ? 'checked' : 'value';
             this.___hasValueLink___ = props.hasOwnProperty('valueLink')
                 && props.valueLink.hasOwnProperty('value')
                 && typeof props.valueLink.requestChange === 'function';
-            if (this.___hasValueLink___ && (props.hasOwnProperty('value') || props.hasOwnProperty('onChange'))) {
+            if (this.___hasValueLink___ && (props.hasOwnProperty(valueField) || props.hasOwnProperty('onChange'))) {
                 throw new Error(erroeMessage);
             }
         },
@@ -71,8 +73,10 @@ define(function (require) {
          * 5.不满足4，返回null
          */
         ___getValue___: function () {
+            var valueField = this.props.___uitype___ === 'checkbox' || this.props.___uitype___ === 'radio'
+                ? 'checked' : 'value';
             if (this.___hasValueLink___) return this.props.valueLink.value;
-            if (this.props.hasOwnProperty('value')) return this.props.value;
+            if (this.props.hasOwnProperty(valueField)) return this.props[valueField];
             if (this.state.hasOwnProperty('___value___')) return this.state.___value___;
             if (this.props.hasOwnProperty('valueTemplate')) return this.props.valueTemplate;
             return null;
@@ -84,7 +88,9 @@ define(function (require) {
          * @param {event} e 触发的dom事件
          */
         ___dispatchChange___: function (e, value) {
-            var value = arguments.length > 1 ? value : e.target.value;
+            var valueField = this.props.___uitype___ === 'checkbox' || this.props.___uitype___ === 'radio'
+                ? 'checked' : 'value';
+            var value = arguments.length > 1 ? value : e.target[valueField];
             if (this.___hasValueLink___) {
                 this.props.valueLink.requestChange(value);
             }
