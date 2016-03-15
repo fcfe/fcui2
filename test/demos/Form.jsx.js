@@ -9,6 +9,7 @@ define(function (require) {
     var TextArea = require('fcui/TextArea.jsx');
     var Select = require('fcui/Select.jsx');
     var CheckBox = require('fcui/CheckBox.jsx');
+    var Radio = require('fcui/Radio.jsx');
 
 
     return React.createClass({
@@ -71,6 +72,14 @@ define(function (require) {
                         职业：<Select datasource={[{label:'有职业',value: 'have'}, {label:'无职业', value:'none'}]}
                                     name="job"/><hr/>
                         逗逼：<CheckBox name="2b"/><br/>
+                        身高：<br/>
+                        <div style={{marginLeft: 40}}>
+                            <Radio label="小于165cm" value="1" name="height"/><br/>
+                            <Radio label="165-175cm" value="2" name="height"/><br/>
+                            <Radio label="175-185cm" value="3" name="height"/><br/>
+                            <Radio label="185-195cm" value="4" name="height"/><br/>
+                            <Radio label="大于195cm" value="5" name="height"/>
+                        </div>
                         简介：<TextArea className="form-textarea" name="intro"/>
                     </Form>
                     <h3>Form With Validation</h3>

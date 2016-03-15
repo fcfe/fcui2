@@ -11,6 +11,34 @@ define(function (require) {
     var React = require('react');
 
 
+    function mergeRadioDataset(dataset) {
+        var obj = {};
+        for (var key in dataset) {
+            if (key.indexOf('___radio___') < 0) {
+                obj[key] = dataset[key];
+                continue;
+            }
+            if (!dataset[key]) continue;
+            var arr = key.split('___radio___');
+            obj[arr[0]] = arr[1];
+        }
+        return obj;
+    }
+
+    function mergeRadioValidationResults(results) {
+        var obj = {};
+        for (var key in results) {
+            if (key.indexOf('___radio___') < 0) {
+                obj[key] = results[key];
+                continue;
+            }
+            var arr = key.split('___radio___');
+            obj[arr[0]] = obj[arr[0]] || [];
+            obj[arr[0]] = obj[arr[0]].concat(results[key]);
+        }
+        return obj;
+    }
+
     return React.createClass({
 
 
@@ -68,6 +96,7 @@ define(function (require) {
 
         // 注册表单域
         attach: function (name, component) {
+            name = component.props.___uitype___ === 'radio' ? name + '___radio___' + component.props.value : name;
             if (this.___inputs___[name]) {
                 console.warn('input component with name "' + name + '" already attached');
             }
@@ -78,16 +107,18 @@ define(function (require) {
 
 
         // 解除表单域
-        detach: function (name) {
+        detach: function (name, component) {
+            name = component.props.___uitype___ === 'radio' ? name + '___radio___' + component.props.value : name;
             delete this.___inputs___[name];
         },
 
 
         // 更新表单域
-        updateField: function (field, value) {
+        updateField: function (field, value, component) {
             var inputs = this.___inputs___;
             var dataset = this.___dataset___;
             var validationResults = this.___validationResults___;
+            field = component.props.___uitype___ === 'radio' ? field + '___radio___' + component.props.value : field;
             // 阻断数据流，呵呵，貌似必须阻断，因为暂时没有想好form的定位，先阻断吧
             if (!inputs[field] || dataset[field] === value) return;
             // 赋值
@@ -99,8 +130,8 @@ define(function (require) {
             });
             // 通知外部
             this.props.onFieldChange({
-                dataset: dataset,
-                validationResults: validationResults
+                dataset: mergeRadioDataset(dataset),
+                validationResults: mergeRadioValidationResults(validationResults)
             });
         },
 
@@ -122,8 +153,8 @@ define(function (require) {
             }
             if (!formValidationResult) {
                 this.props.onFieldChange({
-                    dataset: dataset,
-                    validationResults: validationResults
+                    dataset: mergeRadioDataset(dataset),
+                    validationResults: mergeRadioValidationResults(validationResults)
                 });
                 return;
             }
@@ -138,16 +169,16 @@ define(function (require) {
             validationResults.form = formValidationResult;
             if (formValidationResult.length > 0) {
                 this.props.onFieldChange({
-                    dataset: dataset,
-                    validationResults: validationResults
+                    dataset: mergeRadioDataset(dataset),
+                    validationResults: mergeRadioValidationResults(validationResults)
                 });
                 return;
             }
             this.props.onFieldChange({
-                dataset: dataset,
-                validationResults: validationResults
+                dataset: mergeRadioDataset(dataset),
+                validationResults: mergeRadioValidationResults(validationResults)
             });
-            this.props.onSubmit(dataset);
+            this.props.onSubmit(mergeRadioDataset(dataset));
         }
     });
 

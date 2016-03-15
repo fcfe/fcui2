@@ -48,7 +48,7 @@ define(function (require) {
          */
         componentWillUnmount: function () {
             if (tools.isCallbackExist(this, 'detach')) {
-                this.context.___form___.detach(this.props.name);
+                this.context.___form___.detach(this.props.name, this);
             }
         },
 
@@ -66,7 +66,7 @@ define(function (require) {
          */
         componentDidUpdate: function () {
             if (tools.isCallbackExist(this, 'updateField') && this.state.___beOperated___ === true) {
-                this.context.___form___.updateField(this.props.name, this.___getValue___());
+                this.context.___form___.updateField(this.props.name, this.___getValue___(), this);
             }
         },
 

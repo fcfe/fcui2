@@ -16,6 +16,7 @@ define(function (require) {
     var DialogDemo = require('./demos/Dialog.jsx');
     var FormDemo = require('./demos/Form.jsx');
     var CheckboxDemo = require('./demos/CheckBox.jsx');
+    var RadioDemo = require('./demos/Radio.jsx');
 
 
     var ListItem = React.createClass({
@@ -78,6 +79,7 @@ define(function (require) {
                         <ListItem demo={this.props.demo} label="Pager" onClick={this.changeDemo}/>
                         <hr/>
                         <ListItem demo={this.props.demo} label="CheckBox" onClick={this.changeDemo}/>
+                        <ListItem demo={this.props.demo} label="Radio" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="TextBox" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="NumberBox" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="TextArea" onClick={this.changeDemo}/>
@@ -104,6 +106,7 @@ define(function (require) {
                         <DialogDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <FormDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <CheckboxDemo demo={this.props.demo} alert={this.changeMessage}/>
+                        <RadioDemo demo={this.props.demo} alert={this.changeMessage}/>
                     </div>
                     <div className="right-bottom-container" style={{display: 'none'}}></div>
                 </div>

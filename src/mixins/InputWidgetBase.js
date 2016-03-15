@@ -66,6 +66,7 @@ define(function (require) {
          * 获取value
          *
          * @return {AnyType} 输入组件当前值
+         * 0.radio做了非常特殊的处理
          * 1.如果用户使用了valueLink，则返回valueLink记录的值
          * 2.不满足1，如果用户通过props.value设置value，则返回props.value
          * 3.不满足2，如果组件state中存储了临时值，返回这个临时值
@@ -75,6 +76,18 @@ define(function (require) {
         ___getValue___: function () {
             var valueField = this.props.___uitype___ === 'checkbox' || this.props.___uitype___ === 'radio'
                 ? 'checked' : 'value';
+            // 对radio进行特殊处理
+            // 由于操作radio，可能引起其他radio值的改变，因此如果radio已经渲染出来了，
+            // 此方法应该返回dom自带的值
+            if (
+                this.props.___uitype___ === 'radio'
+                && this.refs.hasOwnProperty('inputbox')
+                && typeof this.props.name === 'string'
+                && this.props.name.length > 0
+            ) {
+                return this.refs.inputbox.checked;
+            }
+            // 常规input组件
             if (this.___hasValueLink___) return this.props.valueLink.value;
             if (this.props.hasOwnProperty(valueField)) return this.props[valueField];
             if (this.state.hasOwnProperty('___value___')) return this.state.___value___;
