@@ -37,7 +37,7 @@ define(function (require) {
          */
         componentDidMount: function () {
             if (tools.isCallbackExist(this, 'attach')) {
-                this.context.___form___.attach(this.props.name, this);
+                this.___formAttached___ = this.context.___form___.attach(this.props.name, this);
             }
             this.___validations___ = tools.validationFactory(this.props.validations);
         },
@@ -65,9 +65,14 @@ define(function (require) {
          * 将通知给表单
          */
         componentDidUpdate: function () {
-            if (tools.isCallbackExist(this, 'updateField') && this.state.___beOperated___ === true) {
-                this.context.___form___.updateField(this.props.name, this.___getValue___(), this);
+            if (
+                !this.___formAttached___
+                || !this.state.___beOperated___
+                || !tools.isCallbackExist(this, 'updateField')
+            ) {
+                return;
             }
+            this.context.___form___.updateField(this.props.name, this.___getValue___(), this);
         },
 
 

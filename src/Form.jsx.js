@@ -25,6 +25,7 @@ define(function (require) {
         return obj;
     }
 
+
     function mergeRadioValidationResults(results) {
         var obj = {};
         for (var key in results) {
@@ -38,6 +39,7 @@ define(function (require) {
         }
         return obj;
     }
+
 
     return React.createClass({
 
@@ -96,12 +98,15 @@ define(function (require) {
 
         // 注册表单域
         attach: function (name, component) {
+            if (typeof name !== 'string' || !name.length) return false; 
             name = component.props.___uitype___ === 'radio' ? name + '___radio___' + component.props.value : name;
             if (this.___inputs___[name]) {
                 console.warn('input component with name "' + name + '" already attached');
+                return false;
             }
             else {
                 this.___inputs___[name] = component;
+                return true;
             }
         },
 
