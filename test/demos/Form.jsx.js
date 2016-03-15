@@ -80,6 +80,11 @@ define(function (require) {
                             <Radio label="185-195cm" value="4" name="height"/><br/>
                             <Radio label="大于195cm" value="5" name="height"/>
                         </div>
+                        口味：
+                        <div style={{marginLeft: 40}}>
+                            <Radio label="甜豆腐脑" value="1" name="doufunao" labelPosition="right"/><br/>
+                            <Radio label="咸豆腐脑" value="2" name="doufunao" labelPosition="right"/>
+                        </div>
                         简介：<TextArea className="form-textarea" name="intro"/>
                     </Form>
                     <h3>Form With Validation</h3>
