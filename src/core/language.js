@@ -18,6 +18,9 @@ define(function (require) {
             },
             table: {
                 noData: '没有数据'
+            },
+            calendar: {
+                day: ['一', '二', '三', '四', '五', '六', '日']
             }
         }
     };

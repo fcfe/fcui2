@@ -90,7 +90,7 @@ define(function (require) {
             // 常规input组件
             if (this.___hasValueLink___) return this.props.valueLink.value;
             if (this.props.hasOwnProperty(valueField)) return this.props[valueField];
-            if (this.state.hasOwnProperty('___value___')) return this.state.___value___;
+            if (this.state && this.state.hasOwnProperty('___value___')) return this.state.___value___;
             if (this.props.hasOwnProperty('valueTemplate')) return this.props.valueTemplate;
             return null;
         },

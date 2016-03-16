@@ -1,41 +1,15 @@
 define(function (require) {
 
+
     var React = require('react');
-    var Pager = require('fcui/Pager.jsx');
+    var Calendar = require('fcui/Calendar.jsx');
+
 
     var items = [
         {
-            title: 'Normal Pager',
+            title: 'Normal Calendar',
             onChange: true,
             props: {}
-        },
-        {
-            title: 'Pager with ClassName',
-            onChange: true,
-            props: {className: 'floatRight'}
-        },
-        {
-            title: 'Readonly Pager',
-            props: {value: '4'}
-        },
-        {
-            title: 'Disabled Pager',
-            onChange: true,
-            props: {disable: true}
-        },
-        {
-            title: 'Pager with ValueLinker',
-            valueLink: true,
-            props: {}
-        },
-        {
-            title: 'Custom Link Pager',
-            customLink: true,
-            props: {}
-        },
-        {
-            title: 'Pager with Setting',
-            props: {min: 10, max: 30, threshold: 2, value: 30}
         }
     ];
 
@@ -67,7 +41,7 @@ define(function (require) {
                 <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>
                     <div className="props">{conf}</div>
-                    <Pager {...prop}/>
+                    <Calendar {...prop}/>
                     <span>{me.state[item.title]}</span>
                 </div>
             );
@@ -81,7 +55,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                demo: 'Pager',
+                demo: 'Calendar',
                 alert: function () {}
             };
         },
@@ -96,7 +70,7 @@ define(function (require) {
             var containerProp = {
                 className: 'demo-content',
                 style: {
-                    display: this.props.demo === 'Pager' ? 'block' : 'none'
+                    display: this.props.demo === 'Calendar' ? 'block' : 'none'
                 }
             };
             return (<div {...containerProp}>{factory(this, items)}</div>);
