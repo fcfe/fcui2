@@ -28,18 +28,16 @@ define(function (require) {
             };
         },
         clickHandler: function (e) {
-            var v = parseInt(e.value, 10);
-            var current = this.state.value;
-            if (v === current) return;
             var min = parseInt(this.props.min, 10);
             var max = parseInt(this.props.max, 10);
-            if (v > 0) {
-                current = v;
-            }
-            else {
-                if (v === -1) v = current - 1;
-                if (v === -2) v = current + 1;
-            }
+            var current = parseInt(this.state.value, 10);
+            current = isNaN(current) ? min : current;
+            var value = e.value;
+            if (value + '' === current + '' || this.props.disable) return;
+            var v = 1;
+            v = value === 'prev' ? current - 1 : value;
+            v = v === 'next' ? current + 1 : v;
+            v = parseInt(v, 10);
             v = v < min ? min : v;
             v = v > max ? max : v;
             this.setState({value: v});
@@ -50,57 +48,62 @@ define(function (require) {
             var containerProp = {
                 className: 'fcui2-pager ' + this.props.className
             };
-            return (
-                <div {...containerProp}>{produceButtons()}</div>
-            );
-            function produceButtons() {
-                var min = parseInt(me.props.min, 10);
-                var max = parseInt(me.props.max, 10);
-                var value = parseInt(me.state.value, 10);
-                var btns = [];
-                var i = min;
-                var before = false;
-                var after = false;
-                if (value > min) {
-                    btns.push(
-                        <Button label={language.pager.previousPage} cmd="-1"
-                            onClick={me.clickHandler} disable={me.state.disable} key="-1"/>
-                    );
-                }
-                while(i < max + 1) {
-                    var prop = {
-                        skin: i === value ? 'active' : '',
-                        maxWidth: 10,
-                        disable: me.state.disable,
-                        onClick: me.clickHandler
-                    };
-                    if (i < value - 3 && i !== min) {
-                        if (!before) {
-                            before = true;
-                            btns.push(<Button {...prop} label="..." cmd={value - 4} key={value - 4}/>);
-                        }
-                        i++;
-                        continue;
-                    }
-                    if (i > value + 3 && i !== max) {
-                        if (!after) {
-                            after = true;
-                            btns.push(<Button {...prop} label="..." cmd={value + 4} key={value + 4}/>);
-                        }
-                        i++;
-                        continue;
-                    }
-                    btns.push(<Button {...prop} label={i} cmd={i} key={i}/>);
-                    i++;
-                }
-                if (value < max) {
-                    btns.push(
-                        <Button label={language.pager.nextPage} cmd="-2"
-                            onClick={me.clickHandler} disable={me.state.disable} key="-2"/>
-                    );
-                }
-                return btns;
-            }
+            return (<div {...containerProp}>{produceButtons(this)}</div>);
         }
     });
+
+    function produceButtons(me) {
+        var min = parseInt(me.props.min, 10);
+        var max = parseInt(me.props.max, 10);
+        var threshold = 3;
+        var btns = [];
+        var value = parseInt(me.state.value, 10);
+
+        value = isNaN(value) ? min : value;
+        value = value < min ? min : value;
+        value = value > max ? max: value;
+        threshold = isNaN(threshold) || threshold < 1 ? Number.POSITIVE_INFINITY : threshold;
+
+        btns.push(
+            <Button label={language.pager.previousPage} cmd="prev"
+                onClick={me.clickHandler} disable={me.props.disable || value <= min} key="prev"/>
+        );
+
+        var i = min;
+        var before = false;
+        var after = false;
+        while(i < max + 1) {
+            if (i < value - threshold && i !== min) {
+                if (!before) {
+                    before = true;
+                    btns.push(<Button {...prop} label=".." cmd={value - threshold - 1} key={value - threshold - 1}/>);
+                }
+                i++;
+                continue;
+            }
+            if (i > value + threshold && i !== max) {
+                if (!after) {
+                    after = true;
+                    btns.push(<Button {...prop} label=".." cmd={value + threshold + 1} key={value + threshold + 1}/>);
+                }
+                i++;
+                continue;
+            }
+            var prop = {
+                skin: i + '' === value + '' ? 'active' : '',
+                minWidth: 12,
+                disable: me.props.disable,
+                onClick: me.clickHandler
+            };
+            btns.push(<Button {...prop} label={i} cmd={i} key={i}/>);
+            i++;
+        }
+
+        btns.push(
+            <Button label={language.pager.nextPage} cmd="next"
+                onClick={me.clickHandler} disable={me.props.disable || value >= max} key="next"/>
+        );
+
+        return btns;
+    }
 });
