@@ -134,6 +134,71 @@
     />
 ```
 
+- **必须**当props的值为字面值true时，省略`={true}`。
+
+```javascript
+    // bad
+    <Foo
+      hidden={true}
+    />
+
+    // good
+    <Foo
+      hidden
+    />
+```
+
+- **必须**在DOM片段前后加一对括号`()`，当DOM片段在一行以上时。
+
+```javascript
+    // bad
+    render() {
+      return <MyComponent className="long body" foo="bar">
+               <MyChild />
+             </MyComponent>;
+    }
+
+    // good
+    render() {
+      return (
+        <MyComponent className="long body" foo="bar">
+          <MyChild />
+        </MyComponent>
+      );
+    }
+
+    // good, when single line
+    render() {
+      const body = <div>hello</div>;
+      return <MyComponent>{body}</MyComponent>;
+    }
+```
+
+- **必须**将组件写成自关闭标签，当组件没有children时。
+
+```javascript
+    // bad
+    <Foo className="stuff"></Foo>
+
+    // good
+    <Foo className="stuff" />
+```
+
+- **必须**将关闭标签另起一行，当组件有多个props时。
+
+```javascript
+    // bad
+    <Foo
+      bar="bar"
+      baz="baz" />
+
+    // good
+    <Foo
+      bar="bar"
+      baz="baz"
+    />
+```
+
 
 ## 核心依赖
 - **MUST：** FCUI2最核心依赖为react，underscore, 放在dep目录中，若引入其他依赖，需经技协UI负责人集体讨论
