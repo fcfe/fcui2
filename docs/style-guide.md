@@ -19,11 +19,11 @@
 1. [基本概念] (#basic-concepts)
 1. [核心依赖] (#deps)
 1. [JSX书写] (#jsx)
-1. [更多的通用组件规范] (#general_guide)
+1. [更多的通用组件规范] (#general-guide)
 1. [fcui2专属规范] (#ui-guide)
 
 
-## 基本概念<a href="#basic-concepts"></a>
+## 基本概念 [basic-concepts]
 - 实例化生命周期
     - `getDefaultProps`
     - `getInitialState`
@@ -45,12 +45,12 @@
     - `componentWillUnmount`
 
 
-## 核心依赖<a href="#deps"></a>
+## 核心依赖 [deps]
 - **必须**在FCUI2内只依赖React，underscore。
 - **必须不**在FCUI2内部任何地方使用jQuery等直接操作DOM的库
 
 
-## JSX书写<a href="#jsx"></a>
+## JSX书写 [jsx]
 
 > 参考：[Airbnb的style guide](https://github.com/airbnb/javascript/)。
 
@@ -269,7 +269,7 @@
   1. `render`
 
 
-## 更多的通用组件规范 <a href="#general_guide"></a>
+## 更多的通用组件规范 [general-guide]
 
 *[基本的JSX书写规范] (#jsx)基础上，更多的通用的React组件开发规范。*
 
@@ -308,7 +308,7 @@
 - **可以**提供与组件内部数据结构紧密相关的操作方法。这些方法可以实现为一个纯函数，即只依赖其所有的参数来得到其结果。这些方法可以放在组件的`static`域中。
 
 
-## fcui2专属规范 <a href="#ui-guide"></a>
+## fcui2专属规范 [ui-guide]
 
 ### 文件分布
 
