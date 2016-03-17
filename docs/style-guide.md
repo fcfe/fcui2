@@ -16,13 +16,12 @@
 1. [基本概念] (#基本概念)
 
 ## 基本概念
-
-    实例化生命周期
-        getDefaultProps
-        getInitialState
-        componentWillMount
-        render
-        componentDidMount
+    * 实例化生命周期
+        * getDefaultProps
+        * getInitialState
+        * componentWillMount
+        * render
+        * componentDidMount
         
     更新期生命周期
         getInitialState
@@ -36,7 +35,6 @@
         componentWillUpdate
         render
         componentDidUpdate
-
     销毁期生命周期
         componentWillUnmount
 
