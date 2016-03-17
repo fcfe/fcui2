@@ -16,10 +16,10 @@
 * 可以：表示这个要求完全是可选的，你可以这样做，也可以不这样做。
 
 ## 目录
-1. [基本概念] (#基本概念)
-2. [JSX书写] (#JSX书写)
+1. [基本概念] (#basic-concepts)
+2. [JSX书写] (#jsx)
 
-## 基本概念
+## 基本概念<a href="#basic-concepts"></a>
 * 实例化生命周期
     * getDefaultProps
     * getInitialState
@@ -40,12 +40,13 @@
 * 销毁期生命周期
     * componentWillUnmount
 
-## JSX书写
+## JSX书写<a href="#jsx"></a>
 
 > 参考：[Airbnb的style guide](https://github.com/airbnb/javascript/)。
 
 - **必须**只包含一个React Component在一个JSX文件中。
 - **必须**只能使用`React.createClass()`来创建一个React Component。
+
 > 其他创建React Component的考量。
 > 
 
