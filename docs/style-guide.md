@@ -201,7 +201,7 @@
 
 - **必须**将bind handler到this的动作放到构造函数中。
 
-  > Why? A bind call in the render path creates a brand new function on every single render.
+    > Why? A bind call in the render path creates a brand new function on every single render.
 
 ```javascript
     // bad
@@ -232,6 +232,25 @@
       }
     }
 ```
+
+- *必须*以如下的顺序排列JSX文件中的方法。
+  
+  1. optional `static` methods
+  1. `constructor`
+  1. `getChildContext`
+  1. `componentWillMount`
+  1. `componentDidMount`
+  1. `componentWillReceiveProps`
+  1. `shouldComponentUpdate`
+  1. `componentWillUpdate`
+  1. `componentDidUpdate`
+  1. `componentWillUnmount`
+  1. *clickHandlers or eventHandlers* like `onClickSubmit()` or `onChangeDescription()`
+  1. *getter methods for `render`* like `getSelectReason()` or `getFooterContent()`
+  1. *Optional render methods* like `renderNavigation()` or `renderProfilePicture()`
+  1. `render`
+
+
 
 ## 核心依赖
 - **MUST：** FCUI2最核心依赖为react，underscore, 放在dep目录中，若引入其他依赖，需经技协UI负责人集体讨论
