@@ -87,6 +87,53 @@
 
 > Regular HTML attributes also typically use double quotes instead of single, so JSX attributes mirror this convention.
 
+    ```javascript
+    // bad
+    <Foo bar='bar' />
+
+    // good
+    <Foo bar="bar" />
+
+    // bad
+    <Foo style={{ left: "20px" }} />
+
+    // good
+    <Foo style={{ left: '20px' }} />
+    ```
+
+- **必须**在自关闭标签前加一个空格。
+ 
+    ```javascript
+    // bad
+    <Foo/>
+
+    // very bad
+    <Foo                 />
+
+    // bad
+    <Foo
+     />
+
+    // good
+    <Foo />
+    ```
+
+- **必须**使用camalCase来命名props。
+
+    ```javascript
+    // bad
+    <Foo
+      UserName="hello"
+      phone_number={12345678}
+    />
+
+    // good
+    <Foo
+      userName="hello"
+      phoneNumber={12345678}
+    />
+    ```
+
 
 ## 核心依赖
 - **MUST：** FCUI2最核心依赖为react，underscore, 放在dep目录中，若引入其他依赖，需经技协UI负责人集体讨论
