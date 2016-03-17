@@ -9,14 +9,15 @@
 * Han Bing Feng (hanbingfeng@baidu.com)
 
 ## 要求
-* MUST：表示绝对要求这样做。
-* MUST NOT：表示绝对不要求这样做。
-* SHOULD：表示一般情况下应该这样做，但是在某些特定情况下可以忽视这个要求。
-* SHOULD NOT：表示一般情况下不应该这样做，但是在某些特定情况下可以忽视这个要求。
-* MAY：表示这个要求完全是可选的，你可以这样做，也可以不这样做。
+* 必须：表示绝对要求这样做。
+* 必须不：表示绝对不要求这样做。
+* 应该/建议：表示一般情况下应该这样做，但是在某些特定情况下可以忽视这个要求。
+* 应该不/不建议：表示一般情况下不应该这样做，但是在某些特定情况下可以忽视这个要求。
+* 可以：表示这个要求完全是可选的，你可以这样做，也可以不这样做。
 
 ## 目录
 1. [基本概念] (#基本概念)
+2. [JSX书写] (#JSX书写)
 
 ## 基本概念
 * 实例化生命周期
@@ -38,6 +39,15 @@
     * componentDidUpdate
 * 销毁期生命周期
     * componentWillUnmount
+
+## JSX书写
+
+> 参考：[Airbnb的style guide](https://github.com/airbnb/javascript/)。
+
+- **必须**只包含一个React Component在一个JSX文件中。
+- **必须**只能使用`React.createClass()`来创建一个React Component。
+> 其他创建React Component的考量。
+> 
 
 ## 核心依赖
 - **MUST：** FCUI2最核心依赖为react，underscore, 放在dep目录中，若引入其他依赖，需经技协UI负责人集体讨论
