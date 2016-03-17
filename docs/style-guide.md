@@ -84,6 +84,7 @@
 - **必须**在DOM片段中使用双引号`"`。
 
 > Why？JSX attributes [can't contain escaped quotes](http://eslint.org/docs/rules/jsx-quotes), so double quotes make conjunctions like `"don't"` easier to type.
+
 > Regular HTML attributes also typically use double quotes instead of single, so JSX attributes mirror this convention.
 
 
