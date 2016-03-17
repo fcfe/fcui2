@@ -1,8 +1,8 @@
-# FCUI2开发规范
+
+# 凤巢FE React UI组件开发规范
 
 ## 适用范围
-    凤巢FE团队所有参与FCUI2开发的同学
-
+    凤巢FE 所有基于React开发的UI组件。
 ## 撰写
     - Brian Li (lihaitao03@baidu.com)
     - Han Bing Feng (hanbingfeng@baidu.com)
@@ -12,7 +12,10 @@
     SHOULD：表示一般情况下应该这样做，但是在某些特定情况下可以忽视这个要求。
     SHOULD NOT：表示一般情况下不应该这样做，但是在某些特定情况下可以忽视这个要求。
     MAY：表示这个要求完全是可选的，你可以这样做，也可以不这样做。
-## 概念
+## 目录
+    1. [基本概念] (#基本概念)
+
+## 基本概念
 
     实例化生命周期
         getDefaultProps
