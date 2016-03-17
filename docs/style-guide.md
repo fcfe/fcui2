@@ -310,7 +310,7 @@
 
 ## fcui2专属规范 [ui-guide]
 
-*[基本的JSX书写规范] (#jsx-jsx)和[通用的React组件开发规范] (#general-guide) 基础上，开发fcui2组件的规范。*
+*[基本的JSX书写规范] (#jsx-jsx) 和 [通用的React组件开发规范] (#general-guide) 基础上，开发fcui2组件的规范。*
 
 ### 文件分布
 
