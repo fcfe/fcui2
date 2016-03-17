@@ -271,7 +271,7 @@
 
 ## 更多的通用组件规范 [general-guide]
 
-*[基本的JSX书写规范] (#jsx)基础上，更多的通用的React组件开发规范。*
+*[基本的JSX书写规范] (#jsx-jsx)基础上，更多的通用的React组件开发规范。*
 
 - **必须**将所有UI组件实现为[Pure Renderer] (https://facebook.github.io/react/docs/pure-render-mixin.html)。
 - **必须**在props中存放所有外部导入的配置，包括显示控制参数、显示数据源、当前值（如果是input类型组件）、回调方法等。state相同时，对于一个特定的props，对应的组件展现结果唯一。
@@ -309,6 +309,8 @@
 
 
 ## fcui2专属规范 [ui-guide]
+
+*[基本的JSX书写规范] (#jsx-jsx)和[通用的React组件开发规范] (#general-guide) 基础上，开发fcui2组件的规范。*
 
 ### 文件分布
 
