@@ -18,9 +18,9 @@
 ## 目录 [toc]
 1. [基本概念] (#basic-concepts)
 1. [核心依赖] (#deps)
-1. [JSX书写] (#jsx)
+1. [JSX书写] (#jsx-jsx)
 1. [更多的通用组件规范] (#general-guide)
-1. [fcui2专属规范] (#ui-guide)
+1. [fcui2专属规范] (#fcui2-ui-guide)
 
 
 ## 基本概念 [basic-concepts]
