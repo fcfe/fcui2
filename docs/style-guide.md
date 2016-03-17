@@ -45,7 +45,7 @@
     * componentWillUnmount
 
 
-## 核心依赖<a href="#basic-concepts"></a>
+## 核心依赖<a href="#deps"></a>
 - *必须*在FCUI2内只依赖React，underscore。
 - *必须不*在FCUI2内部任何地方使用jQuery等直接操作DOM的库
 
@@ -270,9 +270,9 @@
   1. `render`
 
 
-## 设计考量<a href="design-concerns"></a>
+## 设计考量 <a href="#design-concerns"></a>
 ### props 和 state
-- **必须**将所有UI组件实现为[Pure Renderer]（https://facebook.github.io/react/docs/pure-render-mixin.html）。
+- **必须**将所有UI组件实现为[Pure Renderer] (https://facebook.github.io/react/docs/pure-render-mixin.html)。
 - **必须**在props中存放所有外部导入的配置，包括显示控制参数、显示数据源、当前值（如果是input类型组件）、回调方法等。state相同时，对于一个特定的props，对应的组件展现结果唯一。
 - **必须**在state中存放组件运行期的状态，如输入框是否通过了校验、鼠标是否悬浮在按钮上等。props相同时，对于一组特定的state，对应的组件展现效果唯一。
 - **不应该**在state中存在[通过props运算来的属性] (https://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html)。
