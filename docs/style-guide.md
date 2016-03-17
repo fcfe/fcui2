@@ -87,7 +87,7 @@
 
 > Regular HTML attributes also typically use double quotes instead of single, so JSX attributes mirror this convention.
 
-    ```javascript
+```javascript
     // bad
     <Foo bar='bar' />
 
@@ -99,11 +99,11 @@
 
     // good
     <Foo style={{ left: '20px' }} />
-    ```
+```
 
 - **必须**在自关闭标签前加一个空格。
  
-    ```javascript
+```javascript
     // bad
     <Foo/>
 
@@ -116,11 +116,11 @@
 
     // good
     <Foo />
-    ```
+```
 
 - **必须**使用camalCase来命名props。
 
-    ```javascript
+```javascript
     // bad
     <Foo
       UserName="hello"
@@ -132,7 +132,7 @@
       userName="hello"
       phoneNumber={12345678}
     />
-    ```
+```
 
 
 ## 核心依赖
