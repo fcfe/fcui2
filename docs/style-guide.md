@@ -15,11 +15,12 @@
 * 应该不/不建议：表示一般情况下不应该这样做，但是在某些特定情况下可以忽视这个要求。
 * 可以：表示这个要求完全是可选的，你可以这样做，也可以不这样做。
 
-## 目录
+## 目录<a href="#toc"></a>
 1. [基本概念] (#basic-concepts)
 2. [核心依赖] (#deps)
 2. [JSX书写] (#jsx)
-3. [设计考量] (#design-concerns)
+3. [更多的通用组件规范] (#general-guide)
+3. [UI组件专属规范] (#ui-guide)
 4. 
 
 
@@ -270,20 +271,17 @@
   1. `render`
 
 
-## 设计考量 <a href="#design-concerns"></a>
-### props 和 state
-- **必须**将所有UI组件实现为[Pure Renderer] (https://facebook.github.io/react/docs/pure-render-mixin.html)。
+## 更多的通用组件规范 <a href="#general-guide"></a>
+
+*[基本的JSX书写规范] (#jsx)基础上，更多的通用的React组件开发规范。*
+
 - **必须**在props中存放所有外部导入的配置，包括显示控制参数、显示数据源、当前值（如果是input类型组件）、回调方法等。state相同时，对于一个特定的props，对应的组件展现结果唯一。
 - **必须**在state中存放组件运行期的状态，如输入框是否通过了校验、鼠标是否悬浮在按钮上等。props相同时，对于一组特定的state，对应的组件展现效果唯一。
 - **不应该**在state中存在[通过props运算来的属性] (https://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html)。
-
-### DOM操作
 - **必须**仅在实例化生命周期中绑定window或body事件。
 - **必须**在销毁期生命周期中解绑window或body事件。
-- **不建议**在组件内部直接操作window, document等全局对象。
-
-### 性能考量
 - **必须不**允许在运行期生命周期中声明表达式函数。bind函数也不允许。
+
 ```javascript
     // bad
     render() {
@@ -299,7 +297,25 @@
         }
     }
 ```
+
 - **不建议**在运行期生命周期中使用时间复杂度O(n<sup>2</sup>)及以上阶的算法。
+- **必须不**允许出现观察者模式，如自定义`addEventListener`方法，或`on`, `fire`等。
+- **必须**只能通过以下2种方法设置组件内部状态：
+    - 通过父组件的`render`方法，改变子组件的props。
+    - 通过子组件的`setState`方法。
+- **必须不**允许为组件提供setXXX方法来改变其内部状态。
+- **必须**为所有回调在`getDefaultProps`给出空函数默认值`_.noop`。
+- **可以**提供与组件内部数据结构紧密相关的操作方法。这些方法可以实现为一个纯函数，即只依赖其所有的参数来得到其结果。这些方法可以放在组件的`static`域中。
+
+
+## UI组件专属规范 <a href="#ui-guide"></a>
+### props 和 state
+- **必须**将所有UI组件实现为[Pure Renderer] (https://facebook.github.io/react/docs/pure-render-mixin.html)。
+
+### DOM操作
+- **不建议**在组件内部直接操作window, document等全局对象。
+
+### 性能考量
 
 ### 组件间的设计考量
 - **MUST：** 所有组件必须能独立使用，不允许出现abstract class及继承关系。
@@ -308,20 +324,6 @@
 - **MAY：** 组件间可以发生组合，如Pager使用了Button。
 
 ### 组件内的设计考量
-- **MUST：** 组件必须书写propTypes，规定每个默认属性的类型，方面React校验，并对propTypes加以jsdoc说明，方便使用者和其他开发者理解。
-- **MUST NOT：** 组件不允许出现观察者模式，如自定义addEventListener方法，或on, fire等。
-- **MUST：** 组件必须只能通过以下2种方法设置内部状态：
-    - 通过父组件的`render`方法，改变子组件的props。
-    - 通过子组件的`setState`方法。
-- **MUST NOT：** 不允许为组件提供setXXX方法来改变其内部状态。
-- **MAY：** 组件可以提供与内部数据结构紧密相关的操作方法。这些方法可以实现为一个纯函数，即只依赖其所有的参数来得到其结果。这些方法可以放在组件的`static`域中。
-- **SHOULD：** 当props传入的回调函数在3个或3个以上时，应该使用一个回调接口，以路由模式回传操作，方便用户对组件的使用。如使用路由模式，统一的回调接口名字应为onEvent。
-```
-    void onEvent(
-        string eventType, ...params
-    )
-```
-- **MUST：** 所有回调，除onChange外，都应该在getDefaultProps给出空函数默认值`_.noop`，避免在代码中使用`if (typeof this.props.onXXX === 'function')`这种形式判断。
 
 
 
@@ -366,3 +368,5 @@
 - **SHOULD：** 组件根容器应加入props.className，允许外部使用时挂载自定义class，方便使用者自定义样式或对组件内部样式进行hack。
 - **SHOULD：** 若`render`时处理className的逻辑较复杂，如达到3行及以上，建议剥离className的计算逻辑到`this.getClassName`上。
 - **SHOULD：** 若`render`时处理style的逻辑较复杂，如达到3行及以上，建议剥离style的计算逻辑到`this.getStyle`上。
+
+**[⬆ back to top](#toc)**
