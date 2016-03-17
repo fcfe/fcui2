@@ -17,7 +17,11 @@
 
 ## 目录
 1. [基本概念] (#basic-concepts)
+2. [核心依赖] (#deps)
 2. [JSX书写] (#jsx)
+3. [设计考量] (#design-concerns)
+4. 
+
 
 ## 基本概念<a href="#basic-concepts"></a>
 * 实例化生命周期
@@ -39,6 +43,12 @@
     * componentDidUpdate
 * 销毁期生命周期
     * componentWillUnmount
+
+
+## 核心依赖<a href="#basic-concepts"></a>
+- *必须*在FCUI2内只依赖React，underscore。
+- *必须不*在FCUI2内部任何地方使用jQuery等直接操作DOM的库
+
 
 ## JSX书写<a href="#jsx"></a>
 
@@ -117,6 +127,8 @@
     // good
     <Foo />
 ```
+
+- **必须**书写propTypes，规定每个可接受属性的类型，并对propTypes加以jsdoc说明。
 
 - **必须**使用camalCase来命名props。
 
@@ -235,8 +247,15 @@
 
 - *必须*以如下的顺序排列JSX文件中的方法。
   
-  1. optional `static` methods
-  1. `constructor`
+  1. `displayName`
+  1. `propTypes`
+  1. `contextTypes`
+  1. `childContextTypes`
+  1. `mixins`
+  1. `statics`
+  1. `defaultProps`
+  1. `getDefaultProps`
+  1. `getInitialState`
   1. `getChildContext`
   1. `componentWillMount`
   1. `componentDidMount`
@@ -251,26 +270,12 @@
   1. `render`
 
 
-
-## 核心依赖
-- **MUST：** FCUI2最核心依赖为react，underscore, 放在dep目录中，若引入其他依赖，需经技协UI负责人集体讨论
-- **MUST NOT：**  不允许在FCUI2内部任何地方使用jQuery等直接操作DOM的库
-
-
-## 架构组织
-- **MUST：** 组件源码以*.jsx.js形式命名，存放在fcui2/src/目录中。
-- **MUST：**  组件内部使用到的其他子部分，如果不能剥离成组件，要么放在当前.jsx.js文件内部，要么放在fcui2/src/plugin/目录中。放入plugin的代码，原则上所有组件都可以使用，但外部无法直接使用。
-- **MUST：** 能被所有组件公共使用的方法，放在fcui2/src/core/tools.js文件中
-- **MUST：** 不但fcui2可以使用，任何其他项目都可以使用的方法，放在fcui2/src/core/util.js文件中。
-- **MUST：** 只是某个特定组件才使用的方法，如果需要从jsx文件中提取出来，请自行在fcui2/src/core/目录中建立自己的附属文件，并在文件名中注明是哪个组件的附属，若抽离出的文件为3个或3个以上，请在core/中建立二级目录。
-
-
-## 组件编写
+## 设计考量<a href="design-concerns"></a>
 ### props 和 state
-- **MUST：** 所有UI组件必须实现为Pure Renderer（https://facebook.github.io/react/docs/pure-render-mixin.html）。
-- **MUST：** props中存放所有外部导入的配置，包括显示控制参数、显示数据源、当前值（如果是input类型组件）、回调方法等。state相同时，对于一个特定的props，对应的组件展现结果唯一。
-- **MUST：** state中存放组件运行期的状态，如输入框是否通过了校验、鼠标是否悬浮在按钮上等。props相同时，对于一组特定的state，对应的组件展现效果唯一。
-- **SHOULD NOT：** state中不应该存在通过props运算来的属性，参考 https://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html 。
+- **必须**将所有UI组件实现为[Pure Renderer]（https://facebook.github.io/react/docs/pure-render-mixin.html）。
+- **必须**在props中存放所有外部导入的配置，包括显示控制参数、显示数据源、当前值（如果是input类型组件）、回调方法等。state相同时，对于一个特定的props，对应的组件展现结果唯一。
+- **必须**在state中存放组件运行期的状态，如输入框是否通过了校验、鼠标是否悬浮在按钮上等。props相同时，对于一组特定的state，对应的组件展现效果唯一。
+- **不应该**在state中存在[通过props运算来的属性] (https://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html)。
 
 ### DOM操作
 - **MUST：** 若组件需要在window或body上绑定事件，必须仅在实例化生命周期中进行。
@@ -302,6 +307,16 @@
     )
 ```
 - **MUST：** 所有回调，除onChange外，都应该在getDefaultProps给出空函数默认值`_.noop`，避免在代码中使用`if (typeof this.props.onXXX === 'function')`这种形式判断。
+
+
+
+## 架构组织
+- **MUST：**  组件内部使用到的其他子部分，如果不能剥离成组件，要么放在当前.jsx.js文件内部，要么放在fcui2/src/plugin/目录中。放入plugin的代码，原则上所有组件都可以使用，但外部无法直接使用。
+- **MUST：** 能被所有组件公共使用的方法，放在fcui2/src/core/tools.js文件中
+- **MUST：** 不但fcui2可以使用，任何其他项目都可以使用的方法，放在fcui2/src/core/util.js文件中。
+- **MUST：** 只是某个特定组件才使用的方法，如果需要从jsx文件中提取出来，请自行在fcui2/src/core/目录中建立自己的附属文件，并在文件名中注明是哪个组件的附属，若抽离出的文件为3个或3个以上，请在core/中建立二级目录。
+
+
 
 
 ## input类型组件编写
