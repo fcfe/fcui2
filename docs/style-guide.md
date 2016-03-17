@@ -50,10 +50,10 @@
 - **必须**令文件名与React Component名字相同。
 - **必须**只能使用`React.createClass()`来创建一个React Component。
 
-> 其他创建React Component的考量
-> ES6 Class和pure function都可以创建React Component。
-> ES6 Class不能使用mixin做扩展，与目前的扩展方法冲突。
-> Pure function较难掌握和管理。 
+    > 其他创建React Component的考量
+    > ES6 Class和pure function都可以创建React Component。
+    > ES6 Class不能使用mixin做扩展，与目前的扩展方法冲突。
+    > Pure function较难掌握和管理。 
 
 - **必须**使用JSX语法来生成组件的DOM片段。
 - **必须不**能在JSX中出现`React.createElement()`。
@@ -83,9 +83,9 @@
 ```
 - **必须**在DOM片段中使用双引号`"`。
 
-> Why？JSX attributes [can't contain escaped quotes](http://eslint.org/docs/rules/jsx-quotes), so double quotes make conjunctions like `"don't"` easier to type.
+    > Why？JSX attributes [can't contain escaped quotes](http://eslint.org/docs/rules/jsx-quotes), so double quotes make conjunctions like `"don't"` easier to type.
 
-> Regular HTML attributes also typically use double quotes instead of single, so JSX attributes mirror this convention.
+    > Regular HTML attributes also typically use double quotes instead of single, so JSX attributes mirror this convention.
 
 ```javascript
     // bad
@@ -199,6 +199,39 @@
     />
 ```
 
+- **必须**将bind handler到this的动作放到构造函数中。
+
+  > Why? A bind call in the render path creates a brand new function on every single render.
+
+```javascript
+    // bad
+    class extends React.Component {
+      onClickDiv() {
+        // do stuff
+      }
+
+      render() {
+        return <div onClick={this.onClickDiv.bind(this)} />
+      }
+    }
+
+    // good
+    class extends React.Component {
+      constructor(props) {
+        super(props);
+
+        this.onClickDiv = this.onClickDiv.bind(this);
+      }
+
+      onClickDiv() {
+        // do stuff
+      }
+
+      render() {
+        return <div onClick={this.onClickDiv} />
+      }
+    }
+```
 
 ## 核心依赖
 - **MUST：** FCUI2最核心依赖为react，underscore, 放在dep目录中，若引入其他依赖，需经技协UI负责人集体讨论
