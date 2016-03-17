@@ -46,8 +46,8 @@
 
 
 ## 核心依赖<a href="#deps"></a>
-- *必须*在FCUI2内只依赖React，underscore。
-- *必须不*在FCUI2内部任何地方使用jQuery等直接操作DOM的库
+- **必须**在FCUI2内只依赖React，underscore。
+- **必须不**在FCUI2内部任何地方使用jQuery等直接操作DOM的库
 
 
 ## JSX书写<a href="#jsx"></a>
@@ -278,13 +278,28 @@
 - **不应该**在state中存在[通过props运算来的属性] (https://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html)。
 
 ### DOM操作
-- **MUST：** 若组件需要在window或body上绑定事件，必须仅在实例化生命周期中进行。
-- **MUST：** 若组件需要在window或body上绑定事件，必须在销毁期生命周期解绑。
-- **SHOULD NOT：** 除极特殊组件如Dialog外，不建议在组件内部直接操作window, document等全局对象。
+- **必须**仅在实例化生命周期中绑定window或body事件。
+- **必须**在销毁期生命周期中解绑window或body事件。
+- **不建议**在组件内部直接操作window, document等全局对象。
 
 ### 性能考量
-- **MUST NOT：** 不允许在运行期生命周期中声明表达式函数，如在render中var a = function () {};
-- **SHOULD NOT：** 不应该在运行期生命周期中使用时间复杂度O(n^2)及以上阶的算法。
+- **必须不**允许在运行期生命周期中声明表达式函数。bind函数也不允许。
+```javascript
+    // bad
+    render() {
+        var cleverFunction = function () {};
+        // ...
+    }
+
+    // good
+    {
+        cleverFunction() {},
+        render() {
+            // just use this.cleverFunction
+        }
+    }
+```
+- **不建议**在运行期生命周期中使用时间复杂度$O(n^2)$及以上阶的算法。
 
 ### 组件间的设计考量
 - **MUST：** 所有组件必须能独立使用，不允许出现abstract class及继承关系。
