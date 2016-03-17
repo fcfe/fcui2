@@ -2,7 +2,7 @@
 # 凤巢FE React UI组件开发规范
 
 ## 适用范围
-凤巢FE 所有基于React开发的UI组件。
+凤巢FE 所有基于React开发的fcui2组件。
 
 ## 撰写
 - Brian Li (lihaitao03@baidu.com)
@@ -17,10 +17,10 @@
 
 ## 目录<a href="#toc"></a>
 1. [基本概念] (#basic-concepts)
-2. [核心依赖] (#deps)
-2. [JSX书写] (#jsx)
-3. [更多的通用组件规范] (#general-guide)
-3. [fcui2专属规范] (#ui-guide)
+1. [核心依赖] (#deps)
+1. [JSX书写] (#jsx)
+1. [更多的通用组件规范] (#general_guide)
+1. [fcui2专属规范] (#ui-guide)
 
 
 ## 基本概念<a href="#basic-concepts"></a>
@@ -57,13 +57,12 @@
 - **必须**命名JSX文件为.jsx.js。
 - **必须**使用PascalCase作为文件名。
 - **必须**只包含一个React Component在一个JSX文件中。
-- **必须**令文件名与React Component名字相同。
+- **必须**令文件名与所包含的React Component名字相同。
 - **必须**只能使用`React.createClass()`来创建一个React Component。
 
-    > 其他创建React Component的考量
-    > ES6 Class和pure function都可以创建React Component。
-    > ES6 Class不能使用mixin做扩展，与目前的扩展方法冲突。
-    > Pure function较难掌握和管理。 
+    > 虽然ES6 Class和pure function都可以创建React Component，
+    > 但ES6 Class不能使用mixin做扩展，与目前的扩展方法冲突；
+    > Pure function较难掌握和管理。
 
 - **必须**使用JSX语法来生成组件的DOM片段。
 - **必须不**能在JSX中出现`React.createElement()`。
@@ -245,7 +244,7 @@
     }
 ```
 
-- *必须*以如下的顺序排列JSX文件中的方法。
+- **必须**以如下的顺序排列JSX文件中的方法。
   
   1. `displayName`
   1. `propTypes`
@@ -270,7 +269,7 @@
   1. `render`
 
 
-## 更多的通用组件规范 <a href="#general-guide"></a>
+## 更多的通用组件规范 <a href="#general_guide"></a>
 
 *[基本的JSX书写规范] (#jsx)基础上，更多的通用的React组件开发规范。*
 
@@ -304,7 +303,7 @@
 - **必须**只能通过以下2种方法设置组件内部状态：
     - 通过父组件的`render`方法，改变子组件的props。
     - 通过子组件的`setState`方法。
-- **必须不**允许为组件提供setXXX方法来改变其内部状态。
+- **必须不**允许为组件提供`setXXX`方法来改变其内部状态，除非该`setXXX`方法中仅包含一个`setState`调用，且完成了一个充分复杂的state转换。
 - **必须**为所有回调在`getDefaultProps`给出空函数默认值`_.noop`。
 - **可以**提供与组件内部数据结构紧密相关的操作方法。这些方法可以实现为一个纯函数，即只依赖其所有的参数来得到其结果。这些方法可以放在组件的`static`域中。
 
@@ -319,21 +318,21 @@
 
 ### 组件
 
-- **不建议**在组件内部直接操作window, document等全局对象。
+- **不建议**在组件内部直接操作`window`, `document`等全局对象。
 - **必须**将组件设计为可以独立使用，不允许有abstract class。
 - **必须**仅通过mixin抽取公共逻辑。
 - **可以**组合组件，如Pager使用了Button。
 
 ### Input组件
 
-- **必须**令input类型组件支持React官方的[valueLink插件] (https://facebook.github.io/react/docs/two-way-binding-helpers.html)，其基本实现是引入fcui2/mixins/InputWidgetBase.js插件。
-- **必须**令input类型组件，用props.value域导入值，用props.onChange返回输入触发（注：value和onChange不能跟valueLink同时使用，兼容判断在InputWidgetBase中已经实现）。
+- **必须**令input类型组件支持React官方的[valueLink插件] (https://facebook.github.io/react/docs/two-way-binding-helpers.html)，其基本实现是引入`fcui2/mixins/InputWidgetBase.js`插件。
+- **必须**令input类型组件，用`props.value`导入值，用`props.onChange`返回输入触发（注：`props.value`和`props.onChange`不能跟valueLink同时使用，兼容判断在`InputWidgetBase`中已经实现）。
 - **必须**令input类型组件，不得阻断React规范的数据流，即：
-    - 如果外部配置了props.value，必须根据props.value做响应展示；
-    - 如果外界配置了props.value，但未配置props.onChange，组件是只读的，用户不能输入；
-    - 如果外界配置了props.valueLink，则通过props.valueLink读取value，并通过valueLink.requestChange回调change；
-    - 传递给onChange事件的参数，必须是原生的DOM event实例，即可以通过e.target.value获取到组件变动后的值；
-    - 当外界没有配置props.value，且没有配置props.valueLink时，组件可以允许输入，并能通过onChange返回变更。
+    - 如果外部配置了`props.value`，必须根据`props.value`做响应展示；
+    - 如果外界配置了`props.value`，但未配置`props.onChange`，组件是只读的，用户不能输入；
+    - 如果外界配置了`props.valueLink`，则通过`props.valueLink`读取value，并通过`valueLink.requestChange`回调change；
+    - 传递给`onChange`事件的参数，必须是原生的DOM event实例，即可以通过`e.target.value`获取到组件变动后的值；
+    - 当外界没有配置`props.value`，且没有配置`props.valueLink`时，组件可以允许输入，并能通过`onChange`返回变更。
 
 - **必须不**允许input类型组件的`getDefaultProps`中，给出`value`和`onChange`的默认值。
 - **可以**令input类型组件的getDefaultProps中，给出valueTemplate属性作为value的初始值。
@@ -343,7 +342,9 @@
 - **必须**将所有mixin放在`fcui2/src/mixins/`目录中。
 - **必须**保证宿主组件除声明引入mixin代码外，不需其他代码即可令mixin工作。
 - **必须不**能在mixin中使用继承。
+
     > Why？因为React会改变每个方法的运行上下文
+
 - **不应该**用好几个mixin完成一件事情。
 - **必须**令mixin在使用组件的state或childContextTypes等公共资源时，mixin专属使用的内部变量应存在独立命名空间，建议命名`fcui2.mixin.<属性名字>`。
 
