@@ -5,15 +5,15 @@
 凤巢FE 所有基于React开发的UI组件。
 
 ## 撰写
-* Brian Li (lihaitao03@baidu.com)
-* Han Bing Feng (hanbingfeng@baidu.com)
+- Brian Li (lihaitao03@baidu.com)
+- Han Bing Feng (hanbingfeng@baidu.com)
 
 ## 要求
-* 必须：表示绝对要求这样做。
-* 必须不：表示绝对不要求这样做。
-* 应该/建议：表示一般情况下应该这样做，但是在某些特定情况下可以忽视这个要求。
-* 应该不/不建议：表示一般情况下不应该这样做，但是在某些特定情况下可以忽视这个要求。
-* 可以：表示这个要求完全是可选的，你可以这样做，也可以不这样做。
+- 必须：表示绝对要求这样做。
+- 必须不：表示绝对不要求这样做。
+- 应该/建议：表示一般情况下应该这样做，但是在某些特定情况下可以忽视这个要求。
+- 应该不/不建议：表示一般情况下不应该这样做，但是在某些特定情况下可以忽视这个要求。
+- 可以：表示这个要求完全是可选的，你可以这样做，也可以不这样做。
 
 ## 目录<a href="#toc"></a>
 1. [基本概念] (#basic-concepts)
@@ -21,29 +21,28 @@
 2. [JSX书写] (#jsx)
 3. [更多的通用组件规范] (#general-guide)
 3. [fcui2专属规范] (#ui-guide)
-4. 
 
 
 ## 基本概念<a href="#basic-concepts"></a>
-* 实例化生命周期
-    * getDefaultProps
-    * getInitialState
-    * componentWillMount
-    * render
-    * componentDidMount    
-* 更新期生命周期
-    * getInitialState
-    * componentWillMount
-    * render
-    * componentDidMount   
-* 运行期生命周期
-    * componentWillReceiveProps
-    * shouldComponentUpdate
-    * componentWillUpdate
-    * render
-    * componentDidUpdate
-* 销毁期生命周期
-    * componentWillUnmount
+- 实例化生命周期
+    - `getDefaultProps`
+    - `getInitialState`
+    - `componentWillMount`
+    - `render`
+    - `componentDidMount`    
+- 更新期生命周期
+    - `getInitialState`
+    - `componentWillMount`
+    - `render`
+    - `componentDidMount`   
+- 运行期生命周期
+    - `componentWillReceiveProps`
+    - `shouldComponentUpdate`
+    - `componentWillUpdate`
+    - `render`
+    - `componentDidUpdate`
+- 销毁期生命周期
+    - `componentWillUnmount`
 
 
 ## 核心依赖<a href="#deps"></a>
