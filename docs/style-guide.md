@@ -2,42 +2,42 @@
 # 凤巢FE React UI组件开发规范
 
 ## 适用范围
-    凤巢FE 所有基于React开发的UI组件。
+凤巢FE 所有基于React开发的UI组件。
+
 ## 撰写
-    - Brian Li (lihaitao03@baidu.com)
-    - Han Bing Feng (hanbingfeng@baidu.com)
+* Brian Li (lihaitao03@baidu.com)
+* Han Bing Feng (hanbingfeng@baidu.com)
+
 ## 要求
-    MUST：表示绝对要求这样做。
-    MUST NOT：表示绝对不要求这样做。
-    SHOULD：表示一般情况下应该这样做，但是在某些特定情况下可以忽视这个要求。
-    SHOULD NOT：表示一般情况下不应该这样做，但是在某些特定情况下可以忽视这个要求。
-    MAY：表示这个要求完全是可选的，你可以这样做，也可以不这样做。
+* MUST：表示绝对要求这样做。
+* MUST NOT：表示绝对不要求这样做。
+* SHOULD：表示一般情况下应该这样做，但是在某些特定情况下可以忽视这个要求。
+* SHOULD NOT：表示一般情况下不应该这样做，但是在某些特定情况下可以忽视这个要求。
+* MAY：表示这个要求完全是可选的，你可以这样做，也可以不这样做。
+
 ## 目录
 1. [基本概念] (#基本概念)
 
 ## 基本概念
-    * 实例化生命周期
-        * getDefaultProps
-        * getInitialState
-        * componentWillMount
-        * render
-        * componentDidMount
-        
-    更新期生命周期
-        getInitialState
-        componentWillMount
-        render
-        componentDidMount
-        
-    运行期生命周期
-        componentWillReceiveProps
-        shouldComponentUpdate
-        componentWillUpdate
-        render
-        componentDidUpdate
-    销毁期生命周期
-        componentWillUnmount
-
+* 实例化生命周期
+    * getDefaultProps
+    * getInitialState
+    * componentWillMount
+    * render
+    * componentDidMount    
+* 更新期生命周期
+    * getInitialState
+    * componentWillMount
+    * render
+    * componentDidMount   
+* 运行期生命周期
+    * componentWillReceiveProps
+    * shouldComponentUpdate
+    * componentWillUpdate
+    * render
+    * componentDidUpdate
+* 销毁期生命周期
+    * componentWillUnmount
 
 ## 核心依赖
 - **MUST：** FCUI2最核心依赖为react，underscore, 放在dep目录中，若引入其他依赖，需经技协UI负责人集体讨论
