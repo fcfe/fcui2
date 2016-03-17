@@ -44,11 +44,48 @@
 
 > 参考：[Airbnb的style guide](https://github.com/airbnb/javascript/)。
 
+- **必须**命名JSX文件为.jsx.js。
+- **必须**使用PascalCase作为文件名。
 - **必须**只包含一个React Component在一个JSX文件中。
+- **必须**令文件名与React Component名字相同。
 - **必须**只能使用`React.createClass()`来创建一个React Component。
 
-> 其他创建React Component的考量。
-> 
+> 其他创建React Component的考量
+> ES6 Class和pure function都可以创建React Component。
+> ES6 Class不能使用mixin做扩展，与目前的扩展方法冲突。
+> Pure function较难掌握和管理。 
+
+- **必须**使用JSX语法来生成组件的DOM片段。
+- **必须不**能在JSX中出现`React.createElement()`。
+- **必须**遵守下面示例中的DOM片段对齐方式。
+
+```javascript
+    // bad
+    <Foo superLongParam="bar"
+         anotherSuperLongParam="baz" />
+
+    // good
+    <Foo
+      superLongParam="bar"
+      anotherSuperLongParam="baz"
+    />
+
+    // if props fit in one line then keep it on the same line
+    <Foo bar="bar" />
+
+    // children get indented normally
+    <Foo
+      superLongParam="bar"
+      anotherSuperLongParam="baz"
+    >
+      <Quux />
+    </Foo>
+```
+- **必须**在DOM片段中使用双引号`"`。
+
+> Why？JSX attributes [can't contain escaped quotes](http://eslint.org/docs/rules/jsx-quotes), so double quotes make conjunctions like `"don't"` easier to type.
+> Regular HTML attributes also typically use double quotes instead of single, so JSX attributes mirror this convention.
+
 
 ## 核心依赖
 - **MUST：** FCUI2最核心依赖为react，underscore, 放在dep目录中，若引入其他依赖，需经技协UI负责人集体讨论
