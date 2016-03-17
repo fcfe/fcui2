@@ -20,7 +20,7 @@
 2. [核心依赖] (#deps)
 2. [JSX书写] (#jsx)
 3. [更多的通用组件规范] (#general-guide)
-3. [UI组件专属规范] (#ui-guide)
+3. [fcui2专属规范] (#ui-guide)
 4. 
 
 
@@ -275,9 +275,11 @@
 
 *[基本的JSX书写规范] (#jsx)基础上，更多的通用的React组件开发规范。*
 
+- **必须**将所有UI组件实现为[Pure Renderer] (https://facebook.github.io/react/docs/pure-render-mixin.html)。
 - **必须**在props中存放所有外部导入的配置，包括显示控制参数、显示数据源、当前值（如果是input类型组件）、回调方法等。state相同时，对于一个特定的props，对应的组件展现结果唯一。
 - **必须**在state中存放组件运行期的状态，如输入框是否通过了校验、鼠标是否悬浮在按钮上等。props相同时，对于一组特定的state，对应的组件展现效果唯一。
 - **不应该**在state中存在[通过props运算来的属性] (https://facebook.github.io/react/tips/props-in-getInitialState-as-anti-pattern.html)。
+- **建议**父子关系的组件间传递props时，使用[rest-spread语法] (https://facebook.github.io/react/docs/transferring-props.html)。
 - **必须**仅在实例化生命周期中绑定window或body事件。
 - **必须**在销毁期生命周期中解绑window或body事件。
 - **必须不**允许在运行期生命周期中声明表达式函数。bind函数也不允许。
@@ -308,65 +310,53 @@
 - **可以**提供与组件内部数据结构紧密相关的操作方法。这些方法可以实现为一个纯函数，即只依赖其所有的参数来得到其结果。这些方法可以放在组件的`static`域中。
 
 
-## UI组件专属规范 <a href="#ui-guide"></a>
-### props 和 state
-- **必须**将所有UI组件实现为[Pure Renderer] (https://facebook.github.io/react/docs/pure-render-mixin.html)。
+## fcui2专属规范 <a href="#ui-guide"></a>
 
-### DOM操作
+### 文件分布
+
+- **可以**将只是某个特定组件才使用的方法，从jsx文件中提取出来，放置于`fcui2/src/core/`目录下，文件名必须为`<组件名>Tools.js`，PascalCase。
+- **必须**将能被所有组件公共使用的方法，放在`fcui2/src/core/tools.js`文件中。
+- **必须**将不但fcui2可以使用，任何其他项目都可以使用的方法，放在`fcui2/src/core/util.js`文件中。
+
+### 组件
+
 - **不建议**在组件内部直接操作window, document等全局对象。
+- **必须**将组件设计为可以独立使用，不允许有abstract class。
+- **必须**仅通过mixin抽取公共逻辑。
+- **可以**组合组件，如Pager使用了Button。
 
-### 性能考量
+### Input组件
 
-### 组件间的设计考量
-- **MUST：** 所有组件必须能独立使用，不允许出现abstract class及继承关系。
-- **MUST：** 公共逻辑抽取仅可通过mixin实现。
-- **SHOULD：** 父子关系的组件间传递props时，应该使用React推荐的实践：https://facebook.github.io/react/docs/transferring-props.html 。即使用rest-spread语法获取或直接传递父组件的所有props给子组件。
-- **MAY：** 组件间可以发生组合，如Pager使用了Button。
+- **必须**令input类型组件支持React官方的[valueLink插件] (https://facebook.github.io/react/docs/two-way-binding-helpers.html)，其基本实现是引入fcui2/mixins/InputWidgetBase.js插件。
+- **必须**令input类型组件，用props.value域导入值，用props.onChange返回输入触发（注：value和onChange不能跟valueLink同时使用，兼容判断在InputWidgetBase中已经实现）。
+- **必须**令input类型组件，不得阻断React规范的数据流，即：
+    - 如果外部配置了props.value，必须根据props.value做响应展示；
+    - 如果外界配置了props.value，但未配置props.onChange，组件是只读的，用户不能输入；
+    - 如果外界配置了props.valueLink，则通过props.valueLink读取value，并通过valueLink.requestChange回调change；
+    - 传递给onChange事件的参数，必须是原生的DOM event实例，即可以通过e.target.value获取到组件变动后的值；
+    - 当外界没有配置props.value，且没有配置props.valueLink时，组件可以允许输入，并能通过onChange返回变更。
 
-### 组件内的设计考量
+- **必须不**允许input类型组件的`getDefaultProps`中，给出`value`和`onChange`的默认值。
+- **可以**令input类型组件的getDefaultProps中，给出valueTemplate属性作为value的初始值。
+    
+### mixin
 
+- **必须**将所有mixin放在`fcui2/src/mixins/`目录中。
+- **必须**保证宿主组件除声明引入mixin代码外，不需其他代码即可令mixin工作。
+- **必须不**能在mixin中使用继承。
+    > Why？因为React会改变每个方法的运行上下文
+- **不应该**用好几个mixin完成一件事情。
+- **必须**令mixin在使用组件的state或childContextTypes等公共资源时，mixin专属使用的内部变量应存在独立命名空间，建议命名`fcui2.mixin.<属性名字>`。
 
+### 样式
 
-## 架构组织
-- **MUST：**  组件内部使用到的其他子部分，如果不能剥离成组件，要么放在当前.jsx.js文件内部，要么放在fcui2/src/plugin/目录中。放入plugin的代码，原则上所有组件都可以使用，但外部无法直接使用。
-- **MUST：** 能被所有组件公共使用的方法，放在fcui2/src/core/tools.js文件中
-- **MUST：** 不但fcui2可以使用，任何其他项目都可以使用的方法，放在fcui2/src/core/util.js文件中。
-- **MUST：** 只是某个特定组件才使用的方法，如果需要从jsx文件中提取出来，请自行在fcui2/src/core/目录中建立自己的附属文件，并在文件名中注明是哪个组件的附属，若抽离出的文件为3个或3个以上，请在core/中建立二级目录。
-
-
-
-
-## input类型组件编写
-- **MUST：** input类型组件，必须支持React官方的valueLink插件，其基本实现是引入fcui2/mixins/InputWidgetBase.js插件。参考 https://facebook.github.io/react/docs/two-way-binding-helpers.html。
-- **MUST：** input类型组件，必须用props.value域导入值，用props.onChange返回输入触发（注：value和onChange不能跟valueLink同时使用，兼容判断在InputWidgetBase中已经实现）。
-- **MUST：** input类型组件，不得阻断React规范的数据流，即：
-     
-        如果外部配置了props.value，必须根据props.value做响应展示；
-        如果外界配置了props.value，但未配置props.onChange，组件是只读的，用户不能输入；
-        如果外界配置了props.valueLink，则通过props.valueLink读取value，并通过valueLink.requestChange回调change；
-        传递给onChange事件的参数，必须是原生的DOM event实例，即可以通过e.target.value获取到组件变动后的值
-        当外界没有配置props.value，且没有配置props.valueLink时，组件可以允许输入，并能通过onChange返回变更
-- **MUST NOT：** 鉴于以上，input类型组件的getDefaultProps中，一定不要给出value和onChange的默认值
-- **MUST：** 接上一点，input类型组件的getDefaultProps中，应当给出valueTemplate属性，当外界不配置value或value配置有问题时，使用此属性作为value的初始值
-        
-
-## mixin编写
-- **MUST：** 所有mixin放在fcui2/src/mixins/目录中。
-- **SHOULD：** 每个mixin尽量完成独立的功能，不依赖其他mixin，但可以依赖几个基础的mixin，mixin应尽量简单、独立，职责单一。
-- **SHOULD NOT：** 不建议写mixin时使用继承，因为React会改变每个方法的运行上下文，不建议用好几个mixin完成一件事情
-- **SHOULD：** 除了基础mixin，其他mixin不能影响宿主组件的正常工作，且除了mixin的引入，不应在宿主组件中添加其他代码，确保宿主组件在引入和没有引入该mixin时，都能正常工作，且前后表现一致。如必须添加额外代码才能让该mixin工作，需经讨论在基础mixin中添加
-- （这个应该删掉）**SHOULD：** 不建议mixin使用getDefaultProps，因为用户往往根据这个方法学习组件的用法，一般不会在mixin中找其他属性。相应的，如果使用到某个特殊属性，应当在使用时自行判断该属性是否存在且类型是否合法。
-- **SHOULD：** mixin在使用state或childContextTypes等公共资源时，mixin专属使用的内部变量应存在独立命名空间，或命名前缀，以防止被其他mixin或组件自身行为干扰
-
-
-## CSS编写
-- **MUST：** 所有CSS文件存放在fcui2/src/css/目录中，以less形式编写。
-- **MUST：** 每个组件对应一个less文件，存放在css/widget/目录中，并在main.less中引入。
-- **SHOULD：** 每个组件的less文件应引入skin.less，并使用其中的皮肤变量编写自己的样式。
-- **MUST：** 每个组件的根容器必须含有表明组件身份的class，且该class应含有前缀fcui2，如.fcui2-button。
-- **MUST：** 容器内部样式，为避免干扰，必须也加入前缀。
-- **SHOULD：** 组件根容器应加入props.className，允许外部使用时挂载自定义class，方便使用者自定义样式或对组件内部样式进行hack。
-- **SHOULD：** 若`render`时处理className的逻辑较复杂，如达到3行及以上，建议剥离className的计算逻辑到`this.getClassName`上。
-- **SHOULD：** 若`render`时处理style的逻辑较复杂，如达到3行及以上，建议剥离style的计算逻辑到`this.getStyle`上。
+- **必须**将所有CSS文件存放在`fcui2/src/css/`目录中，以less形式编写。
+- **必须**令每个组件对应一个less文件，存放在`fcui2/css/widget/`目录中，并在`fcui2/src/css/main.less`中引入。
+- **必须**在每个组件的less文件引入`skin.less`，并使用其中的皮肤变量编写自己的样式。
+- **必须**在每个组件的根容器中含有表明组件身份的class，class建议命名`fcui2-<组件名>`，组件名按单词拆开`-`分隔。
+- **必须**为容器内部样式，也加入前缀`fcui2-`。
+- **建议**组件根容器应加入props.className，允许外部使用时挂载自定义class。
+- **建议**若`render`时处理className的逻辑达到3行及以上，剥离className的计算逻辑到`this.getClassName`上。
+- **建议**若`render`时处理style的逻辑达到3行及以上，剥离style的计算逻辑到`this.getStyle`上。
 
 **[⬆ back to top](#toc)**
