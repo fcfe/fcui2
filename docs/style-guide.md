@@ -56,8 +56,18 @@
 
 - **必须**命名JSX文件为.jsx.js。
 - **必须**使用PascalCase作为文件名。
-- **必须**只包含一个React Component在一个JSX文件中。
-- **必须**令文件名与所包含的React Component名字相同。
+- **必须**只导出（暴露）一个React Component在一个JSX文件中。
+- **必须**令文件名与所要导出（暴露）的React Component的本地名字相同。
+
+```javascript
+    // MyComponent.jsx.js:
+    var MyComponent = React.createClass(
+        // ...
+    );
+
+    export MyComponent;
+```
+
 - **必须**只能使用`React.createClass()`来创建一个React Component。
 
     > 虽然ES6 Class和pure function都可以创建React Component，
@@ -210,17 +220,15 @@
     />
 ```
 
-- **必须**将bind handler到this的动作放到构造函数中。
+- **必须**不在render方法中`bind(this)`到handler上。
 
-    > Why? A bind call in the render path creates a brand new function on every single render.
+    > Why？React会自动bind所有的handler的scope为当前组件。
+
+    > 而且，在render中调用bind会导致每次render都生成一个新的function。
 
 ```javascript
     // bad
     class extends React.Component {
-      onClickDiv() {
-        // do stuff
-      }
-
       render() {
         return <div onClick={this.onClickDiv.bind(this)} />
       }
@@ -228,12 +236,6 @@
 
     // good
     class extends React.Component {
-      constructor(props) {
-        super(props);
-
-        this.onClickDiv = this.onClickDiv.bind(this);
-      }
-
       onClickDiv() {
         // do stuff
       }
@@ -304,7 +306,7 @@
     - 通过父组件的`render`方法，改变子组件的props。
     - 通过子组件的`setState`方法。
 - **必须不**允许为组件提供`setXXX`方法来改变其内部状态，除非该`setXXX`方法中仅包含一个`setState`调用，且完成了一个充分复杂的state转换。
-- **必须**为所有回调在`getDefaultProps`给出空函数默认值`_.noop`。
+- **必须**为所有回调在`getDefaultProps`给出空函数默认值`_.noop`。input组件的onChange回调除外。
 - **可以**提供与组件内部数据结构紧密相关的操作方法。这些方法可以实现为一个纯函数，即只依赖其所有的参数来得到其结果。这些方法可以放在组件的`static`域中。
 
 
@@ -337,6 +339,10 @@
     - 当外界没有配置`props.value`，且没有配置`props.valueLink`时，组件可以允许输入，并能通过`onChange`返回变更。
 
 - **必须不**允许input类型组件的`getDefaultProps`中，给出`value`和`onChange`的默认值。
+- **必须**令input类型组件的value仅为string， number， boolean三种。复杂类型需要JSON stringify。
+
+    > Why？fcui2将自定义input类型组件的值放置在e.target.value中，出现复杂类型会令这一机制出错。
+
 - **可以**令input类型组件的getDefaultProps中，给出valueTemplate属性作为value的初始值。
     
 ### mixin
