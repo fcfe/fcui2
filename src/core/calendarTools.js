@@ -59,7 +59,6 @@ define(function (require) {
             var lastDay = this.getLastDayInMonth(year, month);
             var min = this.str2date(min);
             var max = this.str2date(max);
-            console.log(this.compareDate(min, lastDay) === -1 && this.compareDate(firstDay, max) === -1)
             return this.compareDate(min, lastDay) === -1 && this.compareDate(firstDay, max) === -1;
         }
     };

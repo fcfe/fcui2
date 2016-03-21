@@ -54,8 +54,8 @@ define(function (require) {
             var pos = {
                 x: l - (isFixed ? 0 : (document.documentElement.scrollLeft || document.body.scrollLeft)),
                 y: t - (isFixed ? 0 : (document.documentElement.scrollTop || document.body.scrollTop)),
-                left: l,
-                top: t
+                left: l + (!isFixed ? 0 : (document.documentElement.scrollLeft || document.body.scrollLeft)),
+                top: t + (!isFixed ? 0 : (document.documentElement.scrollTop || document.body.scrollTop))
             };
             return pos;
         },

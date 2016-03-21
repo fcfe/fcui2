@@ -75,7 +75,7 @@ define(function (require) {
             };
             return (
                 <div {...containerProp}>
-                    <div className="font-icon font-icon-largeable-caret-down"></div>
+                    <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
                     <input {...mainCheckboxProp}/>
                 </div>
             );

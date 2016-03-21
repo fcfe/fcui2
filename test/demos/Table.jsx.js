@@ -179,7 +179,7 @@ define(function (require) {
                     showSummary: true
                 },
                 fixedPosition: [
-                    {ref: 'shadowTableContainer', top: 60, zIndex: 998}
+                    {ref: 'shadowTableContainer', top: 60, zIndex: 8}
                 ],
                 message: {
                     content: '表格有新数据',

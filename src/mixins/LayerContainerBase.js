@@ -120,9 +120,9 @@ define(function (require) {
                 // 开始定位
                 var pos = util.getDOMPosition(container);
                 var top = (pos.y + container.offsetHeight + height < document.documentElement.clientHeight)
-                    ? (pos.y + container.offsetHeight) : (pos.y - height);
+                    ? (pos.top + container.offsetHeight) : (pos.top - height);
                 var left = pos.x + width < document.documentElement.clientWidth ?
-                    pos.x : (pos.x + container.offsetWidth - width);
+                    pos.left : (pos.left + container.offsetWidth - width);
                 layerContainer.style.left = left + 'px';
                 layerContainer.style.top = top + 'px';
                 // 开启自动隐藏

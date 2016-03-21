@@ -46,9 +46,9 @@ define(function (require) {
             var pHeight = container.offsetHeight;
             var lWidth = layer.offsetWidth;
             var lHeight = layer.offsetHeight;
-            layer.style.top = ((pos.y - lHeight < 0) ? (pos.y + pHeight) : (pos.y - lHeight)) + 'px';
+            layer.style.top = ((pos.y - lHeight < 0) ? (pos.top + pHeight) : (pos.top - lHeight)) + 'px';
             layer.style.left =
-                ((pos.x + pWidth + lWidth < document.body.offsetWidth) ? (pos.x + pWidth) : (pos.x - lWidth))
+                ((pos.x + pWidth + lWidth < document.body.offsetWidth) ? (pos.left + pWidth) : (pos.left - lWidth))
                 + 'px';
         },
         layerHide: function () {
@@ -56,7 +56,7 @@ define(function (require) {
             this.layerTimer = setTimeout(function () {
                 try {
                     layer.style.top = '-9999px';
-                    document.body.removeChild(this.props.layer);
+                    document.body.removeChild(layer);
                 } catch (e) {
 
                 } 
