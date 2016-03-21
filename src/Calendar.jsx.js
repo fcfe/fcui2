@@ -6,7 +6,7 @@
  */
 define(function (require) {
 
-
+// todo displayYear Month和NumberBox解耦
     var React = require('react');
     var language = require('./core/language');
     var util = require('./core/util');
@@ -43,6 +43,7 @@ define(function (require) {
             };
         },
         clickDayHandler: function (e) {
+            if (this.props.disable) return;
             var timer = tool.str2date(
                 this.state.displayYear + '-' + (this.state.displayMonth + 1) + '-' + e.target.value
             );
@@ -51,12 +52,18 @@ define(function (require) {
             this.___dispatchChange___(e);
         },
         yearChangeHandler: function (e) {
+            if (this.props.disable) return;
             this.setState({displayYear: e.target.value * 1});
         },
         monthChangeHandler: function (e) {
-            this.setState({displayMonth: e.target.value * 1 - 1});
+            if (this.props.disable) return;
+            var month = e.target.value - 1;
+            month = month < -1 ? -1 : month;
+            month = month > 11 ? 11: month;
+            this.setState({displayMonth: month});
         },
         addMonthHandler: function (e) {
+            if (this.props.disable) return;
             var month = this.state.displayMonth;
             var year = this.state.displayYear;
             month = month * 1 + 1;
@@ -69,20 +76,8 @@ define(function (require) {
                 displayMonth: month
             });
         },
-        addMonthHandler: function (e) {
-            var month = this.state.displayMonth;
-            var year = this.state.displayYear;
-            month = month * 1 + 1;
-            if (month > 11) {
-                month = 0;
-                year = year * 1 + 1;
-            }
-            this.setState({
-                displayYear: year,
-                displayMonth: month
-            });
-        },
         subMonthHandler: function (e) {
+            if (this.props.disable) return;
             var month = this.state.displayMonth;
             var year = this.state.displayYear;
             month = month * 1 - 1;
@@ -116,14 +111,15 @@ define(function (require) {
                  value: this.state.displayMonth + 1,
                  type: 'int'
             };
-            var btnClass = 'fcui2-button font-icon font-icon-largeable-caret-';
+            var btnClass = 'fcui2-button' + (this.props.disable ? ' button-disable' : '')
+                +' font-icon font-icon-largeable-caret-';
             return (
                 <div {...containerProp}>
                     <div className="calendar-operation">
                         <div className={btnClass + 'right'} onClick={this.addMonthHandler}/>
                         <div className={btnClass + 'left'} onClick={this.subMonthHandler}/>
-                        <NumberBox {...yearInputProp}/>
-                        <NumberBox {...monthInputProp}/>
+                        <NumberBox {...yearInputProp} disable={this.props.disable}/>
+                        <NumberBox {...monthInputProp} disable={this.props.disable}/>
                     </div>
                     <div className="calendar-day-label">{language.calendar.day.map(produceDayLabel)}</div>
                     <div className="calendar-buttons">{produceButtons(this)}</div>
@@ -165,7 +161,9 @@ define(function (require) {
         // 导入本月日期
         tmpTimer.setTime(timer.getTime());
         while (tmpTimer.getMonth() === timer.getMonth()) {
-            var disable = tool.compareDate(tmpTimer, min) === -1 || tool.compareDate(tmpTimer, max) === 1;
+            var disable = tool.compareDate(tmpTimer, min) === -1
+                || tool.compareDate(tmpTimer, max) === 1
+                || me.props.disable;
             var skin = tool.compareDate(tmpTimer, value) === 0 ? 'active' : null;
             var props = {
                 onClick: me.clickDayHandler,

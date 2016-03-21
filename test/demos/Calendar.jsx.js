@@ -4,11 +4,37 @@ define(function (require) {
     var React = require('react');
     var Calendar = require('fcui/Calendar.jsx');
 
+    var timer = new Date();
 
     var items = [
         {
             title: 'Normal Calendar',
             onChange: true,
+            props: {}
+        },
+        {
+            title: 'Calendar with ClassName',
+            onChange: true,
+            props: {className: 'marginLeft100 border2'}
+        },
+        {
+            title: 'Readonly Calendar',
+            onChange: true,
+            props: {value: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + timer.getDate()}
+        },
+        {
+            title: 'Disabled Calendar',
+            onChange: true,
+            props: {disable: true}
+        },
+        {
+            title: 'Calendar with ValueLinker',
+            valueLink: true,
+            props: {}
+        },
+        {
+            title: 'Custom Link Calendar',
+            customLink: true,
             props: {}
         }
     ];
