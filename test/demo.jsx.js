@@ -19,6 +19,7 @@ define(function (require) {
     var RadioDemo = require('./demos/Radio.jsx');
     var CalendarDemo = require('./demos/Calendar.jsx');
     var DropDownCalendarDemo = require('./demos/DropDownCalendar.jsx');
+    var RangeCalendarDemo = require('./demos/RangeCalendar.jsx');
 
 
     var ListItem = React.createClass({
@@ -88,6 +89,7 @@ define(function (require) {
                         <ListItem demo={this.props.demo} label="Select" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Calendar" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="DropDownCalendar" onClick={this.changeDemo}/>
+                        <ListItem demo={this.props.demo} label="RangeCalendar" onClick={this.changeDemo}/>
                         <hr/>
                         <ListItem demo={this.props.demo} label="Table" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Dialog" onClick={this.changeDemo}/>
@@ -113,6 +115,7 @@ define(function (require) {
                         <RadioDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <CalendarDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <DropDownCalendarDemo demo={this.props.demo} alert={this.changeMessage}/>
+                        <RangeCalendarDemo demo={this.props.demo} alert={this.changeMessage}/>
                     </div>
                     <div className="right-bottom-container" style={{display: 'none'}}></div>
                 </div>

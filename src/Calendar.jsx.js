@@ -29,8 +29,8 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 className: '',
-                min: '0-0-0',
-                max: '9999-99-99',
+                min: '0-1-1',
+                max: '9999-12-31',
                 disable: false,
                 valueTemplate: util.dateFormat(null, 'YYYY-MM-DD')
             };
@@ -42,8 +42,15 @@ define(function (require) {
                 displayYear: value.getFullYear(),
                 displayMonth: value.getMonth(),
                 inputYear: value.getFullYear(),
-                inputMonth: value.getMonth() + 1
+                inputMonth: value.getMonth() + 1,
+                inRange: true
             };
+        },
+        monthInRange: function (year, month) {
+            var inRange = tool.monthInRange(year, month, this.props.min, this.props.max);
+            this.refs.inputYear.setState({isValid: inRange});
+            this.refs.inputMonth.setState({isValid: inRange});
+            this.setState({inRange: inRange});
         },
         clickDayHandler: function (e) {
             if (this.props.disable) return;
@@ -60,6 +67,7 @@ define(function (require) {
             if (!isNaN(e.target.value)) {
                 year = e.target.value * 1;
             }
+            this.monthInRange(year, this.state.displayMonth);
             this.setState({
                 inputYear: e.target.value,
                 displayYear: year
@@ -73,6 +81,7 @@ define(function (require) {
                 month = month < -1 ? -1 : month;
                 month = month > 11 ? 11: month;
             }
+            this.monthInRange(this.state.displayYear, month);
             this.setState({
                 inputMonth: e.target.value,
                 displayMonth: month
@@ -87,6 +96,7 @@ define(function (require) {
                 month = 0;
                 year = year * 1 + 1;
             }
+            this.monthInRange(year, month);
             this.setState({
                 displayYear: year,
                 displayMonth: month,
@@ -103,6 +113,7 @@ define(function (require) {
                 month = 11;
                 year = year * 1 - 1;
             }
+            this.monthInRange(year, month);
             this.setState({
                 displayYear: year,
                 displayMonth: month,
@@ -122,6 +133,7 @@ define(function (require) {
                 onChange: this.yearChangeHandler,
                 value: this.state.inputYear,
                 type: 'int',
+                ref: 'inputYear',
                 width: 70
             };
             var monthInputProp = {
@@ -131,10 +143,12 @@ define(function (require) {
                  className: 'calendar-month',
                  width: 60,
                  value: this.state.inputMonth,
+                 ref: 'inputMonth',
                  type: 'int'
             };
             var btnClass = 'fcui2-button' + (this.props.disable ? ' button-disable' : '')
                 +' font-icon font-icon-largeable-caret-';
+            var range = this.props.min.replace(/-/g, '.') + ' - ' + this.props.max.replace(/-/g, '.');
             return (
                 <div {...containerProp}>
                     <div className="calendar-operation">
@@ -143,7 +157,9 @@ define(function (require) {
                         <NumberBox {...yearInputProp} disable={this.props.disable}/>
                         <NumberBox {...monthInputProp} disable={this.props.disable}/>
                     </div>
-                    <div className="calendar-day-label">{language.calendar.day.map(produceDayLabel)}</div>
+                    <div className="calendar-day-label">{
+                        this.state.inRange ? language.calendar.day.map(produceDayLabel) : range
+                    }</div>
                     <div className="calendar-buttons">{produceButtons(this)}</div>
                 </div>
             );

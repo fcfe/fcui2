@@ -38,6 +38,29 @@ define(function (require) {
                 return 0;
             }
             return a.getTime() < b.getTime() ? -1 : 1;
+        },
+        // 获取某个月的最后一天
+        getLastDayInMonth: function (year, month) {
+            var date = this.str2date(year + '-' + (month + 1) + '-31');
+            var i = 12;
+            while(date.getMonth() + '' !== month + '' && i > 0) {
+                date.setDate(date.getDate() - 1);
+                i--;
+            }
+            return date;
+        },
+        // 获取某个月第一天
+        getFirstDayInMonth: function (year, month) {
+            return this.str2date(year + '-' + (month + 1) + '-1');
+        },
+        // 判断某个月是否在min和max区间内，有一天落在这个区间内就算
+        monthInRange: function (year, month, min, max) {
+            var firstDay = this.getFirstDayInMonth(year, month);
+            var lastDay = this.getLastDayInMonth(year, month);
+            var min = this.str2date(min);
+            var max = this.str2date(max);
+            console.log(this.compareDate(min, lastDay) === -1 && this.compareDate(firstDay, max) === -1)
+            return this.compareDate(min, lastDay) === -1 && this.compareDate(firstDay, max) === -1;
         }
     };
 

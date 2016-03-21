@@ -1,5 +1,5 @@
 /**
- * @file 日期选择框组件
+ * @file 日期区间选择框组件
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.1
@@ -58,7 +58,7 @@ define(function (require) {
                 value: this.___getValue___(),
                 min: this.props.min,
                 max: this.props.max
-            });
+            }, true);
         },
         render: function () {
             var me = this;
@@ -80,6 +80,7 @@ define(function (require) {
                 containerProp.style.width = this.props.width;
             }
             var label = this.___getValue___() || this.props.placeholder;
+            label  = label + ';' + label;
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-calendar"></div>

@@ -72,7 +72,7 @@ define(function (require) {
             );
         },
 
-        layerShow: function (initProp) {
+        layerShow: function (initProp, dontAutoClose) {
 
             // 创建layer容器
             var me = this;
@@ -126,7 +126,7 @@ define(function (require) {
                 layerContainer.style.left = left + 'px';
                 layerContainer.style.top = top + 'px';
                 // 开启自动隐藏
-                timer = setInterval(autoHide, 200);
+                if (!dontAutoClose) timer = setInterval(autoHide, 200);
             }
 
             function autoHide() {
