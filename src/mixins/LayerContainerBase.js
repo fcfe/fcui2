@@ -39,14 +39,40 @@ define(function (require) {
     var ReactDOM = require('react-dom');
 
 
+    function propsFactory(initProp, me) {
+        var props = initProp || {};
+        if (me.props.hasOwnProperty('layerProps')) {
+            for (var key in me.props.layerProps) {
+                if (!me.props.layerProps.hasOwnProperty(key) || props.hasOwnProperty(key)) continue;
+                props[key] = me.props.layerProps[key];
+            }
+        }
+        props.parent = me;
+        if (typeof me.props.layerInterface === 'string' && me.props.layerInterface.length > 0) {
+            props[me.props.layerInterface] = typeof me.layerAction === 'function' ? me.layerAction : function () {};
+        }
+        if (me.props.hasOwnProperty('datasource') && !props.hasOwnProperty('datasource')) {
+            props.datasource = me.props.datasource;
+        }
+        return props;
+    }
+
+
     return {
 
         ___layerContainer___: null,
-
         ___layer___: null,
 
+        layerUpdateProp: function (props) {
+            if (!this.___layer___) return;
+            var props = propsFactory(props, this); 
+            this.___layer___ = ReactDOM.render(
+                React.createElement(this.props.layerContent, props),
+                this.___layerContainer___
+            );
+        },
 
-        layerShow: function () {
+        layerShow: function (initProp) {
 
             // 创建layer容器
             var me = this;
@@ -54,7 +80,6 @@ define(function (require) {
                 me.___layerContainer___ = document.createElement('div');
                 me.___layerContainer___.className = 'fcui2-layer'
             }
-
             // 弹出条件1
             if (
                 me.___layer___ || typeof me.props.layerContent !== 'function'
@@ -63,26 +88,10 @@ define(function (require) {
                 return;
             }
             document.body.appendChild(me.___layerContainer___);
-
             // 创建layer props
-            var props = {};
-            if (me.props.hasOwnProperty('layerProps')) {
-                for (var key in me.props.layerProps) {
-                    if (!me.props.layerProps.hasOwnProperty(key)) continue;
-                    props[key] = me.props.layerProps[key];
-                }
-            }
-            props.parent = me;
-            if (typeof me.props.layerInterface === 'string' && me.props.layerInterface.length > 0) {
-                props[me.props.layerInterface] = typeof me.layerAction === 'function' ? me.layerAction : function () {};
-            }
-            if (me.props.hasOwnProperty('datasource') && !props.hasOwnProperty('datasource')) {
-                props.datasource = me.props.datasource;
-            }
-
+            var props = propsFactory(initProp, me);
             // 弹出条件2
             if (typeof me.props.layerPolicymaker === 'function' && !me.props.layerPolicymaker(props)) return;
-
             // 弹出layer
             var timer = null;
             try {
@@ -95,7 +104,7 @@ define(function (require) {
             catch (e) {
                 console.error(e);
             }
-            
+
             // 自动适应layer位置，开启自动隐藏
             function fixedPosition() {
                 var layerContainer = me.___layerContainer___;
@@ -130,7 +139,6 @@ define(function (require) {
                 me.layerHide();
             }
         },
-
 
         layerHide: function () {
             this.___layer___ = null;

@@ -1,49 +1,48 @@
 define(function (require) {
 
-
     var React = require('react');
-    var Calendar = require('fcui/Calendar.jsx');
+    var DropDownCalendar = require('fcui/DropDownCalendar.jsx');
 
     var timer = new Date();
 
     var items = [
         {
-            title: 'Normal Calendar',
+            title: 'Normal DropDownCalendar',
             onChange: true,
             props: {}
         },
         {
-            title: 'Calendar with ClassName',
+            title: 'DropDownCalendar with ClassName',
             onChange: true,
             props: {className: 'marginLeft100 border2'}
         },
         {
-            title: 'Readonly Calendar',
+            title: 'Readonly DropDownCalendar',
             onChange: true,
             props: {value: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + timer.getDate()}
         },
         {
-            title: 'Calendar with Min',
+            title: 'DropDownCalendar with Min',
             onChange: true,
             props: {min: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() - 5)}
         },
         {
-            title: 'Calendar with Max',
+            title: 'DropDownCalendar with Max',
             onChange: true,
             props: {max: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() + 5)}
         },
         {
-            title: 'Disabled Calendar',
+            title: 'Disabled DropDownCalendar',
             onChange: true,
             props: {disable: true}
         },
         {
-            title: 'Calendar with ValueLinker',
+            title: 'DropDownCalendar with ValueLinker',
             valueLink: true,
             props: {}
         },
         {
-            title: 'Custom Link Calendar',
+            title: 'Custom Link DropDownCalendar',
             customLink: true,
             props: {}
         }
@@ -77,7 +76,7 @@ define(function (require) {
                 <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>
                     <div className="props">{conf}</div>
-                    <Calendar {...prop}/>
+                    <DropDownCalendar {...prop}/>
                     <span>{me.state[item.title]}</span>
                 </div>
             );
@@ -91,7 +90,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                demo: 'Calendar',
+                demo: 'DropDownCalendar',
                 alert: function () {}
             };
         },
@@ -106,7 +105,7 @@ define(function (require) {
             var containerProp = {
                 className: 'demo-content',
                 style: {
-                    display: this.props.demo === 'Calendar' ? 'block' : 'none'
+                    display: this.props.demo === 'DropDownCalendar' ? 'block' : 'none'
                 }
             };
             return (<div {...containerProp}>{factory(this, items)}</div>);

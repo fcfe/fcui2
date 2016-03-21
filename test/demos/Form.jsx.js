@@ -10,6 +10,8 @@ define(function (require) {
     var Select = require('fcui/Select.jsx');
     var CheckBox = require('fcui/CheckBox.jsx');
     var Radio = require('fcui/Radio.jsx');
+    var Calendar = require('fcui/Calendar.jsx');
+    var DropDownCalendar = require('fcui/DropDownCalendar.jsx');
 
 
     return React.createClass({
@@ -56,9 +58,7 @@ define(function (require) {
             };
             var formValid = {
                 hehe: function (values) {
-                    if (values.age > 20 && values.name.indexOf('a') < 0) {
-                        return '大于20岁的人姓名里必须含有a';
-                    }
+                    if (values.age > 20 && values.name.indexOf('a') < 0) return '大于20岁的人姓名里必须含有a';
                     return true;
                 }
             };
@@ -67,25 +67,36 @@ define(function (require) {
                     <h3>Normal Form</h3>
                     <div className="props">{this.state.message1}</div>
                     <Form className="demo-form" onFieldChange={this.form1FieldChange}>
-                        姓名：<TextBox name="name"/><br/>
-                        年龄：<NumberBox name="age"/><br/>
-                        职业：<Select datasource={[{label:'有职业',value: 'have'}, {label:'无职业', value:'none'}]}
-                                    name="job"/><hr/>
-                        逗逼：<CheckBox name="2b"/><br/>
-                        身高：<br/>
-                        <div style={{marginLeft: 40}}>
-                            <Radio label="小于165cm" value="1" name="height"/><br/>
-                            <Radio label="165-175cm" value="2" name="height"/><br/>
-                            <Radio label="175-185cm" value="3" name="height"/><br/>
-                            <Radio label="185-195cm" value="4" name="height"/><br/>
-                            <Radio label="大于195cm" value="5" name="height"/>
-                        </div>
-                        口味：
-                        <div style={{marginLeft: 40}}>
-                            <Radio label="甜豆腐脑" value="1" name="doufunao" labelPosition="right"/><br/>
-                            <Radio label="咸豆腐脑" value="2" name="doufunao" labelPosition="right"/>
-                        </div>
-                        简介：<TextArea className="form-textarea" name="intro"/>
+                    <table><tbody>
+                        <tr>
+                            <td>
+                                姓名：<TextBox name="name"/><br/>
+                                年龄：<NumberBox name="age"/><br/>
+                                职业：
+                                    <Select datasource={[
+                                        {label:'有职业',value: 'have'},
+                                        {label:'无职业', value:'none'}
+                                    ]} name="job" /><br/>
+                                逗逼：<CheckBox name="2b"/><br/>
+                                口味：
+                                    <Radio label="甜豆腐脑" value="1" name="doufunao" labelPosition="right"/>
+                                    <Radio label="咸豆腐脑" value="2" name="doufunao" labelPosition="right"/><br/>
+                                生日：<DropDownCalendar width="180" name="birthday"/><br/>
+                                简介：<TextArea className="form-textarea" name="intro"/>
+                            </td>
+                            <td>
+                                身高：<br/>
+                                <div style={{marginLeft: 40}}>
+                                    <Radio label="小于165cm" value="1" name="height"/><br/>
+                                    <Radio label="165-175cm" value="2" name="height"/><br/>
+                                    <Radio label="175-185cm" value="3" name="height"/><br/>
+                                    <Radio label="185-195cm" value="4" name="height"/><br/>
+                                    <Radio label="大于195cm" value="5" name="height"/>
+                                </div>
+                                入职时间：<Calendar name="joinData"/>  
+                            </td>
+                        </tr>
+                    </tbody></table>
                     </Form>
                     <h3>Form With Validation</h3>
                     <div className="props">{this.state.message}</div>

@@ -1,11 +1,9 @@
 @import "../skin.less";
 
 .fcui2-calendar {
-
+    position: relative;
     width: 224px;
-    border: @border-normal;
     overflow: hidden;
-
     .calendar-month {
         margin-left: 10px;
     }
@@ -19,8 +17,8 @@
         .fcui2-button {
             padding: 0px !important;
             top: 9px !important;
-            width: 28px;
-            height: 28px;
+            width: 28px !important;
+            height: 28px !important;
         }
         .font-icon-largeable-caret-right {
             float: right;
@@ -40,6 +38,7 @@
             display: inline-block;
             width: 32px;
             height: 32px;
+            line-height: 32px;
             font-size: 12px;
             color: #888;
             text-align: center;
@@ -79,5 +78,10 @@
             }
         }
     }
-
+}
+.fcui2-layer .fcui2-calendar .calendar-buttons {
+    margin-bottom: 0px;
+}
+.fcui2-layer .fcui2-calendar .calendar-buttons .fcui2-button {
+    margin-top: -3px;
 }

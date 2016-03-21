@@ -6,7 +6,7 @@
  */
 define(function (require) {
 
-// todo displayYear Month和NumberBox解耦
+
     var React = require('react');
     var language = require('./core/language');
     var util = require('./core/util');
@@ -15,6 +15,7 @@ define(function (require) {
 
     var InputWidgetBase = require('./mixins/InputWidgetBase');
     var InputWidgetInForm = require('./mixins/InputWidgetInForm');
+    var MouseWidgetBase = require('./mixins/MouseWidgetBase');
 
 
     var Button = require('./Button.jsx');
@@ -23,7 +24,7 @@ define(function (require) {
 
     return React.createClass({
         // @override
-        mixins: [InputWidgetBase, InputWidgetInForm],
+        mixins: [MouseWidgetBase, InputWidgetBase, InputWidgetInForm],
         // @override
         getDefaultProps: function () {
             return {
@@ -39,7 +40,9 @@ define(function (require) {
             var value = tool.str2date(this.___getValue___()) || new Date();
             return {
                 displayYear: value.getFullYear(),
-                displayMonth: value.getMonth()
+                displayMonth: value.getMonth(),
+                inputYear: value.getFullYear(),
+                inputMonth: value.getMonth() + 1
             };
         },
         clickDayHandler: function (e) {
@@ -53,27 +56,42 @@ define(function (require) {
         },
         yearChangeHandler: function (e) {
             if (this.props.disable) return;
-            this.setState({displayYear: e.target.value * 1});
+            var year = this.state.displayYear;
+            if (!isNaN(e.target.value)) {
+                year = e.target.value * 1;
+            }
+            this.setState({
+                inputYear: e.target.value,
+                displayYear: year
+            });
         },
         monthChangeHandler: function (e) {
             if (this.props.disable) return;
-            var month = e.target.value - 1;
-            month = month < -1 ? -1 : month;
-            month = month > 11 ? 11: month;
-            this.setState({displayMonth: month});
+            var month = this.state.displayMonth;
+            if (!isNaN(e.target.value)) {
+                month = e.target.value * 1 - 1;
+                month = month < -1 ? -1 : month;
+                month = month > 11 ? 11: month;
+            }
+            this.setState({
+                inputMonth: e.target.value,
+                displayMonth: month
+            });
         },
         addMonthHandler: function (e) {
             if (this.props.disable) return;
             var month = this.state.displayMonth;
             var year = this.state.displayYear;
             month = month * 1 + 1;
-            if (month > 12) {
-                month = 1;
+            if (month > 11) {
+                month = 0;
                 year = year * 1 + 1;
             }
             this.setState({
                 displayYear: year,
-                displayMonth: month
+                displayMonth: month,
+                inputYear: year,
+                inputMonth: month + 1
             });
         },
         subMonthHandler: function (e) {
@@ -87,28 +105,32 @@ define(function (require) {
             }
             this.setState({
                 displayYear: year,
-                displayMonth: month
+                displayMonth: month,
+                inputYear: year,
+                inputMonth: month + 1
             });
         },
         render: function () {
             var containerProp = {
                 className: 'fcui2-calendar ' + this.props.className,
-                ref: 'container'
+                ref: 'container',
+                onMouseEnter: this.___mouseenterHandler___,
+                onMouseLeave: this.___mouseleaveHandler___
             };
             var yearInputProp = {
                 min: 0,
                 onChange: this.yearChangeHandler,
-                value: this.state.displayYear,
+                value: this.state.inputYear,
                 type: 'int',
                 width: 70
             };
             var monthInputProp = {
-                 min: 0,
+                 min: 1,
                  max: 12,
                  onChange: this.monthChangeHandler,
                  className: 'calendar-month',
                  width: 60,
-                 value: this.state.displayMonth + 1,
+                 value: this.state.inputMonth,
                  type: 'int'
             };
             var btnClass = 'fcui2-button' + (this.props.disable ? ' button-disable' : '')
