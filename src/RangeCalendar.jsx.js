@@ -27,7 +27,11 @@ define(function (require) {
                 placeholder: 'please select',
                 // 快捷按钮配置串，每一位代表一个开关，共10位，1标识开启，0标识关闭。分别对应：
                 // 今天、昨天、前天、上周、过去7天、过去14天、过去30天、本月、上月、上季度
-                shortCut: '0000000000',
+                /**
+                 * 两个日历上方的快捷按钮配置，按钮的一切都由外部导入，包括处理函数，元素格式如下：
+                 * {label: '今天', getValues: function () {return {value1: new Date(), value2: new Date()};}}
+                 */
+                shortCut: [],//'0000000000',
                 min: '0-1-1',
                 max: '9999-12-31',
                 disable: false,

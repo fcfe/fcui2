@@ -17,18 +17,6 @@ define(function (require) {
     var Calendar = require('../Calendar.jsx');
     var Button = require('../Button.jsx');
 
-    var SHORT_CUT_CONFIG = [
-        'today',
-        'yesterday',
-        'beforeYesterday',
-        'lastWeek',
-        'last7',
-        'last14',
-        'last30',
-        'currentMonth',
-        'lastMonth',
-        'lastQuarter'
-    ];
 
     function cutValues(values) {
         var valueArr = (values + '').split(';');
@@ -72,7 +60,7 @@ define(function (require) {
                 min: '0-1-1',
                 max: '9999-12-31',
                 value: '',
-                shortCut: '0000000000',
+                shortCut: [],
                 rangeValidator: function () {},
                 onChange: function () {},
                 close: function () {}
@@ -89,9 +77,8 @@ define(function (require) {
             return cutValues(this.props.value);
         },
         shortCutClickHandler: function (e) {
-            var cmd = util.getDataset(e.target).uiCmd;
-            if (typeof tools.getDataRange[cmd] !== 'function') return;
-            var values = tools.getDataRange[cmd]();
+            var i = util.getDataset(e.target).uiCmd * 1;
+            var values = this.props.shortCut[i].getValues();
             if (!values) return;
             var min = tools.str2date(this.props.min) || tools.str2date('0-1-1');
             var max = tools.str2date(this.props.max) || tools.str2date('9999-12-31');
@@ -100,18 +87,14 @@ define(function (require) {
                 min = max;
                 max = tmp;
             }
-            if (
-                tools.compareDate(values.___v2, min) === -1 // value2 < min
-                || tools.compareDate(max, values.___v1) === -1 // max < value1
-            ) {
-                return;
-            }
-            if (tools.compareDate(values.___v1, min) === -1) { // value1 < min
-                values.___v1 = min;
-            }
-            if (tools.compareDate(max, values.___v2) === -1) { // max < value2
-                values.___v2 = max;
-            }
+            values.___v1 = values.value1;
+            values.___v2 = values.value2;
+            // value2 < min // max < value1
+            if (tools.compareDate(values.___v2, min) === -1 || tools.compareDate(max, values.___v1) === -1 ) return;
+            // value1 < min
+            if (tools.compareDate(values.___v1, min) === -1) values.___v1 = min;
+            // max < value2
+            if (tools.compareDate(max, values.___v2) === -1) values.___v2 = max;
             values.value1 = util.dateFormat(values.___v1, 'YYYY-MM-DD');
             values.value2 = util.dateFormat(values.___v2, 'YYYY-MM-DD');
             values.rangeValidationResult = this.props.rangeValidator(values.___v1, values.___v2);
@@ -211,16 +194,16 @@ define(function (require) {
     });
     
     function shortCutFactory(me) {
-        var conf = me.props.shortCut + '';
+        var shortCut = me.props.shortCut;
+        if (! shortCut instanceof Array || shortCut.length === 0) return '';
         var doms = [];
-        for (var i = 0; i < conf.length; i++) {
-            if (i >= SHORT_CUT_CONFIG.length || conf.charAt(i) !== '1') continue;
+        for (var i = 0; i < shortCut.length; i++) {
             var props = {
                 key: 'shortcut-' + i,
-                'data-ui-cmd': SHORT_CUT_CONFIG[i],
+                'data-ui-cmd': i,
                 onClick: me.shortCutClickHandler
             };
-            doms.push(<div {...props}>{language[SHORT_CUT_CONFIG[i]]}</div>);
+            doms.push(<div {...props}>{shortCut[i].label}</div>);
         }
         return doms;
     }

@@ -56,8 +56,8 @@ define(function (require) {
                 var value1 = new Date();
                 var value2 = value1;
                 return {
-                    ___v1: value1,
-                    ___v2: value2
+                    value1: value1,
+                    value2: value2
                 };
             },
             yesterday: function () {
@@ -65,8 +65,8 @@ define(function (require) {
                 value1.setDate(value1.getDate() - 1);
                 var value2 = value1;
                 return {
-                    ___v1: value1,
-                    ___v2: value2
+                    value1: value1,
+                    value2: value2
                 };
             },
             beforeYesterday: function () {
@@ -74,8 +74,8 @@ define(function (require) {
                 value1.setDate(value1.getDate() - 2);
                 var value2 = value1;
                 return {
-                    ___v1: value1,
-                    ___v2: value2
+                    value1: value1,
+                    value2: value2
                 };
             },
             lastWeek: function () {
@@ -85,8 +85,8 @@ define(function (require) {
                 value1.setTime(value2.getTime());
                 value1.setDate(value1.getDate() - 6);
                 return {
-                    ___v1: value1,
-                    ___v2: value2
+                    value1: value1,
+                    value2: value2
                 };
             },
             last7: function () {
@@ -95,8 +95,8 @@ define(function (require) {
                 var value1 = new Date();
                 value1.setDate(value1.getDate() - 7);
                 return {
-                    ___v1: value1,
-                    ___v2: value2
+                    value1: value1,
+                    value2: value2
                 };
             },
             last14: function () {
@@ -105,8 +105,8 @@ define(function (require) {
                 var value1 = new Date();
                 value1.setDate(value1.getDate() - 14);
                 return {
-                    ___v1: value1,
-                    ___v2: value2
+                    value1: value1,
+                    value2: value2
                 };
             },
             last30: function () {
@@ -115,8 +115,8 @@ define(function (require) {
                 var value1 = new Date();
                 value1.setDate(value1.getDate() - 30);
                 return {
-                    ___v1: value1,
-                    ___v2: value2
+                    value1: value1,
+                    value2: value2
                 };
             },
             currentMonth: function () {
@@ -124,8 +124,8 @@ define(function (require) {
                 var value1 = me.getFirstDayInMonth(tmp.getFullYear(), tmp.getMonth());
                 var value2 = me.getLastDayInMonth(tmp.getFullYear(), tmp.getMonth());
                 return {
-                    ___v1: value1,
-                    ___v2: value2
+                    value1: value1,
+                    value2: value2
                 };
             },
             lastMonth: function () {
@@ -135,8 +135,8 @@ define(function (require) {
                 var value1 = me.getFirstDayInMonth(tmp.getFullYear(), tmp.getMonth());
                 var value2 = me.getLastDayInMonth(tmp.getFullYear(), tmp.getMonth());
                 return {
-                    ___v1: value1,
-                    ___v2: value2
+                    value1: value1,
+                    value2: value2
                 };
             },
             lastQuarter: function () {
@@ -150,8 +150,8 @@ define(function (require) {
                 var value1 = me.str2date(year[cQ] + '-' + month[cQ][0] + '-1');
                 var value2 = me.str2date(year[cQ] + '-' + month[cQ][1] + '-' + end[month[cQ][1]]);
                 return {
-                    ___v1: value1,
-                    ___v2: value2
+                    value1: value1,
+                    value2: value2
                 };
             }
         }
