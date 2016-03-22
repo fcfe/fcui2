@@ -21,6 +21,22 @@ define(function (require) {
             },
             calendar: {
                 day: ['一', '二', '三', '四', '五', '六', '日']
+            },
+            rangeCalendar: {
+                enter: '确定',
+                cancel: '取消',
+                startTime: '起始时间：',
+                endTime: '结束时间：',
+                today: '今天',
+                yesterday: '昨天',
+                beforeYesterday: '前天',
+                lastWeek: '上周',
+                last7: '过去7天',
+                last14: '过去14天',
+                last30: '过去30天',
+                currentMonth: '本月',
+                lastMonth: '上月',
+                lastQuarter: '上个季度'
             }
         }
     };

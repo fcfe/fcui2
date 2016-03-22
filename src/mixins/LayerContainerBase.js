@@ -73,7 +73,6 @@ define(function (require) {
         },
 
         layerShow: function (initProp, dontAutoClose) {
-
             // 创建layer容器
             var me = this;
             if (me.___layerContainer___ == null) {
@@ -81,10 +80,7 @@ define(function (require) {
                 me.___layerContainer___.className = 'fcui2-layer'
             }
             // 弹出条件1
-            if (
-                me.___layer___ || typeof me.props.layerContent !== 'function'
-                || me.props.disable || me.props.layerPolicymaker === false
-            ) {
+            if (typeof me.props.layerContent !== 'function'|| me.props.disable || me.props.layerPolicymaker === false) {
                 return;
             }
             document.body.appendChild(me.___layerContainer___);

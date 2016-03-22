@@ -4,6 +4,8 @@ define(function (require) {
     var RangeCalendar = require('fcui/RangeCalendar.jsx');
 
     var timer = new Date();
+    var tmpValue = timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() - 5)
+        + ';' + timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() + 5)
 
     var items = [
         {
@@ -19,17 +21,7 @@ define(function (require) {
         {
             title: 'Readonly RangeCalendar',
             onChange: true,
-            props: {value: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + timer.getDate()}
-        },
-        {
-            title: 'RangeCalendar with Min',
-            onChange: true,
-            props: {min: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() - 5)}
-        },
-        {
-            title: 'RangeCalendar with Max',
-            onChange: true,
-            props: {max: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() + 5)}
+            props: {value: tmpValue}
         },
         {
             title: 'Disabled RangeCalendar',
@@ -45,6 +37,35 @@ define(function (require) {
             title: 'Custom Link RangeCalendar',
             customLink: true,
             props: {}
+        },
+        {
+            title: 'RangeCalendar with Min and Max',
+            onChange: true,
+            props: {
+                min: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() - 5),
+                max: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() + 5)
+            }
+        },
+        {
+            title: 'RangeCalendar with ShortCut',
+            onChange: true,
+            props: {
+                min: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() - 5),
+                max: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() + 5),
+                shortCut: '1100110011'
+            }
+        },
+        {
+            title: 'RangeCalendar with RangeValidator',
+            onChange: true,
+            props: {
+                shortCut: '1100110011',
+                rangeValidator: function (v1, v2) {
+                    var d = v2.getTime() - v1.getTime();
+                    d = parseInt(d / (1000 * 60 * 60 * 24), 10); 
+                    return d > 3 ? '时间跨度不能超过3天' : true;
+                }
+            }
         }
     ];
 

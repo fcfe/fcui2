@@ -21,6 +21,17 @@ define(function (require) {
     var Button = require('./Button.jsx');
     var NumberBox = require('./NumberBox.jsx');
 
+    // 生成button props
+    function buttonProps(timer, disable, key, skin) {
+        skin = skin || 'calendar';
+        return {
+            skin: skin,
+            minWidth: 12,
+            label: timer.getDate(),
+            disable: disable,
+            key: 'btns-' + key
+        };
+    }
 
     return React.createClass({
         // @override
@@ -48,8 +59,6 @@ define(function (require) {
         },
         monthInRange: function (year, month) {
             var inRange = tool.monthInRange(year, month, this.props.min, this.props.max);
-            this.refs.inputYear.setState({isValid: inRange});
-            this.refs.inputMonth.setState({isValid: inRange});
             this.setState({inRange: inRange});
         },
         clickDayHandler: function (e) {
@@ -192,7 +201,7 @@ define(function (require) {
         for (var i = 0; i < (timer.getDay() || 7) - 1; i++) {
             tmpTimer.setDate(tmpTimer.getDate() - 1);
             buttons.unshift(
-                <Button {...tool.buttonProps(tmpTimer, true, buttons.length)}/>
+                <Button {...buttonProps(tmpTimer, true, buttons.length)}/>
             );
         }
 
@@ -208,7 +217,7 @@ define(function (require) {
                 value: tmpTimer.getDate()
             };
             buttons.push(
-                <Button {...tool.buttonProps(tmpTimer, disable, buttons.length, skin)} {...props}/>
+                <Button {...buttonProps(tmpTimer, disable, buttons.length, skin)} {...props}/>
             );
             tmpTimer.setDate(tmpTimer.getDate() + 1);
         }
@@ -216,7 +225,7 @@ define(function (require) {
         // 导入本月后的日期
         while(buttons.length < 42) {
             buttons.push(
-                <Button {...tool.buttonProps(tmpTimer, true, buttons.length)}/>
+                <Button {...buttonProps(tmpTimer, true, buttons.length)}/>
             );
             tmpTimer.setDate(tmpTimer.getDate() + 1);
         }

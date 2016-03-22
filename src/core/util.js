@@ -94,6 +94,7 @@ define(function (require) {
          * @return {string} 根据tpl格式化好的事件
          */
         dateFormat: function (date, tpl) { //author: meizz
+            if (!(date instanceof Date)) return date;
             date = date || new Date();
             tpl = tpl || 'YYYY-MM-DD hh:mm:ss';
             var o = {

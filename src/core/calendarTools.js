@@ -1,6 +1,7 @@
 define(function (require) {
 
-    return {
+
+    var me = {
         // 将YYYY-MM-DD格式的字符串翻译成日期
         str2date: function (str) {
             var arr = (str + '').split('-');
@@ -16,17 +17,6 @@ define(function (require) {
             date.setSeconds(0);
             date.setMilliseconds(0);
             return date;
-        },
-        // 生成button props
-        buttonProps: function (timer, disable, key, skin) {
-            skin = skin || 'calendar';
-            return {
-                skin: skin,
-                minWidth: 12,
-                label: timer.getDate(),
-                disable: disable,
-                key: 'btns-' + key
-            };
         },
         // 比较两个日期，a和b。如果a、b是同一天返回0；a在b之前返回-1；否则返回1。
         compareDate: function (a, b) {
@@ -60,7 +50,112 @@ define(function (require) {
             var min = this.str2date(min);
             var max = this.str2date(max);
             return this.compareDate(min, lastDay) === -1 && this.compareDate(firstDay, max) === -1;
+        },
+        getDataRange: {
+            today: function () {
+                var value1 = new Date();
+                var value2 = value1;
+                return {
+                    ___v1: value1,
+                    ___v2: value2
+                };
+            },
+            yesterday: function () {
+                var value1 = new Date();
+                value1.setDate(value1.getDate() - 1);
+                var value2 = value1;
+                return {
+                    ___v1: value1,
+                    ___v2: value2
+                };
+            },
+            beforeYesterday: function () {
+                var value1 = new Date();
+                value1.setDate(value1.getDate() - 2);
+                var value2 = value1;
+                return {
+                    ___v1: value1,
+                    ___v2: value2
+                };
+            },
+            lastWeek: function () {
+                var value2 = new Date();
+                value2.setDate(value2.getDate() - (value2.getDay() === 0 ? 7 : value2.getDay()));
+                var value1 = new Date();
+                value1.setTime(value2.getTime());
+                value1.setDate(value1.getDate() - 6);
+                return {
+                    ___v1: value1,
+                    ___v2: value2
+                };
+            },
+            last7: function () {
+                var value2 = new Date();
+                value2.setDate(value2.getDate() - 1);
+                var value1 = new Date();
+                value1.setDate(value1.getDate() - 7);
+                return {
+                    ___v1: value1,
+                    ___v2: value2
+                };
+            },
+            last14: function () {
+                var value2 = new Date();
+                value2.setDate(value2.getDate() - 1);
+                var value1 = new Date();
+                value1.setDate(value1.getDate() - 14);
+                return {
+                    ___v1: value1,
+                    ___v2: value2
+                };
+            },
+            last30: function () {
+                var value2 = new Date();
+                value2.setDate(value2.getDate() - 1);
+                var value1 = new Date();
+                value1.setDate(value1.getDate() - 30);
+                return {
+                    ___v1: value1,
+                    ___v2: value2
+                };
+            },
+            currentMonth: function () {
+                var tmp = new Date();
+                var value1 = me.getFirstDayInMonth(tmp.getFullYear(), tmp.getMonth());
+                var value2 = me.getLastDayInMonth(tmp.getFullYear(), tmp.getMonth());
+                return {
+                    ___v1: value1,
+                    ___v2: value2
+                };
+            },
+            lastMonth: function () {
+                var tmp = new Date();
+                tmp = me.getFirstDayInMonth(tmp.getFullYear(), tmp.getMonth());
+                tmp.setDate(tmp.getDate() - 1);
+                var value1 = me.getFirstDayInMonth(tmp.getFullYear(), tmp.getMonth());
+                var value2 = me.getLastDayInMonth(tmp.getFullYear(), tmp.getMonth());
+                return {
+                    ___v1: value1,
+                    ___v2: value2
+                };
+            },
+            lastQuarter: function () {
+                var tmp = new Date();
+                var cMonth = tmp.getMonth();
+                var cYear = tmp.getFullYear();
+                var cQ = Math.floor((cMonth % 3 == 0 ? (cMonth / 3) : (cMonth / 3 + 1 ))) - 1;
+                var year = [cYear - 1, cYear, cYear, cYear];
+                var month = [[10, 12], [1, 3], [4, 6], [7, 9]];
+                var end = [null, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+                var value1 = me.str2date(year[cQ] + '-' + month[cQ][0] + '-1');
+                var value2 = me.str2date(year[cQ] + '-' + month[cQ][1] + '-' + end[month[cQ][1]]);
+                return {
+                    ___v1: value1,
+                    ___v2: value2
+                };
+            }
         }
     };
 
+    return me;
 });

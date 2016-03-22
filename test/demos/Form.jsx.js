@@ -12,7 +12,7 @@ define(function (require) {
     var Radio = require('fcui/Radio.jsx');
     var Calendar = require('fcui/Calendar.jsx');
     var DropDownCalendar = require('fcui/DropDownCalendar.jsx');
-
+    var RangeCalendar = require('fcui/RangeCalendar.jsx');
 
     return React.createClass({
         // @override
@@ -70,7 +70,7 @@ define(function (require) {
                     <table><tbody>
                         <tr>
                             <td>
-                                姓名：<TextBox name="name"/><br/>
+                                姓名：<TextBox name="name" value="abc"/><br/>
                                 年龄：<NumberBox name="age"/><br/>
                                 职业：
                                     <Select datasource={[
@@ -82,6 +82,7 @@ define(function (require) {
                                     <Radio label="甜豆腐脑" value="1" name="doufunao" labelPosition="right"/>
                                     <Radio label="咸豆腐脑" value="2" name="doufunao" labelPosition="right"/><br/>
                                 生日：<DropDownCalendar width="180" name="birthday"/><br/>
+                                休假：<RangeCalendar width="180" name="holiday"/><br/>
                                 简介：<TextArea className="form-textarea" name="intro"/>
                             </td>
                             <td>
