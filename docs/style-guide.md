@@ -220,32 +220,6 @@
     />
 ```
 
-- **必须**不在render方法中`bind(this)`到handler上。
-
-    > Why？React会自动bind所有的handler的scope为当前组件。
-
-    > 而且，在render中调用bind会导致每次render都生成一个新的function。
-
-```javascript
-    // bad
-    class extends React.Component {
-      render() {
-        return <div onClick={this.onClickDiv.bind(this)} />
-      }
-    }
-
-    // good
-    class extends React.Component {
-      onClickDiv() {
-        // do stuff
-      }
-
-      render() {
-        return <div onClick={this.onClickDiv} />
-      }
-    }
-```
-
 - **必须**以如下的顺序排列JSX文件中的方法。
   
   1. `displayName`
@@ -282,7 +256,7 @@
 - **建议**父子关系的组件间传递props时，使用[rest-spread语法] (https://facebook.github.io/react/docs/transferring-props.html)。
 - **必须**仅在实例化生命周期中绑定window或body事件。
 - **必须**在销毁期生命周期中解绑window或body事件。
-- **必须不**允许在运行期生命周期中声明表达式函数。bind函数也不允许。
+- **不应该**在运行期生命周期中声明表达式函数。
 
 ```javascript
     // bad
