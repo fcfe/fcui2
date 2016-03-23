@@ -20,7 +20,9 @@ define(function (require) {
             return {
                 ___uitype___: 'checkbox',
                 className: '',
+                style: {},
                 label: '',
+                value: '',
                 labelPosition: 'left',
                 disable: false,
                 valueTemplate: false
@@ -43,6 +45,7 @@ define(function (require) {
         render: function () {
             var containerProp = {
                 className: 'fcui2-checkbox ' + this.props.className,
+                style: {}
             };
             var labelProp = {
                 className: 'fcui2-checkbox-label' + (this.props.labelPosition === 'right' ? ' right-label' : ''),
@@ -50,10 +53,15 @@ define(function (require) {
             };
             var inputProp = {
                 type: 'checkbox',
+                value: this.props.value,
                 checked: this.___getValue___(),
                 onChange: this.changeHandler
             };
             this.___mergeInputHandlers___(inputProp, this.props);
+            for (var key in this.props.style) {
+                if (!this.props.style.hasOwnProperty(key)) continue;
+                containerProp.style[key] = this.props.style[key];
+            }
             if (this.props.disable) {
                 containerProp.className += ' fcui2-checkbox-disable';
             }

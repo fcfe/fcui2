@@ -13,6 +13,8 @@ define(function (require) {
     var Calendar = require('fcui/Calendar.jsx');
     var DropDownCalendar = require('fcui/DropDownCalendar.jsx');
     var RangeCalendar = require('fcui/RangeCalendar.jsx');
+    var Schedule = require('fcui/Schedule.jsx');
+
 
     return React.createClass({
         // @override
@@ -95,6 +97,12 @@ define(function (require) {
                                     <Radio label="大于195cm" value="5" name="height"/>
                                 </div>
                                 入职时间：<Calendar name="joinData"/>  
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan="3">
+                                空间时间：
+                                <Schedule name="freeTime"/>
                             </td>
                         </tr>
                     </tbody></table>
