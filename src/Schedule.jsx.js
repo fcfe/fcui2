@@ -222,6 +222,7 @@ define(function (require) {
                 labelPosition: 'right',
                 key: i,
                 value: i,
+                indeterminate: selected > 0,
                 checked: selected === 24,
                 style: {top: i * 24},
                 onChange: me.rowSelectorHandler

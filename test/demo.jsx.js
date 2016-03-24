@@ -21,6 +21,7 @@ define(function (require) {
     var DropDownCalendarDemo = require('./demos/DropDownCalendar.jsx');
     var RangeCalendarDemo = require('./demos/RangeCalendar.jsx');
     var ScheduleDemo = require('./demos/Schedule.jsx');
+    var DropDownScheduleDemo = require('./demos/DropDownSchedule.jsx');
 
 
     var ListItem = React.createClass({
@@ -92,6 +93,7 @@ define(function (require) {
                         <ListItem demo={this.props.demo} label="DropDownCalendar" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="RangeCalendar" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Schedule" onClick={this.changeDemo}/>
+                        <ListItem demo={this.props.demo} label="DropDownSchedule" onClick={this.changeDemo}/>
                         <hr/>
                         <ListItem demo={this.props.demo} label="Table" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Dialog" onClick={this.changeDemo}/>
@@ -119,6 +121,7 @@ define(function (require) {
                         <DropDownCalendarDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <RangeCalendarDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <ScheduleDemo demo={this.props.demo} alert={this.changeMessage}/>
+                        <DropDownScheduleDemo demo={this.props.demo} alert={this.changeMessage}/>
                     </div>
                     <div className="right-bottom-container" style={{display: 'none'}}></div>
                 </div>

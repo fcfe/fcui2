@@ -14,6 +14,7 @@ define(function (require) {
     var DropDownCalendar = require('fcui/DropDownCalendar.jsx');
     var RangeCalendar = require('fcui/RangeCalendar.jsx');
     var Schedule = require('fcui/Schedule.jsx');
+    var DropDownSchedule = require('fcui/DropDownSchedule.jsx');
 
 
     return React.createClass({
@@ -85,6 +86,7 @@ define(function (require) {
                                     <Radio label="咸豆腐脑" value="2" name="doufunao" labelPosition="right"/><br/>
                                 生日：<DropDownCalendar width="180" name="birthday"/><br/>
                                 休假：<RangeCalendar width="180" name="holiday"/><br/>
+                                保健：<DropDownSchedule width="180" name="heihei" label="大宝剑时段"/><br/>
                                 简介：<TextArea className="form-textarea" name="intro"/>
                             </td>
                             <td>

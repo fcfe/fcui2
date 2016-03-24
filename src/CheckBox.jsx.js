@@ -22,7 +22,8 @@ define(function (require) {
                 className: '',
                 style: {},
                 label: '',
-                value: '',
+                value: '',  // checkbox的value存在checked属性中，value中存的东西意义等同于radio的value
+                indeterminate: false,
                 labelPosition: 'left',
                 disable: false,
                 valueTemplate: false
@@ -31,6 +32,16 @@ define(function (require) {
         // @override
         getInitialState: function () {
             return {};
+        },
+        // @override
+        componentDidMount: function () {
+            var value = this.___getValue___();
+            this.refs.inputbox.indeterminate = !value && this.props.indeterminate;
+        },
+        // @override
+        componentDidUpdate: function () {
+            var value = this.___getValue___();
+            this.refs.inputbox.indeterminate = !value && this.props.indeterminate;
         },
         clickHandler: function (e) {
             if (this.props.disable) return;
