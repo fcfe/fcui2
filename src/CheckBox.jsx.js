@@ -59,7 +59,7 @@ define(function (require) {
                 style: {}
             };
             var labelProp = {
-                className: 'fcui2-checkbox-label' + (this.props.labelPosition === 'right' ? ' right-label' : ''),
+                className: 'fcui2-checkbox-label',
                 onClick: this.clickHandler
             };
             var inputProp = {
@@ -79,12 +79,12 @@ define(function (require) {
             else if (this.state.isValid === false) {
                 containerProp.className += ' fcui2-checkbox-reject';
             }
-            return (
-                <div {...containerProp}>
-                    <span {...labelProp}>{this.props.label}</span>
-                    <input {...inputProp} disabled={this.props.disable} ref="inputbox"/>
-                </div>
+            var doms = [];
+            doms.push(<input {...inputProp} disabled={this.props.disable} ref="inputbox" key="input"/>);
+            doms[this.props.labelPosition === 'right' ? 'push' : 'unshift'](
+                <span {...labelProp} key="label">{this.props.label}</span>
             );
+            return (<div {...containerProp}>{doms}</div>);
         }
     });
 });
