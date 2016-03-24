@@ -27,28 +27,29 @@ define(function (require) {
             return {
                 className: '',
                 disable: false,
-                valueTemplate: '742,743,744,745,746,747,748,749,750,751,752,753,'
-                    + '754,755,756,757,758,759,1,760,761,763,765,766,767,768,769,'
-                    + '770,771,772,773,774,776,777,900,3,413,414,415,416,417,418,'
-                    + '419,421,422,423,424,425,426,427,23,307,309,146'
+                valueTemplate: ''
             };
         },
         // @override
         getInitialState: function () {
             return {};
         },
+        changeHandler: function (e) {
+            if (this.props.disable) return;
+            var value = this.___getValue___();
+            value = tools.parseValue(value);
+            if (e.target.checked) {
+                tools.addValue(e.target.value, value);
+            }
+            else {
+                tools.deleteValue(e.target.value, value);
+            }
+            e.target = this.refs.container;
+            e.target.value = tools.stringifyValue(value);
+            this.___dispatchChange___(e);
+        },
         render: function () {
             var value = this.___getValue___();
-            // var cAxis = tools.gridAxis(this.state.mouseCurrentX, this.state.mouseCurrentY);
-            // var dragLayerProp = {
-            //     onMouseDown: this.optDownHandler,
-            //     onMouseUp: this.optUpHandler,
-            //     onMouseMove: this.optMoveHandler,
-            //     onMouseLeave: this.optLeaveHandler
-            // };
-            // var titleProp = {
-            //     style: tools.titleLayerSize(cAxis, this.state.mouseDownX > -1 || this.state.mouseCurrentX < 0)
-            // };
             return (
                 <div className={'fcui2-region ' + this.props.className} ref="container">
                     {countryFactory([90, 999, 0], value, this)}
@@ -58,18 +59,29 @@ define(function (require) {
     });
 
 
+    function checkboxFactory(id, value, me) {
+        var selected = tools.getSelectedState(id, value);
+        var prop = {
+            label: language.regionName[id],
+            labelPosition: 'right',
+            value: id,
+            disable: me.props.disable,
+            checked: selected.checked,
+            indeterminate: selected.indeterminate,
+            onChange: me.changeHandler
+        };
+        return <CheckBox {...prop}/>;
+    }
+
+
     function countryFactory(arr, value, me) {
         value = tools.parseValue(value);
         var doms = [];
         for (var i = 0; i < arr.length; i++) {
             doms.push(
                 <div key={arr[i]} className="country-area">
-                    <div className="country-title">
-                        <CheckBox label={language.regionName[arr[i]]} labelPosition="right" />
-                    </div>
-                    <div>
-                        {regionFactory(tools.config[arr[i]], value, me)}
-                    </div>
+                    <div className="country-title">{checkboxFactory(arr[i], value, me)}</div>
+                    <div>{regionFactory(tools.config[arr[i]], value, me)}</div>
                 </div>
             );
         }
@@ -83,12 +95,8 @@ define(function (require) {
         for (var i = 0; i < arr.length; i++) {
             doms.push(
                 <div key={arr[i]} className="region-area">
-                    <div className="region-left-container">
-                        <CheckBox label={language.regionName[arr[i]]} labelPosition="right" />
-                    </div>
-                    <div className="region-right-container">
-                        {provinceFactory(tools.config[arr[i]], value, me)}
-                    </div>
+                    <div className="region-left-container">{checkboxFactory(arr[i], value, me)}</div>
+                    <div className="region-right-container">{provinceFactory(tools.config[arr[i]], value, me)}</div>
                 </div>
             );
         }
@@ -100,7 +108,14 @@ define(function (require) {
         if (!arr) return '';
         var doms = [];
         for (var i = 0; i < arr.length; i++) {
-            doms.push(<RegionProvince key={arr[i]} id={arr[i]}/>);
+            var prop = {
+                key: arr[i],
+                id: arr[i],
+                value: value,
+                disable: me.props.disable,
+                onChange: me.changeHandler
+            }
+            doms.push(<RegionProvince {...prop}/>);
         }
         return doms;
     }

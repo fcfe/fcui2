@@ -12,8 +12,6 @@ define(function (require) {
     var LayerContainerBase = require('../mixins/LayerContainerBase');
     var CheckBox = require('../CheckBox.jsx');
 
-
-    var util = require('../core/util');
     var tools = require('../core/regionTools');
     var language = require('../core/language').region;
 
@@ -29,22 +27,41 @@ define(function (require) {
                 id: -1,
                 value: {},
                 onChange: function () {},
-                layerContent: require('../Calendar.jsx'),
+                layerContent: require('./RegionProvinceLayer.jsx'),
                 layerProps: {},
                 layerInterface: 'onChange'
             };
         },
         // @override
         getInitialState: function () {
-            return {};
+            return {
+                hover: false
+            };
+        },
+        // @override
+        componentDidUpdate: function () {
+            if (this.___layer___) {
+                this.layerShow({
+                    datasource: tools.config[this.props.id],
+                    value: this.props.value
+                });
+            }
         },
         layerAction: function (e) {
             if (this.props.disable) return;
+            this.props.onChange(e);
+        },
+        changeHandler: function (e) {
+            if (this.props.disable) return;
+            this.props.onChange(e);
         },
         mouseEnterHandler: function (e) {
             this.___mouseenterHandler___();
-            if (this.props.disable) return;
-            this.layerShow();
+            if (this.props.disable || !tools.config[this.props.id] || tools.config[this.props.id].length < 1) return;
+            this.layerShow({
+                datasource: tools.config[this.props.id],
+                value: this.props.value
+            });
         },
         render: function () {
             var containerProp = {
@@ -53,11 +70,20 @@ define(function (require) {
                 onMouseLeave: this.___mouseleaveHandler___,
                 onMouseEnter: this.mouseEnterHandler
             };
-            return (
-                <div {...containerProp}>
-                    <CheckBox label={language.regionName[this.props.id]} labelPosition="right"/>
-                </div>
-            );
+            var selected = tools.getSelectedState(this.props.id, this.props.value);
+            var checkboxProp = {
+                label: language.regionName[this.props.id],
+                labelPosition: 'right',
+                disable: this.props.disable,
+                value: this.props.id,
+                checked: selected.checked,
+                indeterminate: selected.indeterminate,
+                onChange: this.changeHandler
+            };
+            if (this.state.hover) {
+                containerProp.style = {border: '1px solid #C8C8C8'};
+            }
+            return <div {...containerProp}><CheckBox {...checkboxProp}/></div>;
         }
     });
 
