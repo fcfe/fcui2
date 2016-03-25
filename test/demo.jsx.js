@@ -53,7 +53,7 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 demo: 'Button',
-                title: 'FCUI v2.0.0',
+                title: 'FCUI v2.0.1',
                 dispatch: function () {}
             };
         },

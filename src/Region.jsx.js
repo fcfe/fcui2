@@ -11,7 +11,7 @@ define(function (require) {
     var InputWidgetBase = require('./mixins/InputWidgetBase');
     var InputWidgetInForm = require('./mixins/InputWidgetInForm');
     var CheckBox = require('./CheckBox.jsx');
-    var RegionProvince = require('./components/RegionProvince.jsx');
+    var RegionProvince = require('./components/region/NormalProvince.jsx');
 
 
     var util = require('./core/util');
@@ -27,6 +27,7 @@ define(function (require) {
             return {
                 className: '',
                 disable: false,
+                provinceRenderer: RegionProvince,
                 valueTemplate: ''
             };
         },
@@ -107,15 +108,17 @@ define(function (require) {
     function provinceFactory(arr, value, me) {
         if (!arr) return '';
         var doms = [];
+        var renderer = typeof me.props.provinceRenderer === 'function' ? me.props.provinceRenderer : RegionProvince;
         for (var i = 0; i < arr.length; i++) {
             var prop = {
                 key: arr[i],
                 id: arr[i],
                 value: value,
+                parent: me,
                 disable: me.props.disable,
                 onChange: me.changeHandler
             }
-            doms.push(<RegionProvince {...prop}/>);
+            doms.push(React.createElement(renderer, prop));
         }
         return doms;
     }

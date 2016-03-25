@@ -10,6 +10,13 @@ define(function (require) {
             props: {}
         },
         {
+            title: 'Region with ProvinceRenderer',
+            onChange: true,
+            props: {
+                provinceRenderer: require('fcui/components/region/StatisticsProvince.jsx')
+            }
+        },
+        {
             title: 'Disabled Region',
             onChange: true,
             props: {disable: true}

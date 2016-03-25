@@ -8,12 +8,12 @@ define(function (require) {
 
 
     var React = require('react');
-    var MouseWidgetBase = require('../mixins/MouseWidgetBase');
-    var LayerContainerBase = require('../mixins/LayerContainerBase');
-    var CheckBox = require('../CheckBox.jsx');
+    var MouseWidgetBase = require('../../mixins/MouseWidgetBase');
+    var LayerContainerBase = require('../../mixins/LayerContainerBase');
+    var CheckBox = require('../../CheckBox.jsx');
 
-    var tools = require('../core/regionTools');
-    var language = require('../core/language').region;
+    var tools = require('../../core/regionTools');
+    var language = require('../../core/language').region;
 
 
     return React.createClass({   
@@ -27,7 +27,7 @@ define(function (require) {
                 id: -1,
                 value: {},
                 onChange: function () {},
-                layerContent: require('./RegionProvinceLayer.jsx'),
+                layerContent: require('./NormalProvinceLayer.jsx'),
                 layerProps: {},
                 layerInterface: 'onChange'
             };

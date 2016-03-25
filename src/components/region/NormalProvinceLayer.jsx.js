@@ -8,9 +8,9 @@ define(function (require) {
 
 
     var React = require('react');
-    var MouseWidgetBase = require('../mixins/MouseWidgetBase');
-    var CheckBox = require('../CheckBox.jsx');
-    var language = require('../core/language').region;
+    var MouseWidgetBase = require('../../mixins/MouseWidgetBase');
+    var CheckBox = require('../../CheckBox.jsx');
+    var language = require('../../core/language').region;
 
 
     return React.createClass({   
