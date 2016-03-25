@@ -41,7 +41,7 @@ define(function (require) {
         // @override
         componentDidUpdate: function () {
             if (this.___layer___) {
-                this.layerShow({
+                this.layerUpdateProp({
                     datasource: tools.config[this.props.id],
                     value: this.props.value
                 });

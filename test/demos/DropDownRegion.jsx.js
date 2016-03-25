@@ -1,36 +1,36 @@
 define(function (require) {
 
     var React = require('react');
-    var Region = require('fcui/Region.jsx');
+    var DropDownRegion = require('fcui/DropDownRegion.jsx');
 
     var items = [
         {
-            title: 'Normal Region',
+            title: 'Normal DropDownRegion',
             onChange: true,
             props: {}
         },
         {
-            title: 'Disabled Region',
+            title: 'Disabled DropDownRegion',
             onChange: true,
             props: {disable: true}
         },
         {
-            title: 'Region with ClassName',
+            title: 'DropDownRegion with ClassName',
             onChange: true,
-            props: {className: 'border2'}
+            props: {className: 'floatRight border2'}
         },
         {
-            title: 'Readonly Region',
+            title: 'Readonly DropDownRegion',
             onChange: true,
             props: {value: '124,16,243,246,249,250,252,253,254,255,256,257,258,261,262,263,266,267,268,760,774,776,901'}
         },
         {
-            title: 'Region with ValueLinker',
+            title: 'DropDownRegion with ValueLinker',
             valueLink: true,
             props: {}
         },
         {
-            title: 'Custom Link Region',
+            title: 'Custom Link DropDownRegion',
             customLink: true,
             props: {}
         }
@@ -64,7 +64,7 @@ define(function (require) {
                 <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>
                     <div className="props">{conf}</div>
-                    <Region {...prop}/>
+                    <DropDownRegion {...prop}/>
                     <span>{me.state[item.title]}</span>
                 </div>
             );
@@ -78,7 +78,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                demo: 'Region',
+                demo: 'DropDownRegion',
                 alert: function () {}
             };
         },
@@ -93,7 +93,7 @@ define(function (require) {
             var containerProp = {
                 className: 'demo-content',
                 style: {
-                    display: this.props.demo === 'Region' ? 'block' : 'none'
+                    display: this.props.demo === 'DropDownRegion' ? 'block' : 'none'
                 }
             };
             return (<div {...containerProp}>{factory(this, items)}</div>);

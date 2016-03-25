@@ -39,22 +39,26 @@ define(function (require) {
             this.___dispatchChange___(e);
             this.layerHide();
         },
-        mouseEnterHandler: function (e) {
-            this.___mouseenterHandler___();
+        clickHandler: function (e) {
             if (this.props.disable) return;
+            if (this.___layer___) {
+                this.layerHide();
+                return;
+            }
             this.layerShow({
                 shortCut: this.props.shortCut,
                 value: this.___getValue___(),
                 close: this.layerHide
-            });
+            }, true);
         },
         render: function () {
             var me = this;
             var containerProp = {
                 className: 'fcui2-dropdownlist ' + this.props.className,
                 style: {minWidth: this.props.minWidth},
-                onMouseEnter: this.mouseEnterHandler,
+                onMouseEnter: this.___mouseenterHandler___,
                 onMouseLeave: this.___mouseleaveHandler___,
+                onClick: this.clickHandler,
                 ref: 'container'
             };
             if (this.props.disable) {

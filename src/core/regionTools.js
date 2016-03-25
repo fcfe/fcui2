@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var parent = {
+    var ancestors = {
         '1':'80','2':'82','3':'80','4':'85','5':'87','6':'87','7':'87','8':'82','9':'82','10':'86',
         '11':'84','12':'84','13':'85','14':'84','15':'80','16':'83','17':'81','18':'83','19':'83',
         '20':'81','21':'82','22':'82','23':'81','24':'80','25':'86','26':'86','27':'82','28':'80',
@@ -59,7 +59,7 @@ define(function (require) {
         '835':'2','836':'2','837':'2','867':'14','868':'14','869':'32','870':'32','900':'3','901':'16'
     };
 
-    var config = {
+    var filiation = {
         '1': [742, 743, 744, 745, 746, 747, 748, 749, 750, 751, 752, 753, 754, 755, 756, 757, 758, 759],
         '2': [818, 819, 820, 821, 822, 823, 824, 825, 826, 827, 830, 831, 832, 833, 834, 835, 836, 837],
         '3': [760, 761, 763, 765, 766, 767, 768, 769, 770, 771, 772, 773, 774, 776, 777, 900],
@@ -105,7 +105,9 @@ define(function (require) {
 
     return {
 
-        config: config,
+        ancestors: ancestors,
+
+        filiation: filiation,
 
         getSelectedState: function (id, value) {
             var result = {
@@ -114,7 +116,7 @@ define(function (require) {
                 selected: 0,
                 total: 0
             };
-            findChildren(config[id]);
+            findChildren(filiation[id]);
             result.checked = value[id] || (result.selected === result.total && result.total > 0);
             result.indeterminate = result.selected > 0 && !result.checked;
             return result;
@@ -124,7 +126,7 @@ define(function (require) {
                     var key = arr[i];
                     result.total += 1;
                     result.selected += value[key] === true ? 1 : 0;
-                    findChildren(config[key]);
+                    findChildren(filiation[key]);
                 }
             }
         },
@@ -134,12 +136,12 @@ define(function (require) {
             // 添加当前
             value[key] = true;
             // 添加子孙
-            addChildren(config[key]);
+            addChildren(filiation[key]);
             // 添加祖先
             addParent(key);
             function addParent(id) {
-                while (parent.hasOwnProperty(id)) {
-                    id = parent[id];
+                while (ancestors.hasOwnProperty(id)) {
+                    id = ancestors[id];
                     var selected = me.getSelectedState(id, value);
                     if (selected.selected === selected.total && selected.total !== 0) {
                         value[id] = true;
@@ -150,7 +152,7 @@ define(function (require) {
                 if (!arr || !arr.length) return;
                 for (var i = 0; i < arr.length; i++) {
                     value[arr[i]] = true;
-                    addChildren(config[arr[i]]);
+                    addChildren(filiation[arr[i]]);
                 }
             }
         },
@@ -159,12 +161,12 @@ define(function (require) {
             // 删除当前
             delete value[key];
             // 删除子孙;
-            deleteChildren(config[key]);
+            deleteChildren(filiation[key]);
             // 删除祖先
             deleteParent(key);
             function deleteParent(id) {
-                while (parent.hasOwnProperty(id)) {
-                    id = parent[id];
+                while (ancestors.hasOwnProperty(id)) {
+                    id = ancestors[id];
                     delete value[id];
                 }
             }
@@ -172,7 +174,7 @@ define(function (require) {
                 if (!arr || !arr.length) return;
                 for (var i = 0; i < arr.length; i++) {
                     delete value[arr[i]];
-                    deleteChildren(config[arr[i]]);
+                    deleteChildren(filiation[arr[i]]);
                 }
             } 
         },

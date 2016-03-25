@@ -81,7 +81,7 @@ define(function (require) {
             doms.push(
                 <div key={arr[i]} className="country-area">
                     <div className="country-title">{checkboxFactory(arr[i], value, me)}</div>
-                    <div>{regionFactory(tools.config[arr[i]], value, me)}</div>
+                    <div>{regionFactory(tools.filiation[arr[i]], value, me)}</div>
                 </div>
             );
         }
@@ -96,7 +96,7 @@ define(function (require) {
             doms.push(
                 <div key={arr[i]} className="region-area">
                     <div className="region-left-container">{checkboxFactory(arr[i], value, me)}</div>
-                    <div className="region-right-container">{provinceFactory(tools.config[arr[i]], value, me)}</div>
+                    <div className="region-right-container">{provinceFactory(tools.filiation[arr[i]], value, me)}</div>
                 </div>
             );
         }
