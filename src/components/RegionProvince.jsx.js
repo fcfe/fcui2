@@ -42,7 +42,7 @@ define(function (require) {
         componentDidUpdate: function () {
             if (this.___layer___) {
                 this.layerUpdateProp({
-                    datasource: tools.config[this.props.id],
+                    datasource: tools.filiation[this.props.id],
                     value: this.props.value
                 });
             }
@@ -57,9 +57,11 @@ define(function (require) {
         },
         mouseEnterHandler: function (e) {
             this.___mouseenterHandler___();
-            if (this.props.disable || !tools.config[this.props.id] || tools.config[this.props.id].length < 1) return;
+            if (this.props.disable || !tools.filiation[this.props.id] || tools.filiation[this.props.id].length < 1) {
+                return;
+            }
             this.layerShow({
-                datasource: tools.config[this.props.id],
+                datasource: tools.filiation[this.props.id],
                 value: this.props.value
             });
         },
@@ -83,7 +85,14 @@ define(function (require) {
             if (this.state.hover) {
                 containerProp.style = {border: '1px solid #C8C8C8'};
             }
-            return <div {...containerProp}><CheckBox {...checkboxProp}/></div>;
+            return (
+                <div {...containerProp}>
+                    <CheckBox {...checkboxProp}/>
+                    <span style={{display: selected.selected > 0 ? 'inline' : 'none'}}>
+                        {selected.selected + '/' + selected.total}
+                    </span>
+                </div>
+            );
         }
     });
 
