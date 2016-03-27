@@ -6,7 +6,6 @@
 define(function (require) {
     let _ = require('underscore');
     let React = require('react');
-    let util = require('./core/util.es6');
 
     /**
      * 一个树节点的定义
@@ -94,7 +93,7 @@ define(function (require) {
         },
 
         onTreeNodeClicked(e) {
-            this.props.onTreeNodeClicked.call(null, e, this.props.treeNode);            
+            this.props.onTreeNodeClicked.call(null, e, this.props.treeNode);
         },
 
         render() {
@@ -219,7 +218,7 @@ define(function (require) {
                     return {
                         paddingLeft: (level * 0.5) + 'em'
                     };
-                },
+                }
             };
         },
 
@@ -259,7 +258,7 @@ define(function (require) {
                 expandedTreeNodeId[treeNode.id] = true;
             }
             this.setState({
-                expandedTreeNodeId: expandedTreeNodeId
+                expandedTreeNodeId
             });
         },
 
@@ -298,7 +297,7 @@ define(function (require) {
                 onTreeNodeExpandClicked: this.onTreeNodeExpandClicked,
                 onTreeNodeClicked: this.onTreeNodeClicked,
                 onTreeNodeOperationClicked: this.onTreeNodeOperationClicked
-            }
+            };
         },
 
         getTreeNodeProps() {
