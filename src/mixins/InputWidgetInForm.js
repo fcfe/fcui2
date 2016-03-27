@@ -67,6 +67,7 @@ define(function (require) {
         componentDidUpdate: function () {
             if (
                 !this.___formAttached___
+                || !this.state
                 || !this.state.___beOperated___
                 || !tools.isCallbackExist(this, 'updateField')
             ) {

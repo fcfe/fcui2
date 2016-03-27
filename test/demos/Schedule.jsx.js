@@ -1,47 +1,73 @@
 define(function (require) {
 
     var React = require('react');
-    var CheckBox = require('fcui/CheckBox.jsx');
+    var Schedule = require('fcui/Schedule.jsx');
+
+    function strFactory(l, a) {
+        var s = '';
+        while (l > 0) {
+            s += a;
+            l--;
+        }
+        return s;
+    }
 
     var items = [
         {
-            title: 'Normal CheckBox',
+            title: 'Normal Schedule',
             onChange: true,
             props: {}
         },
         {
-            title: 'CheckBox with ClassName',
+            title: 'Schedule with ClassName',
             onChange: true,
-            props: {label: '请选择：', className: 'marginLeft100 border2'}
+            props: {className: 'marginLeft100 border2'}
         },
         {
-            title: 'CheckBox with Label',
+            title: 'Readonly Schedule',
             onChange: true,
-            props: {label: '请选择：'}
+            props: {value: '111000000111110001011010000011111110011110001111111111001111'}
         },
         {
-            title: 'CheckBox with Indeterminate',
+            title: 'Disabled Schedule',
             onChange: true,
-            props: {indeterminate: true}
+            props: {disable: true, value: '111000000111110001011010000011111110011110001111111111001111'}
         },
         {
-            title: 'CheckBox with right Label',
+            title: 'Schedule with ShortCut',
             onChange: true,
-            props: {label: '这是啥', labelPosition: 'right'}
+            props: {
+                className: 'border2',
+                shortCut: [
+                    {
+                        label: '全选',
+                        getValues: function () {
+                            return strFactory(24 * 7, 1);
+                        }
+                    },
+                    {
+                        label: '工作日',
+                        getValues: function () {
+                            return strFactory(24 * 5, 1) + strFactory(24 * 2, 0);
+                        }
+                    },
+                    {
+                        label: '休息日',
+                        getValues: function () {
+                            return strFactory(24 * 5, 0) + strFactory(24 * 2, 1);
+                        }
+                    }
+                ]
+            }
         },
         {
-            title: 'Disabled CheckBox',
-            onChange: true,
-            props: {disable: true, label: '请选择'}
-        },
-        {
-            title: 'Readonly CheckBox',
-            onChange: true,
-            props: {checked: true}
-        },
-        {
-            title: 'CheckBox with ValueLink',
+            title: 'Schedule with ValueLinker',
             valueLink: true,
+            props: {}
+        },
+        {
+            title: 'Custom Link Schedule',
+            customLink: true,
             props: {}
         }
     ];
@@ -49,7 +75,7 @@ define(function (require) {
     function setter(me, field) {
         return function (e) {
             var obj = {};
-            obj[field] = e.target.checked + '';
+            obj[field] = e.target.value;
             me.setState(obj);
         }
     }
@@ -74,8 +100,8 @@ define(function (require) {
                 <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>
                     <div className="props">{conf}</div>
-                    <CheckBox {...prop}/>
-                    <span>{me.state[item.title] === undefined ? '' : me.state[item.title] + ''}</span>
+                    <Schedule {...prop}/>
+                    <span>{me.state[item.title]}</span>
                 </div>
             );
         }
@@ -88,7 +114,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                demo: 'CheckBox',
+                demo: 'Schedule',
                 alert: function () {}
             };
         },
@@ -97,13 +123,13 @@ define(function (require) {
             return {};
         },
         changeHandler: function (e) {
-            this.props.alert(e.target.checked + '');
+            this.props.alert(e.target.value);
         },
         render: function () {
             var containerProp = {
                 className: 'demo-content',
                 style: {
-                    display: this.props.demo === 'CheckBox' ? 'block' : 'none'
+                    display: this.props.demo === 'Schedule' ? 'block' : 'none'
                 }
             };
             return (<div {...containerProp}>{factory(this, items)}</div>);

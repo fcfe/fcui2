@@ -1,47 +1,44 @@
 define(function (require) {
 
     var React = require('react');
-    var CheckBox = require('fcui/CheckBox.jsx');
+    var Region = require('fcui/Region.jsx');
 
     var items = [
         {
-            title: 'Normal CheckBox',
+            title: 'Normal Region',
             onChange: true,
             props: {}
         },
         {
-            title: 'CheckBox with ClassName',
+            title: 'Region with ProvinceRenderer',
             onChange: true,
-            props: {label: '请选择：', className: 'marginLeft100 border2'}
+            props: {
+                provinceRenderer: require('fcui/components/region/StatisticsProvince.jsx')
+            }
         },
         {
-            title: 'CheckBox with Label',
+            title: 'Disabled Region',
             onChange: true,
-            props: {label: '请选择：'}
+            props: {disable: true}
         },
         {
-            title: 'CheckBox with Indeterminate',
+            title: 'Region with ClassName',
             onChange: true,
-            props: {indeterminate: true}
+            props: {className: 'border2'}
         },
         {
-            title: 'CheckBox with right Label',
+            title: 'Readonly Region',
             onChange: true,
-            props: {label: '这是啥', labelPosition: 'right'}
+            props: {value: '124,16,243,246,249,250,252,253,254,255,256,257,258,261,262,263,266,267,268,760,774,776,901'}
         },
         {
-            title: 'Disabled CheckBox',
-            onChange: true,
-            props: {disable: true, label: '请选择'}
-        },
-        {
-            title: 'Readonly CheckBox',
-            onChange: true,
-            props: {checked: true}
-        },
-        {
-            title: 'CheckBox with ValueLink',
+            title: 'Region with ValueLinker',
             valueLink: true,
+            props: {}
+        },
+        {
+            title: 'Custom Link Region',
+            customLink: true,
             props: {}
         }
     ];
@@ -49,7 +46,7 @@ define(function (require) {
     function setter(me, field) {
         return function (e) {
             var obj = {};
-            obj[field] = e.target.checked + '';
+            obj[field] = e.target.value;
             me.setState(obj);
         }
     }
@@ -74,8 +71,8 @@ define(function (require) {
                 <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>
                     <div className="props">{conf}</div>
-                    <CheckBox {...prop}/>
-                    <span>{me.state[item.title] === undefined ? '' : me.state[item.title] + ''}</span>
+                    <Region {...prop}/>
+                    <span>{me.state[item.title]}</span>
                 </div>
             );
         }
@@ -88,7 +85,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                demo: 'CheckBox',
+                demo: 'Region',
                 alert: function () {}
             };
         },
@@ -97,13 +94,13 @@ define(function (require) {
             return {};
         },
         changeHandler: function (e) {
-            this.props.alert(e.target.checked + '');
+            this.props.alert(e.target.value);
         },
         render: function () {
             var containerProp = {
                 className: 'demo-content',
                 style: {
-                    display: this.props.demo === 'CheckBox' ? 'block' : 'none'
+                    display: this.props.demo === 'Region' ? 'block' : 'none'
                 }
             };
             return (<div {...containerProp}>{factory(this, items)}</div>);

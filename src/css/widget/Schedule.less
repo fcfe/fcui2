@@ -1,0 +1,137 @@
+@import "../skin.less";
+
+.fcui2-schedule {
+
+    width: 650px;
+    cursor: default;
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+
+    .fast-operation-bar {
+        margin-left: 10px;
+        font-size: 12px;
+        >div:last-child {
+            border-right: 0px;
+        }
+        >div {
+            display: inline-block;
+            min-width: 30px;
+            padding: 0 5px;
+            color: #888888;
+            text-align: center;
+            border-right: @border-normal;
+            cursor: pointer;
+            moz-user-select: -moz-none;
+            -moz-user-select: none;
+            -o-user-select:none;
+            -khtml-user-select:none;
+            -webkit-user-select:none;
+            -ms-user-select:none;
+            user-select:none;
+        }
+        div:hover {
+            color: @color-active;
+        }
+    }
+
+    .column-area {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        >div:first-child {
+            margin-left: 78px;
+        }
+        >div {
+            display: inline-block;
+            width: 24px;
+            color: @color-disable;
+            cursor: pointer;
+        }
+        >div:hover {
+            color: @color-active;
+        }
+    }
+    .row-area {
+        position: relative;
+        width: 70px;
+        height: 170px;
+        .fcui2-checkbox {
+            position: absolute !important;
+            left: 5px;
+            height: 24px;
+        }
+    }
+    .opt-area {
+        float: right;
+        position: relative;
+        overflow: hidden;
+        width: 578px;
+        height: 170px;
+    }
+    .axis-area {
+        font-size: 12px;
+        >div:first-child {
+            margin-left: 50px;
+        }
+        >div {
+            display: inline-block;
+            width: 48px;
+            text-align: center;
+        }
+    }
+
+    .grid-layer {
+        position: absolute;
+        width: 577px;
+        height: 169px;
+        background-color: #FBFBFB;
+        border-left: 1px solid #ECECEC;
+        border-top: 1px solid #ECECEC;
+        >div {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-right: 1px solid #ECECEC;
+            border-bottom: 1px solid #ECECEC;
+        }
+    }
+    .drag-layer,.label-layer {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 577px;
+        height: 169px;
+    }
+    .label-layer {
+        >div {
+            position: absolute;
+            background-color: rgba(0, 128, 0, 0.5);
+            font-size: 12px;
+            text-align: center;
+            color: #fff;
+            line-height: 23px;
+        }
+    }
+    .cursor-layer {
+        position: absolute;
+        border: 1px solid @color-active;
+    }
+    .title-layer {
+        position: absolute;
+        font-size: 12px;
+        text-align: center;
+        background-color: @bgcolor-active;
+        border: @border-normal;
+        -webkit-box-shadow: @shadow-normal;
+        -moz-box-shadow: @shadow-normal;
+        box-shadow: @shadow-normal;
+        >div {
+            line-height: 30px;
+        }
+    }
+}

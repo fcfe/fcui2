@@ -23,6 +23,7 @@ define(function (require) {
                 label: 'Button',
                 title: '',
                 icon: '',
+                style: {},
                 type: 'button', // 用于form：button, submit, reset
                 name: '',       // 用于form
                 value: '',
@@ -59,6 +60,10 @@ define(function (require) {
                 value: this.props.label,
                 key: 'button' 
             };
+            for (var key in this.props.style) {
+                if (!this.props.style.hasOwnProperty(key)) continue;
+                containerProp.style[key] = this.props.style[key];
+            }
             if (this.props.disable) {
                 containerProp.className += ' fcui2-button-disable';
             }

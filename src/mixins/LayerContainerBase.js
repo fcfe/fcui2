@@ -116,7 +116,7 @@ define(function (require) {
                 // 开始定位
                 var pos = util.getDOMPosition(container);
                 var top = (pos.y + container.offsetHeight + height < document.documentElement.clientHeight)
-                    ? (pos.top + container.offsetHeight) : (pos.top - height);
+                    ? (pos.top + container.offsetHeight - 1) : (pos.top - height);
                 var left = pos.x + width < document.documentElement.clientWidth ?
                     pos.left : (pos.left + container.offsetWidth - width);
                 layerContainer.style.left = left + 'px';

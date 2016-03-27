@@ -21,17 +21,6 @@ define(function (require) {
     var Button = require('./Button.jsx');
     var NumberBox = require('./NumberBox.jsx');
 
-    // 生成button props
-    function buttonProps(timer, disable, key, skin) {
-        skin = skin || 'calendar';
-        return {
-            skin: skin,
-            minWidth: 12,
-            label: timer.getDate(),
-            disable: disable,
-            key: 'btns-' + key
-        };
-    }
 
     return React.createClass({
         // @override
@@ -174,6 +163,23 @@ define(function (require) {
             );
         }
     });
+
+
+    // 生成button props
+    function buttonProps(timer, disable, key, skin) {
+        skin = skin || 'calendar';
+        return {
+            style: {
+                left: (key % 7) * 32,
+                top: parseInt(key / 7, 10) * 32
+            },
+            skin: skin,
+            minWidth: 12,
+            label: timer.getDate(),
+            disable: disable,
+            key: 'btns-' + key
+        };
+    }
 
 
     function produceDayLabel(v) {
