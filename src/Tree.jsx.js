@@ -235,14 +235,13 @@ define(function (require) {
         },
 
         onTreeNodeExpandClicked(e, treeNode, parentTreeNodes) {
+            this.props.onTreeNodeExpandClicked.apply(
+                null, e, treeNode, parentTreeNodes || this.props.parentTreeNodes
+            );
+
             if (this.props.parentTreeNodes.length) {
-                this.props.onTreeNodeExpandClicked.apply(
-                    null, e, treeNode, parentTreeNodes || this.props.parentTreeNodes
-                );
                 return;
             }
-
-            this.props.onTreeNodeExpandClicked.apply(null, arguments);
 
             if (e.isDefaultPrevented()) {
                 return;
@@ -263,14 +262,13 @@ define(function (require) {
         },
 
         onTreeNodeClicked(e, treeNode, parentTreeNodes) {
+            this.props.onTreeNodeClicked.apply(
+                null, e, treeNode, parentTreeNodes || this.props.parentTreeNodes
+            );
+
             if (this.props.parentTreeNodes.length) {
-                this.props.onTreeNodeClicked.apply(
-                    null, e, treeNode, parentTreeNodes || this.props.parentTreeNodes
-                );
                 return;
             }
-
-            this.props.onTreeNodeClicked.apply(null, arguments);
 
             if (e.isDefaultPrevented()) {
                 return;
@@ -282,14 +280,9 @@ define(function (require) {
         },
 
         onTreeNodeOperationClicked(e, treeNode, parentTreeNodes) {
-            if (this.props.parentTreeNodes.length) {
-                this.props.onTreeNodeOperationClicked.apply(
-                    null, e, treeNode, parentTreeNodes || this.props.parentTreeNodes
-                );
-                return;
-            }
-
-            this.props.onTreeNodeOperationClicked.apply(null, arguments);
+            this.props.onTreeNodeOperationClicked.apply(
+                null, e, treeNode, parentTreeNodes || this.props.parentTreeNodes
+            );
         },
 
         getHandlers() {
