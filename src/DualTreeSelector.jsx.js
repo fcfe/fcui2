@@ -4,17 +4,26 @@
  */
 
 define(function (require) {
-    var _ = require('underscore');
-    var React = require('react');
-    var Tree = require('./Tree.jsx');
-    var treeUtil = require('./core/treeUtil.es6');
+    let _ = require('underscore');
+    let React = require('react');
+    var InputWidgetBase = require('./mixins/InputWidgetBase');
+    var InputWidgetInForm = require('./mixins/InputWidgetInForm');
+    let Tree = require('./Tree.jsx');
 
-    var DualTreeSelector = React.createClass({
+    let DualTreeSelector = React.createClass({
         propTypes: {
             /**
              * 全部可选节点的列表
              */
             treeNodes: React.PropTypes.arrayOf(Tree.treeNodeType),
+            /**
+             * 已选节点的id集合
+             */
+            value: React.PropTypes.objectOf(React.PropTypes.bool),
+            /**
+             * 左树的tree node name filter。
+             */
+            leftTreeFilter: React.PropTypes.string,
             /**
              * 左子树的宽度，px
              */
@@ -23,10 +32,6 @@ define(function (require) {
              * 右子树的宽度，px
              */
             rightTreeWidth: React.PropTypes.number,
-            /**
-             * 左树的tree node name filter。
-             */
-            leftTreeFilter: React.PropTypes.string,
             /**
              * 选择器中树的高度，px
              */
@@ -44,66 +49,40 @@ define(function (require) {
              */
             textLeftTreeSummary: React.PropTypes.string,
             /**
-             * 右树的节点叶子限制
+             * 左树左下角的提示话术
              */
-            rightTreeLimit: React.PropTypes.number,
+            leftTreeSummary: React.PropTypes.string,
             /**
-             * 已选节点的id集合
+             * 右树右下角的提示话术
              */
-            selectedTreeNodeId: React.PropTypes.objectOf(React.PropTypes.bool),
+            rightTreeSummary: React.PropTypes.string,
             /**
-             * 当所做选择会使得右树超量时的回调，参数为超量后的右树叶子数
+             * 树点击选择按钮后的回调。
+             * @param {object} onChange.e 选择后的树节点
              */
-            onRightTreeOverLimit: React.PropTypes.func,
-            /**
-             * 树节点选择动作开始前的回调，参数为被移动节点，可返回true阻止选择发生
-             */
-            beforeTreeNodeSelect: React.PropTypes.func,
-            /**
-             * 当树节点选择动作完成时的回调，参数为被移动节点
-             */
-            afterTreeNodeSelect: React.PropTypes.func,
+            onChange: React.PropTypes.func,
             /**
              * 左树节点展开时的回调
+             * @param {SyntheticEvent} onLeftTreeNodeExpand.e 点击事件对象
+             * @param {treeNodeType} onLeftTreeNodeExpand.treeNode 被操作的树节点数据
+             * @param {Array<treeNodeType>} onLeftTreeNodeExpand.parentTreeNodes 当前节点的父节点列表
              */
             onLeftTreeNodeExpand: React.PropTypes.func
         },
 
-        getInitialState: function () {
-            return {
-                selectedTreeNodeId: this.props.selectedTreeNodeId || {}
-            };
-        },
+        mixins: [InputWidgetBase, InputWidgetInForm],
 
-        componentWillMount: function () {
-            this.updateCache();
-        },
-
-        componentWillReceiveProps: function (nextProps) {
-            this.setState(_.pick(nextProps, 'selectedTreeNodeId'));
-            this.updateCache();
-        },
-
-        getDefaultProps: function () {
+        getDefaultProps() {
             return {
                 leftTreeWidth: 310,
                 rightTreeWidth: 310,
                 height: 380,
                 leftTreeTitle: '可选项目',
                 rightTreeTitle: '已选项目',
+                onTreeNodeSelect: _.noop,
+                afterTreeNodeSelect: _.noop,
                 onLeftTreeNodeExpand: _.noop
             };
-        },
-
-        /**
-         * 当this.props中的treeNodes发生了改变后，调用此方法更新本地的 parent cache 和 node cache。
-         * TODO React Pioneers: 此方法的调用不应该是外部的责任。但目前props中的数据结构是mutable的，
-         *  或者说不足够复杂，无法响应外部的修改，因此不得不让外部在修改了props中的数据结构以后调用此方法。
-         *  我们下一个问题就需要考虑，如何为 fcui2 components 乃至更远的 React 业务 Components 设计
-         *  通用的数据结构方案。
-         */
-        updateCache: function () {
-            this._cache = treeUtil.getCache(this.props.treeNodes);
         },
 
         /**
@@ -189,14 +168,14 @@ define(function (require) {
             return _.extend({}, this.state.selectedTreeNodeId);
         },
 
-        render: function () {
-            var {
+        render() {
+            let {
                 leftTreeWidth,
                 rightTreeWidth,
                 leftTreeTitle,
                 rightTreeTitle,
                 height,
-                textLeftTreeSummary
+                ...others
             } = this.props;
 
             var selectedTreeNodes = treeUtil.getMarkedTreeNodes(
