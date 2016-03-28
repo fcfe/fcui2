@@ -14,26 +14,150 @@ define(function (require) {
             props: {
                 treeNodes: [{
                     id: '1',
-                    name: 'Node 1'
+                    name: 'Node 1',
+                    isChildrenLoaded: true
                 }, {
                     id: '2',
-                    name: 'Node 2'
+                    name: 'Node 2',
+                    isChildrenLoaded: true
+                }]
+            }
+        },
+        {
+            title: 'Tree with children',
+            props: {
+                treeNodes: [{
+                    id: '1',
+                    name: 'Node 1 with children',
+                    isChildrenLoaded: true,
+                    children: [{
+                        id: '1.1',
+                        name: 'Node 1.1',
+                        isChildrenLoaded: true
+                    }, {
+                        id: '1.2',
+                        name: 'Node 1.2',
+                        isChildrenLoaded: true
+                    }]
+                }, {
+                    id: '2',
+                    name: 'Node 2',
+                    isChildrenLoaded: true
+                }]
+            }
+        },
+        {
+            title: '3-level Tree with children',
+            props: {
+                treeNodes: [{
+                    id: '1',
+                    name: 'Node 1 with children',
+                    isChildrenLoaded: true,
+                    children: [{
+                        id: '1.1',
+                        name: 'Node 1.1 with children',
+                        isChildrenLoaded: true,
+                        children: [{
+                            id: '1.1.1',
+                            name: 'Node 1.1.1',
+                            isChildrenLoaded: true                                
+                        }]
+                    }, {
+                        id: '1.2',
+                        name: 'Node 1.2',
+                        isChildrenLoaded: true
+                    }]
+                }, {
+                    id: '2',
+                    name: 'Node 2',
+                    isChildrenLoaded: true
+                }]
+            }
+        },
+        {
+            title: 'Tree with filter set to "2"',
+            props: {
+                nameFilter: '2',
+                treeNodes: [{
+                    id: '1',
+                    name: 'Node 1',
+                    isChildrenLoaded: true
+                }, {
+                    id: '2',
+                    name: 'Node 2',
+                    isChildrenLoaded: true
                 }]
             }
         }
     ];
 
+    let asyncState = 'initial';
+
     function factory(me, items) {
         let widgets = [];
-        function alertEvents(eventType, e, treeNodes, parentTreeNodes) {
+        let omitChildren = _.partial(
+            _.omit, _, 'children'
+        );
+        function alertEvents(eventType, e, treeNode, parentTreeNodes) {
             me.props.alert(
                 eventType
                 + ' | '
-                + JSON.stringify(treeNodes)
+                + JSON.stringify(omitChildren(treeNode))
                 + ' | '
-                + JSON.stringify(parentTreeNodes)
-            )
+                + JSON.stringify(parentTreeNodes.map(omitChildren))
+            );
         }
+        // the async one
+        function asyncOnTreeNodeExpandClicked(e, treeNode, parentTreeNodes) {
+            if (treeNode.isChildrenLoaded) {
+                alertEvents('expand', e, treeNode, parentTreeNodes);
+                return;
+            }
+
+            e.preventDefault();
+
+            asyncState = 'loading';
+
+            me.forceUpdate();
+
+            setTimeout(() => {
+                asyncState = 'loaded';
+                me.forceUpdate();
+            }, 1000);
+        }
+        items = items.concat({
+            title: 'Tree with children with async loading',
+            props: {
+                onTreeNodeExpandClicked: asyncOnTreeNodeExpandClicked,
+                expandedTreeNodeId: asyncState === 'loaded'
+                    ? {
+                        1: true
+                    }
+                    : {},
+                treeNodes: [{
+                    id: '1',
+                    name: 'Node 1 with children with async loading',
+                    isChildrenLoaded: asyncState === 'loaded',
+                    isChildrenLoading: asyncState === 'loading',
+                    children: asyncState === 'loaded'
+                        ? [{
+                            id: '1.1',
+                            name: 'Node 1.1',
+                            isChildrenLoaded: true
+                        }, {
+                            id: '1.2',
+                            name: 'Node 1.2',
+                            isChildrenLoaded: true
+                        }]
+                        : []
+                }, {
+                    id: '2',
+                    name: 'Node 2',
+                    isChildrenLoaded: true
+                }]
+            }
+        });
+
         for (let i = 0; i < items.length; i++) {
             let item = items[i];
             let prop = item.props;
