@@ -1,51 +1,28 @@
+/**
+ * @file Tree Demo
+ * @author Han Bing Feng (hanbingfeng@)
+ */
+
 define(function (require) {
+    let React = require('react');
+    let Tree = require('fcui/Tree.jsx');
 
-
-    var React = require('react');
-    var Tip = require('fcui/Tip.jsx');
-
-    var items = [
+    let items = [
         {
-            title: 'Normal Tip',
-            props: {title: 'It is tip\'s title', content: 'blablablabla'}
-        },
-        {
-            title: 'Tip with Icon',
-            props: {title: 'It is tip\'s title', content: 'blablablabla', icon: 'font-icon-warning'}
-        },
-        {
-            title: 'Tip with ClassName',
-            props: {className: 'colorRed', title: 'It is tip\'s title', content: 'blablablabla'}
-        },
-        {
-            title: 'Tip without Title',
-            props: {content: 'blablablabla'}
-        },
-        {
-            title: 'Tip without Content',
-            props: {title: 'It is tip\'s title'}
-        },
-        {
-            title: 'Tip with html in Content',
-            props: {title: 'It is tip\'s title', content: '<img width="300px" src="https://www.baidu.com/img/bd_logo1.png"/>'}
-        },
-        {
-            title: 'Tip without props',
-            props: {}
         }
     ];
 
     function factory(me, items) {
-        var widgets = [];
-        for (var i = 0; i < items.length; i++) {
-            var item = items[i];
-            var prop = item.props;
-            var conf = JSON.stringify(prop);
+        let widgets = [];
+        for (let i = 0; i < items.length; i++) {
+            let item = items[i];
+            let prop = item.props;
+            let conf = JSON.stringify(prop);
             widgets.push(
                 <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>
                     <div className="props">{conf}</div>
-                    <Tip {...prop}/>
+                    <Tree {...prop}/>
                 </div>
             );
         }
@@ -54,17 +31,17 @@ define(function (require) {
 
     return React.createClass({
         // @override
-        getDefaultProps: function () {
+        getDefaultProps() {
             return {
                 demo: 'Tree',
-                alert: function () {}
+                alert() {}
             };
         },
-        clickHandler: function (e) {
+        clickHandler(e) {
             this.props.alert(e.target.value);
         },
-        render: function () {
-            var containerProp = {
+        render() {
+            let containerProp = {
                 className: 'demo-content',
                 style: {
                     display: this.props.demo === 'Tree' ? 'block' : 'none'
