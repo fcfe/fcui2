@@ -166,7 +166,7 @@ define(function (require) {
                 onMouseLeave: this.___mouseleaveHandler___
             };
             var enterButtonProp = {
-                disable: typeof this.state.rangeValidationResult === 'string'
+                disabled: typeof this.state.rangeValidationResult === 'string'
                     && this.state.rangeValidationResult.length > 0,
                 label: language.enter,
                 skin: 'important',

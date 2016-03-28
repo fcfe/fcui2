@@ -12,7 +12,7 @@ define(function (require) {
         {
             title: 'Disabled DropDownRegion',
             onChange: true,
-            props: {disable: true}
+            props: {disabled: true}
         },
         {
             title: 'DropDownRegion with ClassName',
@@ -74,7 +74,7 @@ define(function (require) {
 
 
     return React.createClass({
-        mixins: [React.addons.LinkedStateMixin],
+        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
         // @override
         getDefaultProps: function () {
             return {

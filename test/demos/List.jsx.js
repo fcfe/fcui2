@@ -19,7 +19,7 @@ define(function (require) {
         {
             title: 'Disabled List',
             props: {
-                disable: true,
+                disabled: true,
                 datasource: [
                     {label: 'option1', value: 'option1'},
                     {label: 'option2', value: 'option2'},
@@ -34,7 +34,7 @@ define(function (require) {
             props: {
                 datasource: [
                     {label: 'option1', value: 'option1'},
-                    {label: 'option2', value: 'option2', disable: true},
+                    {label: 'option2', value: 'option2', disabled: true},
                     {label: 'option3', value: 'option3'},
                     {label: 'option4', value: 'option4'},
                     {label: 'option5', value: 'option5'}
@@ -47,11 +47,11 @@ define(function (require) {
                 width: 200,
                 datasource: [
                     {label: 'option1', value: 'option1'},
-                    {label: 'option2', value: 'option2', disable: true},
+                    {label: 'option2', value: 'option2', disabled: true},
                     {label: 'option3', value: 'option3'},
                     {label: 'option4', value: 'option4', children: [
                         {label: 'option11', value: 'option11'},
-                        {label: 'option12', value: 'option12', disable: true},
+                        {label: 'option12', value: 'option12', disabled: true},
                         {label: 'option13', value: 'option13', children: [
                             {label: 'option131', value: 'option131'},
                             {label: 'option132', value: 'option132'},
@@ -88,7 +88,7 @@ define(function (require) {
 
 
     return React.createClass({
-        mixins: [React.addons.LinkedStateMixin],
+        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
         // @override
         getDefaultProps: function () {
             return {

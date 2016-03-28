@@ -27,7 +27,7 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 className: '',
-                disable: false,
+                disabled: false,
                 /**
                  * 快捷按钮配置
                  * 上方的快捷按钮配置，按钮的一切都由外部导入，包括处理函数，元素格式如下：
@@ -47,7 +47,7 @@ define(function (require) {
             };
         },
         optDownHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             var pos = util.getDOMPosition(this.refs.optArea);
             this.setState({
                 mouseDownX: e.clientX - pos.x,
@@ -55,7 +55,7 @@ define(function (require) {
             });
         },
         optMoveHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             var pos = util.getDOMPosition(this.refs.optArea);
             this.setState({
                 mouseCurrentX: e.clientX - pos.x,
@@ -63,14 +63,14 @@ define(function (require) {
             });
         },
         optUpHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             e.target = this.refs.container;
             e.target.value = tools.updateValueByMouse(this.___getValue___(), this.state);
             this.___dispatchChange___(e);
             this.setState({mouseDownX: -1, mouseDownY: -1});
         },
         optLeaveHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             this.setState({
                 mouseDownX: -1,
                 mouseDownY: -1,
@@ -79,7 +79,7 @@ define(function (require) {
             });
         },
         columnSelectorHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             var i = util.getDataset(e.target).uiCmd * 1;
             var value = this.___getValue___();
             var selected = tools.selectedCount(value, {x: i, y: 0}, {x: i, y: 6});
@@ -88,7 +88,7 @@ define(function (require) {
             this.___dispatchChange___(e);
         },
         rowSelectorHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             var i = e.target.value * 1;
             var v = e.target.checked;
             var value = this.___getValue___();
@@ -97,7 +97,7 @@ define(function (require) {
             this.___dispatchChange___(e);
         },
         shortCutClickHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             var i = util.getDataset(e.target).uiCmd * 1;
             e.target = this.refs.container;
             e.target.value = this.props.shortCut[i].getValues(this.___getValue___());

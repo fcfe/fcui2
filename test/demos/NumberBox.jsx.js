@@ -52,7 +52,7 @@ define(function (require) {
         {
             title: 'Disabled NumberBox',
             onChange: true,
-            props: {disable: true}
+            props: {disabled: true}
         },
         {
             title: 'NumberBox with Width',
@@ -109,7 +109,7 @@ define(function (require) {
 
 
     return React.createClass({
-        mixins: [React.addons.LinkedStateMixin],
+        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
         // @override
         getDefaultProps: function () {
             return {

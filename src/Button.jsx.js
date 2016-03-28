@@ -28,7 +28,7 @@ define(function (require) {
                 name: '',       // 用于form
                 value: '',
                 skin: '',
-                disable: false,
+                disabled: false,
                 onClick: function () {}
             };
         },
@@ -37,7 +37,7 @@ define(function (require) {
             return {};
         },
         clickHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             e.target = this.refs.container;
             e.target.value = this.props.value;
             this.props.onClick(e);
@@ -64,8 +64,8 @@ define(function (require) {
                 if (!this.props.style.hasOwnProperty(key)) continue;
                 containerProp.style[key] = this.props.style[key];
             }
-            if (this.props.disable) {
-                containerProp.className += ' fcui2-button-disable';
+            if (this.props.disabled) {
+                containerProp.className += ' fcui2-button-disabled';
             }
             else {
                 if (this.state.mousedown) {

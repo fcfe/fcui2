@@ -27,7 +27,7 @@ define(function (require) {
         },
         {
             title: 'Disabled Button',
-            props: {label: 'Button Disabled', disable: true, value: 'disabled button'}
+            props: {label: 'Button Disabled', disabled: true, value: 'disabled button'}
         },
         {
             title: 'Button with Icon and Skin',
@@ -66,6 +66,7 @@ define(function (require) {
     }
 
     return React.createClass({
+        mixins: [React.addons.PureRenderMixin],
         // @override
         getDefaultProps: function () {
             return {

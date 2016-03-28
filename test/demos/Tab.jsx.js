@@ -1,16 +1,16 @@
 define(function (require) {
 
     var React = require('react');
-    var DropDownList = require('fcui/DropDownList.jsx');
+    var Tab = require('fcui/Tab.jsx');
 
     var items = [
         {
-            title: 'Normal DropDownList',
+            title: 'Normal Tab',
+            onChange: true,
             props: {
-                label: 'Command List',
                 datasource: [
                     {label: 'option1', value: 'option1'},
-                    {label: 'option2', value: 'option2', disabled: true},
+                    {label: 'option2', value: 'option2'},
                     {label: 'option3', value: 'option3'},
                     {label: 'option4', value: 'option4'},
                     {label: 'option5', value: 'option5'}
@@ -18,9 +18,24 @@ define(function (require) {
             }
         },
         {
-            title: 'Disabled DropDownList',
+            title: 'Disabled Tab',
+            onChange: true,
             props: {
                 disabled: true,
+                value: 'option1',
+                datasource: [
+                    {label: 'option1', value: 'option1'},
+                    {label: 'option2', value: 'option2'},
+                    {label: 'option3', value: 'option3'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'}
+                ]
+            }
+        },
+        {
+            title: 'Tab with Disabled Item',
+            onChange: true,
+            props: {
                 datasource: [
                     {label: 'option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disabled: true},
@@ -31,37 +46,39 @@ define(function (require) {
             }
         },
         {
-            title: 'DropDownList without Datasource',
-            props: {
-                value: 'option3',
-                datasource: []
-            }
-        },
-        {
-            title: 'DropDownList with MinWidth and a very long Option',
+            title: 'Readonly Tab',
             onChange: true,
             props: {
-                placeholder: 'select',
-                minWidth: 200,
+                value: 'option3',
                 datasource: [
-                    {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
+                    {label: 'option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disabled: true},
-                    {label: 'option3', value: 'option3', disabled: true},
+                    {label: 'option3', value: 'option3'},
                     {label: 'option4', value: 'option4'},
                     {label: 'option5', value: 'option5'}
                 ]
             }
         },
         {
-            title: 'DropDownList with ClassName',
-            onChange: true,
+            title: 'Tab with ValueLink',
+            valueLink: true,
             props: {
-                placeholder: 'select',
-                width: 150,
-                className: 'floatRight',
                 datasource: [
-                    {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
-                    {label: 'option2', value: 'option2', disabled: true},
+                    {label: 'option1', value: 'option1'},
+                    {label: 'option2', value: 'option2'},
+                    {label: 'option3', value: 'option3'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'}
+                ]
+            }
+        },
+        {
+            title: 'Custom Link Tab',
+            customLink: true,
+            props: {
+                datasource: [
+                    {label: 'option1', value: 'option1'},
+                    {label: 'option2', value: 'option2'},
                     {label: 'option3', value: 'option3'},
                     {label: 'option4', value: 'option4'},
                     {label: 'option5', value: 'option5'}
@@ -84,12 +101,21 @@ define(function (require) {
             var item = items[i];
             var prop = item.props;
             var conf = JSON.stringify(prop);
-            prop.onClick = me.changeHandler;
+            if (item.onChange) prop.onChange = me.changeHandler;
+            if (item.valueLink) {
+                prop.valueLink = me.linkState(item.title);
+                conf = '{valueLink: this.linkState(\'message\')}';
+            }
+            if (item.customLink) {
+                prop.value = me.state[item.title];
+                prop.onChange = setter(me, item.title);
+                conf = '{value: this.state.message, onChange: this.changeHandler}';
+            }
             widgets.push(
                 <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>
                     <div className="props">{conf}</div>
-                    <DropDownList {...prop}/>
+                    <Tab {...prop}/>
                     <span>{me.state[item.title]}</span>
                 </div>
             );
@@ -103,7 +129,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                demo: 'DropDownList',
+                demo: 'Tab',
                 alert: function () {}
             };
         },
@@ -118,7 +144,7 @@ define(function (require) {
             var containerProp = {
                 className: 'demo-content',
                 style: {
-                    display: this.props.demo === 'DropDownList' ? 'block' : 'none'
+                    display: this.props.demo === 'Tab' ? 'block' : 'none'
                 }
             };
             return (<div {...containerProp}>{factory(this, items)}</div>);

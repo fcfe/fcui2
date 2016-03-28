@@ -20,7 +20,7 @@ define(function (require) {
                 className: '',
                 width: 200,
                 placeholder: '',
-                disable: false,
+                disabled: false,
                 valueTemplate: '' // 值的模板，当用户不通过value和valueLink传入值控制时，根据此项在state中保存临时操作值
             };
         },
@@ -29,7 +29,7 @@ define(function (require) {
             return {};
         },
         changeHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             this.___dispatchChange___(e);
         },
         focus: function () {
@@ -53,8 +53,8 @@ define(function (require) {
                 onChange: this.changeHandler
             };
             this.___mergeInputHandlers___(inputProp, this.props);
-            if (this.props.disable) {
-                containerProp.className += ' fcui2-textbox-disable'
+            if (this.props.disabled) {
+                containerProp.className += ' fcui2-textbox-disabled'
             }
             else if (this.state.isValid === false) {
                 containerProp.className += ' fcui2-textbox-reject'
@@ -62,7 +62,7 @@ define(function (require) {
             return (
                 <div {...containerProp}>
                     <div {...placeholderProp}>{this.props.placeholder}</div>
-                    <input {...inputProp} disabled={this.props.disable} ref="inputbox"/>
+                    <input {...inputProp} disabled={this.props.disabled} ref="inputbox"/>
                 </div>
             );
         }

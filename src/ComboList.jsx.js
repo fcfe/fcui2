@@ -23,7 +23,7 @@ define(function (require) {
                 label: 'ComboList',
                 icon: '',
                 value: '',
-                disable: false,
+                disabled: false,
                 datasource: [], // 见List
                 onClick: function () {},
                 // 以下为LayerContainerBase中需要的配置
@@ -33,19 +33,19 @@ define(function (require) {
             };
         },
         layerAction: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             this.props.onClick(e);
             this.layerHide();
             e.stopPropagation();
         },
         mainButtonClickHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             this.props.onClick(e);
             e.stopPropagation();
             this.layerHide();
         },
         dropDownButtonClickHandler: function (e) {
-            if (this.props.disable || this.props.datasource.length === 0) return;
+            if (this.props.disabled || this.props.datasource.length === 0) return;
             this.layerShow();
         },
         render: function () {
@@ -58,15 +58,15 @@ define(function (require) {
             };
             var mainButtonProp = {
                 label: this.props.label,
-                disable: this.props.disable,
+                disabled: this.props.disabled,
                 value: this.props.value,
                 icon: this.props.icon,
                 skin: 'important',
                 className: 'main-button',
                 onClick: this.mainButtonClickHandler
             };
-            if (this.props.disable) {
-                containerProp.className += ' fcui2-combolist-disable';
+            if (this.props.disabled) {
+                containerProp.className += ' fcui2-combolist-disabled';
             }
             return (
                 <div {...containerProp}>

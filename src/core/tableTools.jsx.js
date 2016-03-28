@@ -94,7 +94,7 @@ define(function (require) {
                 var selectorProp = {
                     selected: me.getSelectedHash(),
                     tableItems: me.props.datasource,
-                    disable: me.props.disable,
+                    disabled: me.props.disabled,
                     onClick: me.rowSelect
                 };
                 td.push(<td key="head-selector" className="head-selector"><TableSelector {...selectorProp}/></td>);
@@ -173,7 +173,7 @@ define(function (require) {
                         type: 'checkbox',
                         className: 'tr-selector',
                         checked: selected,
-                        disabled: me.props.disable,
+                        disabled: me.props.disabled,
                         'data-ui-cmd': index,
                         onChange: me.rowSelect,
                     };

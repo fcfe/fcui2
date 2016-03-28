@@ -32,7 +32,7 @@ define(function (require) {
         {
             title: 'Disabled CheckBox',
             onChange: true,
-            props: {disable: true, label: '请选择'}
+            props: {disabled: true, label: '请选择'}
         },
         {
             title: 'Readonly CheckBox',
@@ -84,7 +84,7 @@ define(function (require) {
 
 
     return React.createClass({
-        mixins: [React.addons.LinkedStateMixin],
+        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
         // @override
         getDefaultProps: function () {
             return {

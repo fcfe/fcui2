@@ -23,7 +23,7 @@ define(function (require) {
                 label: '',
                 value: '',
                 labelPosition: 'left',
-                disable: false,
+                disabled: false,
                 valueTemplate: false
             };
         },
@@ -32,7 +32,7 @@ define(function (require) {
             return {};
         },
         clickHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             e.target = this.refs.inputbox;
             if (!e.target.checked) {
                 e.target.checked = !e.target.checked;
@@ -40,7 +40,7 @@ define(function (require) {
             }
         },
         changeHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             this.___dispatchChange___(e);
         },
         render: function () {
@@ -59,8 +59,8 @@ define(function (require) {
                 onChange: this.changeHandler
             };
             this.___mergeInputHandlers___(inputProp, this.props);
-            if (this.props.disable) {
-                containerProp.className += ' fcui2-checkbox-disable';
+            if (this.props.disabled) {
+                containerProp.className += ' fcui2-checkbox-disabled';
             }
             else if (this.state.isValid === false) {
                 containerProp.className += ' fcui2-checkbox-reject';
@@ -68,7 +68,7 @@ define(function (require) {
             return (
                 <div {...containerProp}>
                     <span {...labelProp}>{this.props.label}</span>
-                    <input {...inputProp} disabled={this.props.disable} ref="inputbox"/>
+                    <input {...inputProp} disabled={this.props.disabled} ref="inputbox"/>
                 </div>
             );
         }

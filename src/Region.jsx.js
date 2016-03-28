@@ -26,7 +26,7 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 className: '',
-                disable: false,
+                disabled: false,
                 provinceRenderer: RegionProvince,
                 valueTemplate: ''
             };
@@ -36,7 +36,7 @@ define(function (require) {
             return {};
         },
         changeHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             var value = this.___getValue___();
             value = tools.parseValue(value);
             if (e.target.checked) {
@@ -66,7 +66,7 @@ define(function (require) {
             label: language.regionName[id],
             labelPosition: 'right',
             value: id,
-            disable: me.props.disable,
+            disabled: me.props.disabled,
             checked: selected.checked,
             indeterminate: selected.indeterminate,
             onChange: me.changeHandler
@@ -115,7 +115,7 @@ define(function (require) {
                 id: arr[i],
                 value: value,
                 parent: me,
-                disable: me.props.disable,
+                disabled: me.props.disabled,
                 onChange: me.changeHandler
             }
             doms.push(React.createElement(renderer, prop));
