@@ -101,11 +101,11 @@ define(function (require) {
                         <ListItem demo={this.props.demo} label="DropDownSchedule" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Region" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="DropDownRegion" onClick={this.changeDemo}/>
+                        <ListItem demo={this.props.demo} label="Tree" onClick={this.changeDemo}/>
                         <hr/>
                         <ListItem demo={this.props.demo} label="Table" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Dialog" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Form" onClick={this.changeDemo}/>
-                        <ListItem demo={this.props.demo} label="Tree" onClick={this.changeDemo}/>
                         <hr/>
                     </div>
                     <div className="right-top-container">{this.state.message}</div>

@@ -179,6 +179,7 @@ define(function (require) {
     }
 
     return React.createClass({
+        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
         // @override
         getDefaultProps() {
             return {
