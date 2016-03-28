@@ -24,6 +24,7 @@ define(function (require) {
     var DropDownScheduleDemo = require('./demos/DropDownSchedule.jsx');
     var RegionDemo = require('./demos/Region.jsx');
     var DropDownRegionDemo = require('./demos/DropDownRegion.jsx');
+    var TreeDemo = require('./demos/Tree.jsx');
 
 
     var ListItem = React.createClass({
@@ -102,6 +103,7 @@ define(function (require) {
                         <ListItem demo={this.props.demo} label="Table" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Dialog" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Form" onClick={this.changeDemo}/>
+                        <ListItem demo={this.props.demo} label="Tree" onClick={this.changeDemo}/>
                         <hr/>
                     </div>
                     <div className="right-top-container">{this.state.message}</div>
@@ -128,6 +130,7 @@ define(function (require) {
                         <DropDownScheduleDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <RegionDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <DropDownRegionDemo demo={this.props.demo} alert={this.changeMessage}/>
+                        <TreeDemo demo={this.props.demo} alert={this.changeMessage} />
                     </div>
                     <div className="right-bottom-container" style={{display: 'none'}}></div>
                 </div>
