@@ -235,8 +235,8 @@ define(function (require) {
         },
 
         onTreeNodeExpandClicked(e, treeNode, parentTreeNodes) {
-            this.props.onTreeNodeExpandClicked.apply(
-                null, e, treeNode, parentTreeNodes || this.props.parentTreeNodes
+            this.props.onTreeNodeExpandClicked(
+                e, treeNode, parentTreeNodes || this.props.parentTreeNodes
             );
 
             if (this.props.parentTreeNodes.length) {
@@ -262,8 +262,8 @@ define(function (require) {
         },
 
         onTreeNodeClicked(e, treeNode, parentTreeNodes) {
-            this.props.onTreeNodeClicked.apply(
-                null, e, treeNode, parentTreeNodes || this.props.parentTreeNodes
+            this.props.onTreeNodeClicked(
+                e, treeNode, parentTreeNodes || this.props.parentTreeNodes
             );
 
             if (this.props.parentTreeNodes.length) {
@@ -280,8 +280,8 @@ define(function (require) {
         },
 
         onTreeNodeOperationClicked(e, treeNode, parentTreeNodes) {
-            this.props.onTreeNodeOperationClicked.apply(
-                null, e, treeNode, parentTreeNodes || this.props.parentTreeNodes
+            this.props.onTreeNodeOperationClicked(
+                e, treeNode, parentTreeNodes || this.props.parentTreeNodes
             );
         },
 
