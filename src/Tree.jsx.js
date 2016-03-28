@@ -30,7 +30,7 @@ define(function (require) {
         /**
          * 所有孩子
          */
-        children: React.PropTypes.arrayOf(treeNodeType)
+        children: React.PropTypes.array
     });
 
     let TreeNode = React.createClass({
