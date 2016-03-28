@@ -70,6 +70,10 @@ define(function (require) {
         for (var index = 0; index < datasource.length; index++) {
             var treeIndex = level + '-' + index;
             var item = datasource[index];
+            if (item.hr) {
+                result.push(<hr key={treeIndex}/>);
+                continue;
+            }
             var children = item.children instanceof Array ? item.children : [];
             var itemProp = {
                 className: 'item' + (item.disabled || disabled ? ' disabled' : ''),

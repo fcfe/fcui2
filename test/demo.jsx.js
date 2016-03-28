@@ -25,6 +25,7 @@ define(function (require) {
     var RegionDemo = require('./demos/Region.jsx');
     var DropDownRegionDemo = require('./demos/DropDownRegion.jsx');
     var TabDemo = require('./demos/Tab.jsx');
+    var SearchBoxDemo = require('./demos/SearchBox.jsx');
     var CrumbDemo = require('./demos/Crumb.jsx');
     var TreeDemo = require('./demos/Tree.jsx');
 
@@ -81,7 +82,6 @@ define(function (require) {
                     <div className="logo">{this.props.title}</div>
                     <div className="left-container">
                         <ListItem demo={this.props.demo} label="Tip" onClick={this.changeDemo}/>
-                        <hr/>
                         <ListItem demo={this.props.demo} label="Button" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="List" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="DropDownList" onClick={this.changeDemo}/>
@@ -103,6 +103,7 @@ define(function (require) {
                         <ListItem demo={this.props.demo} label="DropDownSchedule" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Region" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="DropDownRegion" onClick={this.changeDemo}/>
+                        <ListItem demo={this.props.demo} label="SearchBox" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Tree" onClick={this.changeDemo}/>
                         <hr/>
                         <ListItem demo={this.props.demo} label="Table" onClick={this.changeDemo}/>
@@ -136,6 +137,7 @@ define(function (require) {
                         <DropDownRegionDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <CrumbDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <TabDemo demo={this.props.demo} alert={this.changeMessage}/>
+                        <SearchBoxDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <TreeDemo demo={this.props.demo} alert={this.changeMessage} />
                     </div>
                     <div className="right-bottom-container" style={{display: 'none'}}></div>

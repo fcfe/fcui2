@@ -39,7 +39,7 @@ define(function (require) {
         for (var i = 0; i < me.props.datasource.length; i++) {
             var item = me.props.datasource[i];
             if (!item.hasOwnProperty('href') || me.props.disabled || item.disabled) {
-                doms.push(<span key={'n' + i} className="fcui2-crumb-label">item.label</span>);
+                doms.push(<span key={'n' + i} className="fcui2-crumb-label">{item.label}</span>);
             }
             else {
                 doms.push(<a key={'l' + i} href={item.href} target={item.target}>{item.label}</a>);

@@ -11,6 +11,7 @@ define(function (require) {
                 placeholder: 'select',
                 datasource: [
                     {label: 'option1', value: 'option1'},
+                    {hr: true},
                     {label: 'option2', value: 'option2', disabled: true},
                     {label: 'option3', value: 'option3'},
                     {label: 'option4', value: 'option4'},
