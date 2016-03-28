@@ -269,11 +269,12 @@
 
 *[基本的JSX书写规范] (#jsx-jsx) 和 [通用的React组件开发规范] (#general-guide) 基础上，开发fcui2组件的规范。*
 
-### 文件分布
+### 工具文件分布
 
-- **可以**将只是某个特定组件才使用的方法，从jsx文件中提取出来，放置于`fcui2/src/core/`目录下，文件名必须为`<组件名>Tools.js`，PascalCase。
-- **必须**将能被所有组件公共使用的方法，放在`fcui2/src/core/tools.js`文件中。
-- **必须**将不但fcui2可以使用，任何其他项目都可以使用的方法，放在`fcui2/src/core/util.js`文件中。
+- **可以**将只是某个特定组件才使用的方法，从jsx文件中提取出来，放置于`fcui2/src/core/`目录下，文件名必须为`<组件名>Tools.js`，PascalCase。**可以**在这个文件中放置操作该组件特定的数据结构的方法。
+- **可以**将能被所有组件公共使用的，与React机制相关的方法（如公用的merge style，class name的逻辑等），放在`fcui2/src/core/ComponentUtils.js`文件中。
+- **可以**将与React机制无关的方法，如操作DOM的公用方法等，放在`fcui2/src/core/util.js`文件中。
+- **可以**在fcui2项目之外，视情况使用上述三个文件中提供的方法。
 
 ### 组件
 
