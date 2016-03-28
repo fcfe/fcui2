@@ -214,6 +214,7 @@ define(function (require) {
                 textLoading: '加载中...',
                 nameFilter: null,
                 parentTreeNodes: [],
+                treeNodes: [],
                 getTreeLevelStyle(level) {
                     return {
                         paddingLeft: (level * 0.5) + 'em'
@@ -246,6 +247,8 @@ define(function (require) {
             if (e.isDefaultPrevented()) {
                 return;
             }
+
+            e.stopPropagation();
 
             let expandedTreeNodeId;
 
@@ -283,6 +286,8 @@ define(function (require) {
             this.props.onTreeNodeOperationClicked(
                 e, treeNode, parentTreeNodes || this.props.parentTreeNodes
             );
+            
+            e.stopPropagation();
         },
 
         getHandlers() {
