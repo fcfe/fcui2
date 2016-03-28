@@ -22,7 +22,7 @@ define(function (require) {
         {
             title: 'Disabled TextArea',
             onChange: true,
-            props: {disable: true}
+            props: {disabled: true}
         },
         {
             title: 'TextArea with Placeholder',
@@ -84,7 +84,7 @@ define(function (require) {
 
 
     return React.createClass({
-        mixins: [React.addons.LinkedStateMixin],
+        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
         // @override
         getDefaultProps: function () {
             return {

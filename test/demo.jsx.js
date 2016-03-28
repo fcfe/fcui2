@@ -24,6 +24,7 @@ define(function (require) {
     var DropDownScheduleDemo = require('./demos/DropDownSchedule.jsx');
     var RegionDemo = require('./demos/Region.jsx');
     var DropDownRegionDemo = require('./demos/DropDownRegion.jsx');
+    var TabDemo = require('./demos/Tab.jsx');
     var TreeDemo = require('./demos/Tree.jsx');
 
 
@@ -85,6 +86,7 @@ define(function (require) {
                         <ListItem demo={this.props.demo} label="DropDownList" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="ComboList" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Pager" onClick={this.changeDemo}/>
+                        <ListItem demo={this.props.demo} label="Tab" onClick={this.changeDemo}/>
                         <hr/>
                         <ListItem demo={this.props.demo} label="CheckBox" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Radio" onClick={this.changeDemo}/>
@@ -130,6 +132,7 @@ define(function (require) {
                         <DropDownScheduleDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <RegionDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <DropDownRegionDemo demo={this.props.demo} alert={this.changeMessage}/>
+                        <TabDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <TreeDemo demo={this.props.demo} alert={this.changeMessage} />
                     </div>
                     <div className="right-bottom-container" style={{display: 'none'}}></div>

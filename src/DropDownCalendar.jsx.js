@@ -28,7 +28,7 @@ define(function (require) {
                 placeholder: 'please select',
                 min: '0-1-1',
                 max: '9999-12-31',
-                disable: false,
+                disabled: false,
                 valueTemplate: '',
                 // 以下为LayerContainerBase中需要的配置
                 layerContent: require('./Calendar.jsx'),
@@ -42,7 +42,7 @@ define(function (require) {
         },
         layerAction: function (e) {
             var value = this.___getValue___();
-            if (this.props.disable || value === e.target.value) return;
+            if (this.props.disabled || value === e.target.value) return;
             this.layerUpdateProp({
                 min: this.props.min,
                 max: this.props.max,
@@ -53,7 +53,7 @@ define(function (require) {
         },
         mouseEnterHandler: function (e) {
             this.___mouseenterHandler___();
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             this.layerShow({
                 value: this.___getValue___(),
                 min: this.props.min,
@@ -72,8 +72,8 @@ define(function (require) {
                 onMouseLeave: this.___mouseleaveHandler___,
                 ref: 'container'
             };
-            if (this.props.disable) {
-                containerProp.className += ' fcui2-dropdownlist-disable';
+            if (this.props.disabled) {
+                containerProp.className += ' fcui2-dropdownlist-disabled';
             }
             if (!isNaN(this.props.width)) {
                 delete containerProp.style.minWidth;

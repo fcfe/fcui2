@@ -21,7 +21,7 @@ define(function (require) {
         {
             title: 'Disabled Pager',
             onChange: true,
-            props: {disable: true}
+            props: {disabled: true}
         },
         {
             title: 'Pager with ValueLinker',
@@ -77,7 +77,7 @@ define(function (require) {
 
 
     return React.createClass({
-        mixins: [React.addons.LinkedStateMixin],
+        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
         // @override
         getDefaultProps: function () {
             return {

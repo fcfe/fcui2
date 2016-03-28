@@ -11,7 +11,7 @@ define(function (require) {
                 value: 'Main Command1',
                 datasource: [
                     {label: 'option1', value: 'option1'},
-                    {label: 'option2', value: 'option2', disable: true},
+                    {label: 'option2', value: 'option2', disabled: true},
                     {label: 'option3', value: 'option3'},
                     {label: 'option4', value: 'option4'},
                     {label: 'option5', value: 'option5'}
@@ -21,11 +21,11 @@ define(function (require) {
         {
             title: 'Disabled ComboList',
             props: {
-                disable: true,
+                disabled: true,
                 value: 'Main Command2',
                 datasource: [
                     {label: 'option1', value: 'option1'},
-                    {label: 'option2', value: 'option2', disable: true},
+                    {label: 'option2', value: 'option2', disabled: true},
                     {label: 'option3', value: 'option3'},
                     {label: 'option4', value: 'option4'},
                     {label: 'option5', value: 'option5'}
@@ -46,8 +46,8 @@ define(function (require) {
                 value: 'Main Command4',
                 datasource: [
                     {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
-                    {label: 'option2', value: 'option2', disable: true},
-                    {label: 'option3', value: 'option3', disable: true},
+                    {label: 'option2', value: 'option2', disabled: true},
+                    {label: 'option3', value: 'option3', disabled: true},
                     {label: 'option4', value: 'option4'},
                     {label: 'option5', value: 'option5'}
                 ]
@@ -61,7 +61,7 @@ define(function (require) {
                 value: 'Main Command5',
                 datasource: [
                     {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
-                    {label: 'option2', value: 'option2', disable: true},
+                    {label: 'option2', value: 'option2', disabled: true},
                     {label: 'option3', value: 'option3'},
                     {label: 'option4', value: 'option4'},
                     {label: 'option5', value: 'option5'}
@@ -76,7 +76,7 @@ define(function (require) {
                 icon: 'font-icon-star-half',
                 datasource: [
                     {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
-                    {label: 'option2', value: 'option2', disable: true},
+                    {label: 'option2', value: 'option2', disabled: true},
                     {label: 'option3', value: 'option3'},
                     {label: 'option4', value: 'option4'},
                     {label: 'option5', value: 'option5'}
@@ -114,7 +114,7 @@ define(function (require) {
 
 
     return React.createClass({
-        mixins: [React.addons.LinkedStateMixin],
+        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
         // @override
         getDefaultProps: function () {
             return {

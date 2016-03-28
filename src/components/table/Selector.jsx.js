@@ -53,7 +53,7 @@ define(function (require) {
         },
         mouseEnterHandler: function (e) {
             this.___mouseenterHandler___();
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             this.layerShow();
         },
         // @override
@@ -69,7 +69,7 @@ define(function (require) {
                 type: 'checkbox',
                 checked: i === -1,
                 className: 'td-selector',
-                disabled: this.props.disable,
+                disabled: this.props.disabled,
                 ref: 'mainCheckbox',
                 onClick: this.mainSelectorHandler
             };

@@ -52,7 +52,7 @@ define(function (require) {
                 onMouseLeave: this.___mouseleaveHandler___
             };
             var enterButtonProp = {
-                disable: this.state.value === this.props.value,
+                disabled: this.state.value === this.props.value,
                 label: language.enter,
                 skin: 'important',
                 onClick: this.enterHandler

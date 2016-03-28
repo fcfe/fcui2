@@ -156,7 +156,7 @@ define(function (require) {
         {
             title: 'Disabled Table',
             props: {
-                disable: true,
+                disabled: true,
                 flags: {
                     showHeader: true,
                     showSelector: true
@@ -222,7 +222,7 @@ define(function (require) {
 
 
     return React.createClass({
-        mixins: [React.addons.LinkedStateMixin],
+        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
         // @override
         getDefaultProps: function () {
             return {

@@ -23,7 +23,7 @@ define(function (require) {
                 min: 1,
                 max: 10,
                 threshold: Number.POSITIVE_INFINITY,
-                disable: false,
+                disabled: false,
                 valueTemplate: Number.POSITIVE_INFINITY
             };
         },
@@ -39,7 +39,7 @@ define(function (require) {
             current = isNaN(current) ? min : current;
            
             var value = e.target.value;
-            if (value + '' === current + '' || this.props.disable) return;
+            if (value + '' === current + '' || this.props.disabled) return;
             
             var v = 1;
             v = value === 'prev' ? current - 1 : value;
@@ -76,7 +76,7 @@ define(function (require) {
 
         btns.push(
             <Button label={language.pager.previousPage} value="prev"
-                onClick={me.clickHandler} disable={me.props.disable || value <= min} key="prev"/>
+                onClick={me.clickHandler} disabled={me.props.disabled || value <= min} key="prev"/>
         );
 
         var i = min;
@@ -102,7 +102,7 @@ define(function (require) {
             var prop = {
                 skin: i + '' === value + '' ? 'active' : '',
                 minWidth: 12,
-                disable: me.props.disable,
+                disabled: me.props.disabled,
                 onClick: me.clickHandler
             };
             btns.push(<Button {...prop} label={i} value={i} key={i}/>);
@@ -111,7 +111,7 @@ define(function (require) {
 
         btns.push(
             <Button label={language.pager.nextPage} value="next"
-                onClick={me.clickHandler} disable={me.props.disable || value >= max} key="next"/>
+                onClick={me.clickHandler} disabled={me.props.disabled || value >= max} key="next"/>
         );
 
         return btns;

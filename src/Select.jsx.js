@@ -25,7 +25,7 @@ define(function (require) {
                 width: NaN,
                 placeholder: 'please select',
                 datasource: [],  // 见List
-                disable: false,
+                disabled: false,
                 valueTemplate: '',
                 // 以下为LayerContainerBase中需要的配置
                 layerContent: require('./List.jsx'),
@@ -39,13 +39,13 @@ define(function (require) {
         },
         layerAction: function (e) {
             var value = this.___getValue___();
-            if (this.props.disable || value === e.target.value) return;
+            if (this.props.disabled || value === e.target.value) return;
             this.___dispatchChange___(e);
             this.layerHide();
         },
         mouseEnterHandler: function (e) {
             this.___mouseenterHandler___();
-            if (this.props.datasource.length === 0 || this.props.disable) return;
+            if (this.props.datasource.length === 0 || this.props.disabled) return;
             this.layerShow();
         },
         render: function () {
@@ -60,8 +60,8 @@ define(function (require) {
                 onMouseLeave: this.___mouseleaveHandler___,
                 ref: 'container'
             };
-            if (this.props.disable) {
-                containerProp.className += ' fcui2-dropdownlist-disable';
+            if (this.props.disabled) {
+                containerProp.className += ' fcui2-dropdownlist-disabled';
             }
             if (!isNaN(this.props.width)) {
                 delete containerProp.style.minWidth;

@@ -27,7 +27,7 @@ define(function (require) {
         {
             title: 'Disabled Radio',
             onChange: true,
-            props: {disable: true, label: '请选择'}
+            props: {disabled: true, label: '请选择'}
         },
         {
             title: 'Readonly Radio',
@@ -79,7 +79,7 @@ define(function (require) {
 
 
     return React.createClass({
-        mixins: [React.addons.LinkedStateMixin],
+        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
         // @override
         getDefaultProps: function () {
             return {

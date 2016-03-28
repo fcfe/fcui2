@@ -55,7 +55,7 @@ define(function (require) {
                 }
             };
             var enterButtonProp = {
-                disable: this.state.value === this.props.value,
+                disabled: this.state.value === this.props.value,
                 label: language.enter,
                 skin: 'important',
                 onClick: this.enterHandler

@@ -20,8 +20,8 @@ define(function (require) {
             return {
                 className: '',
                 width: NaN,
-                datasource: [],  // {label: <string>, value: <string>, disable: <boolean>, children: [self]}
-                disable: false,
+                datasource: [],  // {label: <string>, value: <string>, disabled: <boolean>, children: [self]}
+                disabled: false,
                 onClick: function () {}
             };
         },
@@ -41,7 +41,7 @@ define(function (require) {
         },
         clickHandler: function (e) {
             var dataset = util.getDataset(e.target);
-            if (dataset.uiDisable + '' === 'true' || !dataset.uiCmd || this.props.disable) return;
+            if (dataset.uiDisable + '' === 'true' || !dataset.uiCmd || this.props.disabled) return;
             e.target.value = dataset.uiCmd;
             this.props.onClick(e);
             // 必须stop掉，否则外部如果用了onClick，会触发两次
@@ -59,12 +59,12 @@ define(function (require) {
             if (!isNaN(this.props.width)) {
                 containerProps.style = {width: this.props.width};
             }
-            return (<div {...containerProps}>{listFactory(this.props.datasource, '0', this.props.disable, this.props.width)}</div>);
+            return (<div {...containerProps}>{listFactory(this.props.datasource, '0', this.props.disabled, this.props.width)}</div>);
         }
     });
 
 
-    function listFactory(datasource, level, disable, width) {
+    function listFactory(datasource, level, disabled, width) {
         if (datasource.length === 0) return <div></div>;
         var result = [];
         for (var index = 0; index < datasource.length; index++) {
@@ -72,14 +72,14 @@ define(function (require) {
             var item = datasource[index];
             var children = item.children instanceof Array ? item.children : [];
             var itemProp = {
-                className: 'item' + (item.disable || disable ? ' disable' : ''),
+                className: 'item' + (item.disabled || disabled ? ' disabled' : ''),
                 key: treeIndex,
-                'data-ui-disable': item.disable || disable,
+                'data-ui-disabled': item.disabled || disabled,
                 'data-ui-cmd': item.value,
                 'data-tree-index': treeIndex
             };
             var spanProp = {
-                'data-ui-disable': item.disable || disable,
+                'data-ui-disabled': item.disabled || disabled,
                 'data-ui-cmd': item.value,
                 'data-tree-index': treeIndex
             };
@@ -90,7 +90,7 @@ define(function (require) {
                 }
             };
             var rightLayerProp = {
-                className: 'layer ' + (children.length > 0 ? 'right-layer' : 'disable-layer')
+                className: 'layer ' + (children.length > 0 ? 'right-layer' : 'disabled-layer')
             };
             if (children.length > 0) {
                 spanProp.style = {
@@ -104,7 +104,7 @@ define(function (require) {
                 <div {...itemProp}>
                     <div {...rightArrowProp}></div>
                     <span {...spanProp}>{item.label}</span>
-                    <div {...rightLayerProp}>{listFactory(children, treeIndex, disable, width)}</div>
+                    <div {...rightLayerProp}>{listFactory(children, treeIndex, disabled, width)}</div>
                 </div>
             );
         }

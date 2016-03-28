@@ -22,7 +22,7 @@ define(function (require) {
                 label: 'DropDownList',
                 minWidth: 60,
                 width: NaN,
-                disable: false,
+                disabled: false,
                 datasource: [],         //见List
                 onClick: function () {},
                 // 以下为LayerContainerBase中需要的配置
@@ -32,14 +32,14 @@ define(function (require) {
             };
         },
         layerAction: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             this.props.onClick(e);
             this.layerHide();
             e.stopPropagation();
         },
         mouseEnterHandler: function (e) {
             this.___mouseenterHandler___();
-            if (this.props.datasource.length === 0 || this.props.disable) return;
+            if (this.props.datasource.length === 0 || this.props.disabled) return;
             this.layerShow();
         },
         render: function () {
@@ -51,8 +51,8 @@ define(function (require) {
                 onMouseLeave: this.___mouseleaveHandler___,
                 ref: 'container'
             };
-            if (this.props.disable) {
-                containerProp.className += ' fcui2-dropdownlist-disable';
+            if (this.props.disabled) {
+                containerProp.className += ' fcui2-dropdownlist-disabled';
             }
             if (!isNaN(this.props.width)) {
                 delete containerProp.style.minWidth;

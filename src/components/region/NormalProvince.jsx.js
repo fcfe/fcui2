@@ -23,7 +23,7 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 className: '',
-                disable: false,
+                disabled: false,
                 id: -1,
                 value: {},
                 onChange: function () {},
@@ -48,16 +48,16 @@ define(function (require) {
             }
         },
         layerAction: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             this.props.onChange(e);
         },
         changeHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             this.props.onChange(e);
         },
         mouseEnterHandler: function (e) {
             this.___mouseenterHandler___();
-            if (this.props.disable || !tools.filiation[this.props.id] || tools.filiation[this.props.id].length < 1) {
+            if (this.props.disabled || !tools.filiation[this.props.id] || tools.filiation[this.props.id].length < 1) {
                 return;
             }
             this.layerShow({
@@ -76,7 +76,7 @@ define(function (require) {
             var checkboxProp = {
                 label: language.regionName[this.props.id],
                 labelPosition: 'right',
-                disable: this.props.disable,
+                disabled: this.props.disabled,
                 value: this.props.id,
                 checked: selected.checked,
                 indeterminate: selected.indeterminate,

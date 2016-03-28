@@ -80,7 +80,7 @@ define(function (require) {
                 me.___layerContainer___.className = 'fcui2-layer'
             }
             // 弹出条件1
-            if (typeof me.props.layerContent !== 'function'|| me.props.disable || me.props.layerPolicymaker === false) {
+            if (typeof me.props.layerContent !== 'function'|| me.props.disabled || me.props.layerPolicymaker === false) {
                 return;
             }
             document.body.appendChild(me.___layerContainer___);

@@ -25,7 +25,7 @@ define(function (require) {
                 value: '',  // checkbox的value存在checked属性中，value中存的东西意义等同于radio的value
                 indeterminate: false,
                 labelPosition: 'left',
-                disable: false,
+                disabled: false,
                 valueTemplate: false
             };
         },
@@ -44,13 +44,13 @@ define(function (require) {
             this.refs.inputbox.indeterminate = !value && this.props.indeterminate;
         },
         clickHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             e.target = this.refs.inputbox;
             e.target.checked = !e.target.checked;
             this.___dispatchChange___(e);
         },
         changeHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             this.___dispatchChange___(e);
         },
         render: function () {
@@ -73,14 +73,14 @@ define(function (require) {
                 if (!this.props.style.hasOwnProperty(key)) continue;
                 containerProp.style[key] = this.props.style[key];
             }
-            if (this.props.disable) {
-                containerProp.className += ' fcui2-checkbox-disable';
+            if (this.props.disabled) {
+                containerProp.className += ' fcui2-checkbox-disabled';
             }
             else if (this.state.isValid === false) {
                 containerProp.className += ' fcui2-checkbox-reject';
             }
             var doms = [];
-            doms.push(<input {...inputProp} disabled={this.props.disable} ref="inputbox" key="input"/>);
+            doms.push(<input {...inputProp} disabled={this.props.disabled} ref="inputbox" key="input"/>);
             doms[this.props.labelPosition === 'right' ? 'push' : 'unshift'](
                 <span {...labelProp} key="label">{this.props.label}</span>
             );

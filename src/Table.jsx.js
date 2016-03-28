@@ -24,7 +24,7 @@ define(function (require) {
                 // 样式属性
                 className: '',
                 // 配置属性
-                disable: false,
+                disabled: false,
                 fieldConfig: [],
                 flags: {
                     sortEnable: false,
@@ -105,7 +105,7 @@ define(function (require) {
          * 选中某行
          */
         rowSelect: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             var dataset = util.getDataset(e.target);
             var index = parseInt(dataset.uiCmd, 10);
             var value = e.target.checked;

@@ -22,7 +22,7 @@ define(function (require) {
                 width: 200,
                 height: 100,
                 placeholder: '',
-                disable: false,
+                disabled: false,
                 valueTemplate: ''
             };
         },
@@ -31,7 +31,7 @@ define(function (require) {
             return {};
         },
         changeHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             this.___dispatchChange___(e);
         },
         focus: function () {
@@ -55,7 +55,7 @@ define(function (require) {
                 value: value,
                 onChange: this.changeHandler,
                 ref: 'inputbox',
-                disabled: this.props.disable,
+                disabled: this.props.disabled,
                 spellCheck: false,
                 style: {// 其实不应该这样写，可是textarea的padding和border会导致整体尺寸变大
                     width: this.props.width - 22,
@@ -63,8 +63,8 @@ define(function (require) {
                 }
             };
             this.___mergeInputHandlers___(inputProp, this.props);
-            if (this.props.disable) {
-                containerProp.className += ' fcui2-textarea-disable'
+            if (this.props.disabled) {
+                containerProp.className += ' fcui2-textarea-disabled'
             }
             else if (this.state.isValid === false) {
                 containerProp.className += ' fcui2-textarea-reject'

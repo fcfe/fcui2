@@ -27,7 +27,7 @@ define(function (require) {
                 type: 'float', // int, float
                 fixed: Number.POSITIVE_INFINITY,
                 valueTemplate: 0,
-                disable: false,
+                disabled: false,
                 showSpinButton: true
             };
         },
@@ -36,13 +36,13 @@ define(function (require) {
             return {};
         },
         changeHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             e.target.value = numberFormater(e.target.value, this.props);
             this.___dispatchChange___(e);
         },
         spinButtonHandler: function (e) {
             if (
-                this.props.disable
+                this.props.disabled
                 || isNaN(this.refs.inputbox.value)
                 || this.refs.inputbox.value.length === 0
             ) {
@@ -80,8 +80,8 @@ define(function (require) {
                     display: this.props.showSpinButton ? 'block' : 'none'
                 }
             };
-            if (this.props.disable) {
-                containerProp.className += ' fcui2-numberbox-disable'
+            if (this.props.disabled) {
+                containerProp.className += ' fcui2-numberbox-disabled'
             }
             else if (this.state.isValid === false) {
                 containerProp.className += ' fcui2-numberbox-reject'
@@ -94,7 +94,7 @@ define(function (require) {
                         <div className="font-icon font-icon-largeable-caret-down"
                             data-ui-cmd="sub" onClick={this.spinButtonHandler}></div>
                     </div>
-                    <input {...inputProp} disabled={this.props.disable} ref="inputbox"/>
+                    <input {...inputProp} disabled={this.props.disabled} ref="inputbox"/>
                 </div>
             );
         }

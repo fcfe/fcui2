@@ -31,7 +31,7 @@ define(function (require) {
         {
             title: 'Disabled Schedule',
             onChange: true,
-            props: {disable: true, value: '111000000111110001011010000011111110011110001111111111001111'}
+            props: {disabled: true, value: '111000000111110001011010000011111110011110001111111111001111'}
         },
         {
             title: 'Schedule with ShortCut',
@@ -110,7 +110,7 @@ define(function (require) {
 
 
     return React.createClass({
-        mixins: [React.addons.LinkedStateMixin],
+        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
         // @override
         getDefaultProps: function () {
             return {

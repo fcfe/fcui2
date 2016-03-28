@@ -31,7 +31,7 @@ define(function (require) {
                 className: '',
                 min: '0-1-1',
                 max: '9999-12-31',
-                disable: false,
+                disabled: false,
                 valueTemplate: util.dateFormat(null, 'YYYY-MM-DD')
             };
         },
@@ -51,7 +51,7 @@ define(function (require) {
             this.setState({inRange: inRange});
         },
         clickDayHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             var timer = tool.str2date(
                 this.state.displayYear + '-' + (this.state.displayMonth + 1) + '-' + e.target.value
             );
@@ -60,7 +60,7 @@ define(function (require) {
             this.___dispatchChange___(e);
         },
         yearChangeHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             var year = this.state.displayYear;
             if (!isNaN(e.target.value)) {
                 year = e.target.value * 1;
@@ -72,7 +72,7 @@ define(function (require) {
             });
         },
         monthChangeHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             var month = this.state.displayMonth;
             if (!isNaN(e.target.value)) {
                 month = e.target.value * 1 - 1;
@@ -86,7 +86,7 @@ define(function (require) {
             });
         },
         addMonthHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             var month = this.state.displayMonth;
             var year = this.state.displayYear;
             month = month * 1 + 1;
@@ -103,7 +103,7 @@ define(function (require) {
             });
         },
         subMonthHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             var month = this.state.displayMonth;
             var year = this.state.displayYear;
             month = month * 1 - 1;
@@ -144,7 +144,7 @@ define(function (require) {
                  ref: 'inputMonth',
                  type: 'int'
             };
-            var btnClass = 'fcui2-button' + (this.props.disable ? ' button-disable' : '')
+            var btnClass = 'fcui2-button' + (this.props.disabled ? ' button-disabled' : '')
                 +' font-icon font-icon-largeable-caret-';
             var range = this.props.min.replace(/-/g, '.') + ' - ' + this.props.max.replace(/-/g, '.');
             return (
@@ -152,8 +152,8 @@ define(function (require) {
                     <div className="calendar-operation">
                         <div className={btnClass + 'right'} onClick={this.addMonthHandler}/>
                         <div className={btnClass + 'left'} onClick={this.subMonthHandler}/>
-                        <NumberBox {...yearInputProp} disable={this.props.disable}/>
-                        <NumberBox {...monthInputProp} disable={this.props.disable}/>
+                        <NumberBox {...yearInputProp} disabled={this.props.disabled}/>
+                        <NumberBox {...monthInputProp} disabled={this.props.disabled}/>
                     </div>
                     <div className="calendar-day-label">{
                         this.state.inRange ? language.calendar.day.map(produceDayLabel) : range
@@ -166,7 +166,7 @@ define(function (require) {
 
 
     // 生成button props
-    function buttonProps(timer, disable, key, skin) {
+    function buttonProps(timer, disabled, key, skin) {
         skin = skin || 'calendar';
         return {
             style: {
@@ -176,7 +176,7 @@ define(function (require) {
             skin: skin,
             minWidth: 12,
             label: timer.getDate(),
-            disable: disable,
+            disabled: disabled,
             key: 'btns-' + key
         };
     }
@@ -214,16 +214,16 @@ define(function (require) {
         // 导入本月日期
         tmpTimer.setTime(timer.getTime());
         while (tmpTimer.getMonth() === timer.getMonth()) {
-            var disable = tool.compareDate(tmpTimer, min) === -1
+            var disabled = tool.compareDate(tmpTimer, min) === -1
                 || tool.compareDate(tmpTimer, max) === 1
-                || me.props.disable;
+                || me.props.disabled;
             var skin = tool.compareDate(tmpTimer, value) === 0 ? 'active' : null;
             var props = {
                 onClick: me.clickDayHandler,
                 value: tmpTimer.getDate()
             };
             buttons.push(
-                <Button {...buttonProps(tmpTimer, disable, buttons.length, skin)} {...props}/>
+                <Button {...buttonProps(tmpTimer, disabled, buttons.length, skin)} {...props}/>
             );
             tmpTimer.setDate(tmpTimer.getDate() + 1);
         }

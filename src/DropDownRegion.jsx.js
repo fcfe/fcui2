@@ -24,7 +24,7 @@ define(function (require) {
                 label: 'DropDownRegion',
                 minWidth: 60,
                 width: NaN,
-                disable: false,
+                disabled: false,
                 shortCut: [],
                 // 以下为LayerContainerBase中需要的配置
                 layerContent: require('./components/RegionLayer.jsx'),
@@ -33,14 +33,14 @@ define(function (require) {
             };
         },
         layerAction: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             var value = this.___getValue___();
-            if (this.props.disable || value === e.target.value) return;
+            if (this.props.disabled || value === e.target.value) return;
             this.___dispatchChange___(e);
             this.layerHide();
         },
         clickHandler: function (e) {
-            if (this.props.disable) return;
+            if (this.props.disabled) return;
             if (this.___layer___) {
                 this.layerHide();
                 return;
@@ -61,8 +61,8 @@ define(function (require) {
                 onClick: this.clickHandler,
                 ref: 'container'
             };
-            if (this.props.disable) {
-                containerProp.className += ' fcui2-dropdownlist-disable';
+            if (this.props.disabled) {
+                containerProp.className += ' fcui2-dropdownlist-disabled';
             }
             if (!isNaN(this.props.width)) {
                 delete containerProp.style.minWidth;
