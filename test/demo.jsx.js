@@ -26,6 +26,7 @@ define(function (require) {
     var DropDownRegionDemo = require('./demos/DropDownRegion.jsx');
     var TabDemo = require('./demos/Tab.jsx');
     var SearchBoxDemo = require('./demos/SearchBox.jsx');
+    var WizardDemo = require('./demos/Wizard.jsx');
     var CrumbDemo = require('./demos/Crumb.jsx');
     var TreeDemo = require('./demos/Tree.jsx');
 
@@ -89,6 +90,7 @@ define(function (require) {
                         <ListItem demo={this.props.demo} label="Pager" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Tab" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Crumb" onClick={this.changeDemo}/>
+                        <ListItem demo={this.props.demo} label="Wizard" onClick={this.changeDemo}/>
                         <hr/>
                         <ListItem demo={this.props.demo} label="CheckBox" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Radio" onClick={this.changeDemo}/>
@@ -136,6 +138,7 @@ define(function (require) {
                         <RegionDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <DropDownRegionDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <CrumbDemo demo={this.props.demo} alert={this.changeMessage}/>
+                        <WizardDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <TabDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <SearchBoxDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <TreeDemo demo={this.props.demo} alert={this.changeMessage} />

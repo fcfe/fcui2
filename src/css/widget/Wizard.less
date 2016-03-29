@@ -1,0 +1,82 @@
+@import "../skin.less";
+.fcui2-wizard {
+    position: relative;
+    z-index: 0;
+    .fcui2-wizard-item {
+        position: relative;
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 40px;
+        height: 40px;
+        background-color: #EEEEEE;
+        white-space: nowrap;
+        cursor: pointer;
+        moz-user-select: -moz-none;
+        -moz-user-select: none;
+        -o-user-select:none;
+        -khtml-user-select:none;
+        -webkit-user-select:none;
+        -ms-user-select:none;
+        user-select:none;
+        >span {
+            margin-left: 40px;
+        }
+        .fcui2-wizard-arrow {
+            position: absolute;
+            right: -20px;
+            top: 0px;
+            width: 0px;
+            height: 0px;
+            line-height: 0px;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            border-left: 20px solid #EEEEEE; 
+        }
+        .fcui2-wizard-arrow-bg {
+            position: absolute;
+            right: -22px;
+            top: 0px;
+            width: 0px;
+            height: 0px;
+            line-height: 0px;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            border-left: 20px solid #FFF; 
+        }
+    }
+    .fcui2-wizard-disabled {
+        color: @color-disabled;
+    }
+    .fcui2-wizard-disabled:hover {
+        background-color: #EEEEEE !important;
+        color: @color-disabled !important;
+        .fcui2-wizard-arrow {
+            border-left-color: #EEEEEE !important;
+        }
+    }
+    .fcui2-wizard-item:first-child {
+        >span {
+            margin-left: 20px;
+        }
+    }
+    .fcui2-wizard-item:last-child {
+        .fcui2-wizard-arrow,.fcui2-wizard-arrow-bg {
+            display: none;
+        }
+    }
+    .fcui2-wizard-item:hover {
+        background-color: #64B1EC;
+        color: #FFF;
+        .fcui2-wizard-arrow {
+            border-left-color: #64B1EC;
+        }
+    }
+    .fcui2-wizard-active {
+        background-color: #64B1EC;
+        color: #FFF;
+        .fcui2-wizard-arrow {
+            border-left-color: #64B1EC;
+        }
+    }
+}
