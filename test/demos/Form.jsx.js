@@ -17,6 +17,7 @@ define(function (require) {
     var DropDownSchedule = require('fcui/DropDownSchedule.jsx');
     var Region = require('fcui/Region.jsx');
     var DropDownRegion = require('fcui/DropDownRegion.jsx')
+    var Slider = require('fcui/Slider.jsx');
 
 
     return React.createClass({
@@ -93,6 +94,8 @@ define(function (require) {
                                 简介：<TextArea className="form-textarea" name="intro"/>
                             </td>
                             <td>
+                                胸围：
+                                    <Slider min="30" max="100" name="size"/>
                                 身高：<br/>
                                 <div style={{marginLeft: 40}}>
                                     <Radio label="小于165cm" value="1" name="height"/><br/>

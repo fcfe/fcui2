@@ -10,24 +10,29 @@ define(function (require) {
             props: {}
         },
         {
-            title: 'Slider without SpinButton',
+            title: 'Slider with ShowLabel',
             onChange: true,
-            props: {showSpinButton: false}
+            props: {showLabel: true}
+        },
+        {
+            title: 'Slider with Measure',
+            onChange: true,
+            props: {showLabel: true, measure: 'kg'}
         },
         {
             title: 'Readonly Slider',
             onChange: true,
-            props: {value: 235}
+            props: {value: 50}
         },
         {
-            title: 'Slider can input Integer only',
+            title: 'Slider with Float Value',
             onChange: true,
-            props: {type: 'int'}
+            props: {type: 'float'}
         },
         {
             title: 'Slider with Max',
             onChange: true,
-            props: {max: 10}
+            props: {max: 10, type: 'float', step: '0.1'}
         },
         {
             title: 'Slider with Min, and an incorrect Value',
@@ -35,14 +40,9 @@ define(function (require) {
             props: {min: 10, value: 1}
         },
         {
-            title: 'Slider with Step',
-            onChange: true,
-            props: {min: -100, max: 100, step: 10}
-        },
-        {
             title: 'Slider with Fixed',
             onChange: true,
-            props: {fixed: 3, width: 100}
+            props: {fixed: 1, width: 100, type: 'float'}
         },
         {
             title: 'Slider with ClassName',

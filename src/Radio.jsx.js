@@ -48,12 +48,12 @@ define(function (require) {
                 className: 'fcui2-checkbox ' + this.props.className,
             };
             var labelProp = {
-                className: 'fcui2-checkbox-label' + (this.props.labelPosition === 'right' ? ' right-label' : ''),
+                className: 'fcui2-checkbox-label',
                 onClick: this.clickHandler
             };
             var inputProp = {
                 type: 'radio',
-                name: this.props.name,
+                name: this.props.name, // radio 跟其他input组件不一样，它需要用name控制单选，所以这个属性要下传
                 value: this.props.value,
                 checked: this.___getValue___(),
                 onChange: this.changeHandler
@@ -65,12 +65,12 @@ define(function (require) {
             else if (this.state.isValid === false) {
                 containerProp.className += ' fcui2-checkbox-reject';
             }
-            return (
-                <div {...containerProp}>
-                    <span {...labelProp}>{this.props.label}</span>
-                    <input {...inputProp} disabled={this.props.disabled} ref="inputbox"/>
-                </div>
+            var doms = [];
+            doms.push(<input {...inputProp} disabled={this.props.disabled} ref="inputbox" key="input"/>);
+            doms[this.props.labelPosition === 'right' ? 'push' : 'unshift'](
+                <span {...labelProp} key="label">{this.props.label}</span>
             );
+            return (<div {...containerProp}>{doms}</div>);
         }
     });
 });
