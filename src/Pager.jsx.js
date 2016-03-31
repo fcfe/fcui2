@@ -105,7 +105,7 @@ define(function (require) {
                 disabled: me.props.disabled,
                 onClick: me.clickHandler
             };
-            btns.push(<Button {...prop} label={i} value={i} key={i}/>);
+            btns.push(<Button {...prop} label={i + ''} value={i} key={i}/>);
             i++;
         }
 

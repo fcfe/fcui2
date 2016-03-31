@@ -2,7 +2,7 @@
  * @file 按钮组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -12,23 +12,60 @@ define(function (require) {
 
 
     return React.createClass({
+
+        // @override
+        propTypes: {
+            // 组件拼装到根容器上的class
+            className: React.PropTypes.string,
+            // 组件拼装到根容器上的style
+            style: React.PropTypes.object,
+            // 组件皮肤，如果disabled属性为true，此属性无效
+            skin: React.PropTypes.string,
+            // 组件是否可用，如果设置为true，skin属性无效
+            disabled: React.PropTypes.bool,
+            // 按钮最小宽度
+            minWidth: React.PropTypes.number,
+            // 按钮固定宽度，默认为NaN，即没有固定限制；若指定，minWidth属性无效
+            width: React.PropTypes.any,
+            // 按钮显示的文字
+            label: React.PropTypes.string,
+            // 按钮的提示，鼠标悬浮一段时间后显示
+            title: React.PropTypes.string,
+            // 按钮显示的ICON，在label左侧，可以不设置
+            icon: React.PropTypes.string,
+            // 按钮类型，默认为button，可以为submit或reset，如果按钮在表单中，会触发相应事件
+            type: React.PropTypes.string,
+            // 按钮域名，如果组件在表单中，此属性等同于原生dom的name属性
+            name: React.PropTypes.string,
+            // 按钮值，此属性会通过onClick回调回传
+            value: React.PropTypes.any,
+            /**
+             * 点击按钮时的回调
+             * @param {SyntheticEvent} e 点击事件对象
+             * @param {HtmlElement} e.target 按钮的根容器
+             * @param {string} e.target.value 按钮的value属性
+             */
+            onClick: React.PropTypes.func
+        },
+
         // @override
         mixins: [MouseWidgetBase],
+
         // @override
         getDefaultProps: function () {
             return {
                 className: '',
+                style: {},
+                skin: '',
+                disabled: false,
                 minWidth: 40,
                 width: NaN,
                 label: 'Button',
                 title: '',
                 icon: '',
-                style: {},
-                type: 'button', // 用于form：button, submit, reset
-                name: '',       // 用于form
+                type: 'button',
+                name: '',
                 value: '',
-                skin: '',
-                disabled: false,
                 onClick: function () {}
             };
         },

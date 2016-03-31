@@ -175,7 +175,7 @@ define(function (require) {
             },
             skin: skin,
             minWidth: 12,
-            label: timer.getDate(),
+            label: timer.getDate() + '',
             disabled: disabled,
             key: 'btns-' + key
         };
