@@ -1,7 +1,6 @@
 define(function (require) {
 
 
-    var Button = require('./Button.jsx');
     var React = require('react');
     var ReactDOM = require('react-dom');
 

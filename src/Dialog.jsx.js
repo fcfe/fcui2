@@ -113,8 +113,8 @@ define(function (require) {
      * @param {Object} props dialog content初始化所需要的属性集
      */
     Dialog.prototype.updatePopContentProps = function (props) {
-        if (!me.ui) return;
-        me.ui.updateContentProps(props);
+        if (!this.ui) return;
+        this.ui.updateContentProps(props);
     };
 
 
