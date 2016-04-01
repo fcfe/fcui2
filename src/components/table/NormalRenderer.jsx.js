@@ -4,6 +4,7 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 className: '',
+                content: '',
                 style: {},
             };
         },

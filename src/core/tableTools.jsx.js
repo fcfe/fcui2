@@ -61,7 +61,19 @@ define(function (require) {
         if (typeof conf.prepare === 'function') {
             conf.prepare(props, item, row, column);
         }
+        props.content = props.content + '';
         return props;
+    }
+
+
+    /**
+     * 判断是否有数据
+     */
+    function haveDate(me) {
+        var config = me.props.fieldConfig instanceof Array ? me.props.fieldConfig : [];
+        var datasource = me.props.datasource instanceof Array ? me.props.datasource : [];
+        // 没有数据源
+        return datasource.length > 0 && config.length > 0;
     }
 
 
@@ -78,14 +90,15 @@ define(function (require) {
                 td.push(<col width="45" key='col-selector'/>);
             }
             for (var i = 0; i < conf.length; i++) {
-                td.push(<col width={conf[i].width} key={'colgroup-' + i} />);
+                var width = isNaN(conf[i].width) ? 0 : conf[i].width * 1;
+                td.push(<col width={width} key={'colgroup-' + i} />);
             }
             return <colgroup>{td}</colgroup>
         },
 
         // 生成表头
         headerFactory: function (me) {
-            if (!me.props.flags || !me.props.flags.showHeader) {
+            if (!me.props.flags || !me.props.flags.showHeader || !haveDate(me)) {
                 return (<tr style={{display: 'none'}}></tr>);
             }
             var td = [];
@@ -113,7 +126,7 @@ define(function (require) {
 
         // 生成统计栏
         summaryFactory: function (me) {
-            if (!me.props.flags || !me.props.flags.showSummary) {
+            if (!me.props.flags || !me.props.flags.showSummary || !haveDate(me)) {
                 return (<tr style={{display: 'none'}}></tr>);
             }
             var td = [];
@@ -132,7 +145,7 @@ define(function (require) {
 
         // 生成message栏
         messageFactory: function (me) {
-            if (!me.props.flags || !me.props.flags.showMessage) {
+            if (!me.props.flags || !me.props.flags.showMessage || !haveDate(me)) {
                 return (<tr style={{display: 'none'}}></tr>);
             }
             var prop = {
@@ -150,7 +163,7 @@ define(function (require) {
             var config = me.props.fieldConfig instanceof Array ? me.props.fieldConfig : [];
             var datasource = me.props.datasource instanceof Array ? me.props.datasource : [];
             // 没有数据源
-            if (datasource.length === 0 || config.length === 0) {
+            if (!haveDate(me)) {
                 return (
                     <tr>
                         <td colSpan={config.length + 10} style={{textAlign: 'center'}}>

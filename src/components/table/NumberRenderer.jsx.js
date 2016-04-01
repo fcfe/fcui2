@@ -25,6 +25,7 @@ define(function (require) {
                 value = '-';
             }
             else {
+                value = value * 1;
                 switch (this.props.renderType) {
                     case 'int':
                         value = parseInt(value, 10);

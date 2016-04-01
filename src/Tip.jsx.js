@@ -18,18 +18,18 @@ define(function (require) {
                 className: '',
                 title: '',
                 content: '',
-                icon: 'font-icon-hint-question-s',
-                layer: document.createElement('div')
+                icon: 'font-icon-hint-question-s'
             }
         },
-        // @override
-        componentDidMount: function () {
-            this.props.layer.className = 'fcui2-layer fcui2-tip-layer';
-        },
         layerTimer: null,
+        layer: null,
         layerShow: function (e) {
+            if (!this.layer) {
+                this.layer = document.createElement('div');
+                this.layer.className = 'fcui2-layer fcui2-tip-layer';
+            }
             clearInterval(this.layerTimer);
-            var layer = this.props.layer;
+            var layer = this.layer;
             var container = this.refs.container;
             var layerHTML = [
                 '<div class="tip-title">',
@@ -52,7 +52,8 @@ define(function (require) {
                 + 'px';
         },
         layerHide: function () {
-            var layer = this.props.layer;
+            if (!this.layer) return;
+            var layer = this.layer;
             this.layerTimer = setTimeout(function () {
                 try {
                     layer.style.top = '-9999px';
