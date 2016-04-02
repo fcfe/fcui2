@@ -124,23 +124,22 @@ define(function (require) {
          * @return {ReactElement} rendered element
          */
         return function (props) {
-            let AfterTreeNode = this.props.afterTreeNodeRenderer;
-            this.props.afterTreeNodeRenderer = function () {
-                return (
-                    <span>
-                        {
-                            typeof AfterTreeNode === 'function'
-                                ? <AfterTreeNode
-                                    {...props.afterTreeNodeRendererProps}
-                                    {...props}
-                                  />
-                                : ''
-                        }
-                        <span className="fcui2-tree-node-loading">{props.textLoading}</span>
-                    </span>
-                );
-            };
-            return <TreeNodeRenderer {...props} />;
+            function afterTreeNode(afterTreeNodeProps) {
+                let WrappedAfterTreeNode = props.afterTreeNodeRenderer;
+                let textLoadingElement = props.treeNode.isChildrenLoading
+                    ? <span className="fcui2-tree-node-loading">{props.textLoading}</span>
+                    : <span></span>;
+                if (typeof WrappedAfterTreeNode === 'function') {
+                    return (
+                        <span>
+                            <WrappedAfterTreeNode {...afterTreeNodeProps} />
+                            {textLoadingElement}
+                        </span>
+                    );
+                }
+                return textLoadingElement;
+            }
+            return <TreeNodeRenderer {...props} afterTreeNodeRenderer={afterTreeNode} />;
         };
     }
 
@@ -160,13 +159,16 @@ define(function (require) {
          * @return {ReactElement} rendered element
          */
         return function (props) {
-            let nameFilter = props.nameFilter;
+            let {
+                nameFilter,
+                className = ''
+            } = props;
 
             if (nameFilter != null && props.treeNode.name.indexOf(nameFilter) === -1) {
-                props.className = props.className + ' fcui2-tree-node-filtered';
+                className = className + ' fcui2-tree-node-filtered';
             }
 
-            return <TreeNodeRenderer {...props} />;
+            return <TreeNodeRenderer {...props} className={className} />;
         };
     }
 
@@ -270,7 +272,9 @@ define(function (require) {
 
         onTreeNodeExpandClicked(e, treeNode, parentTreeNodes) {
             this.props.onTreeNodeExpandClicked(
-                e, treeNode, parentTreeNodes || this.props.parentTreeNodes
+                e,
+                treeNode,
+                _.isArray(parentTreeNodes) ? parentTreeNodes : this.props.parentTreeNodes
             );
 
             if (this.props.parentTreeNodes.length) {
@@ -299,7 +303,9 @@ define(function (require) {
 
         onTreeNodeClicked(e, treeNode, parentTreeNodes) {
             this.props.onTreeNodeClicked(
-                e, treeNode, parentTreeNodes || this.props.parentTreeNodes
+                e,
+                treeNode,
+                _.isArray(parentTreeNodes) ? parentTreeNodes : this.props.parentTreeNodes
             );
 
             if (this.props.parentTreeNodes.length) {
@@ -317,7 +323,9 @@ define(function (require) {
 
         onTreeNodeOperationClicked(e, treeNode, parentTreeNodes) {
             this.props.onTreeNodeOperationClicked(
-                e, treeNode, parentTreeNodes || this.props.parentTreeNodes
+                e,
+                treeNode,
+                _.isArray(parentTreeNodes) ? parentTreeNodes : this.props.parentTreeNodes
             );
 
             e.stopPropagation();
