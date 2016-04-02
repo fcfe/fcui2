@@ -33,113 +33,142 @@ define(function (require) {
         children: React.PropTypes.array
     });
 
-    let TreeNode = React.createClass({
-        propTypes: {
-            /**
-             * 树节点
-             */
-            treeNode: treeNodeType,
-            /**
-             * 树名字过滤器，不包含过滤器中字符串的节点将加上class`fcui2-tree-node-filtered`。
-             */
-            nameFilter: React.PropTypes.string,
-            /**
-             * 树节点是否被展开。
-             */
-            isExpanded: React.PropTypes.bool,
-            /**
-             * 树节点展开按钮被点击时的回调。
-             * @param {SyntheticEvent} onTreeNodeExpandClicked.e 点击事件对象
-             * @param {treeNodeType} onTreeNodeExpandClicked.treeNode 被展开的树节点数据
-             */
-            onTreeNodeExpandClicked: React.PropTypes.func,
-            /**
-             * 树节点“操作”按钮被点击时的回调。
-             * @param {SyntheticEvent} onTreeNodeOperationClicked.e 点击事件对象
-             * @param {treeNodeType} onTreeNodeOperationClicked.treeNode 被操作的树节点数据
-             */
-            onTreeNodeOperationClicked: React.PropTypes.func,
-            /**
-             * 树节点其他位置被点击时的回调。
-             * @param {SyntheticEvent} onTreeNodeClicked.e 点击事件对象
-             * @param {treeNodeType} onTreeNodeClicked.treeNode 被操作的树节点数据
-             */
-            onTreeNodeClicked: React.PropTypes.func,
-            /**
-             * 树节点载入中时的话术提示。
-             * @type {[type]}
-             */
-            textLoading: React.PropTypes.string,
-            /**
-             * 树节点根节点附加的class。
-             */
-            className: React.PropTypes.string
-        },
+    /**
+     * 默认的树单个节点的Renderer。
+     *
+     * @param {Object} props the props
+     * @param {treeNodeType} props.treeNode 节点数据
+     * @param {Array<treeNodeType>} props.parentTreeNode 当前节点的父节点表
+     * @param {boolean} props.isExpanded 节点是否展开
+     * @param {string} props.className 树根节点的class name
+     *
+     * @param {Function} props.afterTreeNodeRenderer 生成可插入节点正文后的元素
+     * @param {Function} props.afterTreeNodeRendererProps 属性
+     *
+     * @param {Function} props.onTreeNodeExpandClicked 树节点展开按钮被点击时的回调
+     * @param {SyntheticEvent} props.onTreeNodeExpandClicked.e 点击事件对象
+     * @param {treeNodeType} props.onTreeNodeExpandClicked.treeNode 被展开的树节点数据
+     *
+     * @param {Function} props.onTreeNodeOperationClicked 树节点“操作”按钮被点击时的回调。
+     * @param {SyntheticEvent} props.onTreeNodeOperationClicked.e 点击事件对象
+     * @param {treeNodeType} props.onTreeNodeOperationClicked.treeNode 被操作的树节点数据
+     *
+     * @param {Function} props.onTreeNodeClicked 树节点其他位置被点击时的回调。
+     * @param {SyntheticEvent} props.onTreeNodeClicked.e 点击事件对象
+     * @param {treeNodeType} props.onTreeNodeClicked.treeNode 被点击的树节点数据
+     *
+     * @return {ReactElement} rendered react element
+     */
+    function baseTreeNodeRenderer(props) {
+        let {
+            treeNode,
+            isExpanded,
+            className = '',
+            onTreeNodeExpandClicked = _.noop,
+            onTreeNodeOperationClicked = _.noop,
+            onTreeNodeClicked = _.noop,
+            ...others
+        } = props;
 
-        getDefaultProps() {
-            return {
-                onTreeNodeExpandClicked: _.noop,
-                onTreeNodeOperationClicked: _.noop,
-                onTreeNodeClicked: _.noop
-            };
-        },
+        className = [
+            'fcui2-tree-node',
+            className
+        ];
 
-        onTreeNodeExpandClicked(e) {
-            this.props.onTreeNodeExpandClicked.call(null, e, this.props.treeNode);
-        },
-
-        onTreeNodeOperationClicked(e) {
-            this.props.onTreeNodeOperationClicked.call(null, e, this.props.treeNode);
-        },
-
-        onTreeNodeClicked(e) {
-            this.props.onTreeNodeClicked.call(null, e, this.props.treeNode);
-        },
-
-        render() {
-            let {
-                treeNode,
-                nameFilter,
-                isExpanded,
-                textLoading,
-                className,
-                ...other
-            } = this.props;
-
-            className = [
-                'fcui2-tree-node',
-                className
-            ];
-
-            if (treeNode.isChildrenLoaded && (treeNode.children == null || treeNode.children.length === 0)) {
-                className.push('fcui2-tree-node-leaf');
-            }
-
-            if (nameFilter != null && treeNode.name.indexOf(nameFilter) === -1) {
-                className.push('fcui2-tree-node-filtered');
-            }
-
-            return (
-                <div {...other} className={className.join(' ')} onClick={this.onTreeNodeClicked}>
-                    <span
-                        className={isExpanded ? 'fcui2-tree-node-expanded' : 'fcui2-tree-node-collapsed'}
-                        onClick={this.onTreeNodeExpandClicked}
-                    />
-                    <span className='fcui2-tree-node-name'>{treeNode.name}</span>
-                    {
-                        treeNode.isChildrenLoading
-                            ? <span className="fcui2-tree-node-loading">{textLoading}</span>
-                            : ''
-                    }
-                    <span
-                        className='fcui2-tree-node-oper-handle'
-                        onClick={this.onTreeNodeOperationClicked}
-                    />
-                </div>
-            );
+        if (treeNode.isChildrenLoaded && (treeNode.children == null || treeNode.children.length === 0)) {
+            className.push('fcui2-tree-node-leaf');
         }
-    });
 
+        let AfterTreeNode = props.afterTreeNodeRenderer;
+
+        return (
+            <div
+                {...others}
+                className={className.join(' ')}
+                onClick={_.partial(props.onTreeNodeClicked, _, props.treeNode)}
+            >
+                <span
+                    className={isExpanded ? 'fcui2-tree-node-expanded' : 'fcui2-tree-node-collapsed'}
+                    onClick={_.partial(props.onTreeNodeExpandClicked, _, props.treeNode)}
+                />
+                <span className='fcui2-tree-node-name'>{treeNode.name}</span>
+                {
+                    typeof AfterTreeNode === 'function'
+                        ? <AfterTreeNode
+                            {...props.afterTreeNodeRendererProps}
+                            {...props}
+                          />
+                        : ''
+                }
+                <span
+                    className='fcui2-tree-node-oper-handle'
+                    onClick={_.partial(props.onTreeNodeOperationClicked, _, props.treeNode)}
+                />
+            </div>
+        );
+    }
+
+    /**
+     * 扩展TreeNodeRenderer，支持绘制树节点的loading状态
+     *
+     * @param  {Function} TreeNodeRenderer 被扩展的Renderer
+     * @return {Function} 支持绘制树节点的loading状态的Renderer
+     */
+    function supportLoadingText(TreeNodeRenderer) {
+
+        /**
+         * 支持绘制树节点的loading状态的Renderer。
+         *
+         * @param {Object} props the props
+         * @param {string} props.textLoading 树节点载入中时的话术提示。
+         * @return {ReactElement} rendered element
+         */
+        return function (props) {
+            let AfterTreeNode = this.props.afterTreeNodeRenderer;
+            this.props.afterTreeNodeRenderer = function () {
+                return (
+                    <span>
+                        {
+                            typeof AfterTreeNode === 'function'
+                                ? <AfterTreeNode
+                                    {...props.afterTreeNodeRendererProps}
+                                    {...props}
+                                  />
+                                : ''
+                        }
+                        <span className="fcui2-tree-node-loading">{props.textLoading}</span>
+                    </span>
+                );
+            };
+            return <TreeNodeRenderer {...props} />;
+        };
+    }
+
+    /**
+     * 扩展TreeNodeRenderer，支持根据nameFilter加入filter class。
+     *
+     * @param  {Function} TreeNodeRenderer 被扩展的Renderer。
+     * @return {Function} 支持根据nameFilter加入filter class的Renderer。
+     */
+    function supportNameFilter(TreeNodeRenderer) {
+
+        /**
+         * 支持根据nameFilter加入filter class。
+         *
+         * @param {Object} props the props
+         * @param {string} props.nameFilter 树名字过滤器，不包含过滤器中字符串的节点将加上class`fcui2-tree-node-filtered`。
+         * @return {ReactElement} rendered element
+         */
+        return function (props) {
+            let nameFilter = props.nameFilter;
+
+            if (nameFilter != null && props.treeNode.name.indexOf(nameFilter) === -1) {
+                props.className = props.className + ' fcui2-tree-node-filtered';
+            }
+
+            return <TreeNodeRenderer {...props} />;
+        };
+    }
 
     let Tree = React.createClass({
         propTypes: {
@@ -201,7 +230,10 @@ define(function (require) {
         },
 
         statics: {
-            treeNodeType
+            treeNodeType,
+            baseTreeNodeRenderer,
+            supportLoadingText,
+            supportNameFilter
         },
 
         getDefaultProps() {
@@ -215,6 +247,7 @@ define(function (require) {
                 nameFilter: null,
                 parentTreeNodes: [],
                 treeNodes: [],
+                treeNodeRenderer: supportLoadingText(supportNameFilter(baseTreeNodeRenderer)),
                 getTreeLevelStyle(level) {
                     return {
                         paddingLeft: (level * 0.5) + 'em'
@@ -286,7 +319,7 @@ define(function (require) {
             this.props.onTreeNodeOperationClicked(
                 e, treeNode, parentTreeNodes || this.props.parentTreeNodes
             );
-            
+
             e.stopPropagation();
         },
 
@@ -316,6 +349,7 @@ define(function (require) {
         getTreeNode(treeNode) {
             let isExpanded = !!this.state.expandedTreeNodeId[treeNode.id];
             let isMarked = !!this.state.markedTreeNodeId[treeNode.id];
+            let TreeNode = this.props.treeNodeRenderer;
             return (
                 <div key={treeNode.id}>
                     <TreeNode
