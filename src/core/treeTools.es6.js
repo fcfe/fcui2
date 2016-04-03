@@ -96,5 +96,51 @@ define(function (require) {
         return _.omit(selectedTreeNodeId, toRemove);
     };
 
+    /**
+     * 将treeComponent中， treeNode及其子节点展开。返回展开后的树节点集合。
+     *
+     * @param  {ReactComponent} treeComponent tree component
+     * @param  {treeNode} treeNode 要展开的treeNode
+     * @param {Array<treeNode>} parentTreeNodes 从根节点至treeNode父节点的数组
+     * @return {Object} 新的展开的tree node id 数组
+     */
+    exports.getExpandedTreeNodeIdWithNodeExpanded = function (treeComponent, treeNode) {
+        let newExpanded = {};
+
+        exports.walk(node => {
+            newExpanded[node.id] = true;
+        }, treeNode);
+
+        return _.extend(newExpanded, treeComponent.state.expandedTreeNodeId);
+    };
+
+    /**
+     * 将dualTreeComponent中的右树， treeNode及其子节点展开。返回展开后的树节点集合。
+     *
+     * @param  {ReactComponent} dualTreeComponent tree component
+     * @param  {treeNode} treeNode 要展开的treeNode
+     * @param {Array<treeNode>} parentTreeNodes 从根节点至treeNode父节点的数组
+     * @return {Object} 新的展开的tree node id 数组
+     */
+    exports.getExpandedTreeNodeIdWithNodeExpandedInRightTree = function (dualTreeComponent, treeNode) {
+        return exports.getExpandedTreeNodeIdWithNodeExpanded(
+            dualTreeComponent.refs.rightTree, treeNode
+        );
+    };
+
+    /**
+     * 将dualTreeComponent中的左树， treeNode及其子节点展开。返回展开后的树节点集合。
+     *
+     * @param  {ReactComponent} dualTreeComponent tree component
+     * @param  {treeNode} treeNode 要展开的treeNode
+     * @param {Array<treeNode>} parentTreeNodes 从根节点至treeNode父节点的数组
+     * @return {Object} 新的展开的tree node id 数组
+     */
+    exports.getExpandedTreeNodeIdWithNodeExpandedInLeftTree = function (dualTreeComponent, treeNode) {
+        return exports.getExpandedTreeNodeIdWithNodeExpanded(
+            dualTreeComponent.refs.leftTree, treeNode
+        );
+    };
+
     return exports;
 });
