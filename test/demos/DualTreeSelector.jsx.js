@@ -48,10 +48,7 @@ define(function (require) {
                 }],
                 value: {}
             }
-        }
-    ];
-
-    let _items = [
+        },
         {
             title: '3-level Tree with children',
             props: {
@@ -77,27 +74,26 @@ define(function (require) {
                     id: '2',
                     name: 'Node 2',
                     isChildrenLoaded: true
-                }]
+                }],
+                value: {}
             }
         },
         {
-            title: 'Tree with filter set to "2"',
+            title: 'Normal tree with async loading',
             props: {
-                nameFilter: '2',
                 treeNodes: [{
                     id: '1',
-                    name: 'Node 1',
-                    isChildrenLoaded: true
+                    name: 'Node 1 with async loading',
+                    isChildrenLoaded: false
                 }, {
                     id: '2',
                     name: 'Node 2',
                     isChildrenLoaded: true
-                }]
+                }],
+                value: {}
             }
         }
     ];
-
-    let asyncState = 'initial';
 
     function factory(me, items) {
         let widgets = [];
@@ -113,6 +109,36 @@ define(function (require) {
                 + JSON.stringify(parentTreeNodes.map(omitChildren))
             );
         }
+
+        function asyncLoad(cb) {
+            let node = items[3].props.treeNodes[0];
+            node.isChildrenLoading = true;
+
+            me.forceUpdate();
+
+            setTimeout(() => {
+                node.isChildrenLoaded = true;
+                node.isChildrenLoading = false;
+                node.children = [{
+                    id: '1.1',
+                    name: 'Node 1.1',
+                    isChildrenLoaded: true
+                }, {
+                    id: '1.2',
+                    name: 'Node 1.2',
+                    isChildrenLoaded: true
+                }];
+                let theComponent = me.refs['dualTree_3'];
+                theComponent.setLeftTreeExpandedTreeNodeId(
+                    _.extend({1: true}, theComponent.refs.leftTree.state.expandedTreeId)
+                );
+                cb && cb(node);
+                me.forceUpdate();
+            }, 1000);
+
+            return node;
+        }
+
         // the async one
         function asyncOnTreeNodeExpandClicked(e, treeNode, parentTreeNodes) {
             if (treeNode.isChildrenLoaded) {
@@ -122,47 +148,23 @@ define(function (require) {
 
             e.preventDefault();
 
-            asyncState = 'loading';
+            asyncLoad();
+        }
+
+        function asyncOnTreeNodeOperationClicked(e, treeNode, parentTreeNodes) {
+            if (treeNode.isChildrenLoaded) {
+                alertEvents('expand', e, treeNode, parentTreeNodes);
+                return;
+            }
+
+            e.preventDefault();
+
+            asyncLoad(node => {
+                onChange(null, treeTools.selectTreeNode(node, parentTreeNodes, items[3].props.value), 3);
+            });
 
             me.forceUpdate();
-
-            setTimeout(() => {
-                asyncState = 'loaded';
-                me.forceUpdate();
-            }, 1000);
         }
-        let _items = items.concat({
-            title: 'Tree with children with async loading',
-            props: {
-                onTreeNodeExpandClicked: asyncOnTreeNodeExpandClicked,
-                expandedTreeNodeId: asyncState === 'loaded'
-                    ? {
-                        1: true
-                    }
-                    : {},
-                treeNodes: [{
-                    id: '1',
-                    name: 'Node 1 with children with async loading',
-                    isChildrenLoaded: asyncState === 'loaded',
-                    isChildrenLoading: asyncState === 'loading',
-                    children: asyncState === 'loaded'
-                        ? [{
-                            id: '1.1',
-                            name: 'Node 1.1',
-                            isChildrenLoaded: true
-                        }, {
-                            id: '1.2',
-                            name: 'Node 1.2',
-                            isChildrenLoaded: true
-                        }]
-                        : []
-                }, {
-                    id: '2',
-                    name: 'Node 2',
-                    isChildrenLoaded: true
-                }]
-            }
-        });
 
         function onChange(e, value, index) {
             let props = items[index].props;
@@ -178,13 +180,21 @@ define(function (require) {
         for (let i = 0; i < items.length; i++) {
             let item = items[i];
             let prop = item.props;
-            prop = _.extend({
-                onLeftTreeNodeExpandClicked: _.partial(alertEvents, 'left-expand'),
-                onLeftTreeNodeOperationClicked: _.partial(alertEvents, 'left-oper'),
-                height: 150
-            }, prop);
-            prop.onChange = _.partial(onChange, _, _, i);
+            if (i === 3) {
+                // async
+                prop.onLeftTreeNodeExpandClicked = asyncOnTreeNodeExpandClicked;
+                prop.onLeftTreeNodeOperationClicked = asyncOnTreeNodeOperationClicked;
+                prop.onChange = _.partial(onChange, _, _, i);
+            }
+            else {
+                prop = _.extend({
+                    onLeftTreeNodeExpandClicked: _.partial(alertEvents, 'left-expand'),
+                    onLeftTreeNodeOperationClicked: _.partial(alertEvents, 'left-oper')
+                }, prop);
+                prop.onChange = _.partial(onChange, _, _, i);
+            }
             prop.ref = 'dualTree_' + i;
+            prop.height = 150;
             let conf = JSON.stringify(prop);
             widgets.push(
                 <div className="demo-item" key={i}>

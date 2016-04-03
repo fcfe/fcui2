@@ -135,6 +135,10 @@ define(function (require) {
             this.___dispatchChange___(e, {});
         },
 
+        setLeftTreeExpandedTreeNodeId(expandedTreeNodeId) {
+            this.refs.leftTree.setState({expandedTreeNodeId});
+        },
+
         setRightTreeExpandedTreeNodeId(expandedTreeNodeId) {
             this.refs.rightTree.setState({expandedTreeNodeId});
         },
