@@ -26,7 +26,7 @@ define(function (require) {
     var DropDownRegionDemo = require('./demos/DropDownRegion.jsx');
     var TabDemo = require('./demos/Tab.jsx');
     var TreeDemo = require('./demos/Tree.jsx');
-    var DualTreeSelectorDemo = require('./demos/DualTreeSelectorDemo.jsx');
+    var DualTreeSelectorDemo = require('./demos/DualTreeSelector.jsx');
 
 
     var ListItem = React.createClass({

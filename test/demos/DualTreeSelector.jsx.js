@@ -5,8 +5,9 @@
 
 define(function (require) {
     let React = require('react');
-    let DualTreeSelector = require('fcui/DualTreeSelector.jsx');
     let _ = require('underscore');
+    let DualTreeSelector = require('fcui/DualTreeSelector.jsx');
+    let treeTools = require('fcui/core/treeTools.es6');
 
     let items = [
         {
@@ -21,12 +22,9 @@ define(function (require) {
                     name: 'Node 2',
                     isChildrenLoaded: true
                 }],
-                value: []
+                value: {}
             }
-        }
-    ];
-
-    let _items = [
+        },
         {
             title: 'Tree with children',
             props: {
@@ -47,9 +45,13 @@ define(function (require) {
                     id: '2',
                     name: 'Node 2',
                     isChildrenLoaded: true
-                }]
+                }],
+                value: {}
             }
-        },
+        }
+    ];
+
+    let _items = [
         {
             title: '3-level Tree with children',
             props: {
@@ -162,8 +164,11 @@ define(function (require) {
             }
         });
 
-        function onChange(e, value, props) {
+        function onChange(e, value, index) {
+            let props = items[index].props;
             props.value = value;
+            props.rightTreeSummary = treeTools.countSelectedLeaf(props.treeNodes, props.value) + '';
+            me.props.alert('onChange' + ' | ' + JSON.stringify(value));
             me.forceUpdate();
         }
 
@@ -171,10 +176,12 @@ define(function (require) {
             let item = items[i];
             let prop = item.props;
             prop = _.extend({
-                onLeftTreeNodeExpand: _.partial(alertEvents, 'left-expand'),
-                onLeftTreeNodeOperationClicked: _.partial(alertEvents, 'left-oper')
+                onLeftTreeNodeExpandClicked: _.partial(alertEvents, 'left-expand'),
+                onLeftTreeNodeOperationClicked: _.partial(alertEvents, 'left-oper'),
+                height: 150
             }, prop);
-            prop.onChange = _.partial(onChange, _, _, prop);
+            prop.onChange = _.partial(onChange, _, _, i);
+            prop.ref='dualTree_' + i;
             let conf = JSON.stringify(prop);
             widgets.push(
                 <div className="demo-item" key={i}>
@@ -191,7 +198,7 @@ define(function (require) {
         // @override
         getDefaultProps() {
             return {
-                demo: 'Tree',
+                demo: 'DualTreeSelector',
                 alert() {}
             };
         },
@@ -199,7 +206,7 @@ define(function (require) {
             let containerProp = {
                 className: 'demo-content',
                 style: {
-                    display: this.props.demo === 'Tree' ? 'block' : 'none'
+                    display: this.props.demo === 'DualTreeSelector' ? 'block' : 'none'
                 }
             };
             return (<div {...containerProp}>{factory(this, items)}</div>);

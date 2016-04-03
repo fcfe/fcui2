@@ -11,35 +11,6 @@ define(function (require) {
     let Tree = require('./Tree.jsx');
     let treeTools = require('./core/treeTools.es6');
 
-    /**
-     * 将treeNode以及其父节点放入rootTreeNode，生成已选树。
-     *
-     * @param {treeNode} treeNode 待移除的treeNode
-     * @param {Array<treeNode>} parentTreeNodes 从根节点至treeNode父节点的数组
-     * @param {Array<treeNode>} treeNodes 已生成的已选树
-     * @return {Array<treeNode>} treeNodes 已生成的已选树
-     */
-    function putTreeNode(treeNode, parentTreeNodes, treeNodes) {
-        let nodes = treeNodes;
-        parentTreeNodes.forEach(parentNode => {
-            let node = _.find(nodes, node => node.id === parentNode.id);
-            if (node == null) {
-                node = _.omit(parentNode, 'children');
-                node.children = [];
-                nodes.push(node);
-            }
-            nodes = node.children;
-        });
-
-        return treeNodes;
-    }
-
-    let BaseTreeNodeRenderer = Tree.supportLoadingText(
-        Tree.supportNameFilter(
-            Tree.baseTreeNodeRenderer
-        )
-    );
-
     let DualTreeSelector = React.createClass({
         propTypes: {
             /**
@@ -113,9 +84,7 @@ define(function (require) {
                 height: 380,
                 leftTreeTitle: '可选项目',
                 rightTreeTitle: '已选项目',
-                onTreeNodeSelect: _.noop,
-                afterTreeNodeSelect: _.noop,
-                onLeftTreeNodeExpand: _.noop,
+                onLeftTreeNodeExpandClicked: _.noop,
                 onLeftTreeNodeOperationClicked: _.noop
             };
         },
@@ -130,7 +99,7 @@ define(function (require) {
         onLeftTreeNodeOperationClicked(e, treeNode, parentTreeNodes) {
             this.props.onLeftTreeNodeOperationClicked(e, treeNode, parentTreeNodes);
             if (e.isDefaultPrevented()) {
-
+                return;
             }
             this.___dispatchChange___(e, treeTools.selectTreeNode(treeNode, parentTreeNodes, this.___getValue___()));
         },
@@ -166,24 +135,7 @@ define(function (require) {
             this.___dispatchChange___(e, {});
         },
 
-        /**
-         * 绘制树节点，同时通过设置this._selectedTreeNodes，生成已选树结构。
-         *
-         * @param  {Object} props tree node renderer的参数
-         * @return {ReactElement} rendered element
-         */
-        treeNodeRenderer(props) {
-            let selectedTreeNodeId = this.___getValue___();
-            if (selectedTreeNodeId[props.treeNode.id]) {
-                this._selectedTreeNodes = putTreeNode(props.treeNode, props.parentTreeNodes, this._selectedTreeNodes);
-            }
-
-            return <BaseTreeNodeRenderer {...props} />;
-        },
-
         render() {
-            this._selectedTreeNodes = [];
-
             return (
                 <div className='fcui2-dual-tree-selector'>
                     <div className='fcui2-dual-tree-selector-left-tree-wrapper'>
@@ -192,10 +144,9 @@ define(function (require) {
                             style={{width: this.props.leftTreeWidth, height: this.props.height}}
                             nameFilter={this.props.leftTreeFilter}
                             treeNodes={this.props.treeNodes}
-                            markedTreeNodeId={this.state.selectedTreeNodeId}
+                            markedTreeNodeId={this.___getValue___()}
                             onTreeNodeOperationClicked={this.onLeftTreeNodeOperationClicked}
                             onTreeNodeExpandClicked={this.onLeftTreeNodeExpandClicked}
-                            treeNodeRenderer={this.treeNodeRenderer}
                             ref='leftTree'
                         />
                         <div className='fcui2-dual-tree-selector-tree-footer'>
@@ -214,7 +165,7 @@ define(function (require) {
                         </div>
                         <Tree
                             style={{width: this.props.rightTreeWidth, height: this.props.height}}
-                            treeNodes={this._selectedTreeNodes}
+                            treeNodes={treeTools.getSelectedTree(this.props.treeNodes, this.___getValue___())}
                             onTreeNodeOperationClicked={this.onRightTreeNodeOperationClicked}
                             ref='rightTree'
                         />

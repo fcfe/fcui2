@@ -13,19 +13,22 @@ define(function (require) {
      *
      * @param {Function} cb 回调函数
      * @param {treeNode} cb.node 当前访问的节点
-     * @param {treeNode} cb.parentTreeNode 当前访问节点的父节点
+     * @param {treeNode} cb.parentTreeNodes 从根开始的当前访问节点的父节点数组
      * @param {treeNode|Array<treeNode>} treeNodes treeNodes
      * @param {treeNode} parentTreeNode parentTreeNode
      */
-    exports.walk = function (cb, treeNodes, parentTreeNode) {
+    exports.walk = function (cb, treeNodes, parentTreeNodes) {
         if (!_.isArray(treeNodes)) {
             treeNodes = [treeNodes];
         }
+        if (parentTreeNodes == null) {
+            parentTreeNodes = [];
+        }
         treeNodes.forEach(node => {
-            cb(node, parentTreeNode);
+            cb(node, parentTreeNodes);
             // 向下访问所有的孩子
             if (node.children && node.children.length) {
-                exports.walk(cb, node.children, node);
+                exports.walk(cb, node.children, parentTreeNodes.concat(node));
             }
         });
     },
@@ -131,8 +134,8 @@ define(function (require) {
     /**
      * 将dualTreeComponent中的左树， treeNode及其子节点展开。返回展开后的树节点集合。
      *
-     * @param  {ReactComponent} dualTreeComponent tree component
-     * @param  {treeNode} treeNode 要展开的treeNode
+     * @param {ReactComponent} dualTreeComponent tree component
+     * @param {treeNode} treeNode 要展开的treeNode
      * @param {Array<treeNode>} parentTreeNodes 从根节点至treeNode父节点的数组
      * @return {Object} 新的展开的tree node id 数组
      */
@@ -140,6 +143,63 @@ define(function (require) {
         return exports.getExpandedTreeNodeIdWithNodeExpanded(
             dualTreeComponent.refs.leftTree, treeNode
         );
+    };
+
+    /**
+     * 先深遍历所有已选节点
+     *
+     * @param {Function} cb 回调函数
+     * @param {treeNode} cb.node 当前访问的节点
+     * @param {treeNode} cb.parentTreeNodes 从根开始的当前访问节点的父节点数组
+     * @param {ReactComponent} dualTreeComponent the component
+     */
+    exports.walkSelected = function (cb, treeNodes, selectedTreeNodeId) {
+        exports.walk((node, parentTreeNodes) => {
+            if (selectedTreeNodeId[node.id]) {
+                cb(node, parentTreeNodes);
+            }
+        }, treeNodes);
+    };
+
+    /**
+     * 获得已选树结构
+     * @param {Array<treeNodes>} treeNodes 树节点全集
+     * @param {Object} selectedTreeNodeId 已选树节点集合
+     * @return {Array<treeNodes>} 已选树结构
+     */
+    exports.getSelectedTree = function (treeNodes, selectedTreeNodeId) {
+        let selectedTreeNodes = [];
+        exports.walkSelected((selectedNode, parentTreeNodes) => {
+            let dstNodes = selectedTreeNodes;
+            parentTreeNodes.concat(selectedNode).forEach(sourceNode => {
+                let node = _.find(dstNodes, n => n.id === sourceNode.id);
+                if (node == null) {
+                    node = _.omit(sourceNode, 'children');
+                    node.children = [];
+                    dstNodes.push(node);
+                }
+                dstNodes = node.children;
+            });
+        }, treeNodes, selectedTreeNodeId);
+
+        return selectedTreeNodes;
+    };
+
+    /**
+     * 计数已选的叶子节点
+     *
+     * @param {Array<treeNodes>} treeNodes 树节点全集
+     * @param {Object} selectedTreeNodeId 已选树节点集合
+     * @return {number} 叶子节点数目
+     */
+    exports.countSelectedLeaf = function (treeNodes, selectedTreeNodeId) {
+        let count = 0;
+        exports.walkSelected(node => {
+            if (node.isChildrenLoaded && (node.children == null || node.children.length === 0)) {
+                count++;
+            }
+        }, treeNodes, selectedTreeNodeId);
+        return count;
     };
 
     return exports;
