@@ -100,49 +100,17 @@ define(function (require) {
     };
 
     /**
-     * 将treeComponent中， treeNode及其子节点展开。返回展开后的树节点集合。
-     *
-     * @param  {ReactComponent} treeComponent tree component
-     * @param  {treeNode} treeNode 要展开的treeNode
-     * @param {Array<treeNode>} parentTreeNodes 从根节点至treeNode父节点的数组
-     * @return {Object} 新的展开的tree node id 数组
-     */
-    exports.getExpandedTreeNodeIdWithNodeExpanded = function (treeComponent, treeNode) {
-        let newExpanded = {};
-
-        exports.walk(node => {
-            newExpanded[node.id] = true;
-        }, treeNode);
-
-        return _.extend(newExpanded, treeComponent.state.expandedTreeNodeId);
-    };
-
-    /**
-     * 将dualTreeComponent中的右树， treeNode及其子节点展开。返回展开后的树节点集合。
-     *
-     * @param  {ReactComponent} dualTreeComponent tree component
-     * @param  {treeNode} treeNode 要展开的treeNode
-     * @param {Array<treeNode>} parentTreeNodes 从根节点至treeNode父节点的数组
-     * @return {Object} 新的展开的tree node id 数组
-     */
-    exports.getExpandedTreeNodeIdWithNodeExpandedInRightTree = function (dualTreeComponent, treeNode) {
-        return exports.getExpandedTreeNodeIdWithNodeExpanded(
-            dualTreeComponent.refs.rightTree, treeNode
-        );
-    };
-
-    /**
-     * 将dualTreeComponent中的左树， treeNode及其子节点展开。返回展开后的树节点集合。
+     * 返回新的expandedTreeNodeId， 展开刚刚选择的节点。
      *
      * @param {ReactComponent} dualTreeComponent tree component
-     * @param {treeNode} treeNode 要展开的treeNode
-     * @param {Array<treeNode>} parentTreeNodes 从根节点至treeNode父节点的数组
+     * @param {Object} originSelected 前一展开转台
+     * @param {Object} newSelected 新的展开状态
      * @return {Object} 新的展开的tree node id 数组
      */
-    exports.getExpandedTreeNodeIdWithNodeExpandedInLeftTree = function (dualTreeComponent, treeNode) {
-        return exports.getExpandedTreeNodeIdWithNodeExpanded(
-            dualTreeComponent.refs.leftTree, treeNode
-        );
+    exports.getExpandedTreeNodeIdAfterSelect = function (dualTreeComponent, originSelected, newSelected) {
+        // 取new中有，origin中没有的项
+        let diff = _.omit(newSelected, Object.keys(originSelected));
+        return _.extend(diff, dualTreeComponent.refs.rightTree.state.expandedTreeNodeId);
     };
 
     /**
@@ -151,7 +119,8 @@ define(function (require) {
      * @param {Function} cb 回调函数
      * @param {treeNode} cb.node 当前访问的节点
      * @param {treeNode} cb.parentTreeNodes 从根开始的当前访问节点的父节点数组
-     * @param {ReactComponent} dualTreeComponent the component
+     * @param {Array<treeNodes>} treeNodes 树节点全集
+     * @param {Object} selectedTreeNodeId 已选树节点集合
      */
     exports.walkSelected = function (cb, treeNodes, selectedTreeNodeId) {
         exports.walk((node, parentTreeNodes) => {

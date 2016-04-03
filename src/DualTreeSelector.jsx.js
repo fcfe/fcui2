@@ -135,6 +135,10 @@ define(function (require) {
             this.___dispatchChange___(e, {});
         },
 
+        setRightTreeExpandedTreeNodeId(expandedTreeNodeId) {
+            this.refs.rightTree.setState({expandedTreeNodeId});
+        },
+
         render() {
             return (
                 <div className='fcui2-dual-tree-selector'>

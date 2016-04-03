@@ -166,8 +166,11 @@ define(function (require) {
 
         function onChange(e, value, index) {
             let props = items[index].props;
+            let theComponent = me.refs['dualTree_' + index];
+            let expandedTreeNodeId = treeTools.getExpandedTreeNodeIdAfterSelect(theComponent, props.value, value);
+            theComponent.setRightTreeExpandedTreeNodeId(expandedTreeNodeId);
+            props.rightTreeSummary = treeTools.countSelectedLeaf(props.treeNodes, value) + '';
             props.value = value;
-            props.rightTreeSummary = treeTools.countSelectedLeaf(props.treeNodes, props.value) + '';
             me.props.alert('onChange' + ' | ' + JSON.stringify(value));
             me.forceUpdate();
         }
@@ -181,7 +184,7 @@ define(function (require) {
                 height: 150
             }, prop);
             prop.onChange = _.partial(onChange, _, _, i);
-            prop.ref='dualTree_' + i;
+            prop.ref = 'dualTree_' + i;
             let conf = JSON.stringify(prop);
             widgets.push(
                 <div className="demo-item" key={i}>
