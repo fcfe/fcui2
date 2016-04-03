@@ -108,7 +108,7 @@ define(function (require) {
                 this.props.valueLink.requestChange(value);
             }
             else if (typeof this.props.onChange === 'function') {
-                this.props.onChange(e);
+                this.props.onChange(e, value);
             }
             this.setState({
                 ___value___: value,

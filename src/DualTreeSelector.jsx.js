@@ -77,10 +77,6 @@ define(function (require) {
             /**
              * 左树左下角的提示话术
              */
-            textLeftTreeSummary: React.PropTypes.string,
-            /**
-             * 左树左下角的提示话术
-             */
             leftTreeSummary: React.PropTypes.string,
             /**
              * 右树右下角的提示话术
@@ -97,7 +93,15 @@ define(function (require) {
              * @param {treeNodeType} onLeftTreeNodeExpand.treeNode 被操作的树节点数据
              * @param {Array<treeNodeType>} onLeftTreeNodeExpand.parentTreeNodes 当前节点的父节点列表
              */
-            onLeftTreeNodeExpand: React.PropTypes.func
+            onLeftTreeNodeExpand: React.PropTypes.func,
+            /**
+             * 左树“操作”按钮点击时的回调
+             *
+             * @param {SyntheticEvent} e 点击事件对象
+             * @param {treeNodeType} treeNode 被操作的树节点数据
+             * @param {Array<treeNodeType>} parentTreeNodes 当前节点的父节点列表
+             */
+            onLeftTreeNodeOperationClicked: React.PropTypes.func
         },
 
         mixins: [InputWidgetBase, InputWidgetInForm],
@@ -111,7 +115,8 @@ define(function (require) {
                 rightTreeTitle: '已选项目',
                 onTreeNodeSelect: _.noop,
                 afterTreeNodeSelect: _.noop,
-                onLeftTreeNodeExpand: _.noop
+                onLeftTreeNodeExpand: _.noop,
+                onLeftTreeNodeOperationClicked: _.noop
             };
         },
 
@@ -123,6 +128,10 @@ define(function (require) {
          * @param {Array<treeNodeType>} parentTreeNodes 当前节点的父节点列表
          */
         onLeftTreeNodeOperationClicked(e, treeNode, parentTreeNodes) {
+            this.props.onLeftTreeNodeOperationClicked(e, treeNode, parentTreeNodes);
+            if (e.isDefaultPrevented()) {
+
+            }
             this.___dispatchChange___(e, treeTools.selectTreeNode(treeNode, parentTreeNodes, this.___getValue___()));
         },
 
@@ -191,7 +200,7 @@ define(function (require) {
                         />
                         <div className='fcui2-dual-tree-selector-tree-footer'>
                             <span className='fcui2-dual-tree-selector-tree-footer-summary'>
-                                {this.props.textLeftTreeSummary}
+                                {this.props.leftTreeSummary}
                             </span>
                         </div>
                     </div>
@@ -211,7 +220,7 @@ define(function (require) {
                         />
                         <div className='fcui2-dual-tree-selector-tree-footer'>
                             <span className='fcui2-dual-tree-selector-tree-footer-summary'>
-                                ? / ?
+                                {this.props.rightTreeSummary}
                             </span>
                             <span className='fcui2-dual-tree-selector-tree-footer-remove-all'>
                                 <a href='javascript:;' onClick={this.onRemoveAll}>全部删除</a>
