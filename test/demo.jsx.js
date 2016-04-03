@@ -30,6 +30,7 @@ define(function (require) {
     var SliderDemo = require('./demos/Slider.jsx');
     var CrumbDemo = require('./demos/Crumb.jsx');
     var TreeDemo = require('./demos/Tree.jsx');
+    var DualTreeSelectorDemo = require('./demos/DualTreeSelector.jsx');
 
 
     var ListItem = React.createClass({
@@ -113,6 +114,7 @@ define(function (require) {
                         <ListItem demo={this.props.demo} label="Dialog" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Form" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Tree" onClick={this.changeDemo}/>
+                        <ListItem demo={this.props.demo} label="DualTreeSelector" onClick={this.changeDemo}/>
                         <hr/>
                     </div>
                     <div className="right-top-container">{this.state.message}</div>
@@ -145,6 +147,7 @@ define(function (require) {
                         <SliderDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <SearchBoxDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <TreeDemo demo={this.props.demo} alert={this.changeMessage} />
+                        <DualTreeSelectorDemo demo={this.props.demo} alert={this.changeMessage} />
                     </div>
                     <div className="right-bottom-container" style={{display: 'none'}}></div>
                 </div>
