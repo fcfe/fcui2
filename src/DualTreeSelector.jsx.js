@@ -6,9 +6,39 @@
 define(function (require) {
     let _ = require('underscore');
     let React = require('react');
-    var InputWidgetBase = require('./mixins/InputWidgetBase');
-    var InputWidgetInForm = require('./mixins/InputWidgetInForm');
+    let InputWidgetBase = require('./mixins/InputWidgetBase');
+    let InputWidgetInForm = require('./mixins/InputWidgetInForm');
     let Tree = require('./Tree.jsx');
+    let treeTools = require('./core/treeTools.es6');
+
+    /**
+     * 将treeNode以及其父节点放入rootTreeNode，生成已选树。
+     *
+     * @param {treeNode} treeNode 待移除的treeNode
+     * @param {Array<treeNode>} parentTreeNodes 从根节点至treeNode父节点的数组
+     * @param {Array<treeNode>} treeNodes 已生成的已选树
+     * @return {Array<treeNode>} treeNodes 已生成的已选树
+     */
+    function putTreeNode(treeNode, parentTreeNodes, treeNodes) {
+        let nodes = treeNodes;
+        parentTreeNodes.forEach(parentNode => {
+            let node = _.find(nodes, node => node.id === parentNode.id);
+            if (node == null) {
+                node = _.omit(parentNode, 'children');
+                node.children = [];
+                nodes.push(node);
+            }
+            nodes = node.children;
+        });
+
+        return treeNodes;
+    }
+
+    let BaseTreeNodeRenderer = Tree.supportLoadingText(
+        Tree.supportNameFilter(
+            Tree.baseTreeNodeRenderer
+        )
+    );
 
     let DualTreeSelector = React.createClass({
         propTypes: {
@@ -168,61 +198,112 @@ define(function (require) {
             return _.extend({}, this.state.selectedTreeNodeId);
         },
 
+        /**
+         * 左树“操作”按钮点击时的回调
+         *
+         * @param {SyntheticEvent} e 点击事件对象
+         * @param {treeNodeType} treeNode 被操作的树节点数据
+         * @param {Array<treeNodeType>} parentTreeNodes 当前节点的父节点列表
+         */
+        onLeftTreeNodeOperationClicked(e, treeNode, parentTreeNodes) {
+            this.___dispatchChange___(e, treeTools.selectTreeNode(treeNode, parentTreeNodes, this.___getValue___()));
+        },
+
+        /**
+         * 左树“展开”按钮点击时的回调
+         *
+         * @param {SyntheticEvent} e 点击事件对象
+         * @param {treeNodeType} treeNode 被操作的树节点数据
+         * @param {Array<treeNodeType>} parentTreeNodes 当前节点的父节点列表
+         */
+        onLeftTreeNodeExpandClicked(e, treeNode, parentTreeNodes) {
+            this.props.onLeftTreeNodeExpandClicked(e, treeNode, parentTreeNodes);
+        },
+
+        /**
+         * 右树“操作”按钮点击时的回调
+         *
+         * @param {SyntheticEvent} e 点击事件对象
+         * @param {treeNodeType} treeNode 被操作的树节点数据
+         * @param {Array<treeNodeType>} parentTreeNodes 当前节点的父节点列表
+         */
+        onRightTreeNodeOperationClicked(e, treeNode, parentTreeNodes) {
+            this.___dispatchChange___(e, treeTools.unselectTreeNode(treeNode, parentTreeNodes, this.___getValue___()));
+        },
+
+        /**
+         * 全部删除时的回调
+         *
+         * @param {SyntheticEvent} e 点击事件对象
+         */
+        onRemoveAll(e) {
+            this.___dispatchChange___(e, {});
+        },
+
+        /**
+         * 绘制树节点，同时通过设置this._selectedTreeNodes，生成已选树结构。
+         *
+         * @param  {Object} props tree node renderer的参数
+         * @return {ReactElement} rendered element
+         */
+        treeNodeRenderer(props) {
+            let selectedTreeNodeId = this.___getValue___();
+            if (selectedTreeNodeId[props.treeNode.id]) {
+                this._selectedTreeNodes = putTreeNode(props.treeNode, props.parentTreeNodes, this._selectedTreeNodes);
+            }
+
+            return <BaseTreeNodeRenderer {...props} />;
+        },
+
         render() {
-            let {
-                leftTreeWidth,
-                rightTreeWidth,
-                leftTreeTitle,
-                rightTreeTitle,
-                height,
-                ...others
-            } = this.props;
+            this._selectedTreeNodes = [];
 
-            var selectedTreeNodes = treeUtil.getMarkedTreeNodes(
-                this.props.treeNodes, this.state.selectedTreeNodeId, this._cache.parentCache, this._cache.nodeCache
+            return (
+                <div className='fcui2-dual-tree-selector'>
+                    <div className='fcui2-dual-tree-selector-left-tree-wrapper'>
+                        <div className="fcui2-dual-tree-selector-tree-title">{this.props.leftTreeTitle}</div>
+                        <Tree
+                            style={{width: this.props.leftTreeWidth, height: this.props.height}}
+                            nameFilter={this.props.leftTreeFilter}
+                            treeNodes={this.props.treeNodes}
+                            markedTreeNodeId={this.state.selectedTreeNodeId}
+                            onTreeNodeOperationClicked={this.onLeftTreeNodeOperationClicked}
+                            onTreeNodeExpandClicked={this.onLeftTreeNodeExpandClicked}
+                            treeNodeRenderer={this.treeNodeRenderer}
+                            ref='leftTree'
+                        />
+                        <div className='fcui2-dual-tree-selector-tree-footer'>
+                            <span className='fcui2-dual-tree-selector-tree-footer-summary'>
+                                {this.props.textLeftTreeSummary}
+                            </span>
+                        </div>
+                    </div>
+                    <div
+                        className='fcui2-dual-tree-selector-separator'
+                        style={{lineHeight: this.props.height + 'px'}}
+                    />
+                    <div className='fcui2-dual-tree-selector-right-tree-wrapper'>
+                        <div className='fcui2-dual-tree-selector-tree-title'>
+                            {this.props.rightTreeTitle}
+                        </div>
+                        <Tree
+                            style={{width: this.props.rightTreeWidth, height: this.props.height}}
+                            treeNodes={this._selectedTreeNodes}
+                            onTreeNodeOperationClicked={this.onRightTreeNodeOperationClicked}
+                            ref='rightTree'
+                        />
+                        <div className='fcui2-dual-tree-selector-tree-footer'>
+                            <span className='fcui2-dual-tree-selector-tree-footer-summary'>
+                                ? / ?
+                            </span>
+                            <span className='fcui2-dual-tree-selector-tree-footer-remove-all'>
+                                <a href='javascript:;' onClick={this.onRemoveAll}>全部删除</a>
+                            </span>
+                        </div>
+                    </div>
+                    <div style={{clear: 'both'}} />
+                </div>
             );
-
-            return <div className='fcui2-dual-tree-selector'>
-                <div className='fcui2-dual-tree-selector-left-tree-wrapper'>
-                    <div className="fcui2-dual-tree-selector-tree-title">{leftTreeTitle}</div>
-                    <Tree style={{width: leftTreeWidth, height: height}}
-                        nameFilter={this.props.leftTreeFilter}
-                        treeNodes={this.props.treeNodes}
-                        markedTreeNodeId={this.state.selectedTreeNodeId}
-                        onTreeNodeOperationClicked={(treeNode) => {
-                            this.selectTreeNode(treeNode);
-                        }}
-                        onTreeNodeExpandClicked={this.props.onLeftTreeNodeExpand.bind(this)}
-                        ref='leftTree' />
-                    <div className='fcui2-dual-tree-selector-tree-footer'>
-                        <span className='fcui2-dual-tree-selector-tree-footer-summary'>{textLeftTreeSummary}</span>
-                    </div>
-                </div>
-                <div className='fcui2-dual-tree-selector-separator' style={{lineHeight: height + 'px'}}></div>
-                <div className='fcui2-dual-tree-selector-right-tree-wrapper'>
-                    <div className='fcui2-dual-tree-selector-tree-title'>{rightTreeTitle}</div>
-                    <Tree style={{width: rightTreeWidth, height: height}}
-                        treeNodes={selectedTreeNodes}
-                        onTreeNodeOperationClicked={(treeNode) => {
-                            this.unselectTreeNode(treeNode);
-                        }}
-                        ref='rightTree' />
-                    <div className='fcui2-dual-tree-selector-tree-footer'>
-                        <span className='fcui2-dual-tree-selector-tree-footer-summary'>
-                            {treeUtil.countLeaf(selectedTreeNodes)}
-                            {this.props.rightTreeLimit
-                                ? ' / ' + this.props.rightTreeLimit
-                                : ''}
-                        </span>
-                        <span className='fcui2-dual-tree-selector-tree-footer-remove-all'>
-                            <a href='javascript:;' onClick={() => {
-                                this.unselectAll();
-                            }}>全部删除</a>
-                        </span>
-                    </div>
-                </div>
-                <div style={{clear: 'both'}}></div>
-            </div>;
         }
     });
 

@@ -38,7 +38,7 @@ define(function (require) {
      *
      * @param {Object} props the props
      * @param {treeNodeType} props.treeNode 节点数据
-     * @param {Array<treeNodeType>} props.parentTreeNode 当前节点的父节点表
+     * @param {Array<treeNodeType>} props.parentTreeNodes 当前节点的父节点表
      * @param {boolean} props.isExpanded 节点是否展开
      * @param {string} props.className 树根节点的class name
      *
@@ -341,7 +341,7 @@ define(function (require) {
 
         getTreeNodeProps() {
             return _.extend(
-                _.pick(this.props, 'textLoading', 'treeLevel', 'nameFilter'),
+                _.pick(this.props, 'textLoading', 'treeLevel', 'nameFilter', 'parentTreeNodes'),
                 this.getHandlers()
             );
         },
