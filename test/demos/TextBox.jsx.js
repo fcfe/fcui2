@@ -25,9 +25,19 @@ define(function (require) {
             props: {disabled: true}
         },
         {
+            title: 'Disabled TextBox with value',
+            onChange: true,
+            props: {disabled: true, value: 'value'}
+        },
+        {
             title: 'TextBox with Placeholder',
             onChange: true,
             props: {placeholder: 'please input'}
+        },
+        {
+            title: 'TextBox with Placeholder with value',
+            onChange: true,
+            props: {value: 1, placeholder: 'please input'}
         },
         {
             title: 'TextBox with Width',
