@@ -1,0 +1,20 @@
+@import "../skin.less";
+.fcui2-table {
+    .tr-message {
+        background-color: @bgcolor-information;
+        text-align: center;
+        cursor: default;
+        font-size: @fontsize-button;
+        .link {
+            cursor: pointer;
+            margin-left: 10px;
+            color: @fontcolor-highlight;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+    }
+    .tr-message:hover {
+        background-color: @bgcolor-information !important;
+    }
+}

@@ -2,10 +2,9 @@
 .fcui2-combolist {
     display: inline-block;
     position: relative;
-    font-size: @fontsize-button;
-    font-family: @normal-font;
     cursor: default;
-    line-height: @lineheight-normal;
+    top: @height-normal / 2 - 3;
+    height: @height-normal;
     moz-user-select: -moz-none;
     -moz-user-select: none;
     -o-user-select:none;
@@ -28,11 +27,14 @@
     .font-icon-largeable-caret-down:hover {
         background-color: @bgcolor-important-hover;
     }
+    .main-button {
+        top: 0px;
+    }
 }
-.fcui2-combolist-disable {
+.fcui2-combolist-disabled {
     .font-icon-largeable-caret-down {
         background-color: @bgcolor-normal !important;
-        color: @color-disable !important;
-        border-color: @color-disable !important;
+        color: @color-disabled !important;
+        border-color: @color-disabled !important;
     }
 }

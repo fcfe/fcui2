@@ -1,62 +1,51 @@
+/**
+ * @file 选择框组件
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.1
+ */
 define(function (require) {
 
-    var mixins = require('./core/mixins.jsx');
+
     var React = require('react');
+    var MouseWidgetBase = require('./mixins/MouseWidgetBase');
+    var LayerContainerBase = require('./mixins/LayerContainerBase');
+    var InputWidgetBase = require('./mixins/InputWidgetBase');
+    var InputWidgetInForm = require('./mixins/InputWidgetInForm');
+    
 
     return React.createClass({
         // @override
-        mixins: [mixins.formField, mixins.layerContainer, mixins.mouseContainer],
+        mixins: [MouseWidgetBase, LayerContainerBase, InputWidgetBase, InputWidgetInForm],
         // @override
         getDefaultProps: function () {
             return {
                 className: '',
                 minWidth: 60,
-                label: 'please select',
-                value: '',
-                disable: false,
+                width: NaN,
+                placeholder: 'please select',
+                datasource: [],  // 见List
+                disabled: false,
+                valueTemplate: '',
+                // 以下为LayerContainerBase中需要的配置
                 layerContent: require('./List.jsx'),
                 layerProps: {},
-                datasource: [],         // {label: <string>, value: <string>, disable: <boolean>}
-                checkout: [],   // 校验队列
-                onChange: function () {},
-                form: {},   // 父form component
-                formField: '', // 本输入的域名称
-                formFeedback: '' // 错误的提示框
+                layerInterface: 'onClick'
             };
-        },
-        // @override
-        componentWillReceiveProps: function (props) {
-            this.setState({
-                disable: props.disable,
-                datasource: JSON.parse(JSON.stringify(props.datasource))
-            });
         },
         // @override
         getInitialState: function () {
-            return {
-                mouseover: false,
-                disable: this.props.disable,
-                value: this.props.value + '',
-                datasource: JSON.parse(JSON.stringify(this.props.datasource)),
-                checkPassed: true,
-                checkMessage: '',
-                changed: false
-            };
+            return {};
         },
-        layerAction: function (type, value) {
-            this.layerHide();
-            if (this.state.disable || value === this.state.value) return;
-            this.setState({
-                value: value,
-                checkPassed: true,
-                checkMessage: '',
-                changed: true
-            });
-            this.props.onChange({target: this, value: value});
+        layerAction: function (e) {
+            var value = this.___getValue___();
+            if (this.props.disabled || value === e.target.value) return;
+            this.___dispatchChange___(e);
             this.layerHide();
         },
         mouseEnterHandler: function (e) {
-            this.mouseenter(e);
+            this.___mouseenterHandler___();
+            if (this.props.datasource.length === 0 || this.props.disabled) return;
             this.layerShow();
         },
         render: function () {
@@ -65,26 +54,31 @@ define(function (require) {
                 className: 'fcui2-dropdownlist ' + this.props.className,
                 style: {
                     minWidth: this.props.minWidth,
-                    borderColor: !this.state.checkPassed ? '#F00' : undefined
+                    borderColor: this.state.isValid === false ? '#F00' : undefined 
                 },
                 onMouseEnter: this.mouseEnterHandler,
-                onMouseLeave: this.mouseleave,
+                onMouseLeave: this.___mouseleaveHandler___,
                 ref: 'container'
             };
-            if (this.state.disable) {
-                containerProp.className += ' fcui2-dropdownlist-disable';
+            if (this.props.disabled) {
+                containerProp.className += ' fcui2-dropdownlist-disabled';
             }
-            var label = this.props.label;
-            for (var i = 0; i < this.state.datasource.length; i++) {
-                if (this.state.datasource[i].value + '' === this.state.value + '') {
-                    label = this.state.datasource[i].label;
+            if (!isNaN(this.props.width)) {
+                delete containerProp.style.minWidth;
+                containerProp.style.width = this.props.width;
+            }
+            var label = this.props.placeholder;
+            var value = this.___getValue___();
+            for (var i = 0; i < this.props.datasource.length; i++) {
+                if (this.props.datasource[i].value + '' === value + '') {
+                    label = this.props.datasource[i].label;
                     break;
                 }
             }
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
-                    <span>{label}</span>
+                    <div className="label-container">{label}</div>
                 </div>
             );
         }

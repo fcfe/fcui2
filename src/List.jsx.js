@@ -1,16 +1,28 @@
+/**
+ * @file 列表组件
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.1
+ */
 define(function (require) {
+
+
     var React = require('react');
-    var util = require('./core/util.es6');
-    var mixins = require('./core/mixins.jsx');
+    var util = require('./core/util');
+    var MouseWidgetBase = require('./mixins/MouseWidgetBase');
+
+
     return React.createClass({
         // @override
-        mixins: [mixins.mouseContainer],
+        mixins: [MouseWidgetBase],
         // @override
         getDefaultProps: function () {
             return {
                 className: '',
-                datasource: [],
-                onAction: function () {}
+                width: NaN,
+                datasource: [],  // {label: <string>, value: <string>, disabled: <boolean>, children: [self]}
+                disabled: false,
+                onClick: function () {}
             };
         },
         // @override
@@ -29,8 +41,10 @@ define(function (require) {
         },
         clickHandler: function (e) {
             var dataset = util.getDataset(e.target);
-            if (this.state.disable || !dataset.uiCmd) return;
-            this.props.onAction('ListClick', dataset.uiCmd);
+            if (dataset.uiDisable + '' === 'true' || !dataset.uiCmd || this.props.disabled) return;
+            e.target.value = dataset.uiCmd;
+            this.props.onClick(e);
+            // 必须stop掉，否则外部如果用了onClick，会触发两次
             e.stopPropagation();
         },
         render: function () {
@@ -38,44 +52,68 @@ define(function (require) {
             var containerProps = {
                 ref: 'container',
                 className: 'fcui2-list ' + me.props.className,
-                onMouseEnter: this.mouseenter,
-                onMouseLeave: this.mouseleave
+                onMouseEnter: this.___mouseenterHandler___,
+                onMouseLeave: this.___mouseleaveHandler___,
+                onClick: this.clickHandler
             };
-            return (
-                <div {...containerProps}>
-                    {this.props.datasource.map(produceList)}
-                </div>
-            );
-            function produceList(item, index) {
-                var children = item.datasource instanceof Array ? item.datasource : [];
-                var itemProp = {
-                    onClick: me.clickHandler,
-                    className: 'item' + (item.disable ? ' disable' : ''),
-                    key: index
-                };
-                var spanProp = {
-                    onClick: me.clickHandler
-                };
-                var rightArrowProp = {
-                    className: 'icon-right font-icon font-icon-largeable-caret-right',
-                    style: {
-                        visibility: children.length > 0 ? 'visible' : 'hidden'
-                    }
-                };
-                var rightLayerProp = {
-                    className: 'layer ' + (children.length > 0 ? 'right-layer' : 'disable-layer')
-                };
-                if (!item.disable) {
-                    itemProp['data-ui-cmd'] = spanProp['data-ui-cmd'] = item.value;
-                }
-                return (
-                    <div {...itemProp}>
-                        <div {...rightArrowProp}></div>
-                        <span {...spanProp}>{item.label}</span>
-                        <div {...rightLayerProp}>{children.map(produceList)}</div>
-                    </div>
-                );
+            if (!isNaN(this.props.width)) {
+                containerProps.style = {width: this.props.width};
             }
+            return (<div {...containerProps}>{listFactory(this.props.datasource, '0', this.props.disabled, this.props.width)}</div>);
         }
     });
+
+
+    function listFactory(datasource, level, disabled, width) {
+        if (datasource.length === 0) return <div></div>;
+        var result = [];
+        for (var index = 0; index < datasource.length; index++) {
+            var treeIndex = level + '-' + index;
+            var item = datasource[index];
+            if (item.hr) {
+                result.push(<hr key={treeIndex}/>);
+                continue;
+            }
+            var children = item.children instanceof Array ? item.children : [];
+            var itemProp = {
+                className: 'item' + (item.disabled || disabled ? ' disabled' : ''),
+                key: treeIndex,
+                'data-ui-disabled': item.disabled || disabled,
+                'data-ui-cmd': item.value,
+                'data-tree-index': treeIndex
+            };
+            var spanProp = {
+                'data-ui-disabled': item.disabled || disabled,
+                'data-ui-cmd': item.value,
+                'data-tree-index': treeIndex
+            };
+            var rightArrowProp = {
+                className: 'icon-right font-icon font-icon-largeable-caret-right',
+                style: {
+                    visibility: children.length > 0 ? 'visible' : 'hidden'
+                }
+            };
+            var rightLayerProp = {
+                className: 'layer ' + (children.length > 0 ? 'right-layer' : 'disabled-layer')
+            };
+            if (children.length > 0) {
+                spanProp.style = {
+                    marginRight: 20
+                }
+            }
+            if (!isNaN(width)) {
+                itemProp.style = {width: width};
+            }
+            result.push(
+                <div {...itemProp}>
+                    <div {...rightArrowProp}></div>
+                    <span {...spanProp}>{item.label}</span>
+                    <div {...rightLayerProp}>{listFactory(children, treeIndex, disabled, width)}</div>
+                </div>
+            );
+        }
+        return result;
+    }
+
+
 });

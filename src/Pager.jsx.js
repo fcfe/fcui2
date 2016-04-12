@@ -1,63 +1,73 @@
+/**
+ * @file 页码组件
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.1
+ */
 define(function (require) {
+
 
     var Button = require('./Button.jsx');
     var language = require('./core/language');
     var React = require('react');
-    
+    var InputWidgetBase = require('./mixins/InputWidgetBase');
+
+
     return React.createClass({
+        // #override
+        mixins: [InputWidgetBase],
         // @override
         getDefaultProps: function () {
             return {
                 className: '',
                 min: 1,
                 max: 10,
-                value: 1,
-                disable: false,
-                onChange: function () {}
+                threshold: Number.POSITIVE_INFINITY,
+                disabled: false,
+                valueTemplate: Number.POSITIVE_INFINITY
             };
-        },
-        // @override
-        componentWillReceiveProps: function (props) {
-            this.setState({disable: props.disable});
         },
         // @override
         getInitialState: function () {
-            return {
-                disable: this.props.disable,
-                value: parseInt(this.props.value, 10)
-            };
+            return {};
         },
         clickHandler: function (e) {
+
             var min = parseInt(this.props.min, 10);
             var max = parseInt(this.props.max, 10);
-            var current = parseInt(this.state.value, 10);
+            var current = parseInt(this.___getValue___(), 10);
             current = isNaN(current) ? min : current;
-            var value = e.value;
-            if (value + '' === current + '' || this.props.disable) return;
+           
+            var value = e.target.value;
+            if (value + '' === current + '' || this.props.disabled) return;
+            
             var v = 1;
             v = value === 'prev' ? current - 1 : value;
             v = v === 'next' ? current + 1 : v;
             v = parseInt(v, 10);
             v = v < min ? min : v;
             v = v > max ? max : v;
-            this.setState({value: v});
-            this.props.onChange({target: this, value: v});
+
+            e.target = this.refs.container;
+            e.target.value = v;
+            this.___dispatchChange___(e);
         },
         render: function () {
-            var me = this;
             var containerProp = {
-                className: 'fcui2-pager ' + this.props.className
+                className: 'fcui2-pager ' + this.props.className,
+                ref: 'container'
             };
             return (<div {...containerProp}>{produceButtons(this)}</div>);
         }
     });
 
+
     function produceButtons(me) {
         var min = parseInt(me.props.min, 10);
         var max = parseInt(me.props.max, 10);
-        var threshold = 3;
+        var threshold = parseInt(me.props.threshold, 10);
         var btns = [];
-        var value = parseInt(me.state.value, 10);
+        var value = parseInt(me.___getValue___(), 10);
 
         value = isNaN(value) ? min : value;
         value = value < min ? min : value;
@@ -65,8 +75,8 @@ define(function (require) {
         threshold = isNaN(threshold) || threshold < 1 ? Number.POSITIVE_INFINITY : threshold;
 
         btns.push(
-            <Button label={language.pager.previousPage} cmd="prev"
-                onClick={me.clickHandler} disable={me.props.disable || value <= min} key="prev"/>
+            <Button label={language.pager.previousPage} value="prev"
+                onClick={me.clickHandler} disabled={me.props.disabled || value <= min} key="prev"/>
         );
 
         var i = min;
@@ -76,7 +86,7 @@ define(function (require) {
             if (i < value - threshold && i !== min) {
                 if (!before) {
                     before = true;
-                    btns.push(<Button {...prop} label=".." cmd={value - threshold - 1} key={value - threshold - 1}/>);
+                    btns.push(<Button {...prop} label=".." value={value - threshold - 1} key={value - threshold - 1}/>);
                 }
                 i++;
                 continue;
@@ -84,7 +94,7 @@ define(function (require) {
             if (i > value + threshold && i !== max) {
                 if (!after) {
                     after = true;
-                    btns.push(<Button {...prop} label=".." cmd={value + threshold + 1} key={value + threshold + 1}/>);
+                    btns.push(<Button {...prop} label=".." value={value + threshold + 1} key={value + threshold + 1}/>);
                 }
                 i++;
                 continue;
@@ -92,18 +102,20 @@ define(function (require) {
             var prop = {
                 skin: i + '' === value + '' ? 'active' : '',
                 minWidth: 12,
-                disable: me.props.disable,
+                disabled: me.props.disabled,
                 onClick: me.clickHandler
             };
-            btns.push(<Button {...prop} label={i} cmd={i} key={i}/>);
+            btns.push(<Button {...prop} label={i + ''} value={i} key={i}/>);
             i++;
         }
 
         btns.push(
-            <Button label={language.pager.nextPage} cmd="next"
-                onClick={me.clickHandler} disable={me.props.disable || value >= max} key="next"/>
+            <Button label={language.pager.nextPage} value="next"
+                onClick={me.clickHandler} disabled={me.props.disabled || value >= max} key="next"/>
         );
 
         return btns;
     }
+
+
 });

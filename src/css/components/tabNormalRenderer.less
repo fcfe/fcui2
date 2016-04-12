@@ -1,0 +1,48 @@
+@import "../skin.less";
+
+.fcui2-tab-normal-renderer-content {
+    position: relative;
+    top: 1px;
+    min-width: 100px;
+    font-weight: 700;
+    text-align: center;
+    font-size: 14px;
+    line-height: 40px;
+    color: #666666;
+    border-right: @border-normal;
+    border-bottom: @border-normal;
+    cursor: pointer;
+    background-color: @bgcolor-normal;
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    user-select:none;   
+}
+.fcui2-tab-normal-renderer-header {
+    height: 2px;
+    background-color: @color-disabled;
+}
+.fcui2-tab-item:hover {
+    .fcui2-tab-normal-renderer-header {
+        background-color: @bgcolor-important-hover;
+    }
+}
+.fcui2-tab-item-active {
+    .fcui2-tab-normal-renderer-header {
+        background-color: @bgcolor-important-hover;
+    }
+    .fcui2-tab-normal-renderer-content {
+        color: #000;
+        border-bottom: @border-hidden;
+        background-color: @bgcolor-active;
+    }
+}
+.fcui2-tab-item-disabled {
+    .fcui2-tab-normal-renderer-content {
+        color: @color-disabled;
+        cursor: default;
+    }
+}

@@ -1,194 +1,77 @@
+/**
+ * @file 表格组件
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.1
+ */
 define(function (require) {
 
 
-    var TableHeader = require('./tableRenderer/TableHeader.jsx');
-    var TableSelector = require('./tableRenderer/TableSelector.jsx');
-    var NormalRenderer = require('./tableRenderer/NormalRenderer.jsx');
     var React = require('react');
-    var util = require('./core/util.es6');
-    var mixins = require('./core/mixins.jsx');
+    var tools = require('./core/tableTools.jsx');
     var language = require('./core/language');
-
-
-    // 生成列宽度
-    function colgroupFactory(me) {
-        var td = [];
-        var conf = me.props.conf
-        if (me.props.showSelector) {
-            td.push(<col width="45" key='col-selector'/>);
-        }
-        for (var i = 0; i < conf.length; i++) {
-            td.push(<col width={conf[i].width} key={'col-' + i}/>);
-        }
-        return <colgroup>{td}</colgroup>
-    }
-
-    // 生成表头
-    function headerFactory(me) {
-        if (!me.props.showHeader) return (<tr></tr>);
-        var td = [];
-        var conf = me.props.conf;
-        if (me.props.showSelector) {
-            var selectorProp = {
-                isAllSelected: me.state.selectedIndex[-1] || me.props.datasource.length === me.state.selectedItems.length,
-                selectedIndex: me.state.selectedIndex,
-                onAction: me.rowSelected
-            }
-            td.push(<td key="head-select"><TableSelector {...selectorProp}/></td>);
-        }
-        for (var i = 0; i < conf.length; i++) {
-            var key = 'head-' + i;
-            td.push(<TableHeader {...conf[i]} onSort={me.sortHandler} sortField={me.state.sortField} key={key}/>);
-        }
-        return <tr className="table-header" key="table-head">{td}</tr>;
-    }
-
-    // 生成统计栏
-    function summaryFactory(me) {
-        if (!me.props.showSummary) return (<tr></tr>);
-        var td = [];
-        var conf = me.props.conf;
-        var summary = me.props.summary;
-        if (me.props.showSelector) td.push(<td key="summary-select"></td>);
-        for (var i = 0; i < conf.length; i++) {
-            var item = conf[i];
-            var tdStyle = {};
-            var text = summary.hasOwnProperty(item.field) ? summary[item.field] : '-';
-            if (typeof item.width === 'number') tdStyle.width = item.width;
-            tdStyle.textAlign = isNaN(text) ? 'left' : 'right';
-            td.push(<td style={tdStyle} key={'summary-' + i}><span style={{fontWeight: 700}}>{text}</span></td>);
-        }
-        return <tr className="table-summary" key="table-summray">{td}</tr>
-    }
-
-    // 生成message栏目
-    function messageFactory(me) {
-        var message = me.state.message;
-        var conf = me.props.conf;
-        if (message.length === 0 || !me.props.showMessage) return (<tr></tr>);
-        return (
-            <tr className="table-message">
-                <td colSpan={conf.length + 10}>
-                    <div className="font-icon font-icon-times" onClick={me.closeMessageBar}></div>
-                    <span>{message}</span>
-                    <span onClick={me.messageBarClickHandler} className="link">{me.props.messageButtonLabel}</span>
-                </td>
-            </tr>
-        );
-    }
-
-    // 生成列
-    function lineFactory(me) {
-        var lines = [];
-        var conf = me.props.conf;
-        var datasource = me.props.datasource;
-        if (datasource.length === 0) {
-            return (<tr><td colSpan={conf.length + 10} style={{textAlign:'center'}}><div className="table-nodata">{language.table.noData}</div></td></tr>);
-        }
-        for (var index = 0; index < datasource.length; index++) {
-            var item = datasource[index];
-            var td = [];
-            var selected = me.state.selectedIndex[index] || me.state.selectedIndex[-1];
-            if (me.props.showSelector) {
-                var selectorProp = {
-                    type: 'checkbox',
-                    className: 'tr-selector',
-                    checked: selected,
-                    'data-ui-cmd': index,
-                    onChange: me.rowSelected,
-                };
-                td.push(<td key="row-select" className="td-selector-container"><input {...selectorProp}/></td>);
-            }
-            for (var j = 0; j < conf.length; j++) {
-                var props = {
-                    item: item,
-                    index: index,
-                    conf: conf[j],
-                    onAction: me.actionHandler,
-                    key: 'column-' + j
-                };
-                if (conf[j].hasOwnProperty('color')) {
-                    if (typeof conf[j].color === 'function') {
-                        props.color = conf[j].color(item);
-                    }
-                    else {
-                        props.color = conf[j].color + '';
-                    }
-                }
-                var renderer = typeof conf[j].renderer === 'function' ? conf[j].renderer : NormalRenderer;
-                td.push(React.createElement(renderer, React.__spread({}, props)));
-            }
-            lines.push(<tr key={'row-' + index} className={selected ? 'tr-data tr-selected' : 'tr-data'}>{td}</tr>);
-        }
-        return lines;
-    }
+    var util = require('./core/util');
+    var InputWidgetBase = require('./mixins/InputWidgetBase');
+    var WidgetWithFixedDom = require('./mixins/WidgetWithFixedDom');
 
 
     return React.createClass({
         // @override
-        mixins: [mixins.fixedContainer, mixins.resizeContainer],
+        mixins: [InputWidgetBase, WidgetWithFixedDom],
         // @override
         getDefaultProps: function () {
             return {
+                // 样式属性
                 className: '',
-                conf: [],
+                // 配置属性
+                disabled: false,
+                fieldConfig: [],
+                flags: {
+                    sortEnable: false,
+                    showHeader: false,
+                    showSummary: false,
+                    showSelector: false
+                },
+                // 数据属性
                 datasource: [],
                 summary: {},
-                message: '',
-                messageButtonLabel: language.button.fresh,
-                fixedPosition: [
-                    {ref: 'shadowTableContainer', top: 0, zIndex: 999}
-                ],
-                showHeader: true,
-                showSummary: true,
-                showMessage: true,
-                showSelector: true,
-                onAction: function () {}
+                message: {
+                    content: '',
+                    buttonLabel: language.button.fresh
+                },
+                fixedPosition: [],  // {ref: 'shadowTableContainer', top: 0, zIndex: 998}
+                // 回调属性
+                onAction: function () {},
+                // value模板, 此项目只能为基本类型，不能为object
+                valueTemplate: JSON.stringify({
+                    sortField: '',
+                    sortType: 'asc',
+                    selected: []         // 如果为全选，则此处为-1，否则，为行在datasource中的索引
+                })
             };
         },
         // @override
         getInitialState: function () {
-            return {
-                message: this.props.message,
-                sortField : '',
-                selectedIndex: {},
-                selectedItems: []
-            };
+            return {};
         },
         // @override
         componentDidMount: function () {
-            window.addEventListener('scroll', this.scrollHandler);
-            window.addEventListener('resize', this.resizeHandler);
+            window.addEventListener('resize', this.updateWidth);
             this.updateWidth();
-            this.recordFixedDOMPosition();
         },
         // @override
         componentWillUnmount: function () {
-            window.removeEventListener('scroll', this.scrollHandler);
-            window.removeEventListener('resize', this.resizeHandler);
+            window.removeEventListener('resize', this.updateWidth);
         },
         // @override
         componentDidUpdate: function () {
             this.updateWidth();
         },
-        resizing: function () {
-            this.updateWidth();
-        },
-        sortHandler: function (e) {
-            this.props.onAction('TableSort', {
-                field: e.field,
-                order: e.sortType
-            });
-            this.setState({sortField: e.field});
-        },
-        messageBarClickHandler: function (e) {
-            this.props.onAction('TableMessageBarClick', {});
-        },
-        actionHandler: function (type, param) {
-            this.props.onAction(type, param);
-        },
+        /**
+         * 同步main table和shadow table的宽度，重新设置shadow container高度
+         */
         updateWidth: function () {
-            var width = this.refs.container.offsetWidth - 2;
+            var width = this.refs.container.offsetWidth;
             var table = this.refs.table;
             var shadow = this.refs.shadow;
             var tbody = this.refs.tbody;
@@ -198,73 +81,104 @@ define(function (require) {
             table.style.minWidth = shadow.style.minWidth = width + 'px';
             for (var i = 0; i < tbody.childNodes.length; i++) {
                 var tr = tbody.childNodes[i];
-                if (tr.className.indexOf('table-summary') > -1) break;
+                if (tr.className.indexOf('tr-data') > -1 || tr.className.indexOf('tr-summary') > -1) continue;
                 height += tr.offsetHeight;
             }
             shadowContainer.style.height = height + 'px';
         },
-        closeMessageBar: function () {
-            this.setState({message: ''});
+        /**
+         * 将value中的selected域转成hash并返回
+         */
+        getSelectedHash: function () {
+            var value = this.___getValue___();
+            value = typeof value === 'string' ? JSON.parse(value) : {};
+            var selected = {};
+            if (value.selected === -1) {
+                selected = -1;
+            }
+            else if (value.selected instanceof Array) {
+                for (var s = 0; s < value.selected.length; s++) selected[value.selected[s]] = true;
+            }
+            return selected;
         },
-        rowSelected: function (e) {
-            var select = this.state.selectedIndex;
-            var items = [];
-            delete select[-1];
-            if (e === -3) { // -3 取消当前所有选中，没有时间写常量了
-                select = {};
-            }
-            else if (e === -1 || e === -2) { // -1 全部选中；-2 选中当前页；没有时间写常量了
-                if (e === -1) select[-1] = true;
-                for (var i = 0; i < this.props.datasource.length; i++) select[i] = true;
-            }
-            else {
-                var value = e.target.checked;
-                var id = parseInt(util.getDataset(e.target).uiCmd);
-                if (value) {
-                    select[id] = true;
-                }
-                else {
-                    delete select[id];
+        /**
+         * 选中某行
+         */
+        rowSelect: function (e) {
+            if (this.props.disabled) return;
+            var dataset = util.getDataset(e.target);
+            var index = parseInt(dataset.uiCmd, 10);
+            var value = e.target.checked;
+            var menuValue = e.target.value;
+            var selected = this.getSelectedHash();
+            var newSelected = [];
+            // 全选取消一项
+            if (selected === -1 && !value) {
+                for (var i = 0; i < this.props.datasource.length; i++) {
+                    if (i === index) continue;
+                    newSelected.push(i);
                 }
             }
-            if (select[-1]) {
-                items = -1;
-            }
-            else {
-                for (var key in select) {
-                    if (select.hasOwnProperty(key)) items.push(parseInt(key, 10));
-                }
-                items.sort();
-                for (var i = 0; i < items.length; i++) {
-                    items[i] = this.props.datasource[items[i]];
+            // 选中
+            else if (selected !== -1 && value) {
+                selected[index] = true;
+                for (var i = 0; i < this.props.datasource.length; i++) {
+                    if (!selected[i]) continue;
+                    newSelected.push(i);
                 }
             }
-            this.setState({selectedIndex: select, selectedItems: items});
-            this.props.onAction('TableSelect', {items: items});
+            // 取消选中
+            else if (selected !== -1 && !value) {
+                selected[index] = false;
+                for (var i = 0; i < this.props.datasource.length; i++) {
+                    if (!selected[i]) continue;
+                    newSelected.push(i);
+                }
+            }
+            // 全部选中
+            if (menuValue === '-1') {
+                newSelected = -1;
+            }
+            // 选中当前页
+            else if (menuValue === '-2') {
+                newSelected = [];
+                for (var i = 0; i < this.props.datasource.length; i++) newSelected.push(i);
+            }
+            // 取消所有选中
+            else if (menuValue === '-3') {
+                newSelected = [];
+            }
+            // 重新组装value
+            var tableValue = this.___getValue___() || '{}';
+            tableValue = JSON.parse(tableValue);
+            tableValue.selected = newSelected;
+            e.target = this.refs.container;
+            e.target.value = JSON.stringify(tableValue);
+            this.___dispatchChange___(e);
         },
         // @override
         render: function () {
             return (
                 <div className={'fcui2-table ' + this.props.className} ref="container">
-                    <div ref="realTable" className="table-container">
+                    <div ref="realTableContainer" className="table-container">
                         <table ref="table" cellSpacing="0" cellPadding="0">
-                            {colgroupFactory(this)}
+                            {tools.colgroupFactory(this)}
                             <tbody ref="tbody">
-                                {headerFactory(this)}
-                                {messageFactory(this)}
-                                {summaryFactory(this)}
-                                {lineFactory(this)}
+                                {tools.headerFactory(this)}
+                                {tools.messageFactory(this)}
+                                {tools.summaryFactory(this)}
+                                {tools.lineFactory(this)}
                             </tbody>
                         </table>
                     </div>
                     <div ref="shadowTableContainer" className="shadow-container">
                         <table ref="shadow" cellSpacing="0" cellPadding="0">
-                            {colgroupFactory(this)}
+                            {tools.colgroupFactory(this)}
                             <tbody>
-                                {summaryFactory(this)}
-                                {lineFactory(this)}
-                                {headerFactory(this)}
-                                {messageFactory(this)}
+                                {tools.summaryFactory(this)}
+                                {tools.lineFactory(this)}
+                                {tools.headerFactory(this)}
+                                {tools.messageFactory(this)}
                             </tbody>
                         </table>
                     </div>

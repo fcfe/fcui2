@@ -2,6 +2,7 @@
 .fcui2-dropdownlist {
     display: inline-block;
     position: relative;
+    top: @height-normal / 3;
     height: @height-normal;
     border: @border-normal;
     padding: @padding-dropdownlist;
@@ -19,7 +20,8 @@
     -webkit-user-select:none;
     -ms-user-select:none;
     user-select:none;
-    .font-icon-largeable-caret-down {
+    overflow: hidden;
+    .icon-right {
         float: right;
         width: 20px;
         display: inline-block;
@@ -27,17 +29,28 @@
     }
     &:hover {
         border-color: @color-active !important;
-        .font-icon-largeable-caret-down {
+        .icon-right {
             color: @color-active;
         }
     }
+    .label-container {
+        height: @height-normal;
+        margin-right: 21px;
+        word-break: break-all;
+　　    word-wrap: break-word;
+    }
 }
-.fcui2-dropdownlist-disable {
-    color: @color-disable !important;
+.fcui2-dropdownlist-disabled {
+    .label-container {
+        color: @color-disabled !important;
+    }
+    .icon-right {
+        color: @color-disabled !important;
+    }
 }
-.fcui2-dropdownlist-disable:hover {
-    border-color: @color-disable !important;
-    .font-icon-largeable-caret-down {
-        color: @color-disable !important;
+.fcui2-dropdownlist-disabled:hover {
+    border-color: @color-disabled !important;
+    .icon-right {
+        color: @color-disabled !important;
     }
 }

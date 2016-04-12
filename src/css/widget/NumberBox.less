@@ -5,6 +5,7 @@
     top: 9px;
     display: inline-block;
     height: @height-outer;
+    background-color: @bgcolor-active;
     input {
         position: absolute;
         left: 0px;
@@ -59,16 +60,16 @@
         border-color: #F00 !important;
     }
 }
-.fcui2-numberbox-disable {
+.fcui2-numberbox-disabled {
     input:hover {
         border: @border-normal !important;
     }
     .font-icon {
-        color: @color-disable !important;
+        color: @color-disabled !important;
     }
     .font-icon:hover {
         background-color: @bgcolor-normal !important;
-        color: @color-disable !important;
+        color: @color-disabled !important;
     }
     .font-icon:active {
         background-color: @bgcolor-normal !important;

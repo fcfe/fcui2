@@ -1,16 +1,18 @@
 @import "../skin.less";
 .fcui2-button {
-    position: relative;
+
     display: inline-block;
+    position: relative;
+    top: @height-normal / 2 - 3;
     height: @height-normal;
     border: @border-normal;
     padding: @padding-normal;
-    color: @fontcolor-normal;
-    background-color: @bgcolor-normal;
+    cursor: pointer;
     line-height: @lineheight-normal;
-    font-size: @fontsize-button;
-    font-family: @normal-font;
+    background-color: @bgcolor-normal;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
     moz-user-select: -moz-none;
     -moz-user-select: none;
     -o-user-select:none;
@@ -18,13 +20,30 @@
     -webkit-user-select:none;
     -ms-user-select:none;
     user-select:none;
-    cursor: pointer;
+
     .font-icon {
         display: inline-block;
         float: left;
-        line-height: @lineheight-normal;
-        margin-right: 3px;
         font-size: @fontsize-icon;
+        margin-right: 5px;
+        color: #000 !important;
+    }
+    input {
+        position: relative;
+        top: -2px;
+        border: 0;
+        outline: 0;
+        width: 100%;
+        padding: 0;
+        font-size: @fontsize-button;
+        background-color: transparent;
+        font-family: @normal-font;
+        cursor: pointer;
+    }
+    input,.font-icon {
+        color: @fontcolor-normal;
+        height: @height-normal;
+        line-height: @lineheight-normal;
     }
 }
 .fcui2-button:hover {
@@ -32,16 +51,23 @@
     -moz-box-shadow: @shadow-normal;
     box-shadow: @shadow-normal;
 }
+
 .fcui2-button-active {
     border-color: @color-active !important;
 }
-.fcui2-button-disable {
-    color: @color-disable !important;
+.fcui2-button-disabled {
+    cursor: default !important;
+    input,.font-icon {
+        color: @color-disabled !important;
+        cursor: default !important;
+    }
 }
 .fcui2-button-important {
     border-color: @color-active !important;
     background-color: @bgcolor-important;
-    color: @fontcolor-important !important;
+    input,.font-icon {
+        color: @fontcolor-important !important;
+    }
 }
 .fcui2-button-important:hover {
     background-color: @bgcolor-important-hover;
@@ -50,5 +76,12 @@
     background-color: @bgcolor-important;
 }
 .fcui2-button-highlight {
-    color: @fontcolor-highlight !important;
+    input,.font-icon {
+        color: @fontcolor-important !important;
+    }
 }
+.fcui2-button-calendar {
+    background-color: #fff !important;
+    border-color: #fff !important;
+}
+

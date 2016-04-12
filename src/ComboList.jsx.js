@@ -1,73 +1,76 @@
+/**
+ * @file 组合控制列表组件
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.1
+ */
 define(function (require) {
+
 
     var React = require('react');
     var Button = require('./Button.jsx');
-    var mixins = require('./core/mixins.jsx');
+    var MouseWidgetBase = require('./mixins/MouseWidgetBase');
+    var LayerContainerBase = require('./mixins/LayerContainerBase');
+
 
     return React.createClass({
         // @override
-        mixins: [mixins.layerContainer, mixins.mouseContainer],
+        mixins: [MouseWidgetBase, LayerContainerBase],
         // @override
         getDefaultProps: function () {
             return {
                 className: '',
                 label: 'ComboList',
                 icon: '',
-                cmd: '',
-                disable: false,
-                datasource: [], // {label: <string>, cmd: <string>, disable: <boolean>, datasource:[#self]}
+                value: '',
+                disabled: false,
+                datasource: [], // 见List
                 onClick: function () {},
+                // 以下为LayerContainerBase中需要的配置
                 layerContent: require('./List.jsx'),
-                layerProps: {}
+                layerProps: {},
+                layerInterface: 'onClick'
             };
         },
-        // @override
-        componentWillReceiveProps: function (props) {
-            this.setState({
-                disable: props.disable,
-                datasource: JSON.parse(JSON.stringify(props.datasource))
-            });
+        layerAction: function (e) {
+            if (this.props.disabled) return;
+            this.props.onClick(e);
+            this.layerHide();
+            e.stopPropagation();
         },
-        // @override
-        getInitialState: function () {
-            return {
-                mouseover: false,
-                disable: this.props.disable,
-                datasource: JSON.parse(JSON.stringify(this.props.datasource))
-            };
-        },
-        layerAction: function (type, value) {
-            if (this.state.disable) return;
-            this.props.onClick({target: this, value: value});
+        mainButtonClickHandler: function (e) {
+            if (this.props.disabled) return;
+            this.props.onClick(e);
+            e.stopPropagation();
             this.layerHide();
         },
-        mainCommand: function (e) {
-            if (this.state.disable) return;
-            this.props.onClick({target: this, value: this.props.cmd});
-            this.layerHide();
+        dropDownButtonClickHandler: function (e) {
+            if (this.props.disabled || this.props.datasource.length === 0) return;
+            this.layerShow();
         },
         render: function () {
             var me = this;
             var containerProp = {
                 className: 'fcui2-combolist ' + this.props.className,
-                onMouseEnter: this.mouseenter,
-                onMouseLeave: this.mouseleave,
+                onMouseEnter: this.___mouseenterHandler___,
+                onMouseLeave: this.___mouseleaveHandler___,
                 ref: 'container'
             };
             var mainButtonProp = {
                 label: this.props.label,
-                disable: this.state.disable,
-                cmd: this.props.cmd,
+                disabled: this.props.disabled,
+                value: this.props.value,
                 icon: this.props.icon,
                 skin: 'important',
-                onClick: this.mainCommand
+                className: 'main-button',
+                onClick: this.mainButtonClickHandler
             };
-            if (this.state.disable) {
-                containerProp.className += ' fcui2-combolist-disable';
+            if (this.props.disabled) {
+                containerProp.className += ' fcui2-combolist-disabled';
             }
             return (
                 <div {...containerProp}>
-                    <div className="font-icon font-icon-largeable-caret-down" onClick={this.layerShow}></div>
+                    <div className="font-icon font-icon-largeable-caret-down" onClick={this.dropDownButtonClickHandler}></div>
                     <Button {...mainButtonProp}/>
                 </div>
             );

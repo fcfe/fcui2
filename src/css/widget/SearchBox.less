@@ -1,0 +1,31 @@
+@import "../skin.less";
+.fcui2-searchbox {
+    display: inline-block;
+    position: relative;
+    top: 9px;
+    height: 30px;
+    .fcui2-textbox {
+        top: 0px;
+        input {
+            padding-right: 25px !important;
+        }
+    }
+    .font-icon-search {
+        position: absolute;
+        top: 6px;
+        right: 5px;
+        color: #888888;
+        cursor: pointer;
+    }
+}
+.fcui2-searchbox:hover {
+    .font-icon-search {
+        color: @color-active;
+    }
+}
+.fcui2-searchbox-disabled:hover {
+    .font-icon-search {
+        cursor: default !important;
+        color: #888888 !important;
+    }
+}

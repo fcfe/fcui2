@@ -1,46 +1,45 @@
+/**
+ * @file 下拉控制列表组件
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.1
+ */
 define(function (require) {
 
-    var mixins = require('./core/mixins.jsx');
+
     var React = require('react');
+    var MouseWidgetBase = require('./mixins/MouseWidgetBase');
+    var LayerContainerBase = require('./mixins/LayerContainerBase');
+
 
     return React.createClass({
         // @override
-        mixins: [mixins.layerContainer, mixins.mouseContainer],
+        mixins: [MouseWidgetBase, LayerContainerBase],
         // @override
         getDefaultProps: function () {
             return {
                 className: '',
                 label: 'DropDownList',
                 minWidth: 60,
-                disable: false,
-                datasource: [],         // {label: <string>, value: <string>, disable: <boolean>, datasource:[#self]}
+                width: NaN,
+                disabled: false,
+                datasource: [],         //见List
                 onClick: function () {},
+                // 以下为LayerContainerBase中需要的配置
                 layerContent: require('./List.jsx'),
-                layerProps: {}
+                layerProps: {},
+                layerInterface: 'onClick'
             };
         },
-        // @override
-        componentWillReceiveProps: function (props) {
-            this.setState({
-                disable: props.disable,
-                datasource: JSON.parse(JSON.stringify(props.datasource))
-            });
-        },
-        // @override
-        getInitialState: function () {
-            return {
-                mouseover: false,
-                disable: this.props.disable,
-                datasource: JSON.parse(JSON.stringify(this.props.datasource))
-            };
-        },
-        layerAction: function (type, value) {
-            if (this.state.disable) return;
-            this.props.onClick({target: this, value: value});
+        layerAction: function (e) {
+            if (this.props.disabled) return;
+            this.props.onClick(e);
             this.layerHide();
+            e.stopPropagation();
         },
         mouseEnterHandler: function (e) {
-            this.mouseenter(e);
+            this.___mouseenterHandler___();
+            if (this.props.datasource.length === 0 || this.props.disabled) return;
             this.layerShow();
         },
         render: function () {
@@ -49,11 +48,15 @@ define(function (require) {
                 className: 'fcui2-dropdownlist ' + this.props.className,
                 style: {minWidth: this.props.minWidth},
                 onMouseEnter: this.mouseEnterHandler,
-                onMouseLeave: this.mouseleave,
+                onMouseLeave: this.___mouseleaveHandler___,
                 ref: 'container'
             };
-            if (this.state.disable) {
-                containerProp.className += ' fcui2-dropdownlist-disable';
+            if (this.props.disabled) {
+                containerProp.className += ' fcui2-dropdownlist-disabled';
+            }
+            if (!isNaN(this.props.width)) {
+                delete containerProp.style.minWidth;
+                containerProp.style.width = this.props.width;
             }
             return (
                 <div {...containerProp}>

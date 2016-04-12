@@ -1,157 +1,17 @@
+/**
+ * @file 对话框
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.1
+ */
 define(function (require) {
 
 
-    var Button = require('./Button.jsx');
     var React = require('react');
     var ReactDOM = require('react-dom');
-
-
-    // 窗口，包含title bar 和content container
-    var popWindow = React.createClass({
-        // @override
-        getDefaultProps : function () {
-            return {
-                title: 'PopWindowTitle',
-                close: function () {},
-                dispose: function () {}
-            };
-        },
-        // @override 启动后装载content
-        componentDidMount: function () {
-            var me = this;
-            if (typeof me.props.content === 'function') {
-                me.updateContentProps(me.props.contentProps);
-            }
-            else {
-                me.resize();
-            }
-        },
-        updateContentProps: function (props) {
-            var me = this;
-            var contentProps = props || {};
-            // content调用dispose直接销毁窗口，不触发任何事件
-            contentProps.dispose = function () {
-                me.props.dispose();
-            };
-            // content调用close会相继触发onBeforeClose、onClose
-            contentProps.close = function () {
-                me.close();
-            };
-            // content调用resize会触发dialog重新计算尺寸和位置，一般在componentDidUpdate中使用
-            contentProps.resize = function () {
-                me.resize();
-            };
-            try {
-                me.content = ReactDOM.render(
-                    React.createElement(me.props.content, contentProps),
-                    me.refs.content,
-                    function () {me.resize();}
-                );
-            }
-            catch (e) {
-                console.error('Fail to load dialog content.');
-                me.resize();
-            }
-        },
-        // 点击Title Bar的关闭会触发，content内部调用props.close也会触发
-        close: function () {
-            var evt = document.createEvent('UIEvents');
-            evt.fcuiTarget = this;
-            this.props.close(evt);
-        },
-        resize: function () {
-            var doc = document.documentElement;
-            var container = this.props.dialogContainer;
-            var title = this.refs.title;
-            var content = this.refs.content;
-            var width = 0;
-            var height = 0;
-            // 将窗体移出可视区并让content充分展开
-            content.className = 'content';
-            container.style.left = container.style.top = '-9999px';
-            container.style.width = container.style.height = '9999px;'
-            // 获取content尺寸并判断是否需要纵向滚动条
-            width = content.offsetWidth;
-            height = content.offsetHeight + title.offsetHeight;
-            if (height > doc.clientHeight) width += 20;
-            // 设置尺寸并移入可视区
-            container.style.width = width + 'px';
-            container.style.height = height + 'px';
-            container.style.left = 0.5 * (doc.clientWidth - container.clientWidth) + 'px';
-            container.style.top = 0.38 * (doc.clientHeight - container.clientHeight) + 'px';
-            content.className = 'content content-fixed';
-        },
-        render: function () {
-            return (
-                <div ref="container">
-                    <div className="title-bar" ref="title">
-                        <span>{this.props.title}</span>
-                        <div className="font-icon font-icon-times" onClick={this.close}></div>
-                    </div>
-                    <div ref="content" className="content"></div>
-                </div>
-            );
-        }
-    });
-
-
-    // alert内容，这是一个内置的subApp
-    var alert = React.createClass({
-        getDefaultProps : function () {
-            return {
-                icon: 'font-icon-hint-exclamation-s',
-                iconColor: '#FBBC05',
-                message: 'Message'
-            };
-        },
-        render: function () {
-            var icon = 'message-icon font-icon ' + this.props.icon
-            return (
-                <div className="fcui2-dialog-alert">
-                    <div className={icon} style={{color: this.props.iconColor}}></div>
-                    <div className="message">{this.props.message}</div>
-                    <div className="button-bar">
-                        <Button skin="important" label="确定" onClick={this.props.close}/>
-                    </div>
-                </div>
-            );
-        }
-    });
-
-
-    // confirm内容
-    var confirm = React.createClass({
-        getDefaultProps : function () {
-            return {
-                icon: 'font-icon-hint-exclamation-s',
-                iconColor: '#FBBC05',
-                message: 'Message',
-                onEnter: function () {},
-                onCancel: function () {}
-            };
-        },
-        enterHandler: function () {
-            this.props.onEnter();
-            this.props.dispose();
-        },
-        cancelHandler: function () {
-            this.props.onCancel();
-            this.props.dispose();
-        },
-        render: function () {
-            var icon = 'message-icon font-icon ' + this.props.icon;
-            return (
-                <div className="fcui2-dialog-alert">
-                    <div className={icon} style={{color: this.props.iconColor}}></div>
-                    <div className="message">{this.props.message}</div> 
-                    <div className="button-bar">
-                        <Button skin="important" label="确定" onClick={this.enterHandler}/>
-                        <Button label="取消" onClick={this.cancelHandler}/>
-                    </div>
-                </div>
-            );
-        }
-    });
+    var PopWindow = require('./components/dialog/PopWindow.jsx');
+    var AlertContent = require('./components/dialog/Alert.jsx');
+    var ConfirmContent = require('./components/dialog/Confirm.jsx');
 
 
     /**
@@ -173,10 +33,12 @@ define(function (require) {
     /**
      * 弹出dialog
      *
-     * @param {Object} param dialog配置，直接导成popWindow的属性集合
+     * @param {Object} param dialog配置，直接导成PopWindow的属性集合
      * @param {Function} param.content dialog的子内容
      * @param {Object} param.contentProps content初始化时传入的属性集合
-     * @param {?string} param.title 标题
+     * @param {string} param.title 标题
+     * @param {Function} param.onBeforeClose 调用close方法时，关闭前回调，可以用于阻止窗体关闭
+     * @param {Function} param.onClose 关闭后回调
      */
     Dialog.prototype.pop = function (param) {
 
@@ -190,26 +52,33 @@ define(function (require) {
         workspace.style.left = workspace.style.top = '-9999px';
         workspace.style.width = workspace.style.height = '9999px';
         document.body.appendChild(me.container);
-        // document.body.style.overflow = 'hidden';
 
-        // dialog的props
-        param = param || {};
-        param.dialogContainer = workspace;
-        param.onBeforeClose = typeof param.onBeforeClose === 'function' ? param.onBeforeClose : function () {};
-        param.onClose = typeof param.onClose === 'function' ? param.onClose : function () {};
-        param.dispose = function () {
+        // 记录关闭事件
+        var beforeCloseHandler = typeof param.onBeforeClose === 'function' ? param.onBeforeClose : function () {};
+        var closeHandler = typeof param.onClose === 'function' ? param.onClose : function () {};
+        
+        // 浅克隆，赋新值
+        var windowProps = {};
+        for (var key in param) {
+            if (param.hasOwnProperty(key)) windowProps[key] = param[key];
+        }
+        windowProps.___dialogContainer___ = workspace;
+
+        // 关闭销毁闭包
+        windowProps.onDispose = function () {
             me.dispose();
         };
-        param.close = function (evt) {
-            param.onBeforeClose(evt);
+        windowProps.onClose = function (evt) {
+            beforeCloseHandler(evt);
             if (evt.returnValue === false) return;
-            param.dispose();
-            param.onClose();
+            me.dispose();
+            closeHandler();
         };
 
         // 弹出
-        me.ui = ReactDOM.render(React.createElement(popWindow, param), me.workspace, loaded);
+        me.ui = ReactDOM.render(React.createElement(PopWindow, windowProps), me.workspace, loaded);
 
+        // 设置焦点
         function loaded() {
             var timer = setInterval(function () {
                 if (!me.ui) return;
@@ -229,23 +98,40 @@ define(function (require) {
 
 
     /**
+     * 销毁窗体
+     */
+    Dialog.prototype.dispose = function () {
+        ReactDOM.unmountComponentAtNode(this.workspace);
+        document.body.removeChild(this.container);
+        this.ui = null;
+    };
+
+
+    /**
      * 更新弹出窗体的content的props，此方法会自动触发resize
+     *
+     * @param {Object} props dialog content初始化所需要的属性集
      */
     Dialog.prototype.updatePopContentProps = function (props) {
-        if (!me.ui) return;
-        me.ui.updateContentProps(props);
+        if (!this.ui) return;
+        this.ui.updateContentProps(props);
     };
 
 
     /**
      * 弹出Alert提示框
+     *
+     * @param {Object} param 对话框属性集
+     * @param {string} param.title 提示框标题
+     * @param {string} param.message 提示内容
+     * @param {function} param.onClose 关闭后的回调
      */
     Dialog.prototype.alert = function (param) {
         param = param || {};
         // 做一层参数封装和下钻
         var dialogProp = {
             title: param.title,
-            content: alert,
+            content: AlertContent,
             contentProps: param,
             onClose: param.onClose
         };
@@ -257,13 +143,20 @@ define(function (require) {
 
     /**
      * 弹出Confirm确认框
+     *
+     * @param {Object} param 对话框属性集
+     * @param {string} param.title 提示框标题
+     * @param {string} param.message 提示内容
+     * @param {function} param.onClose 关闭后的回调
+     * @param {function} param.onEnter 点击确定后的回调
+     * @param {function} param.onCancel 点击取消后的回调
      */
     Dialog.prototype.confirm = function (param) {
         param = param || {};
         param.onEnter = typeof param.onEnter === 'function' ? param.onEnter : function () {};
         param.onCancel = typeof param.onCancel === 'function' ? param.onCancel : function () {};
         var dialogProp = {
-            content: confirm,
+            content: ConfirmContent,
             contentProps: param,
             title: param.title,
             onClose: param.onClose
@@ -271,17 +164,6 @@ define(function (require) {
         delete param.title;
         delete param.onClose;
         this.pop(dialogProp);
-    };
-
-
-    /**
-     * 销毁窗体
-     */
-    Dialog.prototype.dispose = function () {
-        ReactDOM.unmountComponentAtNode(this.workspace);
-        document.body.removeChild(this.container);
-        // document.body.style.overflow = '';
-        this.ui = null;
     };
 
 

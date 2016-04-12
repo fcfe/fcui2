@@ -1,7 +1,14 @@
+/**
+ * @file 提示组件
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.1
+ */
 define(function (require) {
 
+
     var React = require('react');
-    var util = require('./core/util.es6');
+    var util = require('./core/util');
 
 
     return React.createClass({
@@ -11,18 +18,18 @@ define(function (require) {
                 className: '',
                 title: '',
                 content: '',
-                icon: 'font-icon-hint-question-s',
-                layer: document.createElement('div')
+                icon: 'font-icon-hint-question-s'
             }
         },
-        // @override
-        componentDidMount: function () {
-            this.props.layer.className = 'fcui2-layer fcui2-tip-layer';
-        },
         layerTimer: null,
+        layer: null,
         layerShow: function (e) {
+            if (!this.layer) {
+                this.layer = document.createElement('div');
+                this.layer.className = 'fcui2-layer fcui2-tip-layer';
+            }
             clearInterval(this.layerTimer);
-            var layer = this.props.layer;
+            var layer = this.layer;
             var container = this.refs.container;
             var layerHTML = [
                 '<div class="tip-title">',
@@ -39,21 +46,22 @@ define(function (require) {
             var pHeight = container.offsetHeight;
             var lWidth = layer.offsetWidth;
             var lHeight = layer.offsetHeight;
-            layer.style.top = ((pos.y - lHeight < 0) ? (pos.y + pHeight) : (pos.y - lHeight)) + 'px';
+            layer.style.top = ((pos.y - lHeight < 0) ? (pos.top + pHeight) : (pos.top - lHeight)) + 'px';
             layer.style.left =
-                ((pos.x + pWidth + lWidth < document.body.offsetWidth) ? (pos.x + pWidth) : (pos.x - lWidth))
+                ((pos.x + pWidth + lWidth < document.body.offsetWidth) ? (pos.left + pWidth) : (pos.left - lWidth))
                 + 'px';
         },
         layerHide: function () {
-            var layer = this.props.layer;
+            if (!this.layer) return;
+            var layer = this.layer;
             this.layerTimer = setTimeout(function () {
                 try {
                     layer.style.top = '-9999px';
-                    document.body.removeChild(this.props.layer);
+                    document.body.removeChild(layer);
                 } catch (e) {
 
                 } 
-            }, 500);
+            }, 200);
         },
         render: function () {
             var tip = {

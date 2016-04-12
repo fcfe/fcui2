@@ -1,4 +1,6 @@
 @import "../skin.less";
+
+
 .fcui2-dialog-container {
     position: fixed;
     top: 0px;
@@ -8,6 +10,8 @@
     z-index: 9999;
     overflow: hidden;
 }
+
+
 .fcui2-dialog-workspace {
     position: absolute;
     left: -9999px;
@@ -37,14 +41,16 @@
         position: absolute;
         top: 40px;
         left: 0px;
-        border: 1px solid #000;
+        border: @border-normal;
     }
     .content-fixed {
         right: 0px;
         bottom: 0px;
-        overflow-x: hidden;
+        overflow: auto;
     }
 }
+
+
 .fcui2-dialog-background {
     position: absolute;
     top: 0px;
@@ -58,23 +64,16 @@
 
 .fcui2-dialog-alert {
     padding: 10px;
-    width: 400px;
-    .message-icon  {
-        float: left;
-        width: @fontsize-alert-icon;
-        font-size: @fontsize-alert-icon;
-        margin-left: 10px;
-        margin-top: 20px;
-    }
+    width: 460px;
     .message {
         padding: 30px 10px;
-        margin-left: @fontsize-alert-icon + 10;
         font-size: @fontsize-icon;
         line-height: @fontsize-icon * 1.5;
     }
     .button-bar {
         width: 100%;
         text-align: center;
+        margin-bottom: 10px;
         .fcui2-button {
             margin: @margin-normal;
         }

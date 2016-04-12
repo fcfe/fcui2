@@ -3,11 +3,12 @@
     position: relative;
     z-index: 0;
     table {
-        border-left: @border-normal;
-    }
-    td {
         border-right: @border-normal;
         border-bottom: @border-normal;
+    }
+    td, th {
+        border-top: @border-normal;
+        border-left: @border-normal;
         line-height: 40px;
         padding: @padding-td;
         word-break: break-all;
@@ -20,21 +21,40 @@
             }
         }
     }
-    .table-message {
-        td {
-            border-bottom: 0;
+    .table-container {
+        .tr-header, .tr-message {
+            visibility: hidden;
         }
     }
-    .table-summary {
-        td {
-            border-top: @border-normal;
+    .shadow-container {
+        position: absolute;
+        top: 0px;
+        height: 0px;
+        width: 100%;
+        overflow-y: hidden;
+        table {
+            position: absolute;
+            bottom: -1px;
+            z-index: 1;
         }
+    }
+    .tr-summary {
+        background-color: @bgcolor-table-header !important;
+        font-weight: @fontweight-title !important;
+        font-size: @fontsize-button !important;
     }
     .tr-selected {
         background-color: @bgcolor-item-hover !important;
     }
-    .td-selector-container {
+    .td-selector {
         text-align: center;
+        input {
+            width: @fontsize-icon-button;
+            height: @fontsize-icon-button;
+        }
+    }
+    .head-selector {
+        background-color: @bgcolor-table-header;
     }
     .table-nodata {
         display: inline-block;
@@ -46,65 +66,11 @@
         height: 40px;
         width: 150px;
     }
-    .tr-selector {
-        width: @fontsize-icon-button;
-        height: @fontsize-icon-button;
-        position: relative;
-        top: 3px;
-    }
-    .table-message {
-        background-color: @bgcolor-information;
-        text-align: center;
-        cursor: default;
-        font-size: @fontsize-button;
-        .link {
-            cursor: pointer;
-            margin-left: 10px;
-            color: @fontcolor-highlight;
-        }
-        .link:hover {
-            text-decoration: underline;
-        }
-        .font-icon-times {
-            float: right;
-            font-size: @fontsize-icon-button;
-            line-height: @lineheight-window-title;
-            visibility: hidden;
-        }
-        .font-icon-times:hover {
-            color: @fontcolor-highlight;
-        }
-        &:hover {
-            .font-icon-times {
-                visibility: visible;
-            }
-        }
-    }
-    .table-message:hover {
-        background-color: @bgcolor-information !important;
-    }
-    .shadow-container {
-        position: absolute;
-        top: 0px;
-        width: 100%;
-        height: 0px;
-        overflow-y: hidden;
-        table {
-            position: absolute;
-            bottom: 0px;
-            z-index: 1;
+}
+.fcui2-fixed-with-scroll {
+    tr:last-child {
+        td, td {
             border-bottom: @border-normal;
         }
     }
-    .table-container {
-        .table-header, .table-message {
-            visibility: hidden;
-        }
-    }
-}
-.fcui2-fixed-with-scroll {
-    table {
-        border-bottom: @border-normal !important;
-        bottom: 2px !important;
-    }   
 }
