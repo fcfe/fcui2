@@ -66,7 +66,7 @@ define(function (require) {
         },
         getLayerContent(props) {
             return (
-                <div className="fcui2-layer">
+                <div className="fcui2-droplayer">
                     <div className="fcui2-droplayer-content">
                         <h1>hello layer.</h1>
                     </div>
