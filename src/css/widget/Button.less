@@ -1,10 +1,6 @@
 @import "../skin.less";
 .fcui2-button {
-
     display: inline-block;
-    position: relative;
-    top: @height-normal / 2 - 3;
-    height: @height-normal;
     border: @border-normal;
     padding: @padding-normal;
     cursor: pointer;
@@ -12,7 +8,6 @@
     background-color: @bgcolor-normal;
     text-align: center;
     white-space: nowrap;
-    overflow: hidden;
     moz-user-select: -moz-none;
     -moz-user-select: none;
     -o-user-select:none;
@@ -29,13 +24,9 @@
         color: #000 !important;
     }
     input {
-        position: relative;
-        top: -2px;
         border: 0;
         outline: 0;
         width: 100%;
-        padding: 0;
-        font-size: @fontsize-button;
         background-color: transparent;
         font-family: @normal-font;
         cursor: pointer;

@@ -72,6 +72,7 @@ define(function (require) {
                 <div {...containerProp}>
                     <div className="font-icon font-icon-largeable-caret-down" onClick={this.dropDownButtonClickHandler}></div>
                     <Button {...mainButtonProp}/>
+                    <div style={{clear: 'both'}} />
                 </div>
             );
         }
