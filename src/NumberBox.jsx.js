@@ -69,7 +69,7 @@ define(function (require) {
                 type: 'text',
                 value: numberFormater(value, this.props),
                 style: {
-                    width: this.props.width - (this.props.showSpinButton ? 40 : 20)
+                    width: this.props.width - (this.props.showSpinButton ? 40 : 20) - 1 
                 },
                 onChange: this.changeHandler
             };
