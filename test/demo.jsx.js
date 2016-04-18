@@ -31,6 +31,7 @@ define(function (require) {
     var CrumbDemo = require('./demos/Crumb.jsx');
     var TreeDemo = require('./demos/Tree.jsx');
     var DualTreeSelectorDemo = require('./demos/DualTreeSelector.jsx');
+    var LayerDemo = require('./demos/Layer.jsx');
 
 
     var ListItem = React.createClass({
@@ -59,7 +60,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                demo: 'Button',
+                demo: 'Layer',
                 title: 'FCUI v2.0.1',
                 dispatch: function () {}
             };
@@ -115,6 +116,7 @@ define(function (require) {
                         <ListItem demo={this.props.demo} label="Form" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="Tree" onClick={this.changeDemo}/>
                         <ListItem demo={this.props.demo} label="DualTreeSelector" onClick={this.changeDemo}/>
+                        <ListItem demo={this.props.demo} label="Layer" onClick={this.changeDemo}/>
                         <hr/>
                     </div>
                     <div className="right-top-container">{this.state.message}</div>
@@ -148,6 +150,7 @@ define(function (require) {
                         <SearchBoxDemo demo={this.props.demo} alert={this.changeMessage}/>
                         <TreeDemo demo={this.props.demo} alert={this.changeMessage} />
                         <DualTreeSelectorDemo demo={this.props.demo} alert={this.changeMessage} />
+                        <LayerDemo demo={this.props.demo} alert={this.changeMessage} />
                     </div>
                     <div className="right-bottom-container" style={{display: 'none'}}></div>
                 </div>
