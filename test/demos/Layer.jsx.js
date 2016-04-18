@@ -36,12 +36,12 @@ define(function (require) {
         render() {
             return (
                 <div
+                    ref="container"
                     className="fcui2-droplayer-container"
                     onMouseEnter={this.___mouseenterHandler___}
                     onMouseLeave={this.___mouseleaveHandler___}
                 >
                     <Button
-                        ref="container"
                         label={'点了 ' + this.props.count + ' 下'}
                         onClick={this.onTriggerClick}
                     />
