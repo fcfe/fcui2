@@ -87,10 +87,10 @@ define(function (require) {
                                 口味：
                                     <Radio label="甜豆腐脑" value="1" name="doufunao" labelPosition="right"/>
                                     <Radio label="咸豆腐脑" value="2" name="doufunao" labelPosition="right"/><br/>
-                                生日：<DropDownCalendar width="180" name="birthday"/><br/>
-                                休假：<RangeCalendar width="180" name="holiday"/><br/>
-                                保健：<DropDownSchedule width="180" name="heihei" label="大宝剑时段"/><br/>
-                                籍贯：<DropDownRegion width="180" name="jiguan" label="选择籍贯"/><br/>
+                                生日：<DropDownCalendar width="180px" name="birthday"/><br/>
+                                休假：<RangeCalendar width="180px" name="holiday"/><br/>
+                                保健：<DropDownSchedule width="180px" name="heihei" label="大宝剑时段"/><br/>
+                                籍贯：<DropDownRegion width="180px" name="jiguan" label="选择籍贯"/><br/>
                                 简介：<TextArea className="form-textarea" name="intro"/>
                             </td>
                             <td>
