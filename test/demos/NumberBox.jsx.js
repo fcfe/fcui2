@@ -99,7 +99,7 @@ define(function (require) {
                 <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>
                     <div className="props">{conf}</div>
-                    <NumberBox {...prop}/>
+                    <div><NumberBox {...prop}/></div>
                     <span>{me.state[item.title]}</span>
                 </div>
             );
