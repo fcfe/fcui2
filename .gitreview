@@ -1,0 +1,6 @@
+[gerrit]
+host=icode.baidu.com
+port=8235
+project=baidu/fc-fe/fcui2
+defaultbranch=master
+
