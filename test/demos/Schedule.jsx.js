@@ -69,6 +69,13 @@ define(function (require) {
             title: 'Custom Link Schedule',
             customLink: true,
             props: {}
+        },
+        {
+            title: 'Schedule 加上行列选择',
+            props: {
+                enableColumnSelector: true,
+                enableRowSelector: true
+            }
         }
     ];
 

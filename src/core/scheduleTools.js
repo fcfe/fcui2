@@ -1,12 +1,12 @@
 /**
  * @file 文本输入框组件
  * @author Brian Li
+ * @author Han Bing Feng
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
+
 define(function (require) {
-
-
     return {
 
         /**
@@ -17,8 +17,12 @@ define(function (require) {
          * @return {Array}
          */
         parseValue: function (value) {
-            if (typeof value !== 'string') value = '';
-            while (value.length < 168) value += '0';
+            if (typeof value !== 'string') {
+                value = '';
+            }
+            while (value.length < 168) {
+                value += '0';
+            }
             value = value.substr(0, 168);
             var arr = [];
             for (var i = 0; i < value.length; i = i + 24) {
@@ -55,21 +59,32 @@ define(function (require) {
             value = this.parseValue(value);
             var result = 0;
             for (var y = axis1.y; y < axis2.y + 1; y++) {
-                if (y > value.length - 1) continue;
+                if (y > value.length - 1) {
+                    continue;
+                }
                 for (var x = axis1.x; x < axis2.x + 1; x++) {
-                    if (x > value[y].length - 1) continue;
-                    if (value[y][x] !== 0) result++;
+                    if (x > value[y].length - 1) {
+                        continue;
+                    }
+                    if (value[y][x] !== 0) {
+                        result++;
+                    }
                 }
             }
+
             return result;
         },
 
         updateValueByAxis: function (value, axis1, axis2, v) {
             value = this.parseValue(value);
             for (var y = axis1.y; y < axis2.y + 1; y++) {
-                if (y > value.length - 1) continue;
+                if (y > value.length - 1) {
+                    continue;
+                }
                 for (var x = axis1.x; x < axis2.x + 1; x++) {
-                    if (x > value[y].length - 1) continue;
+                    if (x > value[y].length - 1) {
+                        continue;
+                    }
                     value[y][x] = v === undefined ? Math.abs(value[y][x] - 1) : v;
                 }
             }
@@ -93,14 +108,18 @@ define(function (require) {
             var result = [];
             var begin = false;
             var beginIndex = 0;
-            for (var i = 0; i < arr.length; i++) {
-                if (arr[i] === 0 && !begin) continue;
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i] === 0 && !begin) {
+                    continue;
+                }
                 if (arr[i] === 0 && begin) {
                     begin = false;
                     result.push({begin: beginIndex, end: i - 1});
                     continue;
                 }
-                if (begin) continue;
+                if (begin) {
+                    continue;
+                }
                 begin = true;
                 beginIndex = i;
             }
@@ -110,7 +129,7 @@ define(function (require) {
             return result;
         },
 
-        titleLayerSize: function (axis, hide){
+        titleLayerSize: function (axis, hide) {
             var pos = {
                 width: 100,
                 height: 60,
@@ -120,7 +139,9 @@ define(function (require) {
             var padding = 10;
             var tWidth = 577;
             var tHeight = 170;
-            if (hide) return pos;
+            if (hide) {
+                return pos;
+            }
             pos.top = ((axis.y + 1) * 24 + padding + pos.height < tHeight)
                 ? ((axis.y + 1) * 24 + padding) : (axis.y * 24 - padding - pos.height);
             pos.left = (axis.x * 24 + pos.width < tWidth)
@@ -165,8 +186,8 @@ define(function (require) {
             pos.top = axis1.y * 24 + 1;
             pos.width = (axis2.x - axis1.x + 1) * 24 - 1;
             pos.height = (axis2.y - axis1.y + 1) * 24 - 1;
-            pos.backgroundColor = 'yellow';
-            pos.opacity = 0.2;
+            // color-blue-2
+            pos.backgroundColor = 'rgba(47, 130, 245, 0.5)';
             return pos;
         }
     };
