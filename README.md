@@ -25,7 +25,7 @@
 
 * Clone a copy of the main git repo by running:
 ```bash
-    git clone //gitlab.baidu.com/fc-fe/fcui2.git
+    git clone https://github.com/fcfe/fcui2.git
 ```
 
 * Compile fcui2/src/css/main.less, fcui2/src/css/icon/fc-icon.less to css file, or add less compiling module to your development environment, then import style sheet in your home page:
