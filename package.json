@@ -1,6 +1,9 @@
 {
     "name": "fcui",
     "version": "2.0.1-alpha.1",
+    "scripts": {
+        "start": "edp webserver start"
+    },
     "maintainers": [
         {
             "name": "Li Haitao",
@@ -13,9 +16,12 @@
             "email": "hanbingfeng@baidu.com"
         }
     ],
-    "dependencies": {},
+    "dependencies": {
+        "react": "~15.0.0",
+        "underscore": "~1.8.5"
+    },
     "main": "main",
     "description": "FCUI2，基于React实现的符合OneUX标准的组件库。",
-    "homepage": "http://gitlab.baidu.com/fc-fe/fcui2",
-    "repository": "ssh://g@gitlab.baidu.com:8022/fc-fe/fcui2.git"
+    "homepage": "https://github.com/fcfe/fcui2",
+    "repository": "git@github.com:fcfe/fcui2.git"
 }
