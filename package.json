@@ -1,27 +1,32 @@
 {
-    "name": "fcui",
-    "version": "2.0.1-alpha.1",
-    "scripts": {
-        "start": "edp webserver start"
-    },
-    "maintainers": [
-        {
-            "name": "Li Haitao",
-            "email": "lihaitao03@baidu.com"
-        }
-    ],
-    "contributors": [
-        {
-            "name": "Han Bingfeng",
-            "email": "hanbingfeng@baidu.com"
-        }
-    ],
-    "dependencies": {
-        "react": "~15.0.0",
-        "underscore": "~1.8.5"
-    },
-    "main": "main",
-    "description": "FCUI2，基于React实现的符合OneUX标准的组件库。",
-    "homepage": "https://github.com/fcfe/fcui2",
-    "repository": "git@github.com:fcfe/fcui2.git"
+  "name": "fcui",
+  "version": "2.0.1-alpha.1",
+  "scripts": {
+    "start": "mkdir -p ./node_modules/edp/node_modules && ./node_modules/.bin/edp webserver start"
+  },
+  "maintainers": [
+    {
+      "name": "Li Haitao",
+      "email": "lihaitao03@baidu.com"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Han Bingfeng",
+      "email": "hanbingfeng@baidu.com"
+    }
+  ],
+  "dependencies": {
+    "react": "~15.0.0",
+    "underscore": "~1.8.3"
+  },
+  "main": "main",
+  "description": "FCUI2，基于React实现的符合OneUX标准的组件库。",
+  "homepage": "https://github.com/fcfe/fcui2",
+  "repository": "git@github.com:fcfe/fcui2.git",
+  "devDependencies": {
+    "edp": "^1.1.1",
+    "edp-build": "^1.1.2",
+    "edp-webserver": "^1.2.6"
+  }
 }
