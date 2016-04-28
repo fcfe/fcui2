@@ -28,5 +28,6 @@
     "edp": "^1.1.1",
     "edp-build": "^1.1.2",
     "edp-webserver": "^1.2.6"
-  }
+  },
+  "license": "MIT"
 }
