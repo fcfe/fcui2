@@ -1,3 +1,6 @@
+# FCUI2
+[![Build Status](https://travis-ci.org/fcfe/fcui2.svg?branch=master)](https://travis-ci.org/fcfe/fcui2)
+
 ## What is FCUI2?
 
 * FCUI2 is a lightweight UI based on React 0.14.7 and underscore.js.
