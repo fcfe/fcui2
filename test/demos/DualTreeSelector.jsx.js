@@ -26,6 +26,23 @@ define(function (require) {
             }
         },
         {
+            title: 'Normal Tree with preset values',
+            props: {
+                treeNodes: [{
+                    id: '1',
+                    name: 'Node 1',
+                    isChildrenLoaded: true
+                }, {
+                    id: '2',
+                    name: 'Node 2',
+                    isChildrenLoaded: true
+                }],
+                value: {
+                    '1': true
+                }
+            }
+        },
+        {
             title: 'Tree with children',
             props: {
                 treeNodes: [{
