@@ -17,7 +17,7 @@ module.exports = function(config) {
     files: [
       'test-main.js',
       {pattern: 'dep/**/*.js', included: false},
-      {pattern: 'src/**/*.js', included: false},
+      {pattern: 'output/**/*.js', included: false},
       {pattern: 'test/spec/**/*.js', included: false}
     ],
 
@@ -30,14 +30,18 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'output/**/*.js': ['coverage']
     },
 
+    coverageReporter: {
+      type : 'lcov',
+      dir : 'coverage/'
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
-
+    reporters: ['progress', 'coverage'],
 
     // web server port
     port: 9876,
@@ -58,12 +62,16 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
 
+    phantomjsLauncher: {
+      // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
+      exitOnResourceError: true
+    },
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
+    singleRun: false,
 
     // Concurrency level
     // how many browser should be started simultaneous

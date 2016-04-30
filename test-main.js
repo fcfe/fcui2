@@ -20,5 +20,22 @@ require.config({
   deps: allTestFiles,
 
   // we have to kickoff jasmine, as it is asynchronous
-  callback: window.__karma__.start
+  callback: window.__karma__.start,
+
+  packages: [
+    {
+      name: 'fcui2',
+      location: './output'
+    },
+    {
+      name: 'spec',
+      location: './test/spec'
+    }
+  ],
+
+  'paths': {
+    'react': '../dep/react-with-addons',
+    'react-dom': '../dep/react-dom',
+    'underscore': '../dep/underscore/1.8.5/src/underscore'
+  }
 });
