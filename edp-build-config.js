@@ -63,13 +63,6 @@ exports.getProcessors = function () {
             sourceMapOptions: {
                 enable: false
             }
-        }),
-        new OutputCleaner({
-            files: [
-                '*',
-                '!dist/*',
-                '!css/main.*'
-            ]
         })
     ];
 };
