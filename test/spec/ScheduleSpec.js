@@ -15,6 +15,14 @@ define(function (require) {
         return JSON.stringify(arr);
     }
 
+    function getLength24Array() {
+        var arr = [];
+        for (var i = 0; i < 24; i++) {
+            arr.push(null);
+        }
+        return arr;
+    }
+
     describe('schedule', function () {
         describe('scheduleTools', function () {
             it('parses 168-length array to 7x24 length array', function () {
@@ -47,6 +55,144 @@ define(function (require) {
                     expect(item[7]).toBe('1.0');
                 });
             });
+
+            it('returns nothing for label from nothing', function () {
+                expect(scheduleTools.value2label(getLength24Array())).toEqual([]);
+            });
+
+            it('returns label for hour0', function () {
+                var arr = getLength24Array();
+                arr[0] = '1.0';
+                var labels = scheduleTools.value2label(arr);
+                expect(labels.length).toBe(1);
+                expect(labels[0]).toEqual({
+                    begin: 0,
+                    end: 0,
+                    value: '1.0'
+                });
+            });
+
+            it('returns label for hour2', function () {
+                var arr = getLength24Array();
+                arr[2] = '1.0';
+                var labels = scheduleTools.value2label(arr);
+                expect(labels.length).toBe(1);
+                expect(labels[0]).toEqual({
+                    begin: 2,
+                    end: 2,
+                    value: '1.0'
+                });
+            });
+
+            it('returns label for hour0, 1, 2', function () {
+                var arr = getLength24Array();
+                arr[0] = '1.0';
+                arr[1] = '1.0';
+                arr[2] = '1.0';
+                var labels = scheduleTools.value2label(arr);
+                expect(labels.length).toBe(1);
+                expect(labels[0]).toEqual({
+                    begin: 0,
+                    end: 2,
+                    value: '1.0'
+                });
+            });
+
+            it('returns label for hour2, 3, 4', function () {
+                var arr = getLength24Array();
+                arr[2] = '1.0';
+                arr[3] = '1.0';
+                arr[4] = '1.0';
+                var labels = scheduleTools.value2label(arr);
+                expect(labels.length).toBe(1);
+                expect(labels[0]).toEqual({
+                    begin: 2,
+                    end: 4,
+                    value: '1.0'
+                });
+            });
+
+            it('returns label for hour0 and hour 2', function () {
+                var arr = getLength24Array();
+                arr[0] = '1.0';
+                arr[2] = '1.0';
+                var labels = scheduleTools.value2label(arr);
+                expect(labels.length).toBe(2);
+                expect(labels[0]).toEqual({
+                    begin: 0,
+                    end: 0,
+                    value: '1.0'
+                });
+                expect(labels[1]).toEqual({
+                    begin: 2,
+                    end: 2,
+                    value: '1.0'
+                });
+            });
+
+            it('returns label for hour2 and hour 4', function () {
+                var arr = getLength24Array();
+                arr[2] = '1.0';
+                arr[4] = '1.0';
+                var labels = scheduleTools.value2label(arr);
+                expect(labels.length).toBe(2);
+                expect(labels[0]).toEqual({
+                    begin: 2,
+                    end: 2,
+                    value: '1.0'
+                });
+                expect(labels[1]).toEqual({
+                    begin: 4,
+                    end: 4,
+                    value: '1.0'
+                });
+            });
+
+            it('returns label for hour0, 1 and hour 2, 3, for different values', function () {
+                var arr = getLength24Array();
+                arr[0] = '1.0';
+                arr[1] = '1.0';
+                arr[2] = '2.0';
+                arr[3] = '2.0';
+                var labels = scheduleTools.value2label(arr);
+                expect(labels.length).toBe(2);
+                expect(labels[0]).toEqual({
+                    begin: 0,
+                    end: 1,
+                    value: '1.0'
+                });
+                expect(labels[1]).toEqual({
+                    begin: 2,
+                    end: 3,
+                    value: '2.0'
+                });
+            });
+
+            it('returns label for hour23', function () {
+                var arr = getLength24Array();
+                arr[23] = '1.0';
+                var labels = scheduleTools.value2label(arr);
+                expect(labels.length).toBe(1);
+                expect(labels[0]).toEqual({
+                    begin: 23,
+                    end: 23,
+                    value: '1.0'
+                });
+            });
+
+            it('returns label for hour22, 23', function () {
+                var arr = getLength24Array();
+                arr[22] = '1.0';
+                arr[23] = '1.0';
+                var labels = scheduleTools.value2label(arr);
+                expect(labels.length).toBe(1);
+                expect(labels[0]).toEqual({
+                    begin: 22,
+                    end: 23,
+                    value: '1.0'
+                });
+            });
+
         });
     });
 });

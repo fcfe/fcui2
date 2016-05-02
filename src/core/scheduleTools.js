@@ -115,28 +115,46 @@ define(function (require) {
             return this.updateValueByAxis(value, axis1, axis2);
         },
 
+        /**
+         * 将数组形式的24小时值转换为一组label。数组每一位值表示当前小时的状态，
+         * 相同状态的值将合并为一个label元素返回。每一个label元素为一个object。
+         *
+         * @param  {Array<string>} arr 数组形式的24小时值
+         * @return {Object} label元素数组
+         * @param {number} return.begin label的开始小时
+         * @param {number} return.end label的结束小时
+         * @param {string} return.value label上显示的值，默认为当前小时范围
+         */
         value2label: function (arr) {
-            var i = 0;
             var result = [];
-            var begin = false;
             var beginIndex = 0;
-            for (i = 0; i < arr.length; i++) {
-                if (arr[i] === 0 && !begin) {
-                    continue;
+            var prevValue = null;
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] == null) {
+                    if (prevValue == null) {
+                        continue;
+                    }
+                    else {
+                        result.push({begin: beginIndex, end: i - 1, value: prevValue});
+                        prevValue = null;
+                        continue;
+                    }
                 }
-                if (arr[i] === 0 && begin) {
-                    begin = false;
-                    result.push({begin: beginIndex, end: i - 1});
-                    continue;
+                else {
+                    if (arr[i] == prevValue) {
+                        continue;
+                    }
+                    else {
+                        if (prevValue != null) {
+                            result.push({begin: beginIndex, end: i - 1, value: prevValue});
+                        }
+                        beginIndex = i;
+                        prevValue = arr[i];
+                    }
                 }
-                if (begin) {
-                    continue;
-                }
-                begin = true;
-                beginIndex = i;
             }
-            if (begin) {
-                result.push({begin: beginIndex, end: 23});
+            if (prevValue != null) {
+                result.push({begin: beginIndex, end: 23, value: prevValue});
             }
             return result;
         },
