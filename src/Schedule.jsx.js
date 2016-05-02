@@ -26,7 +26,17 @@ define(function (require) {
             /**
              * 是否使用行选择器。
              */
-            enableRowSelector: React.PropTypes.bool
+            enableRowSelector: React.PropTypes.bool,
+            /**
+             * 选定的时段值。
+             * 是一个有7x24元素的数组JSON.stringify后的值。日优先存放一星期每天24小时的时段选择情况。
+             * 每个元素可为null，或者一个string。
+             * 当为null时，表示该时段没有被选择。
+             * 当为string时，表示该时段被选择，string的内容为当前时段的label。
+             * 相邻时段相同值的label会被合并。
+             * 若label为空串（''），则显示默认label。默认为时段跨度。如1:00-2:00
+             */
+            value: React.PropTypes.string
         },
         // @override
         mixins: [InputWidgetBase, InputWidgetInForm],

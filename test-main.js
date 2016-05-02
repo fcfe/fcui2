@@ -14,7 +14,7 @@ Object.keys(window.__karma__.files).forEach(function(file) {
 
 require.config({
   // Karma serves files under /base, which is the basePath from your config file
-  baseUrl: '/base',
+  baseUrl: '/base/output',
 
   // dynamically load all test files
   deps: allTestFiles,
@@ -24,12 +24,8 @@ require.config({
 
   packages: [
     {
-      name: 'fcui2',
-      location: './output'
-    },
-    {
-      name: 'spec',
-      location: './test/spec'
+      name: 'test',
+      location: '../test'
     }
   ],
 

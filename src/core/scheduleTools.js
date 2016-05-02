@@ -7,33 +7,45 @@
  */
 
 define(function (require) {
+    // 168 = 7 x 24;
     return {
 
         /**
-         * 将string类型的value转换成原始格式
+         * 将string类型的value转换成日优先的二维数组。
+         * value为选定的选定的时段值。
+         * 是一个有7x24元素的数组JSON.stringify后的值。日优先存放一星期每天24小时的时段选择情况。
+         * 每个元素可为null，或者一个string。
+         * 当为null时，表示该时段没有被选择。
+         * 当为string时，表示该时段被选择，string的内容为当前时段的label。
+         * 相邻时段相同值的label会被合并。
+         * 若label为空串（''），则显示默认label。默认为时段跨度。如1:00-2:00
          *
-         * @override
          * @param {string} value 字符串值
          * @return {Array}
          */
         parseValue: function (value) {
-            if (typeof value !== 'string') {
-                value = '';
+            var arrValue;
+            try {
+                arrValue = JSON.parse(value);
             }
-            while (value.length < 168) {
-                value += '0';
+            catch (e) {
+                return [];
             }
-            value = value.substr(0, 168);
-            var arr = [];
-            for (var i = 0; i < value.length; i = i + 24) {
-                var inner = value.substring(i, i + 24).split('');
-                var innerOut = [];
-                for (var j = 0; j < inner.length; j++) {
-                    innerOut.push(inner[j] === '0' ? 0 : 1);
+            var result = [];
+            var hourCount = 0;
+            var arrDay;
+            for (var i = 0; i < 168; i++) {
+                if (hourCount === 0) {
+                    arrDay = [];
                 }
-                arr.push(innerOut);
+                hourCount++;
+                arrDay.push(arrValue[i]);
+                if (hourCount === 24) {
+                    result.push(arrDay);
+                    hourCount = 0;
+                }
             }
-            return arr;
+            return result;
         },
 
         /**
