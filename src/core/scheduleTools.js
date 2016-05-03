@@ -1,5 +1,5 @@
 /**
- * @file 文本输入框组件
+ * @file 时段组件工具集
  * @author Brian Li
  * @author Han Bing Feng
  * @email lbxxlht@163.com
@@ -8,7 +8,12 @@
 
 define(function (require) {
     // 168 = 7 x 24;
+    var _ = require('underscore');
     var langTool = require('./language');
+
+    // schedule一个格子的边长
+    var CELL_LENGTH = 24;
+
     return {
 
         /**
@@ -30,7 +35,7 @@ define(function (require) {
                 arrValue = JSON.parse(value);
             }
             catch (e) {
-                return [];
+                arrValue = [];
             }
             var result = [];
             var hourCount = 0;
@@ -58,14 +63,11 @@ define(function (require) {
          * @return {string}
          */
         stringifyValue: function (rawValue) {
-            var arr = [];
             if (!rawValue) {
                 return '';
             }
-            for (var i = 0; i < rawValue.length; i++) {
-                arr.push(rawValue[i].join(''));
-            }
-            return arr.join('');
+
+            return JSON.stringify(_.flatten(rawValue));
         },
 
         selectedCount: function (value, axis1, axis2) {
@@ -79,7 +81,7 @@ define(function (require) {
                     if (x > value[y].length - 1) {
                         continue;
                     }
-                    if (value[y][x] !== 0) {
+                    if (value[y][x] != null) {
                         result++;
                     }
                 }
@@ -98,13 +100,38 @@ define(function (require) {
                     if (x > value[y].length - 1) {
                         continue;
                     }
-                    value[y][x] = v === undefined ? Math.abs(value[y][x] - 1) : v;
+                    value[y][x] = v == null
+                        ? (
+                            value[y][x] == null ? '' : null
+                        )
+                        : v;
                 }
             }
             return this.stringifyValue(value);
         },
 
         updateValueByMouse: function (value, state) {
+            var scheduleRange = this.getScheduleRangeByMouse(state);
+            return this.updateValueByAxis(value, {
+                x: scheduleRange.startHour,
+                y: scheduleRange.startWeekday
+            }, {
+                x: scheduleRange.endHour,
+                y: scheduleRange.endWeekday
+            });
+        },
+
+        /**
+         * 根据schedule mouse state，计算所选的schedule区域。
+         *
+         * @param  {Object} state mouse state
+         * @return {Object} schedule区域
+         * @param {number} return.startHour 起始小时
+         * @param {number} return.endHour 终止小时，包含
+         * @param {number} return.startWeekday 起始星期
+         * @param {number} return.endWeekday 终止星期，包含
+         */
+        getScheduleRangeByMouse: function (state) {
             var axis1 = this.gridAxis(
                 Math.min(state.mouseDownX, state.mouseCurrentX),
                 Math.min(state.mouseDownY, state.mouseCurrentY)
@@ -113,7 +140,12 @@ define(function (require) {
                 Math.max(state.mouseDownX, state.mouseCurrentX),
                 Math.max(state.mouseDownY, state.mouseCurrentY)
             );
-            return this.updateValueByAxis(value, axis1, axis2);
+            return {
+                startHour: axis1.x,
+                endHour: axis2.x,
+                startWeekday: axis1.y,
+                endWeekday: axis2.y
+            };
         },
 
         /**
@@ -218,17 +250,17 @@ define(function (require) {
             if (hide) {
                 return pos;
             }
-            pos.top = ((axis.y + 1) * 24 + padding + pos.height < tHeight)
-                ? ((axis.y + 1) * 24 + padding) : (axis.y * 24 - padding - pos.height);
-            pos.left = (axis.x * 24 + pos.width < tWidth)
-                ? (axis.x * 24) : ((axis.x + 1) * 24 - pos.width);
+            pos.top = ((axis.y + 1) * CELL_LENGTH + padding + pos.height < tHeight)
+                ? ((axis.y + 1) * CELL_LENGTH + padding) : (axis.y * CELL_LENGTH - padding - pos.height);
+            pos.left = (axis.x * CELL_LENGTH + pos.width < tWidth)
+                ? (axis.x * CELL_LENGTH) : ((axis.x + 1) * CELL_LENGTH - pos.width);
             return pos;
         },
 
         gridAxis: function (x, y) {
             return {
-                x: (x - x % 24) / 24,
-                y: (y - y % 24) / 24
+                x: (x - x % CELL_LENGTH) / CELL_LENGTH,
+                y: (y - y % CELL_LENGTH) / CELL_LENGTH
             };
         },
 
@@ -244,10 +276,10 @@ define(function (require) {
             }
             else if (state.mouseDownX < 0) {
                 var axis = this.gridAxis(state.mouseCurrentX, state.mouseCurrentY);
-                pos.left = axis.x * 24 + 1;
-                pos.top = axis.y * 24 + 1;
-                pos.width = 23;
-                pos.height = 23;
+                pos.left = axis.x * CELL_LENGTH + 1;
+                pos.top = axis.y * CELL_LENGTH + 1;
+                pos.width = CELL_LENGTH - 1;
+                pos.height = CELL_LENGTH - 1;
                 return pos;
             }
             var axis1 = this.gridAxis(
@@ -258,10 +290,10 @@ define(function (require) {
                 Math.max(state.mouseDownX, state.mouseCurrentX),
                 Math.max(state.mouseDownY, state.mouseCurrentY)
             );
-            pos.left = axis1.x * 24 + 1;
-            pos.top = axis1.y * 24 + 1;
-            pos.width = (axis2.x - axis1.x + 1) * 24 - 1;
-            pos.height = (axis2.y - axis1.y + 1) * 24 - 1;
+            pos.left = axis1.x * CELL_LENGTH + 1;
+            pos.top = axis1.y * CELL_LENGTH + 1;
+            pos.width = (axis2.x - axis1.x + 1) * CELL_LENGTH - 1;
+            pos.height = (axis2.y - axis1.y + 1) * CELL_LENGTH - 1;
             // color-blue-2
             pos.backgroundColor = 'rgba(47, 130, 245, 0.5)';
             return pos;

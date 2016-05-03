@@ -39,8 +39,26 @@ define(function (require) {
                 });
             });
 
-            it('returns nothing for unexpected input', function () {
-                expect(scheduleTools.parseValue('!')).toEqual([]);
+            it('returns empty array for unexpected input', function () {
+                var res = scheduleTools.parseValue('');
+                expect(res.length).toBe(7);
+                res.forEach(function (item) {
+                    expect(item.length).toBe(24);
+                    item.forEach(function (innerItem) {
+                        expect(innerItem).toBeUndefined();
+                    });
+                });
+            });
+
+            it('returns empty array for unexpected input', function () {
+                var res = scheduleTools.parseValue('!');
+                expect(res.length).toBe(7);
+                res.forEach(function (item) {
+                    expect(item.length).toBe(24);
+                    item.forEach(function (innerItem) {
+                        expect(innerItem).toBeUndefined();
+                    });
+                });
             });
 
             it('puts correct value in correct pos', function () {
@@ -225,6 +243,34 @@ define(function (require) {
 
             it('returns empty string for []', function () {
                 expect(scheduleTools.value2text()).toBe('');
+            });
+
+            it('returns range when mouse move left-top -> right-bottom', function () {
+                expect(scheduleTools.getScheduleRangeByMouse({
+                    mouseCurrentX: 108,
+                    mouseCurrentY: 75,
+                    mouseDownX: 12,
+                    mouseDownY: 14
+                })).toEqual({
+                    startHour: 0,
+                    endHour: 4,
+                    startWeekday: 0,
+                    endWeekday: 3
+                });
+            });
+
+            it('returns range when mouse move right-bottom -> left-top', function () {
+                expect(scheduleTools.getScheduleRangeByMouse({
+                    mouseCurrentX: 12,
+                    mouseCurrentY: 14,
+                    mouseDownX: 108,
+                    mouseDownY: 75
+                })).toEqual({
+                    startHour: 0,
+                    endHour: 4,
+                    startWeekday: 0,
+                    endWeekday: 3
+                });
             });
         });
     });
