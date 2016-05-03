@@ -120,27 +120,37 @@ define(function (require) {
          * 返回一个时间段的文字表示。
          * 若提供startHour，返回 startHour:00
          * 若提供startHour, endHour，返回startHour:00-(endHour+1):00
-         * 若提供startHour, endHour, weekday，返回 星期x startHour:00-(endHour+1):00
+         * 若提供startHour, endHour, startWeekday，返回 星期x startHour:00-(endHour+1):00
+         * 若提供startHour, endHour, startWeekday， endWeekday，返回 星期x-星期x，startHour:00-(endHour+1):00
          * 若startHour=0，endHour=23，返回 全天。
          *
          * @param  {number} startHour 开始小时数
          * @param  {number} endHour 结束小时数
-         * @param  {number} weekday 星期数
+         * @param  {number} startWeekday 起始星期数
+         * @param  {number} endWeekday 终止星期数
          * @return {string} 文字表示
          */
-        value2text: function (startHour, endHour, weekday) {
+        value2text: function (startHour, endHour, startWeekday, endWeekday) {
             var res = '';
             if (startHour == null) {
                 return '';
             }
 
-            if (weekday != null) {
-                res = langTool.schedule.day[weekday] + ' ';
+            if (startWeekday != null) {
+                res = langTool.schedule.day[startWeekday] + ' ';
+            }
+
+            if (endWeekday != null) {
+                res = res.replace(' ', '');
+                res = res + ' - ' + langTool.schedule.day[endWeekday] + '，';
             }
 
             if (startHour === 0 && endHour === 23) {
                 res = res + '全天';
-                res = res.replace(' ', '');
+                if (endWeekday == null) {
+                    res = res.replace(' ', '');
+                }
+
                 return res;
             }
 

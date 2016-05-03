@@ -203,16 +203,20 @@ define(function (require) {
                 expect(scheduleTools.value2text(0, 0)).toBe('0:00-1:00');
             });
 
-            it('returns 星期一 0:00 for [0, null, 0]', function () {
-                expect(scheduleTools.value2text(0, null, 0)).toBe('星期一 0:00');
-            });
-
             it('returns 星期一 0:00-1:00 for [0, 0, 0]', function () {
                 expect(scheduleTools.value2text(0, 0, 0)).toBe('星期一 0:00-1:00');
             });
 
+            it('returns 星期一 - 星期二，0:00-1:00 for [0, 0, 0, 1]', function () {
+                expect(scheduleTools.value2text(0, 0, 0, 1)).toBe('星期一 - 星期二，0:00-1:00');
+            });
+
             it('returns 星期一全天 for [0, 23, 0]', function () {
                 expect(scheduleTools.value2text(0, 23, 0)).toBe('星期一全天');
+            });
+
+            it('returns 星期一 - 星期二，全天 for [0, 23, 0, 1]', function () {
+                expect(scheduleTools.value2text(0, 23, 0, 1)).toBe('星期一 - 星期二，全天');
             });
 
             it('returns 全天 for [0, 23]', function () {
