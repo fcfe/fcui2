@@ -4,12 +4,28 @@ define(function (require) {
     var Schedule = require('fcui/Schedule.jsx');
 
     function strFactory(l, a) {
-        var s = '';
+        var s = [];
         while (l > 0) {
-            s += a;
+            if (a === 0) {
+                s.push(null);
+            }
+            else {
+                s.push('');
+            }
             l--;
         }
-        return s;
+        return JSON.stringify(s);
+    }
+
+    function strToArray(str) {
+        return JSON.stringify(_.map(str.split(''), function (item) {
+            if (item === '0') {
+                return null;
+            }
+            else {
+                return '';
+            }
+        }));
     }
 
     var items = [
@@ -26,12 +42,12 @@ define(function (require) {
         {
             title: 'Readonly Schedule',
             onChange: true,
-            props: {value: '111000000111110001011010000011111110011110001111111111001111'}
+            props: {value: strToArray('111000000111110001011010000011111110011110001111111111001111')}
         },
         {
             title: 'Disabled Schedule',
             onChange: true,
-            props: {disabled: true, value: '111000000111110001011010000011111110011110001111111111001111'}
+            props: {disabled: true, value: strToArray('111000000111110001011010000011111110011110001111111111001111')}
         },
         {
             title: 'Schedule with ShortCut',

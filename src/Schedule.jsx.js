@@ -8,6 +8,8 @@
 
 define(function (require) {
     let React = require('react');
+    let _ = require('underscore');
+
     let InputWidgetBase = require('./mixins/InputWidgetBase');
     let InputWidgetInForm = require('./mixins/InputWidgetInForm');
 
@@ -36,7 +38,17 @@ define(function (require) {
              * 相邻时段相同值的label会被合并。
              * 若label为空串（''），则显示默认label。默认为时段跨度。如1:00-2:00
              */
-            value: React.PropTypes.string
+            value: React.PropTypes.string,
+            /**
+             * 划出了一个新的时段块时的回调。
+             * @param {SyntheticEvent} onScheduleSelected.e 鼠标mouseup事件
+             * @param {number} onScheduleSelected.startHour
+             * @param {number} onScheduleSelected.startWeekday
+             * @param {number} onScheduleSelected.endHour
+             * @param {number} onScheduleSelected.endWeekday
+             * @param {HTMLElement} onScheduleSelected.cursorDom 鼠标拖拽所产生的drag layer的dom节点
+             */
+            onScheduleSelected: React.PropTypes.func
         },
         // @override
         mixins: [InputWidgetBase, InputWidgetInForm],
@@ -53,7 +65,8 @@ define(function (require) {
                 shortCut: [],
                 valueTemplate: '',
                 enableColumnSelector: false,
-                enableRowSelector: false
+                enableRowSelector: false,
+                onScheduleSelected: _.noop
             };
         },
         // @override
@@ -89,8 +102,20 @@ define(function (require) {
             if (this.props.disabled) {
                 return;
             }
+            let scheduleRange = tools.getScheduleRangeByMouse(this.state);
             e.target = this.refs.container;
             e.target.value = tools.updateValueByMouse(this.___getValue___(), this.state);
+            this.props.onScheduleSelected(
+                e,
+                scheduleRange.startHour,
+                scheduleRange.endHour,
+                scheduleRange.startWeekday,
+                scheduleRange.endWeekday,
+                this.refs.cursor
+            );
+            if (e.isDefaultPrevented()) {
+                return;
+            }
             this.___dispatchChange___(e);
             this.setState({mouseDownX: -1, mouseDownY: -1});
         },
@@ -113,7 +138,7 @@ define(function (require) {
             let value = this.___getValue___();
             let selected = tools.selectedCount(value, {x: i, y: 0}, {x: i, y: 6});
             e.target = this.refs.container;
-            e.target.value = tools.updateValueByAxis(value, {x: i, y: 0}, {x: i, y: 6}, selected === 7 ? 0 : 1);
+            e.target.value = tools.updateValueByAxis(value, {x: i, y: 0}, {x: i, y: 6}, selected === 7 ? null : '');
             this.___dispatchChange___(e);
         },
         rowSelectorHandler(e) {
@@ -124,7 +149,7 @@ define(function (require) {
             let v = e.target.checked;
             let value = this.___getValue___();
             e.target = this.refs.container;
-            e.target.value = tools.updateValueByAxis(value, {x: 0, y: i}, {x: 24, y: i}, v ? 1 : 0);
+            e.target.value = tools.updateValueByAxis(value, {x: 0, y: i}, {x: 24, y: i}, v ? '' : null);
             this.___dispatchChange___(e);
         },
         shortCutClickHandler(e) {
@@ -169,7 +194,7 @@ define(function (require) {
                     <div className="opt-area" ref="optArea">
                         <div className="grid-layer">{gridFactory(this)}</div>
                         <div className="label-layer">{labelFactory(value)}</div>
-                        <div className="cursor-layer" style={tools.cursorSize(this.state)}></div>
+                        <div className="cursor-layer" ref="cursor" style={tools.cursorSize(this.state)}></div>
                         <div className="title-layer" {...titleProp}>
                             <div>{cAxis.x + ':00 - ' + cAxis.x + ':59'}</div>
                             <div>{language.dragAble}</div>
@@ -219,7 +244,7 @@ define(function (require) {
             let labels = tools.value2label(value[i]);
             for (let j = 0; j < labels.length; j++) {
                 let label = labels[j];
-                let text = label.end - label.begin > 1 ? (label.begin + ':00-' + label.end + ':59') : '';
+                let text = label.value === '' ? tools.value2text(label.begin, label.end) : label.value;
                 let prop = {
                     key: 'label-' + i + '-' + j,
                     style: {
@@ -234,7 +259,6 @@ define(function (require) {
         }
         return doms.length > 0 ? doms : '';
     }
-
 
     function columnSelectorFactory(me, value) {
         let doms = [];
