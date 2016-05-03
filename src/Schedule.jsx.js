@@ -41,6 +41,9 @@ define(function (require) {
             value: React.PropTypes.string,
             /**
              * 划出了一个新的时段块时的回调。
+             * 回调可通过e.preventDefault()阻止更新发生。此时组件会通过设置
+             * isPreventMouseEvent state来阻止后续鼠标事件响应。
+             * 使用方做适当处理后，需设置isPreventMouseEvent为false来恢复鼠标响应。
              * @param {SyntheticEvent} onScheduleSelected.e 鼠标mouseup事件
              * @param {number} onScheduleSelected.startHour
              * @param {number} onScheduleSelected.startWeekday
@@ -75,11 +78,15 @@ define(function (require) {
                 mouseDownX: -1,
                 mouseDownY: -1,
                 mouseCurrentX: -1,
-                mouseCurrentY: -1
+                mouseCurrentY: -1,
+                isPreventMouseEvent: false
             };
         },
         optDownHandler(e) {
             if (this.props.disabled) {
+                return;
+            }
+            if (this.state.isPreventMouseEvent) {
                 return;
             }
             let pos = util.getDOMPosition(this.refs.optArea);
@@ -92,6 +99,9 @@ define(function (require) {
             if (this.props.disabled) {
                 return;
             }
+            if (this.state.isPreventMouseEvent) {
+                return;
+            }
             let pos = util.getDOMPosition(this.refs.optArea);
             this.setState({
                 mouseCurrentX: e.clientX - pos.x,
@@ -100,6 +110,9 @@ define(function (require) {
         },
         optUpHandler(e) {
             if (this.props.disabled) {
+                return;
+            }
+            if (this.state.isPreventMouseEvent) {
                 return;
             }
             let scheduleRange = tools.getScheduleRangeByMouse(this.state);
@@ -114,6 +127,7 @@ define(function (require) {
                 this.refs.cursor
             );
             if (e.isDefaultPrevented()) {
+                this.setState({isPreventMouseEvent: true});
                 return;
             }
             this.___dispatchChange___(e);
@@ -121,6 +135,9 @@ define(function (require) {
         },
         optLeaveHandler(e) {
             if (this.props.disabled) {
+                return;
+            }
+            if (this.state.isPreventMouseEvent) {
                 return;
             }
             this.setState({
@@ -250,7 +267,7 @@ define(function (require) {
                     style: {
                         top: i * 24 + 1,
                         left: label.begin * 24 + 1,
-                        height: 24,
+                        height: 23,
                         width: (label.end - label.begin + 1) * 24
                     }
                 };

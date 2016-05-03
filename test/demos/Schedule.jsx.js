@@ -3,6 +3,8 @@ define(function (require) {
     var React = require('react');
     var Schedule = require('fcui/Schedule.jsx');
 
+    var count = 1;
+
     function strFactory(l, a) {
         var s = [];
         while (l > 0) {
@@ -91,6 +93,24 @@ define(function (require) {
             props: {
                 enableColumnSelector: true,
                 enableRowSelector: true
+            }
+        },
+        {
+            title: 'Schedule 定制选择',
+            props: {
+                onScheduleSelected: function (e, startHour, endHour, startWeekday, endWeekday, cursorDom) {
+                    e.target.value = JSON.stringify(
+                        _.map(JSON.parse(e.target.value), function (item) {
+                            if (item == '') {
+                                return count + '';
+                            }
+                            else {
+                                return item;
+                            }
+                        })
+                    );
+                    count++;
+                }
             }
         }
     ];
