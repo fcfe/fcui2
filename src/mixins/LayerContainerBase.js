@@ -20,8 +20,8 @@
  * 5. [optional] props.datasource {Any}
  *      绝大多数情况下，layer是一个列表，因此会把props.datasource加到props.layerProps中传入进去
  *      但如果props.layerProps存在datasource，不会被覆盖，也不会merge
- * 6. [required] ref.container
- *      组件的根容器引用，用于layer的自动定位：定位的优先级是先下后上，先右后左
+ * 6. [required] layerAnchor || ref.container
+ *      组件的根容器或锚容器引用，用于layer的自动定位：定位的优先级是先下后上，先右后左
  *
  * 在初始化layer时，mixin会在props.layerProps中加入parent属性，记录当前组件；同时会加入onAction属性，默认传入
  * 当前组件的this.layerAction方法，以提供layer内容的回调接口。
@@ -106,7 +106,7 @@ define(function (require) {
                 var layerContainer = me.___layerContainer___;
                 var height = layerContainer.offsetHeight;
                 var width = layerContainer.offsetWidth;
-                var container = me.refs.container;
+                var container = me.props.layerAnchor || me.refs.container;
                 if (!me.state.mouseover || !container) {
                     clearInterval(timer);
                     return;
