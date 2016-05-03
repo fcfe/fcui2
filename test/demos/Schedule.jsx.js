@@ -47,6 +47,20 @@ define(function (require) {
             props: {value: strToArray('111000000111110001011010000011111110011110001111111111001111')}
         },
         {
+            title: 'Readonly Schedule with preset labels',
+            onChange: true,
+            props: {
+                value: strToArray('111000000111110001011010000011111110011110001111111111001111'),
+                presetLabels: [{
+                    style: {backgroundColor: '#666'},
+                    value: strToArray('0000000000000000000000000000111111111111111111111111111111111')
+                }, {
+                    style: {backgroundColor: '#999'},
+                    value: strToArray('1111110000000000000000000000000000000000000000000000000000000')
+                }]
+            }
+        },
+        {
             title: 'Disabled Schedule',
             onChange: true,
             props: {disabled: true, value: strToArray('111000000111110001011010000011111110011110001111111111001111')}
@@ -120,7 +134,7 @@ define(function (require) {
             var obj = {};
             obj[field] = e.target.value;
             me.setState(obj);
-        }
+        };
     }
 
     function factory(me, items) {

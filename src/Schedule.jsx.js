@@ -51,7 +51,15 @@ define(function (require) {
              * @param {number} onScheduleSelected.endWeekday
              * @param {HTMLElement} onScheduleSelected.cursorDom 鼠标拖拽所产生的drag layer的dom节点
              */
-            onScheduleSelected: React.PropTypes.func
+            onScheduleSelected: React.PropTypes.func,
+            /**
+             * 预设的labels列表。
+             * @param {string} presetLables[].value 同value定义
+             */
+            presetLabels: React.PropTypes.arrayOf(React.PropTypes.shape({
+                style: React.PropTypes.object,
+                value: React.PropTypes.string
+            }))
         },
         // @override
         mixins: [InputWidgetBase, InputWidgetInForm],
@@ -178,8 +186,51 @@ define(function (require) {
             e.target.value = this.props.shortCut[i].getValues(this.___getValue___());
             this.___dispatchChange___(e);
         },
-        render() {
+
+        /**
+         * 混合可能的presets label，得到最终的value。
+         *
+         * @return {string} 混合后的value
+         */
+        getFinalValue: function () {
             let value = this.___getValue___();
+            if (this.props.presetLabels == null) {
+                return value;
+            }
+
+            let maxLength = 0;
+            let labels = _.map(this.props.presetLabels.concat({
+                style: null,
+                value: value
+            }), function (item) {
+                let v;
+                try {
+                    v = JSON.parse(item.value);
+                }
+                catch (e) {
+                    v = [];
+                }
+                if (v.length > maxLength) {
+                    maxLength = v.length;
+                }
+                return {
+                    style: item.style,
+                    value: v
+                };
+            });
+
+            let res = [];
+            for (let i = 0; i < maxLength; i++) {
+                _.each(labels, function (label) {
+                    if (label.value[i] != null) {
+                        res[i] = label.style == null ? label.value[i] : label.style;
+                    }
+                });
+            }
+            return JSON.stringify(res);
+        },
+        render() {
+            let value = this.getFinalValue();
             let cAxis = tools.gridAxis(this.state.mouseCurrentX, this.state.mouseCurrentY);
             let dragLayerProp = {
                 onMouseDown: this.optDownHandler,
@@ -210,7 +261,7 @@ define(function (require) {
                     }
                     <div className="opt-area" ref="optArea">
                         <div className="grid-layer">{gridFactory(this)}</div>
-                        <div className="label-layer">{labelFactory(value)}</div>
+                        <div className="label-layer">{labelFactory(value, this.props.presetLables)}</div>
                         <div className="cursor-layer" ref="cursor" style={tools.cursorSize(this.state)}></div>
                         <div className="title-layer" {...titleProp}>
                             <div>{cAxis.x + ':00 - ' + cAxis.x + ':59'}</div>
@@ -261,15 +312,23 @@ define(function (require) {
             let labels = tools.value2label(value[i]);
             for (let j = 0; j < labels.length; j++) {
                 let label = labels[j];
-                let text = label.value === '' ? tools.value2text(label.begin, label.end) : label.value;
+                let style = {
+                    top: i * 24 + 1,
+                    left: label.begin * 24 + 1,
+                    height: 23,
+                    width: (label.end - label.begin + 1) * 24
+                };
+                let text;
+                if (typeof label.value === 'object') {
+                    text = '';
+                    style = _.extend(style, label.value);
+                }
+                else {
+                    text = label.value === '' ? tools.value2text(label.begin, label.end) : label.value;
+                }
                 let prop = {
                     key: 'label-' + i + '-' + j,
-                    style: {
-                        top: i * 24 + 1,
-                        left: label.begin * 24 + 1,
-                        height: 23,
-                        width: (label.end - label.begin + 1) * 24
-                    }
+                    style: style
                 };
                 doms.push(<div {...prop}>{text}</div>);
             }

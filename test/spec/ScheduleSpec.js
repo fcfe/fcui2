@@ -213,6 +213,19 @@ define(function (require) {
                 });
             });
 
+            it('returns label for hour22, 23 for object value', function () {
+                var arr = getLength24Array();
+                arr[22] = {};
+                arr[23] = {};
+                var labels = scheduleTools.value2label(arr);
+                expect(labels.length).toBe(1);
+                expect(labels[0]).toEqual({
+                    begin: 22,
+                    end: 23,
+                    value: {}
+                });
+            });
+
             it('returns 0:00 for [0]', function () {
                 expect(scheduleTools.value2text(0)).toBe('0:00');
             });
