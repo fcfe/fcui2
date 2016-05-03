@@ -3,6 +3,8 @@
  * @author Han Bing Feng
  */
 
+/* eslint-disable max-nested-callbacks */
+
 define(function (require) {
     var _ = require('underscore');
     var scheduleTools = require('core/scheduleTools');
@@ -193,6 +195,33 @@ define(function (require) {
                 });
             });
 
+            it('returns 0:00 for [0]', function () {
+                expect(scheduleTools.value2text(0)).toBe('0:00');
+            });
+
+            it('returns 0:00-1:00 for [0, 0]', function () {
+                expect(scheduleTools.value2text(0, 0)).toBe('0:00-1:00');
+            });
+
+            it('returns 星期一 0:00 for [0, null, 0]', function () {
+                expect(scheduleTools.value2text(0, null, 0)).toBe('星期一 0:00');
+            });
+
+            it('returns 星期一 0:00-1:00 for [0, 0, 0]', function () {
+                expect(scheduleTools.value2text(0, 0, 0)).toBe('星期一 0:00-1:00');
+            });
+
+            it('returns 星期一全天 for [0, 23, 0]', function () {
+                expect(scheduleTools.value2text(0, 23, 0)).toBe('星期一全天');
+            });
+
+            it('returns 全天 for [0, 23]', function () {
+                expect(scheduleTools.value2text(0, 23)).toBe('全天');
+            });
+
+            it('returns empty string for []', function () {
+                expect(scheduleTools.value2text()).toBe('');
+            });
         });
     });
 });

@@ -8,6 +8,7 @@
 
 define(function (require) {
     // 168 = 7 x 24;
+    var langTool = require('./language');
     return {
 
         /**
@@ -116,6 +117,41 @@ define(function (require) {
         },
 
         /**
+         * 返回一个时间段的文字表示。
+         * 若提供startHour，返回 startHour:00
+         * 若提供startHour, endHour，返回startHour:00-(endHour+1):00
+         * 若提供startHour, endHour, weekday，返回 星期x startHour:00-(endHour+1):00
+         * 若startHour=0，endHour=23，返回 全天。
+         *
+         * @param  {number} startHour 开始小时数
+         * @param  {number} endHour 结束小时数
+         * @param  {number} weekday 星期数
+         * @return {string} 文字表示
+         */
+        value2text: function (startHour, endHour, weekday) {
+            var res = '';
+            if (startHour == null) {
+                return '';
+            }
+
+            if (weekday != null) {
+                res = langTool.schedule.day[weekday] + ' ';
+            }
+
+            if (startHour === 0 && endHour === 23) {
+                res = res + '全天';
+                res = res.replace(' ', '');
+                return res;
+            }
+
+            res += startHour + ':00';
+            if (endHour != null) {
+                res += '-' + (endHour + 1) + ':00';
+            }
+            return res;
+        },
+
+        /**
          * 将数组形式的24小时值转换为一组label。数组每一位值表示当前小时的状态，
          * 相同状态的值将合并为一个label元素返回。每一个label元素为一个object。
          *
@@ -141,7 +177,7 @@ define(function (require) {
                     }
                 }
                 else {
-                    if (arr[i] == prevValue) {
+                    if (arr[i] === prevValue) {
                         continue;
                     }
                     else {
