@@ -53,12 +53,18 @@ define(function (require) {
              */
             onScheduleSelected: React.PropTypes.func,
             /**
+             * 绘制悬浮层
+             * @return {ReactElement} 悬浮层Element
+             */
+            titleLayerRenderer: React.PropTypes.func,
+            /**
              * 预设的labels列表。
              * @param {string} presetLables[].value 同value定义
              */
             presetLabels: React.PropTypes.arrayOf(React.PropTypes.shape({
                 style: React.PropTypes.object,
-                value: React.PropTypes.string
+                value: React.PropTypes.string,
+                name: React.PropTypes.string
             }))
         },
         // @override
@@ -187,8 +193,27 @@ define(function (require) {
             this.___dispatchChange___(e);
         },
 
+        renderTitleLayer: function () {
+            if (this.props.titleLayerRenderer) {
+                let Renderer = this.props.titleLayerRenderer;
+                return <Renderer value={this.getFinalValue()} {...this.props} {...this.state} />;
+            }
+
+            let cAxis = tools.gridAxis(this.state.mouseCurrentX, this.state.mouseCurrentY);
+            let titleProp = {
+                style: tools.titleLayerSize(cAxis, this.state.mouseDownX > -1 || this.state.mouseCurrentX < 0)
+            };
+
+            return (
+                <div className="title-layer" {...titleProp}>
+                    <div>{cAxis.x + ':00 - ' + cAxis.x + ':59'}</div>
+                    <div>{language.dragAble}</div>
+                </div>
+            );
+        },
+
         /**
-         * 混合可能的presets label，得到最终的value。
+         * 混合presets label，得到最终的value。
          *
          * @return {string} 混合后的value
          */
@@ -201,6 +226,7 @@ define(function (require) {
             let maxLength = 0;
             let labels = _.map(this.props.presetLabels.concat({
                 style: null,
+                name: null,
                 value: value
             }), function (item) {
                 let v;
@@ -215,6 +241,7 @@ define(function (require) {
                 }
                 return {
                     style: item.style,
+                    name: item.name,
                     value: v
                 };
             });
@@ -231,15 +258,11 @@ define(function (require) {
         },
         render() {
             let value = this.getFinalValue();
-            let cAxis = tools.gridAxis(this.state.mouseCurrentX, this.state.mouseCurrentY);
             let dragLayerProp = {
                 onMouseDown: this.optDownHandler,
                 onMouseUp: this.optUpHandler,
                 onMouseMove: this.optMoveHandler,
                 onMouseLeave: this.optLeaveHandler
-            };
-            let titleProp = {
-                style: tools.titleLayerSize(cAxis, this.state.mouseDownX > -1 || this.state.mouseCurrentX < 0)
             };
             /**
              * 操作区由5层组成，从下到上依次是：
@@ -261,12 +284,9 @@ define(function (require) {
                     }
                     <div className="opt-area" ref="optArea">
                         <div className="grid-layer">{gridFactory(this)}</div>
-                        <div className="label-layer">{labelFactory(value, this.props.presetLables)}</div>
+                        <div className="label-layer">{labelFactory(value)}</div>
                         <div className="cursor-layer" ref="cursor" style={tools.cursorSize(this.state)}></div>
-                        <div className="title-layer" {...titleProp}>
-                            <div>{cAxis.x + ':00 - ' + cAxis.x + ':59'}</div>
-                            <div>{language.dragAble}</div>
-                        </div>
+                        {this.renderTitleLayer()}
                         <div className="drag-layer" {...dragLayerProp}></div>
                     </div>
                     <div
@@ -326,9 +346,11 @@ define(function (require) {
                 else {
                     text = label.value === '' ? tools.value2text(label.begin, label.end) : label.value;
                 }
+                let key = 'label-' + i + '-' + j;
                 let prop = {
-                    key: 'label-' + i + '-' + j,
-                    style: style
+                    key: key,
+                    style: style,
+                    ref: key
                 };
                 doms.push(<div {...prop}>{text}</div>);
             }

@@ -126,6 +126,40 @@ define(function (require) {
                     count++;
                 }
             }
+        },
+        {
+            title: 'Schedule 定制title layer',
+            props: {
+                titleLayerRenderer: function (props) {
+                    let scheduleTools = require('fcui/core/scheduleTools');
+                    let cAxis = scheduleTools.gridAxis(props.mouseCurrentX, props.mouseCurrentY);
+                    let parsedValue = scheduleTools.parseValue(props.value);
+                    let labels = scheduleTools.value2label(parsedValue[cAxis.y]);
+                    let hoverLabel = scheduleTools.getLabelByIndex(cAxis.x, labels);
+                    console.log(labels, cAxis, hoverLabel);
+                    if (hoverLabel == null) {
+                        return null;
+                    }
+                    else {
+                        let pos = {
+                            width: 210,
+                            height: 30,
+                            left: -200,
+                            top: -200
+                        };
+                        let style = scheduleTools.titleLayerSize(
+                            cAxis,
+                            hoverLabel != null && (props.mouseDownX > -1 || props.mouseCurrentX < 0),
+                            pos);
+                        let text = scheduleTools.value2text(hoverLabel.begin, hoverLabel.end, cAxis.y) + '， 自定义显示';
+                        return (
+                            <div className="title-layer" style={style}>
+                                <div>{text}</div>
+                            </div>
+                        );
+                    }
+                }
+            }
         }
     ];
 

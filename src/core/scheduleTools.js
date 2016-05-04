@@ -237,8 +237,23 @@ define(function (require) {
             return result;
         },
 
-        titleLayerSize: function (axis, hide) {
-            var pos = {
+        /**
+         * 给定一组labels， 返回一个label，其中包含给定的index。或返回null，如果任
+         * 一个label都不包含index。
+         * label格式参见value2label。
+         *
+         * @param  {number} index  要查找的被label包含的index
+         * @param  {Array<Object>} labels 所有labels
+         * @return {Object}        包含index的label， 或null
+         */
+        getLabelByIndex: function (index, labels) {
+            return _.find(labels, function (label) {
+                return label.begin <= index && label.end >= index;
+            });
+        },
+
+        titleLayerSize: function (axis, hide, pos) {
+            pos = pos || {
                 width: 100,
                 height: 60,
                 left: -200,
