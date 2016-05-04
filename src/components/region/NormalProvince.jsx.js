@@ -11,6 +11,7 @@ define(function (require) {
     var MouseWidgetBase = require('../../mixins/MouseWidgetBase');
     var LayerContainerBase = require('../../mixins/LayerContainerBase');
     var CheckBox = require('../../CheckBox.jsx');
+    var Radio = require('../../Radio.jsx');
 
     var tools = require('../../core/regionTools');
     var language = require('../../core/language').region;
@@ -29,7 +30,8 @@ define(function (require) {
                 onChange: function () {},
                 layerContent: require('./NormalProvinceLayer.jsx'),
                 layerProps: {},
-                layerInterface: 'onChange'
+                layerInterface: 'onChange',
+                type: 'multi'
             };
         },
         // @override
@@ -43,7 +45,8 @@ define(function (require) {
             if (this.___layer___) {
                 this.layerUpdateProp({
                     datasource: tools.filiation[this.props.id],
-                    value: this.props.value
+                    value: this.props.value,
+                    type: this.props.type
                 });
             }
         },
@@ -85,11 +88,20 @@ define(function (require) {
             if (this.state.hover) {
                 containerProp.style = {border: '1px solid #C8C8C8'};
             }
+            if (this.props.type === 'single') {
+                return(
+                    <div {...containerProp}>
+                        <Radio {...checkboxProp}/>
+                    </div>
+                );
+            }
+            else {
             return (
                 <div {...containerProp}>
                     <CheckBox {...checkboxProp}/>
                 </div>
             );
+        }
         }
     });
 

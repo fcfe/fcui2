@@ -11,6 +11,7 @@ define(function (require) {
     var MouseWidgetBase = require('../mixins/MouseWidgetBase');
 
     var Region = require('../Region.jsx');
+    var SingleRegion = require('../SingleRegion.jsx');
     var Button = require('../Button.jsx');
     var language = require('../core/language').rangeCalendar;
 
@@ -25,7 +26,8 @@ define(function (require) {
                 value: '',
                 shortCut: [],
                 onChange: function () {},
-                close: function () {}
+                close: function () {},
+                type: 'multi'
             }
         },
         // @override
@@ -38,6 +40,13 @@ define(function (require) {
         },
         changeHandler: function (e) {
             this.setState({value: e.target.value});
+        },
+        singleRegionChangeHandler: function (e) {
+            this.setState({value: e.target.value});
+            var event = {};
+            event.target = this.refs.container;
+            event.target.value = e.target.value;
+            this.props.onChange(event);
         },
         enterHandler: function (e) {
             e.target = this.refs.container;
@@ -60,15 +69,29 @@ define(function (require) {
                 skin: 'important',
                 onClick: this.enterHandler
             };
+            var regionProp = {
+                shortCut: this.props.shortCut,
+                value: this.state.value,
+                onChange: (this.props.type === 'single') ? this.singleRegionChangeHandler : this.changeHandler
+            };
+            if (this.props.type === 'single') {
             return (
                 <div {...containerProp}>
-                    <Region shortCut={this.props.shortCut} value={this.state.value} onChange={this.changeHandler}/>
+                        <SingleRegion {...regionProp}/>
+                    </div>
+                );
+            }
+            else {
+                return (
+                    <div {...containerProp}>
+                        <Region {...regionProp}/>
                     <div className="button-bar">
                         <Button {...enterButtonProp}/>
                         <Button label={language.cancel} onClick={this.props.close}/>
                     </div>
                 </div>
             );
+        }
         }
     });
 });

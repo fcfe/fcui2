@@ -53,7 +53,7 @@ define(function (require) {
             var value = this.___getValue___();
             return (
                 <div className={'fcui2-region ' + this.props.className} ref="container">
-                    {countryFactory([90, 999, 0], value, this)}
+                    {countryFactory([998, 999], value, this)}
                 </div>
             );
         }

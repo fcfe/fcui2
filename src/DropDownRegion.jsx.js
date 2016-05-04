@@ -29,7 +29,8 @@ define(function (require) {
                 // 以下为LayerContainerBase中需要的配置
                 layerContent: require('./components/RegionLayer.jsx'),
                 layerProps: {},
-                layerInterface: 'onChange'
+                layerInterface: 'onChange',
+                type: 'multi'
             };
         },
         layerAction: function (e) {
@@ -48,7 +49,8 @@ define(function (require) {
             this.layerShow({
                 shortCut: this.props.shortCut,
                 value: this.___getValue___(),
-                close: this.layerHide
+                close: this.layerHide,
+                type: this.props.type
             }, true);
         },
         render: function () {

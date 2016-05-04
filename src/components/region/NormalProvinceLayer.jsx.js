@@ -10,6 +10,7 @@ define(function (require) {
     var React = require('react');
     var MouseWidgetBase = require('../../mixins/MouseWidgetBase');
     var CheckBox = require('../../CheckBox.jsx');
+    var Radio = require('../../Radio.jsx');
     var language = require('../../core/language').region;
 
 
@@ -21,7 +22,8 @@ define(function (require) {
             return {
                 datasource: [],
                 value: {},
-                onChange: function () {}
+                onChange: function () {},
+                type: 'multi'
             };
         },
         // @override
@@ -67,7 +69,11 @@ define(function (require) {
             var line = [];
             for (var j = 0; j < step; j++) {
                 if (i + j === arr.length) break;
-                line.push(<td key={i + j}><CheckBox {...propF(arr[i + j])}/></td>);
+                line.push(
+                    <td key={i + j}>{me.props.type === 'single' ? 
+                    <Radio {...propF(arr[i + j])}/> :
+                    <CheckBox {...propF(arr[i + j])}/>}</td>
+                );
             }
             return line;
         }
