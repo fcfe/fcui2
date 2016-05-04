@@ -160,6 +160,22 @@ define(function (require) {
                     }
                 }
             }
+        },
+        {
+            title: 'Schedule 有图例',
+            props: {
+                infoText: '时段赛高',
+                isShowLegend: true,
+                presetLabels: [{
+                    style: {backgroundColor: '#666'},
+                    value: strToArray('0000000000000000000000000000111111111111111111111111111111111'),
+                    name: '推荐'
+                }, {
+                    style: {backgroundColor: '#999'},
+                    value: strToArray('1111110000000000000000000000000000000000000000000000000000000'),
+                    name: '吐血推荐'
+                }]
+            }
         }
     ];
 

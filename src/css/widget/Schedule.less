@@ -13,6 +13,33 @@
     -ms-user-select:none;
     user-select:none;
 
+    &-info {
+        &-text {
+            float: left;
+            margin-left: 24px;
+        }
+
+        &-legend {
+            float: right;
+            margin-right: 12px;
+            .font-icon {
+                margin-left: 0.5em;
+            }
+
+            .font-icon-bg-square-empty {
+                color: @color-inner-border;
+            }
+
+            &-icon-selected {
+                color: @color-blue-2;
+            }
+
+            &-text {
+                margin-left: 0.2em;
+            }
+        }
+    }
+
     .fast-operation-bar {
         margin-left: 10px;
         font-size: 12px;

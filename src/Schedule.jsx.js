@@ -65,7 +65,12 @@ define(function (require) {
                 style: React.PropTypes.object,
                 value: React.PropTypes.string,
                 name: React.PropTypes.string
-            }))
+            })),
+            /**
+             * 显示在schedule顶部的info中的文字
+             */
+            infoText: React.PropTypes.string,
+            isShowLegend: React.PropTypes.bool
         },
         // @override
         mixins: [InputWidgetBase, InputWidgetInForm],
@@ -83,7 +88,9 @@ define(function (require) {
                 valueTemplate: '',
                 enableColumnSelector: false,
                 enableRowSelector: false,
-                onScheduleSelected: _.noop
+                onScheduleSelected: _.noop,
+                infoText: '',
+                isShowLegend: false
             };
         },
         // @override
@@ -193,25 +200,6 @@ define(function (require) {
             this.___dispatchChange___(e);
         },
 
-        renderTitleLayer: function () {
-            if (this.props.titleLayerRenderer) {
-                let Renderer = this.props.titleLayerRenderer;
-                return <Renderer value={this.getFinalValue()} {...this.props} {...this.state} />;
-            }
-
-            let cAxis = tools.gridAxis(this.state.mouseCurrentX, this.state.mouseCurrentY);
-            let titleProp = {
-                style: tools.titleLayerSize(cAxis, this.state.mouseDownX > -1 || this.state.mouseCurrentX < 0)
-            };
-
-            return (
-                <div className="title-layer" {...titleProp}>
-                    <div>{cAxis.x + ':00 - ' + cAxis.x + ':59'}</div>
-                    <div>{language.dragAble}</div>
-                </div>
-            );
-        },
-
         /**
          * 混合presets label，得到最终的value。
          *
@@ -256,6 +244,59 @@ define(function (require) {
             }
             return JSON.stringify(res);
         },
+        renderTitleLayer: function () {
+            if (this.props.titleLayerRenderer) {
+                let Renderer = this.props.titleLayerRenderer;
+                return <Renderer value={this.getFinalValue()} {...this.props} {...this.state} />;
+            }
+
+            let cAxis = tools.gridAxis(this.state.mouseCurrentX, this.state.mouseCurrentY);
+            let titleProp = {
+                style: tools.titleLayerSize(cAxis, this.state.mouseDownX > -1 || this.state.mouseCurrentX < 0)
+            };
+
+            return (
+                <div className="title-layer" {...titleProp}>
+                    <div>{cAxis.x + ':00 - ' + cAxis.x + ':59'}</div>
+                    <div>{language.dragAble}</div>
+                </div>
+            );
+        },
+        renderLegend: function () {
+            if (!this.props.isShowLegend) {
+                return '';
+            }
+
+            return (
+                <div className="fcui2-schedule-info-legend">
+                    <span className="font-icon font-icon-bg-square-full fcui2-schedule-info-legend-icon-selected" />
+                    <span className="fcui2-schedule-info-legend-text">已选</span>
+                    {
+                        this.props.presetLabels == null
+                        ? ''
+                        : (
+                            _.map(this.props.presetLabels, function (label) {
+                                return (
+                                    <span key={'legend-preset-' + label.name}>
+                                        <span
+                                            className="
+                                                font-icon
+                                                font-icon-bg-square-full
+                                                fcui2-schedule-info-legend-icon-preset
+                                            "
+                                            style={{color: label.style.backgroundColor}}
+                                        />
+                                        <span className="fcui2-schedule-info-legend-text">{label.name}</span>
+                                    </span>
+                                );
+                            })
+                        )
+                    }
+                    <span className="font-icon font-icon-bg-square-empty" />
+                    <span className="fcui2-schedule-info-legend-text">未投放</span>
+                </div>
+            )
+        },
         render() {
             let value = this.getFinalValue();
             let dragLayerProp = {
@@ -274,6 +315,11 @@ define(function (require) {
              */
             return (
                 <div className={'fcui2-schedule ' + this.props.className} ref="container">
+                    <div className="fcui2-schedule-info">
+                        <div className="fcui2-schedule-info-text">{this.props.infoText}</div>
+                        {this.renderLegend()}
+                        <div style={{clear: 'both'}} />
+                    </div>
                     <div className="fast-operation-bar">
                         {shortCutFactory(this)}
                     </div>
