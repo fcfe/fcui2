@@ -154,6 +154,34 @@ define(function (require) {
             }
         },
         {
+            title: 'Table with Selector that can select current page.',
+            onChange: true,
+            props: {
+                flags: {
+                    showHeader: true,
+                    showSelector: 2
+                },
+                datasource: datasource,
+                fieldConfig: [
+                    fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
+                ]
+            }
+        },
+        {
+            title: 'Table with Selector that can select all items.',
+            onChange: true,
+            props: {
+                flags: {
+                    showHeader: true,
+                    showSelector: 3
+                },
+                datasource: datasource,
+                fieldConfig: [
+                    fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
+                ]
+            }
+        },
+        {
             title: 'Disabled Table',
             props: {
                 disabled: true,

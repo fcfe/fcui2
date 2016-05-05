@@ -106,6 +106,7 @@ define(function (require) {
             var conf = me.props.fieldConfig;
             if (me.props.flags && me.props.flags.showSelector) {
                 var selectorProp = {
+                    type: me.props.flags.showSelector,
                     selected: me.getSelectedHash(),
                     tableItems: me.props.datasource,
                     disabled: me.props.disabled,
