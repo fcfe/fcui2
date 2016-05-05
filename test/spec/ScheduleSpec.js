@@ -218,9 +218,14 @@ define(function (require) {
                 arr[22] = {};
                 arr[23] = {};
                 var labels = scheduleTools.value2label(arr);
-                expect(labels.length).toBe(1);
+                expect(labels.length).toBe(2);
                 expect(labels[0]).toEqual({
                     begin: 22,
+                    end: 22,
+                    value: {}
+                });
+                expect(labels[1]).toEqual({
+                    begin: 23,
                     end: 23,
                     value: {}
                 });
