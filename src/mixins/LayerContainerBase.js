@@ -77,7 +77,8 @@ define(function (require) {
             );
         },
 
-        layerShow: function (initProp, dontAutoClose) {
+        layerShow: function (initProp, dontAutoClose, layerPosition) {
+
             // 创建layer容器
             var me = this;
             if (me.___layerContainer___ == null) {
@@ -113,7 +114,7 @@ define(function (require) {
                 var height = layerContainer.offsetHeight;
                 var width = layerContainer.offsetWidth;
                 var container = me.props.layerAnchor || me.refs.container;
-                if (!me.state.mouseover || !container) {
+                if (!me.state.mouseover || !container || me.___layer___ == null) {
                     clearInterval(timer);
                     return;
                 }
@@ -121,10 +122,29 @@ define(function (require) {
                 clearInterval(timer);
                 // 开始定位
                 var pos = util.getDOMPosition(container);
-                var top = (pos.y + container.offsetHeight + height < document.documentElement.clientHeight)
-                    ? (pos.top + container.offsetHeight - 1) : (pos.top - height);
-                var left = pos.x + width < document.documentElement.clientWidth ?
-                    pos.left : (pos.left + container.offsetWidth - width);
+                var top = -9999;
+                var left = -9999;
+                layerPosition = layerPosition + '';
+                if (layerPosition.indexOf('top') > -1) {
+                    top = pos.top - height;
+                }
+                else if (layerPosition.indexOf('bottom') > -1) {
+                    top = pos.top + container.offsetHeight - 1;
+                }
+                else {
+                    top = (pos.y + container.offsetHeight + height < document.documentElement.clientHeight)
+                        ? (pos.top + container.offsetHeight - 1) : (pos.top - height);
+                }
+                if (layerPosition.indexOf('left') > -1) {
+                    left = pos.left + container.offsetWidth - width;
+                }
+                else if (layerPosition.indexOf('right') > -1) {
+                    left = pos.left;
+                }
+                else {
+                    left = pos.x + width < document.documentElement.clientWidth ?
+                        pos.left : (pos.left + container.offsetWidth - width);
+                }
                 layerContainer.style.left = left + 'px';
                 layerContainer.style.top = top + 'px';
                 // 开启自动隐藏
