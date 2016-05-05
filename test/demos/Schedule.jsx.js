@@ -53,10 +53,10 @@ define(function (require) {
                 value: strToArray('111000000111110001011010000011111110011110001111111111001111'),
                 presetLabels: [{
                     style: {backgroundColor: '#666'},
-                    value: strToArray('0000000000000000000000000000111111111111111111111111111111111')
+                    value: strToArray('0000100000000000000000000000')
                 }, {
-                    style: {backgroundColor: '#999'},
-                    value: strToArray('1111110000000000000000000000000000000000000000000000000000000')
+                    style: {backgroundColor: '#666'},
+                    value: strToArray('000001000000000000000000000')
                 }]
             }
         },

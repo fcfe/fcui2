@@ -219,7 +219,7 @@ define(function (require) {
                     }
                 }
                 else {
-                    if (_.isEqual(arr[i], prevValue)) {
+                    if (arr[i] == prevValue) {
                         continue;
                     }
                     else {
