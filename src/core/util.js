@@ -37,6 +37,30 @@ define(function (require) {
         },
 
         /**
+         * 获取DOM是否可见
+         *
+         * @param {HtmlElement} dom dom节点
+         * @return {boolean} 是否可见
+         */
+        isDOMVisible: function (dom) {
+            var initDOM = dom;
+            while (dom.tagName !== 'BODY') {
+                if (this.getStyle(dom, 'visibility') === 'hidden' || this.getStyle(dom, 'display') === 'none') {
+                    return false;
+                }
+                dom = dom.parentNode;
+            }
+            dom = initDOM;
+            while (dom.tagName !== 'BODY') {
+                if (dom.offsetWidth === 0 || dom.offsetWidth === 0) {
+                    return false;
+                }
+                dom = dom.offsetParent;
+            }
+            return true;
+        },
+
+        /**
          * 获取dom节点的位置
          *
          * @param {HtmlElement} e dom节点

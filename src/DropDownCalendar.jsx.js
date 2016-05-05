@@ -43,11 +43,6 @@ define(function (require) {
         layerAction: function (e) {
             var value = this.___getValue___();
             if (this.props.disabled || value === e.target.value) return;
-            this.layerUpdateProp({
-                min: this.props.min,
-                max: this.props.max,
-                value: e.target.value
-            });
             this.___dispatchChange___(e);
             this.layerHide();
         },

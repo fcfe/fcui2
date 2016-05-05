@@ -9,9 +9,6 @@ define(function (require) {
     let Button = require('fcui/Button.jsx');
 
     let LayerWithButtons = React.createClass({
-        propTypes: {
-
-        },
         mixins: [
             require('fcui/mixins/LayerContainerBase'),
             require('fcui/mixins/MouseWidgetBase')
@@ -25,7 +22,7 @@ define(function (require) {
             return {};
         },
         onTriggerClick() {
-            this.layerShow();
+            this.layerShow({count: this.props.count}, true);
         },
         layerAction(action) {
             if (action === 'ok') {
@@ -50,6 +47,47 @@ define(function (require) {
         }
     });
 
+    let layerContent =  React.createClass({
+        mixins: [require('fcui/mixins/MouseWidgetBase')],
+        getDefaultProps() {
+            return {
+                count: 0,
+                onLayerAction: function () {}
+            };
+        },
+        getInitialState() {
+            return {};
+        },
+        enterHandler: function () {
+            this.props.onLayerAction('ok');
+        },
+        cancelHandler: function () {
+            this.props.onLayerAction('cancel');
+        },
+        render() {
+            return (
+                <div className="fcui2-droplayer">
+                    <div className="fcui2-droplayer-content">
+                        <h1>hello layer.</h1>
+                    </div>
+                    <div
+                        className="fcui2-droplayer-footer"
+                        style={{padding: '10px'}}
+                    >
+                        <Button
+                            label={"确定" + this.props.count}
+                            skin="important"
+                            onClick={this.enterHandler}
+                        />
+                        <Button
+                            label="取消"
+                            onClick={this.cancelHandler}
+                        />
+                    </div>
+                </div>
+            );
+        }
+    });
 
     return React.createClass({
         propTypes: [],
@@ -63,29 +101,6 @@ define(function (require) {
         },
         getInitialState() {
             return {count: 0};
-        },
-        getLayerContent(props) {
-            return (
-                <div className="fcui2-droplayer">
-                    <div className="fcui2-droplayer-content">
-                        <h1>hello layer.</h1>
-                    </div>
-                    <div
-                        className="fcui2-droplayer-footer"
-                        style={{padding: '10px'}}
-                    >
-                        <Button
-                            label="确定"
-                            skin="important"
-                            onClick={_.partial(props.onLayerAction, 'ok')}
-                        />
-                        <Button
-                            label="取消"
-                            onClick={_.partial(props.onLayerAction, 'cancel')}
-                        />
-                    </div>
-                </div>
-            );
         },
         onLayerOk() {
             this.props.alert('ok from layer, state count: ' + this.state.count);
@@ -105,7 +120,7 @@ define(function (require) {
                         <div className="props">props</div>
                         <LayerWithButtons
                             layerProps={{}}
-                            layerContent={this.getLayerContent}
+                            layerContent={layerContent}
                             layerInterface="onLayerAction"
                             onLayerOk={this.onLayerOk}
                             count={this.state.count}

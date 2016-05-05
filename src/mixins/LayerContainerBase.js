@@ -63,6 +63,11 @@ define(function (require) {
         ___layerContainer___: null,
         ___layer___: null,
 
+        componentWillUnmount: function () {
+            if (!this.___layerContainer___ || !this.___layer___) return;
+            this.layerHide();
+        },
+
         layerUpdateProp: function (props) {
             if (!this.___layer___) return;
             var props = propsFactory(props, this); 
@@ -80,7 +85,7 @@ define(function (require) {
                 me.___layerContainer___.className = 'fcui2-layer'
             }
             // 弹出条件1
-            if (typeof me.props.layerContent !== 'function'|| me.props.disabled || me.props.layerPolicymaker === false) {
+            if (typeof me.props.layerContent !== 'function' || me.props.disabled || me.props.layerPolicymaker === false) {
                 return;
             }
             document.body.appendChild(me.___layerContainer___);
@@ -90,6 +95,7 @@ define(function (require) {
             if (typeof me.props.layerPolicymaker === 'function' && !me.props.layerPolicymaker(props)) return;
             // 弹出layer
             var timer = null;
+            var innerTimer = null;
             try {
                 me.___layer___ = ReactDOM.render(
                     React.createElement(me.props.layerContent, props),
@@ -101,7 +107,7 @@ define(function (require) {
                 console.error(e);
             }
 
-            // 自动适应layer位置，开启自动隐藏
+            // 自动适应layer位置，开启自动隐藏，开启父元素显隐适配
             function fixedPosition() {
                 var layerContainer = me.___layerContainer___;
                 var height = layerContainer.offsetHeight;
@@ -123,6 +129,8 @@ define(function (require) {
                 layerContainer.style.top = top + 'px';
                 // 开启自动隐藏
                 if (!dontAutoClose) timer = setInterval(autoHide, 200);
+                // 开启父元素显隐适配
+                innerTimer = setInterval(autoHideWithParent, 200);
             }
 
             function autoHide() {
@@ -134,18 +142,31 @@ define(function (require) {
                 clearInterval(timer);
                 me.layerHide();
             }
+
+            function autoHideWithParent() {
+                if (me.___layer___ == null) {
+                    clearInterval(innerTimer);
+                    return;
+                }
+                var container = me.props.layerAnchor || me.refs.container;
+                var visible = util.isDOMVisible(container);
+                if (visible) return;
+                clearInterval(innerTimer);
+                me.layerHide();
+            }
         },
 
         layerHide: function () {
-            this.___layer___ = null;
             try {
                 var container = this.___layerContainer___;
                 container.style.left = '-9999px';
                 container.style.top = '-9999px';
+                ReactDOM.unmountComponentAtNode(container);
                 document.body.removeChild(container);
+                this.___layer___ = null;
             }
             catch (e) {
-                // DO NOTHING    
+                console.log(e);  
             }
         }
     };
