@@ -101,6 +101,7 @@ define(function (require) {
      * 销毁窗体
      */
     Dialog.prototype.dispose = function () {
+        if (!this.ui) return;
         ReactDOM.unmountComponentAtNode(this.workspace);
         document.body.removeChild(this.container);
         this.ui = null;

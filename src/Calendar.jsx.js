@@ -203,10 +203,10 @@ define(function (require) {
         var tmpTimer = new Date();
 
         // 导入本月之前日期
-        tmpTimer.setTime(timer.getTime());
-        for (var i = 0; i < (timer.getDay() || 7) - 1; i++) {
-            tmpTimer.setDate(tmpTimer.getDate() - 1);
-            buttons.unshift(
+        for (var i = (timer.getDay() || 7) - 1; i > 0; i--) {
+            tmpTimer.setTime(timer.getTime());
+            tmpTimer.setDate(timer.getDate() - i);
+            buttons.push(
                 <Button {...buttonProps(tmpTimer, true, buttons.length)}/>
             );
         }
