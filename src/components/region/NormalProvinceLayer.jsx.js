@@ -23,8 +23,13 @@ define(function (require) {
                 datasource: [],
                 value: {},
                 onChange: function () {},
+                onHide: function () {},
                 type: 'multi'
             };
+        },
+        // @override
+        componentWillUnmount: function () {
+            this.props.onHide();
         },
         // @override
         getInitialState: function () {
@@ -70,9 +75,10 @@ define(function (require) {
             for (var j = 0; j < step; j++) {
                 if (i + j === arr.length) break;
                 line.push(
-                    <td key={i + j}>{me.props.type === 'single' ? 
-                    <Radio {...propF(arr[i + j])}/> :
-                    <CheckBox {...propF(arr[i + j])}/>}</td>
+                    <td key={i + j}>{
+                        me.props.type === 'single'
+                            ? <Radio {...propF(arr[i + j])} /> : <CheckBox {...propF(arr[i + j])} />
+                    }</td>
                 );
             }
             return line;

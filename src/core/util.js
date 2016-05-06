@@ -43,20 +43,24 @@ define(function (require) {
          * @return {boolean} 是否可见
          */
         isDOMVisible: function (dom) {
+            if (!dom) return false;
             var initDOM = dom;
-            while (dom.tagName !== 'BODY') {
+            while (dom && dom.tagName !== 'BODY') {
                 if (this.getStyle(dom, 'visibility') === 'hidden' || this.getStyle(dom, 'display') === 'none') {
                     return false;
                 }
                 dom = dom.parentNode;
             }
+            if (!dom) return false;
             dom = initDOM;
-            while (dom.tagName !== 'BODY') {
+            if (!dom) return false;
+            while (dom && dom.tagName !== 'BODY') {
                 if (dom.offsetWidth === 0 || dom.offsetWidth === 0) {
                     return false;
                 }
                 dom = dom.offsetParent;
             }
+            if (!dom) return false;
             return true;
         },
 

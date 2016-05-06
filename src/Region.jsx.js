@@ -11,6 +11,7 @@ define(function (require) {
     var InputWidgetBase = require('./mixins/InputWidgetBase');
     var InputWidgetInForm = require('./mixins/InputWidgetInForm');
     var CheckBox = require('./CheckBox.jsx');
+    var Radio = require('./Radio.jsx');
     var RegionProvince = require('./components/region/NormalProvince.jsx');
 
 
@@ -28,22 +29,32 @@ define(function (require) {
                 className: '',
                 disabled: false,
                 provinceRenderer: RegionProvince,
-                valueTemplate: ''
+                valueTemplate: '',
+                type: 'multi'
             };
         },
         // @override
         getInitialState: function () {
             return {};
         },
+        // @override
+        componentDidMount: function () {
+            this.___layerShow___ = '';
+        },
         changeHandler: function (e) {
             if (this.props.disabled) return;
             var value = this.___getValue___();
-            value = tools.parseValue(value);
-            if (e.target.checked) {
-                tools.addValue(e.target.value, value);
+            value = this.props.type === 'single' ? {} : tools.parseValue(value);
+            if (this.props.type === 'single') {
+                value[e.target.value] = true;
             }
             else {
-                tools.deleteValue(e.target.value, value);
+                if (e.target.checked) {
+                    tools.addValue(e.target.value, value);
+                }
+                else {
+                    tools.deleteValue(e.target.value, value);
+                }
             }
             e.target = this.refs.container;
             e.target.value = tools.stringifyValue(value);
@@ -71,6 +82,9 @@ define(function (require) {
             indeterminate: selected.indeterminate,
             onChange: me.changeHandler
         };
+        if (me.props.type === 'single') {
+            return (<Radio {...prop} />);
+        }
         return <CheckBox {...prop}/>;
     }
 
@@ -116,8 +130,9 @@ define(function (require) {
                 value: value,
                 parent: me,
                 disabled: me.props.disabled,
-                onChange: me.changeHandler
-            }
+                onChange: me.changeHandler,
+                type: me.props.type
+            };
             doms.push(React.createElement(renderer, prop));
         }
         return doms;

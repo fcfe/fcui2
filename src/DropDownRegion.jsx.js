@@ -12,7 +12,7 @@ define(function (require) {
     var LayerContainerBase = require('./mixins/LayerContainerBase');
     var InputWidgetBase = require('./mixins/InputWidgetBase');
     var InputWidgetInForm = require('./mixins/InputWidgetInForm');
-
+    var language = require('./core/language').region.regionName;
 
     return React.createClass({
         // @override
@@ -26,11 +26,11 @@ define(function (require) {
                 width: NaN,
                 disabled: false,
                 shortCut: [],
+                type: 'multi',
                 // 以下为LayerContainerBase中需要的配置
                 layerContent: require('./components/RegionLayer.jsx'),
                 layerProps: {},
-                layerInterface: 'onChange',
-                type: 'multi'
+                layerInterface: 'onChange'
             };
         },
         layerAction: function (e) {
@@ -51,10 +51,11 @@ define(function (require) {
                 value: this.___getValue___(),
                 close: this.layerHide,
                 type: this.props.type
-            }, true);
+            }, true, 'bottom');
         },
         render: function () {
             var me = this;
+            var value = this.___getValue___();
             var containerProp = {
                 className: 'fcui2-dropdownlist ' + this.props.className,
                 style: {minWidth: this.props.minWidth},
@@ -63,6 +64,7 @@ define(function (require) {
                 onClick: this.clickHandler,
                 ref: 'container'
             };
+            var label = (this.props.type === 'single' && language[value]) ? language[value] : this.props.label;
             if (this.props.disabled) {
                 containerProp.className += ' fcui2-dropdownlist-disabled';
             }
@@ -73,7 +75,7 @@ define(function (require) {
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
-                    <span>{this.props.label}</span>
+                    <span>{label}</span>
                 </div>
             );
         }

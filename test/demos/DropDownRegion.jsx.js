@@ -10,6 +10,13 @@ define(function (require) {
             props: {}
         },
         {
+            title: 'Single Selection DropDownRegion',
+            onChange: true,
+            props: {
+                type: 'single'
+            }
+        },
+        {
             title: 'Disabled DropDownRegion',
             onChange: true,
             props: {disabled: true}

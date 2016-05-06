@@ -10,6 +10,13 @@ define(function (require) {
             props: {}
         },
         {
+            title: 'Single Selection Region',
+            onChange: true,
+            props: {
+                type: 'single'
+            }
+        },
+        {
             title: 'Region with ProvinceRenderer',
             onChange: true,
             props: {

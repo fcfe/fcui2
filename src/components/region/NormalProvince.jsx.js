@@ -27,6 +27,7 @@ define(function (require) {
                 disabled: false,
                 id: -1,
                 value: {},
+                parent: {},
                 onChange: function () {},
                 layerContent: require('./NormalProvinceLayer.jsx'),
                 layerProps: {},
@@ -50,6 +51,13 @@ define(function (require) {
                 });
             }
         },
+        layerClose: function (e) {
+            var key = '_' + this.props.id + '_';
+            var reg = new RegExp(key, 'g');
+            if (this.props.parent.___layerShow___.indexOf(key) > -1) {
+                this.props.parent.___layerShow___ = this.props.parent.___layerShow___.replace(reg, '');
+            }
+        },
         layerAction: function (e) {
             if (this.props.disabled) return;
             this.props.onChange(e);
@@ -63,9 +71,15 @@ define(function (require) {
             if (this.props.disabled || !tools.filiation[this.props.id] || tools.filiation[this.props.id].length < 1) {
                 return;
             }
+            // 将layer开启状态记入region组件
+            var key = '_' + this.props.id + '_';
+            if (this.props.parent.___layerShow___.indexOf(key) < 0) {
+                this.props.parent.___layerShow___ += key;
+            }
             this.layerShow({
                 datasource: tools.filiation[this.props.id],
-                value: this.props.value
+                value: this.props.value,
+                type: this.props.type
             });
         },
         render: function () {
@@ -96,12 +110,12 @@ define(function (require) {
                 );
             }
             else {
-            return (
-                <div {...containerProp}>
-                    <CheckBox {...checkboxProp}/>
-                </div>
-            );
-        }
+                return (
+                    <div {...containerProp}>
+                        <CheckBox {...checkboxProp}/>
+                    </div>
+                );
+            }
         }
     });
 
