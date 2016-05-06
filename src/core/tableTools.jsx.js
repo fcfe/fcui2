@@ -59,7 +59,7 @@ define(function (require) {
         }
         // 处理prepare，将item和props回传给conf.prepare，由prepare以指针形式操作props
         if (typeof conf.prepare === 'function') {
-            conf.prepare(props, item, row, column);
+            conf.prepare(props, item, row, column, me);
         }
         props.content = props.content + '';
         return props;
