@@ -59,7 +59,7 @@ define(function (require) {
             return {};
         },
         clickHandler: function (e) {
-            while (!e.target.getAttribute('data-ui-cmd')) {
+            while (e.target && !e.target.getAttribute('data-ui-cmd')) {
                 e.target = e.target.parentNode;
             }
             var dataset = util.getDataset(e.target);

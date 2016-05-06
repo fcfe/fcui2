@@ -20,7 +20,7 @@
  * 5. [optional] this.props.datasource {Any}
  *      绝大多数情况下，layer是一个列表，因此会把props.datasource加到props.layerProps中传入进去
  *      但如果props.layerProps存在datasource，不会被覆盖，也不会merge
- * 6. [required] this.props.layerAnchor || this.refs.container
+ * 6. [required] this.props.layerProps.layerAnchor || this.refs.container
  *      组件的根容器或锚容器引用，用于layer的自动定位：定位的默认优先级是先下后上，先右后左，也可配置；
  * 7. [optional] this.layerClose
  *      组件的一个方法，layer关闭后回调
@@ -74,7 +74,7 @@ define(function (require) {
         },
 
         layerUpdateProp: function (props) {
-            if (!this.___layer___) return;
+            if (!this.___layerContainer___) return;
             var props = propsFactory(props, this); 
             this.___layer___ = ReactDOM.render(
                 React.createElement(this.props.layerContent, props),
@@ -118,7 +118,7 @@ define(function (require) {
                 var layerContainer = me.___layerContainer___;
                 var height = layerContainer.offsetHeight;
                 var width = layerContainer.offsetWidth;
-                var container = me.props.layerAnchor || me.refs.container;
+                var container = (initProp && initProp.layerAnchor) || me.refs.container;
                 if (!me.state.mouseover || !container || me.___layer___ == null) {
                     clearInterval(timer);
                     return;

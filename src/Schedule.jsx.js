@@ -201,11 +201,7 @@ define(function (require) {
         },
 
         /**
-         * 混合preset labels，得到最终的value。
-         * 对于preset labels，目前的需求是它们一定是小时粒度的，即不存在连续的preset labels。
-         * 由于preset labels的value是一个object，在后面计算一行的labels时，它们不会被合并，可以
-         * 满足需求。
-         * 但未来如需要有连续的preset labels，就需要重新考虑这里的设计。
+         * 混合presets label，得到最终的value。
          *
          * @return {string} 混合后的value
          */
