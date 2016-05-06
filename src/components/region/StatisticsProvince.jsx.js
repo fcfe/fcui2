@@ -47,9 +47,6 @@ define(function (require) {
                 });
             }
         },
-        layerClose: function (e) {
-            this.props.parent.___layerShow___ = false;
-        },
         layerAction: function (e) {
             if (this.props.disabled) return;
             this.props.onChange(e);
@@ -63,7 +60,6 @@ define(function (require) {
             if (this.props.disabled || !tools.filiation[this.props.id] || tools.filiation[this.props.id].length < 1) {
                 return;
             }
-            this.props.parent.___layerShow___ = true;
             this.layerShow({
                 datasource: tools.filiation[this.props.id],
                 value: this.props.value
