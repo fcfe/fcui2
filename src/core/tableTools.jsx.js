@@ -30,7 +30,6 @@ define(function (require) {
     function tdPropsFactory(conf, item, me, row, column) {
         // 深度克隆fieldConfig
         var props = JSON.parse(JSON.stringify(conf));
-        _.extend(props, me.props);
         // 导入数据、索引、回调、key
         props.item = item;
         props.row = row;

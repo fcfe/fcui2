@@ -20,7 +20,7 @@ define(function (require) {
         return (
             <span {...props.style}>{props.label}</span>
         );
-    }
+    };
 
     return React.createClass({
         // @override

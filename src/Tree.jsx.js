@@ -164,7 +164,7 @@ define(function (require) {
                 className = ''
             } = props;
 
-            if (nameFilter != null && props.treeNode.name.indexOf(nameFilter) === -1) {
+            if (props.treeLevel === 0 && nameFilter !== '' && props.treeNode.name !== nameFilter) {
                 className = className + ' fcui2-tree-node-filtered';
             }
 
@@ -246,7 +246,7 @@ define(function (require) {
                 onTreeNodeClicked: _.noop,
                 markedTreeNodeId: {},
                 textLoading: '加载中...',
-                nameFilter: null,
+                nameFilter: '',
                 parentTreeNodes: [],
                 treeNodes: [],
                 treeNodeRenderer: supportLoadingText(supportNameFilter(baseTreeNodeRenderer)),
