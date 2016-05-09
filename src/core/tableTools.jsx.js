@@ -91,7 +91,7 @@ define(function (require) {
             }
             for (var i = 0; i < conf.length; i++) {
                 var width = isNaN(conf[i].width) ? 0 : conf[i].width * 1;
-                td.push(<col width={width} key={'colgroup-' + i} />);
+                td.push(<col style={{width: width + 'px'}} key={'colgroup-' + i} />);
             }
             return <colgroup>{td}</colgroup>
         },
