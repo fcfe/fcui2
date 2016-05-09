@@ -173,7 +173,7 @@ define(function (require) {
                     clearInterval(innerTimer);
                     return;
                 }
-                var container = me.props.layerAnchor || me.refs.container;
+                var container = (initProp && initProp.layerAnchor) || me.refs.container;
                 var visible = util.isDOMVisible(container);
                 if (visible) return;
                 clearInterval(innerTimer);
