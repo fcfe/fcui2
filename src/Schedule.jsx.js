@@ -267,15 +267,32 @@ define(function (require) {
                 return '';
             }
 
+            let presetLabels = this.props.presetLabels;
+            if (presetLabels == null) {
+                return '';
+            }
+
+            // 按照name去重
+            let names = {};
+            presetLabels = _.filter(presetLabels, label => {
+                if (label.name == null) {
+                    return false;
+                }
+                if (names[label.name]) {
+                    return false;
+                }
+
+                names[label.name] = true;
+
+                return true;
+            });
+
             return (
                 <div className="fcui2-schedule-info-legend">
                     <span className="font-icon font-icon-bg-square-full fcui2-schedule-info-legend-icon-selected" />
                     <span className="fcui2-schedule-info-legend-text">已选</span>
                     {
-                        this.props.presetLabels == null
-                        ? ''
-                        : (
-                            _.map(this.props.presetLabels, function (label) {
+                        _.map(presetLabels, label => {
                                 return (
                                     <span key={'legend-preset-' + label.name}>
                                         <span
@@ -290,7 +307,6 @@ define(function (require) {
                                     </span>
                                 );
                             })
-                        )
                     }
                     <span className="font-icon font-icon-bg-square-empty" />
                     <span className="fcui2-schedule-info-legend-text">未投放</span>
