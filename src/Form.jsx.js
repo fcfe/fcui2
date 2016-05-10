@@ -167,7 +167,7 @@ define(function (require) {
             formValidationResult = [];
             for (var key in this.props.validations) {
                 if (typeof this.props.validations[key] !== 'function') continue;
-                var result = this.props.validations[key](dataset);
+                var result = this.props.validations[key](mergeRadioDataset(dataset));
                 if (result === true) continue;
                 formValidationResult.push(result);
             }
