@@ -51,16 +51,13 @@ define(function (require) {
                 }
                 dom = dom.parentNode;
             }
-            if (!dom) return false;
             dom = initDOM;
-            if (!dom) return false;
-            while (dom && dom.tagName !== 'BODY') {
+            while (dom) {
                 if (dom.offsetWidth === 0 || dom.offsetWidth === 0) {
                     return false;
                 }
                 dom = dom.offsetParent;
             }
-            if (!dom) return false;
             return true;
         },
 
