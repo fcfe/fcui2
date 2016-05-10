@@ -73,7 +73,7 @@ define(function (require) {
             ) {
                 return;
             }
-            this.context.___form___.updateField(this.props.name, this.___getValue___(), this);
+            this.context.___form___.updateField(this.props.name, this.state.___value___, this);
         },
 
 
