@@ -91,6 +91,7 @@ define(function (require) {
             rules = tools.rulesFactory(this, rules);
             if (rules.length === 0) return [];
             var results = [];
+            var resultsHash = {};
             var customErrorTemplates = this.props.customErrorTemplates || {};
             var validations = this.___validations___ || {};
             value = value || this.___getValue___();
@@ -105,8 +106,12 @@ define(function (require) {
                 var result = validation.apply(null, args);
                 if (result === true || result.isValid) continue;
                 var message = customErrorTemplates[rule] || result.template || result;
-                if (typeof message === 'string' && message.length > 0) results.push(message);
+                if (typeof message === 'string' && message.length > 0) {
+                    results.push(message);
+                    resultsHash[rule] = message;
+                }
             }
+            results.resultsHash = resultsHash;
             return results;
         },
     };
