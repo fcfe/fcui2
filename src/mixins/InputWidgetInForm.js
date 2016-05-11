@@ -94,7 +94,7 @@ define(function (require) {
             var resultsHash = {};
             var customErrorTemplates = this.props.customErrorTemplates || {};
             var validations = this.___validations___ || {};
-            value = value || this.___getValue___();
+            value = value || this.state.___value___;
             for (var i = 0; i < rules.length; i++) {
                 var rule = rules[i];
                 if (!defaultValidations.hasOwnProperty(rule) && typeof validations[rule] !== 'function') {

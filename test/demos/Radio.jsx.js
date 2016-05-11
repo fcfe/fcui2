@@ -65,6 +65,7 @@ define(function (require) {
                 prop.onChange = setter(me, item.title);
                 conf = '{value: this.state.message, onChange: this.changeHandler}';
             }
+            prop.name = 'demo-radio';
             widgets.push(
                 <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>

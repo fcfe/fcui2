@@ -39,26 +39,31 @@ define(function (require) {
                 this.___dispatchChange___(e);
             }
         },
-        changeHandler: function (e) {
-            if (this.props.disabled) return;
-            this.___dispatchChange___(e);
-        },
         render: function () {
             var containerProp = {
                 className: 'fcui2-checkbox ' + this.props.className,
-            };
-            var labelProp = {
-                className: 'fcui2-checkbox-label',
-                onClick: this.clickHandler
+                style: {
+                    position: 'relative'
+                }
             };
             var inputProp = {
                 type: 'radio',
                 name: this.props.name, // radio 跟其他input组件不一样，它需要用name控制单选，所以这个属性要下传
-                value: this.props.value,
-                checked: this.___getValue___(),
-                onChange: this.changeHandler
+                value: this.props.value, // 这个value用来标记是哪个radio，而不是radio的选中状态
+                checked: this.___getValue___()
             };
-            this.___mergeInputHandlers___(inputProp, this.props);
+            var actionLayerProp = {
+                key: 'action-layer',
+                style: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    width: '100%',
+                    height: '100%',
+                    cursor: 'pointer'
+                },
+                onClick: this.clickHandler
+            };
             if (this.props.disabled) {
                 containerProp.className += ' fcui2-checkbox-disabled';
             }
@@ -66,11 +71,18 @@ define(function (require) {
                 containerProp.className += ' fcui2-checkbox-reject';
             }
             var doms = [];
-            doms.push(<input {...inputProp} disabled={this.props.disabled} ref="inputbox" key="input"/>);
-            doms[this.props.labelPosition === 'right' ? 'push' : 'unshift'](
-                <span {...labelProp} key="label">{this.props.label}</span>
+            doms.push(
+                <input {...inputProp} disabled={this.props.disabled} ref="inputbox" key="input"/>
             );
-            return (<div {...containerProp}>{doms}</div>);
+            doms[this.props.labelPosition === 'right' ? 'push' : 'unshift'](
+                <span className="fcui2-checkbox-label" key="label">{this.props.label}</span>
+            );
+            doms.push(
+                <div {...actionLayerProp}></div>
+            );
+            return (
+                <div {...containerProp}>{doms}</div>
+            );
         }
     });
 });

@@ -62,7 +62,7 @@ define(function (require) {
             };
             var nameValid = {
                 required: true,
-                maxLength: 4
+                maxLength: 10
             };
             var ageValid = {
                 required: true,
