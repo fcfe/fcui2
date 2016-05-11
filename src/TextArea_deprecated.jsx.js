@@ -27,17 +27,8 @@ define(function (require) {
             };
         },
         // @override
-        componentWillReceiveProps: function (nextProps) {
-            // 注意，此处不符合fcui2开发规范，主要是为了解决https://github.com/facebook/react/issues/3926这个问题
-            this.setState({
-                ___value___: nextProps.value
-            });
-        },
-        // @override
         getInitialState: function () {
-            return {
-                ___value___: this.props.value
-            };
+            return {};
         },
         changeHandler: function (e) {
             if (this.props.disabled) return;
@@ -47,7 +38,7 @@ define(function (require) {
             this.refs.inputbox.focus();
         },
         render: function () {
-            var value = this.state.___value___;
+            var value = this.___getValue___();
             var containerProp = {
                 className: 'fcui2-textarea ' + this.props.className,
                 style: {

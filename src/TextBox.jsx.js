@@ -25,8 +25,17 @@ define(function (require) {
             };
         },
         // @override
+        componentWillReceiveProps: function (nextProps) {
+            // 注意，此处不符合fcui2开发规范，主要是为了解决https://github.com/facebook/react/issues/3926这个问题
+            this.setState({
+                ___value___: nextProps.value
+            });
+        },
+        // @override
         getInitialState: function () {
-            return {};
+            return {
+                ___value___: this.props.value
+            };
         },
         changeHandler: function (e) {
             if (this.props.disabled) return;
@@ -38,7 +47,7 @@ define(function (require) {
         render: function () {
             // 这里value仅用于显示，把它变成string是安全的。
             // 若维持原类型，下面placeholder的判定对于number类型的value会出问题。
-            var value = this.___getValue___() + '';
+            var value = this.state.___value___;
             var containerProp = {
                 className: 'fcui2-textbox ' + this.props.className,
                 style: {width: this.props.width}
