@@ -250,11 +250,10 @@ define(function (require) {
 
 
     return React.createClass({
-        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
+        mixins: [React.addons.LinkedStateMixin],
         // @override
         getDefaultProps: function () {
             return {
-                demo: 'Table',
                 alert: function () {}
             };
         },
@@ -269,13 +268,7 @@ define(function (require) {
             this.props.alert(type + ' ' + JSON.stringify(param));
         },
         render: function () {
-            var containerProp = {
-                className: 'demo-content',
-                style: {
-                    display: this.props.demo === 'Table' ? 'block' : 'none'
-                }
-            };
-            return (<div {...containerProp}>{factory(this, items)}</div>);
+            return (<div>{factory(this, items)}</div>);
         }
     });
 });

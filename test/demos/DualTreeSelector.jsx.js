@@ -228,18 +228,11 @@ define(function (require) {
         // @override
         getDefaultProps() {
             return {
-                demo: 'DualTreeSelector',
                 alert() {}
             };
         },
         render() {
-            let containerProp = {
-                className: 'demo-content',
-                style: {
-                    display: this.props.demo === 'DualTreeSelector' ? 'block' : 'none'
-                }
-            };
-            return (<div {...containerProp}>{factory(this, items)}</div>);
+            return (<div>{factory(this, items)}</div>);
         }
     });
 });

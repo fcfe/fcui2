@@ -55,10 +55,7 @@ define(function (require) {
         },
         render: function () {
             var containerProp = {
-                className: 'demo-content demo-item',
-                style: {
-                    display: this.props.demo === 'Form' ? 'block' : 'none'
-                }
+                className: 'demo-content demo-item'
             };
             var nameValid = {
                 required: true,
@@ -139,9 +136,9 @@ define(function (require) {
                         onFieldChange={this.formFieldChange} onSubmit={this.formFieldChange}
                         validations={formValid}
                     >
-                        姓名：<TextBox name="name" validations={nameValid} value={this.props.demo + '_' + this.state.name}/><br/>
+                        姓名：<TextBox name="name" validations={nameValid} value={'Form_' + this.state.name}/><br/>
                         年龄：<NumberBox name="age" validations={ageValid}/><br/>
-                        简介：<TextArea name="intro" className="form-textarea" value={this.props.demo + '_' + this.state.intro} validations={introValid}/>
+                        简介：<TextArea name="intro" className="form-textarea" value={'Form_' + this.state.intro} validations={introValid}/>
                         <Button type="submit" label="提交" skin="important"/>
                     </Form>
                 </div>

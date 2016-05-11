@@ -58,7 +58,6 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                demo: 'Dialog',
                 alert: function () {}
             };
         },
@@ -130,14 +129,8 @@ define(function (require) {
             });
         },
         render: function () {
-            var containerProp = {
-                className: 'demo-content',
-                style: {
-                    display: this.props.demo === 'Dialog' ? 'block' : 'none'
-                }
-            };
             return (
-                <div {...containerProp}>
+                <div>
                     <h3>SubApp</h3>
                     <Button label="SubApp" onClick={this.subapp}/>
                     <h3>Closing need confirm</h3>

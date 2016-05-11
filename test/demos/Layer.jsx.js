@@ -90,12 +90,10 @@ define(function (require) {
     });
 
     return React.createClass({
-        propTypes: [],
-        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
+        mixins: [React.addons.LinkedStateMixin],
         // @override
         getDefaultProps() {
             return {
-                demo: 'Layer',
                 alert() {}
             };
         },
@@ -107,14 +105,8 @@ define(function (require) {
             this.setState({count: this.state.count + 1});
         },
         render() {
-            let containerProp = {
-                className: 'demo-content',
-                style: {
-                    display: this.props.demo === 'Layer' ? 'block' : 'none'
-                }
-            };
             return (
-                <div {...containerProp}>
+                <div>
                     <div className="demo-item" key="1">
                         <h3>Normal Popup Layer</h3>
                         <div className="props">props</div>
