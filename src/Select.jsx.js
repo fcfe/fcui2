@@ -8,15 +8,15 @@ define(function (require) {
 
 
     var React = require('react');
-    var MouseWidgetBase = require('./mixins/MouseWidgetBase');
-    var LayerContainerBase = require('./mixins/LayerContainerBase');
     var InputWidgetBase = require('./mixins/InputWidgetBase');
     var InputWidgetInForm = require('./mixins/InputWidgetInForm');
-    
+    var Layer = require('./Layer.jsx');
+    var List = require('./List.jsx');
+
 
     return React.createClass({
         // @override
-        mixins: [MouseWidgetBase, LayerContainerBase, InputWidgetBase, InputWidgetInForm],
+        mixins: [InputWidgetBase, InputWidgetInForm],
         // @override
         getDefaultProps: function () {
             return {
@@ -26,27 +26,31 @@ define(function (require) {
                 placeholder: 'please select',
                 datasource: [],  // 见List
                 disabled: false,
-                valueTemplate: '',
-                // 以下为LayerContainerBase中需要的配置
-                layerContent: require('./List.jsx'),
-                layerProps: {},
-                layerInterface: 'onClick'
+                valueTemplate: ''
             };
         },
         // @override
         getInitialState: function () {
-            return {};
+            return {
+                layerOpen: false
+            };
         },
-        layerAction: function (e) {
+        listClickHandler: function (e) {
             var value = this.___getValue___();
             if (this.props.disabled || value === e.target.value) return;
             this.___dispatchChange___(e);
-            this.layerHide();
+            this.setState({layerOpen: false});
         },
         mouseEnterHandler: function (e) {
-            this.___mouseenterHandler___();
-            if (this.props.datasource.length === 0 || this.props.disabled) return;
-            this.layerShow();
+            this.setState({layerOpen: true});
+        },
+        mouseLeaveHandler: function (e) {
+            var me = this;
+            // 这个延迟不加layer会消失
+            setTimeout(function () {
+                if (me.refs.list && me.refs.list.state.mouseover) return;
+                me.setState({layerOpen: false});
+            }, 100);
         },
         render: function () {
             var me = this;
@@ -57,8 +61,14 @@ define(function (require) {
                     borderColor: this.state.isValid === false ? '#F00' : undefined 
                 },
                 onMouseEnter: this.mouseEnterHandler,
-                onMouseLeave: this.___mouseleaveHandler___,
+                onMouseLeave: this.mouseLeaveHandler,
                 ref: 'container'
+            };
+            var listProp = {
+                datasource: this.props.datasource,
+                ref: 'list',
+                onMouseLeave: this.mouseLeaveHandler,
+                onClick: this.listClickHandler
             };
             if (this.props.disabled) {
                 containerProp.className += ' fcui2-dropdownlist-disabled';
@@ -79,6 +89,9 @@ define(function (require) {
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
                     <div className="label-container">{label}</div>
+                    <Layer isOpen={this.state.layerOpen} anchor={this.refs.container}>
+                        <List {...listProp}/>
+                    </Layer>
                 </div>
             );
         }

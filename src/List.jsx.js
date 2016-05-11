@@ -41,6 +41,7 @@ define(function (require) {
                 datasource: [],  // {label: <string>, value: <string>, disabled: <boolean>, children: [self]}
                 disabled: false,
                 onClick: function () {},
+                onMouseLeave: function () {},
                 optionRenderer: NormalRenderer
             };
         },
