@@ -70,7 +70,12 @@ define(function (require) {
              * 显示在schedule顶部的info中的文字
              */
             infoText: React.PropTypes.string,
-            isShowLegend: React.PropTypes.bool
+            isShowLegend: React.PropTypes.bool,
+            /**
+             * legend的名字
+             * @type {Object}
+             */
+            infoLegendText: React.PropTypes.object
         },
         // @override
         mixins: [InputWidgetBase, InputWidgetInForm],
@@ -90,7 +95,11 @@ define(function (require) {
                 enableRowSelector: false,
                 onScheduleSelected: _.noop,
                 infoText: '',
-                isShowLegend: false
+                isShowLegend: false,
+                infoLegendText: {
+                    selected: '已选',
+                    unselected: '未选'
+                }
             };
         },
         // @override
@@ -290,7 +299,7 @@ define(function (require) {
             return (
                 <div className="fcui2-schedule-info-legend">
                     <span className="font-icon font-icon-bg-square-full fcui2-schedule-info-legend-icon-selected" />
-                    <span className="fcui2-schedule-info-legend-text">已选</span>
+                    <span className="fcui2-schedule-info-legend-text">{this.props.infoLegendText.selected}</span>
                     {
                         _.map(presetLabels, label => {
                             return (
@@ -309,7 +318,7 @@ define(function (require) {
                         })
                     }
                     <span className="font-icon font-icon-bg-square-empty" />
-                    <span className="fcui2-schedule-info-legend-text">未投放</span>
+                    <span className="fcui2-schedule-info-legend-text">{this.props.infoLegendText.unselected}</span>
                 </div>
             )
         },

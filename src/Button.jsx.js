@@ -87,6 +87,8 @@ define(function (require) {
                 title: this.props.title,
                 style: {minWidth: this.props.minWidth},
                 onMouseDown: this.___mousedownHandler___,
+                onMouseEnter: this.___mouseenterHandler___,
+                onMouseLeave: this.___mouseleaveHandler___,
                 onMouseUp: this.___mouseupHandler___,
                 onClick: this.clickHandler,
                 ref: 'container'
