@@ -27,7 +27,7 @@ define(function (require) {
                 onBeforeOpen: noop,
                 onRender: noop,
                 onBeforeClose: noop,
-                onAfterClose: noop
+                onClose: noop
             };
         },
         // @override
@@ -147,7 +147,7 @@ define(function (require) {
                 
             document.body.removeChild(this.___layerContainer___);
             this.___layerAppended___ = false;
-            typeof this.props.onAfterClose === 'function' && this.props.onAfterClose();
+            typeof this.props.onClose === 'function' && this.props.onClose();
             this.setState({mouseenter: false});
 
         },
