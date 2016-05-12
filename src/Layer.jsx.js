@@ -20,7 +20,10 @@ define(function (require) {
             return {
                 isOpen: false,
                 anchor: null,
+                closeWithBodyClick: false,
+                style: {},
                 layerPosition: '',
+                onMouseLeave: noop,
                 onBeforeOpen: noop,
                 onRender: noop,
                 onBeforeClose: noop,
@@ -28,14 +31,35 @@ define(function (require) {
             };
         },
         // @override
+        getInitialState: function () {
+            return {
+                mouseenter: false
+            };
+        },
+        // @override
         componentDidMount: function () {
             if (!window || !document) return;
-            this.___layerContainer___ = document.createElement('div');
-            this.___layerContainer___.className = 'fcui2-layer';
-            this.___layerContainer___.style.left = '-9999px';
-            this.___layerContainer___.style.top = '-9999px';
-            this.___layerAppended___ = false;
-            this.renderSubTree(this.props);
+            var me = this;
+            var layer = document.createElement('div');
+            var style = me.props.style || {};
+            layer.className = 'fcui2-layer';
+            for (var key in style) {
+                if (!style.hasOwnProperty(key)) continue;
+                layer.style[key] = style[key];
+            }
+            layer.style.left = '-9999px';
+            layer.style.top = '-9999px';
+            layer.addEventListener('mouseenter', function () {
+                me.setState({mouseenter: true});
+            });
+            layer.addEventListener('mouseleave', function () {
+                me.setState({mouseenter: false});
+                typeof me.props.onMouseLeave === 'function' && me.props.onMouseLeave();
+            });
+            me.___layerContainer___ = layer;
+            me.___layerAppended___ = false;
+            window.addEventListener('click', me.bodyClickHandler);
+            me.renderSubTree(me.props);
         },
         // @override
         componentWillReceiveProps: function(newProps) {
@@ -44,6 +68,11 @@ define(function (require) {
         // @override
         componentWillUnmount: function() {
             this.removeSubTree(true);
+            window.removeEventListener('click', this.bodyClickHandler);
+        },
+        bodyClickHandler: function (e) {
+            if (this.state.mouseenter || !this.___layerAppended___ || !this.props.closeWithBodyClick) return;
+            this.removeSubTree();
         },
         renderSubTree: function (props) {
             if (!this.___layerContainer___ || !props.anchor) return;
@@ -119,6 +148,7 @@ define(function (require) {
             document.body.removeChild(this.___layerContainer___);
             this.___layerAppended___ = false;
             typeof this.props.onAfterClose === 'function' && this.props.onAfterClose();
+            this.setState({mouseenter: false});
 
         },
         render: function () {

@@ -74,7 +74,7 @@ define(function (require) {
                         <div className="props">props</div>
                         <Button label="Click me to open Layer" onClick={this.openLayer}/>
                         <div ref="anchor" style={{border: '1px solid black'}}>it is anchor for Layer</div>
-                        <Layer isOpen={this.state.layerOpen} anchor={this.refs.anchor}>
+                        <Layer isOpen={this.state.layerOpen} anchor={this.refs.anchor} closeWithBodyClick={true}>
                             <LayerContent count={this.state.count}
                                 enterHandler={this.closeLayer}
                                 cancelHandler={this.closeLayer}
