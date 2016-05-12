@@ -293,20 +293,20 @@ define(function (require) {
                     <span className="fcui2-schedule-info-legend-text">已选</span>
                     {
                         _.map(presetLabels, label => {
-                                return (
-                                    <span key={'legend-preset-' + label.name}>
-                                        <span
-                                            className="
-                                                font-icon
-                                                font-icon-bg-square-full
-                                                fcui2-schedule-info-legend-icon-preset
-                                            "
-                                            style={{color: label.style.backgroundColor}}
-                                        />
-                                        <span className="fcui2-schedule-info-legend-text">{label.name}</span>
-                                    </span>
-                                );
-                            })
+                            return (
+                                <span key={'legend-preset-' + label.name}>
+                                    <span
+                                        className="
+                                            font-icon
+                                            font-icon-bg-square-full
+                                            fcui2-schedule-info-legend-icon-preset
+                                        "
+                                        style={{color: label.style.backgroundColor}}
+                                    />
+                                    <span className="fcui2-schedule-info-legend-text">{label.name}</span>
+                                </span>
+                            );
+                        })
                     }
                     <span className="font-icon font-icon-bg-square-empty" />
                     <span className="fcui2-schedule-info-legend-text">未投放</span>

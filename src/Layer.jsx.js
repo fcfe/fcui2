@@ -41,6 +41,7 @@ define(function (require) {
         componentWillReceiveProps: function(newProps) {
             this.renderSubTree(newProps);
         },
+        // @override
         componentWillUnmount: function() {
             this.removeSubTree();
         },
@@ -114,63 +115,5 @@ define(function (require) {
             return React.DOM.noscript();
         }
     });
-
-
-    // var ModalPortal = React.createFactory(require('./ModalPortal'));
-    // var elementClass = require('element-class');
-    // 
-    // var Assign = require('lodash.assign');
-
-    // var SafeHTMLElement = ExecutionEnvironment.canUseDOM ? window.HTMLElement : {};
-    // var AppElement = ExecutionEnvironment.canUseDOM ? document.body : {appendChild: function() {}};
-
-    // var Modal = React.createClass({
-
-
-
-
-    //   componentWillUnmount: function() {
-    //     ReactDOM.unmountComponentAtNode(this.node);
-    //     AppElement.removeChild(this.node);
-    //     elementClass(document.body).remove('ReactModal__Body--open');
-    //   },
-
-    //   renderPortal: function(props) {
-
-
-    //     this.portal = renderSubtreeIntoContainer(this, ModalPortal(Assign({}, props, {defaultStyles: Modal.defaultStyles})), this.node);
-    //   },
-
-    //   render: function () {
-    //     return React.DOM.noscript();
-    //   }
-    // });
-
-    // Modal.defaultStyles = {
-    //   overlay: {
-    //     position        : 'fixed',
-    //     top             : 0,
-    //     left            : 0,
-    //     right           : 0,
-    //     bottom          : 0,
-    //     backgroundColor : 'rgba(255, 255, 255, 0.75)'
-    //   },
-    //   content: {
-    //     position                : 'absolute',
-    //     top                     : '40px',
-    //     left                    : '40px',
-    //     right                   : '40px',
-    //     bottom                  : '40px',
-    //     border                  : '1px solid #ccc',
-    //     background              : '#fff',
-    //     overflow                : 'auto',
-    //     WebkitOverflowScrolling : 'touch',
-    //     borderRadius            : '4px',
-    //     outline                 : 'none',
-    //     padding                 : '20px'
-    //   }
-    // }
-
-    // module.exports = Modal
 
 });

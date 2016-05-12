@@ -89,7 +89,7 @@ define(function (require) {
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
                     <div className="label-container">{label}</div>
-                    <Layer isOpen={this.state.layerOpen} anchor={this.refs.container}>
+                    <Layer isOpen={this.state.layerOpen && this.props.datasource.length} anchor={this.refs.container}>
                         <List {...listProp}/>
                     </Layer>
                 </div>
