@@ -37,12 +37,12 @@ define(function (require) {
     };
 
     var DemoList = [
-        'Tip', 'Button', 'List', 'DropDownList', 'ComboList', 'Pager', 'Tab', 'Crumb', 'Wizard', '',
+        'Tip', 'Button', 'List', 'DropDownList', 'ComboList', 'Pager', 'Tab', 'Crumb', 'Wizard', 'Layer', '',
 
         'Checkbox', 'Radio', 'TextBox', 'NumberBox', 'TextArea', 'Select', 'Calendar', 'DropDownCalendar',
         'RangeCalendar', 'Schedule', 'DropDownSchedule', 'Region', 'DropDownRegion', 'SearchBox', 'Slider', '',
 
-        'Table', 'Dialog', 'Form', 'Tree', 'DualTreeSelector', 'Layer'
+        'Table', 'Dialog', 'Form', 'Tree', 'DualTreeSelector',
     ];
 
     

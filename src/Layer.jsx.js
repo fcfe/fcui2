@@ -22,7 +22,7 @@ define(function (require) {
                 anchor: null,
                 layerPosition: '',
                 onBeforeOpen: noop,
-                onAfterOpen: noop,
+                onRender: noop,
                 onBeforeClose: noop,
                 onAfterClose: noop
             };
@@ -43,18 +43,19 @@ define(function (require) {
         },
         // @override
         componentWillUnmount: function() {
-            this.removeSubTree();
+            this.removeSubTree(true);
         },
         renderSubTree: function (props) {
             if (!this.___layerContainer___ || !props.anchor) return;
-            if (props.isOpen && this.___layerAppended___) return;
             if (!props.isOpen && !this.___layerAppended___) return;
             // open
             var me = this;
             if (props.isOpen) {
-                document.body.appendChild(this.___layerContainer___);
-                this.___layerAppended___ = true;
-                typeof props.onBeforeOpen === 'function' && props.onBeforeOpen();
+                if (!this.___layerAppended___) {
+                    document.body.appendChild(this.___layerContainer___);
+                    this.___layerAppended___ = true;
+                    typeof props.onBeforeOpen === 'function' && props.onBeforeOpen();
+                }
                 renderSubtreeIntoContainer(this, props.children, this.___layerContainer___, function () {
                     me.renderSubTreeFinished(props)
                 });
@@ -100,16 +101,25 @@ define(function (require) {
 
             layer.style.left = layerLeft + 'px';
             layer.style.top = layerTop + 'px';
-            typeof props.onAfterOpen === 'function' && props.onAfterOpen();
+            typeof props.onRender === 'function' && props.onRender();
+
         },
-        removeSubTree: function () {
-            typeof this.props.onBeforeClose === 'function' && this.props.onBeforeClose();
+        removeSubTree: function (componentWillUnmount) {
+
+            if (!this.___layerAppended___) return;
+            var evt = document.createEvent('UIEvents');
+            evt.fcuiTarget = this;
+            typeof this.props.onBeforeClose === 'function' && this.props.onBeforeClose(evt);
+            if (evt.returnValue === false && !componentWillUnmount) return;
+            
             ReactDOM.unmountComponentAtNode(this.___layerContainer___);
             this.___layerContainer___.style.left = '-9999px';
             this.___layerContainer___.style.top = '-9999px';
-            this.___layerAppended___ = false;
+                
             document.body.removeChild(this.___layerContainer___);
+            this.___layerAppended___ = false;
             typeof this.props.onAfterClose === 'function' && this.props.onAfterClose();
+
         },
         render: function () {
             return React.DOM.noscript();
