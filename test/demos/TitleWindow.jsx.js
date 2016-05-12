@@ -20,6 +20,7 @@ define(function (require) {
         openWindow(e) {
             var state = {};
             state[e.target.value] = true;
+            console.log(this.state);
             this.setState(state);
         },
         closeWindow(e) {
@@ -69,10 +70,7 @@ define(function (require) {
                     <div className="demo-item">
                         <h3>Window without close button.</h3>
                         <Button label="Open" onClick={this.openWindow} value="window3"/>
-                        <TitleWindow isOpen={this.state.window3}
-                            showCloseButton={false}
-                            onClose={this.closerFactory('window2')}
-                        >
+                        <TitleWindow isOpen={this.state.window3} showCloseButton={false}>
                             <div>
                                 <h1>Window without close button.</h1>
                                 <Button label="close" onClick={this.closerFactory('window3')}/>
@@ -84,7 +82,7 @@ define(function (require) {
                         <Button label="Open" onClick={this.openWindow} value="window4"/>
                         <TitleWindow isOpen={this.state.window4}
                             onBeforeClose={this.confirmClosing}
-                            onClose={this.closerFactory('window2')}
+                            onClose={this.closerFactory('window4')}
                         >
                             <div>
                                 <h1>Window with closing confirm.</h1>

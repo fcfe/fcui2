@@ -15,6 +15,8 @@ define(function (require) {
 
 
     return React.createClass({
+
+
         // @override
         getDefaultProps: function () {
             return {
@@ -23,6 +25,7 @@ define(function (require) {
                 closeWithBodyClick: false,
                 style: {},
                 layerPosition: '',
+                onMouseEnter: noop,
                 onMouseLeave: noop,
                 onBeforeOpen: noop,
                 onRender: noop,
@@ -30,12 +33,16 @@ define(function (require) {
                 onClose: noop
             };
         },
+
+
         // @override
         getInitialState: function () {
             return {
                 mouseenter: false
             };
         },
+
+
         // @override
         componentDidMount: function () {
             if (!window || !document) return;
@@ -51,6 +58,7 @@ define(function (require) {
             layer.style.top = '-9999px';
             layer.addEventListener('mouseenter', function () {
                 me.setState({mouseenter: true});
+                typeof me.props.onMouseEnter === 'function' && me.props.onMouseEnter();
             });
             layer.addEventListener('mouseleave', function () {
                 me.setState({mouseenter: false});
@@ -61,19 +69,38 @@ define(function (require) {
             window.addEventListener('click', me.bodyClickHandler);
             me.renderSubTree(me.props);
         },
+
+
         // @override
         componentWillReceiveProps: function(newProps) {
             this.renderSubTree(newProps);
         },
+
+
         // @override
         componentWillUnmount: function() {
-            this.removeSubTree(true);
+            this.removeSubTree();
             window.removeEventListener('click', this.bodyClickHandler);
         },
+
+
         bodyClickHandler: function (e) {
             if (this.state.mouseenter || !this.___layerAppended___ || !this.props.closeWithBodyClick) return;
             this.removeSubTree();
         },
+
+
+        close: function () {
+            var evt = document.createEvent('UIEvents');
+            evt.fcuiTarget = this;
+            typeof this.props.onBeforeClose === 'function' && this.props.onBeforeClose(evt);
+            if (evt.returnValue) {
+                this.removeSubTree();
+            }
+            typeof this.props.onClose === 'function' && this.props.onClose();
+        },
+
+
         renderSubTree: function (props) {
             if (!this.___layerContainer___ || !props.anchor) return;
             if (!props.isOpen && !this.___layerAppended___) return;
@@ -86,14 +113,17 @@ define(function (require) {
                     typeof props.onBeforeOpen === 'function' && props.onBeforeOpen();
                 }
                 renderSubtreeIntoContainer(this, props.children, this.___layerContainer___, function () {
-                    me.renderSubTreeFinished(props)
+                    me.fixedPosition(props);
+                    typeof props.onRender === 'function' && props.onRender();
                 });
                 return;
             }
             // close
-            this.removeSubTree();
+            this.close();
         },
-        renderSubTreeFinished: function (props) {
+
+
+        fixedPosition: function (props) {
 
             props = props || this.props;
             var layer = this.___layerContainer___;
@@ -130,27 +160,21 @@ define(function (require) {
 
             layer.style.left = layerLeft + 'px';
             layer.style.top = layerTop + 'px';
-            typeof props.onRender === 'function' && props.onRender();
 
         },
-        removeSubTree: function (componentWillUnmount) {
 
+
+        removeSubTree: function () {
             if (!this.___layerAppended___) return;
-            var evt = document.createEvent('UIEvents');
-            evt.fcuiTarget = this;
-            typeof this.props.onBeforeClose === 'function' && this.props.onBeforeClose(evt);
-            if (evt.returnValue === false && !componentWillUnmount) return;
-            
             ReactDOM.unmountComponentAtNode(this.___layerContainer___);
             this.___layerContainer___.style.left = '-9999px';
             this.___layerContainer___.style.top = '-9999px';
-                
             document.body.removeChild(this.___layerContainer___);
             this.___layerAppended___ = false;
-            typeof this.props.onClose === 'function' && this.props.onClose();
             this.setState({mouseenter: false});
-
         },
+
+
         render: function () {
             return React.DOM.noscript();
         }

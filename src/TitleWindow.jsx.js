@@ -87,7 +87,6 @@ define(function (require) {
             typeof this.props.onBeforeClose === 'function' && this.props.onBeforeClose(evt);
             if (evt.returnValue) {
                 this.removeSubTree();
-                return;
             }
             typeof this.props.onClose === 'function' && this.props.onClose();
         },
