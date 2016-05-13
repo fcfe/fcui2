@@ -69,7 +69,7 @@ define(function (require) {
             };
             var layerProp = {
                 ref: 'layer',
-                isOpen: this.state.layerOpen && this.props.datasource.length,
+                isOpen: this.state.layerOpen && this.props.datasource.length && !this.props.disabled,
                 anchor: this.refs.container,
                 onMouseLeave: this.mouseLeaveHandler
             };

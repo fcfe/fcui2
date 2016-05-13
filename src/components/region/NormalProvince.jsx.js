@@ -23,7 +23,6 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                className: '',
                 disabled: false,
                 id: -1,
                 value: {},
