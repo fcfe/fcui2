@@ -22,9 +22,10 @@ define(function (require) {
             return {
                 isOpen: false,
                 anchor: null,
-                closeWithBodyClick: false,
                 style: {},
-                layerPosition: '',
+                location: '',
+                closeWithBodyClick: false,
+                onOffset: noop,
                 onMouseEnter: noop,
                 onMouseLeave: noop,
                 onBeforeOpen: noop,
@@ -128,39 +129,73 @@ define(function (require) {
             props = props || this.props;
             var layer = this.___layerContainer___;
             var anchor = props.anchor;
-            var layerPosition = props.layerPosition + '';
+            var layerLocation = props.location + '';
             var layerHeight = layer.offsetHeight;
             var layerWidth = layer.offsetWidth;
-            var layerTop = -9999;
-            var layerLeft = -9999;
             var anchorHeight = anchor.offsetHeight;
             var anchorWidth = anchor.offsetWidth;
             var anchorPosition = util.getDOMPosition(anchor);
+            var topIndex = layerLocation.indexOf('top');
+            var bottomIndex = layerLocation.indexOf('bottom');
+            var leftIndex = layerLocation.indexOf('left');
+            var rightIndex = layerLocation.indexOf('right');
+            var result = {
+                left: -9999,
+                top: -9999,
+                isLeft: false,
+                isTop: false
+            }
 
-            if (layerPosition.indexOf('top') > -1) {
-                layerTop = anchorPosition.top - layerHeight;
+            // 只在上方显示
+            if (topIndex > -1 && bottomIndex < 0) { 
+                result.top = anchorPosition.top - layerHeight;
+                result.isTop = true;
             }
-            else if (layerPosition.indexOf('bottom') > -1) {
-                layerTop = anchorPosition.top + anchorHeight - 1;
+            // 只在下方显示
+            else if (bottomIndex > -1 && topIndex < 0) {
+                result.top = anchorPosition.top + anchorHeight - 1;
+                result.isTop = false;
             }
+            // 上方优先显示
+            else if (topIndex < bottomIndex) { 
+                result.top = (result.isTop = (anchorPosition.top - layerHeight > 0))
+                    ? (anchorPosition.top - layerHeight)
+                    : (anchorPosition.top + anchorHeight - 1);
+            }
+            // 下方优先显示
             else {
-                layerTop = (anchorPosition.y + anchorHeight + layerHeight < document.documentElement.clientHeight)
-                    ? (anchorPosition.top + anchorHeight - 1) : (anchorPosition.top - layerHeight);
+                result.top = (result.isTop =
+                        (anchorPosition.y + anchorHeight + layerHeight >= document.documentElement.clientHeight))
+                    ? (anchorPosition.top - layerHeight)
+                    : (anchorPosition.top + anchorHeight - 1);
             }
-            if (layerPosition.indexOf('left') > -1) {
-                layerLeft = anchorPosition.left + anchorWidth - layerWidth;
+
+            // 只在左侧显示
+            if (leftIndex > -1 && rightIndex < 0) {
+                result.left = anchorPosition.left + anchorWidth - layerWidth;
+                result.isLeft = true;
             }
-            else if (layerPosition.indexOf('right') > -1) {
-                layerLeft = anchorPosition.left;
+            // 只在右侧显示
+            else if (rightIndex > -1 && leftIndex < 0) {
+                result.left = anchorPosition.left;
+                result.isLeft = false;
             }
+            // 左侧优先显示
+            else if (leftIndex < rightIndex) {
+                result.left = (result.isLeft = (anchorPosition.left + anchorWidth - layerWidth > 0))
+                    ? (anchorPosition.left + anchorWidth - layerWidth)
+                    : (anchorPosition.left)
+            }
+            // 右侧优先显示
             else {
-                layerLeft = anchorPosition.x + layerWidth < document.documentElement.clientWidth ?
-                    anchorPosition.left : (anchorPosition.left + anchorWidth - layerWidth);
+                result.left = (result.isLeft = (anchorPosition.x + layerWidth >= document.documentElement.clientWidth))
+                    ? (anchorPosition.left + anchorWidth - layerWidth)
+                    : (anchorPosition.left);
             }
 
-            layer.style.left = layerLeft + 'px';
-            layer.style.top = layerTop + 'px';
-
+            typeof props.onOffset === 'function' && props.onOffset(result);
+            layer.style.left = result.left + 'px';
+            layer.style.top = result.top + 'px';
         },
 
 
