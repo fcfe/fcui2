@@ -21,8 +21,8 @@ define(function (require) {
             return {
                 isOpen: false,
                 className: '',
-                showCloseButton: true,
                 title: 'Title Window',
+                showCloseButton: true,
                 onBeforeOpen: noop,
                 onRender: noop,
                 onBeforeClose: noop,
@@ -87,8 +87,8 @@ define(function (require) {
             typeof this.props.onBeforeClose === 'function' && this.props.onBeforeClose(evt);
             if (evt.returnValue) {
                 this.removeSubTree();
+                typeof this.props.onClose === 'function' && this.props.onClose();
             }
-            typeof this.props.onClose === 'function' && this.props.onClose();
         },
 
 

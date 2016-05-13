@@ -1,67 +1,6 @@
 @import "../skin.less";
 
 
-.fcui2-dialog-container {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    bottom: 0px;
-    right: 0px;
-    z-index: 9999;
-    overflow: hidden;
-}
-
-
-.fcui2-dialog-workspace {
-    position: absolute;
-    left: -9999px;
-    top: -9999px;
-    width: 9999px;
-    height: 9999px;
-    background-color: @bgcolor-active;
-    .title-bar {
-        cursor: default;
-        color: @fontcolor-important;
-        padding: @padding-normal;
-        background-color: @bgcolor-window-title;
-        font-weight: @fontweight-title;
-        line-height: @lineheight-window-title;
-        .font-icon-times {
-            float: right;
-            font-size: @fontsize-close-button;
-            line-height: @lineheight-window-title;
-            color: @fontcolor-close-button;
-        }
-        .font-icon-times:hover {
-            color: @fontcolor-important;
-            cursor: pointer !important;
-        }
-    }
-    .content {
-        position: absolute;
-        top: 40px;
-        left: 0px;
-        border: @border-normal;
-    }
-    .content-fixed {
-        right: 0px;
-        bottom: 0px;
-        overflow: auto;
-    }
-}
-
-
-.fcui2-dialog-background {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    bottom: 0px;
-    right: 0px;
-    background-color: @bgcolor-window-background;
-    opacity: 0.2;
-}
-
-
 .fcui2-dialog-alert {
     padding: 10px;
     width: 460px;
@@ -73,7 +12,6 @@
     .button-bar {
         width: 100%;
         text-align: center;
-        margin-bottom: 10px;
         .fcui2-button {
             margin: @margin-normal;
         }

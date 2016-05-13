@@ -20,7 +20,6 @@ define(function (require) {
         openWindow(e) {
             var state = {};
             state[e.target.value] = true;
-            console.log(this.state);
             this.setState(state);
         },
         closeWindow(e) {

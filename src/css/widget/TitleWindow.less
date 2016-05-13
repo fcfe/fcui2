@@ -20,6 +20,7 @@
     height: 9999px;
     background-color: @bgcolor-active;
     .title-bar {
+        position: relative;
         cursor: default;
         color: @fontcolor-important;
         padding: @padding-normal;
@@ -27,10 +28,14 @@
         font-weight: @fontweight-title;
         line-height: @lineheight-window-title;
         .font-icon-times {
+            position: absolute;
+            top: 0px;
+            right: 5px;
             float: right;
             font-size: @fontsize-close-button;
             line-height: @lineheight-window-title;
             color: @fontcolor-close-button;
+            z-index: 1;
         }
         .font-icon-times:hover {
             color: @fontcolor-important;

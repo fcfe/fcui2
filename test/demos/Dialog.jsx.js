@@ -4,7 +4,7 @@ define(function (require) {
     var React = require('react');
     var Button = require('fcui/Button.jsx');
     var Dialog = require('fcui/Dialog.jsx');
-    
+
     var dialog = new Dialog();
 
     var SubApp = React.createClass({
@@ -67,7 +67,7 @@ define(function (require) {
                 content: AutoSize
             });
         },
-        subapp: function (e) {
+        subapp: function (e) {// pass
             var me = this;
             dialog.pop({
                 title: 'SubApp Demo',
@@ -95,9 +95,6 @@ define(function (require) {
             dialog.confirm({
                 title: 'Confirm Demo',
                 message: 'Confirm message',
-                onClose: function () {
-                    me.props.alert('You press close!');
-                },
                 onEnter: function () {
                     me.props.alert('You press enter!');
                 },
@@ -115,10 +112,7 @@ define(function (require) {
                     message: 'There is a confirm after you press close button in title bar.'
                 },
                 onBeforeClose: function (e) {
-                    if (window.confirm('Are you sure to close the dialog?')) {
-
-                    }
-                    else {
+                    if (!window.confirm('Are you sure to close the dialog?')) {
                         e.returnValue = false;
                         me.props.alert('Closing operation has been canceled.');
                     }
@@ -136,7 +130,7 @@ define(function (require) {
                     <h3>Closing need confirm</h3>
                     <Button label="Closing need confirm" onClick={this.closeConfirm}/>
                     <h3>Auto Resize Dialog</h3>
-                    <Button label="Closing need confirm" onClick={this.autoResize}/>
+                    <Button label="Auto Resize" onClick={this.autoResize}/>
                     <h3>Alert</h3>
                     <Button label="Alert" onClick={this.alert}/>
                     <h3>Alert</h3>

@@ -42,9 +42,9 @@ define(function (require) {
         'TitleWindow', '',
 
         'Checkbox', 'Radio', 'TextBox', 'NumberBox', 'TextArea', 'Select', 'Calendar', 'DropDownCalendar',
-        'RangeCalendar', 'Schedule', 'DropDownSchedule', 'Region', 'DropDownRegion', 'SearchBox', 'Slider', '',
+        'RangeCalendar', 'Schedule', 'DropDownSchedule', 'Region', 'DropDownRegion', 'SearchBox', 'Slider', 'Tree', '',
 
-        'Table', 'Dialog', 'Form', 'Tree', 'DualTreeSelector',
+        'Table', 'Dialog', 'Form', 'DualTreeSelector',
     ];
 
     
