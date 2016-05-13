@@ -110,7 +110,7 @@ define(function (require) {
         }
         setTimeout(function () {
             ReactDOM.unmountComponentAtNode(me.___tempContainer___);
-            me.ui = null;
+            me.___ui___ = null;
         }, 100);
     };
 
@@ -152,8 +152,19 @@ define(function (require) {
      * @param {Object} props dialog content初始化所需要的属性集
      */
     Dialog.prototype.updatePopContentProps = function (props) {
-        // if (!this.ui) return;
-        // this.ui.updateContentProps(props);
+        if (!this.___ui___) return;
+        var oldProps = this.___ui___.state.contentProps;
+        var newProps = {};
+        for (var key in oldProps) {
+            if (!oldProps.hasOwnProperty(key)) continue;
+            newProps[key] = oldProps[key];
+        }
+        props = props || {};
+        for (var key in props) {
+            if (!props.hasOwnProperty(key)) continue;
+            newProps[key] = props[key];
+        }
+        this.___ui___.setState({contentProps: newProps});
     };
 
 

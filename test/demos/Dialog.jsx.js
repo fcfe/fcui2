@@ -4,8 +4,8 @@ define(function (require) {
     var React = require('react');
     var Button = require('fcui/Button.jsx');
     var Dialog = require('fcui/Dialog.jsx');
-
     var dialog = new Dialog();
+
 
     var SubApp = React.createClass({
         getDefaultProps: function () {
@@ -54,6 +54,27 @@ define(function (require) {
         }
     });
 
+    var UpdateProp = React.createClass({
+        getDefaultProps: function () {
+            return {
+                text: 'init'
+            };
+        },
+        getInitialState: function () {
+            return {};
+        },
+        render: function () {
+            return (
+                <div style={{width: 400, height: 300}}>
+                    <h3>{'Text From Outsize:' + this.props.text}</h3>
+                </div>
+            );
+        }
+    });
+
+
+
+
     return React.createClass({
         // @override
         getDefaultProps: function () {
@@ -61,13 +82,36 @@ define(function (require) {
                 alert: function () {}
             };
         },
+        componentDidMount: function () {
+            this.updateTimer = null;
+        },
+        componentWillUnmount: function () {
+            clearInterval(this.updateTimer);
+        },
+        update: function () {
+            clearInterval(this.updateTimer);
+            dialog.pop({
+                title: 'Update Content Props after Pop',
+                content: UpdateProp,
+                contentProps: {
+                    text: 'Message From Demo.'
+                }
+            });
+            this.updateTimer = setInterval(function () {
+                dialog.updatePopContentProps({
+                    text: +new Date()
+                })
+            }, 1000);
+        },
         autoResize: function (e) {
+            clearInterval(this.updateTimer);
             dialog.pop({
                 title: 'Auto Resize Demo',
                 content: AutoSize
             });
         },
-        subapp: function (e) {// pass
+        subapp: function (e) {
+            clearInterval(this.updateTimer);
             var me = this;
             dialog.pop({
                 title: 'SubApp Demo',
@@ -81,6 +125,7 @@ define(function (require) {
             });
         },
         alert: function () {
+            clearInterval(this.updateTimer);
             var me = this;
             dialog.alert({
                 title: 'Alert Demo',
@@ -91,6 +136,7 @@ define(function (require) {
             })
         },
         confirm: function () {
+            clearInterval(this.updateTimer);
             var me = this;
             dialog.confirm({
                 title: 'Confirm Demo',
@@ -104,6 +150,7 @@ define(function (require) {
             })
         },
         closeConfirm: function (e) {
+            clearInterval(this.updateTimer);
             var me = this;
             dialog.pop({
                 title: 'Close Confirm Demo',
@@ -125,16 +172,18 @@ define(function (require) {
         render: function () {
             return (
                 <div>
+                    <h3>Alert</h3>
+                    <Button label="Alert" onClick={this.alert}/>
+                    <h3>Confirm</h3>
+                    <Button label="Confirm" onClick={this.confirm}/>
                     <h3>SubApp</h3>
                     <Button label="SubApp" onClick={this.subapp}/>
                     <h3>Closing need confirm</h3>
                     <Button label="Closing need confirm" onClick={this.closeConfirm}/>
                     <h3>Auto Resize Dialog</h3>
                     <Button label="Auto Resize" onClick={this.autoResize}/>
-                    <h3>Alert</h3>
-                    <Button label="Alert" onClick={this.alert}/>
-                    <h3>Alert</h3>
-                    <Button label="Confirm" onClick={this.confirm}/>
+                    <h3>Update Content Props after Pop</h3>
+                    <Button label="Update Props" onClick={this.update}/>
                 </div>
             );
         }
