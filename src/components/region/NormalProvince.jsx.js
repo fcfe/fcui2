@@ -11,6 +11,7 @@ define(function (require) {
     var MouseWidgetBase = require('../../mixins/MouseWidgetBase');
     var LayerContainerBase = require('../../mixins/LayerContainerBase');
     var CheckBox = require('../../CheckBox.jsx');
+    var Radio = require('../../Radio.jsx');
 
     var tools = require('../../core/regionTools');
     var language = require('../../core/language').region;
@@ -22,14 +23,15 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                className: '',
                 disabled: false,
                 id: -1,
                 value: {},
+                parent: {},
                 onChange: function () {},
                 layerContent: require('./NormalProvinceLayer.jsx'),
                 layerProps: {},
-                layerInterface: 'onChange'
+                layerInterface: 'onChange',
+                type: 'multi'
             };
         },
         // @override
@@ -43,8 +45,16 @@ define(function (require) {
             if (this.___layer___) {
                 this.layerUpdateProp({
                     datasource: tools.filiation[this.props.id],
-                    value: this.props.value
+                    value: this.props.value,
+                    type: this.props.type
                 });
+            }
+        },
+        layerClose: function (e) {
+            var key = '_' + this.props.id + '_';
+            var reg = new RegExp(key, 'g');
+            if (this.props.parent.___layerShow___.indexOf(key) > -1) {
+                this.props.parent.___layerShow___ = this.props.parent.___layerShow___.replace(reg, '');
             }
         },
         layerAction: function (e) {
@@ -60,9 +70,15 @@ define(function (require) {
             if (this.props.disabled || !tools.filiation[this.props.id] || tools.filiation[this.props.id].length < 1) {
                 return;
             }
+            // 将layer开启状态记入region组件
+            var key = '_' + this.props.id + '_';
+            if (this.props.parent.___layerShow___.indexOf(key) < 0) {
+                this.props.parent.___layerShow___ += key;
+            }
             this.layerShow({
                 datasource: tools.filiation[this.props.id],
-                value: this.props.value
+                value: this.props.value,
+                type: this.props.type
             });
         },
         render: function () {
@@ -85,11 +101,20 @@ define(function (require) {
             if (this.state.hover) {
                 containerProp.style = {border: '1px solid #C8C8C8'};
             }
-            return (
-                <div {...containerProp}>
-                    <CheckBox {...checkboxProp}/>
-                </div>
-            );
+            if (this.props.type === 'single') {
+                return(
+                    <div {...containerProp}>
+                        <Radio {...checkboxProp}/>
+                    </div>
+                );
+            }
+            else {
+                return (
+                    <div {...containerProp}>
+                        <CheckBox {...checkboxProp}/>
+                    </div>
+                );
+            }
         }
     });
 

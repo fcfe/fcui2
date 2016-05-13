@@ -25,8 +25,17 @@ define(function (require) {
                 value: '',
                 shortCut: [],
                 onChange: function () {},
-                close: function () {}
+                close: function () {},
+                type: 'multi'
             }
+        },
+        componentDidMount: function () {
+            this.___autoHideTimer___ = null;
+            this.___autoHideTimerBeep___ = 0;
+        },
+        componentWillUnmount: function () {
+            clearInterval(this.___autoHideTimer___);
+            this.___autoHideTimerBeep___ = 0;
         },
         // @override
         componentWillReceiveProps: function (nextProps) {
@@ -39,19 +48,58 @@ define(function (require) {
         changeHandler: function (e) {
             this.setState({value: e.target.value});
         },
+        singleRegionChangeHandler: function (e) {
+            this.setState({value: e.target.value});
+            var event = {};
+            event.target = this.refs.container;
+            event.target.value = e.target.value;
+            this.props.onChange(event);
+        },
         enterHandler: function (e) {
             e.target = this.refs.container;
             e.target.value = this.state.value;
             this.props.onChange(e);
         },
+        mouseEnterHandler: function (e) {
+            clearInterval(this.___autoHideTimer___);
+            this.___mouseenterHandler___();
+        },
+        mouseLeaveHandler: function (e) {
+            this.___mouseleaveHandler___();
+            var me = this;
+            me.___autoHideTimerBeep___ = 0;
+            this.___autoHideTimer___ = setInterval(function () {
+                me.autoHideLayer();
+            }, 100);
+        },
+        autoHideLayer: function () {
+            if (!this.refs || !this.refs.region || this.props.type !== 'single') {
+                clearInterval(this.___autoHideTimer___);
+                return;
+            }
+            this.___autoHideTimerBeep___++;
+            if (this.refs.region.___layerShow___.length === 0 || this.___autoHideTimerBeep___ > 40) { // 不操作5s隐藏
+                clearInterval(this.___autoHideTimer___);
+                this.props.close();
+            }
+        },
         render: function () {
             var containerProp = {
                 ref: 'container',
-                className: 'fcui2-dropdownschedule',
-                onMouseEnter: this.___mouseenterHandler___,
-                onMouseLeave: this.___mouseleaveHandler___,
+                onMouseEnter: this.mouseEnterHandler,
+                onMouseLeave: this.mouseLeaveHandler,
                 style: {
-                    width: 700
+                    width: 700,
+                    height: this.props.type === 'single' ? 370 : 400,
+                    position: 'relative'
+                }
+            };
+            var buttonContainer = {
+                style: {
+                    position: 'absolute',
+                    top: 360,
+                    left: 15,
+                    display: this.props.type === 'single' ? 'none': 'block'
                 }
             };
             var enterButtonProp = {
@@ -60,12 +108,27 @@ define(function (require) {
                 skin: 'important',
                 onClick: this.enterHandler
             };
+            var cancelButtonProp = {
+                label: language.cancel,
+                style: {
+                    position: 'relative',
+                    left: 10
+                },
+                onClick: this.props.close
+            };
+            var regionProp = {
+                ref: 'region',
+                shortCut: this.props.shortCut,
+                value: this.state.value,
+                type: this.props.type,
+                onChange: (this.props.type === 'single') ? this.singleRegionChangeHandler : this.changeHandler
+            };
             return (
                 <div {...containerProp}>
-                    <Region shortCut={this.props.shortCut} value={this.state.value} onChange={this.changeHandler}/>
-                    <div className="button-bar">
+                    <Region {...regionProp} />
+                    <div {...buttonContainer}>
                         <Button {...enterButtonProp}/>
-                        <Button label={language.cancel} onClick={this.props.close}/>
+                        <Button {...cancelButtonProp}/>
                     </div>
                 </div>
             );

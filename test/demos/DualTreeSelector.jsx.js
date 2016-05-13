@@ -26,6 +26,23 @@ define(function (require) {
             }
         },
         {
+            title: 'Normal Tree with preset values',
+            props: {
+                treeNodes: [{
+                    id: '1',
+                    name: 'Node 1',
+                    isChildrenLoaded: true
+                }, {
+                    id: '2',
+                    name: 'Node 2',
+                    isChildrenLoaded: true
+                }],
+                value: {
+                    '1': true
+                }
+            }
+        },
+        {
             title: 'Tree with children',
             props: {
                 treeNodes: [{
@@ -211,18 +228,11 @@ define(function (require) {
         // @override
         getDefaultProps() {
             return {
-                demo: 'DualTreeSelector',
                 alert() {}
             };
         },
         render() {
-            let containerProp = {
-                className: 'demo-content',
-                style: {
-                    display: this.props.demo === 'DualTreeSelector' ? 'block' : 'none'
-                }
-            };
-            return (<div {...containerProp}>{factory(this, items)}</div>);
+            return (<div>{factory(this, items)}</div>);
         }
     });
 });

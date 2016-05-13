@@ -11,7 +11,9 @@ define(function (require) {
     var InputWidgetBase = require('./mixins/InputWidgetBase');
     var InputWidgetInForm = require('./mixins/InputWidgetInForm');
     var CheckBox = require('./CheckBox.jsx');
-    var RegionProvince = require('./components/region/NormalProvince.jsx');
+    var Radio = require('./Radio.jsx');
+    var ProvinceRenderer = require('./components/region/NormalProvince.jsx');
+    var RegionRenderer = require('./components/region/NormalRegion.jsx')
 
 
     var util = require('./core/util');
@@ -27,23 +29,35 @@ define(function (require) {
             return {
                 className: '',
                 disabled: false,
-                provinceRenderer: RegionProvince,
-                valueTemplate: ''
+                provinceRenderer: ProvinceRenderer,
+                regionRenderer: RegionRenderer,
+                countryRenderer: RegionRenderer,
+                valueTemplate: '',
+                type: 'multi'
             };
         },
         // @override
         getInitialState: function () {
             return {};
         },
+        // @override
+        componentDidMount: function () {
+            this.___layerShow___ = '';
+        },
         changeHandler: function (e) {
             if (this.props.disabled) return;
             var value = this.___getValue___();
-            value = tools.parseValue(value);
-            if (e.target.checked) {
-                tools.addValue(e.target.value, value);
+            value = this.props.type === 'single' ? {} : tools.parseValue(value);
+            if (this.props.type === 'single') {
+                value[e.target.value] = true;
             }
             else {
-                tools.deleteValue(e.target.value, value);
+                if (e.target.checked) {
+                    tools.addValue(e.target.value, value);
+                }
+                else {
+                    tools.deleteValue(e.target.value, value);
+                }
             }
             e.target = this.refs.container;
             e.target.value = tools.stringifyValue(value);
@@ -53,36 +67,39 @@ define(function (require) {
             var value = this.___getValue___();
             return (
                 <div className={'fcui2-region ' + this.props.className} ref="container">
-                    {countryFactory([90, 999, 0], value, this)}
+                    {countryFactory([998, 999], value, this)}
                 </div>
             );
         }
     });
 
-
-    function checkboxFactory(id, value, me) {
-        var selected = tools.getSelectedState(id, value);
-        var prop = {
-            label: language.regionName[id],
-            labelPosition: 'right',
-            value: id,
+    
+    function rendererPropsFactory(id, value, me) {
+        return {
+            key: id,
+            id: id,
+            value: value,
+            parent: me,
             disabled: me.props.disabled,
-            checked: selected.checked,
-            indeterminate: selected.indeterminate,
-            onChange: me.changeHandler
+            onChange: me.changeHandler,
+            type: me.props.type
         };
-        return <CheckBox {...prop}/>;
     }
 
 
     function countryFactory(arr, value, me) {
         value = tools.parseValue(value);
         var doms = [];
+        var Renderer = typeof me.props.countryRenderer === 'function' ? me.props.countryRenderer : RegionRenderer;
         for (var i = 0; i < arr.length; i++) {
             doms.push(
                 <div key={arr[i]} className="country-area">
-                    <div className="country-title">{checkboxFactory(arr[i], value, me)}</div>
-                    <div>{regionFactory(tools.filiation[arr[i]], value, me)}</div>
+                    <div className="country-title">
+                        <Renderer {...rendererPropsFactory(arr[i], value, me)} />
+                    </div>
+                    <div>{
+                        regionFactory(tools.filiation[arr[i]], value, me)
+                    }</div>
                 </div>
             );
         }
@@ -93,11 +110,16 @@ define(function (require) {
     function regionFactory(arr, value, me) {
         if (!arr) return '';
         var doms = [];
+        var Renderer = typeof me.props.regionRenderer === 'function' ? me.props.regionRenderer : RegionRenderer;
         for (var i = 0; i < arr.length; i++) {
             doms.push(
                 <div key={arr[i]} className="region-area">
-                    <div className="region-left-container">{checkboxFactory(arr[i], value, me)}</div>
-                    <div className="region-right-container">{provinceFactory(tools.filiation[arr[i]], value, me)}</div>
+                    <div className="region-left-container">
+                        <Renderer {...rendererPropsFactory(arr[i], value, me)}/>
+                    </div>
+                    <div className="region-right-container">{
+                        provinceFactory(tools.filiation[arr[i]], value, me)
+                    }</div>
                 </div>
             );
         }
@@ -108,17 +130,9 @@ define(function (require) {
     function provinceFactory(arr, value, me) {
         if (!arr) return '';
         var doms = [];
-        var renderer = typeof me.props.provinceRenderer === 'function' ? me.props.provinceRenderer : RegionProvince;
+        var Renderer = typeof me.props.provinceRenderer === 'function' ? me.props.provinceRenderer : ProvinceRenderer;
         for (var i = 0; i < arr.length; i++) {
-            var prop = {
-                key: arr[i],
-                id: arr[i],
-                value: value,
-                parent: me,
-                disabled: me.props.disabled,
-                onChange: me.changeHandler
-            }
-            doms.push(React.createElement(renderer, prop));
+            doms.push(<Renderer {...rendererPropsFactory(arr[i], value, me)} />);
         }
         return doms;
     }

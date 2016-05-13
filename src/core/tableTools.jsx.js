@@ -59,7 +59,7 @@ define(function (require) {
         }
         // 处理prepare，将item和props回传给conf.prepare，由prepare以指针形式操作props
         if (typeof conf.prepare === 'function') {
-            conf.prepare(props, item, row, column);
+            conf.prepare(props, item, row, column, me);
         }
         props.content = props.content + '';
         return props;
@@ -91,7 +91,7 @@ define(function (require) {
             }
             for (var i = 0; i < conf.length; i++) {
                 var width = isNaN(conf[i].width) ? 0 : conf[i].width * 1;
-                td.push(<col width={width} key={'colgroup-' + i} />);
+                td.push(<col style={{width: width + 'px'}} key={'colgroup-' + i} />);
             }
             return <colgroup>{td}</colgroup>
         },
@@ -105,6 +105,7 @@ define(function (require) {
             var conf = me.props.fieldConfig;
             if (me.props.flags && me.props.flags.showSelector) {
                 var selectorProp = {
+                    type: me.props.flags.showSelector,
                     selected: me.getSelectedHash(),
                     tableItems: me.props.datasource,
                     disabled: me.props.disabled,
@@ -185,7 +186,7 @@ define(function (require) {
                     var selectorProp = {
                         type: 'checkbox',
                         className: 'tr-selector',
-                        checked: selected,
+                        checked: !!selected,
                         disabled: me.props.disabled,
                         'data-ui-cmd': index,
                         onChange: me.rowSelect,

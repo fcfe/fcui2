@@ -12,9 +12,11 @@ define(function (require) {
     return {
         ___mouseenterHandler___: function () {
             this.setState({mouseover: true});
+            typeof this.props.onMouseEnter === 'function' && this.props.onMouseEnter();
         },
         ___mouseleaveHandler___: function () {
             this.setState({mouseover: false});
+            typeof this.props.onMouseLeave === 'function' && this.props.onMouseLeave();
         },
         ___mousedownHandler___: function () {
             this.setState({mousedown: true});

@@ -179,11 +179,10 @@ define(function (require) {
     }
 
     return React.createClass({
-        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
+        mixins: [React.addons.LinkedStateMixin],
         // @override
         getDefaultProps() {
             return {
-                demo: 'Tree',
                 alert() {}
             };
         },
@@ -191,13 +190,7 @@ define(function (require) {
             this.props.alert(e.target.value);
         },
         render() {
-            let containerProp = {
-                className: 'demo-content',
-                style: {
-                    display: this.props.demo === 'Tree' ? 'block' : 'none'
-                }
-            };
-            return (<div {...containerProp}>{factory(this, items)}</div>);
+            return (<div>{factory(this, items)}</div>);
         }
     });
 });

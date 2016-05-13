@@ -9,101 +9,140 @@ define(function (require) {
 
     var React = require('react');
     var ReactDOM = require('react-dom');
-    var PopWindow = require('./components/dialog/PopWindow.jsx');
+
+
     var AlertContent = require('./components/dialog/Alert.jsx');
     var ConfirmContent = require('./components/dialog/Confirm.jsx');
+    var TitleWindow = require('./TitleWindow.jsx');
+    var noop = function () {};
+
+
+    /**
+     * Dialog Component Factory
+     *
+     * @param {Object} param Dialog配置，见Dialog.pop注释
+     * @param {Object} dialog 弹出此component的dialog实例
+     */
+    function dialogComponentFactory(param, dialog) {
+
+        return React.createClass({
+            // @override
+            getDefaultProps: function () {
+                return {};
+            },
+            // @override
+            getInitialState: function () {
+                return {
+                    isOpen: true,
+                    contentProps: param.contentProps || {}
+                };
+            },
+            close: function () {
+                if (this.state.isOpen) {
+                    this.setState({isOpen: false});
+                    setTimeout(function () {
+                        typeof param.onClose === 'function' && param.onClose();
+                        dialog.close();
+                    }, 100);
+                    return;
+                }
+                typeof param.onClose === 'function' && param.onClose();
+                dialog.close();
+            },
+            resize: function () {
+                if (this.refs.window && typeof this.refs.window.resize === 'function') {
+                    this.refs.window.resize();
+                }
+                return true;
+            },
+            contentFactory: function () {
+                if (typeof param.content !== 'function') {
+                    return (<div>No Content</div>);
+                }
+                var Content = param.content;
+                var contentProps = {};
+                // 潜克隆一次
+                for (var key in this.state.contentProps) {
+                    if (!this.state.contentProps.hasOwnProperty(key)) continue;
+                    contentProps[key] = this.state.contentProps[key];
+                }
+                // 挂content窗体回调
+                contentProps.resize = this.resize;
+                contentProps.close = this.close;
+                return (<Content {...contentProps}/>);
+            },
+            render: function () {
+                var TitleWindowProp = {
+                    ref: 'window',
+                    isOpen: this.state.isOpen,
+                    title: param.title,
+                    showCloseButton: param.hasOwnProperty('showCloseButton') ? param.showCloseButton : true,
+                    onBeforeClose: typeof param.onBeforeClose === 'function' ? param.onBeforeClose : noop,
+                    onClose: this.close
+                };
+                return (
+                    <TitleWindow {...TitleWindowProp}>
+                        {this.contentFactory()}
+                    </TitleWindow>
+                );
+            }
+        });
+    }
 
 
     /**
      * dialog构造函数
      */
     function Dialog() {
-        this.container = document.createElement('div');
-        this.workspace = document.createElement('div');
-        this.background = document.createElement('div');
-        this.container.className = 'fcui2-dialog-container';
-        this.workspace.className = 'fcui2-dialog-workspace';
-        this.background.className = 'fcui2-dialog-background';
-        this.container.appendChild(this.background);
-        this.container.appendChild(this.workspace);
-        this.ui = null;
+        this.___tempContainer___ = document.createElement('div');
     }
+
+
+    /**
+     * 关闭窗口
+     */
+    Dialog.prototype.close = function () {
+        var me = this;
+        var ui = this.___ui___;
+        if (!ui) return;
+        if (ui.state.isOpen) {
+            ui.setState({isOpen: false});
+        }
+        setTimeout(function () {
+            ReactDOM.unmountComponentAtNode(me.___tempContainer___);
+            me.___ui___ = null;
+        }, 100);
+    };
 
 
     /**
      * 弹出dialog
      *
      * @param {Object} param dialog配置，直接导成PopWindow的属性集合
+     *
+     * @param {string} param.title 标题
+     * @param {boolean} param.showCloseButton 关闭按钮开关
+     * @param {string} param.className 加载到Dialog根容器的样式，根容器包含title bar和content container
+     * @param {Function} param.onBeforeClose Dialog关闭前的回调，可以用于阻止窗体关闭
+     * @param {Function} param.onClose 关闭后回调
+     *
      * @param {Function} param.content dialog的子内容
      * @param {Object} param.contentProps content初始化时传入的属性集合
-     * @param {string} param.title 标题
-     * @param {Function} param.onBeforeClose 调用close方法时，关闭前回调，可以用于阻止窗体关闭
-     * @param {Function} param.onClose 关闭后回调
      */
     Dialog.prototype.pop = function (param) {
-
         var me = this;
-        var doc = document.documentElement;
-        var workspace = this.workspace;
-
-        // dialog不应该撑破window，初始化时应在可视区域意外，并尺寸应该足够大，方便计算content尺寸
-        workspace.style.maxWidth = doc.clientWidth + 'px';
-        workspace.style.maxHeight = doc.clientHeight + 'px';
-        workspace.style.left = workspace.style.top = '-9999px';
-        workspace.style.width = workspace.style.height = '9999px';
-        document.body.appendChild(me.container);
-
-        // 记录关闭事件
-        var beforeCloseHandler = typeof param.onBeforeClose === 'function' ? param.onBeforeClose : function () {};
-        var closeHandler = typeof param.onClose === 'function' ? param.onClose : function () {};
-        
-        // 浅克隆，赋新值
-        var windowProps = {};
-        for (var key in param) {
-            if (param.hasOwnProperty(key)) windowProps[key] = param[key];
-        }
-        windowProps.___dialogContainer___ = workspace;
-
-        // 关闭销毁闭包
-        windowProps.onDispose = function () {
-            me.dispose();
-        };
-        windowProps.onClose = function (evt) {
-            beforeCloseHandler(evt);
-            if (evt.returnValue === false) return;
-            me.dispose();
-            closeHandler();
-        };
-
-        // 弹出
-        me.ui = ReactDOM.render(React.createElement(PopWindow, windowProps), me.workspace, loaded);
-
-        // 设置焦点
-        function loaded() {
-            var timer = setInterval(function () {
-                if (!me.ui) return;
-                clearInterval(timer);
-                // 设置输入焦点，如果指定了。
-                if (
-                    param.focus
-                    && me.ui.content
-                    && me.ui.content.refs.hasOwnProperty(param.focus)
-                    && typeof me.ui.content.refs[param.focus].focus === 'function'
-                ) {
-                    me.ui.content.refs[param.focus].focus();
-                } 
-            }, 10);
-        }
-    };
-
-
-    /**
-     * 销毁窗体
-     */
-    Dialog.prototype.dispose = function () {
-        ReactDOM.unmountComponentAtNode(this.workspace);
-        document.body.removeChild(this.container);
-        this.ui = null;
+        var ReactElement = React.createElement(
+            dialogComponentFactory(param, me),
+            {}
+        );
+        me.___ui___ = null;
+        ReactDOM.render(
+            ReactElement,
+            me.___tempContainer___,
+            function () {
+                me.___ui___ = this;
+            }
+        );
     };
 
 
@@ -113,8 +152,19 @@ define(function (require) {
      * @param {Object} props dialog content初始化所需要的属性集
      */
     Dialog.prototype.updatePopContentProps = function (props) {
-        if (!this.ui) return;
-        this.ui.updateContentProps(props);
+        if (!this.___ui___) return;
+        var oldProps = this.___ui___.state.contentProps;
+        var newProps = {};
+        for (var key in oldProps) {
+            if (!oldProps.hasOwnProperty(key)) continue;
+            newProps[key] = oldProps[key];
+        }
+        props = props || {};
+        for (var key in props) {
+            if (!props.hasOwnProperty(key)) continue;
+            newProps[key] = props[key];
+        }
+        this.___ui___.setState({contentProps: newProps});
     };
 
 
@@ -128,15 +178,15 @@ define(function (require) {
      */
     Dialog.prototype.alert = function (param) {
         param = param || {};
-        // 做一层参数封装和下钻
+        var contentProps ={
+            message: param.message
+        };
         var dialogProp = {
             title: param.title,
             content: AlertContent,
-            contentProps: param,
+            contentProps: contentProps,
             onClose: param.onClose
         };
-        delete param.title;
-        delete param.onClose;
         this.pop(dialogProp);
     };
 
@@ -153,16 +203,17 @@ define(function (require) {
      */
     Dialog.prototype.confirm = function (param) {
         param = param || {};
-        param.onEnter = typeof param.onEnter === 'function' ? param.onEnter : function () {};
-        param.onCancel = typeof param.onCancel === 'function' ? param.onCancel : function () {};
+        var contentProps = {
+            message: param.message,
+            onEnter:  typeof param.onEnter === 'function' ? param.onEnter : noop,
+            onCancel: typeof param.onCancel === 'function' ? param.onCancel : noop
+        };
         var dialogProp = {
             content: ConfirmContent,
-            contentProps: param,
+            contentProps: contentProps,
             title: param.title,
             onClose: param.onClose
         };
-        delete param.title;
-        delete param.onClose;
         this.pop(dialogProp);
     };
 

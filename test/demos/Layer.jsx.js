@@ -4,47 +4,38 @@
  */
 
 define(function (require) {
+
     let React = require('react');
-    let _ = require('underscore');
     let Button = require('fcui/Button.jsx');
+    let Layer = require('fcui/Layer.jsx');
 
-    let LayerWithButtons = React.createClass({
-        propTypes: {
-
-        },
-        mixins: [
-            require('fcui/mixins/LayerContainerBase'),
-            require('fcui/mixins/MouseWidgetBase')
-        ],
+    let LayerContent =  React.createClass({
         getDefaultProps() {
             return {
-                count: 0
+                count: 0,
+                enterHandler: function () {},
+                cancelHandler: function () {}
             };
         },
         getInitialState() {
             return {};
         },
-        onTriggerClick() {
-            this.layerShow();
+        enterHandler: function () {
+            this.props.enterHandler();
         },
-        layerAction(action) {
-            if (action === 'ok') {
-                this.props.onLayerOk();
-            }
-            this.layerHide();
+        cancelHandler: function () {
+            this.props.cancelHandler();
         },
         render() {
             return (
-                <div
-                    ref="container"
-                    className="fcui2-droplayer-container"
-                    onMouseEnter={this.___mouseenterHandler___}
-                    onMouseLeave={this.___mouseleaveHandler___}
-                >
-                    <Button
-                        label={'点了 ' + this.props.count + ' 下'}
-                        onClick={this.onTriggerClick}
-                    />
+                <div className="fcui2-droplayer" style={{width: 300}}>
+                    <div className="fcui2-droplayer-content">
+                        <h1>{'HELLO Layer NO.' + this.props.count}</h1>
+                    </div>
+                    <div className="fcui2-droplayer-footer" style={{padding: '10px'}}>
+                        <Button label="确定" skin="important" onClick={this.enterHandler} />
+                        <Button label="取消" onClick={this.cancelHandler} />
+                    </div>
                 </div>
             );
         }
@@ -52,64 +43,43 @@ define(function (require) {
 
 
     return React.createClass({
-        propTypes: [],
-        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
         // @override
         getDefaultProps() {
             return {
-                demo: 'Layer',
                 alert() {}
             };
         },
         getInitialState() {
-            return {count: 0};
+            return {
+                layerOpen: false,
+                count: 0
+            };
         },
-        getLayerContent(props) {
-            return (
-                <div className="fcui2-droplayer">
-                    <div className="fcui2-droplayer-content">
-                        <h1>hello layer.</h1>
-                    </div>
-                    <div
-                        className="fcui2-droplayer-footer"
-                        style={{padding: '10px'}}
-                    >
-                        <Button
-                            label="确定"
-                            skin="important"
-                            onClick={_.partial(props.onLayerAction, 'ok')}
-                        />
-                        <Button
-                            label="取消"
-                            onClick={_.partial(props.onLayerAction, 'cancel')}
-                        />
-                    </div>
-                </div>
-            );
+        openLayer() {
+            this.setState({
+                count: this.state.count + 1,
+                layerOpen: true
+            });
         },
-        onLayerOk() {
-            this.props.alert('ok from layer, state count: ' + this.state.count);
-            this.setState({count: this.state.count + 1});
+        closeLayer() {
+            this.setState({
+                layerOpen: false
+            });
         },
         render() {
-            let containerProp = {
-                className: 'demo-content',
-                style: {
-                    display: this.props.demo === 'Layer' ? 'block' : 'none'
-                }
-            };
             return (
-                <div {...containerProp}>
+                <div>
                     <div className="demo-item" key="1">
                         <h3>Normal Popup Layer</h3>
                         <div className="props">props</div>
-                        <LayerWithButtons
-                            layerProps={{}}
-                            layerContent={this.getLayerContent}
-                            layerInterface="onLayerAction"
-                            onLayerOk={this.onLayerOk}
-                            count={this.state.count}
-                        />
+                        <Button label="Click me to open Layer" onClick={this.openLayer}/>
+                        <div ref="anchor" style={{border: '1px solid black'}}>it is anchor for Layer</div>
+                        <Layer isOpen={this.state.layerOpen} anchor={this.refs.anchor} closeWithBodyClick={true}>
+                            <LayerContent count={this.state.count}
+                                enterHandler={this.closeLayer}
+                                cancelHandler={this.closeLayer}
+                            />
+                        </Layer>
                     </div>
                 </div>
             );

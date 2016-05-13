@@ -27,12 +27,24 @@ define(function (require) {
         },
         getInitialState: function () {
             return {
+                intro: '',
+                name: '',
                 message: '',
                 message1: ''
             };
         },
         formFieldChange: function (state) {
+            var name = this.state.name;
+            var intro = this.state.intro;
+            if (state.field === 'name') {
+                name = state.dataset.name.replace('Form_', '');
+            }
+            if (state.field === 'intro') {
+                intro = state.dataset.intro.replace('Form_', '');
+            }
             this.setState({
+                name: name,
+                intro: intro,
                 message: JSON.stringify(state)
             });
         },
@@ -43,14 +55,11 @@ define(function (require) {
         },
         render: function () {
             var containerProp = {
-                className: 'demo-content demo-item',
-                style: {
-                    display: this.props.demo === 'Form' ? 'block' : 'none'
-                }
+                className: 'demo-content demo-item'
             };
             var nameValid = {
                 required: true,
-                maxLength: 4
+                maxLength: 10
             };
             var ageValid = {
                 required: true,
@@ -127,9 +136,9 @@ define(function (require) {
                         onFieldChange={this.formFieldChange} onSubmit={this.formFieldChange}
                         validations={formValid}
                     >
-                        姓名：<TextBox name="name" validations={nameValid}/><br/>
+                        姓名：<TextBox name="name" validations={nameValid} value={'Form_' + this.state.name}/><br/>
                         年龄：<NumberBox name="age" validations={ageValid}/><br/>
-                        简介：<TextArea name="intro" className="form-textarea" validations={introValid}/>
+                        简介：<TextArea name="intro" className="form-textarea" value={'Form_' + this.state.intro} validations={introValid}/>
                         <Button type="submit" label="提交" skin="important"/>
                     </Form>
                 </div>

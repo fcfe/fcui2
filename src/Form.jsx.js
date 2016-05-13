@@ -20,7 +20,13 @@ define(function (require) {
             }
             if (!dataset[key]) continue;
             var arr = key.split('___radio___');
-            obj[arr[0]] = arr[1];
+            try {
+                obj[arr[0]] = JSON.parse(arr[1]);
+            }
+            catch (e) {
+                obj[arr[0]] = arr[1];
+            }
+           
         }
         return obj;
     }
@@ -123,6 +129,7 @@ define(function (require) {
             var inputs = this.___inputs___;
             var dataset = this.___dataset___;
             var validationResults = this.___validationResults___;
+            var inputField = field;
             field = component.props.___uitype___ === 'radio' ? field + '___radio___' + component.props.value : field;
             // 阻断数据流，呵呵，貌似必须阻断，因为暂时没有想好form的定位，先阻断吧
             if (!inputs[field] || dataset[field] === value) return;
@@ -133,10 +140,18 @@ define(function (require) {
             inputs[field].setState({
                 isValid: validationResults[field].length < 1
             });
+            dataset = mergeRadioDataset(dataset);
+            validationResults = mergeRadioValidationResults(validationResults);
+            for (var key in dataset) {
+                if (key === inputField) continue;
+                delete dataset[key];
+                delete validationResults[key];
+            }
             // 通知外部
             this.props.onFieldChange({
-                dataset: mergeRadioDataset(dataset),
-                validationResults: mergeRadioValidationResults(validationResults)
+                field: inputField,
+                dataset: dataset,
+                validationResults: validationResults
             });
         },
 
@@ -158,6 +173,7 @@ define(function (require) {
             }
             if (!formValidationResult) {
                 this.props.onFieldChange({
+                    isValid: false,
                     dataset: mergeRadioDataset(dataset),
                     validationResults: mergeRadioValidationResults(validationResults)
                 });
@@ -167,19 +183,21 @@ define(function (require) {
             formValidationResult = [];
             for (var key in this.props.validations) {
                 if (typeof this.props.validations[key] !== 'function') continue;
-                var result = this.props.validations[key](dataset);
+                var result = this.props.validations[key](mergeRadioDataset(dataset));
                 if (result === true) continue;
                 formValidationResult.push(result);
             }
             validationResults.form = formValidationResult;
             if (formValidationResult.length > 0) {
                 this.props.onFieldChange({
+                    isValid: false,
                     dataset: mergeRadioDataset(dataset),
                     validationResults: mergeRadioValidationResults(validationResults)
                 });
                 return;
             }
             this.props.onFieldChange({
+                isValid: true,
                 dataset: mergeRadioDataset(dataset),
                 validationResults: mergeRadioValidationResults(validationResults)
             });

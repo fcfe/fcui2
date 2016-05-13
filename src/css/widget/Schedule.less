@@ -1,8 +1,9 @@
 @import "../skin.less";
 
 .fcui2-schedule {
+    font-family: @normal-font;
 
-    width: 650px;
+    width: 655px;
     cursor: default;
     moz-user-select: -moz-none;
     -moz-user-select: none;
@@ -11,6 +12,35 @@
     -webkit-user-select:none;
     -ms-user-select:none;
     user-select:none;
+
+    &-info {
+        &-text {
+            float: left;
+            margin-left: 24px;
+        }
+
+        &-legend {
+            float: right;
+            margin-right: 12px;
+            .font-icon {
+                margin-left: 0.5em;
+            }
+
+            .font-icon-bg-square-empty {
+                color: @color-inner-border;
+            }
+
+            &-icon-selected {
+                color: @color-blue-2;
+            }
+
+            &-text {
+                margin-left: 0.2em;
+            }
+        }
+
+        margin-bottom: 5px;
+    }
 
     .fast-operation-bar {
         margin-left: 10px;
@@ -22,7 +52,7 @@
             display: inline-block;
             min-width: 30px;
             padding: 0 5px;
-            color: #888888;
+            color: @color-text-3;
             text-align: center;
             border-right: @border-normal;
             cursor: pointer;
@@ -49,11 +79,11 @@
         >div {
             display: inline-block;
             width: 24px;
-            color: @color-disabled;
+            color: @color-text-3;
             cursor: pointer;
         }
         >div:hover {
-            color: @color-active;
+            color: @color-btn-hover;
         }
     }
     .row-area {
@@ -66,60 +96,76 @@
             height: 24px;
         }
     }
+    .fcui2-schedule-row-selector-disabled {
+        width: 60px;
+        div {
+            font-size: 12px;
+            text-align: right;
+            line-height: 24px;            
+        }
+    }
+
     .opt-area {
         float: right;
         position: relative;
         overflow: hidden;
-        width: 578px;
+        width: 582px;
         height: 170px;
     }
     .axis-area {
         font-size: 12px;
         >div:first-child {
-            margin-left: 50px;
+            margin-left: 52px;
         }
         >div {
             display: inline-block;
-            width: 48px;
-            text-align: center;
+            width: 24px;
+            text-align: right;
         }
+    }
+
+    .axis-area-top {
+        >div:first-child {
+            margin-left: 72px;
+        }        
     }
 
     .grid-layer {
         position: absolute;
         width: 577px;
         height: 169px;
-        background-color: #FBFBFB;
-        border-left: 1px solid #ECECEC;
-        border-top: 1px solid #ECECEC;
+        background-color: @color-bg;
+        border-left: 1px solid @color-inner-border;
+        border-top: 1px solid @color-inner-border;
         >div {
             position: absolute;
             width: 24px;
             height: 24px;
-            border-right: 1px solid #ECECEC;
-            border-bottom: 1px solid #ECECEC;
+            border-right: 1px solid @color-inner-border;
+            border-bottom: 1px solid @color-inner-border;
         }
     }
     .drag-layer,.label-layer {
         position: absolute;
         left: 0px;
         top: 0px;
-        width: 577px;
-        height: 169px;
+        width: 576px;
+        height: 168px;
     }
     .label-layer {
         >div {
             position: absolute;
-            background-color: rgba(0, 128, 0, 0.5);
+            background-color: @color-blue-2;
             font-size: 12px;
             text-align: center;
             color: #fff;
             line-height: 23px;
+            border: 1px solid #fff;
         }
     }
     .cursor-layer {
         position: absolute;
-        border: 1px solid @color-active;
+        border: 1px solid @color-btn-hover;
     }
     .title-layer {
         position: absolute;

@@ -11,10 +11,28 @@ define(function (require) {
     var util = require('./core/util');
     var MouseWidgetBase = require('./mixins/MouseWidgetBase');
 
+    /**
+     * 下拉列表默认内容
+     * @param {Object} props the props
+     * @return {ReactElement} rendered element
+     */
+    var NormalRenderer = function (props) {
+        return (
+            <span {...props.style}>{props.label}</span>
+        );
+    };
 
     return React.createClass({
         // @override
         mixins: [MouseWidgetBase],
+        propTypes: {
+            /**
+             * 下拉列表内容
+             * @param {Object} props the props
+             * @return {ReactElement} rendered element
+             */
+            'optionRenderer': React.PropTypes.func
+        },
         // @override
         getDefaultProps: function () {
             return {
@@ -22,7 +40,9 @@ define(function (require) {
                 width: NaN,
                 datasource: [],  // {label: <string>, value: <string>, disabled: <boolean>, children: [self]}
                 disabled: false,
-                onClick: function () {}
+                onClick: function () {},
+                onMouseLeave: function () {},
+                optionRenderer: NormalRenderer
             };
         },
         // @override
@@ -40,8 +60,11 @@ define(function (require) {
             return {};
         },
         clickHandler: function (e) {
+            while (e.target && !e.target.getAttribute('data-ui-cmd')) {
+                e.target = e.target.parentNode;
+            }
             var dataset = util.getDataset(e.target);
-            if (dataset.uiDisable + '' === 'true' || !dataset.uiCmd || this.props.disabled) return;
+            if (dataset.uiDisabled + '' === 'true' || !dataset.uiCmd || this.props.disabled) return;
             e.target.value = dataset.uiCmd;
             this.props.onClick(e);
             // 必须stop掉，否则外部如果用了onClick，会触发两次
@@ -59,12 +82,16 @@ define(function (require) {
             if (!isNaN(this.props.width)) {
                 containerProps.style = {width: this.props.width};
             }
-            return (<div {...containerProps}>{listFactory(this.props.datasource, '0', this.props.disabled, this.props.width)}</div>);
+            return (
+                <div {...containerProps}>
+                    {listFactory(this.props.datasource, '0', this.props.disabled, this.props.width, me)}
+                </div>
+            );
         }
     });
 
 
-    function listFactory(datasource, level, disabled, width) {
+    function listFactory(datasource, level, disabled, width, target) {
         if (datasource.length === 0) return <div></div>;
         var result = [];
         for (var index = 0; index < datasource.length; index++) {
@@ -104,11 +131,12 @@ define(function (require) {
             if (!isNaN(width)) {
                 itemProp.style = {width: width};
             }
+            var OptionRenderer = target.props.optionRenderer;
             result.push(
                 <div {...itemProp}>
                     <div {...rightArrowProp}></div>
-                    <span {...spanProp}>{item.label}</span>
-                    <div {...rightLayerProp}>{listFactory(children, treeIndex, disabled, width)}</div>
+                    <OptionRenderer {...item} {...spanProp} />
+                    <div {...rightLayerProp}>{listFactory(children, treeIndex, disabled, width, target)}</div>
                 </div>
             );
         }

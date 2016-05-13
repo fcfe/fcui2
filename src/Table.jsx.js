@@ -30,7 +30,7 @@ define(function (require) {
                     sortEnable: false,
                     showHeader: false,
                     showSummary: false,
-                    showSelector: false
+                    showSelector: false // false | 0: 关闭；true | 1: 开启；2：选择当前页；3：选择全部
                 },
                 // 数据属性
                 datasource: [],

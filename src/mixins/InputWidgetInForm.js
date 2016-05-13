@@ -73,7 +73,7 @@ define(function (require) {
             ) {
                 return;
             }
-            this.context.___form___.updateField(this.props.name, this.___getValue___(), this);
+            this.context.___form___.updateField(this.props.name, this.state.___value___, this);
         },
 
 
@@ -91,9 +91,10 @@ define(function (require) {
             rules = tools.rulesFactory(this, rules);
             if (rules.length === 0) return [];
             var results = [];
+            var resultsHash = {};
             var customErrorTemplates = this.props.customErrorTemplates || {};
             var validations = this.___validations___ || {};
-            value = value || this.___getValue___();
+            value = value || this.state.___value___;
             for (var i = 0; i < rules.length; i++) {
                 var rule = rules[i];
                 if (!defaultValidations.hasOwnProperty(rule) && typeof validations[rule] !== 'function') {
@@ -105,8 +106,12 @@ define(function (require) {
                 var result = validation.apply(null, args);
                 if (result === true || result.isValid) continue;
                 var message = customErrorTemplates[rule] || result.template || result;
-                if (typeof message === 'string' && message.length > 0) results.push(message);
+                if (typeof message === 'string' && message.length > 0) {
+                    results.push(message);
+                    resultsHash[rule] = message;
+                }
             }
+            results.resultsHash = resultsHash;
             return results;
         },
     };

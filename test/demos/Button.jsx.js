@@ -66,11 +66,9 @@ define(function (require) {
     }
 
     return React.createClass({
-        mixins: [React.addons.PureRenderMixin],
         // @override
         getDefaultProps: function () {
             return {
-                demo: 'Button',
                 alert: function () {}
             };
         },
@@ -78,13 +76,7 @@ define(function (require) {
             this.props.alert(e.target.value);
         },
         render: function () {
-            var containerProp = {
-                className: 'demo-content',
-                style: {
-                    display: this.props.demo === 'Button' ? 'block' : 'none'
-                }
-            };
-            return (<div {...containerProp}>{factory(this, items)}</div>);
+            return (<div>{factory(this, items)}</div>);
         }
     });
 });

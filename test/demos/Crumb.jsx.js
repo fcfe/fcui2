@@ -90,11 +90,9 @@ define(function (require) {
 
 
     return React.createClass({
-        mixins: [React.addons.PureRenderMixin],
         // @override
         getDefaultProps: function () {
             return {
-                demo: 'Crumb',
                 alert: function () {}
             };
         },
@@ -103,13 +101,7 @@ define(function (require) {
             return {};
         },
         render: function () {
-            var containerProp = {
-                className: 'demo-content',
-                style: {
-                    display: this.props.demo === 'Crumb' ? 'block' : 'none'
-                }
-            };
-            return (<div {...containerProp}>{factory(this, items)}</div>);
+            return (<div>{factory(this, items)}</div>);
         }
     });
 });

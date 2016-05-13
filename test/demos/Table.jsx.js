@@ -154,6 +154,34 @@ define(function (require) {
             }
         },
         {
+            title: 'Table with Selector that can select current page.',
+            onChange: true,
+            props: {
+                flags: {
+                    showHeader: true,
+                    showSelector: 2
+                },
+                datasource: datasource,
+                fieldConfig: [
+                    fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
+                ]
+            }
+        },
+        {
+            title: 'Table with Selector that can select all items.',
+            onChange: true,
+            props: {
+                flags: {
+                    showHeader: true,
+                    showSelector: 3
+                },
+                datasource: datasource,
+                fieldConfig: [
+                    fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
+                ]
+            }
+        },
+        {
             title: 'Disabled Table',
             props: {
                 disabled: true,
@@ -222,11 +250,10 @@ define(function (require) {
 
 
     return React.createClass({
-        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
+        mixins: [React.addons.LinkedStateMixin],
         // @override
         getDefaultProps: function () {
             return {
-                demo: 'Table',
                 alert: function () {}
             };
         },
@@ -241,13 +268,7 @@ define(function (require) {
             this.props.alert(type + ' ' + JSON.stringify(param));
         },
         render: function () {
-            var containerProp = {
-                className: 'demo-content',
-                style: {
-                    display: this.props.demo === 'Table' ? 'block' : 'none'
-                }
-            };
-            return (<div {...containerProp}>{factory(this, items)}</div>);
+            return (<div>{factory(this, items)}</div>);
         }
     });
 });

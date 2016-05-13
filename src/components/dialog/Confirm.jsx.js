@@ -15,11 +15,11 @@ define(function (require) {
         },
         enterHandler: function () {
             this.props.onEnter();
-            this.props.dispose();
+            this.props.close();
         },
         cancelHandler: function () {
             this.props.onCancel();
-            this.props.dispose();
+            this.props.close();
         },
         render: function () {
             return (

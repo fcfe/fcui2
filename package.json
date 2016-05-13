@@ -1,27 +1,68 @@
 {
-    "name": "fcui",
-    "version": "2.0.1-alpha.1",
-    "scripts": {
-        "start": "edp webserver start"
-    },
-    "maintainers": [
-        {
-            "name": "Li Haitao",
-            "email": "lihaitao03@baidu.com"
-        }
-    ],
-    "contributors": [
-        {
-            "name": "Han Bingfeng",
-            "email": "hanbingfeng@baidu.com"
-        }
-    ],
-    "dependencies": {
-        "react": "~15.0.0",
-        "underscore": "~1.8.5"
-    },
-    "main": "main",
-    "description": "FCUI2，基于React实现的符合OneUX标准的组件库。",
-    "homepage": "https://github.com/fcfe/fcui2",
-    "repository": "git@github.com:fcfe/fcui2.git"
+  "name": "fcui",
+  "version": "2.0.1-alpha.1",
+  "scripts": {
+    "start": "mkdir -p ./node_modules/edp/node_modules && ./node_modules/.bin/edp webserver start",
+    "test": "./node_modules/.bin/edp build -f && ./node_modules/.bin/karma start"
+  },
+  "maintainers": [
+    {
+      "name": "Li Haitao",
+      "email": "lihaitao03@baidu.com"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Han Bingfeng",
+      "email": "hanbingfeng@baidu.com"
+    }
+  ],
+  "dependencies": {
+    "react": "~15.0.0",
+    "underscore": "~1.8.3"
+  },
+  "main": "main",
+  "description": "FCUI2，基于React实现的符合OneUX标准的组件库。",
+  "homepage": "https://github.com/fcfe/fcui2",
+  "repository": "git@github.com:fcfe/fcui2.git",
+  "devDependencies": {
+    "babel-core": "^6.7.7",
+    "babel-plugin-check-es2015-constants": "^6.7.2",
+    "babel-plugin-transform-es2015-arrow-functions": "^6.7.7",
+    "babel-plugin-transform-es2015-block-scoped-functions": "^6.6.5",
+    "babel-plugin-transform-es2015-block-scoping": "^6.7.1",
+    "babel-plugin-transform-es2015-classes": "^6.7.7",
+    "babel-plugin-transform-es2015-computed-properties": "^6.6.5",
+    "babel-plugin-transform-es2015-destructuring": "^6.6.5",
+    "babel-plugin-transform-es2015-for-of": "^6.6.0",
+    "babel-plugin-transform-es2015-function-name": "^6.5.0",
+    "babel-plugin-transform-es2015-literals": "^6.5.0",
+    "babel-plugin-transform-es2015-object-super": "^6.6.5",
+    "babel-plugin-transform-es2015-parameters": "^6.7.0",
+    "babel-plugin-transform-es2015-shorthand-properties": "^6.5.0",
+    "babel-plugin-transform-es2015-spread": "^6.6.5",
+    "babel-plugin-transform-es2015-sticky-regex": "^6.5.0",
+    "babel-plugin-transform-es2015-template-literals": "^6.6.5",
+    "babel-plugin-transform-es2015-typeof-symbol": "^6.6.0",
+    "babel-plugin-transform-es2015-unicode-regex": "^6.5.0",
+    "babel-plugin-transform-object-rest-spread": "^6.6.5",
+    "babel-preset-react": "^6.5.0",
+    "coveralls": "^2.11.9",
+    "edp": "^1.1.1",
+    "edp-build": "^1.1.2",
+    "edp-webserver": "^1.2.6",
+    "istanbul": "^0.4.3",
+    "jasmine": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-coverage": "^0.5.5",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-ie-launcher": "^0.2.0",
+    "karma-jasmine": "^0.3.8",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-requirejs": "^0.2.6",
+    "phantomjs-prebuilt": "^2.1.7",
+    "requirejs": "^2.2.0"
+  },
+  "license": "MIT"
 }

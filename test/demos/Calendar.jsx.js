@@ -87,11 +87,10 @@ define(function (require) {
 
 
     return React.createClass({
-        mixins: [React.addons.LinkedStateMixin, React.addons.PureRenderMixin],
+        mixins: [React.addons.LinkedStateMixin],
         // @override
         getDefaultProps: function () {
             return {
-                demo: 'Calendar',
                 alert: function () {}
             };
         },
@@ -103,13 +102,7 @@ define(function (require) {
             this.props.alert(e.target.value);
         },
         render: function () {
-            var containerProp = {
-                className: 'demo-content',
-                style: {
-                    display: this.props.demo === 'Calendar' ? 'block' : 'none'
-                }
-            };
-            return (<div {...containerProp}>{factory(this, items)}</div>);
+            return (<div>{factory(this, items)}</div>);
         }
     });
 });
