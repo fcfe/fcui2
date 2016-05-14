@@ -31,7 +31,8 @@ define(function (require) {
                 onBeforeOpen: noop,
                 onRender: noop,
                 onBeforeClose: noop,
-                onClose: noop
+                onClose: noop,
+                onCloseByWindow: noop
             };
         },
 
@@ -94,6 +95,7 @@ define(function (require) {
                 return;
             }
             this.removeSubTree();
+            typeof this.props.onCloseByWindow === 'function' && this.props.onCloseByWindow();
         },
 
 
