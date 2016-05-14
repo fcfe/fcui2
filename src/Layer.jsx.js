@@ -67,6 +67,7 @@ define(function (require) {
             });
             me.___layerContainer___ = layer;
             me.___layerAppended___ = false;
+            me.___renderCount___ = 0;
             window.addEventListener('click', me.bodyClickHandler);
             me.renderSubTree(me.props);
         },
@@ -82,11 +83,16 @@ define(function (require) {
         componentWillUnmount: function() {
             this.removeSubTree();
             window.removeEventListener('click', this.bodyClickHandler);
+            this.___renderCount___ = 0;
         },
 
 
         bodyClickHandler: function (e) {
-            if (this.state.mouseenter || !this.___layerAppended___ || !this.props.closeWithBodyClick) return;
+            if (this.state.mouseenter || !this.props.closeWithBodyClick) return;
+            if (this.___renderCount___ === 1) {
+                this.___renderCount___++;
+                return;
+            }
             this.removeSubTree();
         },
 
@@ -110,13 +116,14 @@ define(function (require) {
             var me = this;
             if (props.isOpen) {
                 if (!this.___layerAppended___) {
-                    document.body.appendChild(this.___layerContainer___);
                     this.___layerAppended___ = true;
+                    document.body.appendChild(this.___layerContainer___);
                     typeof props.onBeforeOpen === 'function' && props.onBeforeOpen();
                 }
                 renderSubtreeIntoContainer(this, props.children, this.___layerContainer___, function () {
                     me.fixedPosition(props);
                     typeof props.onRender === 'function' && props.onRender();
+                    me.___renderCount___ ++;
                 });
                 return;
             }
@@ -207,6 +214,7 @@ define(function (require) {
             this.___layerContainer___.style.top = '-9999px';
             document.body.removeChild(this.___layerContainer___);
             this.___layerAppended___ = false;
+            this.___renderCount___ = 0;
             this.setState({mouseenter: false});
         },
 
