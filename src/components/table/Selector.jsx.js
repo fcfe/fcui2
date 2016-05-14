@@ -3,8 +3,9 @@ define(function (require) {
 
     var React = require('react');
     var language = require('../../core/language');
-    var MouseWidgetBase = require('../../mixins/MouseWidgetBase');
-    var LayerContainerBase = require('../../mixins/LayerContainerBase');
+    var Layer = require('../../Layer.jsx');
+    var List = require('../../List.jsx');
+
 
     var SELECT_MODE = {
         CURRENT_PAGE: '2',
@@ -14,6 +15,7 @@ define(function (require) {
         CURRENT_PAGE: '-2',
         CLEAR: '-3'
     };
+
 
     function getSelectNum(obj) {
         if (obj === -1) return -1;
@@ -27,8 +29,6 @@ define(function (require) {
 
     return React.createClass({
         // @override
-        mixins: [MouseWidgetBase, LayerContainerBase],
-        // @override
         getDefaultProps: function () {
             return {
                 type: 1, // 见SELECT_MODE
@@ -38,10 +38,13 @@ define(function (require) {
                     {label: language.tableSelector.selectCurrentPage, value: '-2'},
                     {label: language.tableSelector.selectAll, value: '-1'}
                 ],
-                onClick: function () {},
-                layerContent: require('../../List.jsx'),
-                layerProps: {},
-                layerInterface: 'onClick'
+                onClick: function () {}
+            };
+        },
+        // @override
+        getInitialState: function () {
+            return {
+                layerOpen: false
             };
         },
         // @override
@@ -56,8 +59,8 @@ define(function (require) {
                 mainCheckbox.indeterminate = i !== -1 && i > 0;
             }
         },
-        layerAction: function (e) {
-            this.layerHide();
+        listClickHandler: function (e) {
+            this.setState({layerOpen: false});
             this.props.onClick(e);
         },
         mainSelectorHandler: function (e) {
@@ -76,9 +79,16 @@ define(function (require) {
             this.props.onClick(e);
         },
         mouseEnterHandler: function (e) {
-            this.___mouseenterHandler___();
             if (this.props.disabled) return;
-            this.layerShow();
+            this.setState({layerOpen: true});
+        },
+        mouseLeaveHandler: function (e) {
+            var me = this;
+            // 延迟关闭
+            setTimeout(function () {
+                if (me.refs.layer && me.refs.layer.state.mouseenter) return;
+                me.setState({layerOpen: false});
+            }, 200);
         },
         // @override
         render: function () {
@@ -86,7 +96,7 @@ define(function (require) {
             var containerProp = {
                 className: 'table-selector fcui2-dropdownlist',
                 onMouseEnter: this.mouseEnterHandler,
-                onMouseLeave: this.___mouseleaveHandler___,
+                onMouseLeave: this.mouseLeaveHandler,
                 ref: 'container'
             };
             var workMode = this.props.type + '';
@@ -105,10 +115,20 @@ define(function (require) {
                     </div>
                 );
             }
+            var layerProp = {
+                 isOpen: this.state.layerOpen && !this.props.disabled,
+                 anchor: this.refs.container,
+                 location: 'bottom top right',
+                 onMouseLeave: this.mouseLeaveHandler,
+                 ref: 'layer'
+            };
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
                     <input {...mainCheckboxProp}/>
+                    <Layer {...layerProp}>
+                        <List datasource={this.props.datasource} onClick={this.listClickHandler}/>
+                    </Layer>
                 </div>
             );
         }
