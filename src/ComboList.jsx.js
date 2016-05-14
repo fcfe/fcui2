@@ -74,7 +74,10 @@ define(function (require) {
                 ref: 'layer',
                 isOpen: this.state.layerOpen && this.props.datasource.length && !this.props.disabled,
                 anchor: this.refs.container,
-                onMouseLeave: this.mouseLeaveHandler
+                onMouseLeave: this.mouseLeaveHandler,
+                style: {
+                    minWidth: '150px'
+                }
             };
             var listProp = {
                 datasource: this.props.datasource,

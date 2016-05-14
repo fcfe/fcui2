@@ -8,13 +8,11 @@ define(function (require) {
 
 
     var React = require('react');
-    var MouseWidgetBase = require('./mixins/MouseWidgetBase');
-    var LayerContainerBase = require('./mixins/LayerContainerBase');
+    var Layer = require('./Layer.jsx');
+    var List = require('./List.jsx');
 
 
     return React.createClass({
-        // @override
-        mixins: [MouseWidgetBase, LayerContainerBase],
         // @override
         getDefaultProps: function () {
             return {
@@ -23,24 +21,30 @@ define(function (require) {
                 minWidth: 60,
                 width: NaN,
                 disabled: false,
-                datasource: [],         //见List
-                onClick: function () {},
-                // 以下为LayerContainerBase中需要的配置
-                layerContent: require('./List.jsx'),
-                layerProps: {},
-                layerInterface: 'onClick'
+                datasource: [],
+                onClick: function () {}
             };
         },
-        layerAction: function (e) {
+        getInitialState: function () {
+            return {
+                layerOpen: false
+            };
+        },
+        listClickHandler: function (e) {
             if (this.props.disabled) return;
             this.props.onClick(e);
-            this.layerHide();
-            e.stopPropagation();
+            this.setState({layerOpen: false});
         },
         mouseEnterHandler: function (e) {
-            this.___mouseenterHandler___();
-            if (this.props.datasource.length === 0 || this.props.disabled) return;
-            this.layerShow();
+            this.setState({layerOpen: true});
+        },
+        mouseLeaveHandler: function (e) {
+            var me = this;
+            // 延迟关闭
+            setTimeout(function () {
+                if (me.refs.layer && me.refs.layer.state.mouseenter) return;
+                me.setState({layerOpen: false});
+            }, 200);
         },
         render: function () {
             var me = this;
@@ -48,7 +52,7 @@ define(function (require) {
                 className: 'fcui2-dropdownlist ' + this.props.className,
                 style: {minWidth: this.props.minWidth},
                 onMouseEnter: this.mouseEnterHandler,
-                onMouseLeave: this.___mouseleaveHandler___,
+                onMouseLeave: this.mouseLeaveHandler,
                 ref: 'container'
             };
             if (this.props.disabled) {
@@ -58,10 +62,26 @@ define(function (require) {
                 delete containerProp.style.minWidth;
                 containerProp.style.width = this.props.width;
             }
+            var layerProp = {
+                ref: 'layer',
+                onMouseLeave: this.mouseLeaveHandler,
+                isOpen: this.state.layerOpen && !this.props.disabled && this.props.datasource.length,
+                anchor: this.refs.container,
+                style: {
+                    minWidth: '150px'
+                }
+            };
+            var listProp = {
+                datasource: this.props.datasource,
+                onClick: this.listClickHandler
+            };
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
                     <span>{this.props.label}</span>
+                    <Layer {...layerProp}>
+                        <List {...listProp} />
+                    </Layer>
                 </div>
             );
         }

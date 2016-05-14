@@ -10,11 +10,11 @@ define(function (require) {
                 label: 'Main Command1',
                 value: 'Main Command1',
                 datasource: [
-                    {label: '　　　option1　　　', value: 'option1'},
-                    {label: '　　　option2', value: 'option2', disabled: true},
-                    {label: '　　　option3', value: 'option3'},
-                    {label: '　　　option4', value: 'option4'},
-                    {label: '　　　option5', value: 'option5'}
+                    {label: 'option1', value: 'option1'},
+                    {label: 'option2', value: 'option2', disabled: true},
+                    {label: 'option3', value: 'option3'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'}
                 ]
             }
         },
