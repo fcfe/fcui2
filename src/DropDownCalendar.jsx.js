@@ -8,17 +8,19 @@ define(function (require) {
 
 
     var React = require('react');
-    var MouseWidgetBase = require('./mixins/MouseWidgetBase');
-    var LayerContainerBase = require('./mixins/LayerContainerBase');
     var InputWidgetBase = require('./mixins/InputWidgetBase');
     var InputWidgetInForm = require('./mixins/InputWidgetInForm');
+    var Layer = require('./Layer.jsx');
+    var Calendar = require('./Calendar.jsx');
+
+
     var tools = require('./core/calendarTools');
     var util = require('./core/util');
 
 
     return React.createClass({
         // @override
-        mixins: [MouseWidgetBase, LayerContainerBase, InputWidgetBase, InputWidgetInForm],
+        mixins: [InputWidgetBase, InputWidgetInForm],
         // @override
         getDefaultProps: function () {
             return {
@@ -29,31 +31,32 @@ define(function (require) {
                 min: '0-1-1',
                 max: '9999-12-31',
                 disabled: false,
-                valueTemplate: '',
-                // 以下为LayerContainerBase中需要的配置
-                layerContent: require('./Calendar.jsx'),
-                layerProps: {},
-                layerInterface: 'onChange'
+                valueTemplate: ''
             };
         },
         // @override
         getInitialState: function () {
-            return {};
+            return {
+                layerOpen: false
+            };
         },
-        layerAction: function (e) {
+        changeHandler: function (e) {
             var value = this.___getValue___();
             if (this.props.disabled || value === e.target.value) return;
             this.___dispatchChange___(e);
-            this.layerHide();
+            this.setState({layerOpen: false});
         },
         mouseEnterHandler: function (e) {
-            this.___mouseenterHandler___();
             if (this.props.disabled) return;
-            this.layerShow({
-                value: this.___getValue___(),
-                min: this.props.min,
-                max: this.props.max
-            });
+            this.setState({layerOpen: true});
+        },
+        mouseLeaveHandler: function (e) {
+            var me = this;
+            // 延迟关闭
+            setTimeout(function () {
+                if (me.refs.layer && me.refs.layer.state.mouseenter) return;
+                me.setState({layerOpen: false});
+            }, 200);
         },
         render: function () {
             var me = this;
@@ -64,7 +67,7 @@ define(function (require) {
                     borderColor: this.state.isValid === false ? '#F00' : undefined 
                 },
                 onMouseEnter: this.mouseEnterHandler,
-                onMouseLeave: this.___mouseleaveHandler___,
+                onMouseLeave: this.mouseLeaveHandler,
                 ref: 'container'
             };
             if (this.props.disabled) {
@@ -75,10 +78,25 @@ define(function (require) {
                 containerProp.style.width = this.props.width;
             }
             var label = this.___getValue___() || this.props.placeholder;
+            var layerProp = {
+                isOpen: this.state.layerOpen && !this.props.disabled,
+                anchor: this.refs.container,
+                onMouseLeave: this.mouseLeaveHandler,
+                ref: 'layer'
+            };
+            var calendarProp = {
+                min: this.props.min,
+                max: this.props.max,
+                value: this.___getValue___(),
+                onChange: this.changeHandler
+            };
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-calendar"></div>
                     <div className="label-container">{label}</div>
+                    <Layer {...layerProp}>
+                        <Calendar {...calendarProp} />
+                    </Layer>
                 </div>
             );
         }
