@@ -11,8 +11,7 @@ define(function (require) {
     let React = require('react');
     let _ = require('underscore');
 
-    let InputWidgetBase = require('./mixins/InputWidgetBase');
-    let InputWidgetInForm = require('./mixins/InputWidgetInForm');
+    let InputWidget = require('./mixins/InputWidget');
 
     let util = require('./core/util');
     let tools = require('./core/scheduleTools');
@@ -79,7 +78,7 @@ define(function (require) {
             infoLegendText: React.PropTypes.object
         },
         // @override
-        mixins: [InputWidgetBase, InputWidgetInForm],
+        mixins: [InputWidget],
         // @override
         getDefaultProps() {
             return {

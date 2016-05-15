@@ -8,8 +8,8 @@ define(function (require) {
 
 
     var React = require('react');
-    var InputWidgetBase = require('./mixins/InputWidgetBase');
-    var InputWidgetInForm = require('./mixins/InputWidgetInForm');
+    var InputWidget = require('./mixins/InputWidget');
+    
     var CheckBox = require('./CheckBox.jsx');
     var Radio = require('./Radio.jsx');
     var ProvinceRenderer = require('./components/region/NormalProvince.jsx');
@@ -23,7 +23,7 @@ define(function (require) {
 
     return React.createClass({
         // @override
-        mixins: [InputWidgetBase, InputWidgetInForm],
+        mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
             return {

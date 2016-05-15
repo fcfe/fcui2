@@ -9,7 +9,7 @@ define(function (require) {
 
     var React = require('react');
     var util = require('./core/util');
-    var MouseWidgetBase = require('./mixins/MouseWidgetBase');
+
 
     /**
      * 下拉列表默认内容
@@ -23,8 +23,6 @@ define(function (require) {
     };
 
     return React.createClass({
-        // @override
-        mixins: [MouseWidgetBase],
         propTypes: {
             /**
              * 下拉列表内容
@@ -75,8 +73,6 @@ define(function (require) {
             var containerProps = {
                 ref: 'container',
                 className: 'fcui2-list ' + me.props.className,
-                onMouseEnter: this.___mouseenterHandler___,
-                onMouseLeave: this.___mouseleaveHandler___,
                 onClick: this.clickHandler
             };
             if (!isNaN(this.props.width)) {

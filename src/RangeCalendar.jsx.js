@@ -8,8 +8,8 @@ define(function (require) {
 
 
     var React = require('react');
-    var InputWidgetBase = require('./mixins/InputWidgetBase');
-    var InputWidgetInForm = require('./mixins/InputWidgetInForm');
+    var InputWidget = require('./mixins/InputWidget');
+    
     var Layer = require('./Layer.jsx');
     var Calendar = require('./Calendar.jsx');
     var Button = require('./Button.jsx');
@@ -25,7 +25,7 @@ define(function (require) {
 
 
         // @override
-        mixins: [InputWidgetBase, InputWidgetInForm],
+        mixins: [InputWidget],
 
 
         // @override

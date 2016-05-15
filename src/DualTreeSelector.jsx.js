@@ -6,8 +6,7 @@
 define(function (require) {
     let _ = require('underscore');
     let React = require('react');
-    let InputWidgetBase = require('./mixins/InputWidgetBase');
-    let InputWidgetInForm = require('./mixins/InputWidgetInForm');
+    let InputWidget = require('./mixins/InputWidget');
     let Tree = require('./Tree.jsx');
     let treeTools = require('./core/treeTools.es6');
 
@@ -75,7 +74,7 @@ define(function (require) {
             onLeftTreeNodeOperationClicked: React.PropTypes.func
         },
 
-        mixins: [InputWidgetBase, InputWidgetInForm],
+        mixins: [InputWidget],
 
         getDefaultProps() {
             return {

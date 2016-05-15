@@ -8,13 +8,13 @@ define(function (require) {
 
 
     var React = require('react');
-    var InputWidgetBase = require('./mixins/InputWidgetBase');
-    var InputWidgetInForm = require('./mixins/InputWidgetInForm');
+    var InputWidget = require('./mixins/InputWidget');
+    
 
 
     return React.createClass({
         // @override
-        mixins: [InputWidgetBase, InputWidgetInForm],
+        mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
             return {
@@ -68,7 +68,6 @@ define(function (require) {
                 checked: this.___getValue___(),
                 onChange: this.changeHandler
             };
-            this.___mergeInputHandlers___(inputProp, this.props);
             for (var key in this.props.style) {
                 if (!this.props.style.hasOwnProperty(key)) continue;
                 containerProp.style[key] = this.props.style[key];

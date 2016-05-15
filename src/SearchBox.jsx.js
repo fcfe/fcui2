@@ -8,13 +8,13 @@ define(function (require) {
 
 
     var React = require('react');
-    var InputWidgetBase = require('./mixins/InputWidgetBase');
+    var InputWidget = require('./mixins/InputWidget');
     var TextBox = require('./TextBox.jsx');
 
 
     return React.createClass({
         // @override
-        mixins: [InputWidgetBase],
+        mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
             return {

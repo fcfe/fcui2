@@ -13,9 +13,8 @@ define(function (require) {
     var tool = require('./core/calendarTools');
 
 
-    var InputWidgetBase = require('./mixins/InputWidgetBase');
-    var InputWidgetInForm = require('./mixins/InputWidgetInForm');
-    var MouseWidgetBase = require('./mixins/MouseWidgetBase');
+    var InputWidget = require('./mixins/InputWidget');
+    
 
 
     var Button = require('./Button.jsx');
@@ -24,7 +23,7 @@ define(function (require) {
 
     return React.createClass({
         // @override
-        mixins: [MouseWidgetBase, InputWidgetBase, InputWidgetInForm],
+        mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
             return {
@@ -122,9 +121,7 @@ define(function (require) {
         render: function () {
             var containerProp = {
                 className: 'fcui2-calendar ' + this.props.className,
-                ref: 'container',
-                onMouseEnter: this.___mouseenterHandler___,
-                onMouseLeave: this.___mouseleaveHandler___
+                ref: 'container'
             };
             var yearInputProp = {
                 min: 0,

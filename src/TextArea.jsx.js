@@ -8,13 +8,13 @@ define(function (require) {
 
 
     var React = require('react');
-    var InputWidgetBase = require('./mixins/InputWidgetBase');
-    var InputWidgetInForm = require('./mixins/InputWidgetInForm');
+    var InputWidget = require('./mixins/InputWidget');
+    
 
 
     return React.createClass({
         // @override
-        mixins: [InputWidgetBase, InputWidgetInForm],
+        mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
             return {
@@ -72,7 +72,6 @@ define(function (require) {
                     height: this.props.height - 22
                 }
             };
-            this.___mergeInputHandlers___(inputProp, this.props);
             if (this.props.disabled) {
                 containerProp.className += ' fcui2-textarea-disabled'
             }

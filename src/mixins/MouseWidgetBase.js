@@ -6,6 +6,8 @@
  * 此mixin主要作用是提供某些鼠标事件
  * 将mouseover, mousedown状态记录在state中
  * 这些鼠标事件应由组件设计者自行绑定，或在自定义事件中调用
+ *
+ * @Attention 此mixin已停止维护，即将废弃。
  */
 define(function (require) {
 

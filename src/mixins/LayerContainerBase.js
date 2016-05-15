@@ -35,6 +35,8 @@
  * 初始化完毕后的react组件实例
  *
  * 此mixin会在this下暴露两个接口，this.layerShow用于弹出layer，this.layerHide用于移除layer
+ *
+ * @Attention 此mixin已停止维护，并已废弃，即将删除
  */
 define(function (require) {
 
