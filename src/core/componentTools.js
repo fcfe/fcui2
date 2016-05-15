@@ -30,7 +30,7 @@ define(function (require) {
             // 处理options.mergeFromProps
             options = options || {};
             if (options.mergeFromProps instanceof Array) {
-                for (var i = 0; i < options.mergeFromProps; i++) {
+                for (var i = 0; i < options.mergeFromProps.length; i++) {
                     var key = options.mergeFromProps[i];
                     if (props.hasOwnProperty(key) && !result.hasOwnProperty(key)) {
                         result[key] = props[key];

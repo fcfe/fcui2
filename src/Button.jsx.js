@@ -98,7 +98,7 @@ define(function (require) {
                     onMouseUp: this.mouseupHandler,
                     onClick: this.clickHandler
                 },
-                mergeFromProps: ['onMouseEnter', 'onMouseLeave']
+                mergeFromProps: ['onMouseEnter', 'onMouseLeave', 'value']
             });
             containerProp.className += this.state.mousedown ? ' fcui2-button-active' : '';
             return (
