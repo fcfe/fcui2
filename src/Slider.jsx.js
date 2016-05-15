@@ -10,7 +10,7 @@ define(function (require) {
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
     
-    var tool = require('./core/sliderUtil');
+    var tool = require('./core/sliderTools');
     var util = require('./core/util');
 
 
