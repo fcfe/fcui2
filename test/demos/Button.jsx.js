@@ -4,6 +4,7 @@ define(function (require) {
     var React = require('react');
     var Button = require('fcui/Button.jsx');
 
+
     var items = [
         {
             title: 'Normal Button',
@@ -34,18 +35,11 @@ define(function (require) {
             props: {label: 'Find', skin:'important', width: 50, icon: 'font-icon-enlarge', value: 'button width icon'}
         },
         {
-            title: 'Button with MinWidth',
-            props: {label: 'Width', minWidth: 200, value: 'button with minWidth'}
-        },
-        {
-            title: 'Button with MinWidth and a Long Label',
-            props: {label: 'The minWidth is 100, but the label is very long', minWidth: 100, value: 'button with minWidth 100'}
-        },
-        {
-            title: 'Button with Width',
-            props: {label: 'Button Width setted 100', icon: 'font-icon-enlarge', width: 100, value: 'button with width'}
-        }  
+            title: 'Button with Style',
+            props: {label: 'Width', style: {width: 300}, value: 'button with minWidth'}
+        }
     ];
+
 
     function factory(me, items) {
         var widgets = [];
