@@ -23,7 +23,6 @@ define(function (require) {
         DropDownCalendar: require('./demos/DropDownCalendar.jsx'),
         RangeCalendar: require('./demos/RangeCalendar.jsx'),
         Schedule: require('./demos/Schedule.jsx'),
-        DropDownSchedule: require('./demos/DropDownSchedule.jsx'),
         Region: require('./demos/Region.jsx'),
         DropDownRegion: require('./demos/DropDownRegion.jsx'),
         Tab: require('./demos/Tab.jsx'),
@@ -42,7 +41,7 @@ define(function (require) {
         'TitleWindow', '',
 
         'Checkbox', 'Radio', 'TextBox', 'NumberBox', 'TextArea', 'Select', 'Calendar', 'DropDownCalendar',
-        'RangeCalendar', 'Schedule', 'DropDownSchedule', 'Region', 'DropDownRegion', 'SearchBox', 'Slider', 'Tree', '',
+        'RangeCalendar', 'Schedule', 'Region', 'DropDownRegion', 'SearchBox', 'Slider', 'Tree', '',
 
         'Table', 'Dialog', 'Form', 'DualTreeSelector',
     ];

@@ -7,6 +7,7 @@
  */
 
 define(function (require) {
+
     let React = require('react');
     let _ = require('underscore');
 
