@@ -3,7 +3,7 @@
  * @author Brian Li
  * @author Han Bing Feng
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.1
  */
 
 define(function (require) {

@@ -2,7 +2,7 @@
  * @file 功能性弹层组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -20,9 +20,11 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                skin: '',
+                className: '',
+                style: {},
                 isOpen: false,
                 anchor: null,
-                style: {},
                 location: '',
                 closeWithBodyClick: false,
                 onOffset: noop,
@@ -48,29 +50,28 @@ define(function (require) {
         // @override
         componentDidMount: function () {
             if (!window || !document) return;
-            var me = this;
             var layer = document.createElement('div');
-            var style = me.props.style || {};
-            layer.className = 'fcui2-layer';
+            var style = this.props.style || {};
+            // 设置容器皮肤及样式
+            layer.className = 'fcui2-layer'
+                + (typeof this.props.className === 'string' && this.props.className ? (' ' + this.props.className) : '')
+                + (typeof this.props.skin === 'string' && this.props.skin ? (' fcui2-layer-' + this.props.skin) : '');
             for (var key in style) {
                 if (!style.hasOwnProperty(key)) continue;
                 layer.style[key] = style[key];
             }
             layer.style.left = '-9999px';
             layer.style.top = '-9999px';
-            layer.addEventListener('mouseenter', function () {
-                me.setState({mouseenter: true});
-                typeof me.props.onMouseEnter === 'function' && me.props.onMouseEnter();
-            });
-            layer.addEventListener('mouseleave', function () {
-                me.setState({mouseenter: false});
-                typeof me.props.onMouseLeave === 'function' && me.props.onMouseLeave();
-            });
-            me.___layerContainer___ = layer;
-            me.___layerAppended___ = false;
-            me.___renderCount___ = 0;
-            window.addEventListener('click', me.bodyClickHandler);
-            me.renderSubTree(me.props);
+            // 挂接容器事件和全局事件
+            layer.addEventListener('mouseenter', this.layerMouseEnterHandler);
+            layer.addEventListener('mouseleave', this.layerMouseLeaveHandler);
+            window.addEventListener('click', this.bodyClickHandler);
+            // 记录实例变量
+            this.___layerContainer___ = layer;
+            this.___layerAppended___ = false;
+            this.___renderCount___ = 0;
+            // 渲染子树
+            this.renderSubTree(this.props);
         },
 
 
@@ -82,9 +83,24 @@ define(function (require) {
 
         // @override
         componentWillUnmount: function() {
-            this.removeSubTree();
+            var layer = this.___layerContainer___;
+            layer.removeEventListener('mouseenter', this.layerMouseEnterHandler);
+            layer.removeEventListener('mouseleave', this.layerMouseLeaveHandler);
             window.removeEventListener('click', this.bodyClickHandler);
             this.___renderCount___ = 0;
+            this.removeSubTree();
+        },
+
+
+        layerMouseEnterHandler: function () {
+            this.setState({mouseenter: true});
+            typeof this.props.onMouseEnter === 'function' && this.props.onMouseEnter();
+        },
+
+
+        layerMouseLeaveHandler: function () {
+            this.setState({mouseenter: false});
+            typeof this.props.onMouseLeave === 'function' && this.props.onMouseLeave();
         },
 
 
@@ -106,8 +122,8 @@ define(function (require) {
             typeof this.props.onBeforeClose === 'function' && this.props.onBeforeClose(evt);
             if (evt.returnValue) {
                 this.removeSubTree();
+                typeof this.props.onClose === 'function' && this.props.onClose();
             }
-            typeof this.props.onClose === 'function' && this.props.onClose();
         },
 
 

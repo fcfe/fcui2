@@ -1,6 +1,7 @@
 /**
  * @file 双树选择器。
  * @author Han Bing Feng (hanbingfeng@baidu.com)
+ * @version 0.0.1
  */
 
 define(function (require) {
