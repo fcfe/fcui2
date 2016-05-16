@@ -10,12 +10,12 @@ define(function (require) {
     var Button = require('./Button.jsx');
     var language = require('./core/language');
     var React = require('react');
-    var InputWidgetBase = require('./mixins/InputWidgetBase');
+    var InputWidget = require('./mixins/InputWidget');
 
 
     return React.createClass({
         // #override
-        mixins: [InputWidgetBase],
+        mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
             return {

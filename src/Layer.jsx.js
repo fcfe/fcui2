@@ -2,7 +2,7 @@
  * @file 功能性弹层组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -20,17 +20,21 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                skin: '',
+                className: '',
+                style: {},
                 isOpen: false,
                 anchor: null,
+                location: '',
                 closeWithBodyClick: false,
-                style: {},
-                layerPosition: '',
+                onOffset: noop,
                 onMouseEnter: noop,
                 onMouseLeave: noop,
                 onBeforeOpen: noop,
                 onRender: noop,
                 onBeforeClose: noop,
-                onClose: noop
+                onClose: noop,
+                onCloseByWindow: noop
             };
         },
 
@@ -46,28 +50,28 @@ define(function (require) {
         // @override
         componentDidMount: function () {
             if (!window || !document) return;
-            var me = this;
             var layer = document.createElement('div');
-            var style = me.props.style || {};
-            layer.className = 'fcui2-layer';
+            var style = this.props.style || {};
+            // 设置容器皮肤及样式
+            layer.className = 'fcui2-layer'
+                + (typeof this.props.className === 'string' && this.props.className ? (' ' + this.props.className) : '')
+                + (typeof this.props.skin === 'string' && this.props.skin ? (' fcui2-layer-' + this.props.skin) : '');
             for (var key in style) {
                 if (!style.hasOwnProperty(key)) continue;
                 layer.style[key] = style[key];
             }
             layer.style.left = '-9999px';
             layer.style.top = '-9999px';
-            layer.addEventListener('mouseenter', function () {
-                me.setState({mouseenter: true});
-                typeof me.props.onMouseEnter === 'function' && me.props.onMouseEnter();
-            });
-            layer.addEventListener('mouseleave', function () {
-                me.setState({mouseenter: false});
-                typeof me.props.onMouseLeave === 'function' && me.props.onMouseLeave();
-            });
-            me.___layerContainer___ = layer;
-            me.___layerAppended___ = false;
-            window.addEventListener('click', me.bodyClickHandler);
-            me.renderSubTree(me.props);
+            // 挂接容器事件和全局事件
+            layer.addEventListener('mouseenter', this.layerMouseEnterHandler);
+            layer.addEventListener('mouseleave', this.layerMouseLeaveHandler);
+            window.addEventListener('click', this.bodyClickHandler);
+            // 记录实例变量
+            this.___layerContainer___ = layer;
+            this.___layerAppended___ = false;
+            this.___renderCount___ = 0;
+            // 渲染子树
+            this.renderSubTree(this.props);
         },
 
 
@@ -79,25 +83,47 @@ define(function (require) {
 
         // @override
         componentWillUnmount: function() {
-            this.removeSubTree();
+            var layer = this.___layerContainer___;
+            layer.removeEventListener('mouseenter', this.layerMouseEnterHandler);
+            layer.removeEventListener('mouseleave', this.layerMouseLeaveHandler);
             window.removeEventListener('click', this.bodyClickHandler);
+            this.___renderCount___ = 0;
+            this.removeSubTree();
+        },
+
+
+        layerMouseEnterHandler: function () {
+            this.setState({mouseenter: true});
+            typeof this.props.onMouseEnter === 'function' && this.props.onMouseEnter();
+        },
+
+
+        layerMouseLeaveHandler: function () {
+            this.setState({mouseenter: false});
+            typeof this.props.onMouseLeave === 'function' && this.props.onMouseLeave();
         },
 
 
         bodyClickHandler: function (e) {
-            if (this.state.mouseenter || !this.___layerAppended___ || !this.props.closeWithBodyClick) return;
+            if (this.state.mouseenter || !this.props.closeWithBodyClick) return;
+            if (this.___renderCount___ === 1) {
+                this.___renderCount___++;
+                return;
+            }
             this.removeSubTree();
+            typeof this.props.onCloseByWindow === 'function' && this.props.onCloseByWindow();
         },
 
 
         close: function () {
             var evt = document.createEvent('UIEvents');
             evt.fcuiTarget = this;
+            evt.returnValue = true;
             typeof this.props.onBeforeClose === 'function' && this.props.onBeforeClose(evt);
             if (evt.returnValue) {
                 this.removeSubTree();
+                typeof this.props.onClose === 'function' && this.props.onClose();
             }
-            typeof this.props.onClose === 'function' && this.props.onClose();
         },
 
 
@@ -108,13 +134,14 @@ define(function (require) {
             var me = this;
             if (props.isOpen) {
                 if (!this.___layerAppended___) {
-                    document.body.appendChild(this.___layerContainer___);
                     this.___layerAppended___ = true;
+                    document.body.appendChild(this.___layerContainer___);
                     typeof props.onBeforeOpen === 'function' && props.onBeforeOpen();
                 }
                 renderSubtreeIntoContainer(this, props.children, this.___layerContainer___, function () {
                     me.fixedPosition(props);
                     typeof props.onRender === 'function' && props.onRender();
+                    me.___renderCount___ ++;
                 });
                 return;
             }
@@ -128,39 +155,73 @@ define(function (require) {
             props = props || this.props;
             var layer = this.___layerContainer___;
             var anchor = props.anchor;
-            var layerPosition = props.layerPosition + '';
+            var layerLocation = props.location + '';
             var layerHeight = layer.offsetHeight;
             var layerWidth = layer.offsetWidth;
-            var layerTop = -9999;
-            var layerLeft = -9999;
             var anchorHeight = anchor.offsetHeight;
             var anchorWidth = anchor.offsetWidth;
             var anchorPosition = util.getDOMPosition(anchor);
+            var topIndex = layerLocation.indexOf('top');
+            var bottomIndex = layerLocation.indexOf('bottom');
+            var leftIndex = layerLocation.indexOf('left');
+            var rightIndex = layerLocation.indexOf('right');
+            var result = {
+                left: -9999,
+                top: -9999,
+                isLeft: false,
+                isTop: false
+            }
 
-            if (layerPosition.indexOf('top') > -1) {
-                layerTop = anchorPosition.top - layerHeight;
+            // 只在上方显示
+            if (topIndex > -1 && bottomIndex < 0) { 
+                result.top = anchorPosition.top - layerHeight;
+                result.isTop = true;
             }
-            else if (layerPosition.indexOf('bottom') > -1) {
-                layerTop = anchorPosition.top + anchorHeight - 1;
+            // 只在下方显示
+            else if (bottomIndex > -1 && topIndex < 0) {
+                result.top = anchorPosition.top + anchorHeight - 1;
+                result.isTop = false;
             }
+            // 上方优先显示
+            else if (topIndex < bottomIndex) { 
+                result.top = (result.isTop = (anchorPosition.top - layerHeight > 0))
+                    ? (anchorPosition.top - layerHeight)
+                    : (anchorPosition.top + anchorHeight - 1);
+            }
+            // 下方优先显示
             else {
-                layerTop = (anchorPosition.y + anchorHeight + layerHeight < document.documentElement.clientHeight)
-                    ? (anchorPosition.top + anchorHeight - 1) : (anchorPosition.top - layerHeight);
+                result.top = (result.isTop =
+                        (anchorPosition.y + anchorHeight + layerHeight >= document.documentElement.clientHeight))
+                    ? (anchorPosition.top - layerHeight)
+                    : (anchorPosition.top + anchorHeight - 1);
             }
-            if (layerPosition.indexOf('left') > -1) {
-                layerLeft = anchorPosition.left + anchorWidth - layerWidth;
+
+            // 只在左侧显示
+            if (leftIndex > -1 && rightIndex < 0) {
+                result.left = anchorPosition.left + anchorWidth - layerWidth;
+                result.isLeft = true;
             }
-            else if (layerPosition.indexOf('right') > -1) {
-                layerLeft = anchorPosition.left;
+            // 只在右侧显示
+            else if (rightIndex > -1 && leftIndex < 0) {
+                result.left = anchorPosition.left;
+                result.isLeft = false;
             }
+            // 左侧优先显示
+            else if (leftIndex < rightIndex) {
+                result.left = (result.isLeft = (anchorPosition.left + anchorWidth - layerWidth > 0))
+                    ? (anchorPosition.left + anchorWidth - layerWidth)
+                    : (anchorPosition.left)
+            }
+            // 右侧优先显示
             else {
-                layerLeft = anchorPosition.x + layerWidth < document.documentElement.clientWidth ?
-                    anchorPosition.left : (anchorPosition.left + anchorWidth - layerWidth);
+                result.left = (result.isLeft = (anchorPosition.x + layerWidth >= document.documentElement.clientWidth))
+                    ? (anchorPosition.left + anchorWidth - layerWidth)
+                    : (anchorPosition.left);
             }
 
-            layer.style.left = layerLeft + 'px';
-            layer.style.top = layerTop + 'px';
-
+            typeof props.onOffset === 'function' && props.onOffset(result);
+            layer.style.left = result.left + 'px';
+            layer.style.top = result.top + 'px';
         },
 
 
@@ -171,6 +232,7 @@ define(function (require) {
             this.___layerContainer___.style.top = '-9999px';
             document.body.removeChild(this.___layerContainer___);
             this.___layerAppended___ = false;
+            this.___renderCount___ = 0;
             this.setState({mouseenter: false});
         },
 

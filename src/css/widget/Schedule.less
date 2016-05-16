@@ -3,7 +3,7 @@
 .fcui2-schedule {
     font-family: @normal-font;
 
-    width: 655px;
+    width: 665px;
     cursor: default;
     moz-user-select: -moz-none;
     -moz-user-select: none;
@@ -21,9 +21,12 @@
 
         &-legend {
             float: right;
-            margin-right: 12px;
+            margin-right: 13px;
             .font-icon {
-                margin-left: 0.5em;
+                margin-left: 16px;
+                margin-right: 8px;
+                position: relative;
+                top: 2px;
             }
 
             .font-icon-bg-square-empty {
@@ -33,13 +36,11 @@
             &-icon-selected {
                 color: @color-blue-2;
             }
-
-            &-text {
-                margin-left: 0.2em;
-            }
         }
 
-        margin-bottom: 5px;
+        margin-bottom: 8px;
+        height: 18px;
+        line-height: 18px;
     }
 
     .fast-operation-bar {
@@ -101,7 +102,7 @@
         div {
             font-size: 12px;
             text-align: right;
-            line-height: 24px;            
+            line-height: 24px;
         }
     }
 
@@ -115,7 +116,7 @@
     .axis-area {
         font-size: 12px;
         >div:first-child {
-            margin-left: 52px;
+            margin-left: 64px;
         }
         >div {
             display: inline-block;
@@ -127,7 +128,7 @@
     .axis-area-top {
         >div:first-child {
             margin-left: 72px;
-        }        
+        }
     }
 
     .grid-layer {
@@ -160,7 +161,7 @@
             text-align: center;
             color: #fff;
             line-height: 23px;
-            border: 1px solid #fff;
+            border: 1px solid #dbdbdb;
         }
     }
     .cursor-layer {

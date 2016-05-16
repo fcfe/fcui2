@@ -24,16 +24,7 @@ define(function (require) {
                 // 获取dom
                 var obj = conf[i];
                 var dom = this.refs[obj.ref];
-                if (!dom || !dom.tagName || isNaN(obj.top)) continue;
-                // 检查是否显示
-                var parentNode = dom;
-                var display = '';
-                while (parentNode.tagName !== 'BODY') {
-                    display = util.getStyle(parentNode, 'display');
-                    if (display === 'none') break;
-                    parentNode = parentNode.parentNode;
-                }
-                if (display === 'none') continue;
+                if (!dom || !dom.tagName || isNaN(obj.top) || !util.isDOMVisible(dom)) continue;
                 // 检查位置并设置fixed
                 var pos = util.getDOMPosition(dom);
                 var scrollY = document.documentElement.scrollTop || document.body.scrollTop;

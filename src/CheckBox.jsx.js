@@ -2,30 +2,31 @@
  * @file 复选框组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
 
     var React = require('react');
-    var InputWidgetBase = require('./mixins/InputWidgetBase');
-    var InputWidgetInForm = require('./mixins/InputWidgetInForm');
+    var InputWidget = require('./mixins/InputWidget');
+    var cTools = require('./core/componentTools');
 
 
     return React.createClass({
         // @override
-        mixins: [InputWidgetBase, InputWidgetInForm],
+        mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
             return {
                 ___uitype___: 'checkbox',
+                skin: '',
                 className: '',
                 style: {},
+                disabled: false,
                 label: '',
-                value: '',  // checkbox的value存在checked属性中，value中存的东西意义等同于radio的value
+                value: '',  // checkbox的value用以区分不同的checkbox，其选中状态记录在checked中
                 indeterminate: false,
                 labelPosition: 'left',
-                disabled: false,
                 valueTemplate: false
             };
         },
@@ -54,33 +55,21 @@ define(function (require) {
             this.___dispatchChange___(e);
         },
         render: function () {
-            var containerProp = {
-                className: 'fcui2-checkbox ' + this.props.className,
-                style: {}
-            };
+            var containerProp = cTools.containerBaseProps('checkbox', this);
             var labelProp = {
                 className: 'fcui2-checkbox-label',
                 onClick: this.clickHandler
             };
             var inputProp = {
+                ref: 'inputbox',
                 type: 'checkbox',
+                disabled: this.props.disabled,
                 value: this.props.value,
                 checked: this.___getValue___(),
                 onChange: this.changeHandler
             };
-            this.___mergeInputHandlers___(inputProp, this.props);
-            for (var key in this.props.style) {
-                if (!this.props.style.hasOwnProperty(key)) continue;
-                containerProp.style[key] = this.props.style[key];
-            }
-            if (this.props.disabled) {
-                containerProp.className += ' fcui2-checkbox-disabled';
-            }
-            else if (this.state.isValid === false) {
-                containerProp.className += ' fcui2-checkbox-reject';
-            }
             var doms = [];
-            doms.push(<input {...inputProp} disabled={this.props.disabled} ref="inputbox" key="input"/>);
+            doms.push(<input {...inputProp} key="input"/>);
             doms[this.props.labelPosition === 'right' ? 'push' : 'unshift'](
                 <span {...labelProp} key="label">{this.props.label}</span>
             );

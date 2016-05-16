@@ -7,6 +7,7 @@
  */
 
 define(function (require) {
+
     // 168 = 7 x 24;
     var _ = require('underscore');
     var langTool = require('./language');
@@ -17,38 +18,34 @@ define(function (require) {
     return {
 
         /**
-         * 将string类型的value转换成日优先的二维数组。
-         * value为选定的选定的时段值。
-         * 是一个有7x24元素的数组JSON.stringify后的值。日优先存放一星期每天24小时的时段选择情况。
-         * 每个元素可为null，或者一个string。
-         * 当为null时，表示该时段没有被选择。
-         * 当为string时，表示该时段被选择，string的内容为当前时段的label。
-         * 相邻时段相同值的label会被合并。
-         * 若label为空串（''），则显示默认label。默认为时段跨度。如1:00-2:00
+         * 将string类型的value转换成日优先的二维数组，第一维是天，第二维是小时
          *
-         * @param {string} value 字符串值
+         * 数组元素为null或string：
+         * （1）null表示该时段没有被选择；
+         * （2）string表示该时段被选择，string的内容为当前时段的label标签内容，相邻时段相同值的label会被合并。
+         * 若label为''，则显示时段跨度如1:00-2:00。
+         *
+         * @param {string} value 选定的时段值。
          * @return {Array}
          */
         parseValue: function (value) {
-            var arrValue;
+            var arrValue = [];
             try {
                 arrValue = JSON.parse(value);
             }
             catch (e) {
-                arrValue = [];
+                // do nothing
             }
+            arrValue = arrValue instanceof Array ? arrValue : [];
             var result = [];
-            var hourCount = 0;
-            var arrDay;
-            for (var i = 0; i < 168; i++) {
-                if (hourCount === 0) {
-                    arrDay = [];
+            var day = [];
+            for (var i = 0; i < 7 * 24; i++) {
+                if (i % 24 === 0) {
+                    day = [];
                 }
-                hourCount++;
-                arrDay.push(arrValue[i]);
-                if (hourCount === 24) {
-                    result.push(arrDay);
-                    hourCount = 0;
+                day.push(arrValue.length > i ? arrValue[i] : null);
+                if (i % 24 === 23) {
+                    result.push(day);
                 }
             }
             return result;
@@ -66,7 +63,6 @@ define(function (require) {
             if (!rawValue) {
                 return '';
             }
-
             return JSON.stringify(_.flatten(rawValue));
         },
 
@@ -100,11 +96,7 @@ define(function (require) {
                     if (x > value[y].length - 1) {
                         continue;
                     }
-                    value[y][x] = v == null
-                        ? (
-                            value[y][x] == null ? '' : null
-                        )
-                        : v;
+                    value[y][x] = (v == null) ? (value[y][x] == null ? '' : null) : v;
                 }
             }
             return this.stringifyValue(value);

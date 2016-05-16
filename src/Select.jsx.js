@@ -8,15 +8,15 @@ define(function (require) {
 
 
     var React = require('react');
-    var InputWidgetBase = require('./mixins/InputWidgetBase');
-    var InputWidgetInForm = require('./mixins/InputWidgetInForm');
+    var InputWidget = require('./mixins/InputWidget');
+    
     var Layer = require('./Layer.jsx');
     var List = require('./List.jsx');
 
 
     return React.createClass({
         // @override
-        mixins: [InputWidgetBase, InputWidgetInForm],
+        mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
             return {
@@ -71,7 +71,10 @@ define(function (require) {
                 ref: 'layer',
                 isOpen: this.state.layerOpen && this.props.datasource.length && !this.props.disabled,
                 anchor: this.refs.container,
-                onMouseLeave: this.mouseLeaveHandler
+                onMouseLeave: this.mouseLeaveHandler,
+                style: {
+                    minWidth: '150px'
+                }
             };
             var listProp = {
                 datasource: this.props.datasource,

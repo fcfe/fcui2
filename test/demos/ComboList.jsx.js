@@ -79,6 +79,15 @@ define(function (require) {
                     {label: 'option2', value: 'option2', disabled: true},
                     {label: 'option3', value: 'option3'},
                     {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option5', value: 'option5'},
                     {label: 'option5', value: 'option5'}
                 ]
             }

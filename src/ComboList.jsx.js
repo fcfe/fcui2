@@ -2,60 +2,67 @@
  * @file 组合控制列表组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
 
     var React = require('react');
     var Button = require('./Button.jsx');
-    var MouseWidgetBase = require('./mixins/MouseWidgetBase');
-    var LayerContainerBase = require('./mixins/LayerContainerBase');
+    var Layer = require('./Layer.jsx');
+    var List = require('./List.jsx');
+    var cTools = require('./core/componentTools');
 
 
     return React.createClass({
         // @override
-        mixins: [MouseWidgetBase, LayerContainerBase],
-        // @override
         getDefaultProps: function () {
             return {
+                skin: '',
                 className: '',
+                style: {},
+                disabled: false,  
                 label: 'ComboList',
                 icon: '',
                 value: '',
-                disabled: false,
                 datasource: [], // 见List
-                onClick: function () {},
-                // 以下为LayerContainerBase中需要的配置
-                layerContent: require('./List.jsx'),
-                layerProps: {},
-                layerInterface: 'onClick'
+                onClick: function () {}
             };
         },
-        layerAction: function (e) {
+        // @override
+        getInitialState: function () {
+            return {
+                layerOpen: false
+            };
+        },
+        listClickHandler: function (e) {
             if (this.props.disabled) return;
             this.props.onClick(e);
-            this.layerHide();
-            e.stopPropagation();
+            this.setState({layerOpen: false});  
         },
         mainButtonClickHandler: function (e) {
             if (this.props.disabled) return;
             this.props.onClick(e);
-            e.stopPropagation();
-            this.layerHide();
+            this.setState({layerOpen: false});
         },
         dropDownButtonClickHandler: function (e) {
-            if (this.props.disabled || this.props.datasource.length === 0) return;
-            this.layerShow();
+            this.setState({layerOpen: true});
+        },
+        mouseLeaveHandler: function (e) {
+            var me = this;
+            // 延迟关闭
+            setTimeout(function () {
+                if (me.refs.layer && me.refs.layer.state.mouseenter) return;
+                me.setState({layerOpen: false});
+            }, 200);
         },
         render: function () {
             var me = this;
-            var containerProp = {
-                className: 'fcui2-combolist ' + this.props.className,
-                onMouseEnter: this.___mouseenterHandler___,
-                onMouseLeave: this.___mouseleaveHandler___,
-                ref: 'container'
-            };
+            var containerProp = cTools.containerBaseProps('combolist', this, {
+                merge: {
+                    onMouseLeave: this.mouseLeaveHandler
+                }
+            });
             var mainButtonProp = {
                 label: this.props.label,
                 disabled: this.props.disabled,
@@ -65,13 +72,33 @@ define(function (require) {
                 className: 'main-button',
                 onClick: this.mainButtonClickHandler
             };
-            if (this.props.disabled) {
-                containerProp.className += ' fcui2-combolist-disabled';
-            }
+            var dropdownButtonProp = {
+                className: 'font-icon font-icon-largeable-caret-down',
+                onClick: this.dropDownButtonClickHandler
+            };
+            var layerProp = {
+                ref: 'layer',
+                isOpen: this.state.layerOpen && this.props.datasource.length && !this.props.disabled,
+                anchor: this.refs.container,
+                onMouseLeave: this.mouseLeaveHandler,
+                style: {
+                    minWidth: '150px',
+                    maxHeight: '240px',
+                    overflow: 'auto'
+                }
+            };
+            var listProp = {
+                datasource: this.props.datasource,
+                ref: 'list',
+                onClick: this.listClickHandler
+            };
             return (
                 <div {...containerProp}>
-                    <div className="font-icon font-icon-largeable-caret-down" onClick={this.dropDownButtonClickHandler}></div>
+                    <div {...dropdownButtonProp}></div>
                     <Button {...mainButtonProp}/>
+                    <Layer {...layerProp}>
+                        <List {...listProp}/>
+                    </Layer>
                 </div>
             );
         }

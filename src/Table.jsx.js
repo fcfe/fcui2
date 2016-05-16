@@ -11,13 +11,13 @@ define(function (require) {
     var tools = require('./core/tableTools.jsx');
     var language = require('./core/language');
     var util = require('./core/util');
-    var InputWidgetBase = require('./mixins/InputWidgetBase');
+    var InputWidget = require('./mixins/InputWidget');
     var WidgetWithFixedDom = require('./mixins/WidgetWithFixedDom');
 
 
     return React.createClass({
         // @override
-        mixins: [InputWidgetBase, WidgetWithFixedDom],
+        mixins: [InputWidget, WidgetWithFixedDom],
         // @override
         getDefaultProps: function () {
             return {

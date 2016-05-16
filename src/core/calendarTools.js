@@ -1,7 +1,38 @@
 define(function (require) {
 
+    var util = require('./util');
 
     var me = {
+        cutValues: function (values) {
+            var valueArr = (values + '').split(';');
+            var value1 = null;
+            var value2 = null;
+            switch (valueArr.length) {
+                case 1:
+                    value1 = this.str2date(valueArr[0]) || new Date();
+                    value2 = value1;
+                    break;
+                case 2:
+                    value1 = this.str2date(valueArr[0]) || new Date();
+                    value2 = this.str2date(valueArr[1]) || new Date();
+                    break;
+                default:
+                    value1 = new Date();
+                    value2 = new Date();
+                    break;
+            }
+            if (this.compareDate(value1, value2) === 1) { // value1 > value2
+                var tmp = value1;
+                value1 = value2;
+                value2 = tmp;
+            }
+            return {
+                ___v1: value1,
+                ___v2: value2,
+                value1: util.dateFormat(value1, 'YYYY-MM-DD'),
+                value2: util.dateFormat(value2, 'YYYY-MM-DD')
+            };
+        },
         // 将YYYY-MM-DD格式的字符串翻译成日期
         str2date: function (str) {
             var arr = (str + '').split('-');

@@ -156,10 +156,6 @@ define(function (require) {
             }
         },
 
-        addOnlyValue: function (key, value) {
-            value[key] = true;
-        },
-
         deleteValue: function (key, value) {
             // 删除当前
             delete value[key];

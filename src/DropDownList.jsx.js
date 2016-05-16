@@ -2,66 +2,70 @@
  * @file 下拉控制列表组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
 
     var React = require('react');
-    var MouseWidgetBase = require('./mixins/MouseWidgetBase');
-    var LayerContainerBase = require('./mixins/LayerContainerBase');
+    var Layer = require('./Layer.jsx');
+    var List = require('./List.jsx');
+    var cTools = require('./core/componentTools');
 
 
     return React.createClass({
         // @override
-        mixins: [MouseWidgetBase, LayerContainerBase],
-        // @override
         getDefaultProps: function () {
             return {
+                skin: '',
                 className: '',
-                label: 'DropDownList',
-                minWidth: 60,
-                width: NaN,
+                style: {},
                 disabled: false,
-                datasource: [],         //见List
-                onClick: function () {},
-                // 以下为LayerContainerBase中需要的配置
-                layerContent: require('./List.jsx'),
-                layerProps: {},
-                layerInterface: 'onClick'
+                label: 'DropDownList',
+                datasource: [],
+                onClick: cTools.noop
             };
         },
-        layerAction: function (e) {
+        getInitialState: function () {
+            return {
+                layerOpen: false
+            };
+        },
+        listClickHandler: function (e) {
             if (this.props.disabled) return;
             this.props.onClick(e);
-            this.layerHide();
-            e.stopPropagation();
-        },
-        mouseEnterHandler: function (e) {
-            this.___mouseenterHandler___();
-            if (this.props.datasource.length === 0 || this.props.disabled) return;
-            this.layerShow();
+            this.setState({layerOpen: false});
         },
         render: function () {
             var me = this;
-            var containerProp = {
-                className: 'fcui2-dropdownlist ' + this.props.className,
-                style: {minWidth: this.props.minWidth},
-                onMouseEnter: this.mouseEnterHandler,
-                onMouseLeave: this.___mouseleaveHandler___,
-                ref: 'container'
+            var containerProp = cTools.containerBaseProps('dropdownlist', this, {
+                merge: {
+                    onMouseEnter: cTools.openLayerHandler.bind(this),
+                    onMouseLeave: cTools.closeLayerHandler.bind(this)
+                }
+            });
+            var layerProp = {
+                ref: 'layer',
+                onMouseLeave: cTools.closeLayerHandler.bind(this),
+                isOpen: this.state.layerOpen && !this.props.disabled && this.props.datasource.length,
+                anchor: this.refs.container,
+                style: {
+                    minWidth: '150px',
+                    maxHeight: '240px',
+                    overflow: 'auto'
+                }
             };
-            if (this.props.disabled) {
-                containerProp.className += ' fcui2-dropdownlist-disabled';
-            }
-            if (!isNaN(this.props.width)) {
-                delete containerProp.style.minWidth;
-                containerProp.style.width = this.props.width;
-            }
+            var listProp = {
+                datasource: this.props.datasource,
+                onClick: this.listClickHandler
+            };
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
                     <span>{this.props.label}</span>
+                    <Layer {...layerProp}>
+                        <List {...listProp} />
+                    </Layer>
                 </div>
             );
         }

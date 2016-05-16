@@ -2,7 +2,7 @@
  * @file 日历组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -11,27 +11,26 @@ define(function (require) {
     var language = require('./core/language');
     var util = require('./core/util');
     var tool = require('./core/calendarTools');
+    var cTools = require('./core/componentTools');
 
 
-    var InputWidgetBase = require('./mixins/InputWidgetBase');
-    var InputWidgetInForm = require('./mixins/InputWidgetInForm');
-    var MouseWidgetBase = require('./mixins/MouseWidgetBase');
-
-
+    var InputWidget = require('./mixins/InputWidget');
     var Button = require('./Button.jsx');
     var NumberBox = require('./NumberBox.jsx');
 
 
     return React.createClass({
         // @override
-        mixins: [MouseWidgetBase, InputWidgetBase, InputWidgetInForm],
+        mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
             return {
+                skin: '',
                 className: '',
+                style: {},
+                disabled: false,
                 min: '0-1-1',
                 max: '9999-12-31',
-                disabled: false,
                 valueTemplate: util.dateFormat(null, 'YYYY-MM-DD')
             };
         },
@@ -46,11 +45,7 @@ define(function (require) {
                 inRange: true
             };
         },
-        monthInRange: function (year, month) {
-            var inRange = tool.monthInRange(year, month, this.props.min, this.props.max);
-            this.setState({inRange: inRange});
-        },
-        clickDayHandler: function (e) {
+        dayClickHandler: function (e) {
             if (this.props.disabled) return;
             var timer = tool.str2date(
                 this.state.displayYear + '-' + (this.state.displayMonth + 1) + '-' + e.target.value
@@ -65,10 +60,11 @@ define(function (require) {
             if (!isNaN(e.target.value)) {
                 year = e.target.value * 1;
             }
-            this.monthInRange(year, this.state.displayMonth);
+            ;
             this.setState({
                 inputYear: e.target.value,
-                displayYear: year
+                displayYear: year,
+                inRange: tool.monthInRange(year, this.state.displayMonth, this.props.min, this.props.max)
             });
         },
         monthChangeHandler: function (e) {
@@ -79,8 +75,9 @@ define(function (require) {
                 month = month < -1 ? -1 : month;
                 month = month > 11 ? 11: month;
             }
-            this.monthInRange(this.state.displayYear, month);
+            //this.monthInRange();
             this.setState({
+                inRange: tool.monthInRange(this.state.displayYear, month, this.props.min, this.props.max),
                 inputMonth: e.target.value,
                 displayMonth: month
             });
@@ -94,8 +91,8 @@ define(function (require) {
                 month = 0;
                 year = year * 1 + 1;
             }
-            this.monthInRange(year, month);
             this.setState({
+                inRange: tool.monthInRange(year, month, this.props.min, this.props.max),
                 displayYear: year,
                 displayMonth: month,
                 inputYear: year,
@@ -111,8 +108,8 @@ define(function (require) {
                 month = 11;
                 year = year * 1 - 1;
             }
-            this.monthInRange(year, month);
             this.setState({
+                inRange: tool.monthInRange(year, month, this.props.min, this.props.max),
                 displayYear: year,
                 displayMonth: month,
                 inputYear: year,
@@ -120,29 +117,24 @@ define(function (require) {
             });
         },
         render: function () {
-            var containerProp = {
-                className: 'fcui2-calendar ' + this.props.className,
-                ref: 'container',
-                onMouseEnter: this.___mouseenterHandler___,
-                onMouseLeave: this.___mouseleaveHandler___
-            };
+            var containerProp = cTools.containerBaseProps('calendar', this);
             var yearInputProp = {
+                ref: 'inputYear',
                 min: 0,
                 onChange: this.yearChangeHandler,
                 value: this.state.inputYear,
                 type: 'int',
-                ref: 'inputYear',
-                width: 70
+                style: {width: 70}
             };
             var monthInputProp = {
-                 min: 1,
-                 max: 12,
-                 onChange: this.monthChangeHandler,
-                 className: 'calendar-month',
-                 width: 60,
-                 value: this.state.inputMonth,
-                 ref: 'inputMonth',
-                 type: 'int'
+                ref: 'inputMonth',
+                className: 'calendar-month',
+                min: 1,
+                max: 12,
+                onChange: this.monthChangeHandler,
+                value: this.state.inputMonth,
+                type: 'int',
+                style: {width: 60}
             };
             var btnClass = 'fcui2-button' + (this.props.disabled ? ' button-disabled' : '')
                 +' font-icon font-icon-largeable-caret-';
@@ -156,17 +148,21 @@ define(function (require) {
                         <NumberBox {...monthInputProp} disabled={this.props.disabled}/>
                     </div>
                     <div className="calendar-day-label">{
-                        this.state.inRange ? language.calendar.day.map(produceDayLabel) : range
+                        this.state.inRange ? language.calendar.day.map(dayLabelFactory) : range
                     }</div>
-                    <div className="calendar-buttons">{produceButtons(this)}</div>
+                    <div className="calendar-buttons">{buttonFactory(this)}</div>
                 </div>
             );
         }
     });
 
 
-    // 生成button props
-    function buttonProps(timer, disabled, key, skin) {
+    function dayLabelFactory(v) {
+        return <div key={'day-' + v}>{v}</div>;
+    }
+
+
+    function buttonPropsFactory(timer, disabled, key, skin) {
         skin = skin || 'calendar';
         return {
             style: {
@@ -174,7 +170,6 @@ define(function (require) {
                 top: parseInt(key / 7, 10) * 32
             },
             skin: skin,
-            minWidth: 12,
             label: timer.getDate() + '',
             disabled: disabled,
             key: 'btns-' + key
@@ -182,12 +177,7 @@ define(function (require) {
     }
 
 
-    function produceDayLabel(v) {
-        return <div key={'day-' + v}>{v}</div>;
-    }
-
-
-    function produceButtons(me) {
+    function buttonFactory(me) {
 
         var value = tool.str2date(me.___getValue___()) || new Date();
         var min = tool.str2date(me.props.min) || tool.str2date('0-0-0');
@@ -207,7 +197,7 @@ define(function (require) {
             tmpTimer.setTime(timer.getTime());
             tmpTimer.setDate(timer.getDate() - i);
             buttons.push(
-                <Button {...buttonProps(tmpTimer, true, buttons.length)}/>
+                <Button {...buttonPropsFactory(tmpTimer, true, buttons.length)}/>
             );
         }
 
@@ -219,11 +209,11 @@ define(function (require) {
                 || me.props.disabled;
             var skin = tool.compareDate(tmpTimer, value) === 0 ? 'active' : null;
             var props = {
-                onClick: me.clickDayHandler,
+                onClick: me.dayClickHandler,
                 value: tmpTimer.getDate()
             };
             buttons.push(
-                <Button {...buttonProps(tmpTimer, disabled, buttons.length, skin)} {...props}/>
+                <Button {...buttonPropsFactory(tmpTimer, disabled, buttons.length, skin)} {...props}/>
             );
             tmpTimer.setDate(tmpTimer.getDate() + 1);
         }
@@ -231,7 +221,7 @@ define(function (require) {
         // 导入本月后的日期
         while(buttons.length < 42) {
             buttons.push(
-                <Button {...buttonProps(tmpTimer, true, buttons.length)}/>
+                <Button {...buttonPropsFactory(tmpTimer, true, buttons.length)}/>
             );
             tmpTimer.setDate(tmpTimer.getDate() + 1);
         }

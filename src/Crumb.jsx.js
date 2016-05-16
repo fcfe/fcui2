@@ -2,22 +2,25 @@
  * @file 面包屑组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
 
     var React = require('react');
+    var cTools = require('./core/componentTools');
 
 
     return React.createClass({
         // @override
         getDefaultProps: function () {
             return {
+                skin: '',
                 className: '',
+                style: {},
+                disabled: false, 
                 datasource: [], // {href: '', label: '', target: ''}
-                separator: '>',
-                disabled: false
+                separator: '>'
             };
         },
         // @override
@@ -25,10 +28,7 @@ define(function (require) {
             return {};
         },
         render: function () {
-            var containerProp = {
-                className: 'fcui2-crumb ' + this.props.className,
-                ref: 'container'
-            };
+            var containerProp = cTools.containerBaseProps('crumb', this);
             return (<div {...containerProp}>{linkFactory(this)}</div>);
         }
     });
@@ -50,5 +50,6 @@ define(function (require) {
         }
         return doms;
     }
+
 
 });

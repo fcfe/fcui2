@@ -9,6 +9,7 @@ define(function (require) {
 
     var React = require('react');
     var util = require('./core/util');
+    var Layer = require('./Layer.jsx');
 
 
     return React.createClass({
@@ -21,59 +22,44 @@ define(function (require) {
                 icon: 'font-icon-hint-question-s'
             }
         },
-        layerTimer: null,
-        layer: null,
-        layerShow: function (e) {
-            if (!this.layer) {
-                this.layer = document.createElement('div');
-                this.layer.className = 'fcui2-layer fcui2-tip-layer';
-            }
-            clearInterval(this.layerTimer);
-            var layer = this.layer;
-            var container = this.refs.container;
-            var layerHTML = [
-                '<div class="tip-title">',
-                this.props.title,
-                '</div>',
-                '<div class="tip-content">',
-                this.props.content,
-                '</div>'
-            ];
-            layer.innerHTML = layerHTML.join('');
-            document.body.appendChild(layer);
-            var pos = util.getDOMPosition(container);
-            var pWidth = container.offsetWidth;
-            var pHeight = container.offsetHeight;
-            var lWidth = layer.offsetWidth;
-            var lHeight = layer.offsetHeight;
-            layer.style.top = ((pos.y - lHeight < 0) ? (pos.top + pHeight) : (pos.top - lHeight)) + 'px';
-            layer.style.left =
-                ((pos.x + pWidth + lWidth < document.body.offsetWidth) ? (pos.left + pWidth) : (pos.left - lWidth))
-                + 'px';
+        getInitialState: function () {
+            return {
+                layerOpen: false
+            };
         },
-        layerHide: function () {
-            if (!this.layer) return;
-            var layer = this.layer;
-            this.layerTimer = setTimeout(function () {
-                try {
-                    layer.style.top = '-9999px';
-                    document.body.removeChild(layer);
-                } catch (e) {
-
-                } 
-            }, 200);
+        showLayer: function () {
+            this.setState({layerOpen: true});
+        },
+        hideLayer: function () {
+            this.setState({layerOpen: false});
+        },
+        offsetLayerPosition: function (result) {
+            result.left += result.isLeft ? -15 : 10;
+            result.top += result.isTop ? -5 : 10; 
         },
         render: function () {
-            var tip = {
+            var tipProp = {
                 className: this.props.className + ' fcui2-tip font-icon ' + this.props.icon,
-                style: {
-                    display: (this.props.title + this.props.content).length > 0 ? 'inline-block' : 'none'
-                },
-                onMouseEnter: this.layerShow,
-                onMouseLeave: this.layerHide,
+                onMouseEnter: this.showLayer,
+                onMouseLeave: this.hideLayer,
                 ref: 'container'
             };
-            return (<div {...tip}></div>);
+            var layerProp = {
+                isOpen: this.state.layerOpen && (this.props.title || this.props.content),
+                anchor: this.refs.container,
+                location: 'right left top bottom',
+                onOffset: this.offsetLayerPosition
+            };
+            return (
+                <div {...tipProp}>
+                    <Layer {...layerProp}>
+                        <div className="fcui2-tip-layer">
+                            <div className="tip-title">{this.props.title}</div>
+                            <div className="tip-content" dangerouslySetInnerHTML={{__html: this.props.content}}></div>
+                        </div>
+                    </Layer>
+                </div>
+            );
         }
     });
 
