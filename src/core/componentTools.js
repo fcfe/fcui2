@@ -7,33 +7,36 @@ define(function (require) {
          * 创建组件通用根容器属性集合
          *
          * @param {string} type 组件类型
-         * @param {Object} props 组件props
+         * @param {Object} me 组件实例
          * @param {Object} options 配置项
          * @return {Object} 根容器基本配置
          */
-        containerBaseProps: function (type, props, options) {
+        containerBaseProps: function (type, me, options) {
             // 原始集
             var result = {
                 ref: 'container',
-                style: props.hasOwnProperty('style') ? props.style : undefined,
+                style: me.props.hasOwnProperty('style') ? me.props.style : undefined,
                 className: 'fcui2-' + type
             };
             // 处理className、disabled、skin
-            result.className += typeof props.className === 'string' && props.className.length
-                ? (' ' + props.className) : '';
-            if (props.disabled) {
+            result.className += typeof me.props.className === 'string' && me.props.className.length
+                ? (' ' + me.props.className) : '';
+            if (me.state.isValid === false) {
+                result.className += ' fcui2-' + type + '-reject';
+            }
+            else if (me.props.disabled) {
                 result.className += ' fcui2-' + type + '-disabled';
             }
-            else if (typeof props.skin === 'string' && props.skin.length) {
-                result.className += ' fcui2-' + type + '-' + props.skin;
+            else if (typeof me.props.skin === 'string' && me.props.skin.length) {
+                result.className += ' fcui2-' + type + '-' + me.props.skin;
             }
             // 处理options.mergeFromProps
             options = options || {};
             if (options.mergeFromProps instanceof Array) {
                 for (var i = 0; i < options.mergeFromProps.length; i++) {
                     var key = options.mergeFromProps[i];
-                    if (props.hasOwnProperty(key) && !result.hasOwnProperty(key)) {
-                        result[key] = props[key];
+                    if (me.props.hasOwnProperty(key) && !result.hasOwnProperty(key)) {
+                        result[key] = me.props[key];
                     }
                 }
             }

@@ -2,7 +2,7 @@
  * @file 日历组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -117,7 +117,7 @@ define(function (require) {
             });
         },
         render: function () {
-            var containerProp = cTool.containerBaseProps('calendar', this.props);
+            var containerProp = cTool.containerBaseProps('calendar', this);
             var yearInputProp = {
                 ref: 'inputYear',
                 min: 0,

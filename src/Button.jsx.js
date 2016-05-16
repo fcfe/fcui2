@@ -91,7 +91,7 @@ define(function (require) {
                 value: this.props.label,
                 style: this.props.icon.length > 0 ? {textAlign: 'left'} : undefined
             };
-            var containerProp = cTools.containerBaseProps('button', this.props, {
+            var containerProp = cTools.containerBaseProps('button', this, {
                 merge: {
                     onMouseDown: this.mousedownHandler,
                     onMouseUp: this.mouseupHandler,
