@@ -64,6 +64,14 @@ define(function (require) {
         return props;
     }
 
+    function deprecated() {
+        try {
+            console.error('Mixin LayerContainerBase is deprecated, please use Layer instead.')
+        }
+        catch (e) {
+
+        }
+    }
 
     return {
 
@@ -76,6 +84,7 @@ define(function (require) {
         },
 
         layerUpdateProp: function (props) {
+            deprecated();
             if (!this.___layerContainer___) return;
             var props = propsFactory(props, this); 
             this.___layer___ = ReactDOM.render(
@@ -85,7 +94,7 @@ define(function (require) {
         },
 
         layerShow: function (initProp, dontAutoClose, layerPosition) {
-
+            deprecated();
             // 创建layer容器
             var me = this;
             if (me.___layerContainer___ == null) {
@@ -184,6 +193,7 @@ define(function (require) {
         },
 
         layerHide: function () {
+            deprecated();
             try {
                 var container = this.___layerContainer___;
                 container.style.left = '-9999px';

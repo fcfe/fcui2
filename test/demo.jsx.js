@@ -76,7 +76,7 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 demo: 'Layer',
-                title: 'FCUI v2.0.1',
+                title: 'FCUI v2.0.2',
                 dispatch: function () {}
             };
         },

@@ -1,6 +1,6 @@
 {
   "name": "fcui",
-  "version": "2.0.1-alpha.1",
+  "version": "2.0.2",
   "scripts": {
     "start": "mkdir -p ./node_modules/edp/node_modules && ./node_modules/.bin/edp webserver start",
     "test": "./node_modules/.bin/edp build -f && ./node_modules/.bin/karma start"
