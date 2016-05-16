@@ -45,7 +45,7 @@ define(function (require) {
                 res.forEach(function (item) {
                     expect(item.length).toBe(24);
                     item.forEach(function (innerItem) {
-                        expect(innerItem).toBeUndefined();
+                        expect(innerItem).toBeNull();
                     });
                 });
             });
@@ -56,7 +56,7 @@ define(function (require) {
                 res.forEach(function (item) {
                     expect(item.length).toBe(24);
                     item.forEach(function (innerItem) {
-                        expect(innerItem).toBeUndefined();
+                        expect(innerItem).toBeNull();
                     });
                 });
             });
