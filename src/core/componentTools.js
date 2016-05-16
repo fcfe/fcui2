@@ -3,6 +3,15 @@ define(function (require) {
 
     return {
 
+
+        /**
+         * 一个空函数
+         */
+        noop: function () {
+
+        },
+
+
         /**
          * 创建组件通用根容器属性集合
          *

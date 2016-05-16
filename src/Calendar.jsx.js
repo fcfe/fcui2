@@ -11,7 +11,7 @@ define(function (require) {
     var language = require('./core/language');
     var util = require('./core/util');
     var tool = require('./core/calendarTools');
-    var cTool = require('./core/componentTools');
+    var cTools = require('./core/componentTools');
 
 
     var InputWidget = require('./mixins/InputWidget');
@@ -117,7 +117,7 @@ define(function (require) {
             });
         },
         render: function () {
-            var containerProp = cTool.containerBaseProps('calendar', this);
+            var containerProp = cTools.containerBaseProps('calendar', this);
             var yearInputProp = {
                 ref: 'inputYear',
                 min: 0,
@@ -148,7 +148,7 @@ define(function (require) {
                         <NumberBox {...monthInputProp} disabled={this.props.disabled}/>
                     </div>
                     <div className="calendar-day-label">{
-                        this.state.inRange ? language.calendar.day.map(produceDayLabel) : range
+                        this.state.inRange ? language.calendar.day.map(dayLabelFactory) : range
                     }</div>
                     <div className="calendar-buttons">{buttonFactory(this)}</div>
                 </div>
@@ -157,7 +157,7 @@ define(function (require) {
     });
 
 
-    function produceDayLabel(v) {
+    function dayLabelFactory(v) {
         return <div key={'day-' + v}>{v}</div>;
     }
 

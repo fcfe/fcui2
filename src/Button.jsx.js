@@ -9,8 +9,7 @@ define(function (require) {
 
     var React = require('react');
     var cTools = require('./core/componentTools');
-    var noop = function () {};
-    
+
 
     return React.createClass({
 
@@ -59,9 +58,9 @@ define(function (require) {
                 type: 'button',
                 name: '',
                 value: '',
-                onClick: noop,
-                onMouseEnter: noop,
-                onMouseLeave: noop
+                onClick: cTools.noop,
+                onMouseEnter: cTools.noop,
+                onMouseLeave: cTools.noop
             };
         },
         // @override

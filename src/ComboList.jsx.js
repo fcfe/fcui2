@@ -2,7 +2,7 @@
  * @file 组合控制列表组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -11,17 +11,20 @@ define(function (require) {
     var Button = require('./Button.jsx');
     var Layer = require('./Layer.jsx');
     var List = require('./List.jsx');
+    var cTools = require('./core/componentTools');
 
 
     return React.createClass({
         // @override
         getDefaultProps: function () {
             return {
+                skin: '',
                 className: '',
+                style: {},
+                disabled: false,  
                 label: 'ComboList',
                 icon: '',
                 value: '',
-                disabled: false,
                 datasource: [], // 见List
                 onClick: function () {}
             };
@@ -55,12 +58,11 @@ define(function (require) {
         },
         render: function () {
             var me = this;
-            var containerProp = {
-                className: 'fcui2-combolist ' + this.props.className
-                    + (this.props.disabled ? ' fcui2-combolist-disabled' : ''),
-                onMouseLeave: this.mouseLeaveHandler,
-                ref: 'container'
-            };
+            var containerProp = cTools.containerBaseProps('combolist', this, {
+                merge: {
+                    onMouseLeave: this.mouseLeaveHandler
+                }
+            });
             var mainButtonProp = {
                 label: this.props.label,
                 disabled: this.props.disabled,
@@ -70,13 +72,19 @@ define(function (require) {
                 className: 'main-button',
                 onClick: this.mainButtonClickHandler
             };
+            var dropdownButtonProp = {
+                className: 'font-icon font-icon-largeable-caret-down',
+                onClick: this.dropDownButtonClickHandler
+            };
             var layerProp = {
                 ref: 'layer',
                 isOpen: this.state.layerOpen && this.props.datasource.length && !this.props.disabled,
                 anchor: this.refs.container,
                 onMouseLeave: this.mouseLeaveHandler,
                 style: {
-                    minWidth: '150px'
+                    minWidth: '150px',
+                    maxHeight: '240px',
+                    overflow: 'auto'
                 }
             };
             var listProp = {
@@ -86,7 +94,7 @@ define(function (require) {
             };
             return (
                 <div {...containerProp}>
-                    <div className="font-icon font-icon-largeable-caret-down" onClick={this.dropDownButtonClickHandler}></div>
+                    <div {...dropdownButtonProp}></div>
                     <Button {...mainButtonProp}/>
                     <Layer {...layerProp}>
                         <List {...listProp}/>
