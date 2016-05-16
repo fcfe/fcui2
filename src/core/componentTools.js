@@ -13,6 +13,27 @@ define(function (require) {
 
 
         /**
+         * 弹出Layer的通用方法，请自定绑定上下文
+         */
+        openLayerHandler: function () {
+            if (this.props.disabled) return;
+            this.setState({layerOpen: true});
+        },
+
+
+        /**
+         * 关闭Layer的通用方法，请自定绑定上下文
+         */
+        closeLayerHandler: function () {
+            var me = this;
+            setTimeout(function () {
+                if (me.refs.layer && me.refs.layer.state.mouseenter) return;
+                me.setState({layerOpen: false});
+            }, 200);
+        },
+
+
+        /**
          * 创建组件通用根容器属性集合
          *
          * @param {string} type 组件类型

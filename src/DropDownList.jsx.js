@@ -2,7 +2,7 @@
  * @file 下拉控制列表组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -10,19 +10,20 @@ define(function (require) {
     var React = require('react');
     var Layer = require('./Layer.jsx');
     var List = require('./List.jsx');
+    var cTools = require('./core/componentTools');
 
 
     return React.createClass({
         // @override
         getDefaultProps: function () {
             return {
+                skin: '',
                 className: '',
-                label: 'DropDownList',
-                minWidth: 60,
-                width: NaN,
+                style: {},
                 disabled: false,
+                label: 'DropDownList',
                 datasource: [],
-                onClick: function () {}
+                onClick: cTools.noop
             };
         },
         getInitialState: function () {
@@ -35,40 +36,23 @@ define(function (require) {
             this.props.onClick(e);
             this.setState({layerOpen: false});
         },
-        mouseEnterHandler: function (e) {
-            this.setState({layerOpen: true});
-        },
-        mouseLeaveHandler: function (e) {
-            var me = this;
-            // 延迟关闭
-            setTimeout(function () {
-                if (me.refs.layer && me.refs.layer.state.mouseenter) return;
-                me.setState({layerOpen: false});
-            }, 200);
-        },
         render: function () {
             var me = this;
-            var containerProp = {
-                className: 'fcui2-dropdownlist ' + this.props.className,
-                style: {minWidth: this.props.minWidth},
-                onMouseEnter: this.mouseEnterHandler,
-                onMouseLeave: this.mouseLeaveHandler,
-                ref: 'container'
-            };
-            if (this.props.disabled) {
-                containerProp.className += ' fcui2-dropdownlist-disabled';
-            }
-            if (!isNaN(this.props.width)) {
-                delete containerProp.style.minWidth;
-                containerProp.style.width = this.props.width;
-            }
+            var containerProp = cTools.containerBaseProps('dropdownlist', this, {
+                merge: {
+                    onMouseEnter: cTools.openLayerHandler.bind(this),
+                    onMouseLeave: cTools.closeLayerHandler.bind(this)
+                }
+            });
             var layerProp = {
                 ref: 'layer',
-                onMouseLeave: this.mouseLeaveHandler,
+                onMouseLeave: cTools.closeLayerHandler.bind(this),
                 isOpen: this.state.layerOpen && !this.props.disabled && this.props.datasource.length,
                 anchor: this.refs.container,
                 style: {
-                    minWidth: '150px'
+                    minWidth: '150px',
+                    maxHeight: '240px',
+                    overflow: 'auto'
                 }
             };
             var listProp = {
