@@ -93,12 +93,11 @@ define(function (require) {
             };
             var containerProp = cTools.containerBaseProps('button', this.props, {
                 merge: {
-                    title: this.props.title,
                     onMouseDown: this.mousedownHandler,
                     onMouseUp: this.mouseupHandler,
                     onClick: this.clickHandler
                 },
-                mergeFromProps: ['onMouseEnter', 'onMouseLeave', 'value']
+                mergeFromProps: ['onMouseEnter', 'onMouseLeave', 'value', 'title']
             });
             containerProp.className += this.state.mousedown ? ' fcui2-button-active' : '';
             return (

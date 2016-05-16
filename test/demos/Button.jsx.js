@@ -8,7 +8,7 @@ define(function (require) {
     var items = [
         {
             title: 'Normal Button',
-            props: {label: 'Enter', value: 'enter button'}
+            props: {label: '确定', value: 'enter button'}
         },
         {
             title: 'Button with Title',
