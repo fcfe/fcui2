@@ -3,7 +3,8 @@
   "version": "2.0.2",
   "scripts": {
     "start": "mkdir -p ./node_modules/edp/node_modules && ./node_modules/.bin/edp webserver start",
-    "test": "./node_modules/.bin/edp build -f && ./node_modules/.bin/karma start"
+    "test": "./node_modules/.bin/edp build -f && ./node_modules/.bin/karma start",
+    "spec": "./node_modules/.bin/edp build -f && ./node_modules/.bin/edp test start"
   },
   "maintainers": [
     {
@@ -15,6 +16,10 @@
     {
       "name": "Han Bingfeng",
       "email": "hanbingfeng@baidu.com"
+    },
+    {
+      "name": "Wang Yi",
+      "email": "wangyispaceman@gmail.com"
     }
   ],
   "dependencies": {
@@ -51,6 +56,7 @@
     "edp": "^1.1.1",
     "edp-build": "^1.1.2",
     "edp-webserver": "^1.2.6",
+    "edp-test": "^1.1.1",
     "istanbul": "^0.4.3",
     "jasmine": "^2.4.1",
     "karma": "^0.13.22",
