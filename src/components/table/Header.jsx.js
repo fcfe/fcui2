@@ -1,3 +1,9 @@
+/**
+ * @file 表头
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.1
+ */
 define(function (require) {
 
     var Tip = require('../../Tip.jsx');

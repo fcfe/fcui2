@@ -11,14 +11,7 @@ define(function (require) {
                 }
                 if (!dataset[key]) continue;
                 var arr = key.split('___radio___');
-                var value = false;
-                try {
-                    obj[arr[0]] = JSON.parse(arr[1]);
-                }
-                catch (e) {
-                    obj[arr[0]] = arr[1];
-                }
-                obj[arr[0]]
+                obj[arr[0]] = arr[1];
             }
             return obj;
         },
