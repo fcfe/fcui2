@@ -2,6 +2,7 @@
  * @file 含有layer组件基础mixin
  * @author Brian Li
  * @email lbxxlht@163.com
+ * @version 0.0.1
  *
  * 此mixin主要作用是为某些组件提供一些弹出layer的功能，依赖MouseWidgetBase
  *

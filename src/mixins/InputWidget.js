@@ -2,7 +2,7 @@
  * @file input类型组件基础mixin
  * @author Brian Li
  * @email lbxxlht@163.com
- *
+ * @version 0.0.2
  *
  * 此mixin主要作用：
  * 1.解决input类型组件的渲染回馈问题

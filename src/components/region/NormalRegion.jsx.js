@@ -2,7 +2,7 @@
  * @file 大区选择零件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -31,7 +31,7 @@ define(function (require) {
         getInitialState: function () {
             return {};
         },
-        changeHandler: function (e) {
+        onRegionChange: function (e) {
             if (this.props.disabled) return;
             this.props.onChange(e);
         },
@@ -44,7 +44,7 @@ define(function (require) {
                 disabled: this.props.disabled,
                 checked: selected.checked,
                 indeterminate: selected.indeterminate,
-                onChange: this.changeHandler
+                onChange: this.onRegionChange
             };
             if (this.props.type === 'single') {
                 return (<Radio {...prop} />);
