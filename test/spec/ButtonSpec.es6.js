@@ -8,7 +8,7 @@ define(function (require) {
     const _ = require('underscore');
     const React = require('react');
     const TestUtils = React.addons.TestUtils;
-    const Button = require('Button.jsx');
+    const Button = require('fcui2/Button.jsx');
 
     function shallowRender(Component, props = {}) {
         let renderer = TestUtils.createRenderer();

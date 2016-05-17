@@ -3,3 +3,5 @@ build
 *.log
 output
 coverage
+.idea
+.jscsrc

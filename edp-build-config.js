@@ -6,7 +6,7 @@ var path = require( 'path' );
  *
  * @type {string}
  */
-exports.input = path.resolve(cwd, 'src');
+exports.input = path.resolve(cwd);
 
 /**
  * 输出目录
@@ -26,7 +26,9 @@ exports.exclude = [
     '.DS_Store',
     '*.tmp',
     '*.bak',
-    '*.swp'
+    '*.swp',
+    'node_modules',
+    'output'
 ];
 
 
@@ -45,12 +47,12 @@ exports.getProcessors = function () {
         new FcBabelProcessor(),
         new LessCompiler( {
             files: [
-                'css/main.less'
+                'src/css/main.less'
             ]
         } ),
         new CssCompressor(),
         new ModuleCompiler( {
-            configFile: '../module.conf',
+            configFile: './module.conf',
             entryExtnames: moduleEntries
         } ),
         new JsCompressor({
