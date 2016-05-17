@@ -9,7 +9,7 @@
   "maintainers": [
     {
       "name": "Li Haitao",
-      "email": "lihaitao03@baidu.com"
+      "email": "lbxxlht@163.com"
     }
   ],
   "contributors": [
@@ -27,7 +27,7 @@
     "underscore": "~1.8.3"
   },
   "main": "main",
-  "description": "FCUI2，基于React实现的符合OneUX标准的组件库。",
+  "description": "FCUI2, a lightweight UI based on React and underscore.js.",
   "homepage": "https://github.com/fcfe/fcui2",
   "repository": "git@github.com:fcfe/fcui2.git",
   "devDependencies": {
