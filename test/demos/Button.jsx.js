@@ -32,11 +32,15 @@ define(function (require) {
         },
         {
             title: 'Button with Icon and Skin',
-            props: {label: 'Find', skin:'important', width: 50, icon: 'font-icon-enlarge', value: 'button width icon'}
+            props: {label: 'Find', skin:'important', icon: 'font-icon-enlarge', value: 'button width icon'}
         },
         {
             title: 'Button with Style',
             props: {label: 'Width', style: {width: 300}, value: 'button with minWidth'}
+        },
+        {
+            title: 'Button with Width',
+            props: {width: 200}
         }
     ];
 

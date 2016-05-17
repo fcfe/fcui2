@@ -42,6 +42,7 @@ define(function (require) {
                 className: this.props.className + ' fcui2-tip font-icon ' + this.props.icon,
                 onMouseEnter: this.showLayer,
                 onMouseLeave: this.hideLayer,
+                style: (this.props.title || this.props.content) ? undefined : {display: 'none'},
                 ref: 'container'
             };
             var layerProp = {
