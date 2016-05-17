@@ -9,7 +9,7 @@
 
 ## See FCUI2 examples
 
-* Enter FCUI2 root directory, install scaffold tools by running: 
+* Enter FCUI2 root directory, install scaffold tools by running:
 ```
     npm install edp
 ```
@@ -119,8 +119,8 @@
 
         var React = require('react');
         var TextBox = require('fcui/TextBox.jsx');
-        var Button = require('fcui/Button.jsx'); 
-       
+        var Button = require('fcui/Button.jsx');
+
         return React.createClass({
             // @override
             getDefaultProps: function () {
@@ -146,6 +146,18 @@
             }
         });
     });
+```
+
+## How to run FCUI2 test
+
+```shell
+$ npm install
+$ npm test
+```
+or
+```shell
+$ npm install
+$ edp test start
 ```
 
 ## Author
