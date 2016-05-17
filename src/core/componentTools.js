@@ -1,6 +1,16 @@
 define(function (require) {
 
 
+    var MERGE_FROM_PROPS_TO_STYLE = [
+        'width',
+        'minWidth',
+        'maxWidth',
+        'height',
+        'minHeight',
+        'maxHeight'
+    ];
+
+
     return {
 
 
@@ -45,9 +55,16 @@ define(function (require) {
             // 原始集
             var result = {
                 ref: 'container',
-                style: me.props.hasOwnProperty('style') ? me.props.style : undefined,
+                style: {},
                 className: 'fcui2-' + type
             };
+            // 处理style，潜克隆一份，防止直接修改me.props.style导致报错
+            if (me.props.hasOwnProperty('style')) {
+                for (var key in me.props.style) {
+                    if (!me.props.style.hasOwnProperty(key)) continue;
+                    result.style[key] = me.props.style[key];
+                }
+            }
             // 处理className、disabled、skin
             result.className += typeof me.props.className === 'string' && me.props.className.length
                 ? (' ' + me.props.className) : '';
@@ -78,6 +95,13 @@ define(function (require) {
                     }
                 }
             }
+            // 兼容：将部分props属性下降到result.style中
+            for (var i = 0; i < MERGE_FROM_PROPS_TO_STYLE.length; i++) {
+                var key = MERGE_FROM_PROPS_TO_STYLE[i];
+                if (!result.style.hasOwnProperty(key) && me.props.hasOwnProperty(key)) {
+                    result.style[key] = me.props[key];
+                }
+            }       
             return result;
         }
     };
