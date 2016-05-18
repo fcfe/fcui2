@@ -19,39 +19,13 @@
         border-top: @border-normal;
         margin: 0 1px;
     }
-    .icon-right {
-        float: right;
-        width: 20px;
-        display: inline-block;
-        line-height: @lineheight-normal;
-    }
-    .right-layer {
-        position: absolute;
-        padding: 5px 0;
-        display: none;
-        margin-left: 100%;
-        top: 0px;
-        border: 1px solid #F00;
-        background-color: @bgcolor-active;
-        border: @border-normal;
-        -webkit-box-shadow: @shadow-normal;
-        -moz-box-shadow: @shadow-normal;
-        box-shadow: @shadow-normal;
-        z-index: 10000;
-    }
-    .disabled-layer {
-        display: none;
-    }
     .disabled {
         color: @color-disabled;
-        >.right-layer {
-            display: none !important;
-        }
     }
     .disabled:hover {
         background-color: @bgcolor-active !important;
     }
-    .item {
+    .normal-item {
         position: relative;
         overflow: show;
         cursor: default;
@@ -59,14 +33,7 @@
             margin: @margin-normal;
         }
     }
-    .item:hover {
+    .normal-item:hover {
         background-color: @bgcolor-item-hover;
-        >.font-icon-largeable-caret-right {
-            color: @color-active;
-        }
-        >.right-layer {
-            display: block;
-            z-index: 9999;
-        }
     }
 }

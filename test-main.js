@@ -25,13 +25,13 @@ require.config({
   packages: [
     {
       name: 'fcui2',
-      location: 'output/src'
+      location: 'build/src'
     }
   ],
 
   'paths': {
-    'react': 'output/dep/react-with-addons',
-    'react-dom': 'output/dep/react-dom',
-    'underscore': 'output/dep/underscore/1.8.5/src/underscore'
+    'react': 'dep/react-with-addons',
+    'react-dom': 'dep/react-dom',
+    'underscore': 'dep/underscore/1.8.5/src/underscore'
   }
 });

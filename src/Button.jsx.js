@@ -101,7 +101,7 @@ define(function (require) {
             containerProp.className += this.state.mousedown ? ' fcui2-button-active' : '';
             return (
                 <div {...containerProp}>
-                    {this.props.icon.length > 0 ? <div className={'font-icon ' + this.props.icon}></div> : ''}
+                    {this.props.icon.length > 0 ? <div className={'font-icon ' + this.props.icon}></div> : null}
                     <input {...inputProp}/>
                 </div>
             );

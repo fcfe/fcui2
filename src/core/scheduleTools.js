@@ -1,11 +1,3 @@
-/**
- * @file 时段组件工具集
- * @author Brian Li
- * @author Han Bing Feng
- * @email lbxxlht@163.com
- * @version 0.0.2
- */
-
 define(function (require) {
 
     // 168 = 7 x 24;
