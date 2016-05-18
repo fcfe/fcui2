@@ -47,7 +47,7 @@ define(function (require) {
                 expect(button.props.className).toBe('fcui2-button');
                 expect(button.props.title).toBe('');
                 expect(button.props.style).toEqual({});
-                expect(button.props.children).toEqual(['', <input type="button" name="" value="Button" />]);
+                expect(button.props.children).toEqual([null, <input type="button" name="" value="Button" />]);
             });
 
             it('Renders a button with given props', () => {
