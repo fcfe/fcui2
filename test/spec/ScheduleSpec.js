@@ -7,7 +7,7 @@
 
 define(function (require) {
     var _ = require('underscore');
-    var scheduleTools = require('fcui2/core/scheduleTools');
+    var scheduleTools = require('core/scheduleTools');
 
     function getParsedLength168Array() {
         var arr = [];

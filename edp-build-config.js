@@ -13,7 +13,7 @@ exports.input = path.resolve(cwd);
  *
  * @type {string}
  */
-exports.output = path.resolve( cwd, 'output' );
+exports.output = path.resolve( cwd, 'build' );
 
 /**
  * 排除文件pattern列表
@@ -28,7 +28,22 @@ exports.exclude = [
     '*.bak',
     '*.swp',
     'node_modules',
-    'output'
+    'dep',
+    'demo',
+    'test',
+    'build',
+    '.gitignore',
+    '.gitreview',
+    '.travis.yml',
+    'edp-*.js',
+    'FcBabelProcessor.js',
+    'index.html',
+    'karma.conf.js',
+    'LICENSE',
+    '*.json',
+    '*.conf',
+    '*.md',
+    'test-main.js'
 ];
 
 
@@ -65,6 +80,11 @@ exports.getProcessors = function () {
             sourceMapOptions: {
                 enable: false
             }
+        }),
+        new OutputCleaner({
+            files: [
+                '*.less'
+            ]
         })
     ];
 };
