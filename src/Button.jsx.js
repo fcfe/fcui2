@@ -87,9 +87,11 @@ define(function (require) {
             var inputProp = {
                 type: 'button;submit;reset;'.indexOf(this.props.type + ';') > -1 ? this.props.type : 'button',
                 name: this.props.name,
-                value: this.props.label,
-                style: this.props.icon.length > 0 ? {textAlign: 'left'} : undefined
+                value: this.props.label
             };
+            if (this.props.icon.length > 0) {
+                 inputProp.style = {textAlign: 'left'};
+            }
             var containerProp = cTools.containerBaseProps('button', this, {
                 merge: {
                     onMouseDown: this.mousedownHandler,
