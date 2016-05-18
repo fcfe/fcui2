@@ -27,7 +27,7 @@ module.exports = {
     qrcode: false,
 
     // frameworks to use
-    frameworks: ['jasmine', 'esl'],
+    frameworks: ['jasmine2.3.4', 'esl'],
 
 
     // list of files / patterns to load in the browser

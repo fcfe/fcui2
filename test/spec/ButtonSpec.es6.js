@@ -47,9 +47,7 @@ define(function (require) {
                 expect(button.props.className).toBe('fcui2-button');
                 expect(button.props.title).toBe('');
                 expect(button.props.style).toEqual({});
-                expect(button.props.children[1]).toEqual(
-                    <input type="button" name="" value="Button" />
-                );
+                expect(button.props.children).toEqual(['', <input type="button" name="" value="Button" />]);
             });
 
             it('Renders a button with given props', () => {
@@ -58,12 +56,10 @@ define(function (require) {
                 expect(button.props.className).toBe('fcui2-button fcui2-button-test fcui2-button-test-skin');
                 expect(button.props.title).toBe('testing title');
                 expect(button.props.style).toEqual({color: '#FFF'});
-                expect(button.props.children[0]).toEqual(
-                    <div className="font-icon icon-test"/>
-                );
-                expect(button.props.children[1]).toEqual(
+                expect(button.props.children).toEqual([
+                    <div className="font-icon icon-test"/>,
                     <input type="button" name="test" value="testing label" style={{textAlign: 'left'}} />
-                );
+                ]);
             });
 
             it('Renders a disabled button', () => {
@@ -90,24 +86,24 @@ define(function (require) {
             });
 
             it('Simulating click event on a button', () => {
-                spyOn(buttonProps, 'onClick').andCallThrough();
+                spyOn(buttonProps, 'onClick').and.callThrough();
                 let button = realRender(Button, buttonProps);
                 let buttonDom = TestUtils.findRenderedDOMComponentWithTag(button, 'input');
                 expect(data).toBe(0);
 
                 TestUtils.Simulate.click(buttonDom);
                 expect(button.props.onClick).toHaveBeenCalled();
-                expect(button.props.onClick.calls.length).toBe(1);
+                expect(button.props.onClick.calls.count()).toBe(1);
                 expect(data).toBe(1);
 
-                let event = button.props.onClick.mostRecentCall.args[0];
+                let event = button.props.onClick.calls.mostRecent().args[0];
                 expect(event.target).toEqual(button.refs.container);
                 expect(event.target.value).toBe('buttonValue');
             });
 
             it('Simulating click event on a disabled button', () => {
                 let disabledProps = _.extend(buttonProps, {disabled: true});
-                spyOn(buttonProps, 'onClick').andCallThrough();
+                spyOn(buttonProps, 'onClick').and.callThrough();
                 let button = realRender(Button, buttonProps);
                 let buttonDom = TestUtils.findRenderedDOMComponentWithTag(button, 'input');
                 expect(data).toBe(0);
@@ -129,11 +125,11 @@ define(function (require) {
 
                 TestUtils.Simulate.mouseEnter(containerDom);
                 expect(button.props.onMouseEnter).toHaveBeenCalled();
-                expect(button.props.onMouseEnter.calls.length).toBe(1);
+                expect(button.props.onMouseEnter.calls.count()).toBe(1);
 
                 TestUtils.Simulate.mouseLeave(containerDom);
                 expect(button.props.onMouseLeave).toHaveBeenCalled();
-                expect(button.props.onMouseLeave.calls.length).toBe(1);
+                expect(button.props.onMouseLeave.calls.count()).toBe(1);
 
                 TestUtils.Simulate.mouseDown(containerDom);
                 expect(button.state.mousedown).toBe(true);
