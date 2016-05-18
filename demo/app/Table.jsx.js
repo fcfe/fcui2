@@ -5,8 +5,8 @@ define(function (require) {
     var Table = require('fcui/Table.jsx');
 
 
-    var datasource = require('./config/tableDatasource');
-    var fieldConfig = require('./config/tableFieldConfig');
+    var datasource = require('../config/tableDatasource');
+    var fieldConfig = require('../config/tableFieldConfig');
 
 
     var items = [

@@ -2,7 +2,7 @@
  * @file 省选择零件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -21,11 +21,11 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                disabled: false,
                 id: -1,
-                type: 'multi',     
+                disabled: false,
+                type: 'multi', 
+                parent: {},   
                 value: {},
-                parent: {},
                 onChange: function () {}
             };
         },
@@ -35,11 +35,11 @@ define(function (require) {
                 layerShow: false
             };
         },
-        changeHandler: function (e) {
+        onProvinceChange: function (e) {
             if (this.props.disabled) return;
             this.props.onChange(e);
         },
-        mouseLeaveHandler: function (e) {
+        onMouseLeave: function (e) {
             var me = this;
             // 延迟关闭
             setTimeout(function () {
@@ -50,7 +50,7 @@ define(function (require) {
                 me.setState({layerShow: false});
             }, 100);
         },
-        mouseEnterHandler: function (e) {
+        onMouseEnter: function (e) {
             if (this.props.disabled || !tools.filiation[this.props.id] || tools.filiation[this.props.id].length < 1) {
                 return;
             }
@@ -60,54 +60,21 @@ define(function (require) {
             }
             this.props.parent.___currentLayer___ = this;
         },
-        checkboxPropsFactory: function (id, value) {
-            var selected = tools.getSelectedState(id, value);
-            return {
-                disabled: this.props.disabled,
-                label: language.regionName[id],
-                labelPosition: 'right',
-                value: id,
-                checked: selected.checked,
-                indeterminate: selected.indeterminate,
-                onChange: this.changeHandler
-            };
-        },
-        cityFactory: function () {
-            var datasource = tools.filiation[this.props.id];
-            if (!datasource || datasource.length === 0) return '';
-            var doms = [];
-            var maxLines = 6;
-            var step = Math.max(parseInt(datasource.length / maxLines), 3);
-            for (var i = 0; i < datasource.length; i+= step) {
-                var line = [];
-                for (var j = 0; j < step; j++) {
-                    if (i + j === datasource.length) break;
-                    var props = this.checkboxPropsFactory(datasource[i + j], this.props.value);
-                    line.push(
-                        <td key={i + j}>
-                            {this.props.type === 'single' ? <Radio {...props}/> : <CheckBox {...props}/>}
-                        </td>
-                    );
-                }
-                doms.push(<tr key={i}>{line}</tr>);
-            }
-            return doms;
-        },
         render: function () {
+            var selected = tools.getSelectedState(this.props.id, this.props.value);
             var containerProp = {
                 ref: 'container',
                 className: 'fcui2-region-province',
                 style: this.state.layerShow ? {border: '1px solid #C8C8C8'} : undefined,
-                onMouseLeave: this.mouseLeaveHandler,
-                onMouseEnter: this.mouseEnterHandler
+                onMouseLeave: this.onMouseLeave,
+                onMouseEnter: this.onMouseEnter
             };
-            var selected = tools.getSelectedState(this.props.id, this.props.value);
-            var checkboxProps = this.checkboxPropsFactory(this.props.id, this.props.value);
+            var checkboxProps = checkboxPropsFactory(this.props.id, this.props.value, this);
             var layerProps = {
                 isOpen: this.state.layerShow,
                 anchor: this.refs.container,
                 ref: 'layer',
-                onMouseLeave: this.mouseLeaveHandler
+                onMouseLeave: this.onMouseLeave
             };
             return(
                 <div {...containerProp}>
@@ -117,14 +84,51 @@ define(function (require) {
                     </span>
                     <Layer {...layerProps}>
                         <table className="fcui2-region-city-container">
-                            <tbody>
-                            {this.cityFactory()}
-                            </tbody>
+                            <tbody>{cityFactory(this)}</tbody>
                         </table>
                     </Layer>
                 </div>
             );
         }
     });
+
+
+    function cityFactory(me) {
+        var datasource = tools.filiation[me.props.id];
+        if (!datasource || datasource.length === 0) return '';
+        var doms = [];
+        var maxLines = 6;
+        var step = Math.max(parseInt(datasource.length / maxLines), 3);
+        for (var i = 0; i < datasource.length; i+= step) {
+            var line = [];
+            for (var j = 0; j < step; j++) {
+                if (i + j === datasource.length) break;
+                var props = checkboxPropsFactory(datasource[i + j], me.props.value, me);
+                line.push(
+                    <td key={i + j}>
+                        {me.props.type === 'single' ? <Radio {...props}/> : <CheckBox {...props}/>}
+                    </td>
+                );
+            }
+            doms.push(<tr key={i}>{line}</tr>);
+        }
+        return doms;
+    }
+
+
+    function checkboxPropsFactory(id, value, me) {
+        var selected = tools.getSelectedState(id, value);
+        return {
+            disabled: me.props.disabled,
+            label: language.regionName[id],
+            labelPosition: 'right',
+            value: id,
+            checked: selected.checked,
+            indeterminate: selected.indeterminate,
+            onChange: me.onProvinceChange
+        };
+    }
+
+
 
 });

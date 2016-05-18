@@ -6,14 +6,14 @@ var path = require( 'path' );
  *
  * @type {string}
  */
-exports.input = path.resolve(cwd, 'src');
+exports.input = path.resolve(cwd);
 
 /**
  * 输出目录
  *
  * @type {string}
  */
-exports.output = path.resolve( cwd, 'output' );
+exports.output = path.resolve( cwd, 'build' );
 
 /**
  * 排除文件pattern列表
@@ -26,7 +26,24 @@ exports.exclude = [
     '.DS_Store',
     '*.tmp',
     '*.bak',
-    '*.swp'
+    '*.swp',
+    'node_modules',
+    'dep',
+    'demo',
+    'test',
+    'build',
+    '.gitignore',
+    '.gitreview',
+    '.travis.yml',
+    'edp-*.js',
+    'FcBabelProcessor.js',
+    'index.html',
+    'karma.conf.js',
+    'LICENSE',
+    '*.json',
+    '*.conf',
+    '*.md',
+    'test-main.js'
 ];
 
 
@@ -45,12 +62,12 @@ exports.getProcessors = function () {
         new FcBabelProcessor(),
         new LessCompiler( {
             files: [
-                'css/main.less'
+                'src/css/main.less'
             ]
         } ),
         new CssCompressor(),
         new ModuleCompiler( {
-            configFile: '../module.conf',
+            configFile: './module.conf',
             entryExtnames: moduleEntries
         } ),
         new JsCompressor({
@@ -63,6 +80,11 @@ exports.getProcessors = function () {
             sourceMapOptions: {
                 enable: false
             }
+        }),
+        new OutputCleaner({
+            files: [
+                '*.less'
+            ]
         })
     ];
 };

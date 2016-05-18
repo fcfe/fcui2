@@ -2,6 +2,7 @@
  * @file 响应鼠标类型组件基础mixin
  * @author Brian Li
  * @email lbxxlht@163.com
+ * @version 0.0.1
  *
  * 此mixin主要作用是提供某些鼠标事件
  * 将mouseover, mousedown状态记录在state中

@@ -17,9 +17,9 @@ module.exports = function(config) {
     files: [
       'test-main.js',
       {pattern: 'dep/**/*.js', included: false},
-      {pattern: 'output/**/*.es6.js', included: false},
-      {pattern: 'output/**/*.jsx.js', included: false},
-      {pattern: 'output/**/*.js', included: false},
+      {pattern: 'build/**/*.es6.js', included: false},
+      {pattern: 'build/**/*.jsx.js', included: false},
+      {pattern: 'build/**/*.js', included: false},
       {pattern: 'test/spec/**/*Spec.es6.js', included: false},
       {pattern: 'test/spec/**/*Spec.js', included: false}
     ],
@@ -34,9 +34,9 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'test/**/*Spec.es6.js': ['babel'],
-      'output/**/*.es6.js': ['babel'],
-      'output/**/*.jsx.js': ['babel'],
-      'output/**/*.js': ['coverage']
+      'build/**/*.es6.js': ['babel'],
+      'build/**/*.jsx.js': ['babel'],
+      'build/**/*.js': ['coverage']
     },
 
     // babel preprocessor config

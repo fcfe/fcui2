@@ -70,17 +70,19 @@ define(function (require) {
         getDOMPosition: function (e) {
             var t = e.offsetTop;   
             var l = e.offsetLeft;   
-            var isFixed = false;
+            var isFixed = this.getStyle(e, 'position') === 'fixed';
             while (e = e.offsetParent) {
-                if (this.getStyle(e, 'position') === 'fixed') isFixed = true;
                 t += e.offsetTop;   
-                l += e.offsetLeft;   
+                l += e.offsetLeft; 
+                isFixed = isFixed || this.getStyle(e, 'position') === 'fixed';           
             }
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
             var pos = {
-                x: l - (isFixed ? 0 : (document.documentElement.scrollLeft || document.body.scrollLeft)),
-                y: t - (isFixed ? 0 : (document.documentElement.scrollTop || document.body.scrollTop)),
-                left: l + (!isFixed ? 0 : (document.documentElement.scrollLeft || document.body.scrollLeft)),
-                top: t + (!isFixed ? 0 : (document.documentElement.scrollTop || document.body.scrollTop))
+                x: l + (isFixed ? 0 : -scrollLeft),
+                y: t + (isFixed ? 0 : -scrollTop),
+                left: l + (isFixed ? scrollLeft : 0),
+                top: t + (isFixed ? scrollTop : 0)
             };
             return pos;
         },

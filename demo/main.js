@@ -2,7 +2,7 @@ define(function (require) {
 
     var ReactDOM = require('react-dom');
     var React = require('react');
-    var App = require('demo.jsx');
+    var App = require('./demo.jsx');
 
     render(window.location.hash);
 
