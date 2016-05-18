@@ -10,7 +10,7 @@ define(function (require) {
     var React = require('react');
     var ReactDOM = require('react-dom');
     var renderSubtreeIntoContainer = require("react-dom").unstable_renderSubtreeIntoContainer;
-    var util = require('./core/util');
+    var tools = require('./core/layerTools');
     var noop = function () {};
 
 
@@ -151,73 +151,11 @@ define(function (require) {
 
 
         fixedPosition: function (props) {
-
-            props = props || this.props;
             var layer = this.___layerContainer___;
-            var anchor = props.anchor;
-            var layerLocation = props.location + '';
-            var layerHeight = layer.offsetHeight;
-            var layerWidth = layer.offsetWidth;
-            var anchorHeight = anchor.offsetHeight;
-            var anchorWidth = anchor.offsetWidth;
-            var anchorPosition = util.getDOMPosition(anchor);
-            var finalPosition = {
-                top: anchorPosition.top - layerHeight,
-                bottom: anchorPosition.top + anchorHeight - 1,
-                left: anchorPosition.left + anchorWidth - layerWidth,
-                right: anchorPosition.left
-            };
-            var result = {
-                left: -9999,
-                top: -9999
-            };
-            var topIndex = layerLocation.indexOf('top');
-            var bottomIndex = layerLocation.indexOf('bottom');
-            var leftIndex = layerLocation.indexOf('left');
-            var rightIndex = layerLocation.indexOf('right');
-
-            // 只在上方显示
-            if (topIndex > -1 && bottomIndex < 0) { 
-                result.top = finalPosition.top;
-            }
-            // 只在下方显示
-            else if (bottomIndex > -1 && topIndex < 0) {
-                result.top = finalPosition.bottom;
-            }
-            // 上方优先显示
-            else if (topIndex < bottomIndex) {
-                result.top = anchorPosition.y - layerHeight > 0 ? finalPosition.top : finalPosition.bottom;
-            }
-            // 下方优先显示
-            else {
-                result.top = anchorPosition.y + anchorHeight + layerHeight >= document.documentElement.clientHeight
-                    ? finalPosition.top : finalPosition.bottom;
-            }
-
-            // 只在左侧显示
-            if (leftIndex > -1 && rightIndex < 0) {
-                result.left = finalPosition.left;
-            }
-            // 只在右侧显示
-            else if (rightIndex > -1 && leftIndex < 0) {
-                result.left = finalPosition.right;
-            }
-            // 左侧优先显示
-            else if (leftIndex < rightIndex) {
-                result.left = anchorPosition.left + anchorWidth - layerWidth > 0
-                    ? finalPosition.left : finalPosition.right
-            }
-            // 右侧优先显示
-            else {
-                result.left = anchorPosition.x + layerWidth >= document.documentElement.clientWidth
-                    ? finalPosition.left : finalPosition.right;
-            }
-
-            result.isTop = result.top === finalPosition.top;
-            result.isLeft = result.left === finalPosition.left;
-            typeof props.onOffset === 'function' && props.onOffset(result);
-            layer.style.left = result.left + 'px';
-            layer.style.top = result.top + 'px';
+            var pos = tools.getLayerPosition(layer, props.anchor, props.location + '');
+            typeof props.onOffset === 'function' && props.onOffset(pos);
+            layer.style.left = pos.left + 'px';
+            layer.style.top = pos.top + 'px';
         },
 
 

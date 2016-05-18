@@ -37,6 +37,49 @@ define(function (require) {
         },
 
         /**
+         * 获取输入框光标位置
+         *
+         * @param {HtmlElement} dom 正在输入的dom元素
+         * @return {number} 鼠标位置，如果为-1，表示dom没有获得焦点 
+         */
+        getCursorPosition: function (dom) {
+            var result = -1;
+            // 非IE浏览器
+            if (dom.selectionStart !== undefined) {
+                result = dom.selectionStart;
+            }
+            // IE
+            else {
+                var range = document.selection.createRange();
+                range.moveStart('character', -dom.value.length);
+                result = range.text.length;
+            }
+            return result;
+        },
+
+        /**
+         * 设置输入框中光标位置
+         *
+         * @param {HtmlElement} dom 正在输入的dom元素
+         * @param {number} pos 光标位置
+         */
+        setCursorPosition: function (dom, pos) {
+            // 非IE浏览器
+            if(dom.setSelectionRange) {
+                dom.focus();
+                dom.setSelectionRange(pos, pos);
+            }
+            // IE
+            else if (dom.createTextRange) {
+                var range = dom.createTextRange();
+                range.collapse(true);
+                range.moveEnd('character', pos)
+                range.moveStart('character', pos);
+                range.select();
+            }
+        },
+
+        /** 
          * 获取DOM是否可见
          *
          * @param {HtmlElement} dom dom节点
