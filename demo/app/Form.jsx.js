@@ -137,8 +137,9 @@ define(function (require) {
                         口味：
                             <Radio label="甜豆腐脑" value="1" name="doufunao" labelPosition="right"/>
                             <Radio label="咸豆腐脑" value="2" name="doufunao" labelPosition="right"/><br/>
+                        婚否: <TextBox name="requ" validations={{isNumeric: true, required: true}} /><br/>
                         姓名：<TextBox name="name" validations={nameValid} value={'Form_' + this.state.name}/><br/>
-                        年龄：<NumberBox name="age" validations={ageValid}/><br/>
+                        年龄：<NumberBox name="age" /><br/>
                         简介：<TextArea name="intro" className="form-textarea" value={'Form_' + this.state.intro} validations={introValid}/>
                         <Button type="submit" label="提交" skin="important"/>
                     </Form>

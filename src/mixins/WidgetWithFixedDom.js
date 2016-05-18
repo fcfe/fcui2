@@ -2,7 +2,6 @@
  * @file 用于fixed 组件内部某个DOM position的mixin
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
  *
  * 此mixin主要作用是固定组件内部某些DOM的位置
  */

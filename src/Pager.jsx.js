@@ -2,7 +2,7 @@
  * @file 页码组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -11,6 +11,7 @@ define(function (require) {
     var language = require('./core/language');
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
+    var cTools = require('./core/componentTools');
 
 
     return React.createClass({
@@ -19,11 +20,13 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                skin: '',
                 className: '',
+                style: {},
+                disabled: false,
                 min: 1,
                 max: 10,
                 threshold: Number.POSITIVE_INFINITY,
-                disabled: false,
                 valueTemplate: Number.POSITIVE_INFINITY
             };
         },
@@ -31,8 +34,7 @@ define(function (require) {
         getInitialState: function () {
             return {};
         },
-        clickHandler: function (e) {
-
+        onButtonClick: function (e) {
             var min = parseInt(this.props.min, 10);
             var max = parseInt(this.props.max, 10);
             var current = parseInt(this.___getValue___(), 10);
@@ -53,16 +55,13 @@ define(function (require) {
             this.___dispatchChange___(e);
         },
         render: function () {
-            var containerProp = {
-                className: 'fcui2-pager ' + this.props.className,
-                ref: 'container'
-            };
-            return (<div {...containerProp}>{produceButtons(this)}</div>);
+            var containerProp = cTools.containerBaseProps('pager', this);
+            return (<div {...containerProp}>{buttonFactory(this)}</div>);
         }
     });
 
 
-    function produceButtons(me) {
+    function buttonFactory(me) {
         var min = parseInt(me.props.min, 10);
         var max = parseInt(me.props.max, 10);
         var threshold = parseInt(me.props.threshold, 10);
@@ -76,7 +75,7 @@ define(function (require) {
 
         btns.push(
             <Button label={language.pager.previousPage} value="prev"
-                onClick={me.clickHandler} disabled={me.props.disabled || value <= min} key="prev"/>
+                onClick={me.onButtonClick} disabled={me.props.disabled || value <= min} key="prev"/>
         );
 
         var i = min;
@@ -103,7 +102,7 @@ define(function (require) {
                 skin: i + '' === value + '' ? 'active' : '',
                 minWidth: 12,
                 disabled: me.props.disabled,
-                onClick: me.clickHandler
+                onClick: me.onButtonClick
             };
             btns.push(<Button {...prop} label={i + ''} value={i} key={i}/>);
             i++;
@@ -111,7 +110,7 @@ define(function (require) {
 
         btns.push(
             <Button label={language.pager.nextPage} value="next"
-                onClick={me.clickHandler} disabled={me.props.disabled || value >= max} key="next"/>
+                onClick={me.onButtonClick} disabled={me.props.disabled || value >= max} key="next"/>
         );
 
         return btns;

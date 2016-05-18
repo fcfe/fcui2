@@ -2,7 +2,6 @@
  * @file input类型组件基础mixin
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
  *
  * 此mixin主要作用：
  * 1.解决input类型组件的渲染回馈问题
@@ -160,6 +159,7 @@ define(function (require) {
             var valueField = this.props.___uitype___ === 'checkbox' || this.props.___uitype___ === 'radio'
                 ? 'checked' : 'value';
             var value = arguments.length > 1 ? value : e.target[valueField];
+ 
             // 派发change
             if (this.___hasValueLink___) {
                 this.props.valueLink.requestChange(value);
@@ -167,10 +167,12 @@ define(function (require) {
             else if (typeof this.props.onChange === 'function') {
                 this.props.onChange(e, value);
             }
+
             // 通知表单
             if (this.___formAttached___ && validationTools.isCallbackExist(this, 'updateField')) {
                 this.context.___form___.updateField(this.props.name, value, this);
             }
+
             // 记录变更
             this.setState({
                 ___value___: value,
@@ -196,7 +198,7 @@ define(function (require) {
             var resultsHash = {};
             var customErrorTemplates = this.props.customErrorTemplates || {};
             var validations = this.___validations___ || {};
-            value = value || this.state.___value___;
+            value = value !== undefined ? value : this.state.___value___;
             for (var i = 0; i < rules.length; i++) {
                 var rule = rules[i];
                 if (!defaultValidations.hasOwnProperty(rule) && typeof validations[rule] !== 'function') {

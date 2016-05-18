@@ -101,7 +101,7 @@ define(function (require) {
             dataset[field] = value;
 
             // 域校验
-            validationResults[field] = inputs[componentKey].validate();
+            validationResults[field] = inputs[componentKey].validate(undefined, value);
             inputs[componentKey].setState({isValid: validationResults[field].length < 1});
 
             // 通知外部
@@ -123,7 +123,7 @@ define(function (require) {
             // 获取并校验每个域的值，存储值和校验结果
             for (var field in inputs) {
                 dataset[field] = inputs[field].___getValue___();
-                validationResults[field] = inputs[field].validate();
+                validationResults[field] = inputs[field].validate(null, dataset[field]);
                 inputs[field].setState({isValid: validationResults[field].length < 1});
                 formValidationResult = formValidationResult && validationResults[field].length < 1;
             }
