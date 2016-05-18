@@ -17,8 +17,11 @@ module.exports = function(config) {
     files: [
       'test-main.js',
       {pattern: 'dep/**/*.js', included: false},
+      {pattern: 'output/**/*.es6.js', included: false},
+      {pattern: 'output/**/*.jsx.js', included: false},
       {pattern: 'output/**/*.js', included: false},
-      {pattern: 'test/spec/**/*.js', included: false}
+      {pattern: 'test/spec/**/*Spec.es6.js', included: false},
+      {pattern: 'test/spec/**/*Spec.js', included: false}
     ],
 
 
@@ -30,7 +33,39 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'test/**/*Spec.es6.js': ['babel'],
+      'output/**/*.es6.js': ['babel'],
+      'output/**/*.jsx.js': ['babel'],
       'output/**/*.js': ['coverage']
+    },
+
+    // babel preprocessor config
+    babelPreprocessor: {
+        options: {
+          presets: ['react'],
+          sourceMap: 'inline',
+          plugins: [
+              'babel-plugin-transform-es2015-template-literals',
+              'babel-plugin-transform-es2015-literals',
+              'babel-plugin-transform-es2015-function-name',
+              'babel-plugin-transform-es2015-arrow-functions',
+              'babel-plugin-transform-es2015-block-scoped-functions',
+              'babel-plugin-transform-es2015-classes',
+              'babel-plugin-transform-es2015-object-super',
+              'babel-plugin-transform-es2015-shorthand-properties',
+              'babel-plugin-transform-es2015-computed-properties',
+              'babel-plugin-transform-es2015-for-of',
+              'babel-plugin-transform-es2015-sticky-regex',
+              'babel-plugin-transform-es2015-unicode-regex',
+              'babel-plugin-check-es2015-constants',
+              'babel-plugin-transform-es2015-spread',
+              'babel-plugin-transform-es2015-parameters',
+              'babel-plugin-transform-es2015-destructuring',
+              'babel-plugin-transform-es2015-block-scoping',
+              'babel-plugin-transform-es2015-typeof-symbol',
+              'transform-object-rest-spread'
+          ]
+        }
     },
 
     coverageReporter: {
@@ -62,7 +97,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
 
     phantomjsLauncher: {
       // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
