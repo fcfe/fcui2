@@ -1,5 +1,12 @@
-define(function (require) {
+/**
+ * @file 组件公共方法
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @author Han Bing Feng
+ */
 
+define(function (require) {
+    var _ = require('underscore');
 
     var MERGE_FROM_PROPS_TO_STYLE = [
         'width',
@@ -10,6 +17,29 @@ define(function (require) {
         'maxHeight'
     ];
 
+    /**
+     * 模拟符合React规则的synthetic event
+     * @param {Event} nativeEvent
+     * @constructor
+     */
+    function SyntheticEvent(nativeEvent) {
+        _.extend(this, _.pick(nativeEvent, function (prop, key) {
+            if (typeof prop === 'function') {
+                return false;
+            }
+
+            return true;
+        }));
+        this._nativeEvent = nativeEvent;
+    }
+
+    SyntheticEvent.prototype.preventDefault = function () {
+        this._nativeEvent.preventDefault();
+    };
+
+    SyntheticEvent.prototype.isDefaultPrevented = function () {
+        return this._nativeEvent.defaultPrevented;
+    };
 
     return {
 
@@ -101,10 +131,10 @@ define(function (require) {
                 if (!result.style.hasOwnProperty(key) && me.props.hasOwnProperty(key)) {
                     result.style[key] = me.props[key];
                 }
-            }       
+            }
             return result;
-        }
+        },
+
+        SyntheticEvent: SyntheticEvent
     };
-
-
 })

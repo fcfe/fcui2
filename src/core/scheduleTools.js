@@ -256,13 +256,37 @@ define(function (require) {
             return pos;
         },
 
+        /**
+         * 根据相对左上角坐标的x, y坐标, 返回其在控件天小时格子里的位置。
+         *
+         * @param {number} x x坐标
+         * @param {number} y y坐标
+         * @returns {{x: number, y: number}} x为小时位置, [0, 23], y为天位置, [0, 6]
+         */
         gridAxis: function (x, y) {
-            return {
-                x: (x - x % CELL_LENGTH) / CELL_LENGTH,
-                y: (y - y % CELL_LENGTH) / CELL_LENGTH
-            };
+            var x = (x - x % CELL_LENGTH) / CELL_LENGTH;
+            if (x < 0) {
+                x = 0;
+            }
+            if (x > 23) {
+                x = 23;
+            }
+
+            var y = (y - y % CELL_LENGTH) / CELL_LENGTH;
+            if (y < 0) {
+                y = 0;
+            }
+            if (y > 6) {
+                y = 6;
+            }
+            return {x: x, y: y};
         },
 
+        /**
+         * 根据鼠标状态, 返回cursor层的大小和位置
+         * @param {Object} state 当前控件状态, 含有鼠标位置
+         * @returns {{left: number, top: number, width: number, height: number}} cursor层大小和位置
+         */
         cursorSize: function (state) {
             var pos = {
                 left: -2,
@@ -270,10 +294,11 @@ define(function (require) {
                 width: 0,
                 height: 0
             };
-            if (state.mouseCurrentX < 0) {
+            if (state.mouseCurrentX < 0 && (state.mouseDownX < 0 && state.mouseDownY < 0)) {
                 return pos;
             }
-            else if (state.mouseDownX < 0) {
+
+            if (state.mouseDownX < 0) {
                 var axis = this.gridAxis(state.mouseCurrentX, state.mouseCurrentY);
                 pos.left = axis.x * CELL_LENGTH + 1;
                 pos.top = axis.y * CELL_LENGTH + 1;
@@ -281,6 +306,7 @@ define(function (require) {
                 pos.height = CELL_LENGTH - 1;
                 return pos;
             }
+
             var axis1 = this.gridAxis(
                 Math.min(state.mouseDownX, state.mouseCurrentX),
                 Math.min(state.mouseDownY, state.mouseCurrentY)

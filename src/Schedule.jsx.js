@@ -15,6 +15,7 @@ define(function (require) {
 
     let util = require('./core/util');
     let tools = require('./core/scheduleTools');
+    let componentTools = require('./core/componentTools');
     let language = require('./core/language').schedule;
 
     let CheckBox = require('./CheckBox.jsx');
@@ -109,8 +110,45 @@ define(function (require) {
                 mouseDownY: -1,
                 mouseCurrentX: -1,
                 mouseCurrentY: -1,
-                isPreventMouseEvent: false
+                /**
+                 * 是否会阻断全部的鼠标事件
+                 */
+                isPreventMouseEvent: false,
+                /**
+                 * 鼠标是否离开了控件
+                 */
+                isMouseLeft: true,
             };
+        },
+        componentDidMount() {
+            window.addEventListener('mouseup', this.onBodyMouseUp);
+            window.addEventListener('mousemove', this.onBodyMouseMove);
+        },
+        componentWillUnmount() {
+            window.removeEventListener('mouseup', this.onBodyMouseUp);
+            window.removeEventListener('mousemove', this.onBodyMouseMove);
+        },
+        /**
+         * 处理body鼠标抬起事件。如果当前处于拖拽状态, 点击会触发onScheduleSelected。其他情况无作用。
+         * @param {Event} e 点击事件对象
+         */
+        onBodyMouseUp(e) {
+            if (!this.state.isMouseLeft || this.state.mouseDownX === -1 || this.state.mouseDownY === -1) {
+                return;
+            }
+
+            this.optUpHandler(new componentTools.SyntheticEvent(e));
+        },
+        /**
+         * 处理body鼠标移动事件。如果当前处于拖拽状态, 拖拽会改变cursor大小, 其他情况无作用。
+         * @param {Event} e 移动事件对象
+         */
+        onBodyMouseMove(e) {
+            if (!this.state.isMouseLeft || this.state.mouseDownX === -1 || this.state.mouseDownY === -1) {
+                return;
+            }
+
+            this.optMoveHandler(new componentTools.SyntheticEvent(e));
         },
         optDownHandler(e) {
             if (this.props.disabled) {
@@ -133,9 +171,11 @@ define(function (require) {
                 return;
             }
             let pos = util.getDOMPosition(this.refs.optArea);
+
             this.setState({
                 mouseCurrentX: e.clientX - pos.x,
-                mouseCurrentY: e.clientY - pos.y
+                mouseCurrentY: e.clientY - pos.y,
+                isMouseLeft: true
             });
         },
         optUpHandler(e) {
@@ -161,7 +201,12 @@ define(function (require) {
                 return;
             }
             this.___dispatchChange___(e);
-            this.setState({mouseDownX: -1, mouseDownY: -1});
+            this.setState({
+                mouseDownX: -1,
+                mouseDownY: -1,
+                mouseCurrentX: -1,
+                mouseCurrentY: -1
+            });
         },
         optLeaveHandler(e) {
             if (this.props.disabled) {
@@ -170,12 +215,18 @@ define(function (require) {
             if (this.state.isPreventMouseEvent) {
                 return;
             }
-            this.setState({
-                mouseDownX: -1,
-                mouseDownY: -1,
-                mouseCurrentX: -1,
-                mouseCurrentY: -1
-            });
+            if (this.state.mouseDownX === -1 && this.state.mouseDownY === -1) {
+                // 没有在拖拽, 只是移动鼠标
+                this.setState({
+                    mouseCurrentX: -1,
+                    mouseCurrentY: -1,
+                    isMouseLeft: true
+                });
+
+                return;
+            }
+            // 用户在拖拽, 不中断用户的拖拽行为
+            this.setState({isMouseLeft: true});
         },
         columnSelectorHandler(e) {
             if (this.props.disabled) {

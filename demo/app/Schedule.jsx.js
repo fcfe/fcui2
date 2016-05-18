@@ -1,3 +1,10 @@
+/**
+ * @file 组件公共工具
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @author Han Bing Feng
+ */
+
 define(function (require) {
 
     var React = require('react');
@@ -136,7 +143,6 @@ define(function (require) {
                     let parsedValue = scheduleTools.parseValue(props.value);
                     let labels = scheduleTools.value2label(parsedValue[cAxis.y]);
                     let hoverLabel = scheduleTools.getLabelByIndex(cAxis.x, labels);
-                    console.log(labels, cAxis, hoverLabel);
                     if (hoverLabel == null) {
                         return null;
                     }
