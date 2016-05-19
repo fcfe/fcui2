@@ -26,6 +26,7 @@ define(function (require) {
             return {};
         },
         clickHandler: function (e) {
+            if (this.props.disabled) return;
             e.target = this.refs.container;
             e.target.value = this.props.value
             this.props.onClick(e);

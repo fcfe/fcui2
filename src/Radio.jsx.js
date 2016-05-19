@@ -9,7 +9,7 @@ define(function (require) {
 
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
-    
+    var cTools = require('./core/componentTools');
 
 
     return React.createClass({
@@ -19,11 +19,14 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 ___uitype___: 'radio',
+                skin: '',
                 className: '',
+                style: {},
+                disabled: false,
+                name: undefined,
                 label: '',
                 value: '',
                 labelPosition: 'left',
-                disabled: false,
                 valueTemplate: false
             };
         },
@@ -31,7 +34,7 @@ define(function (require) {
         getInitialState: function () {
             return {};
         },
-        clickHandler: function (e) {
+        onLayerClick: function (e) {
             if (this.props.disabled) return;
             e.target = this.refs.inputbox;
             if (!e.target.checked) {
@@ -40,17 +43,16 @@ define(function (require) {
             }
         },
         render: function () {
-            var containerProp = {
-                className: 'fcui2-checkbox ' + this.props.className,
-                style: {
-                    position: 'relative'
-                }
-            };
+            var containerProp = cTools.containerBaseProps('checkbox', this);
             var inputProp = {
+                key: 'inputbox',
+                ref: 'inputbox',
                 type: 'radio',
-                name: this.props.name, // radio 跟其他input组件不一样，它需要用name控制单选，所以这个属性要下传
-                value: this.props.value, // 这个value用来标记是哪个radio，而不是radio的选中状态
-                checked: this.___getValue___()
+                name: this.props.name,
+                value: this.props.value,
+                checked: this.___getValue___(),
+                onChange: cTools.noop,
+                disabled: this.props.disabled
             };
             var actionLayerProp = {
                 key: 'action-layer',
@@ -62,27 +64,16 @@ define(function (require) {
                     height: '100%',
                     cursor: 'pointer'
                 },
-                onClick: this.clickHandler
+                onClick: this.onLayerClick
             };
-            if (this.props.disabled) {
-                containerProp.className += ' fcui2-checkbox-disabled';
-            }
-            else if (this.state.isValid === false) {
-                containerProp.className += ' fcui2-checkbox-reject';
-            }
+            containerProp.style.position = 'relative';
             var doms = [];
-            doms.push(
-                <input {...inputProp} disabled={this.props.disabled} ref="inputbox" key="input"/>
-            );
+            doms.push(<input {...inputProp}/>);
             doms[this.props.labelPosition === 'right' ? 'push' : 'unshift'](
                 <span className="fcui2-checkbox-label" key="label">{this.props.label}</span>
             );
-            doms.push(
-                <div {...actionLayerProp}></div>
-            );
-            return (
-                <div {...containerProp}>{doms}</div>
-            );
+            doms.push(<div {...actionLayerProp}></div>);
+            return (<div {...containerProp}>{doms}</div>);
         }
     });
 });

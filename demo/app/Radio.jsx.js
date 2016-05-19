@@ -92,7 +92,7 @@ define(function (require) {
             return {};
         },
         changeHandler: function (e) {
-            this.props.alert(e.target.checked + '');
+            this.props.alert(e.target.value+ '');
         },
         render: function () {
             return (<div>{factory(this, items)}</div>);
