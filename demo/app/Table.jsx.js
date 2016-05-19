@@ -191,7 +191,7 @@ define(function (require) {
                 },
                 datasource: datasource,
                 fieldConfig: [
-                    fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
+                    fieldConfig.normalName, {isSelector: true},fieldConfig.normalAge, fieldConfig.normalBirth
                 ]
             }
         },

@@ -24,6 +24,7 @@ define(function (require) {
                 minWidth: 60,
                 width: NaN,
                 placeholder: 'please select',
+                openLayerType: 'onMouseEnter',
                 datasource: [],  // 见List
                 disabled: false,
                 valueTemplate: ''

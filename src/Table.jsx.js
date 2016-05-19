@@ -8,11 +8,17 @@ define(function (require) {
 
 
     var React = require('react');
-    var tools = require('./core/tableTools.jsx');
-    var language = require('./core/language');
-    var util = require('./core/util');
     var InputWidget = require('./mixins/InputWidget');
     var WidgetWithFixedDom = require('./mixins/WidgetWithFixedDom');
+    var TableMessage = require('./components/table/Message.jsx');
+    var TableHeader = require('./components/table/Header.jsx');
+    var NormalRenderer = require('./components/table/NormalRenderer.jsx');
+
+
+    var cTools = require('./core/componentTools');
+    var tools = require('./core/tableTools');    
+    var util = require('./core/util');
+    var language = require('./core/language');
 
 
     return React.createClass({
@@ -22,9 +28,11 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 // 样式属性
+                skin: '',
                 className: '',
-                // 配置属性
+                style: {},
                 disabled: false,
+                // 配置属性
                 fieldConfig: [],
                 flags: {
                     sortEnable: false,
@@ -41,12 +49,12 @@ define(function (require) {
                 },
                 fixedPosition: [],  // {ref: 'shadowTableContainer', top: 0, zIndex: 998}
                 // 回调属性
-                onAction: function () {},
+                onAction: cTools.noop,
                 // value模板, 此项目只能为基本类型，不能为object
                 valueTemplate: JSON.stringify({
                     sortField: '',
                     sortType: 'asc',
-                    selected: []         // 如果为全选，则此处为-1，否则，为行在datasource中的索引
+                    selected: []    // 如果为全选，则此处为-1，否则，为行在datasource中的索引
                 })
             };
         },
@@ -56,21 +64,18 @@ define(function (require) {
         },
         // @override
         componentDidMount: function () {
-            window.addEventListener('resize', this.updateWidth);
-            this.updateWidth();
+            window.addEventListener('resize', this.onRendered);
+            this.onRendered();
         },
         // @override
         componentWillUnmount: function () {
-            window.removeEventListener('resize', this.updateWidth);
+            window.removeEventListener('resize', this.onRendered);
         },
         // @override
         componentDidUpdate: function () {
-            this.updateWidth();
+            this.onRendered();
         },
-        /**
-         * 同步main table和shadow table的宽度，重新设置shadow container高度
-         */
-        updateWidth: function () {
+        onRendered: function () {
             var width = this.refs.container.offsetWidth;
             var table = this.refs.table;
             var shadow = this.refs.shadow;
@@ -86,99 +91,43 @@ define(function (require) {
             }
             shadowContainer.style.height = height + 'px';
         },
-        /**
-         * 将value中的selected域转成hash并返回
-         */
-        getSelectedHash: function () {
-            var value = this.___getValue___();
-            value = typeof value === 'string' ? JSON.parse(value) : {};
-            var selected = {};
-            if (value.selected === -1) {
-                selected = -1;
-            }
-            else if (value.selected instanceof Array) {
-                for (var s = 0; s < value.selected.length; s++) selected[value.selected[s]] = true;
-            }
-            return selected;
-        },
-        /**
-         * 选中某行
-         */
-        rowSelect: function (e) {
+        onRowSelect: function (e) {
             if (this.props.disabled) return;
-            var dataset = util.getDataset(e.target);
-            var index = parseInt(dataset.uiCmd, 10);
-            var value = e.target.checked;
-            var menuValue = e.target.value;
-            var selected = this.getSelectedHash();
-            var newSelected = [];
-            // 全选取消一项
-            if (selected === -1 && !value) {
-                for (var i = 0; i < this.props.datasource.length; i++) {
-                    if (i === index) continue;
-                    newSelected.push(i);
-                }
-            }
-            // 选中
-            else if (selected !== -1 && value) {
-                selected[index] = true;
-                for (var i = 0; i < this.props.datasource.length; i++) {
-                    if (!selected[i]) continue;
-                    newSelected.push(i);
-                }
-            }
-            // 取消选中
-            else if (selected !== -1 && !value) {
-                selected[index] = false;
-                for (var i = 0; i < this.props.datasource.length; i++) {
-                    if (!selected[i]) continue;
-                    newSelected.push(i);
-                }
-            }
-            // 全部选中
-            if (menuValue === '-1') {
-                newSelected = -1;
-            }
-            // 选中当前页
-            else if (menuValue === '-2') {
-                newSelected = [];
-                for (var i = 0; i < this.props.datasource.length; i++) newSelected.push(i);
-            }
-            // 取消所有选中
-            else if (menuValue === '-3') {
-                newSelected = [];
-            }
-            // 重新组装value
             var tableValue = this.___getValue___() || '{}';
             tableValue = JSON.parse(tableValue);
-            tableValue.selected = newSelected;
+            tableValue.selected = tools.updateSelected(
+                parseInt(util.getDataset(e.target).uiCmd, 10),
+                e.target.checked,
+                e.target.value,
+                this.___getValue___(),
+                this.props.datasource
+            );
             e.target = this.refs.container;
             e.target.value = JSON.stringify(tableValue);
             this.___dispatchChange___(e);
         },
-        // @override
         render: function () {
             return (
-                <div className={'fcui2-table ' + this.props.className} ref="container">
+                <div {...cTools.containerBaseProps('table', this)}>
                     <div ref="realTableContainer" className="table-container">
                         <table ref="table" cellSpacing="0" cellPadding="0">
-                            {tools.colgroupFactory(this)}
+                            {colgroupFactory(this)}
                             <tbody ref="tbody">
-                                {tools.headerFactory(this)}
-                                {tools.messageFactory(this)}
-                                {tools.summaryFactory(this)}
-                                {tools.lineFactory(this)}
+                                {headerFactory(this)}
+                                {messageFactory(this)}
+                                {summaryFactory(this)}
+                                {lineFactory(this)}
                             </tbody>
                         </table>
                     </div>
                     <div ref="shadowTableContainer" className="shadow-container">
                         <table ref="shadow" cellSpacing="0" cellPadding="0">
-                            {tools.colgroupFactory(this)}
+                            {colgroupFactory(this)}
                             <tbody>
-                                {tools.summaryFactory(this)}
-                                {tools.lineFactory(this)}
-                                {tools.headerFactory(this)}
-                                {tools.messageFactory(this)}
+                                {summaryFactory(this)}
+                                {lineFactory(this)}
+                                {headerFactory(this)}
+                                {messageFactory(this)}
                             </tbody>
                         </table>
                     </div>
@@ -186,4 +135,121 @@ define(function (require) {
             );
         }
     });
+    
+    
+    // 生成列宽度
+    function colgroupFactory(me) {
+        var td = [];
+        var fields = tools.fieldConfigFactory(me);
+        for (var i = 0; i < fields.length; i++) {
+            var width = isNaN(fields[i].width) ? 0 : fields[i].width * 1;
+            td.push(<col style={{width: width + 'px'}} key={'colgroup-' + i} />);
+        }
+        return <colgroup>{td}</colgroup>
+    }
+
+
+    // 生成表头
+    function headerFactory(me) {
+        if (!me.props.flags || !me.props.flags.showHeader || !tools.haveDate(me)) return null;
+        var td = [];
+        var fields = tools.fieldConfigFactory(me);
+        for (var i = 0; i < fields.length; i++) {
+            if (fields[i].isEmptyHeader) {
+                td.push(<th className="th-header" key={'header-' + i}></th>);
+                continue;
+            }
+            var Renderer = typeof fields[i].thRenderer === 'function' ? fields[i].thRenderer : TableHeader;
+            var props = {
+                fieldConfig: fields[i],
+                tableComponent: me,
+                key: 'header-' + i
+            };
+            console.log(fields[i].thRenderer);
+            td.push(<Renderer {...props} />);
+        }
+        return <tr className="tr-header" key="tr-header">{td}</tr>;
+    }
+
+
+    // 生成统计栏
+    function summaryFactory(me) {
+        if (!me.props.flags || !me.props.flags.showSummary || !tools.haveDate(me)) {
+            return (<tr style={{display: 'none'}}></tr>);
+        }
+        var td = [];
+        var conf = me.props.fieldConfig;
+        var summary = me.props.summary;
+        if (me.props.flags && me.props.flags.showSelector) td.push(<td key="summary-select"></td>);
+        for (var i = 0; i < conf.length; i++) {
+            var item = conf[i];
+            var tdStyle = {};
+            var text = summary.hasOwnProperty(item.field) ? summary[item.field] : '-';
+            tdStyle.textAlign = item.align || 'left';
+            td.push(<td style={tdStyle} key={'summary-' + i}>{text}</td>);
+        }
+        return <tr className="tr-summary" key="tr-summray">{td}</tr>;
+    }
+
+
+    // 生成message栏
+    function messageFactory(me) {
+        if (!me.props.flags || !me.props.flags.showMessage || !tools.haveDate(me)) {
+            return null;
+        }
+        var prop = {
+            message: me.props.message && me.props.message.content ? me.props.message.content : '',
+            buttonLabel: me.props.message && me.props.message.buttonLabel ? me.props.message.buttonLabel : '',
+            onClick: me.props.onAction,
+            colSpan: me.props.fieldConfig.length + 10
+        };
+        return (<TableMessage {...prop}/>);
+    }
+
+
+    // 生成行
+    function lineFactory(me) {
+        var lines = [];
+        var config = me.props.fieldConfig instanceof Array ? me.props.fieldConfig : [];
+        var datasource = me.props.datasource instanceof Array ? me.props.datasource : [];
+        // 没有数据源
+        if (!tools.haveDate(me)) {
+            return (
+                <tr>
+                    <td colSpan={config.length + 10} style={{textAlign: 'center'}}>
+                        <div className="table-nodata">{language.table.noData}</div>
+                    </td>
+                </tr>
+            );
+        }
+        // 获取表格当前值，并制作选中行的hash
+        var selectorFlag = me.props.flags && me.props.flags.showSelector;
+        var selectedHash = tools.getSelected(me.___getValue___());
+        // 渲染行
+        for (var index = 0; index < datasource.length; index++) {
+            var item = datasource[index];
+            var td = [];
+            var selected = selectedHash === -1 || selectedHash[index];
+            // 第一列选择器
+            if (selectorFlag) {
+                var selectorProp = {
+                    type: 'checkbox',
+                    className: 'tr-selector',
+                    checked: !!selected,
+                    disabled: me.props.disabled,
+                    'data-ui-cmd': index,
+                    onChange: me.onRowSelect,
+                };
+                td.push(<td key="row-select" className="td-selector"><input {...selectorProp}/></td>);
+            }
+            // 其他列
+            for (var j = 0; j < config.length; j++) {
+                var props = tools.tdPropsFactory(config[j], item, me, index, j);
+                var renderer = typeof config[j].renderer === 'function' ? config[j].renderer : NormalRenderer;
+                td.push(React.createElement(renderer, props));
+            }
+            lines.push(<tr key={'row-' + index} className={selected ? 'tr-data tr-selected' : 'tr-data'}>{td}</tr>);
+        }
+        return lines;
+    }
 });
