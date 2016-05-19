@@ -87,7 +87,8 @@ define(function (require) {
             var inputProp = {
                 type: 'button;submit;reset;'.indexOf(this.props.type + ';') > -1 ? this.props.type : 'button',
                 name: this.props.name,
-                value: this.props.label
+                value: this.props.label,
+                disabled: this.props.disabled
             };
             if (this.props.icon.length > 0) {
                  inputProp.style = {textAlign: 'left'};

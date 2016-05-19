@@ -127,6 +127,7 @@ define(function (require) {
                             </td>
                         </tr>
                     </tbody></table>
+                    <Button type="submit" label="提交" disabled={true} skin="important"/>
                     </Form>
                     <h3>Form With Validation</h3>
                     <div className="props">{this.state.message}</div>

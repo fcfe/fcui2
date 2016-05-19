@@ -2,14 +2,15 @@
  * @file 地域选择组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
 
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
-    
+
+
     var CheckBox = require('./CheckBox.jsx');
     var Radio = require('./Radio.jsx');
     var ProvinceRenderer = require('./components/region/NormalProvince.jsx');
@@ -18,6 +19,7 @@ define(function (require) {
 
     var util = require('./core/util');
     var tools = require('./core/regionTools');
+    var cTools = require('./core/componentTools');
     var language = require('./core/language').region;
 
 
@@ -27,13 +29,15 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                skin: '',
                 className: '',
+                style: {},
                 disabled: false,
+                type: 'multi',
                 provinceRenderer: ProvinceRenderer,
                 regionRenderer: RegionRenderer,
                 countryRenderer: RegionRenderer,
-                valueTemplate: '',
-                type: 'multi'
+                valueTemplate: ''
             };
         },
         // @override
@@ -44,7 +48,7 @@ define(function (require) {
         componentDidMount: function () {
             this.___layerShow___ = '';
         },
-        changeHandler: function (e) {
+        onRegionChange: function (e) {
             if (this.props.disabled) return;
             var value = this.___getValue___();
             value = this.props.type === 'single' ? {} : tools.parseValue(value);
@@ -63,11 +67,10 @@ define(function (require) {
             e.target.value = tools.stringifyValue(value);
             this.___dispatchChange___(e);
         },
-        render: function () {
-            var value = this.___getValue___();
+        render: function () { 
             return (
-                <div className={'fcui2-region ' + this.props.className} ref="container">
-                    {countryFactory([998, 999], value, this)}
+                <div {...cTools.containerBaseProps('region', this)}>
+                    {countryFactory([998, 999], this.___getValue___(), this)}
                 </div>
             );
         }
@@ -81,7 +84,7 @@ define(function (require) {
             value: value,
             parent: me,
             disabled: me.props.disabled,
-            onChange: me.changeHandler,
+            onChange: me.onRegionChange,
             type: me.props.type
         };
     }
@@ -97,9 +100,9 @@ define(function (require) {
                     <div className="country-title">
                         <Renderer {...rendererPropsFactory(arr[i], value, me)} />
                     </div>
-                    <div>{
-                        regionFactory(tools.filiation[arr[i]], value, me)
-                    }</div>
+                    <div>
+                        {regionFactory(tools.filiation[arr[i]], value, me)}
+                    </div>
                 </div>
             );
         }
@@ -117,9 +120,9 @@ define(function (require) {
                     <div className="region-left-container">
                         <Renderer {...rendererPropsFactory(arr[i], value, me)}/>
                     </div>
-                    <div className="region-right-container">{
-                        provinceFactory(tools.filiation[arr[i]], value, me)
-                    }</div>
+                    <div className="region-right-container">
+                       {provinceFactory(tools.filiation[arr[i]], value, me)}
+                    </div>
                 </div>
             );
         }

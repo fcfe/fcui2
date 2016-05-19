@@ -27,15 +27,23 @@ define(function (require) {
         // @override
         componentWillReceiveProps: function (nextProps) {
             // 注意，此处不符合fcui2开发规范，主要是为了解决https://github.com/facebook/react/issues/3926这个问题
-            if (nextProps.value === this.state.___value___ || !nextProps.value) return;
+            if (
+                nextProps.value + '' === this.state.___value___ + ''
+                || nextProps.value === undefined
+                || nextProps.value === null
+            ) {
+                return;
+            }
             this.setState({
-                ___value___: nextProps.value
+                ___value___: nextProps.value + ''
             });
         },
         // @override
         getInitialState: function () {
+            var value = this.props.value;
+            value = value === undefined || value === null ? '' : value + '';
             return {
-                ___value___: this.props.value || ''
+                ___value___: value
             };
         },
         changeHandler: function (e) {

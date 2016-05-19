@@ -2,19 +2,21 @@
  * @file 日期区间选择框组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
 
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
-    
+
+
     var Layer = require('./Layer.jsx');
     var Calendar = require('./Calendar.jsx');
     var Button = require('./Button.jsx');
 
 
+    var cTools = require('./core/componentTools');
     var tools = require('./core/calendarTools');
     var util = require('./core/util');
     var language = require('./core/language').rangeCalendar;
@@ -31,13 +33,13 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                skin: '',
                 className: '',
-                minWidth: 100,
-                width: NaN,
+                style: {},
+                disabled: false,
                 placeholder: 'please select',
                 min: '0-1-1',
                 max: '9999-12-31',
-                disabled: false,
                 valueTemplate: '',
                 /**
                  * 快捷按钮配置
@@ -68,21 +70,13 @@ define(function (require) {
         },
 
 
-        mainButtonClickHandler: function (e) {
+        onMainButtonClick: function (e) {
             if (this.props.disabled) return;
             this.setState({layerOpen: true});
-            // this.layerShow({
-            //     value: this.___getValue___(),
-            //     min: this.props.min,
-            //     max: this.props.max,
-            //     shortCut: this.props.shortCut,
-            //     rangeValidator: this.props.rangeValidator,
-            //     close: this.layerHide
-            // }, true);
         },
 
 
-        enterButtonClickHandler: function (e) {
+        onEnterButtonClick: function (e) {
             e.target = this.refs.container;
             e.target.value = this.state.value1 + ';' + this.state.value2;
             this.___dispatchChange___(e);
@@ -90,12 +84,12 @@ define(function (require) {
         },
 
 
-        cancelButtonClickHandler: function (e) {
+        onCancelButtonClick: function (e) {
             this.setState({layerOpen: false});
         },
 
 
-        shortCutClickHandler: function (e) {
+        onShortCutClick: function (e) {
             var i = util.getDataset(e.target).uiCmd * 1;
             var values = this.props.shortCut[i].getValues();
             if (!values) return;
@@ -134,7 +128,7 @@ define(function (require) {
         },
 
 
-        c1ChangeHandler: function (e) {
+        onCalendarChange1: function (e) {
             var value = tools.str2date(e.target.value);
             var rangeValidationResult = this.props.rangeValidator(value, this.state.___v2);
             this.setState({
@@ -145,7 +139,7 @@ define(function (require) {
         },
 
 
-        c2ChangeHandler: function (e) {
+        onCalendarChange2: function (e) {
             var value = tools.str2date(e.target.value);
             var rangeValidationResult = this.props.rangeValidator(this.state.___v1, value);
             this.setState({
@@ -156,104 +150,96 @@ define(function (require) {
         },
 
 
-        shortCutFactory: function () {
-            var shortCut = this.props.shortCut;
-            if (!(shortCut instanceof Array) || shortCut.length === 0) return '';
-            var doms = [];
-            for (var i = 0; i < shortCut.length; i++) {
-                var props = {
-                    key: 'shortcut-' + i,
-                    'data-ui-cmd': i,
-                    onClick: this.shortCutClickHandler
-                };
-                doms.push(<div {...props}>{shortCut[i].label}</div>);
-            }
-            return doms;
-        },
-
-
-        layerContentFactory: function () {
-            var tpl = 'YYYY-MM-DD';
-            var min = tools.str2date(this.props.min) || tools.str2date('0-1-1');
-            var max = tools.str2date(this.props.max) || tools.str2date('9999-12-31');
-            if (tools.compareDate(min, max) === 1) { // min > max
-                var tmp = min;
-                min = max;
-                max = tmp;
-            }
-            var c1Prop = {
-                ref: 'c1',
-                min: util.dateFormat(min, tpl),
-                value: this.state.value1,
-                max: util.dateFormat(this.state.value2, tpl),
-                onChange: this.c1ChangeHandler
-            };
-            var c2Prop = {
-                ref: 'c2',
-                min: util.dateFormat(this.state.value1, tpl),
-                value: this.state.value2,
-                max: util.dateFormat(max, tpl),
-                onChange: this.c2ChangeHandler
-            };
-            var enterButtonProp = {
-                disabled: typeof this.state.rangeValidationResult === 'string'
-                    && this.state.rangeValidationResult.length > 0,
-                label: language.enter,
-                skin: 'important',
-                onClick: this.enterButtonClickHandler
-            };
-            return (
-                <div className="fcui2-range-calendar">
-                    <div className="fast-operation-bar">{this.shortCutFactory()}</div>
-                    <div className="resuit-display-bar">
-                        <div>{language.startTime + this.state.value1}</div>
-                        <div>{language.endTime + this.state.value2}</div>
-                    </div>
-                    <Calendar {...c1Prop}/>
-                    <Calendar {...c2Prop}/>
-                    <div className="button-bar">
-                        <Button {...enterButtonProp}/>
-                        <Button label={language.cancel} onClick={this.cancelButtonClickHandler}/>
-                        <span style={{position: 'relative', top: 0}}>{this.state.rangeValidationResult}</span>
-                    </div>
-                </div>
-            );
-        },
-
-
         render: function () {
             var me = this;
-            var containerProp = {
-                className: 'fcui2-dropdownlist ' + this.props.className,
-                style: {
-                    minWidth: this.props.minWidth,
-                    borderColor: this.state.isValid === false ? '#F00' : undefined 
-                },
-                onClick: this.mainButtonClickHandler,
-                ref: 'container'
-            };
-            if (this.props.disabled) {
-                containerProp.className += ' fcui2-dropdownlist-disabled';
-            }
-            if (!isNaN(this.props.width)) {
-                delete containerProp.style.minWidth;
-                containerProp.style.width = this.props.width;
-            }
+            var containerProp = cTools.containerBaseProps('dropdownlist', this, {
+                merge: {
+                    onClick: this.onMainButtonClick
+                }
+            });
             var label = this.___getValue___() || this.props.placeholder;
             label = label.replace(/-/g, '.').replace(/;/g, ' - ');
             var layerProp = {
                 isOpen: this.state.layerOpen && !this.props.disabled,
                 anchor: this.refs.container,
                 closeWithBodyClick: true,
-                onCloseByWindow: this.cancelButtonClickHandler
+                onCloseByWindow: this.onCancelButtonClick
             };
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-calendar"></div>
                     <div className="label-container">{label}</div>
-                    <Layer {...layerProp}>{this.layerContentFactory()}</Layer>
+                    <Layer {...layerProp}>{layerContentFactory(me)}</Layer>
                 </div>
             );
         }
     });
+
+
+    function layerContentFactory(me) {
+        var tpl = 'YYYY-MM-DD';
+        var min = tools.str2date(me.props.min) || tools.str2date('0-1-1');
+        var max = tools.str2date(me.props.max) || tools.str2date('9999-12-31');
+        if (tools.compareDate(min, max) === 1) { // min > max
+            var tmp = min;
+            min = max;
+            max = tmp;
+        }
+        var c1Prop = {
+            ref: 'c1',
+            min: util.dateFormat(min, tpl),
+            value: me.state.value1,
+            max: util.dateFormat(me.state.value2, tpl),
+            onChange: me.onCalendarChange1
+        };
+        var c2Prop = {
+            ref: 'c2',
+            min: util.dateFormat(me.state.value1, tpl),
+            value: me.state.value2,
+            max: util.dateFormat(max, tpl),
+            onChange: me.onCalendarChange2
+        };
+        var enterButtonProp = {
+            disabled: typeof me.state.rangeValidationResult === 'string'
+                && me.state.rangeValidationResult.length > 0,
+            label: language.enter,
+            skin: 'important',
+            onClick: me.onEnterButtonClick
+        };
+        return (
+            <div className="fcui2-range-calendar">
+                <div className="fast-operation-bar">{shortCutFactory(me)}</div>
+                <div className="resuit-display-bar">
+                    <div>{language.startTime + me.state.value1}</div>
+                    <div>{language.endTime + me.state.value2}</div>
+                </div>
+                <Calendar {...c1Prop}/>
+                <Calendar {...c2Prop}/>
+                <div className="button-bar">
+                    <Button {...enterButtonProp}/>
+                    <Button label={language.cancel} onClick={me.onCancelButtonClick}/>
+                    <span style={{position: 'relative', top: 0}}>{me.state.rangeValidationResult}</span>
+                </div>
+            </div>
+        );
+    }
+
+
+    function shortCutFactory(me) {
+        var shortCut = me.props.shortCut;
+        if (!(shortCut instanceof Array) || shortCut.length === 0) return '';
+        var doms = [];
+        for (var i = 0; i < shortCut.length; i++) {
+            var props = {
+                key: 'shortcut-' + i,
+                'data-ui-cmd': i,
+                onClick: me.onShortCutClick
+            };
+            doms.push(<div {...props}>{shortCut[i].label}</div>);
+        }
+        return doms;
+    }
+
+
 });
+
