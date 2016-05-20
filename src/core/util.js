@@ -111,13 +111,19 @@ define(function (require) {
          * @return {Object} 位置对象，left、top相对于body左上角；x、y相对于可见区域左上角;
          */
         getDOMPosition: function (e) {
+            var initDom = e;
             var t = e.offsetTop;   
-            var l = e.offsetLeft;   
+            var l = e.offsetLeft;
             var isFixed = this.getStyle(e, 'position') === 'fixed';
             while (e = e.offsetParent) {
                 t += e.offsetTop;   
                 l += e.offsetLeft; 
                 isFixed = isFixed || this.getStyle(e, 'position') === 'fixed';           
+            }
+            e = initDom;
+            while((e = e.parentNode) && e.tagName !== 'BODY') {
+                t -= e.scrollTop;
+                l -= e.scrollLeft;
             }
             var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
             var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;

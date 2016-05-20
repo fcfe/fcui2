@@ -1,13 +1,29 @@
 define(function (require) {
 
 
-    var STYLES = {
+    var STYLES_MERGE_FROM_CONF_TO_PROPS = {
         align: 'textAlign',
         color: 'color'
     };
 
 
     return {
+
+
+        /**
+         * 根据选中hash，计算选中item个数
+         *
+         * @param {Object | number} obj 选中hash，-1表示全选
+         * @param {number} 选中的item个数，即obj键的个数，-1为全选
+         */
+        getSelectedCount: function (obj) {
+            if (obj === -1) return -1;
+            var n = 0;
+            for (var key in obj) {
+                if (obj.hasOwnProperty(key)) n++;
+            }
+            return n;
+        },
 
 
         /**
@@ -115,7 +131,7 @@ define(function (require) {
             props.key = 'column-' + column;
             // 对content域进行特殊处理
             if (typeof conf.content === 'function') {
-                props.content = conf.content(item, row, column);
+                props.content = conf.content(item, row, column, me);
             }
             else if (typeof conf.content === 'string' && item.hasOwnProperty(conf.content)) {
                 props.content = item[conf.content];
@@ -128,8 +144,8 @@ define(function (require) {
             }
             // 将某些style从conf中挪到props.style
             props.style = props.style || {};
-            for (var key in STYLES) {
-                var styleName = STYLES[key];
+            for (var key in STYLES_MERGE_FROM_CONF_TO_PROPS) {
+                var styleName = STYLES_MERGE_FROM_CONF_TO_PROPS[key];
                 if (conf.hasOwnProperty(key) && !props.style.hasOwnProperty(styleName)) {
                     props.style[styleName] = conf[key];
                 }
@@ -147,16 +163,20 @@ define(function (require) {
          * 重新组织fieldConfig
          *
          * @param {Object} me React table 实例
+         * @param {Object} renderers 外部导入的默认渲染器，由于某些渲染器可能会调用此文件，造成循环加载，所以从这里导入
          * @return {Array} 列配置
          */
-        fieldConfigFactory: function (me) {
+        fieldConfigFactory: function (me, renderers) {
             var fields = [];
             var hasSelector = false;
             var selectorConfig = {
                 isSelector: true,
                 width:60,
-                renderer: require('../components/table/Selector.jsx'),
-                thRenderer: require('../components/table/Selector.jsx')
+                renderer: renderers.selectorItem,
+                thRenderer: renderers.selectorHeader,
+                prepare: function (props, item, row, column, me) {
+                    props.onRowSelect = me.onRowSelect;
+                }
             };
             for (var i = 0; i < me.props.fieldConfig.length; i++) {
                 var item = me.props.fieldConfig[i];

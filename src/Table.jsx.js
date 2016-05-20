@@ -10,16 +10,20 @@ define(function (require) {
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
     var WidgetWithFixedDom = require('./mixins/WidgetWithFixedDom');
-    var TableMessage = require('./components/table/Message.jsx');
-    var TableHeader = require('./components/table/Header.jsx');
+    var TableMessage = require('./components/table/MessageBar.jsx');
+    var TableHeader = require('./components/table/NormalHeader.jsx');
     var NormalRenderer = require('./components/table/NormalRenderer.jsx');
+    var Others = {
+        selectorHeader: require('./components/table/SelectorInHeader.jsx'),
+        selectorItem: require('./components/table/SelectorInTBody.jsx')
+    };
 
 
     var cTools = require('./core/componentTools');
     var tools = require('./core/tableTools');    
     var util = require('./core/util');
     var language = require('./core/language');
-
+    
 
     return React.createClass({
         // @override
@@ -96,7 +100,7 @@ define(function (require) {
             var tableValue = this.___getValue___() || '{}';
             tableValue = JSON.parse(tableValue);
             tableValue.selected = tools.updateSelected(
-                parseInt(util.getDataset(e.target).uiCmd, 10),
+                parseInt(util.getDataset(e.target).uiCmd || e.target.value, 10),
                 e.target.checked,
                 e.target.value,
                 this.___getValue___(),
@@ -140,7 +144,7 @@ define(function (require) {
     // 生成列宽度
     function colgroupFactory(me) {
         var td = [];
-        var fields = tools.fieldConfigFactory(me);
+        var fields = tools.fieldConfigFactory(me, Others);
         for (var i = 0; i < fields.length; i++) {
             var width = isNaN(fields[i].width) ? 0 : fields[i].width * 1;
             td.push(<col style={{width: width + 'px'}} key={'colgroup-' + i} />);
@@ -153,7 +157,7 @@ define(function (require) {
     function headerFactory(me) {
         if (!me.props.flags || !me.props.flags.showHeader || !tools.haveDate(me)) return null;
         var td = [];
-        var fields = tools.fieldConfigFactory(me);
+        var fields = tools.fieldConfigFactory(me, Others);
         for (var i = 0; i < fields.length; i++) {
             if (fields[i].isEmptyHeader) {
                 td.push(<th className="th-header" key={'header-' + i}></th>);
@@ -165,7 +169,6 @@ define(function (require) {
                 tableComponent: me,
                 key: 'header-' + i
             };
-            console.log(fields[i].thRenderer);
             td.push(<Renderer {...props} />);
         }
         return <tr className="tr-header" key="tr-header">{td}</tr>;
@@ -175,16 +178,17 @@ define(function (require) {
     // 生成统计栏
     function summaryFactory(me) {
         if (!me.props.flags || !me.props.flags.showSummary || !tools.haveDate(me)) {
-            return (<tr style={{display: 'none'}}></tr>);
+            return null;
         }
         var td = [];
-        var conf = me.props.fieldConfig;
+        var fields = tools.fieldConfigFactory(me, Others);
         var summary = me.props.summary;
-        if (me.props.flags && me.props.flags.showSelector) td.push(<td key="summary-select"></td>);
-        for (var i = 0; i < conf.length; i++) {
-            var item = conf[i];
+        for (var i = 0; i < fields.length; i++) {
+            var item = fields[i];
             var tdStyle = {};
-            var text = summary.hasOwnProperty(item.field) ? summary[item.field] : '-';
+            var text = !item.hasOwnProperty('field')
+                ? '' : (summary.hasOwnProperty(item.field) ? summary[item.field] : '-');
+            text = fields[i].isSelector ? '' : text;
             tdStyle.textAlign = item.align || 'left';
             td.push(<td style={tdStyle} key={'summary-' + i}>{text}</td>);
         }
@@ -197,11 +201,12 @@ define(function (require) {
         if (!me.props.flags || !me.props.flags.showMessage || !tools.haveDate(me)) {
             return null;
         }
+        var fields = tools.fieldConfigFactory(me, Others);
         var prop = {
             message: me.props.message && me.props.message.content ? me.props.message.content : '',
             buttonLabel: me.props.message && me.props.message.buttonLabel ? me.props.message.buttonLabel : '',
             onClick: me.props.onAction,
-            colSpan: me.props.fieldConfig.length + 10
+            colSpan: fields.length + 10
         };
         return (<TableMessage {...prop}/>);
     }
@@ -210,7 +215,7 @@ define(function (require) {
     // 生成行
     function lineFactory(me) {
         var lines = [];
-        var config = me.props.fieldConfig instanceof Array ? me.props.fieldConfig : [];
+        var config = tools.fieldConfigFactory(me, Others);;
         var datasource = me.props.datasource instanceof Array ? me.props.datasource : [];
         // 没有数据源
         if (!tools.haveDate(me)) {
@@ -223,32 +228,23 @@ define(function (require) {
             );
         }
         // 获取表格当前值，并制作选中行的hash
-        var selectorFlag = me.props.flags && me.props.flags.showSelector;
         var selectedHash = tools.getSelected(me.___getValue___());
         // 渲染行
         for (var index = 0; index < datasource.length; index++) {
-            var item = datasource[index];
             var td = [];
+            var item = datasource[index];
             var selected = selectedHash === -1 || selectedHash[index];
-            // 第一列选择器
-            if (selectorFlag) {
-                var selectorProp = {
-                    type: 'checkbox',
-                    className: 'tr-selector',
-                    checked: !!selected,
-                    disabled: me.props.disabled,
-                    'data-ui-cmd': index,
-                    onChange: me.onRowSelect,
-                };
-                td.push(<td key="row-select" className="td-selector"><input {...selectorProp}/></td>);
-            }
-            // 其他列
+            var trProp = {
+                key: 'row-' + index,
+                className: selected ? 'tr-data tr-selected' : 'tr-data'
+            };
             for (var j = 0; j < config.length; j++) {
                 var props = tools.tdPropsFactory(config[j], item, me, index, j);
-                var renderer = typeof config[j].renderer === 'function' ? config[j].renderer : NormalRenderer;
-                td.push(React.createElement(renderer, props));
+                var Renderer = typeof config[j].renderer === 'function' ? config[j].renderer : NormalRenderer;
+                props.___isRowSelected___ = selected;
+                td.push(<Renderer {...props} />);
             }
-            lines.push(<tr key={'row-' + index} className={selected ? 'tr-data tr-selected' : 'tr-data'}>{td}</tr>);
+            lines.push(<tr {...trProp}>{td}</tr>);
         }
         return lines;
     }
