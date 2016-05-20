@@ -17,14 +17,14 @@ define(function (require) {
     var language = require('../../core/language').region;
 
 
-    return React.createClass({   
+    return React.createClass({
         // @override
         getDefaultProps: function () {
             return {
                 id: -1,
                 disabled: false,
-                type: 'multi', 
-                parent: {},   
+                type: 'multi',
+                parent: {},
                 value: {},
                 onChange: function () {}
             };
@@ -113,7 +113,7 @@ define(function (require) {
 
 
     function checkboxPropsFactory(id, value, me) {
-        var selected = tools.getSelectedState(id, value);
+        var selected = tools.getSelectedState(id, value, me.props.parent.props.noLinkage);
         return {
             disabled: me.props.disabled,
             label: language.regionName[id],

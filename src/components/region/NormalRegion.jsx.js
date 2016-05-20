@@ -14,7 +14,7 @@ define(function (require) {
     var tools = require('../../core/regionTools');
     var language = require('../../core/language').region;
 
-    return React.createClass({   
+    return React.createClass({
         // @override
         getDefaultProps: function () {
             return {
@@ -36,7 +36,11 @@ define(function (require) {
             this.props.onChange(e);
         },
         render: function () {
-            var selected = tools.getSelectedState(this.props.id, this.props.value);
+            var selected = tools.getSelectedState(
+                this.props.id,
+                this.props.value,
+                this.props.parent.props.noLinkage
+            );
             var prop = {
                 label: language.regionName[this.props.id],
                 labelPosition: 'right',

@@ -34,6 +34,7 @@ define(function (require) {
                 style: {},
                 disabled: false,
                 type: 'multi',
+                noLinkage: false,
                 provinceRenderer: ProvinceRenderer,
                 regionRenderer: RegionRenderer,
                 countryRenderer: RegionRenderer,
@@ -57,17 +58,17 @@ define(function (require) {
             }
             else {
                 if (e.target.checked) {
-                    tools.addValue(e.target.value, value);
+                    tools.addValue(e.target.value, value, this.props.noLinkage);
                 }
                 else {
-                    tools.deleteValue(e.target.value, value);
+                    tools.deleteValue(e.target.value, value, this.props.noLinkage);
                 }
             }
             e.target = this.refs.container;
             e.target.value = tools.stringifyValue(value);
             this.___dispatchChange___(e);
         },
-        render: function () { 
+        render: function () {
             return (
                 <div {...cTools.containerBaseProps('region', this)}>
                     {countryFactory([998, 999], this.___getValue___(), this)}
@@ -76,7 +77,7 @@ define(function (require) {
         }
     });
 
-    
+
     function rendererPropsFactory(id, value, me) {
         return {
             key: id,
