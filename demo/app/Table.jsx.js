@@ -343,17 +343,9 @@ define(function (require) {
         },
         expandTableAction: function (type, param) {
             this.props.alert(type + ' ' + JSON.stringify(param));
-            var data = [];
-            var id = '';
-            if (param.expanded) {
-                data = expandTableDatasourceFactory(param.expandId);
-                id = param.expandId;
-            }
-            else {
-                data = expandTableDatasourceFactory('');
-            }
+            var id = param.expanded ? param.expandId : '';
             this.setState({
-                expandData: data,
+                expandData: expandTableDatasourceFactory(id),
                 expandId: id
             });
         },

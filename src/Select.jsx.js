@@ -2,7 +2,7 @@
  * @file 选择框组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -12,6 +12,7 @@ define(function (require) {
     
     var Layer = require('./Layer.jsx');
     var List = require('./List.jsx');
+    var cTools = require('./core/componentTools');
 
 
     return React.createClass({
@@ -20,13 +21,13 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                skin: '',
                 className: '',
-                minWidth: 60,
-                width: NaN,
+                style: {},
+                disabled: false,
                 placeholder: 'please select',
                 openLayerType: 'onMouseEnter',
                 datasource: [],  // 见List
-                disabled: false,
                 valueTemplate: ''
             };
         },
@@ -36,43 +37,22 @@ define(function (require) {
                 layerOpen: false
             };
         },
-        listClickHandler: function (e) {
+        onListClick: function (e) {
             var value = this.___getValue___();
             if (this.props.disabled || value === e.target.value) return;
             this.___dispatchChange___(e);
             this.setState({layerOpen: false});
         },
-        mouseEnterHandler: function (e) {
-            this.setState({layerOpen: true});
-        },
-        mouseLeaveHandler: function (e) {
-            var me = this;
-            // 延迟关闭
-            setTimeout(function () {
-                if (me.refs.layer && me.refs.layer.state.mouseenter) return;
-                me.setState({layerOpen: false});
-            }, 200);
-        },
         render: function () {
             var me = this;
             var label = this.props.placeholder;
             var value = this.___getValue___();
-            var containerProp = {
-                className: 'fcui2-dropdownlist ' + this.props.className
-                    + (this.props.disabled ? ' fcui2-dropdownlist-disabled' : ''),
-                style: {
-                    minWidth: this.props.minWidth,
-                    borderColor: this.state.isValid === false ? '#F00' : undefined 
-                },
-                onMouseEnter: this.mouseEnterHandler,
-                onMouseLeave: this.mouseLeaveHandler,
-                ref: 'container'
-            };
+            var containerProp = cTools.containerBaseProps('dropdownlist', this);
             var layerProp = {
                 ref: 'layer',
                 isOpen: this.state.layerOpen && this.props.datasource.length && !this.props.disabled,
                 anchor: this.refs.container,
-                onMouseLeave: this.mouseLeaveHandler,
+                onMouseLeave: cTools.closeLayerHandler.bind(this),
                 style: {
                     minWidth: '150px'
                 }
@@ -80,12 +60,10 @@ define(function (require) {
             var listProp = {
                 datasource: this.props.datasource,
                 ref: 'list',
-                onClick: this.listClickHandler
+                onClick: this.onListClick
             };
-            if (!isNaN(this.props.width)) {
-                delete containerProp.style.minWidth;
-                containerProp.style.width = this.props.width;
-            }
+            containerProp[this.props.openLayerType] = cTools.openLayerHandler.bind(this);
+            containerProp.onMouseLeave = cTools.closeLayerHandler.bind(this);
             for (var i = 0; i < this.props.datasource.length; i++) {
                 if (this.props.datasource[i].value + '' === value + '') {
                     label = this.props.datasource[i].label;
