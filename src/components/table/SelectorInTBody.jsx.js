@@ -31,7 +31,7 @@ define(function (require) {
                 onChange: this.props.onRowSelect
             };
             return (
-                <td key="row-select" className="td-selector">
+                <td key="row-select" className="td-selector" style={this.props.style}>
                     <CheckBox {...checkboxProp} />
                 </td>
             );

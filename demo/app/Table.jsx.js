@@ -227,6 +227,80 @@ define(function (require) {
     ];
 
 
+    function expandTableDatasourceFactory(filter) {
+        var header = datasource[0];
+        var data = [];
+        for (var i = 0; i < 4; i++) {
+            var newHeader = JSON.parse(JSON.stringify(header));
+            newHeader.expandId = i + '';
+            data.push(newHeader);
+            if (i + '' !== filter) continue;
+            var newItems = JSON.parse(JSON.stringify(datasource));
+            for (var j = 0; j < newItems.length; j++) {
+                newItems[j].expandId = i + '-' + j;
+                data.push(newItems[j]);
+            }
+        }
+        return data;
+    }
+    function expandTableFieldFactory() {
+        var nameField = fieldConfig.normalName;
+        var ageField = fieldConfig.normalAge;
+        var birthField = fieldConfig.normalBirth;
+        var stylePrepare = function (props, item, row, column, table) {
+            if (item.expandId && item.expandId.indexOf('-') < 0) {
+                props.style.fontWeight = 'bold';
+                props.style.backgroundColor = '#F8F9FE';
+            }   
+        };
+        nameField.prepare = stylePrepare;
+        ageField.prepare = stylePrepare;
+        birthField.prepare = stylePrepare;
+        var fields = [
+            {
+                isEmptyHeader: true,
+                width: 30,
+                renderer: require('fcui/components/table/Expander.jsx'),
+                prepare: function (props, item, row, column, table) {
+                    var value = JSON.parse(table.___getValue___());
+                    props.tableExpandId = value.tableExpandId;
+                    props.onAction = table.props.onAction;
+                    if (item.expandId && item.expandId.indexOf('-') < 0) {
+                        props.style.fontWeight = 'bold';
+                        props.style.backgroundColor = '#F8F9FE';
+                    }
+                }
+            },
+            {
+                isSelector: true,
+                prepare: stylePrepare
+            },
+            nameField,
+            ageField,
+            birthField
+        ];
+        return fields;
+    }
+    function expandTableDemo(me) {
+        var props = {
+            ref: 'expandTable',
+            flags: {
+                showHeader: true
+            },
+            datasource: me.state.expandData,
+            fieldConfig: expandTableFieldFactory(),
+            onAction: me.expandTableAction,
+            valueTemplate: JSON.stringify({
+                tableExpandId: me.state.expandId,
+                sortField: '',
+                sortType: 'asc',
+                selected: []
+            })
+        };
+        return <Table {...props}/>
+    }
+
+
     function factory(me, items) {
         var widgets = [];
         for (var i = 0; i < items.length; i++) {
@@ -259,16 +333,43 @@ define(function (require) {
         },
         // @override
         getInitialState: function () {
-            return {};
+            return {
+                expandData: expandTableDatasourceFactory('0'),
+                expandId: '0'
+            };
         },
         clickHandler: function (e) {
             this.props.alert(e.target.value);
+        },
+        expandTableAction: function (type, param) {
+            this.props.alert(type + ' ' + JSON.stringify(param));
+            var data = [];
+            var id = '';
+            if (param.expanded) {
+                data = expandTableDatasourceFactory(param.expandId);
+                id = param.expandId;
+            }
+            else {
+                data = expandTableDatasourceFactory('');
+            }
+            this.setState({
+                expandData: data,
+                expandId: id
+            });
         },
         actionHandler: function (type, param) {
             this.props.alert(type + ' ' + JSON.stringify(param));
         },
         render: function () {
-            return (<div>{factory(this, items)}</div>);
+            return (
+                <div>
+                    <div className="demo-item">
+                        <h3>Table width Expander</h3>
+                        {expandTableDemo(this)}
+                    </div>
+                    {factory(this, items)}
+                </div>
+            );
         }
     });
 });

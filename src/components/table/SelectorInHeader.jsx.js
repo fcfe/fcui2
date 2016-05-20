@@ -118,7 +118,7 @@ define(function (require) {
                  ref: 'layer'
             };
             return (
-                <th>
+                <th className="th-header">
                     <div {...containerProp}>
                         <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
                         <input {...mainCheckboxProp}/>

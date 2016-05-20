@@ -182,9 +182,23 @@ define(function (require) {
                 var item = me.props.fieldConfig[i];
                 if (item.isSelector) {
                     hasSelector = true;
-                    item = selectorConfig;
+                    var newItem = {
+                        isSelector: true,
+                        width:60,
+                        renderer: renderers.selectorItem,
+                        thRenderer: renderers.selectorHeader,
+                        prepare: (function (oldPrepare) {
+                            return function (props, item, row, column, me) {
+                                props.onRowSelect = me.onRowSelect;
+                                typeof oldPrepare === 'function' && oldPrepare(props, item, row, column, me);
+                            };
+                        })(item.prepare)
+                    };
+                    fields.push(newItem);
                 }
-                fields.push(item);
+                else {
+                    fields.push(item);
+                }
             }
             if (hasSelector) return fields;
             if (me.props.flags && me.props.flags.showSelector) {
