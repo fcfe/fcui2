@@ -155,11 +155,13 @@ define(function (require) {
          * 有些组件的值很复杂，未必是简单类型，用e.target.value携带不了，从第二参数回调
          */
         ___dispatchChange___: function (e, value) {
+
             // 准备value
             var valueField = this.props.___uitype___ === 'checkbox' || this.props.___uitype___ === 'radio'
                 ? 'checked' : 'value';
             var value = arguments.length > 1 ? value : e.target[valueField];
- 
+            var noCallback = false;
+
             // 派发change
             if (this.___hasValueLink___) {
                 this.props.valueLink.requestChange(value);
@@ -167,11 +169,16 @@ define(function (require) {
             else if (typeof this.props.onChange === 'function') {
                 this.props.onChange(e, value);
             }
+            else if (this.props.hasOwnProperty(valueField)){
+                noCallback = true;
+            }
 
             // 通知表单
             if (this.___formAttached___ && validationTools.isCallbackExist(this, 'updateField')) {
                 this.context.___form___.updateField(this.props.name, value, this);
             }
+
+            if (noCallback) return;
 
             // 记录变更
             this.setState({

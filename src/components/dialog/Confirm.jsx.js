@@ -2,7 +2,7 @@
  * @file Confirm窗体内容
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -19,11 +19,11 @@ define(function (require) {
                 onCancel: function () {}
             };
         },
-        enterHandler: function () {
+        onEnterClick: function () {
             this.props.onEnter();
             this.props.close();
         },
-        cancelHandler: function () {
+        onCancelClick: function () {
             this.props.onCancel();
             this.props.close();
         },
@@ -32,8 +32,8 @@ define(function (require) {
                 <div className="fcui2-dialog-alert">
                     <div className="message">{this.props.message}</div> 
                     <div className="button-bar">
-                        <Button skin="important" label="确定" onClick={this.enterHandler}/>
-                        <Button label="取消" onClick={this.cancelHandler}/>
+                        <Button skin="important" label="确定" onClick={this.onEnterClick}/>
+                        <Button label="取消" onClick={this.onCancelClick}/>
                     </div>
                 </div>
             );

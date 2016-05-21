@@ -31,7 +31,7 @@ define(function (require) {
                 layerOpen: false
             };
         },
-        listClickHandler: function (e) {
+        onListClick: function (e) {
             if (this.props.disabled) return;
             this.props.onClick(e);
             this.setState({layerOpen: false});
@@ -57,7 +57,7 @@ define(function (require) {
             };
             var listProp = {
                 datasource: this.props.datasource,
-                onClick: this.listClickHandler
+                onClick: this.onListClick
             };
             return (
                 <div {...containerProp}>

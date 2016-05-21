@@ -2,14 +2,15 @@
  * @file 文本输入框组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
 
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
-    
+    var cTools = require('./core/componentTools');
+
 
     return React.createClass({
         // @override
@@ -17,11 +18,13 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                // 样式属性
+                skin: '',
                 className: '',
-                width: 200,
-                placeholder: '',
+                style: {},
                 disabled: false,
-                valueTemplate: '' // 值的模板，当用户不通过value和valueLink传入值控制时，根据此项在state中保存临时操作值
+                placeholder: '',
+                valueTemplate: ''
             };
         },
         // @override
@@ -42,11 +45,16 @@ define(function (require) {
         getInitialState: function () {
             var value = this.props.value;
             value = value === undefined || value === null ? '' : value + '';
+            var width = this.props.width;
+            width = isNaN(width) && this.props.hasOwnProperty('style')
+                && !isNaN(width) ? this.props.style.width: width;
+            width = isNaN(width) ? 200 : width;
             return {
+                width: width,
                 ___value___: value
             };
         },
-        changeHandler: function (e) {
+        onChange: function (e) {
             if (this.props.disabled) return;
             this.___dispatchChange___(e);
         },
@@ -54,13 +62,10 @@ define(function (require) {
             this.refs.inputbox.focus();
         },
         render: function () {
-            // 这里value仅用于显示，把它变成string是安全的。
-            // 若维持原类型，下面placeholder的判定对于number类型的value会出问题。
             var value = this.state.___value___;
-            var containerProp = {
-                className: 'fcui2-textbox ' + this.props.className,
-                style: {width: this.props.width}
-            };
+            var containerProp = cTools.containerBaseProps('textbox', this, {
+                style: {width: this.state.width}
+            });
             var placeholderProp = {
                 style: {
                     visibility: value && value.length ? 'hidden' : 'visible'
@@ -69,15 +74,9 @@ define(function (require) {
             var inputProp = {
                 type: 'text',
                 value: value,
-                style: {width: this.props.width - 20},
-                onChange: this.changeHandler
+                style: {width: this.state.width - 20},
+                onChange: this.onChange
             };
-            if (this.props.disabled) {
-                containerProp.className += ' fcui2-textbox-disabled'
-            }
-            else if (this.state.isValid === false) {
-                containerProp.className += ' fcui2-textbox-reject'
-            }
             return (
                 <div {...containerProp}>
                     <div {...placeholderProp}>{this.props.placeholder}</div>

@@ -2,7 +2,7 @@
  * @file 黄色layer td
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -13,6 +13,9 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 className: '',
+                buttonDisplay: true,
+                buttonLabel: '',
+                content: '',
                 style: {},
                 item: {},
                 row: -1,
@@ -20,14 +23,14 @@ define(function (require) {
                 onAction: function () {}
             };
         },
-        clickHandler: function (e) {
+        onButtonClick: function (e) {
             this.props.onAction('OptRendererClick', {
                 item: this.props.item,
                 row: this.props.row,
                 column: this.props.column
             });
         },
-        mouseOverHandler: function (e) {
+        onMouseOver: function (e) {
             var layer = this.refs.layer;
             var container = this.refs.container;
             var pos = util.getDOMPosition(container);
@@ -36,35 +39,29 @@ define(function (require) {
         },
         render: function () {
             var message = this.props.content;
-            var buttonLabel = this.props.buttonLabel;
-            var buttonDisplay = this.props.hasOwnProperty('buttonDisplay') ? this.props.buttonDisplay : true;
             if (!message) {
                 return <td></td>;
             }
+            var buttonLabel = this.props.buttonLabel;
+            var buttonDisplay = this.props.hasOwnProperty('buttonDisplay') ? this.props.buttonDisplay : true;
             var tdProp = {
                 className: 'td-optsug ' + this.props.className,
-                ref: 'rootContainer',
                 style: this.props.style
-            };
-            var iconProp = {
-                className: 'font-icon font-icon-exclamation-circle'
             };
             var buttonProp = {
                 className: 'info-link',
-                onClick: this.clickHandler
+                style: buttonDisplay ? undefined : {display: 'none'},
+                onClick: this.onButtonClick
             };
-            if (!buttonDisplay) {
-                buttonProp.style = {display: 'none'};
-            }
             return (
                 <td {...tdProp}>
-                    <div className="icon-container pos-left" ref="container" onMouseOver={this.mouseOverHandler}>
+                    <div className="icon-container" ref="container" onMouseOver={this.onMouseOver}>
                         <div className="info-layer" ref="layer">
-                            <div {...iconProp}></div>
+                            <div className="font-icon font-icon-exclamation-circle"></div>
                             <span className="info-text">{message}</span>
                             <span {...buttonProp}>{buttonLabel}</span>
                         </div>
-                        <div {...iconProp} data-ui-ctrl="top-icon"></div>
+                        <div className="icon-box font-icon font-icon-exclamation-circle"></div>
                     </div>
                 </td>
             );

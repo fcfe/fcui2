@@ -16,17 +16,14 @@ define(function (require) {
         },
         {
             title: 'Readonly TextBox',
-            onChange: true,
             props: {value: 'readonly'}
         },
         {
             title: 'Disabled TextBox',
-            onChange: true,
             props: {disabled: true}
         },
         {
             title: 'Disabled TextBox with value',
-            onChange: true,
             props: {disabled: true, value: 'value'}
         },
         {
@@ -36,7 +33,6 @@ define(function (require) {
         },
         {
             title: 'TextBox with Placeholder with value',
-            onChange: true,
             props: {value: 1, placeholder: 'please input'}
         },
         {

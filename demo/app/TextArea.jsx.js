@@ -16,12 +16,10 @@ define(function (require) {
         },
         {
             title: 'Readonly TextArea',
-            onChange: true,
             props: {value: 'readonly'}
         },
         {
             title: 'Disabled TextArea',
-            onChange: true,
             props: {disabled: true}
         },
         {

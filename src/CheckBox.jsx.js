@@ -44,13 +44,13 @@ define(function (require) {
             var value = this.___getValue___();
             this.refs.inputbox.indeterminate = !value && this.props.indeterminate;
         },
-        clickHandler: function (e) {
+        onClick: function (e) {
             if (this.props.disabled) return;
             e.target = this.refs.inputbox;
             e.target.checked = !e.target.checked;
             this.___dispatchChange___(e);
         },
-        changeHandler: function (e) {
+        onChange: function (e) {
             if (this.props.disabled) return;
             this.___dispatchChange___(e);
         },
@@ -58,7 +58,7 @@ define(function (require) {
             var containerProp = cTools.containerBaseProps('checkbox', this);
             var labelProp = {
                 className: 'fcui2-checkbox-label',
-                onClick: this.clickHandler
+                onClick: this.onClick
             };
             var inputProp = {
                 ref: 'inputbox',
@@ -66,7 +66,7 @@ define(function (require) {
                 disabled: this.props.disabled,
                 value: this.props.value,
                 checked: this.___getValue___(),
-                onChange: this.changeHandler
+                onChange: this.onChange
             };
             var doms = [];
             doms.push(<input {...inputProp} key="input"/>);

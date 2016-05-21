@@ -69,17 +69,17 @@ define(function (require) {
                 mousedown: false
             };
         },
-        clickHandler: function (e) {
+        onClick: function (e) {
             if (this.props.disabled) return;
             e.target = this.refs.container;
             e.target.value = this.props.value;
             this.props.onClick(e);
         },
-        mousedownHandler: function (e) {
+        onMouseDown: function (e) {
             if (this.props.disabled) return;
             this.setState({mousedown: true});
         },
-        mouseupHandler: function (e) {
+        onMouseUp: function (e) {
             if (this.props.disabled) return;
             this.setState({mousedown: false});
         },
@@ -95,9 +95,9 @@ define(function (require) {
             }
             var containerProp = cTools.containerBaseProps('button', this, {
                 merge: {
-                    onMouseDown: this.mousedownHandler,
-                    onMouseUp: this.mouseupHandler,
-                    onClick: this.clickHandler
+                    onMouseDown: this.onMouseDown,
+                    onMouseUp: this.onMouseUp,
+                    onClick: this.onClick
                 },
                 mergeFromProps: ['onMouseEnter', 'onMouseLeave', 'value', 'title']
             });

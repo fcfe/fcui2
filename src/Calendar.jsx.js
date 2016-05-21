@@ -45,7 +45,7 @@ define(function (require) {
                 inRange: true
             };
         },
-        dayClickHandler: function (e) {
+        onDayClick: function (e) {
             if (this.props.disabled) return;
             var timer = tool.str2date(
                 this.state.displayYear + '-' + (this.state.displayMonth + 1) + '-' + e.target.value
@@ -54,7 +54,7 @@ define(function (require) {
             e.target.value = util.dateFormat(timer, 'YYYY-MM-DD');
             this.___dispatchChange___(e);
         },
-        yearChangeHandler: function (e) {
+        onYearChange: function (e) {
             if (this.props.disabled) return;
             var year = this.state.displayYear;
             if (!isNaN(e.target.value)) {
@@ -67,7 +67,7 @@ define(function (require) {
                 inRange: tool.monthInRange(year, this.state.displayMonth, this.props.min, this.props.max)
             });
         },
-        monthChangeHandler: function (e) {
+        onMonthChange: function (e) {
             if (this.props.disabled) return;
             var month = this.state.displayMonth;
             if (!isNaN(e.target.value)) {
@@ -82,7 +82,7 @@ define(function (require) {
                 displayMonth: month
             });
         },
-        addMonthHandler: function (e) {
+        onMonthAdd: function (e) {
             if (this.props.disabled) return;
             var month = this.state.displayMonth;
             var year = this.state.displayYear;
@@ -99,7 +99,7 @@ define(function (require) {
                 inputMonth: month + 1
             });
         },
-        subMonthHandler: function (e) {
+        onMonthSub: function (e) {
             if (this.props.disabled) return;
             var month = this.state.displayMonth;
             var year = this.state.displayYear;
@@ -121,7 +121,7 @@ define(function (require) {
             var yearInputProp = {
                 ref: 'inputYear',
                 min: 0,
-                onChange: this.yearChangeHandler,
+                onChange: this.onYearChange,
                 value: this.state.inputYear,
                 type: 'int',
                 style: {width: 70}
@@ -131,7 +131,7 @@ define(function (require) {
                 className: 'calendar-month',
                 min: 1,
                 max: 12,
-                onChange: this.monthChangeHandler,
+                onChange: this.onMonthChange,
                 value: this.state.inputMonth,
                 type: 'int',
                 style: {width: 60}
@@ -142,8 +142,8 @@ define(function (require) {
             return (
                 <div {...containerProp}>
                     <div className="calendar-operation">
-                        <div className={btnClass + 'right'} onClick={this.addMonthHandler}/>
-                        <div className={btnClass + 'left'} onClick={this.subMonthHandler}/>
+                        <div className={btnClass + 'right'} onClick={this.onMonthAdd}/>
+                        <div className={btnClass + 'left'} onClick={this.onMonthSub}/>
                         <NumberBox {...yearInputProp} disabled={this.props.disabled}/>
                         <NumberBox {...monthInputProp} disabled={this.props.disabled}/>
                     </div>
@@ -209,7 +209,7 @@ define(function (require) {
                 || me.props.disabled;
             var skin = tool.compareDate(tmpTimer, value) === 0 ? 'active' : null;
             var props = {
-                onClick: me.dayClickHandler,
+                onClick: me.onDayClick,
                 value: tmpTimer.getDate()
             };
             buttons.push(

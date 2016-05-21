@@ -2,7 +2,7 @@
  * @file 向导组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -10,6 +10,7 @@ define(function (require) {
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
     var util = require('./core/util');
+    var cTools = require('./core/componentTools');
 
 
     return React.createClass({
@@ -18,9 +19,11 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                skin: '',
                 className: '',
-                datasource: [], // ['']
+                style: {},
                 disabled: false,
+                datasource: [], // ['']
                 valueTemplate: 0
             };
         },
@@ -28,7 +31,7 @@ define(function (require) {
         getInitialState: function () {
             return {};
         },
-        clickHandler: function (e) {
+        onClick: function (e) {
             if (this.props.disabled) return;
             var value = util.getDataset(e.target).uiCmd;
             if (isNaN(value)) return;
@@ -37,11 +40,7 @@ define(function (require) {
             this.___dispatchChange___(e);
         },
         render: function () {
-            var containerProp = {
-                className: 'fcui2-wizard ' + this.props.className,
-                ref: 'container'
-            };
-            return (<div {...containerProp}>{produceItems(this)}</div>);
+            return (<div {...cTools.containerBaseProps('wizard', this)}>{produceItems(this)}</div>);
         }
     });
 
@@ -55,7 +54,7 @@ define(function (require) {
             var props = {
                 key: i,
                 className: 'fcui2-wizard-item',
-                onClick: me.clickHandler,
+                onClick: me.onClick,
                 'data-ui-cmd': i,
                 style: {
                     width: parseFloat(100 / me.props.datasource.length).toFixed(2) + '%',

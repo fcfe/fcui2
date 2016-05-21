@@ -43,7 +43,9 @@ define(function (require) {
             }
         },
         render: function () {
-            var containerProp = cTools.containerBaseProps('checkbox', this);
+            var containerProp = cTools.containerBaseProps('checkbox', this, {
+                style: {position: 'relative'}
+            });
             var inputProp = {
                 key: 'inputbox',
                 ref: 'inputbox',
@@ -66,7 +68,6 @@ define(function (require) {
                 },
                 onClick: this.onLayerClick
             };
-            containerProp.style.position = 'relative';
             var doms = [];
             doms.push(<input {...inputProp}/>);
             doms[this.props.labelPosition === 'right' ? 'push' : 'unshift'](

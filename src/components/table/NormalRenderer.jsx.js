@@ -2,7 +2,7 @@
  * @file 普通td
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
     var React = require('react');

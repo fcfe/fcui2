@@ -2,11 +2,10 @@
  * @file 黄色信息栏
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
-    var Tip = require('../../Tip.jsx');
     var React = require('react');
 
     return React.createClass({
@@ -18,7 +17,7 @@ define(function (require) {
                 onClick: function () {}
             };
         },
-        clickHandler: function (e) {
+        onButtonClick: function (e) {
             this.props.onClick('TableMessageBarClick', {});
         },
         render: function () {
@@ -26,7 +25,7 @@ define(function (require) {
                 <tr className="tr-message">
                     <td colSpan={this.props.colSpan}>
                         <span>{this.props.message}</span>
-                        <span onClick={this.clickHandler} className="link">{this.props.buttonLabel}</span>
+                        <span onClick={this.onButtonClick} className="link">{this.props.buttonLabel}</span>
                     </td>
                 </tr>
             );

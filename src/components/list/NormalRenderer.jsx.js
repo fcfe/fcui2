@@ -25,7 +25,7 @@ define(function (require) {
         getInitialState: function () {
             return {};
         },
-        clickHandler: function (e) {
+        onClick: function (e) {
             if (this.props.disabled) return;
             e.target = this.refs.container;
             e.target.value = this.props.value
@@ -35,7 +35,7 @@ define(function (require) {
             var containerProp = {
                 ref: 'container',
                 className: 'normal-item' + (this.props.disabled ? ' disabled' : ''),
-                onClick: this.clickHandler
+                onClick: this.onClick
             };
             return (
                 <div {...containerProp}>

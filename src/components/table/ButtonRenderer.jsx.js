@@ -2,7 +2,7 @@
  * @file 带按钮的td
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -19,7 +19,7 @@ define(function (require) {
                 onAction: function () {}
             };
         },
-        clickHandler: function (e) {
+        onIconClick: function (e) {
             this.props.onAction('ButtonRendererClick', {
                 item: this.props.item,
                 row: this.props.row,
@@ -39,9 +39,14 @@ define(function (require) {
                 style: {
                     float: tdProp.style.textAlign === 'right' ? 'left' : 'right'
                 },
-                onClick: this.clickHandler
+                onClick: this.onIconClick
             };
-            return (<td {...tdProp}>{value}<div {...btnProp}></div></td>);
+            return (
+                <td {...tdProp}>
+                    {value}
+                    <div {...btnProp}></div>
+                </td>
+            );
         }
     });
-}); 
+});

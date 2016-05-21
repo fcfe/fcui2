@@ -2,7 +2,7 @@
  * @file Alert窗体内容
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -18,7 +18,7 @@ define(function (require) {
                 close: function () {}
             };
         },
-        closeHandler: function () {
+        onClose: function () {
             this.props.close();
         },
         render: function () {
@@ -26,7 +26,7 @@ define(function (require) {
                 <div className="fcui2-dialog-alert">
                     <div className="message">{this.props.message}</div>
                     <div className="button-bar">
-                        <Button skin="important" label="确定" onClick={this.closeHandler}/>
+                        <Button skin="important" label="确定" onClick={this.onClose}/>
                     </div>
                 </div>
             );

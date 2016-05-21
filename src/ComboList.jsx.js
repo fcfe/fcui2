@@ -35,20 +35,20 @@ define(function (require) {
                 layerOpen: false
             };
         },
-        listClickHandler: function (e) {
+        onListClick: function (e) {
             if (this.props.disabled) return;
             this.props.onClick(e);
             this.setState({layerOpen: false});  
         },
-        mainButtonClickHandler: function (e) {
+        onMainButtonClick: function (e) {
             if (this.props.disabled) return;
             this.props.onClick(e);
             this.setState({layerOpen: false});
         },
-        dropDownButtonClickHandler: function (e) {
+        onDropDownButtonClick: function (e) {
             this.setState({layerOpen: true});
         },
-        mouseLeaveHandler: function (e) {
+        onMouseLeave: function (e) {
             var me = this;
             // 延迟关闭
             setTimeout(function () {
@@ -60,7 +60,7 @@ define(function (require) {
             var me = this;
             var containerProp = cTools.containerBaseProps('combolist', this, {
                 merge: {
-                    onMouseLeave: this.mouseLeaveHandler
+                    onMouseLeave: this.onMouseLeave
                 }
             });
             var mainButtonProp = {
@@ -70,17 +70,17 @@ define(function (require) {
                 icon: this.props.icon,
                 skin: 'important',
                 className: 'main-button',
-                onClick: this.mainButtonClickHandler
+                onClick: this.onMainButtonClick
             };
             var dropdownButtonProp = {
                 className: 'font-icon font-icon-largeable-caret-down',
-                onClick: this.dropDownButtonClickHandler
+                onClick: this.onDropDownButtonClick
             };
             var layerProp = {
                 ref: 'layer',
                 isOpen: this.state.layerOpen && this.props.datasource.length && !this.props.disabled,
                 anchor: this.refs.container,
-                onMouseLeave: this.mouseLeaveHandler,
+                onMouseLeave: this.onMouseLeave,
                 style: {
                     minWidth: '150px',
                     maxHeight: '240px',
@@ -90,7 +90,7 @@ define(function (require) {
             var listProp = {
                 datasource: this.props.datasource,
                 ref: 'list',
-                onClick: this.listClickHandler
+                onClick: this.onListClick
             };
             return (
                 <div {...containerProp}>

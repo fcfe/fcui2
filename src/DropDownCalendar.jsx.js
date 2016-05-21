@@ -37,7 +37,7 @@ define(function (require) {
                 layerOpen: false
             };
         },
-        changeHandler: function (e) {
+        onChange: function (e) {
             var value = this.___getValue___();
             if (this.props.disabled || value === e.target.value) return;
             this.___dispatchChange___(e);
@@ -62,7 +62,7 @@ define(function (require) {
                 min: this.props.min,
                 max: this.props.max,
                 value: this.___getValue___(),
-                onChange: this.changeHandler
+                onChange: this.onChange
             };
             return (
                 <div {...containerProp}>

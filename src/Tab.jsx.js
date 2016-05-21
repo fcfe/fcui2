@@ -2,7 +2,7 @@
  * @file 切换组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -10,6 +10,7 @@ define(function (require) {
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
     var NormalRenderer = require('./components/tab/NormalRenderer.jsx');
+    var cTools = require('./core/componentTools');
 
 
     return React.createClass({
@@ -18,10 +19,12 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                skin: '',
                 className: '',
+                style: {},
+                disabled: false,
                 datasource: [], // {label: '', value: ''}
                 renderer: NormalRenderer,
-                disabled: false,
                 valueTemplate: ''
             };
         },
@@ -29,7 +32,7 @@ define(function (require) {
         getInitialState: function () {
             return {};
         },
-        clickHandler: function (e) {
+        onClick: function (e) {
             if (this.props.disabled) return;
             var value = e.target.value;
             e.target = this.refs.container;
@@ -37,31 +40,31 @@ define(function (require) {
             this.___dispatchChange___(e);
         },
         render: function () {
-            var containerProp = {
-                className: 'fcui2-tab ' + this.props.className,
-                ref: 'container'
-            };
-            return (<div {...containerProp}>{produceTabs(this)}</div>);
+            return (
+                <div {...cTools.containerBaseProps('tab', this)}>
+                    {produceTabs(this)}
+                </div>
+            );
         }
     });
 
 
     function produceTabs(me) {
-        if (!(me.props.datasource instanceof Array) || !me.props.datasource.length) return '';
+        if (!(me.props.datasource instanceof Array) || !me.props.datasource.length) return null;
         var doms = [];
         var value = me.___getValue___();
         for (var i = 0; i < me.props.datasource.length; i++) {
-            var renderer = typeof me.props.renderer === 'function' ? me.props.renderer : NormalRenderer;
+            var Renderer = typeof me.props.renderer === 'function' ? me.props.renderer : NormalRenderer;
             var props = me.props.datasource[i];
             props.key = i;
-            props.onClick = me.clickHandler;
+            props.onClick = me.onClick;
             if (me.props.disabled || props.disabled) {
                 props.className = 'fcui2-tab-item-disabled';
             }
             else {
                 props.className = 'fcui2-tab-item' + (props.value === value ? '-active' : '');
             }
-            doms.push(React.createElement(renderer, props));
+            doms.push(<Renderer {...props} />);
         }
         return doms;
     }

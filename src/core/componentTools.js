@@ -125,6 +125,14 @@ define(function (require) {
                     }
                 }
             }
+            // 处理options.style
+            if (options.hasOwnProperty('style')) {
+                for (var key in options.style) {
+                    if (options.style.hasOwnProperty(key) && !result.style.hasOwnProperty(key)) {
+                        result.style[key] = options.style[key];
+                    }
+                }
+            }
             // 兼容：将部分props属性下降到result.style中
             for (var i = 0; i < MERGE_FROM_PROPS_TO_STYLE.length; i++) {
                 var key = MERGE_FROM_PROPS_TO_STYLE[i];

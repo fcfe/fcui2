@@ -63,9 +63,9 @@ define(function (require) {
             layer.style.left = '-9999px';
             layer.style.top = '-9999px';
             // 挂接容器事件和全局事件
-            layer.addEventListener('mouseenter', this.layerMouseEnterHandler);
-            layer.addEventListener('mouseleave', this.layerMouseLeaveHandler);
-            window.addEventListener('click', this.bodyClickHandler);
+            layer.addEventListener('mouseenter', this.onLayerMouseEnter);
+            layer.addEventListener('mouseleave', this.onLayerMouseLeave);
+            window.addEventListener('click', this.onBodyClick);
             // 记录实例变量
             this.___layerContainer___ = layer;
             this.___layerAppended___ = false;
@@ -84,27 +84,27 @@ define(function (require) {
         // @override
         componentWillUnmount: function() {
             var layer = this.___layerContainer___;
-            layer.removeEventListener('mouseenter', this.layerMouseEnterHandler);
-            layer.removeEventListener('mouseleave', this.layerMouseLeaveHandler);
-            window.removeEventListener('click', this.bodyClickHandler);
+            layer.removeEventListener('mouseenter', this.onLayerMouseEnter);
+            layer.removeEventListener('mouseleave', this.onLayerMouseLeave);
+            window.removeEventListener('click', this.onBodyClick);
             this.___renderCount___ = 0;
             this.removeSubTree();
         },
 
 
-        layerMouseEnterHandler: function () {
+        onLayerMouseEnter: function () {
             this.setState({mouseenter: true});
             typeof this.props.onMouseEnter === 'function' && this.props.onMouseEnter();
         },
 
 
-        layerMouseLeaveHandler: function () {
+        onLayerMouseLeave: function () {
             this.setState({mouseenter: false});
             typeof this.props.onMouseLeave === 'function' && this.props.onMouseLeave();
         },
 
 
-        bodyClickHandler: function (e) {
+        onBodyClick: function (e) {
             if (this.state.mouseenter || !this.props.closeWithBodyClick) return;
             if (this.___renderCount___ === 1) {
                 this.___renderCount___++;

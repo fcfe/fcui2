@@ -54,7 +54,7 @@ define(function (require) {
         componentDidMount: function () {
             this.___autoCloseTimer___ = null;
         },
-        regionChangeHandler: function (e) {
+        onRegionChange: function (e) {
             var value = this.props.type === 'single' ? this.___getValue___() : this.state.multiValue;
             if (this.props.disabled || value === e.target.value) return;
             if (this.props.type === 'single') {
@@ -65,17 +65,17 @@ define(function (require) {
                 this.setState({multiValue: e.target.value});
             }
         },
-        enterButtonClickHandler: function (e) {
+        onEnterClick: function (e) {
             if (this.props.disabled) return;
             e.target = this.refs.container;
             e.target.value = this.state.multiValue;
             this.___dispatchChange___(e);
             this.setState({layerOpen: false});
         },
-        cancelButtonClickHandler: function () {
+        onCancelClick: function () {
             this.setState({layerOpen: false});
         },
-        layerMouseLeaveHandler: function (e) {
+        onLayerMouseLeave: function (e) {
             var me = this;
             clearInterval(me.___autoCloseTimer___);
             me.___autoCloseTimer___ = setInterval(function () {
@@ -95,7 +95,7 @@ define(function (require) {
             var containerProp = cTools.containerBaseProps('dropdownlist', this, {
                 merge: {
                     onMouseEnter: this.props.type === 'single' ? cTools.openLayerHandler.bind(me) : undefined,
-                    onMouseLeave: this.props.type === 'single' ? this.layerMouseLeaveHandler : undefined,
+                    onMouseLeave: this.props.type === 'single' ? this.onLayerMouseLeave : undefined,
                     onClick: this.props.type === 'single' ? undefined : cTools.openLayerHandler.bind(me)
                 }
             });
@@ -106,8 +106,8 @@ define(function (require) {
                 location: 'bottom',
                 style: {padding: '5px 0'},
                 closeWithBodyClick: this.props.type === 'single',
-                onCloseByWindow: this.props.type === 'single' ? this.cancelButtonClickHandler : undefined,
-                onMouseLeave: this.props.type === 'single' ? this.layerMouseLeaveHandler : undefined
+                onCloseByWindow: this.props.type === 'single' ? this.onCancelClick : undefined,
+                onMouseLeave: this.props.type === 'single' ? this.onLayerMouseLeave : undefined
             };
             var regionProp = {
                 ref: 'region',
@@ -117,7 +117,7 @@ define(function (require) {
                 provinceRenderer: this.props.provinceRenderer,
                 regionRenderer: this.props.regionRenderer,
                 countryRenderer: this.props.countryRenderer,
-                onChange: this.regionChangeHandler
+                onChange: this.onRegionChange
             };
             return (
                 <div {...containerProp}>
@@ -152,7 +152,7 @@ define(function (require) {
             label: buttonLabels.enter,
             skin: 'important',
             disabled: me.state.multiValue === me.props.value,
-            onClick: me.enterButtonClickHandler
+            onClick: me.onEnterClick
         };
         var cancelProp = {
             style: {
@@ -160,7 +160,7 @@ define(function (require) {
                 left: 10
             },
             label: buttonLabels.cancel,
-            onClick: me.cancelButtonClickHandler
+            onClick: me.onCancelClick
         };
         return (
             <div {...buttonContainerProp}>

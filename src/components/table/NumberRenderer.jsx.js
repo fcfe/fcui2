@@ -2,7 +2,7 @@
  * @file 数值型td
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -26,7 +26,6 @@ define(function (require) {
                 style: this.props.style
             };
             var value = this.props.content;
-            value = isNaN(value) ? '-' : value;
             if (isNaN(value)) {
                 value = '-';
             }

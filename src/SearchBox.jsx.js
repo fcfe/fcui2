@@ -2,7 +2,7 @@
  * @file 搜索框组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.1
+ * @version 0.0.2
  */
 define(function (require) {
 
@@ -10,6 +10,7 @@ define(function (require) {
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
     var TextBox = require('./TextBox.jsx');
+    var cTools = require('./core/componentTools');
 
 
     return React.createClass({
@@ -18,23 +19,29 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                skin: '',
                 className: '',
-                width: 200,
-                placeholder: '',
+                style: {},
                 disabled: false,
+                placeholder: '',
                 valueTemplate: '',
                 onClick: function () {}
             };
         },
         // @override
         getInitialState: function () {
-            return {};
+            var width = this.props.width;
+            width = isNaN(width) && this.props.hasOwnProperty('style') && !isNaN(width) ? this.props.style.width: width;
+            width = isNaN(width) ? 200 : width;
+            return {
+                width: width
+            };
         },
-        changeHandler: function (e) {
+        onTextBoxChange: function (e) {
             if (this.props.disabled) return;
             this.___dispatchChange___(e);
         },
-        clickHandler: function (e) {
+        onButtonClick: function (e) {
             e.target = this.refs.container;
             e.target.value = this.___getValue___();
             this.props.onClick(e);
@@ -43,26 +50,23 @@ define(function (require) {
             this.refs.inputbox.focus();
         },
         render: function () {
-            var containerProp = {
-                ref: 'container',
-                className: 'fcui2-searchbox ' + this.props.className,
-                style: {width: this.props.width}
-            };
+            var containerProp = cTools.containerBaseProps('searchbox', this, {
+                style: {
+                    width: this.state.width
+                }
+            });
             var inputProp = {
-                value: this.___getValue___(),
-                width: this.props.width - 16,
-                placeholder: this.props.placeholder,
-                disabled: this.props.disabled,
                 ref: 'inputbox',
-                onChange: this.changeHandler
+                width: this.state.width - 16,
+                disabled: this.props.disabled,
+                placeholder: this.props.placeholder,
+                value: this.___getValue___(),
+                onChange: this.onTextBoxChange
             };
-            if (this.props.disabled) {
-                containerProp.className += ' fcui2-searchbox-disabled';
-            }
             return (
                 <div {...containerProp}>
                     <TextBox {...inputProp}/>
-                    <div className="font-icon font-icon-search" onClick={this.clickHandler}></div>
+                    <div className="font-icon font-icon-search" onClick={this.onButtonClick}></div>
                 </div>
             );
         }
