@@ -13,6 +13,14 @@ define(function (require) {
     var exports = {
 
         /**
+         * 获取window下的某个namespace，如果不存在，则创建一个空对象
+         */
+        getNamespace: function (namespace) {
+            window[namespace] = window.hasOwnProperty(namespace) ? window[namespace] : {};
+            return window[namespace];
+        },
+
+        /**
          * 绑定函数上下文
          *
          * @param {Function} func 需要绑定的函数

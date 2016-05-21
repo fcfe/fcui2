@@ -33,12 +33,13 @@ define(function (require) {
         Tree: require('./app/Tree.jsx'),
         DualTreeSelector: require('./app/DualTreeSelector.jsx'),
         Layer: require('./app/Layer.jsx'),
-        TitleWindow: require('./app/TitleWindow.jsx')
+        TitleWindow: require('./app/TitleWindow.jsx'),
+        ShojiScreen: require('./app/ShojiScreen.jsx')
     };
 
     var DemoList = [
         'Tip', 'Button', 'List', 'DropDownList', 'ComboList', 'Pager', 'Tab', 'Crumb', 'Wizard', 'Layer',
-        'TitleWindow', '',
+        'TitleWindow', 'ShojiScreen', '',
 
         'Checkbox', 'Radio', 'TextBox', 'NumberBox', 'TextArea', 'Select', 'Calendar', 'DropDownCalendar',
         'RangeCalendar', 'Schedule', 'Region', 'DropDownRegion', 'SearchBox', 'Slider', 'Tree', '',

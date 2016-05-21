@@ -23,7 +23,6 @@ define(function (require) {
                 isOpen: false,
                 title: 'Title Window',
                 showCloseButton: true,
-                onBeforeOpen: noop,
                 onRender: noop,
                 onBeforeClose: noop,
                 onClose: noop
@@ -131,7 +130,6 @@ define(function (require) {
                 if (!this.___appended___) {
                     document.body.appendChild(container);
                     this.___appended___ = true;
-                    typeof props.onBeforeOpen === 'function' && props.onBeforeOpen();
                 }
                 renderSubtreeIntoContainer(this, props.children, this.___content___, function () {
                     me.resize();
