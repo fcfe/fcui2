@@ -2,8 +2,8 @@
   "name": "fcui",
   "version": "2.0.2",
   "scripts": {
-    "start": "mkdir -p ./node_modules/edp/node_modules && ./node_modules/.bin/edp webserver start",
-    "test": "./node_modules/.bin/edp build -f && ./node_modules/.bin/karma start",
+    "start": "node node_modules/edp/bin/edp-cli webserver start",
+    "test": "node node_modules/edp/bin/edp-cli build -f && node node_modules/karma/bin/karma start",
     "spec": "./node_modules/.bin/edp build -f && ./node_modules/.bin/edp test start"
   },
   "maintainers": [
