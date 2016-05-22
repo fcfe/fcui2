@@ -18,6 +18,12 @@
 ```
     edp webserver start
 ```
+or by running
+```
+    npm install
+    mkdir -p node_modules/edp/node_modules
+    npm start
+```
 
 * Using a browser to access URL:
 
