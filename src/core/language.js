@@ -3,6 +3,12 @@ define(function (require) {
     var language = 'ch';
     var data = {
         ch: {
+            shojiScreen: {
+                enter: '确定',
+                cancel: '取消',
+                hide: '收起',
+                expand: '展开'
+            },
             pager: {
                 previousPage: '上一页',
                 nextPage: '下一页'

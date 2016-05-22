@@ -4,7 +4,7 @@
  * @email lbxxlht@163.com
  * @version 0.0.2
  *
- * 注：名字来源，<日> n.障子，日本房屋用的纸糊木框，亦作shoji screen。如用木框糊纸的拉窗、拉门、纸拉窗、纸拉门。
+ * 注：<日> n.障子，日本房屋用的纸糊木框，亦作shoji screen。如用木框糊纸的拉窗、拉门、纸拉窗、纸拉门。
  */
 define(function (require) {
 
@@ -13,6 +13,8 @@ define(function (require) {
     var ReactDOM = require('react-dom');
     var renderSubtreeIntoContainer = require("react-dom").unstable_renderSubtreeIntoContainer;
     var util = require('./core/util');
+    var tools = require('./core/shojiScreenTools');
+    var language = require('./core/language').shojiScreen;
     var noop = function () {};
 
 
@@ -52,15 +54,19 @@ define(function (require) {
             container.appendChild(background);
             container.appendChild(workspace);
 
-            expandButton.innerHTML = '展开';
+            expandButton.innerHTML = language.expand;
             workspace.innerHTML = [
                 '<div class="content">',
                 '</div>',
                 '<div class="button-bar">',
-                    '<div data-ui-cmd="EnterButtonClick" class="metro-button highlight-button">确定</div>',
-                    '<div data-ui-cmd="CancelButtonClick" class="metro-button normal-button">取消</div>',
+                    '<div data-ui-cmd="EnterButtonClick" class="metro-button highlight-button">',
+                        language.enter,
+                    '</div>',
+                    '<div data-ui-cmd="CancelButtonClick" class="metro-button normal-button">',
+                        language.cancel,
+                    '</div>',
                 '</div>',
-                '<div class="hide-button metro-button highlight-button">收起</div>'
+                '<div class="hide-button metro-button highlight-button">' + language.hide + '</div>'
             ].join('');
 
             this.___container___ = container;
@@ -94,6 +100,8 @@ define(function (require) {
             document.body.removeChild(this.___container___);
             document.body.style.overflow = this.___oldOverflow___;
             document.body.appendChild(this.___expandButton___);
+            tools.addExpandButton(this.___expandButton___);
+            tools.freshExpandButton();
             typeof this.props.onAction === 'function' && this.props.onAction('HideButtonClick', {});
         },
 
@@ -128,8 +136,11 @@ define(function (require) {
 
 
         renderSubTree: function (props) {
+            // 返回条件1：初始化失败
+            // 返回条件2：不让弹出，并且没有添加
             if (!this.___container___ || (!props.isOpen && !this.___appended___)) return;  
             // open
+            // 返回条件3：让弹出
             if (props.isOpen) {
                 var width = this.props.workspaceWidth;
                 this.___container___.className = 'fcui2-shojiscreen-container ' + props.className;
@@ -167,6 +178,8 @@ define(function (require) {
             catch (e) {
                 // DO NOTHING
             }
+            tools.removeExpandButton(this.___expandButton___);
+            tools.freshExpandButton();
             this.___appended___ = false;
         },
 

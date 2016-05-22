@@ -22,9 +22,13 @@ define(function (require) {
             state[e.target.value] = true;
             this.setState(state);
         },
-        onAction(type, param) {
+        onAction1(type, param) {
             if (type !== 'CancelButtonClick') return;
             this.setState({window1: false});
+        },
+        onAction2(type, param) {
+            if (type !== 'CancelButtonClick') return;
+            this.setState({window2: false});
         },
         render() {
             return (
@@ -32,7 +36,7 @@ define(function (require) {
                     <div className="demo-item">
                         <h3>Normal ShojiScreen</h3>
                         <Button label="Open" onClick={this.openWindow} value="window1"/>
-                        <TitleWindow isOpen={this.state.window1} onAction={this.onAction}>
+                        <TitleWindow isOpen={this.state.window1} onAction={this.onAction1}>
                             <div style={{width: 400, height: 2000}}>
                                 <h1>Normal ShojiScreen</h1>
                             </div>
