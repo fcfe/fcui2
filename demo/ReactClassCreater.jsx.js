@@ -28,7 +28,7 @@ define(function (require) {
         config = config || {};
         for (var i = 0; i < handlers.length; i++) {
             var key = handlers[i];
-            if (prop.hasOwnProperty(key) || !me.hasOwnProperty(key) || config[key] === null) continue;
+            if (prop.hasOwnProperty(key) || !me.hasOwnProperty(key) || config[key] === false) continue;
             prop[key] = me[key];
         }
     }

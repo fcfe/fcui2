@@ -71,7 +71,6 @@ define(function (require) {
                 <div>
                     <div className="demo-item" key="1">
                         <h3>Normal Popup Layer</h3>
-                        <div className="props">props</div>
                         <Button label="Click me to open Layer" onClick={this.openLayer}/>
                         <div ref="anchor" style={{border: '1px solid black'}}>it is anchor for Layer</div>
                         <Layer isOpen={this.state.layerOpen} anchor={this.refs.anchor} closeWithBodyClick={true}>

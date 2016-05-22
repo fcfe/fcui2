@@ -46,9 +46,7 @@ define(function (require) {
                     <div className="demo-item">
                         <h3>Normal Window</h3>
                         <Button label="Open" onClick={this.openWindow} value="window1"/>
-                        <TitleWindow isOpen={this.state.window1}
-                            onClose={this.closerFactory('window1')}
-                        >
+                        <TitleWindow isOpen={this.state.window1} onClose={this.closerFactory('window1')}>
                             <div style={{width: 400, height: 300}}>
                                 Normal Window
                             </div>

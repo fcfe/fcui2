@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var React = require('react');
+    var Creater = require('../ReactClassCreater.jsx');
     var Crumb = require('fcui/Crumb.jsx');
 
     var items = [
@@ -70,38 +70,5 @@ define(function (require) {
     ];
 
 
-    function factory(me, items) {
-        var widgets = [];
-        for (var i = 0; i < items.length; i++) {
-            var item = items[i];
-            var prop = item.props;
-            var conf = JSON.stringify(prop);
-            widgets.push(
-                <div className="demo-item" key={i}>
-                    <h3>{item.title}</h3>
-                    <div className="props">{conf}</div>
-                    <Crumb {...prop}/>
-                    <span>{me.state[item.title]}</span>
-                </div>
-            );
-        }
-        return widgets;
-    }
-
-
-    return React.createClass({
-        // @override
-        getDefaultProps: function () {
-            return {
-                alert: function () {}
-            };
-        },
-        // @override
-        getInitialState: function () {
-            return {};
-        },
-        render: function () {
-            return (<div>{factory(this, items)}</div>);
-        }
-    });
+    return Creater(Crumb, items);
 });
