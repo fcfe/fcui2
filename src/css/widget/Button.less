@@ -1,77 +1,71 @@
 @import "../skin.less";
+
 .fcui2-button {
     display: inline-block;
-    border: @border-normal;
-    padding: @padding-normal;
-    cursor: pointer;
-    line-height: @lineheight-normal;
-    background-color: @bgcolor-normal;
     text-align: center;
     white-space: nowrap;
-    moz-user-select: -moz-none;
-    -moz-user-select: none;
-    -o-user-select:none;
-    -khtml-user-select:none;
-    -webkit-user-select:none;
-    -ms-user-select:none;
-    user-select:none;
+    padding: 0 10px;
+    cursor: pointer;
+    .no-select;
+    border: @border-normal;
+    background-color: @bgcolor-normal;
     .font-icon {
         display: inline-block;
         float: left;
-        font-size: @fontsize-icon;
         margin-right: 5px;
-        color: #000 !important;
+        font-size: @fontsize-icon;
     }
     input {
         border: 0;
         outline: 0;
         width: 100%;
         background-color: transparent;
-        font-family: @normal-font;
         cursor: pointer;
+        font-family: @font-normal;
     }
-    input,.font-icon {
+    input, .font-icon {
         color: @fontcolor-normal;
-        height: @height-normal;
-        line-height: @lineheight-normal;
+        height: 28px;
+        line-height: 28px;
     }
-}
-.fcui2-button:hover {
-    -webkit-box-shadow: @shadow-normal;
-    -moz-box-shadow: @shadow-normal;
-    box-shadow: @shadow-normal;
+    &:hover {
+        .shadow-normal
+    }
 }
 
 .fcui2-button-active {
-    border-color: @color-active !important;
-}
-.fcui2-button-disabled {
-    cursor: default !important;
-    input,.font-icon {
-        color: @color-disabled !important;
-        cursor: default !important;
-    }
-}
-.fcui2-button-important {
-    border-color: @color-active !important;
-    background-color: @bgcolor-important;
-    input,.font-icon {
-        color: @fontcolor-important !important;
-    }
-}
-.fcui2-button-important:hover {
-    background-color: @bgcolor-important-hover;
-}
-.fcui2-button-important:active {
-    background-color: @bgcolor-important;
-}
-.fcui2-button-highlight {
-    input,.font-icon {
-        color: @fontcolor-important !important;
-    }
-}
-.fcui2-button-calendar {
-    background-color: #fff !important;
-    border-color: #fff !important;
+    border-color: @color-active;
 }
 
+.fcui2-button-disabled {
+    cursor: default;
+    input,.font-icon {
+        color: @color-disabled !important;
+        cursor: default;
+    }
+}
+
+.fcui2-button-important {
+    border-color: @color-active;
+    background-color: @bgcolor-important;
+    input,.font-icon {
+        color: @fontcolor-important;
+    }
+    &:hover {
+        background-color: @bgcolor-important-hover;
+    }
+    &:active {
+        background-color: @bgcolor-important;
+    }
+}
+
+.fcui2-button-highlight {
+    input,.font-icon {
+        color: @fontcolor-important;
+    }
+}
+
+.fcui2-button-calendar {
+    background-color: #fff;
+    border-color: #fff;
+}

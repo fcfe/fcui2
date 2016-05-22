@@ -29,8 +29,8 @@ define(function (require) {
             props: {label: 'Button Disabled', disabled: true, value: 'disabled button'}
         },
         {
-            title: 'Button with Icon and Skin',
-            props: {label: 'Find', skin:'important', icon: 'font-icon-enlarge', value: 'button width icon'}
+            title: 'Button with Icon',
+            props: {label: 'Find', icon: 'font-icon-enlarge', value: 'button width icon'}
         },
         {
             title: 'Button with Style',
