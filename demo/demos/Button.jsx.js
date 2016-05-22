@@ -1,9 +1,7 @@
 define(function (require) {
 
-
-    var React = require('react');
     var Button = require('fcui/Button.jsx');
-
+    var Creater = require('../ReactClassCreater.jsx');
 
     var items = [
         {
@@ -37,44 +35,9 @@ define(function (require) {
         {
             title: 'Button with Style',
             props: {label: 'Width', style: {width: 300}, value: 'button with minWidth'}
-        },
-        {
-            title: 'Button with Width',
-            props: {width: 200}
         }
     ];
 
+    return Creater(Button, items, 'onClick');
 
-    function factory(me, items) {
-        var widgets = [];
-        for (var i = 0; i < items.length; i++) {
-            var item = items[i];
-            var prop = item.props;
-            var conf = JSON.stringify(prop);
-            prop.onClick = me.clickHandler;
-            widgets.push(
-                <div className="demo-item" key={i}>
-                    <h3>{item.title}</h3>
-                    <div className="props">{conf}</div>
-                    <Button {...prop}/>
-                </div>
-            );
-        }
-        return widgets;
-    }
-
-    return React.createClass({
-        // @override
-        getDefaultProps: function () {
-            return {
-                alert: function () {}
-            };
-        },
-        clickHandler: function (e) {
-            this.props.alert(e.target.value);
-        },
-        render: function () {
-            return (<div>{factory(this, items)}</div>);
-        }
-    });
 });

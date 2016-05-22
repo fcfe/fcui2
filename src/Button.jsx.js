@@ -102,6 +102,8 @@ define(function (require) {
                 mergeFromProps: ['onMouseEnter', 'onMouseLeave', 'value', 'title']
             });
             containerProp.className += this.state.mousedown ? ' fcui2-button-active' : '';
+            containerProp.style.width = isNaN(containerProp.style.width)
+                ? containerProp.style.width : containerProp.style.width - 20;
             return (
                 <div {...containerProp}>
                     {this.props.icon.length > 0 ? <div className={'font-icon ' + this.props.icon}></div> : null}

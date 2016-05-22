@@ -156,6 +156,9 @@ define(function (require) {
             typeof props.onOffset === 'function' && props.onOffset(pos);
             layer.style.left = pos.left + 'px';
             layer.style.top = pos.top + 'px';
+            if (layer.scrollHeight > layer.offsetHeight) {
+                layer.style.width = layer.offsetWidth + 20 + 'px';
+            }
         },
 
 
