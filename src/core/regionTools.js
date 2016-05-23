@@ -108,7 +108,7 @@ define(function (require) {
 
         filiation: filiation,
 
-        getSelectedState: function (id, value) {
+        getSelectedState: function (id, value, noLinkage) {
             var result = {
                 checked: false,
                 indeterminate: false,
@@ -116,8 +116,13 @@ define(function (require) {
                 total: 0
             };
             findChildren(filiation[id]);
-            result.checked = value[id] || (result.selected === result.total && result.total > 0);
-            result.indeterminate = result.selected > 0 && !result.checked;
+            if (noLinkage) {
+                result.checked = value[id];
+            }
+            else {
+                result.checked = value[id] || (result.selected === result.total && result.total > 0);
+                result.indeterminate = result.selected > 0 && !result.checked;
+            }
             return result;
             function findChildren(arr) {
                 if (!arr || arr.length === 0) return;
@@ -130,10 +135,13 @@ define(function (require) {
             }
         },
 
-        addValue: function (key, value) {
+        addValue: function (key, value, noLinkage) {
             var me = this;
             // 添加当前
             value[key] = true;
+            if (noLinkage) {
+                return;
+            }
             // 添加子孙
             addChildren(filiation[key]);
             // 添加祖先
@@ -156,9 +164,12 @@ define(function (require) {
             }
         },
 
-        deleteValue: function (key, value) {
+        deleteValue: function (key, value, noLinkage) {
             // 删除当前
             delete value[key];
+            if (noLinkage) {
+                return;
+            }
             // 删除子孙;
             deleteChildren(filiation[key]);
             // 删除祖先
@@ -175,7 +186,7 @@ define(function (require) {
                     delete value[arr[i]];
                     deleteChildren(filiation[arr[i]]);
                 }
-            } 
+            }
         },
 
         clearValue: function (value) {

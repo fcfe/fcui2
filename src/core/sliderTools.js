@@ -1,11 +1,28 @@
 define(function (require) {
 
 
+    function getContainerWidth(me) {
+        var width = '';
+        if (me.props.hasOwnProperty('width')) {
+            width = me.props.width;
+        }
+        else if (me.props.hasOwnProperty('style') && me.props.style.hasOwnProperty('width')) {
+            width = me.props.width;
+        }
+        else if (me.refs && me.refs.container && me.refs.container.offsetWidth > 0) {
+            width = me.refs.container.offsetWidth;
+        }
+        width += '';
+        width = width.replace('px', '');
+        if (isNaN(width)) return 200;
+        return parseInt(width, 10);
+    }
+
     return {
         value2position: function (value, me, margin) {
             var min = isNaN(me.props.min) ? 0 : me.props.min * 1;
             var max = isNaN(me.props.max) ? 100 : me.props.max * 1;
-            var width = me.refs.container ? me.refs.container.offsetWidth : 200;
+            var width = getContainerWidth(me);
             value = this.displayValue(value, me) * 1;
             if (min > max) {
                 var tmp = min;
@@ -17,7 +34,7 @@ define(function (require) {
         position2value: function (pos, me, margin) {
             var min = isNaN(me.props.min) ? 0 : me.props.min * 1;
             var max = isNaN(me.props.max) ? 100 : me.props.max * 1;
-            var width = me.refs.container ? me.refs.container.offsetWidth : 200;
+            var width = getContainerWidth(me);
             if (min > max) {
                 var tmp = min;
                 min = max;
