@@ -7,7 +7,7 @@ define(function (require) {
             width = me.props.width;
         }
         else if (me.props.hasOwnProperty('style') && me.props.style.hasOwnProperty('width')) {
-            width = me.props.width;
+            width = me.props.style.width;
         }
         else if (me.refs && me.refs.container && me.refs.container.offsetWidth > 0) {
             width = me.refs.container.offsetWidth;

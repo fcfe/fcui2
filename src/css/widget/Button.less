@@ -4,8 +4,8 @@
     display: inline-block;
     text-align: center;
     white-space: nowrap;
-    padding: 0 10px;
     cursor: pointer;
+    line-height: 28px;
     .no-select;
     border: @border-normal;
     background-color: @bgcolor-normal;
@@ -33,6 +33,12 @@
     }
 }
 
+.fcui2-button-normal {
+    min-width: 60px;
+}
+
+
+
 .fcui2-button-active {
     border-color: @color-active;
 }
@@ -46,6 +52,7 @@
 }
 
 .fcui2-button-important {
+    min-width: 60px;
     border-color: @color-active;
     background-color: @bgcolor-important;
     input,.font-icon {
@@ -66,6 +73,7 @@
 }
 
 .fcui2-button-calendar {
+    width: 24px;
     background-color: #fff;
     border-color: #fff;
 }

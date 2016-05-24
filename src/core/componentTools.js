@@ -95,18 +95,24 @@ define(function (require) {
                     result.style[key] = me.props.style[key];
                 }
             }
-            // 处理className、disabled、skin
+            // class
             result.className += typeof me.props.className === 'string' && me.props.className.length
                 ? (' ' + me.props.className) : '';
+            // skin
+            if (typeof me.props.skin === 'string' && me.props.skin.length) {
+                result.className += ' fcui2-' + type + '-' + me.props.skin;
+            }
+            else {
+                result.className += ' fcui2-' + type + '-normal';
+            }
+            // reject and disable
             if (me.state.isValid === false) {
                 result.className += ' fcui2-' + type + '-reject';
             }
             else if (me.props.disabled) {
                 result.className += ' fcui2-' + type + '-disabled';
             }
-            else if (typeof me.props.skin === 'string' && me.props.skin.length) {
-                result.className += ' fcui2-' + type + '-' + me.props.skin;
-            }
+            
             // 处理options.mergeFromProps
             options = options || {};
             if (options.mergeFromProps instanceof Array) {
