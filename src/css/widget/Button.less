@@ -4,7 +4,7 @@
 .fcui2-button {
     display: inline-block;
     position: relative;
-    top: 2px; // 为了对齐显示基线，不能删
+    top: 3px; // 为了对齐显示基线，不能删
     white-space: nowrap;
     height: 28px;
     border: 1px solid;
@@ -63,6 +63,8 @@
 }
 
 .fcui2-button-disabled {
+    background-color: @color-bg-btn !important;
+    border-color: @color-outer-border !important;
     input {
         color: @color-disabled-text;
         cursor: default;

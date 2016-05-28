@@ -8,7 +8,6 @@ define(function (require) {
 
 
     var React = require('react');
-    var Button = require('./Button.jsx');
     var Layer = require('./Layer.jsx');
     var List = require('./List.jsx');
     var cTools = require('./core/componentTools');
@@ -42,38 +41,34 @@ define(function (require) {
         },
         onMainButtonClick: function (e) {
             if (this.props.disabled) return;
-            this.props.onClick(e);
+            e.target = this.refs.container;
+            e.target.value = this.props.value;
             this.setState({layerOpen: false});
+            this.props.onClick(e);
         },
         onDropDownButtonClick: function (e) {
+            if (this.props.disabled) return;
             this.setState({layerOpen: true});
+            e.stopPropagation();
         },
         onMouseLeave: function (e) {
-            var me = this;
-            // 延迟关闭
-            setTimeout(function () {
-                if (me.refs.layer && me.refs.layer.state.mouseenter) return;
-                me.setState({layerOpen: false});
-            }, 200);
+            if (this.props.disabled) return;
+            cTools.closeLayerHandler.call(this);
         },
         render: function () {
             var me = this;
             var containerProp = cTools.containerBaseProps('combolist', this, {
                 merge: {
-                    onMouseLeave: this.onMouseLeave
+                    onMouseLeave: this.onMouseLeave,
+                    onClick: this.onMainButtonClick
                 }
             });
-            var mainButtonProp = {
-                label: this.props.label,
-                disabled: this.props.disabled,
-                value: this.props.value,
-                icon: this.props.icon,
-                skin: 'important',
-                className: 'main-button',
-                onClick: this.onMainButtonClick
-            };
             var dropdownButtonProp = {
-                className: 'font-icon font-icon-largeable-caret-down',
+                className: 'icon-right font-icon font-icon-largeable-caret-down',
+                style: {
+                    backgroundColor: this.state.layerOpen ? '#FFF' : undefined,
+                    color: this.state.layerOpen ? '#4593FF' : undefined,
+                },
                 onClick: this.onDropDownButtonClick
             };
             var layerProp = {
@@ -82,7 +77,6 @@ define(function (require) {
                 anchor: this.refs.container,
                 onMouseLeave: this.onMouseLeave,
                 style: {
-                    minWidth: '150px',
                     maxHeight: '240px',
                     overflow: 'auto'
                 }
@@ -95,7 +89,7 @@ define(function (require) {
             return (
                 <div {...containerProp}>
                     <div {...dropdownButtonProp}></div>
-                    <Button {...mainButtonProp}/>
+                    <span>{this.props.label}</span>
                     <Layer {...layerProp}>
                         <List {...listProp}/>
                     </Layer>

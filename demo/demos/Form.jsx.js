@@ -11,13 +11,14 @@ define(function (require) {
     var CheckBox = require('fcui/CheckBox.jsx');
     var Radio = require('fcui/Radio.jsx');
     var Calendar = require('fcui/Calendar.jsx');
+    var DropDownList= require('fcui/DropDownList.jsx');
     var DropDownCalendar = require('fcui/DropDownCalendar.jsx');
     var RangeCalendar = require('fcui/RangeCalendar.jsx');
     var Schedule = require('fcui/Schedule.jsx');
     var Region = require('fcui/Region.jsx');
     var DropDownRegion = require('fcui/DropDownRegion.jsx')
     var Slider = require('fcui/Slider.jsx');
-
+    var ComboList = require('fcui/ComboList.jsx');
 
     return React.createClass({
         // @override
@@ -144,6 +145,13 @@ define(function (require) {
                         简介：<TextArea name="intro" className="form-textarea" value={'Form_' + this.state.intro} validations={introValid}/>
                         <Button type="submit" label="提交" skin="important"/>
                     </Form>
+                    <div>
+                        <h1>Test Display Base Line</h1>
+                        <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line</span>
+                        <Button />
+                        <DropDownList />
+                        <ComboList/>
+                    </div>
                 </div>
             );
         }

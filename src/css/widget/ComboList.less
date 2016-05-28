@@ -1,41 +1,56 @@
-@import "../skin.less";
+// version 0.0.2
+
 .fcui2-combolist {
     display: inline-block;
-    cursor: default;
-    height: @height-normal;
-    moz-user-select: -moz-none;
-    -moz-user-select: none;
-    -o-user-select:none;
-    -khtml-user-select:none;
-    -webkit-user-select:none;
-    -ms-user-select:none;
-    user-select:none;
-    .font-icon-largeable-caret-down {
+    position: relative;
+    top: 2px;
+    height: 28px;
+    border: 1px solid;
+    .icon-right {
         float: right;
-        display: inline-block;
         width: 20px;
-        height: @height-normal;
-        text-align: center;  
-        line-height: @lineheight-normal;
-        color: @fontcolor-important;
-        background-color: @bgcolor-important;
-        border: @border-active;
-        cursor: pointer;
-        margin-left: -1px;
-    }
-    .font-icon-largeable-caret-down:hover {
-        background-color: @bgcolor-important-hover;
-    }
-    .main-button {
-        float: left;
-        height: 28px;
+        display: inline-block;
         line-height: 28px;
+        border-left: 1px solid;
+        text-align: center;
+    }
+    >span {
+        position: relative;
+        top: -2px;
+        padding: 0 10px;
     }
 }
+
+.fcui2-combolist-normal {
+    cursor: pointer;
+    background-color: @color-btn;
+    border-color: @color-btn; 
+    >span {
+        font-size: 12px;
+        padding: 0 10px;
+        color: @color-gray-1;
+    }
+    .icon-right {
+        color: @color-gray-1;
+        border-left-color: @color-blue-7;
+        background-color: @color-btn;
+        &:hover {
+            background-color: @color-btn-hover;
+        }
+    }
+    &:hover {
+        background-color: @color-btn-hover;
+    }
+}
+
 .fcui2-combolist-disabled {
-    .font-icon-largeable-caret-down {
-        background-color: @bgcolor-normal !important;
-        color: @color-disabled !important;
-        border-color: @color-disabled !important;
+    border-color: @color-outer-border !important;
+    background-color: @color-bg-btn !important;
+    >span, .icon-right {
+        color: @color-disabled-text !important;
+    }
+    .icon-right {
+        background-color: @color-bg-btn !important;
+        border-left-color: @color-outer-border !important;
     }
 }
