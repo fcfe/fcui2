@@ -34,7 +34,7 @@ define(function (require) {
         render: function () {
             var containerProp = {
                 ref: 'container',
-                className: 'normal-item' + (this.props.disabled ? ' disabled' : ''),
+                className: 'list-normal-item' + (this.props.disabled ? ' list-normal-item-disabled' : ''),
                 onClick: this.onClick
             };
             return (
