@@ -1,80 +1,77 @@
+// @version 0.0.2
+
 @import "../skin.less";
 
 .fcui2-button {
     display: inline-block;
-    text-align: center;
+    position: relative;
+    top: 2px; // 为了对齐显示基线，不能删
     white-space: nowrap;
-    cursor: pointer;
-    line-height: 28px;
-    .no-select;
-    border: @border-normal;
-    background-color: @bgcolor-normal;
+    border: 1px solid @color-outer-border;
+    background-color: @color-bg-btn;
+    height: 28px;
     .font-icon {
-        display: inline-block;
-        float: left;
-        margin-right: 5px;
-        font-size: @fontsize-icon;
+        position: absolute;
+        left: 10px;
+        font-size: 12px;
+        height: 28px;
+        line-height: 28px;
     }
     input {
+        position: relative;
+        top: -2px; // 为了对齐显示基线，不能删
         padding: 0 10px;
         border: 0;
         outline: 0;
         width: 100%;
-        background-color: transparent;
-        cursor: pointer;
-        font-family: @font-normal;
-    }
-    input, .font-icon {
-        color: @fontcolor-normal;
-        height: 28px;
+        height: 100%;
         line-height: 28px;
-    }
-    &:hover {
-        .shadow-normal
+        background-color: transparent;
+        text-align: center !important; // 如果设置了icon，react会给input加上align:left，显然这是为了hack react的bug
+        font-family: @font-normal;
+        color: @color-text-3;
+        cursor: pointer;
     }
 }
 
 .fcui2-button-normal {
-    min-width: 60px;
+    min-width: 58px;
 }
 
-
-
 .fcui2-button-active {
-    border-color: @color-active;
+    border-color: @color-btn-hover;
 }
 
 .fcui2-button-disabled {
-    cursor: default;
-    input,.font-icon {
-        color: @color-disabled !important;
+    input {
+        color: @color-disabled-text;
         cursor: default;
     }
 }
 
 .fcui2-button-important {
-    min-width: 60px;
-    border-color: @color-active;
-    background-color: @bgcolor-important;
+    min-width: 58px;
+    border-color: @color-btn;
+    background-color: @color-btn;
     input,.font-icon {
-        color: @fontcolor-important;
+        color: @color-gray-1;
     }
     &:hover {
-        background-color: @bgcolor-important-hover;
+        background-color: @color-btn-hover;
     }
     &:active {
-        background-color: @bgcolor-important;
+        background-color: @color-btn-hover;
     }
 }
 
 .fcui2-button-highlight {
     input,.font-icon {
-        color: @fontcolor-important;
+        color: @color-gray-1;
     }
 }
 
 .fcui2-button-calendar {
     width: 24px;
-    background-color: #fff;
-    border-color: #fff;
+    background-color: @color-gray-1;
+    border-color: @color-gray-1;
 }
