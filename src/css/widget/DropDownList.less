@@ -1,36 +1,17 @@
-@import "../skin.less";
+// version 0.0.2
+
 .fcui2-dropdownlist {
     display: inline-block;
-    position: relative;
-    top: @height-normal / 3;
-    height: @height-normal;
-    border: @border-normal;
-    padding: @padding-dropdownlist;
-    color: @fontcolor-normal;
-    background-color: @bgcolor-normal;
-    line-height: @lineheight-normal;
-    font-size: @fontsize-button;
-    font-family: @font-normal;
+    height: 28px;
+    border: 1px solid;
+    padding: 0 0 0 10px;
+    line-height: 28px;
     text-align: center;
-    cursor: pointer;
-    moz-user-select: -moz-none;
-    -moz-user-select: none;
-    -o-user-select:none;
-    -khtml-user-select:none;
-    -webkit-user-select:none;
-    -ms-user-select:none;
-    user-select:none;
     .icon-right {
         float: right;
         width: 20px;
         display: inline-block;
         line-height: @lineheight-normal;
-    }
-    &:hover {
-        border-color: @color-active !important;
-        .icon-right {
-            color: @color-active;
-        }
     }
     .label-container {
         height: @height-normal;
@@ -39,17 +20,38 @@
 　　    word-wrap: break-word;
     }
 }
-.fcui2-dropdownlist-disabled {
+
+.fcui2-dropdownlist-normal {
+    border-color: @color-outer-border;
+    background-color: @color-bg-btn;
+    font-size: 12px;
+    font-family: @font-normal;
+    cursor: pointer;
     .label-container {
-        color: @color-disabled !important;
+        color: @color-text-3;
     }
-    .icon-right {
-        color: @color-disabled !important;
+    &:hover {
+        border-color: @color-btn-hover;
+        .icon-right {
+            color: @color-btn-hover;
+        }
     }
 }
-.fcui2-dropdownlist-disabled:hover {
-    border-color: @color-disabled !important;
+
+.fcui2-dropdownlist-disabled {
+    color: @color-disabled-text;
+    cursor: default;
+    .label-container {
+        color: @color-disabled-text;
+    }
     .icon-right {
-        color: @color-disabled !important;
+        color: @color-disabled-text;
+    }
+}
+
+.fcui2-dropdownlist-disabled:hover {
+    border-color: @color-outer-border;
+    .icon-right {
+        color: @color-disabled-text;
     }
 }

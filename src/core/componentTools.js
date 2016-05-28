@@ -68,7 +68,7 @@ define(function (require) {
         closeLayerHandler: function () {
             var me = this;
             setTimeout(function () {
-                if (me.refs.layer && me.refs.layer.state.mouseenter) return;
+                if (me.state.mouseenter || (me.refs.layer && me.refs.layer.state.mouseenter)) return;
                 me.setState({layerOpen: false});
             }, 200);
         },

@@ -22,14 +22,26 @@ define(function (require) {
                 style: {},
                 disabled: false,
                 label: 'DropDownList',
+                openLayerType: 'onMouseEnter',
                 datasource: [],
                 onClick: cTools.noop
             };
         },
         getInitialState: function () {
             return {
-                layerOpen: false
+                layerOpen: false,
+                mouseenter: false
             };
+        },
+        onMouseEnter: function () {
+            this.setState({
+                mouseenter: true,
+                layerOpen: true
+            });
+        },
+        onMouseLeave: function () {
+            this.setState({mouseenter: false});
+            cTools.closeLayerHandler.call(this);
         },
         onListClick: function (e) {
             if (this.props.disabled) return;
@@ -38,19 +50,13 @@ define(function (require) {
         },
         render: function () {
             var me = this;
-            var containerProp = cTools.containerBaseProps('dropdownlist', this, {
-                merge: {
-                    onMouseEnter: cTools.openLayerHandler.bind(this),
-                    onMouseLeave: cTools.closeLayerHandler.bind(this)
-                }
-            });
+            var containerProp = cTools.containerBaseProps('dropdownlist', this);
             var layerProp = {
                 ref: 'layer',
                 onMouseLeave: cTools.closeLayerHandler.bind(this),
                 isOpen: this.state.layerOpen && !this.props.disabled && this.props.datasource.length,
                 anchor: this.refs.container,
                 style: {
-                    minWidth: '150px',
                     maxHeight: '240px',
                     overflow: 'auto'
                 }
@@ -59,6 +65,8 @@ define(function (require) {
                 datasource: this.props.datasource,
                 onClick: this.onListClick
             };
+            containerProp[this.props.openLayerType] = this.onMouseEnter;
+            containerProp['onMouseLeave'] = this.onMouseLeave;
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>

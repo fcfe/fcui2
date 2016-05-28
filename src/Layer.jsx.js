@@ -27,6 +27,7 @@ define(function (require) {
                 anchor: null,
                 location: '',
                 closeWithBodyClick: false,
+                fixedWidthToAnchor: true,
                 onOffset: noop,
                 onMouseEnter: noop,
                 onMouseLeave: noop,
@@ -155,6 +156,9 @@ define(function (require) {
             if (layer.scrollHeight > layer.offsetHeight && !layer.__expandWidth___) {
                 layer.__expandWidth___ = true;
                 layer.style.width = layer.offsetWidth + 20 + 'px';
+            }
+            if (props.fixedWidthToAnchor && layer.offsetWidth < props.anchor.offsetWidth) {
+                layer.style.width = props.anchor.offsetWidth - 2 + 'px';
             }
             var pos = tools.getLayerPosition(layer, props.anchor, props.location + '');
             typeof props.onOffset === 'function' && props.onOffset(pos);

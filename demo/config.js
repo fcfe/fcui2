@@ -4,7 +4,8 @@ define(function (require) {
         version : {
             button: '0.0.2',
             tip: '0.0.2',
-            list: '0.0.2'
+            list: '0.0.2',
+            dropdownlist: '0.0.2'
         },
         demos: {
             Button: require('./demos/Button.jsx'), 

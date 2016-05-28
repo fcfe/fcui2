@@ -1,15 +1,22 @@
-// @version 0.0.2
+// version 0.0.2
 
-@import "../skin.less";
-
+// 基础样式
 .fcui2-list {
     hr {
         border: 0;
-        border-top: 1px solid @color-disabled-icon;
+        border-top: 1px solid;
         margin: 0 1px;
     }
 }
 
+// 皮肤样式
+.fcui2-list-normal {
+    hr {
+        border-top-color:  @color-disabled-icon;
+    }
+}
+
+// Renderer样式
 .fcui2-list {
     .list-normal-item {
         font-family: @font-normal;
