@@ -22,7 +22,9 @@ define(function (require) {
                 className: 'list-item' + (this.props.demo === this.props.label ? ' list-item-selectd' : ''),
                 onClick: this.clickHandler
             };
-            return <div {...prop}>{this.props.label}</div>;
+            var type = this.props.label.toLowerCase();
+            var label = this.props.label + (config.version[type] ? (' ' + config.version[type]) : '');
+            return <div {...prop}>{label}</div>;
         }
     });
 
