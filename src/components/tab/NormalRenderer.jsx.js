@@ -31,10 +31,7 @@ define(function (require) {
         render: function () {
             return (
                 <div className={this.props.className} onClick={this.onItemClick}>
-                    <div className="fcui2-tab-normal-renderer-header"></div>
-                    <div className="fcui2-tab-normal-renderer-content">
-                        {this.props.label}
-                    </div>
+                    {this.props.label}
                 </div>
             );
         }

@@ -1,10 +1,51 @@
-@import "../skin.less";
+// version 0.0.2
+
+// 基础
 .fcui2-tab {
-    font-family: @font-normal;
     position: relative;
-    border-left: @border-normal;
-    border-bottom: @border-normal;
     .fcui2-tab-item, .fcui2-tab-item-active, .fcui2-tab-item-disabled {
         display: inline-block;
+    }
+}
+
+// 皮肤
+.fcui2-tab-normal {
+    font-family: @font-normal;
+    border-bottom: 1px solid @color-outer-border;
+}
+
+
+// Renderer
+.fcui2-tab-normal {
+    .fcui2-tab-item, .fcui2-tab-item-active, .fcui2-tab-item-disabled {
+        position: relative;
+        top: 1px;
+        height: 46px;
+        line-height: 46px;
+        border-bottom: 1px solid;
+        border-top: 3px solid;
+        border-right: 1px solid;
+        padding: 0 20px;
+        text-align: center;
+        font-size: 14px;
+    }
+    >div:first-child {
+        border-left: 1px solid @color-outer-border;
+    }
+    .fcui2-tab-item {
+        border-color: @color-outer-border;
+        cursor: pointer;
+    }
+    .fcui2-tab-item-active {
+        font-weight: 700;
+        border-bottom-color: @color-gray-1;
+        border-top-color: @color-btn-hover;
+        border-right-color: @color-outer-border;
+        cursor: pointer;
+    }
+    .fcui2-tab-item-disabled {
+        border-color: @color-outer-border;
+        color: @color-disabled-text;
+        cursor: default;
     }
 }

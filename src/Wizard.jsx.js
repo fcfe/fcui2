@@ -62,10 +62,13 @@ define(function (require) {
                 }
             };
             if (me.props.disabled) {
-                props.className += ' fcui2-wizard-disabled';
+                props.className += ' fcui2-wizard-item-disabled';
             }
             else if (i < value + 1) {
-                props.className += ' fcui2-wizard-active';
+                props.className += ' fcui2-wizard-item-active';
+            }
+            else {
+                props.className += ' fcui2-wizard-item-normal';
             }
             doms.push(
                 <div {...props}>

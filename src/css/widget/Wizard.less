@@ -1,25 +1,14 @@
-@import "../skin.less";
+// version 0.0.2
+
 .fcui2-wizard {
-    font-family: @font-normal;
     position: relative;
     z-index: 0;
     .fcui2-wizard-item {
         position: relative;
         display: inline-block;
-        font-size: 12px;
-        font-weight: 700;
         line-height: 40px;
         height: 40px;
-        background-color: #EEEEEE;
         white-space: nowrap;
-        cursor: pointer;
-        moz-user-select: -moz-none;
-        -moz-user-select: none;
-        -o-user-select:none;
-        -khtml-user-select:none;
-        -webkit-user-select:none;
-        -ms-user-select:none;
-        user-select:none;
         >span {
             margin-left: 40px;
         }
@@ -30,9 +19,9 @@
             width: 0px;
             height: 0px;
             line-height: 0px;
-            border-top: 20px solid transparent;
-            border-bottom: 20px solid transparent;
-            border-left: 20px solid #EEEEEE; 
+            border-top: 20px solid;
+            border-bottom: 20px solid;
+            border-left: 20px solid; 
         }
         .fcui2-wizard-arrow-bg {
             position: absolute;
@@ -41,43 +30,76 @@
             width: 0px;
             height: 0px;
             line-height: 0px;
-            border-top: 20px solid transparent;
-            border-bottom: 20px solid transparent;
-            border-left: 20px solid #FFF; 
+            border-top: 20px solid;
+            border-bottom: 20px solid;
+            border-left: 20px solid; 
+        }
+        &:first-child {
+            >span {
+                margin-left: 20px;
+            }
+        }
+        &:last-child {
+            .fcui2-wizard-arrow,.fcui2-wizard-arrow-bg {
+                display: none;
+            }
         }
     }
-    .fcui2-wizard-disabled {
-        color: @color-disabled;
-    }
-    .fcui2-wizard-disabled:hover {
-        background-color: #EEEEEE !important;
-        color: @color-disabled !important;
+}
+
+.fcui2-wizard-normal {
+    font-family: @font-normal;
+    .fcui2-wizard-item {
+        font-size: 12px;
+        font-weight: 700;
         .fcui2-wizard-arrow {
-            border-left-color: #EEEEEE !important;
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+        }
+        .fcui2-wizard-arrow-bg {
+            border-top-color: transparent;
+            border-bottom-color: transparent;
         }
     }
-    .fcui2-wizard-item:first-child {
-        >span {
-            margin-left: 20px;
-        }
-    }
-    .fcui2-wizard-item:last-child {
-        .fcui2-wizard-arrow,.fcui2-wizard-arrow-bg {
-            display: none;
-        }
-    }
-    .fcui2-wizard-item:hover {
-        background-color: #64B1EC;
-        color: #FFF;
+    .fcui2-wizard-item-normal {
+        cursor: pointer;
+        background-color: @color-bg-caption;
         .fcui2-wizard-arrow {
-            border-left-color: #64B1EC;
+            border-left-color: @color-bg-caption;
+        }
+        .fcui2-wizard-arrow-bg {
+            border-left-color: @color-bg; 
+        }
+        &:hover {
+            background-color: @color-btn-hover;
+            color: @color-bg;
+            .fcui2-wizard-arrow {
+                border-left-color: @color-btn-hover;
+            }
         }
     }
-    .fcui2-wizard-active {
-        background-color: #64B1EC;
-        color: #FFF;
+    .fcui2-wizard-item-disabled {
+        cursor: default;
+        color: @color-disabled-text;
+        background-color: @color-bg-caption;
         .fcui2-wizard-arrow {
-            border-left-color: #64B1EC;
+            border-left-color: @color-bg-caption;
+        }
+        .fcui2-wizard-arrow-bg {
+            border-left-color: @color-bg; 
+        }
+    }
+    .fcui2-wizard-item-active {
+        background-color: @color-btn-hover;
+        color: @color-bg;
+        .fcui2-wizard-arrow {
+            border-left-color: @color-btn-hover;
+        }
+        &:hover {
+            background-color: @color-btn-hover;
+            .fcui2-wizard-arrow {
+                border-left-color: @color-btn-hover;
+            }
         }
     }
 }

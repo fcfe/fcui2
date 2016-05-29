@@ -6,7 +6,11 @@ define(function (require) {
             tip: '0.0.2',
             list: '0.0.2',
             dropdownlist: '0.0.2',
-            combolist: '0.0.2'
+            combolist: '0.0.2',
+            pager: '0.0.2',
+            tab: '0.0.2',
+            crumb: '0.0.2',
+            wizard: '0.0.2'
         },
         demos: {
             Button: require('./demos/Button.jsx'), 
