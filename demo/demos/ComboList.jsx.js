@@ -73,6 +73,7 @@ define(function (require) {
             onChange: true,
             props: {
                 value: 'Main Command6',
+                icon: 'font-icon-star-half',
                 datasource: [
                     {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disabled: true},

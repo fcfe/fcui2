@@ -9,7 +9,6 @@ define(function (require) {
     var _ = require('underscore');
 
     var MERGE_FROM_PROPS_TO_STYLE = [
-        'color',
         'width',
         'minWidth',
         'maxWidth',
