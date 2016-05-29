@@ -43,7 +43,7 @@ define(function (require) {
         componentDidMount: function () {
             this.___cursorPosition___ = -1;
             var containerWidth = this.refs.container.offsetWidth;
-            this.refs.inputbox.style.width = (containerWidth - (this.props.showSpinButton ? 40 : 20) - 1) + 'px';
+            this.refs.inputbox.style.width = (containerWidth - (this.props.showSpinButton ? 40 : 20) - 2) + 'px';
         },
         // @override
         componentDidUpdate: function () {
@@ -96,18 +96,20 @@ define(function (require) {
             var btnContainerProp = {
                 className: 'btn-container',
                 style: {
+                    top: util.isIE() ? 1 : 2, // 实在不知道怎么在CSS里面hack了。
                     display: this.props.showSpinButton ? 'block' : 'none'
                 }
             };
+            console.log(btnContainerProp);
             return (
                 <div {...containerProp}>
+                    <input {...inputProp} disabled={this.props.disabled} ref="inputbox"/>
                     <div {...btnContainerProp}>
                         <div className="font-icon font-icon-largeable-caret-up"
                             data-ui-cmd="add" onClick={this.onSpinButtonClick}></div>
                         <div className="font-icon font-icon-largeable-caret-down"
                             data-ui-cmd="sub" onClick={this.onSpinButtonClick}></div>
                     </div>
-                    <input {...inputProp} disabled={this.props.disabled} ref="inputbox"/>
                 </div>
             );
         }
