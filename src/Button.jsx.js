@@ -16,13 +16,13 @@ define(function (require) {
 
         // @override
         propTypes: {
-            // 组件皮肤，如果disabled属性为true，此属性无效
+            // 组件皮肤
             skin: React.PropTypes.string,
             // 组件拼装到根容器上的class
             className: React.PropTypes.string,
             // 组件拼装到根容器上的style
             style: React.PropTypes.object,
-            // 组件是否可用，如果设置为true，skin属性无效
+            // 组件是否可用
             disabled: React.PropTypes.bool,
             // 按钮显示的文字
             label: React.PropTypes.string,
@@ -103,7 +103,7 @@ define(function (require) {
             });
             containerProp.className += this.state.mousedown ? ' fcui2-button-active' : '';
             if (containerProp.style.hasOwnProperty('width') && !isNaN(containerProp.style.width)) {
-                containerProp.style.width = containerProp.style.width - 20;
+                containerProp.style.width = containerProp.style.width - 2;
             }
             return (
                 <div {...containerProp}>

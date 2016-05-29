@@ -30,11 +30,11 @@ define(function (require) {
         },
         {
             title: 'Button with Icon',
-            props: {label: 'Find', icon: 'font-icon-enlarge', value: 'button width icon'}
+            props: {label: 'Find', icon: 'font-icon-enlarge', value: 'button width icon', width: 80}
         },
         {
             title: 'Button with Style',
-            props: {label: 'Width', style: {width: 300}, value: 'button with minWidth'}
+            props: {skin: 'important', label: 'Width', icon: 'font-icon-enlarge', style: {width: 300}, value: 'button with Width'}
         }
     ];
 

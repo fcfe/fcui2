@@ -1,39 +1,35 @@
+// @version 0.0.2
+
 @import "../skin.less";
+
 .fcui2-list {
-    font-family: @font-normal;
-    font-size: @fontsize-button;
-    line-height: @lineheight-normal;
-    white-space: nowrap;
-    text-align: left;
-    margin: 5px 0;
-    moz-user-select: -moz-none;
-    -moz-user-select: none;
-    -o-user-select:none;
-    -khtml-user-select:none;
-    -webkit-user-select:none;
-    -ms-user-select:none;
-    user-select:none;
     hr {
-        background-color: #000;
         border: 0;
-        border-top: @border-normal;
+        border-top: 1px solid @color-disabled-icon;
         margin: 0 1px;
     }
-    .disabled {
-        color: @color-disabled;
-    }
-    .disabled:hover {
-        background-color: @bgcolor-active !important;
-    }
-    .normal-item {
-        position: relative;
-        overflow: show;
+}
+
+.fcui2-list {
+    .list-normal-item {
+        font-family: @font-normal;
+        font-size: 12px;
+        line-height: 30px;
+        white-space: nowrap;
+        text-align: left;
         cursor: default;
+        background-color: @color-gray-1;
         span {
-            margin: @margin-normal;
+            margin: 0 10px;
+        }
+        &:hover {
+            background-color: @color-bg-hover-table;
         }
     }
-    .normal-item:hover {
-        background-color: @bgcolor-item-hover;
+    .list-normal-item-disabled {
+        color: @color-disabled-text;
+        &:hover {
+            background-color: @color-gray-1;
+        }
     }
 }

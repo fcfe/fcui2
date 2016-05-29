@@ -14,6 +14,7 @@ define(function (require) {
                 <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>
                     <div className="props">{getDisplayProps(prop)}</div>
+                    <span className="label">Display Base Line:</span>
                     <Component {...prop}/>
                 </div>
             );

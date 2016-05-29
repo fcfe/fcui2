@@ -1,8 +1,10 @@
-@import "./colors";
 //
 //
 @font-normal: 'Helvetica', 'Tahoma', 'Arial', 'Heiti SC', 'Microsoft YaHei', '微软雅黑', sans-serif;
-//
+
+
+
+// 以下基本废弃，颜色变量将使用colors中的配置，尺寸直接写在组件css内部
 @color-disabled: #C8C8C8;
 @color-active: #2F82F5;
 @color-alert: #f00;
@@ -58,17 +60,3 @@
 @fontweight-title: 700;
 //
 //
-.no-select () {
-    moz-user-select: -moz-none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-.shadow-normal () {
-    -webkit-box-shadow: @shadow-normal;
-    -moz-box-shadow: @shadow-normal;
-    box-shadow: @shadow-normal;
-}

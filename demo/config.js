@@ -1,6 +1,11 @@
 define(function (require) {
 
     return {
+        version : {
+            button: '0.0.2',
+            tip: '0.0.2',
+            list: '0.0.2'
+        },
         demos: {
             Button: require('./demos/Button.jsx'), 
             TextBox: require('./demos/TextBox.jsx'),

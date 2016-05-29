@@ -23,8 +23,6 @@ define(function (require) {
                 disabled: false,
                 datasource: [],  // {label: <string>, value: <string>, disabled: <boolean>, renderer: <function>}
                 onClick: cTools.noop,
-                onMouseEnter: cTools.noop,
-                onMouseLeave: cTools.noop,
                 itemRenderer: NormalRenderer
             };
         },

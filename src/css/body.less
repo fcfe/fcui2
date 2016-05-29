@@ -1,0 +1,49 @@
+// 这里放置全局生效的样式，作用域为body
+@import "colors.less";
+
+
+body {
+
+
+    // 固定DOM位置
+    .fcui2-fixed-with-scroll {
+        position: fixed !important;
+    }
+
+
+    // 禁止组件内部被选中
+    .fcui2-button,
+    .fcui2-list .list-normal-item {
+        moz-user-select: -moz-none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+
+    // 添加组件阴影
+    .fcui2-button:hover {
+        -webkit-box-shadow: 0 1px 3px @color-gray-5;
+        -moz-box-shadow: 0 1px 3px @color-gray-5;
+        box-shadow: 0 1px 3px @color-gray-5;
+    }
+
+
+    // 禁用状态下去除阴影
+    .fcui2-button-disabled:hover {
+        -webkit-box-shadow: 0 0 0;
+        -moz-box-shadow: 0 0 0;
+        box-shadow: 0 0 0;
+    }
+
+
+    // 圆角
+    .fcui2-button {
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+    }
+}
