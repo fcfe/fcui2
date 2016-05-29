@@ -145,13 +145,6 @@ define(function (require) {
                         简介：<TextArea name="intro" className="form-textarea" value={'Form_' + this.state.intro} validations={introValid}/>
                         <Button type="submit" label="提交" skin="important"/>
                     </Form>
-                    <div>
-                        <h1>Test Display Base Line</h1>
-                        <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line</span>
-                        <Button />
-                        <DropDownList />
-                        <ComboList/>
-                    </div>
                 </div>
             );
         }

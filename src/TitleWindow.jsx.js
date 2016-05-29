@@ -20,6 +20,7 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 className: '',
+                skin: '',
                 isOpen: false,
                 title: 'Title Window',
                 showCloseButton: true,
@@ -34,17 +35,14 @@ define(function (require) {
         componentDidMount: function () {
 
             if (!window || !document) return;
+
             var container = document.createElement('div');
             var background = document.createElement('div');
             var workspace = document.createElement('div');
 
             background.className = 'fcui2-titlewindow-background';
-
             container.className = 'fcui2-titlewindow-container';
-            container.appendChild(background);
-            container.appendChild(workspace);
-
-            workspace.className = 'fcui2-titlewindow-workspace';
+            workspace.className = 'fcui2-titlewindow';
             workspace.style.left = '-9999px';
             workspace.style.top = '-9999px';
             workspace.innerHTML = [
@@ -55,6 +53,9 @@ define(function (require) {
                 '<div class="content">',
                 '</div>'
             ].join('');
+            container.appendChild(background);
+            container.appendChild(workspace);
+
             workspace.childNodes[0].childNodes[1].addEventListener('click', this.close);
 
             this.___container___ = container;
@@ -120,9 +121,13 @@ define(function (require) {
             if (!this.___container___) return;
             var container = this.___container___;
             var titleBar = this.___workspace___.childNodes[0];
+            var className = props.className;
+            var skin = props.skin;
             titleBar.childNodes[0].innerHTML = props.title;
             titleBar.childNodes[1].style.display = props.showCloseButton ? 'block': 'none';
-            container.className = 'fcui2-titlewindow-container ' + props.className;
+            this.___workspace___.className = 'fcui2-titlewindow'
+                + (typeof className === 'string' && className.length ? (' ' + className) : '')
+                + ' fcui2-titlewindow-' + (typeof skin === 'string' && skin.length ? skin : 'normal');
             if (!props.isOpen && !this.___appended___) return;
             // open
             var me = this;

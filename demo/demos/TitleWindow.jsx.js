@@ -65,17 +65,17 @@ define(function (require) {
                         </TitleWindow>
                     </div>
                     <div className="demo-item">
-                        <h3>Window without close button.</h3>
+                        <h3>Window without close button in title bar</h3>
                         <Button label="Open" onClick={this.openWindow} value="window3"/>
                         <TitleWindow isOpen={this.state.window3} showCloseButton={false}>
-                            <div>
-                                <h1>Window without close button.</h1>
+                            <div style={{width: 400, height: 300}}>
+                                <h1>Window without close button in title bar.</h1>
                                 <Button label="close" onClick={this.closerFactory('window3')}/>
                             </div>
                         </TitleWindow>
                     </div>
                     <div className="demo-item">
-                        <h3>Window with closing confirm.</h3>
+                        <h3>Window with closing confirm</h3>
                         <Button label="Open" onClick={this.openWindow} value="window4"/>
                         <TitleWindow isOpen={this.state.window4}
                             onBeforeClose={this.confirmClosing}

@@ -25,6 +25,7 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 className: '',
+                skin: '',
                 workspaceWidth: 1000,
                 isOpen: false,
                 onRender: noop,
@@ -46,7 +47,7 @@ define(function (require) {
             var workspace = document.createElement('div');
             var expandButton = document.createElement('div');
 
-            container.className = 'fcui2-shojiscreen-container';
+            container.className = 'fcui2-shojiscreen';
             background.className = 'fcui2-shojiscreen-background';
             workspace.className = 'fcui2-shojiscreen-workspace';
             expandButton.className = 'fcui2-shojiscreen-expand-button';
@@ -143,7 +144,11 @@ define(function (require) {
             // 返回条件3：让弹出
             if (props.isOpen) {
                 var width = this.props.workspaceWidth;
-                this.___container___.className = 'fcui2-shojiscreen-container ' + props.className;
+                var className = props.className;
+                var skin = props.skin;
+                this.___container___.className = 'fcui2-shojiscreen'
+                    + (typeof className === 'string' && className ? (' ' + className) : '')
+                    + ' fcui2-sojiscreen-' + (typeof skin === 'string' && skin ? skin : 'normal');
                 this.___workspace___.style.width = (isNaN(width) ? 1000 : width) + 'px';
                 if (!this.___appended___) {
                     this.___oldOverflow___ = util.getStyle(document.body, 'overflow');

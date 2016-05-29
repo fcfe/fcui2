@@ -10,9 +10,13 @@ define(function (require) {
             pager: '0.0.2',
             tab: '0.0.2',
             crumb: '0.0.2',
-            wizard: '0.0.2'
+            wizard: '0.0.2',
+            layer: '0.0.2',
+            titlewindow: '0.0.2',
+            shojiscreen: '0.0.2'
         },
         demos: {
+            TestBaseLine: require('./demos/BaseLineTesting.jsx'),
             Button: require('./demos/Button.jsx'), 
             TextBox: require('./demos/TextBox.jsx'),
             NumberBox: require('./demos/NumberBox.jsx'),
@@ -46,6 +50,7 @@ define(function (require) {
             ShojiScreen: require('./demos/ShojiScreen.jsx')
         },
         list: [
+            'TestBaseLine', '',
             'Tip', 'Button', 'List', 'DropDownList', 'ComboList', 'Pager', 'Tab', 'Crumb', 'Wizard', 'Layer',
             'TitleWindow', 'ShojiScreen', '',
 
