@@ -13,7 +13,10 @@ define(function (require) {
             wizard: '0.0.2',
             layer: '0.0.2',
             titlewindow: '0.0.2',
-            shojiscreen: '0.0.2'
+            shojiscreen: '0.0.2',
+            checkbox: '0.0.2',
+            radio: '0.0.2',
+            textbox: '0.0.2'
         },
         demos: {
             TestBaseLine: require('./demos/BaseLineTesting.jsx'),

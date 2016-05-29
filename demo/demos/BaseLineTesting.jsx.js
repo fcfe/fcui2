@@ -24,10 +24,16 @@ define(function (require) {
             return (
                 <div className="demo-content demo-item">
                     <h1>Test Display Base Line</h1>
-                    <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line</span>
+                    <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
                     <Button/>
                     <DropDownList/>
                     <ComboList/>
+                    <br/>
+                    <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
+                    <Button/>
+                    <CheckBox label="复选框"/>
+                    <Radio label="主说要有光，于是有了光"/>
+                    <TextBox/>
                 </div>
             );
         }

@@ -49,11 +49,11 @@ define(function (require) {
             var value = this.props.value;
             value = value === undefined || value === null ? '' : value + '';
             var width = this.props.width;
-            width = isNaN(width) && this.props.hasOwnProperty('style')
-                && !isNaN(width) ? this.props.style.width: width;
+            width = isNaN(width) && this.props.hasOwnProperty('style') && !isNaN(this.props.style.width)
+                ? this.props.style.width: width;
             width = isNaN(width) ? 200 : width;
             return {
-                width: width,
+                width: width - 2,
                 ___value___: value
             };
         },
