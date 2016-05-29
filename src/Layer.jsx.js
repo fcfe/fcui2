@@ -152,14 +152,13 @@ define(function (require) {
 
         fixedPosition: function (props) {
             var layer = this.___layerContainer___;
-            if (layer.scrollHeight > layer.offsetHeight && !layer.__expandWidth___) {
-                layer.__expandWidth___ = true;
-                layer.style.width = layer.offsetWidth + 20 + 'px';
-            }
             var pos = tools.getLayerPosition(layer, props.anchor, props.location + '');
             typeof props.onOffset === 'function' && props.onOffset(pos);
             layer.style.left = pos.left + 'px';
             layer.style.top = pos.top + 'px';
+            if (layer.scrollHeight > layer.offsetHeight) {
+                layer.style.width = layer.offsetWidth + 20 + 'px';
+            }
         },
 
 
