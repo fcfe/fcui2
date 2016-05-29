@@ -34,6 +34,11 @@ define(function (require) {
                     <CheckBox label="复选框"/>
                     <Radio label="主说要有光，于是有了光"/>
                     <TextBox/>
+                    <br/>
+                    <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
+                    <Button/>
+                    <NumberBox/>
+                    <TextBox/>
                 </div>
             );
         }

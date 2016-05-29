@@ -1,73 +1,81 @@
-@import "../skin.less";
+// version 0.0.2
+
 .fcui2-numberbox {
     position: relative;
     display: inline-block;
-    height: @height-outer;
-    background-color: @bgcolor-active;
+    height: 30px;
     input {
         outline: none;
-        height: @height-normal;
-        border: @border-normal;
-        padding: @padding-normal;
-        background-color: transparent;
+        height: 28px;
+        border: 1px solid;
+        padding: 0 10px;
         text-align: center;
-        vertical-align: top;
-    }
-    input:hover {
-        border: @border-active;
-    }
-    input:focus {
-        border: @border-active;
     }
     .btn-container {
         float: right;
+        position: relative;
+        top: 2px;
         width: 18px;
-        height: @height-normal;
-        border: @border-normal;
+        height: 28px;
+        border: 1px solid;
         border-left: 0px;
         .font-icon {
-            line-height: @lineheight-small2;
-            background-color: @bgcolor-normal;
+            line-height: 14px;
             text-align: center;
-            cursor: default;
-            moz-user-select: -moz-none;
-            -moz-user-select: none;
-            -o-user-select:none;
-            -khtml-user-select:none;
-            -webkit-user-select:none;
-            -ms-user-select:none;
-            user-select:none;
-        }
-        .font-icon:hover {
-            background-color: @bgcolor-important;
-            color: @fontcolor-important;
-        }
-        .font-icon:active {
-            background-color: @bgcolor-important-hover;
         }
         .font-icon-largeable-caret-up {
-            line-height: @lineheight-small1 !important;
-            border-bottom: @border-normal;
+            line-height: 13px;
+            border-bottom: 1px solid;
         }
     }
 }
+
+.fcui2-numberbox-normal {
+    background-color: @bgcolor-active;
+    input {
+        border-color: @color-outer-border;
+        background-color: transparent;
+        &:hover,&:active {
+            border-color: @color-btn-hover;
+        }
+    }
+    .btn-container {
+        border-color: @color-outer-border;
+        .font-icon {
+            background-color: @color-bg-btn;
+            cursor: pointer;
+            &:hover {
+                background-color: @color-btn;
+                color: @color-bg;
+            }
+            &:active {
+                background-color: @color-btn-hover;
+            }
+        }
+        .font-icon-largeable-caret-up {
+            border-bottom-color: @color-outer-border;
+        }
+    }
+}
+
 .fcui2-numberbox-reject {
     input {
         border-color: #F00 !important;
     }
 }
+
 .fcui2-numberbox-disabled {
-    input:hover {
-        border: @border-normal !important;
+    input {
+        background-color: @color-bg-btn;
+        &:hover,&:active {
+            border-color: @color-outer-border !important;
+        }
     }
     .font-icon {
-        color: @color-disabled !important;
-    }
-    .font-icon:hover {
-        background-color: @bgcolor-normal !important;
-        color: @color-disabled !important;
-    }
-    .font-icon:active {
-        background-color: @bgcolor-normal !important;
+        color: @color-disabled-text !important;
+        &:hover,&:active {
+            background-color: @color-bg-btn !important;
+            color: @color-disabled-text !important;
+        }
     }
 }

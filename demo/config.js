@@ -16,7 +16,8 @@ define(function (require) {
             shojiscreen: '0.0.2',
             checkbox: '0.0.2',
             radio: '0.0.2',
-            textbox: '0.0.2'
+            textbox: '0.0.2',
+            numberbox: '0.0.2'
         },
         demos: {
             TestBaseLine: require('./demos/BaseLineTesting.jsx'),
