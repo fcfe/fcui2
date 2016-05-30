@@ -3,12 +3,12 @@
 .fcui2-numberbox {
     display: inline-block;
     position: relative;
-    top: 1px;
+    top: 3px;
     height: 30px;
     z-index: 0;
     input {
         position: relative;
-        top: -1px;
+        top: -3px;
         outline: none;
         height: 28px;
         border: 1px solid;
@@ -17,19 +17,16 @@
     }
     .btn-container {
         position: absolute;
-        right: 1px;
-        top: 2px;
+        right: 2px;
         width: 20px;
-        height: 28px;
-        border-left: 1px solid;
+        height: 26px;
         z-index: 1;
         .font-icon {
-            line-height: 14px;
+            line-height: 13px;
             text-align: center;
         }
         .font-icon-largeable-caret-up {
             line-height: 13px;
-            border-bottom: 1px solid;
         }
     }
 }
@@ -45,7 +42,6 @@
     }
     .btn-container {
         background-color: @color-bg-btn;
-        border-color: @color-outer-border;
         .font-icon {
             cursor: pointer;
             &:hover {

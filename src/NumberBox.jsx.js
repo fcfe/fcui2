@@ -96,7 +96,7 @@ define(function (require) {
             var btnContainerProp = {
                 className: 'btn-container',
                 style: {
-                    top: util.isIE() ? 1 : 2, // 实在不知道怎么在CSS里面hack了。
+                    top: util.isIE() ? 0 : 1, // 实在不知道怎么在CSS里面hack了。
                     display: this.props.showSpinButton ? 'block' : 'none'
                 }
             };

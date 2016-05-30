@@ -89,7 +89,7 @@ define(function (require) {
             return (
                 <div {...containerProp}>
                     <div {...dropdownButtonProp}></div>
-                    <span>{this.props.label}</span>
+                    <span className={'font-icon ' + this.props.icon}>{this.props.label}</span>
                     <Layer {...layerProp}>
                         <List {...listProp}/>
                     </Layer>
