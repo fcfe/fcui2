@@ -48,12 +48,7 @@ define(function (require) {
         getInitialState: function () {
             var value = this.props.value;
             value = value === undefined || value === null ? '' : value + '';
-            var width = this.props.width;
-            width = isNaN(width) && this.props.hasOwnProperty('style') && !isNaN(this.props.style.width)
-                ? this.props.style.width: width;
-            width = isNaN(width) ? 200 : width;
             return {
-                width: width - 2,
                 ___value___: value
             };
         },
@@ -66,8 +61,10 @@ define(function (require) {
         },
         render: function () {
             var value = this.state.___value___;
+            var width = cTools.getValueFromPropsAndStyle(this.props, 'width', 200);
+            width = isNaN(width) ? 200 : +width;
             var containerProp = cTools.containerBaseProps('textbox', this, {
-                style: {width: this.state.width}
+                style: {width: width}
             });
             var placeholderProp = {
                 style: {
@@ -77,7 +74,7 @@ define(function (require) {
             var inputProp = {
                 type: 'text',
                 value: value,
-                style: {width: this.state.width - 20},
+                style: {width: width - 20},
                 onChange: this.onChange
             };
             return (
@@ -88,4 +85,6 @@ define(function (require) {
             );
         }
     });
+
+
 });

@@ -24,6 +24,8 @@ define(function (require) {
             return (
                 <div className="demo-content demo-item">
                     <h1>Test Display Base Line</h1>
+                    <hr/>
+                    <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span><br/>
                     <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
                     <Button/>
                     <DropDownList/>

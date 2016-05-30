@@ -45,17 +45,9 @@ define(function (require) {
         },
         // @override
         getInitialState: function () {
-            var width = this.props.width;
-            width = isNaN(width) && this.props.hasOwnProperty('style')
-                && !isNaN(width) ? this.props.style.width: width;
-            width = isNaN(width) ? 200 : width;
-            var height = this.props.height;
-            height = isNaN(height) && this.props.hasOwnProperty('style')
-                && !isNaN(height) ? this.props.style.height: height;
-            height = isNaN(height) ? 100 : height;
+            var value = this.props.value;
+            value = value === undefined || value === null ? '' : value + '';
             return {
-                width: width,
-                height: height,
                 ___value___: this.props.value || ''
             };
         },
@@ -68,10 +60,14 @@ define(function (require) {
         },
         render: function () {
             var value = this.state.___value___;
+            var width = cTools.getValueFromPropsAndStyle(this.props, 'width', 400);
+            var height = cTools.getValueFromPropsAndStyle(this.props, 'height', 300);
+            width = isNaN(width) ? 400 : +width;
+            height = isNaN(height) ? 300 : +height;
             var containerProp = cTools.containerBaseProps('textarea', this, {
                 style: {
-                    width: this.state.width,
-                    height: this.state.height
+                    width: width,
+                    height: height
                 }
             })
             var inputProp = {
@@ -82,8 +78,8 @@ define(function (require) {
                 spellCheck: false,
                 // 其实不应该这样写，可是textarea的padding和border会导致整体尺寸变大
                 style: {
-                    width: this.state.width - 22,
-                    height: this.state.height - 22
+                    width: width - 22,
+                    height: height - 22
                 }
             };
             // 由于IE和Chrome下placeholder表现不一致，所以自己做。IE下得到焦点后，placeholder会消失，chrome不会。

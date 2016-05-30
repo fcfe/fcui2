@@ -125,7 +125,7 @@ define(function (require) {
                 onChange: this.onYearChange,
                 value: this.state.inputYear,
                 type: 'int',
-                style: {width: 75, left: 43, top: util.isIE() ? 8 : 6}
+                style: {width: 75, left: 43}
             };
             var monthInputProp = {
                 ref: 'inputMonth',
@@ -134,7 +134,7 @@ define(function (require) {
                 onChange: this.onMonthChange,
                 value: this.state.inputMonth,
                 type: 'int',
-                style: {width: 60, right: 43, top: util.isIE() ? 8 : 6}
+                style: {width: 60, right: 43}
             };
             var subBtnProp = {
                 icon: 'font-icon-largeable-caret-left',
