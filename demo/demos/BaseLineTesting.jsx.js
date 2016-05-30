@@ -25,23 +25,28 @@ define(function (require) {
                 <div className="demo-content demo-item">
                     <h1>Test Display Base Line</h1>
                     <hr/>
-                    <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span><br/>
                     <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
-                    <Button/>
-                    <DropDownList/>
-                    <ComboList/>
                     <br/>
-                    <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
-                    <Button/>
-                    <CheckBox label="复选框"/>
-                    <Radio label="主说要有光，于是有了光"/>
-                    <TextBox/>
-                    <br/>
-                    <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
-                    <Button/>
-                    <NumberBox/>
-                    <TextBox/>
-                    <Select/>
+                    <div style={{border: '1px solid #f00'}}>
+                        <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
+                        <Button/>
+                        <DropDownList/>
+                        <ComboList/>
+                    </div>
+                    <div style={{border: '1px solid #f00', lineHeight: '50px', marginTop: '30px'}}>
+                        <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
+                        <Button/>
+                        <CheckBox label="复选框"/>
+                        <Radio label="主说要有光，于是有了光"/>
+                        <TextBox/>
+                    </div>
+                    <div style={{border: '1px solid #f00', lineHeight: '80px', marginTop: '30px'}}>
+                        <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
+                        <Button/>
+                        <NumberBox/>
+                        <TextBox/>
+                        <Select/>
+                    </div>
                 </div>
             );
         }
