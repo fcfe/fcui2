@@ -39,6 +39,7 @@ define(function (require) {
                     <Button/>
                     <NumberBox/>
                     <TextBox/>
+                    <Select/>
                 </div>
             );
         }

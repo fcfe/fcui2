@@ -1,4 +1,6 @@
-@import "../skin.less";
+
+// version 0.0.2
+
 .fcui2-textarea {
     position: relative;
     display: block;
@@ -10,34 +12,45 @@
         top: 0px;
         padding: 10px;
         outline: none;
-        border: @border-normal;
-        background-color: transparent;
+        border: 1px solid;
         resize: none;
         line-height: 20px;
-    }
-    textarea:hover {
-        border: @border-active;
-    }
-    textarea:focus {
-        border: @border-active;
     }
     div {
         position: absolute;
         left: 0px;
         top: 7px;
-        line-height: @lineheight-normal;
-        padding: @padding-normal;
-        color: @color-disabled;
-        font-size: @fontsize-button;
+        line-height: 28px;
+        padding: 0 10px;
     }
 }
+
+.fcui2-textarea-normal {
+    textarea {
+        background-color: transparent;
+        border-color: @color-outer-border;
+        &:hover,&:focus {
+            border-color: @color-btn-hover;
+        }
+    }
+    div {
+        color: @color-disabled-text;
+        font-size: 12px;
+    }
+}
+
 .fcui2-textarea-reject {
     textarea {
         border-color: #F00 !important;
     }
 }
+
 .fcui2-textarea-disabled {
-    textarea:hover {
-        border: @border-normal !important;
+    background-color: @color-bg-btn !important;
+    textarea {
+        color: @color-disabled-text !important;
+        &:hover {
+            border-color: @color-outer-border !important;
+        }
     }
 }

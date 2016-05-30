@@ -40,13 +40,13 @@ define(function (require) {
                 return null;
             }
             var date = new Date();
-            date.setFullYear(parseInt(arr[0], 10));
-            date.setMonth(parseInt(arr[1], 10) - 1);
-            date.setDate(arr[2]);
-            date.setHours(0);
-            date.setMinutes(0);
-            date.setSeconds(0);
             date.setMilliseconds(0);
+            date.setSeconds(0);
+            date.setMinutes(0);
+            date.setHours(0);
+            date.setDate(arr[2]);
+            date.setMonth(parseInt(arr[1], 10) - 1);
+            date.setFullYear(parseInt(arr[0], 10));
             return date;
         },
         // 比较两个日期，a和b。如果a、b是同一天返回0；a在b之前返回-1；否则返回1。

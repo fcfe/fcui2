@@ -100,7 +100,6 @@ define(function (require) {
                     display: this.props.showSpinButton ? 'block' : 'none'
                 }
             };
-            console.log(btnContainerProp);
             return (
                 <div {...containerProp}>
                     <input {...inputProp} disabled={this.props.disabled} ref="inputbox"/>

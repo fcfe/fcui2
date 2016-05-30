@@ -17,7 +17,10 @@ define(function (require) {
             checkbox: '0.0.2',
             radio: '0.0.2',
             textbox: '0.0.2',
-            numberbox: '0.0.2'
+            numberbox: '0.0.2',
+            textarea: '0.0.2',
+            select: '0.0.2',
+            calendar: '0.0.2'
         },
         demos: {
             TestBaseLine: require('./demos/BaseLineTesting.jsx'),

@@ -1,50 +1,48 @@
-@import "../skin.less";
+// version 0.0.2
 
 .fcui2-calendar {
-    font-family: @font-normal;
     position: relative;
-    width: 224px;
     overflow: hidden;
-    .calendar-month {
-        margin-left: 10px;
-    }
+    width: 224px;
     .calendar-operation {
-        background-color: #F5F5F5;
-        padding: 5px 0;
-        text-align: center;
-        .button-disabled {
-            color: @color-disabled !important;
-        }
+        position: relative;
+        height: 40px;
         .fcui2-button {
-            padding: 0px !important;
-            top: 9px !important;
-            width: 28px !important;
-            height: 28px !important;
+            position: absolute;
+            top: 5px;
+            min-width: 28px;
+            -moz-border-radius: 0;
+            -webkit-border-radius: 0;
+            border-radius: 0;
+            .font-icon {
+                font-size: 20px;
+                left:4px;
+            }
+            &:hover {
+                color: @color-btn-hover;
+                -webkit-box-shadow: 0 0 0;
+                -moz-box-shadow: 0 0 0;
+                box-shadow: 0 0 0;
+            }
+            &:first-child {
+                left: 6px;
+            }
+            &:last-child {
+                right: 6px;
+            }
         }
-        .font-icon-largeable-caret-right {
-            float: right;
-            margin-right: 5px;
-        }
-        .font-icon-largeable-caret-left {
-            float: left;
-            margin-left: 5px;
-        }
-        .fcui2-button:active {
-            border-color: @color-active !important;
+        .fcui2-numberbox {
+            position: absolute;
+            height: 30px;
         }
     }
     .calendar-day-label {
-        background-color: #FBFBFB;
         text-align: center;
-        font-size: 12px;
-        line-height: 32px;
         div {
             display: inline-block;
             width: 32px;
             height: 32px;
             line-height: 32px;
-            font-size: 12px;
-            color: #888;
             text-align: center;
         }
     }
@@ -53,33 +51,54 @@
         height: 192px;
         width: 224px;
         .fcui2-button {
-            position: absolute !important;
-            padding: 0 !important;
+            position: absolute;
+        }
+        .fcui2-button-calendar,
+        .fcui2-button-active,
+        .fcui2-button-disabled {
             width: 30px;
             height: 30px;
+            -moz-border-radius: 0px;
+            -webkit-border-radius: 0px;
+            border-radius: 0px;
             input {
-                color: #333;
+                padding: 0;
             }
         }
-        .fcui2-button:hover {
-            -webkit-box-shadow: 0 0 0 !important;
-            -moz-box-shadow: 0 0 0 !important;
-            box-shadow: 0 0 0 !important;
+    }
+}
+
+.fcui2-calendar-normal {
+    .calendar-operation {
+        background-color: @color-bg-caption;
+        .fcui2-button-disabled, .fcui2-button-disabled:hover{
+            color: @color-disabled-text;
         }
-        .fcui2-button-calendar:hover {
-            border-color: @color-active !important;
+        .fcui2-numberbox-normal {
+            background-color: @color-bg-caption;
             input {
-                color: @color-active !important;
+                background-color: @color-bg;
             }
+        }
+    }
+    .calendar-day-label {
+        font-size: 12px;
+        background-color: @color-bg-btn;
+        div {
+            font-size: 12px;
+            color: @color-text-3;
+        }
+    }
+    .calendar-buttons {
+        .fcui2-button-calendar {
+            border-color: @color-bg;
         }
         .fcui2-button-disabled {
-            border-color: #FFF !important;
-            background-color: #FFF !important;
+            background-color: @color-bg !important;
+            border-color: @color-bg !important;
         }
-        .fcui2-button-active {
-            input {
-                color: @color-active !important;
-            }
+        .fcui2-button-calendar:hover {
+            border-color: @color-btn-hover;
         }
     }
 }

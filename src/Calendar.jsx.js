@@ -124,31 +124,41 @@ define(function (require) {
                 onChange: this.onYearChange,
                 value: this.state.inputYear,
                 type: 'int',
-                style: {width: 70}
+                style: {width: 70, left: 43, top: 5}
             };
             var monthInputProp = {
                 ref: 'inputMonth',
-                className: 'calendar-month',
                 min: 1,
                 max: 12,
                 onChange: this.onMonthChange,
                 value: this.state.inputMonth,
                 type: 'int',
-                style: {width: 60}
+                style: {width: 60, right: 43, top: 5}
             };
-            var btnClass = 'fcui2-button' + (this.props.disabled ? ' button-disabled' : '')
-                +' font-icon font-icon-largeable-caret-';
-            var range = this.props.min.replace(/-/g, '.') + ' - ' + this.props.max.replace(/-/g, '.');
+            var subBtnProp = {
+                icon: 'font-icon-largeable-caret-left',
+                label: '',
+                onClick: this.onMonthSub,
+                disabled: this.props.disabled
+            };
+            var addBtnProp = {
+                icon: 'font-icon-largeable-caret-right',
+                label: '',
+                onClick: this.onMonthAdd,
+                disabled: this.props.disabled
+            };
             return (
                 <div {...containerProp}>
                     <div className="calendar-operation">
-                        <div className={btnClass + 'right'} onClick={this.onMonthAdd}/>
-                        <div className={btnClass + 'left'} onClick={this.onMonthSub}/>
+                        <Button {...subBtnProp}/>
                         <NumberBox {...yearInputProp} disabled={this.props.disabled}/>
                         <NumberBox {...monthInputProp} disabled={this.props.disabled}/>
+                        <Button {...addBtnProp}/>
                     </div>
                     <div className="calendar-day-label">{
-                        this.state.inRange ? language.calendar.day.map(dayLabelFactory) : range
+                        this.state.inRange
+                            ? language.calendar.day.map(dayLabelFactory)
+                            : (this.props.min.replace(/-/g, '.') + ' - ' + this.props.max.replace(/-/g, '.'))
                     }</div>
                     <div className="calendar-buttons">{buttonFactory(this)}</div>
                 </div>
@@ -188,7 +198,6 @@ define(function (require) {
             max = min;
         }
         var buttons = [];
-
         var timer = tool.str2date(me.state.displayYear + '-' + (me.state.displayMonth + 1) + '-1');
         var tmpTimer = new Date();
 
