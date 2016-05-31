@@ -9,10 +9,12 @@ define(function (require) {
 
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
+
     
     var Layer = require('./Layer.jsx');
     var Region = require('./Region.jsx');
     var Button = require('./Button.jsx');
+
 
     var cTools = require('./core/componentTools');
     var language = require('./core/language').region.regionName;
@@ -31,6 +33,7 @@ define(function (require) {
                 disabled: false,
                 label: 'DropDownRegion',
                 type: 'multi',
+                openLayerType: 'onMouseEnter',
                 provinceRenderer: undefined,
                 regionRenderer: undefined,
                 countryRenderer: undefined,
@@ -46,13 +49,22 @@ define(function (require) {
         // @override
         getInitialState: function () {
             return {
+                mouseenter: false,
                 layerOpen: false,
                 multiValue: this.props.value
             };
         },
         // @override
         componentDidMount: function () {
-            this.___autoCloseTimer___ = null;
+            this.___layerTimer___ = null;
+            this.___closingTimer___ = null;
+            document.body.addEventListener('click', this.onBodyClick);
+        },
+        // @override
+        componentWillUnmount: function () {
+            clearInterval(this.___layerTimer___);
+            clearInterval(this.___closingTimer___);
+            document.body.removeEventListener('click', this.onBodyClick);
         },
         onRegionChange: function (e) {
             var value = this.props.type === 'single' ? this.___getValue___() : this.state.multiValue;
@@ -75,39 +87,80 @@ define(function (require) {
         onCancelClick: function () {
             this.setState({layerOpen: false});
         },
-        onLayerMouseLeave: function (e) {
+        onBodyClick: function () {
+            if (
+                this.props.type === 'single'
+                || !this.refs.region
+                || !this.state.layerOpen
+                || this.refs.layer.state.mouseenter
+                || this.refs.region.___currentLayer___
+                || this.state.mouseenter
+            ) {
+                return;
+            }
+            this.setState({layerOpen: false});
+        },
+        onMainMouseEnter: function () {
+            this.setState({mouseenter: true});
+            if (this.props.openLayerType === 'onMouseEnter' && this.props.type === 'single') {
+                this.open();
+            }
+        },
+        onMainMouseLeave: function () {
+            this.setState({mouseenter: false});
+        },
+        onLayerMouseLeave: function () {
             var me = this;
-            clearInterval(me.___autoCloseTimer___);
-            me.___autoCloseTimer___ = setInterval(function () {
-                if (!me.refs.region) {
-                    clearInterval(me.___autoCloseTimer___);
+            clearInterval(me.___layerTimer___);
+            me.___layerTimer___ = setInterval(leaving, 100);
+            function leaving() {
+                if (!me.refs.region || !me.state.layerOpen) {
+                    clearInterval(me.___layerTimer___);
                     return;
                 }
-                if (me.refs.region.___currentLayer___ || me.refs.layer.state.mouseenter) return;
-                clearInterval(me.___autoCloseTimer___);
-                me.setState({layerOpen: false});
-            }, 100);
+                if (me.refs.region.___currentLayer___ || me.refs.layer.state.mouseenter) {
+                    return;
+                }
+                clearInterval(me.___layerTimer___);
+                me.close();
+            }
+        },
+        open: function () {
+            this.setState({layerOpen: true});
+        },
+        close: function () {
+            if (this.props.type !== 'single') return;
+            var me = this;
+            clearInterval(me.___closingTimer___);
+            me.___closingTimer___ = setInterval(closing, 100);
+            function closing() {
+                if (!me.refs.region || !me.state.layerOpen) {
+                    clearInterval(me.___layerTimer___);
+                    return;
+                }
+                if (me.refs.layer.state.mouseenter || me.refs.region.___currentLayer___ || me.state.mouseenter) {
+                    return;
+                }
+                clearInterval(me.___layerTimer___);
+                me.setState({
+                    mouseenter: false,
+                    layerOpen: false
+                });
+            }
         },
         render: function () {
             var me = this;
             var value = this.___getValue___();
             var label = (this.props.type === 'single' && language[value]) ? language[value] : this.props.label;
-            var containerProp = cTools.containerBaseProps('dropdownlist', this, {
-                merge: {
-                    onMouseEnter: this.props.type === 'single' ? cTools.openLayerHandler.bind(me) : undefined,
-                    onMouseLeave: this.props.type === 'single' ? this.onLayerMouseLeave : undefined,
-                    onClick: this.props.type === 'single' ? undefined : cTools.openLayerHandler.bind(me)
-                }
-            });
+            var containerProp = cTools.containerBaseProps('dropdownlist', this);
             var layerProp = {
                 ref: 'layer',
                 isOpen: this.state.layerOpen && !this.props.disabled,
                 anchor: this.refs.container,
-                location: 'bottom',
+                location: 'bottom right',
                 style: {padding: '5px 0'},
-                closeWithBodyClick: this.props.type === 'single',
-                onCloseByWindow: this.props.type === 'single' ? this.onCancelClick : undefined,
-                onMouseLeave: this.props.type === 'single' ? this.onLayerMouseLeave : undefined
+                onMouseEnter: this.onLayerMouseEnter,
+                onMouseLeave: this.onLayerMouseLeave
             };
             var regionProp = {
                 ref: 'region',
@@ -119,55 +172,39 @@ define(function (require) {
                 countryRenderer: this.props.countryRenderer,
                 onChange: this.onRegionChange
             };
+            var enterProp = {
+                label: buttonLabels.enter,
+                skin: 'important',
+                style: {margin: '5px 10px'},
+                disabled: this.state.multiValue === me.props.value,
+                onClick: this.onEnterClick
+            };
+            var cancelProp = {
+                label: buttonLabels.cancel,
+                onClick: this.onCancelClick
+            };
+            containerProp.onMouseEnter = this.onMainMouseEnter;
+            containerProp.onMouseLeave = this.onMainMouseLeave;
+            if (this.props.type !== 'single') {
+                containerProp.onClick = this.open;
+            }
+            else if (this.props.openLayerType !== 'onMouseEnter') {
+                containerProp[this.props.openLayerType] = this.open;
+            }
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
                     <span>{label}</span>
                     <Layer {...layerProp}>
-                        <div style={{
-                            width: 700,
-                            height: (this.props.type === 'single' ? 370 : 400),
-                            position: 'relative'
-                        }}>
+                        <div style={{maxWidth: 600}}>
                             <Region {...regionProp}/>
-                            {layerButtonFactory(me)}
+                            {this.props.type === 'single' ? null : <Button {...enterProp}/>}
+                            {this.props.type === 'single' ? null : <Button {...cancelProp}/>}
                         </div>
                     </Layer>
                 </div>
             );
         }
     });
-
-
-    function layerButtonFactory(me) {
-        if (me.props.type === 'single') return '';
-        var buttonContainerProp = {
-            style: {
-                position: 'absolute',
-                top: 365,
-                left: 15
-            }
-        };
-        var enterProp = {
-            label: buttonLabels.enter,
-            skin: 'important',
-            disabled: me.state.multiValue === me.props.value,
-            onClick: me.onEnterClick
-        };
-        var cancelProp = {
-            style: {
-                position: 'relative',
-                left: 10
-            },
-            label: buttonLabels.cancel,
-            onClick: me.onCancelClick
-        };
-        return (
-            <div {...buttonContainerProp}>
-                <Button {...enterProp}/>
-                <Button {...cancelProp}/>
-            </div>
-        );
-    }
 
 });

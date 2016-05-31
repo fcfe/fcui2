@@ -23,7 +23,8 @@ define(function (require) {
             calendar: '0.0.2',
             dropdowncalendar: '0.0.2',
             rangecalendar: '0.0.2',
-            region: '0.0.2'
+            region: '0.0.2',
+            dropdownregion: '0.0.2'
         },
         demos: {
             TestBaseLine: require('./demos/BaseLineTesting.jsx'),
