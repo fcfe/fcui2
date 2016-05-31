@@ -27,25 +27,31 @@ define(function (require) {
                     <hr/>
                     <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
                     <br/>
-                    <div style={{border: '1px solid #f00'}}>
+                    <div style={{border: '1px solid #000'}}>
                         <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
                         <Button/>
                         <DropDownList/>
                         <ComboList/>
                     </div>
-                    <div style={{border: '1px solid #f00', lineHeight: '50px', marginTop: '30px'}}>
+                    <div style={{border: '1px solid #000', lineHeight: '50px', marginTop: '30px'}}>
                         <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
                         <Button/>
                         <CheckBox label="复选框"/>
                         <Radio label="主说要有光，于是有了光"/>
                         <TextBox/>
                     </div>
-                    <div style={{border: '1px solid #f00', lineHeight: '80px', marginTop: '30px'}}>
+                    <div style={{border: '1px solid #000', lineHeight: '80px', marginTop: '30px'}}>
                         <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
                         <Button/>
                         <NumberBox/>
                         <TextBox/>
                         <Select/>
+                        <DropDownCalendar/>
+                    </div>
+                    <div style={{border: '1px solid #000', lineHeight: '50px', marginTop: '30px'}}>
+                        <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
+                        <Button/>
+                        <RangeCalendar/>
                     </div>
                 </div>
             );

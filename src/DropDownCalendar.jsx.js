@@ -26,6 +26,7 @@ define(function (require) {
                 style: {},
                 disabled: false,
                 placeholder: 'please select',
+                openLayerType: 'onMouseEnter',
                 min: '0-1-1',
                 max: '9999-12-31',
                 valueTemplate: ''
@@ -34,7 +35,8 @@ define(function (require) {
         // @override
         getInitialState: function () {
             return {
-                layerOpen: false
+                layerOpen: false,
+                mouseenter: false
             };
         },
         onChange: function (e) {
@@ -43,14 +45,19 @@ define(function (require) {
             this.___dispatchChange___(e);
             this.setState({layerOpen: false});
         },
+        onMouseEnter: function () {
+            this.setState({
+                mouseenter: true,
+                layerOpen: true
+            });
+        },
+        onMouseLeave: function () {
+            this.setState({mouseenter: false});
+            cTools.closeLayerHandler.call(this);
+        },
         render: function () {
             var me = this;
-            var containerProp = cTools.containerBaseProps('dropdownlist', this, {
-                merge: {
-                    onMouseEnter: cTools.openLayerHandler.bind(this),
-                    onMouseLeave: cTools.closeLayerHandler.bind(this)
-                }
-            });
+            var containerProp = cTools.containerBaseProps('dropdownlist', this);
             var label = this.___getValue___() || this.props.placeholder;
             var layerProp = {
                 isOpen: this.state.layerOpen && !this.props.disabled,
@@ -64,6 +71,8 @@ define(function (require) {
                 value: this.___getValue___(),
                 onChange: this.onChange
             };
+            containerProp[this.props.openLayerType] = this.onMouseEnter;
+            containerProp['onMouseLeave'] = this.onMouseLeave;
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-calendar"></div>

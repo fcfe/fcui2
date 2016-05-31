@@ -20,7 +20,10 @@ define(function (require) {
             numberbox: '0.0.2',
             textarea: '0.0.2',
             select: '0.0.2',
-            calendar: '0.0.2'
+            calendar: '0.0.2',
+            dropdowncalendar: '0.0.2',
+            rangecalendar: '0.0.2',
+            region: '0.0.2'
         },
         demos: {
             TestBaseLine: require('./demos/BaseLineTesting.jsx'),
@@ -62,9 +65,9 @@ define(function (require) {
             'TitleWindow', 'ShojiScreen', '',
 
             'Checkbox', 'Radio', 'TextBox', 'NumberBox', 'TextArea', 'Select', 'Calendar', 'DropDownCalendar',
-            'RangeCalendar', 'Schedule', 'Region', 'DropDownRegion', 'SearchBox', 'Slider', 'Tree', '',
+            'RangeCalendar', 'Region', 'DropDownRegion', 'SearchBox', 'Slider', '',
 
-            'Table', 'Dialog', 'Form', 'DualTreeSelector',
+            'Table', 'Dialog', 'Form', 'Schedule', 'Tree', 'DualTreeSelector',
         ]
     };
 

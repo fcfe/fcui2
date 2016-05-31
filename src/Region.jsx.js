@@ -97,15 +97,11 @@ define(function (require) {
         var Renderer = typeof me.props.countryRenderer === 'function' ? me.props.countryRenderer : RegionRenderer;
         for (var i = 0; i < arr.length; i++) {
             doms.push(
-                <div key={arr[i]} className="country-area">
-                    <div className="country-title">
-                        <Renderer {...rendererPropsFactory(arr[i], value, me)} />
-                    </div>
-                    <div>
-                        {regionFactory(tools.filiation[arr[i]], value, me)}
-                    </div>
+                <div className="country-area" key={arr[i]}>
+                    <Renderer {...rendererPropsFactory(arr[i], value, me)} />
                 </div>
             );
+            doms = doms.concat(regionFactory(tools.filiation[arr[i]], value, me));
         }
         return doms;
     }
@@ -115,15 +111,29 @@ define(function (require) {
         if (!arr) return '';
         var doms = [];
         var Renderer = typeof me.props.regionRenderer === 'function' ? me.props.regionRenderer : RegionRenderer;
+        var tmpProvince = [];
         for (var i = 0; i < arr.length; i++) {
+            var id = arr[i];
+            if (tools.filiation.hasOwnProperty(id) && tools.filiation[id] instanceof Array) {
+                doms.push(
+                    <div key={arr[i]} className="region-area">
+                        <div className="region-left-container">
+                            <Renderer {...rendererPropsFactory(id, value, me)}/>
+                        </div>
+                        <div className="region-right-container">
+                           {provinceFactory(tools.filiation[id], value, me)}
+                        </div>
+                    </div>
+                );
+            }
+            else {
+                tmpProvince.push(provinceFactory([id], value, me));
+            }
+        }
+        if (tmpProvince.length) {
             doms.push(
-                <div key={arr[i]} className="region-area">
-                    <div className="region-left-container">
-                        <Renderer {...rendererPropsFactory(arr[i], value, me)}/>
-                    </div>
-                    <div className="region-right-container">
-                       {provinceFactory(tools.filiation[arr[i]], value, me)}
-                    </div>
+                <div key={arr.join('-')} className="region-area">
+                    {tmpProvince}
                 </div>
             );
         }
