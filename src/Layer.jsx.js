@@ -119,7 +119,7 @@ define(function (require) {
 
         close: function () {
             var evt = document.createEvent('UIEvents');
-            evt.fcuiTarget = this;
+            evt.targteComponent = this;
             evt.returnValue = true;
             typeof this.props.onBeforeClose === 'function' && this.props.onBeforeClose(evt);
             if (evt.returnValue) {

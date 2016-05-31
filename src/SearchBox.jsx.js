@@ -30,16 +30,7 @@ define(function (require) {
         },
         // @override
         getInitialState: function () {
-            var width = this.props.width;
-            width = isNaN(width) && this.props.hasOwnProperty('style') && !isNaN(width) ? this.props.style.width: width;
-            width = isNaN(width) ? 200 : width;
-            return {
-                width: width
-            };
-        },
-        onTextBoxChange: function (e) {
-            if (this.props.disabled) return;
-            this.___dispatchChange___(e);
+            return {};
         },
         onButtonClick: function (e) {
             e.target = this.refs.container;
@@ -50,19 +41,19 @@ define(function (require) {
             this.refs.inputbox.focus();
         },
         render: function () {
+            var width = cTools.getValueFromPropsAndStyle(this.props, 'width', 200);
             var containerProp = cTools.containerBaseProps('searchbox', this, {
-                style: {
-                    width: this.state.width
-                }
+                style: {width: width}
             });
             var inputProp = {
                 ref: 'inputbox',
-                width: this.state.width - 16,
+                width: width - 16,
                 disabled: this.props.disabled,
                 placeholder: this.props.placeholder,
                 value: this.___getValue___(),
-                onChange: this.onTextBoxChange
+                onChange: this.props.onChange
             };
+            console.log(inputProp);
             return (
                 <div {...containerProp}>
                     <TextBox {...inputProp}/>

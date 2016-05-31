@@ -126,7 +126,7 @@ define(function (require) {
         // 销毁窗体，并且会触发this.props.onBeforeClose和this.props.onClose
         close: function () {
             var evt = document.createEvent('UIEvents');
-            evt.fcuiTarget = this;
+            evt.targteComponent = this;
             evt.returnValue = true;
             typeof this.props.onBeforeClose === 'function' && this.props.onBeforeClose(evt);
             if (evt.returnValue) {

@@ -20,7 +20,8 @@ define(function (require) {
         }
     });
 
-    var AutoSize = React.createClass({
+
+    var AutoSizeApp = React.createClass({
         timer: null,
         getDefaultProps: function () {
             return {};
@@ -54,7 +55,8 @@ define(function (require) {
         }
     });
 
-    var UpdateProp = React.createClass({
+
+    var UpdatePropApp = React.createClass({
         getDefaultProps: function () {
             return {
                 text: 'init'
@@ -92,7 +94,7 @@ define(function (require) {
             clearInterval(this.updateTimer);
             dialog.pop({
                 title: 'Update Content Props after Pop',
-                content: UpdateProp,
+                content: UpdatePropApp,
                 contentProps: {
                     text: 'Message From Demo.'
                 }
@@ -107,7 +109,7 @@ define(function (require) {
             clearInterval(this.updateTimer);
             dialog.pop({
                 title: 'Auto Resize Demo',
-                content: AutoSize
+                content: AutoSizeApp
             });
         },
         subapp: function (e) {

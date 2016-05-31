@@ -87,15 +87,6 @@ define(function (require) {
                 props.content = item.age;
             }
         },
-        optMsg: {
-            label: '浮动layer',
-            field: 'birth',
-            buttonLabel: '好的',
-            renderer: require('fcui/components/table/OptRenderer.jsx'),
-            prepare: function (props, item) {
-                props.style = {color: 'orange'};
-            }
-        },
         buttonField: {
             label: '呼叫',
             field: 'birth',

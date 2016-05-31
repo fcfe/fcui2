@@ -15,6 +15,8 @@ define(function (require) {
     var RangeCalendar = require('fcui/RangeCalendar.jsx');
     var DropDownRegion = require('fcui/DropDownRegion.jsx')
     var ComboList = require('fcui/ComboList.jsx');
+    var SearchBox = require('fcui/SearchBox.jsx');
+
 
     return React.createClass({
         render: function () {
@@ -29,6 +31,7 @@ define(function (require) {
                         <Button/>
                         <DropDownList/>
                         <ComboList/>
+                        <SearchBox/>
                     </div>
                     <div style={{border: '1px solid #000', lineHeight: '50px', marginTop: '30px'}}>
                         <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
@@ -36,6 +39,7 @@ define(function (require) {
                         <CheckBox label="复选框"/>
                         <Radio label="主说要有光，于是有了光"/>
                         <TextBox/>
+                        <SearchBox/>
                     </div>
                     <div style={{border: '1px solid #000', lineHeight: '80px', marginTop: '30px'}}>
                         <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
@@ -50,6 +54,7 @@ define(function (require) {
                         <Button/>
                         <RangeCalendar/>
                         <DropDownRegion/>
+                        <SearchBox/>
                     </div>
                 </div>
             );

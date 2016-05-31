@@ -79,7 +79,7 @@ define(function (require) {
             return(
                 <div {...containerProp}>
                     {this.props.type === 'single' ? <Radio {...checkboxProps}/> : <CheckBox {...checkboxProps}/>}
-                    <span style={{display: selected.selected > 0 ? 'inline' : 'none'}}>
+                    <span class="statistics-label" style={{display: selected.selected > 0 ? 'inline' : 'none'}}>
                         {selected.selected + '/' + selected.total}
                     </span>
                     <Layer {...layerProps}>

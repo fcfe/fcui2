@@ -220,7 +220,7 @@ define(function (require) {
                 datasource: datasource.concat(datasource, datasource, datasource),
                 fieldConfig: [
                     fieldConfig.styleName, fieldConfig.tipName, fieldConfig.tipAge,
-                    fieldConfig.buttonField, fieldConfig.optMsg, fieldConfig.numberInt
+                    fieldConfig.buttonField, fieldConfig.numberInt
                 ]
             }
         }

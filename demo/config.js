@@ -24,7 +24,8 @@ define(function (require) {
             dropdowncalendar: '0.0.2',
             rangecalendar: '0.0.2',
             region: '0.0.2',
-            dropdownregion: '0.0.2'
+            dropdownregion: '0.0.2',
+            dialog: '0.0.2'
         },
         demos: {
             TestBaseLine: require('./demos/BaseLineTesting.jsx'),
@@ -63,12 +64,12 @@ define(function (require) {
         list: [
             'TestBaseLine', '',
             'Tip', 'Button', 'List', 'DropDownList', 'ComboList', 'Pager', 'Tab', 'Crumb', 'Wizard', 'Layer',
-            'TitleWindow', 'ShojiScreen', '',
+            'TitleWindow', 'ShojiScreen', 'Dialog', '',
 
             'Checkbox', 'Radio', 'TextBox', 'NumberBox', 'TextArea', 'Select', 'Calendar', 'DropDownCalendar',
             'RangeCalendar', 'Region', 'DropDownRegion', 'SearchBox', 'Slider', '',
 
-            'Table', 'Dialog', 'Form', 'Schedule', 'Tree', 'DualTreeSelector',
+            'Table', 'Form', 'Schedule', 'Tree', 'DualTreeSelector',
         ]
     };
 

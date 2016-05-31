@@ -65,7 +65,7 @@ define(function (require) {
 
         // 注册表单域
         attach: function (name, component) {
-            if (typeof name !== 'string' || !name.length) return false; 
+            if (typeof name !== 'string' || !name.length) return false;
             name = component.props.___uitype___ === 'radio' ? name + '___radio___' + component.props.value : name;
             if (this.___inputs___[name]) {
                 console.warn('input component with name "' + name + '" already attached');
@@ -106,6 +106,7 @@ define(function (require) {
 
             // 通知外部
             this.props.onFieldChange({
+                targetCompontent: this,
                 field: field,
                 dataset: dataset,
                 validationResults: validationResults
@@ -131,6 +132,7 @@ define(function (require) {
             validationResults = tools.mergeRadioValidationResults(validationResults);
             if (!formValidationResult) {
                 this.props.onFieldChange({
+                    targetCompontent: this,
                     isValid: false,
                     dataset: dataset,
                     validationResults: validationResults
@@ -150,6 +152,7 @@ define(function (require) {
 
             // 派发
             var callbackParam = {
+                targetCompontent: this,
                 isValid: formValidationResult.length === 0,
                 dataset: dataset,
                 validationResults: validationResults
