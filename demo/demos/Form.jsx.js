@@ -45,12 +45,18 @@ define(function (require) {
             this.setState({
                 name: name,
                 intro: intro,
-                message: JSON.stringify(state)
+                message: JSON.stringify({
+                    dataset: state.dataset,
+                    validationResults: state.validationResults
+                })
             });
         },
         form1FieldChange: function (state) {
             this.setState({
-                message1: JSON.stringify(state)
+                message1: JSON.stringify({
+                    dataset: state.dataset,
+                    validationResults: state.validationResults
+                })
             });
         },
         render: function () {

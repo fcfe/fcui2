@@ -86,6 +86,38 @@ define(function (require) {
                             </div>
                         </TitleWindow>
                     </div>
+                    <div className="demo-item">
+                        <h3>Window with a huge content</h3>
+                        <Button label="Open" onClick={this.openWindow} value="window5"/>
+                        <TitleWindow isOpen={this.state.window5} onClose={this.closerFactory('window5')}>
+                            <div style={{width: 3000, height: 4000}}>
+                                3000 x 4000
+                            </div>
+                        </TitleWindow>
+                    </div>
+                    <div className="demo-item">
+                        <h3>Window with size</h3>
+                        <Button label="Open" onClick={this.openWindow} value="window6"/>
+                        <TitleWindow size={{width: 400, height: 300}}
+                            isOpen={this.state.window6}
+                            onClose={this.closerFactory('window6')}
+                        >
+                            <div>
+                                <h1>TitleWindow with Size</h1>
+                            </div>
+                        </TitleWindow>
+                    </div>
+                    <div className="demo-item">
+                        <h3>FullScreen TitleWindow</h3>
+                        <Button label="Open" onClick={this.openWindow} value="window7"/>
+                        <TitleWindow isFullScreen={true} isOpen={this.state.window7}
+                            onClose={this.closerFactory('window7')}
+                        >
+                            <div>
+                                <h1>FullScreen TitleWindow</h1>
+                            </div>
+                        </TitleWindow>
+                    </div>
                 </div>
             );
         }

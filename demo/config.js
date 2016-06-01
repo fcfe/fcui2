@@ -25,7 +25,9 @@ define(function (require) {
             rangecalendar: '0.0.2',
             region: '0.0.2',
             dropdownregion: '0.0.2',
-            dialog: '0.0.2'
+            dialog: '0.0.2',
+            searchbox: '0.0.2',
+            slider: '0.0.2'
         },
         demos: {
             TestBaseLine: require('./demos/BaseLineTesting.jsx'),

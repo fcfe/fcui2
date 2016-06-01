@@ -9,7 +9,6 @@ define(function (require) {
 
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
-    var TextBox = require('./TextBox.jsx');
     var cTools = require('./core/componentTools');
 
 
@@ -19,6 +18,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
+                // 样式属性
                 skin: '',
                 className: '',
                 style: {},
@@ -29,8 +29,33 @@ define(function (require) {
             };
         },
         // @override
+        componentWillReceiveProps: function (nextProps) {
+            // 注意，此处不符合fcui2开发规范，主要是为了解决https://github.com/facebook/react/issues/3926这个问题
+            if (
+                (
+                    nextProps.value + '' === this.state.___value___ + ''
+                    && this.refs.inputbox && nextProps.value + '' === this.refs.inputbox.value + ''
+                )
+                || nextProps.value === undefined
+                || nextProps.value === null
+            ) {
+                return;
+            }
+            this.setState({
+                ___value___: nextProps.value + ''
+            });
+        },
+        // @override
         getInitialState: function () {
-            return {};
+            var value = this.props.value;
+            value = value === undefined || value === null ? '' : value + '';
+            return {
+                ___value___: value
+            };
+        },
+        onChange: function (e) {
+            if (this.props.disabled) return;
+            this.___dispatchChange___(e);
         },
         onButtonClick: function (e) {
             e.target = this.refs.container;
@@ -41,25 +66,33 @@ define(function (require) {
             this.refs.inputbox.focus();
         },
         render: function () {
+            var value = this.state.___value___;
             var width = cTools.getValueFromPropsAndStyle(this.props, 'width', 200);
+            width = isNaN(width) ? 200 : +width;
             var containerProp = cTools.containerBaseProps('searchbox', this, {
                 style: {width: width}
             });
-            var inputProp = {
-                ref: 'inputbox',
-                width: width - 16,
-                disabled: this.props.disabled,
-                placeholder: this.props.placeholder,
-                value: this.___getValue___(),
-                onChange: this.props.onChange
+            var placeholderProp = {
+                className: 'placeholder',
+                style: {
+                    visibility: value && value.length ? 'hidden' : 'visible'
+                }
             };
-            console.log(inputProp);
+            var inputProp = {
+                type: 'text',
+                value: value,
+                style: {width: width - 30},
+                onChange: this.onChange
+            };
             return (
                 <div {...containerProp}>
-                    <TextBox {...inputProp}/>
+                    <div {...placeholderProp}>{this.props.placeholder}</div>
+                    <input {...inputProp} disabled={this.props.disabled} ref="inputbox"/>
                     <div className="font-icon font-icon-search" onClick={this.onButtonClick}></div>
                 </div>
             );
         }
     });
+
+
 });

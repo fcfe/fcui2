@@ -208,6 +208,8 @@ define(function (require) {
                     skin: param.skin,
                     isOpen: this.state.isOpen,
                     title: param.title,
+                    size: param.size,
+                    isFullScreen: param.isFullScreen,
                     showCloseButton: param.hasOwnProperty('showCloseButton') ? param.showCloseButton : true,
                     onBeforeClose: (typeof param.onBeforeClose === 'function') ? param.onBeforeClose : noop,
                     onClose: this.close

@@ -171,6 +171,32 @@ define(function (require) {
                 }
             });
         },
+        fullscreen: function () {
+            dialog.pop({
+                title: 'Fullscreen Dialog',
+                content: SubApp,
+                isFullScreen: true,
+                contentProps: {
+                    message: 'it is subapp\'s content, imported from outside.'
+                },
+                onClose: function () {
+                    me.props.alert('Fullscreen Dialog has been closed!');
+                }
+            });
+        },
+        size: function () {
+            dialog.pop({
+                title: 'Fullscreen Dialog',
+                content: SubApp,
+                size: {width: 300, height: 300},
+                contentProps: {
+                    message: 'it is subapp\'s content, imported from outside.'
+                },
+                onClose: function () {
+                    me.props.alert('Fullscreen Dialog has been closed!');
+                }
+            });
+        },
         render: function () {
             return (
                 <div>
@@ -186,6 +212,10 @@ define(function (require) {
                     <Button label="Auto Resize" onClick={this.autoResize}/>
                     <h3>Update Content Props after Pop</h3>
                     <Button label="Update Props" onClick={this.update}/>
+                    <h3>Fullscreen Dialog</h3>
+                    <Button label="Fullscreen Dialog" onClick={this.fullscreen}/>
+                    <h3>Dialog with Size</h3>
+                    <Button label="Dialog with Size" onClick={this.size}/>
                 </div>
             );
         }

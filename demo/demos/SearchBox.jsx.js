@@ -14,7 +14,6 @@ define(function (require) {
         },
         {
             title: 'Readonly SearchBox',
-            onChange: false,
             props: {value: 'readonly'}
         },
         {
@@ -31,5 +30,5 @@ define(function (require) {
         }
     ];
 
-    return Creater(SearchBox, items, ['onChange', 'onClick']);
+    return Creater(SearchBox, items, ['onClick']);
 });

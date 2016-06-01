@@ -16,6 +16,7 @@ define(function (require) {
     var DropDownRegion = require('fcui/DropDownRegion.jsx')
     var ComboList = require('fcui/ComboList.jsx');
     var SearchBox = require('fcui/SearchBox.jsx');
+    var Tip = require('fcui/Tip.jsx');
 
 
     return React.createClass({
@@ -28,6 +29,7 @@ define(function (require) {
                     <br/>
                     <div style={{border: '1px solid #000'}}>
                         <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
+                        <Tip title="这是啥"/>
                         <Button/>
                         <DropDownList/>
                         <ComboList/>
