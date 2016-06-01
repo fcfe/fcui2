@@ -69,7 +69,8 @@
     "karma-requirejs": "^0.2.6",
     "karma-babel-preprocessor": "^6.0.1",
     "phantomjs-prebuilt": "^2.1.7",
-    "requirejs": "^2.2.0"
+    "requirejs": "^2.2.0",
+    "yuidocjs": "^0.10.1"
   },
   "license": "MIT"
 }
