@@ -2,14 +2,15 @@ define(function (require) {
 
 
     var React = require('react');
+    var Creater = require('../ReactClassCreater.jsx');
     var Table = require('fcui/Table.jsx');
+    var datasource = require('./tools/tableDatasource');
+    var fieldConfig = require('./tools/tableFieldConfig');
+    var expandableTableFieldFactory = require('./tools/expandableTableFieldFactory');
+    var expandableTableDatasourceFactory = require('./tools/expandableTableDatasourceFactory');
 
 
-    var datasource = require('../config/tableDatasource');
-    var fieldConfig = require('../config/tableFieldConfig');
-
-
-    var items = [
+    var items1 = [
         {
             title: 'Normal Table',
             props: {
@@ -62,7 +63,6 @@ define(function (require) {
         },
         {
             title: 'Sortable Table',
-            onChange: true,
             props: {
                 flags: {
                     showHeader: true,
@@ -85,20 +85,6 @@ define(function (require) {
                     sortField: 'age',
                     sortType: 'desc'
                 }),
-                datasource: datasource,
-                fieldConfig: [
-                    fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
-                ]
-            }
-        },
-        {
-            title: 'Table with ValueLink',
-            valueLink: true,
-            props: {
-                flags: {
-                    showHeader: true,
-                    sortEnable: true
-                },
                 datasource: datasource,
                 fieldConfig: [
                     fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
@@ -141,7 +127,6 @@ define(function (require) {
         },
         {
             title: 'Table with Selector',
-            onChange: true,
             props: {
                 flags: {
                     showHeader: true,
@@ -155,25 +140,10 @@ define(function (require) {
         },
         {
             title: 'Table with Selector that can select current page.',
-            onChange: true,
             props: {
                 flags: {
                     showHeader: true,
                     showSelector: 2
-                },
-                datasource: datasource,
-                fieldConfig: [
-                    fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
-                ]
-            }
-        },
-        {
-            title: 'Table with Selector that can select all items.',
-            onChange: true,
-            props: {
-                flags: {
-                    showHeader: true,
-                    showSelector: 3
                 },
                 datasource: datasource,
                 fieldConfig: [
@@ -194,10 +164,11 @@ define(function (require) {
                     fieldConfig.normalName, {isSelector: true},fieldConfig.normalAge, fieldConfig.normalBirth
                 ]
             }
-        },
+        }
+    ];
+    var items2 = [
         {
             title: 'Comprehensive Table',
-            onChange: true,
             props: {
                 flags: {
                     showHeader: true,
@@ -226,140 +197,57 @@ define(function (require) {
         }
     ];
 
-
-    function expandTableDatasourceFactory(filter) {
-        var header = datasource[0];
-        var data = [];
-        for (var i = 0; i < 4; i++) {
-            var newHeader = JSON.parse(JSON.stringify(header));
-            newHeader.expandId = i + '';
-            data.push(newHeader);
-            if (i + '' !== filter) continue;
-            var newItems = JSON.parse(JSON.stringify(datasource));
-            for (var j = 0; j < newItems.length; j++) {
-                newItems[j].expandId = i + '-' + j;
-                data.push(newItems[j]);
-            }
-        }
-        return data;
-    }
-    function expandTableFieldFactory() {
-        var nameField = fieldConfig.normalName;
-        var ageField = fieldConfig.normalAge;
-        var birthField = fieldConfig.normalBirth;
-        var stylePrepare = function (props, item, row, column, table) {
-            if (item.expandId && item.expandId.indexOf('-') < 0) {
-                props.style.fontWeight = 'bold';
-                props.style.backgroundColor = '#F8F9FE';
-            }   
-        };
-        nameField.prepare = stylePrepare;
-        ageField.prepare = stylePrepare;
-        birthField.prepare = stylePrepare;
-        var fields = [
-            {
-                isEmptyHeader: true,
-                width: 30,
-                renderer: require('fcui/components/table/Expander.jsx'),
-                prepare: function (props, item, row, column, table) {
-                    var value = JSON.parse(table.___getValue___());
-                    props.tableExpandId = value.tableExpandId;
-                    props.onAction = table.props.onAction;
-                    if (item.expandId && item.expandId.indexOf('-') < 0) {
-                        props.style.fontWeight = 'bold';
-                        props.style.backgroundColor = '#F8F9FE';
-                    }
-                }
-            },
-            {
-                isSelector: true,
-                prepare: stylePrepare
-            },
-            nameField,
-            ageField,
-            birthField
-        ];
-        return fields;
-    }
-    function expandTableDemo(me) {
-        var props = {
-            ref: 'expandTable',
-            flags: {
-                showHeader: true
-            },
-            datasource: me.state.expandData,
-            fieldConfig: expandTableFieldFactory(),
-            onAction: me.expandTableAction,
-            valueTemplate: JSON.stringify({
-                tableExpandId: me.state.expandId,
-                sortField: '',
-                sortType: 'asc',
-                selected: []
-            })
-        };
-        return <Table {...props}/>
-    }
-
-
-    function factory(me, items) {
-        var widgets = [];
-        for (var i = 0; i < items.length; i++) {
-            var item = items[i];
-            var prop = item.props;
-            var conf = JSON.stringify(prop);
-            if (item.valueLink) prop.valueLink = me.linkState(item.title);
-            if (item.onChange) prop.onChange = me.clickHandler;
-            prop.onAction = me.actionHandler;
-            widgets.push(
-                <div className="demo-item" key={i}>
-                    <h3>{item.title}</h3>
-                    <div className="props">{conf}</div>
-                    <Table {...prop}/>
-                    <span>{me.state[item.title]}</span>
-                </div>
-            );
-        }
-        return widgets;
-    }
+    var Example1 = Creater(Table, items1, 'onChange');
+    var Example2 = Creater(Table, items2, 'onChange');
 
 
     return React.createClass({
-        mixins: [React.addons.LinkedStateMixin],
         // @override
         getDefaultProps: function () {
-            return {
-                alert: function () {}
-            };
+            return {};
         },
         // @override
         getInitialState: function () {
             return {
-                expandData: expandTableDatasourceFactory('0'),
-                expandId: '0'
+                expandableTableData: expandableTableDatasourceFactory('0'),
+                expandableTableId: '0'
             };
         },
-        clickHandler: function (e) {
-            this.props.alert(e.target.value);
-        },
-        expandTableAction: function (type, param) {
+        expandableTableAction: function (type, param) {
             this.props.alert(type + ' ' + JSON.stringify(param));
             var id = param.expanded ? param.expandId : '';
             this.setState({
-                expandData: expandTableDatasourceFactory(id),
-                expandId: id
+                expandableTableData: expandableTableDatasourceFactory(id),
+                expandableTableId: id
             });
-        },
-        actionHandler: function (type, param) {
-            this.props.alert(type + ' ' + JSON.stringify(param));
+            return {};
         },
         render: function () {
+            var expandTableProps = {
+                ref: 'expandableTable',
+                flags: {
+                    showHeader: true
+                },
+                datasource: this.state.expandableTableData,
+                fieldConfig: expandableTableFieldFactory(),
+                onAction: this.expandableTableAction,
+                valueTemplate: JSON.stringify({
+                    tableExpandId: this.state.expandableTableId,
+                    sortField: '',
+                    sortType: 'asc',
+                    selected: []
+                })
+            };
             return (
                 <div>
+                    <Example1/>
                     <div className="demo-item">
-                        <h3>Table width Expander</h3>
-                        {expandTableDemo(this)}
+                        <h3>Expandable Table</h3>
+                        <div className="props">{JSON.stringify(expandTableProps)}</div>
+                        <span className="label">Display Base Line:</span>
+                        <Table {...expandTableProps}/>
                     </div>
-                    {factory(this, items)}
+                    <Example2/>
                 </div>
             );
         }

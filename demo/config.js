@@ -27,7 +27,8 @@ define(function (require) {
             dropdownregion: '0.0.2',
             dialog: '0.0.2',
             searchbox: '0.0.2',
-            slider: '0.0.2'
+            slider: '0.0.2',
+            table: '0.0.2'
         },
         demos: {
             TestBaseLine: require('./demos/BaseLineTesting.jsx'),

@@ -87,7 +87,8 @@ define(function (require) {
             var table = this.props.tableComponent;
             var info = getInformationFromTable(table);
             var containerProp = {
-                className: 'table-selector fcui2-dropdownlist',
+                className: 'table-selector fcui2-dropdownlist fcui2-dropdownlist-'
+                    + (typeof table.props.skin === 'string' && table.props.skin.length ? table.props.skin : 'normal'),
                 onMouseEnter: cTools.openLayerHandler.bind(this),
                 onMouseLeave: cTools.closeLayerHandler.bind(this),
                 ref: 'container'

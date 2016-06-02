@@ -200,22 +200,38 @@ define(function (require) {
         render: function () {
             return (
                 <div>
-                    <h3>Alert</h3>
-                    <Button label="Alert" onClick={this.alert}/>
-                    <h3>Confirm</h3>
-                    <Button label="Confirm" onClick={this.confirm}/>
-                    <h3>SubApp</h3>
-                    <Button label="SubApp" onClick={this.subapp}/>
-                    <h3>Closing need confirm</h3>
-                    <Button label="Closing need confirm" onClick={this.closeConfirm}/>
-                    <h3>Auto Resize Dialog</h3>
-                    <Button label="Auto Resize" onClick={this.autoResize}/>
-                    <h3>Update Content Props after Pop</h3>
-                    <Button label="Update Props" onClick={this.update}/>
-                    <h3>Fullscreen Dialog</h3>
-                    <Button label="Fullscreen Dialog" onClick={this.fullscreen}/>
-                    <h3>Dialog with Size</h3>
-                    <Button label="Dialog with Size" onClick={this.size}/>
+                    <div className="demo-item">
+                        <h3>Alert</h3>
+                        <Button label="Alert" onClick={this.alert}/>
+                    </div>
+                    <div className="demo-item">
+                        <h3>Confirm</h3>
+                        <Button label="Confirm" onClick={this.confirm}/>
+                    </div>
+                    <div className="demo-item">
+                        <h3>SubApp</h3>
+                        <Button label="SubApp" onClick={this.subapp}/>
+                    </div>
+                    <div className="demo-item">
+                        <h3>Closing need confirm</h3>
+                        <Button label="Closing need confirm" onClick={this.closeConfirm}/>
+                    </div>
+                    <div className="demo-item">
+                        <h3>Auto Resize Dialog</h3>
+                        <Button label="Auto Resize" onClick={this.autoResize}/>
+                    </div>
+                    <div className="demo-item">
+                        <h3>Update Content Props after Pop</h3>
+                        <Button label="Update Props" onClick={this.update}/>
+                    </div>
+                    <div className="demo-item">
+                        <h3>Fullscreen Dialog</h3>
+                        <Button label="Fullscreen Dialog" onClick={this.fullscreen}/>
+                    </div>
+                    <div className="demo-item">
+                        <h3>Dialog with Size</h3>
+                        <Button label="Dialog with Size" onClick={this.size}/>
+                    </div>
                 </div>
             );
         }

@@ -1,30 +1,19 @@
-@import "../skin.less";
+// version 0.0.2
+
+
 .fcui2-table {
     position: relative;
     z-index: 0;
     table {
-        border-right: @border-normal;
-        border-bottom: @border-normal;
+        border-right: 1px solid;
+        border-bottom: 1px solid;
     }
     td, th {
-        border-top: @border-normal;
-        border-left: @border-normal;
+        border-top: 1px solid;
+        border-left: 1px solid;
         line-height: 40px;
-        padding: @padding-td;
+        padding: 0 5px;
         word-break: break-all;
-    }
-    tr:hover {
-        background-color: @bgcolor-item-hover;
-        .td-button {
-            .font-icon {
-                visibility: visible;
-            }
-        }
-    }
-    .table-container {
-        .tr-header, .tr-message {
-            visibility: hidden;
-        }
     }
     .shadow-container {
         position: absolute;
@@ -38,24 +27,6 @@
             z-index: 1;
         }
     }
-    .tr-summary {
-        background-color: @bgcolor-table-header !important;
-        font-weight: @fontweight-title !important;
-        font-size: @fontsize-button !important;
-    }
-    .tr-selected {
-        background-color: @bgcolor-item-hover !important;
-    }
-    .td-selector {
-        text-align: center;
-        input {
-            width: @fontsize-icon-button;
-            height: @fontsize-icon-button;
-        }
-    }
-    .head-selector {
-        background-color: @bgcolor-table-header;
-    }
     .table-nodata {
         display: inline-block;
         margin: 20px;
@@ -67,10 +38,131 @@
         width: 150px;
     }
 }
+
+
+.fcui2-table-normal {
+    table {
+        border-right-color: @color-inner-border;
+        border-bottom-color: @color-inner-border;
+    }
+    td, th {
+        border-top-color: @color-inner-border;
+        border-left-color: @color-inner-border;
+    }
+    tr:hover {
+        background-color: @color-bg-hover-table;
+    }
+}
+
+
+// Renderers插件渲染
+.fcui2-table-normal {
+    // Table
+    .table-container {
+        .tr-header, .tr-message {
+            visibility: hidden;
+        }
+    }
+    // Summary
+    .tr-summary {
+        background-color: @color-bg-btn;
+        font-weight: 700;
+        font-size: 12px;
+        &:hover td {
+            background-color: @color-bg-btn;
+        }
+    }
+    // Selector
+    .tr-selected {
+        background-color: @color-bg-hover-table;
+    }
+    .td-selector {
+        text-align: center;
+        input {
+            width: 14px;
+            height: 14px;
+        }
+    }
+    .table-selector {
+        position: relative;
+        width: 45px !important;
+        text-align: center;
+        .font-icon-largeable-caret-down {
+            display: inline-block;
+            float: right;
+        }
+        input {
+            position: relative;
+            width: 14px;
+            height: 14px;
+            top: 3px;
+        }
+    }
+    // Header
+    .th-header {
+        background-color: @color-bg-btn;
+        font-weight: 700;
+        font-size: 12px;
+        .sort-button {
+            float: right;
+            position: relative;
+            line-height: 40px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .sort-button:hover {
+            color: @color-btn-hover !important;
+        }
+    }
+    // Message
+    .tr-message {
+        background-color: @color-yellow-2;
+        text-align: center;
+        cursor: default;
+        font-size: 12px;
+        .link {
+            cursor: pointer;
+            margin-left: 10px;
+            color: @color-btn;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+        &:hover {
+            background-color: @color-yellow-2 !important;
+        }
+    }
+    // NumberRendere
+    .td-number {
+        font-size: 12px;
+    }
+    // ButtonRenderer
+    .td-button {
+        font-size: 12px;
+        .font-icon {
+            display: inline-block;
+            visibility:hidden;
+            font-size: 16px;
+            line-height: 40px;
+            color: @color-btn-hover;
+            cursor: pointer;
+        }
+    }
+    tr:hover {
+        .td-button {
+            .font-icon {
+                visibility: visible;
+            }
+        }
+    }
+
+}
+
+
 .fcui2-fixed-with-scroll {
     tr:last-child {
         td, td {
-            border-bottom: @border-normal;
+            border-bottom: 1px solid @color-inner-border;
         }
     }
 }
