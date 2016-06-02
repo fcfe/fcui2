@@ -102,12 +102,10 @@ define(function (require) {
                 ref: 'mainCheckbox',
                 onClick: this.onMainSelectorChange
             };
-            if (info.workMode === SELECT_MODE.CURRENT_PAGE || info.workMode === SELECT_MODE.ALL) {
+            if (info.workMode === SELECT_MODE.CURRENT_PAGE || info.workMode === SELECT_MODE.ALL) {  
                 return (
-                    <th>
-                        <div ref="container" className="table-selector fcui2-dropdownlist">
-                            <input {...mainCheckboxProp}/>
-                        </div>
+                    <th className="th-header table-selector" ref="container">
+                        <input {...mainCheckboxProp}/>
                     </th>
                 );
             }

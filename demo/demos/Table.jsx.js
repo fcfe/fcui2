@@ -240,14 +240,14 @@ define(function (require) {
             };
             return (
                 <div>
-                    <Example1/>
+                    <Example1 alert={this.props.alert}/>
                     <div className="demo-item">
                         <h3>Expandable Table</h3>
                         <div className="props">{JSON.stringify(expandTableProps)}</div>
                         <span className="label">Display Base Line:</span>
                         <Table {...expandTableProps}/>
                     </div>
-                    <Example2/>
+                    <Example2 alert={this.props.alert}/>
                 </div>
             );
         }

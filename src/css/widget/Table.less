@@ -30,7 +30,7 @@
     .table-nodata {
         display: inline-block;
         margin: 20px;
-        border: @border-normal;
+        border: 1px solid;
         font-size: 12px;
         line-height: 40px;
         text-align: center;
@@ -51,6 +51,9 @@
     }
     tr:hover {
         background-color: @color-bg-hover-table;
+    }
+    .table-nodata {
+        border-color: @color-inner-border;
     }
 }
 
