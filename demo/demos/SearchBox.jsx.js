@@ -30,5 +30,5 @@ define(function (require) {
         }
     ];
 
-    return Creater(SearchBox, items, ['onClick']);
+    return Creater(SearchBox, items, ['onChange','onClick']);
 });

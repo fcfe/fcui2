@@ -106,6 +106,15 @@ define(function (require) {
          */
         componentWillReceiveProps: function(nextProps) {
             this.___validations___ = validationTools.validationFactory(nextProps.validations || {});
+            this.___hasValueLink___ = nextProps.hasOwnProperty('valueLink')
+                && nextProps.valueLink.hasOwnProperty('value')
+                && typeof nextProps.valueLink.requestChange === 'function';
+            if (
+                this.___hasValueLink___
+                && (nextProps.hasOwnProperty(valueField) || nextProps.hasOwnProperty('onChange'))
+            ) {
+                throw new Error(erroeMessage);
+            }
         },
 
 
@@ -137,7 +146,9 @@ define(function (require) {
             }
             // 常规input组件
             if (this.___hasValueLink___) return this.props.valueLink.value;
-            if (this.props.hasOwnProperty(valueField)) return this.props[valueField];
+            if (this.props.hasOwnProperty(valueField) && this.props[valueField] !== undefined) {
+                return this.props[valueField];
+            }
             if (this.state && this.state.hasOwnProperty('___value___')) return this.state.___value___;
             if (this.props.hasOwnProperty('valueTemplate')) return this.props.valueTemplate;
             return null;
@@ -154,7 +165,7 @@ define(function (require) {
          * 
          * 有些组件的值很复杂，未必是简单类型，用e.target.value携带不了，从第二参数回调
          */
-        ___dispatchChange___: function (e, value) {
+        ___dispatchChange___: function (e, value, lastValue) {
 
             // 准备value
             var valueField = this.props.___uitype___ === 'checkbox' || this.props.___uitype___ === 'radio'
@@ -178,7 +189,13 @@ define(function (require) {
                 this.context.___form___.updateField(this.props.name, value, this);
             }
 
-            if (noCallback) return;
+            if (noCallback && lastValue !== undefined) {
+                value = lastValue;
+                if (this.refs && this.refs.inputbox) {
+                    this.refs.inputbox.value = lastValue;
+                    this.___lastFiredValue___ = lastValue;
+                }
+            }
 
             // 记录变更
             this.setState({

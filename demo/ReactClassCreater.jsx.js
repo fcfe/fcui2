@@ -4,16 +4,20 @@ define(function (require) {
     var React = require('react');
 
 
-    function defaultFactory(Component, items, me, handlers) {
+    function defaultFactory(Component, items, me, state, handlers) {
         var widgets = [];
         for (var i = 0; i < items.length; i++) {
             var item = items[i];
-            var prop = item.props;
-            mergeHandlers(prop, me, handlers, item);
+            var prop = {};
+            for (var key in item.props) {
+                if (!item.props.hasOwnProperty(key)) continue;
+                prop[key] = item.props[key];
+            }
+            mergeHandlers(prop, me, state, handlers, item);
             widgets.push(
                 <div className="demo-item" key={i}>
                     <h3>{item.title}</h3>
-                    <div className="props">{getDisplayProps(prop)}</div>
+                    <div className="props">{getDisplayProps(item.props)}</div>
                     <span className="label">Display Base Line:</span>
                     <Component {...prop}/>
                 </div>
@@ -23,14 +27,26 @@ define(function (require) {
     }
 
 
-    function mergeHandlers(prop, me, handlers, config) {
+    function mergeHandlers(prop, me, state, handlers, config) {
         if (typeof handlers !== 'string' && !(handlers instanceof Array)) return;
         handlers = typeof handlers === 'string' ? [handlers] : handlers;
-        config = config || {};
         for (var i = 0; i < handlers.length; i++) {
             var key = handlers[i];
-            if (prop.hasOwnProperty(key) || !me.hasOwnProperty(key) || config[key] === false) continue;
-            prop[key] = me[key];
+            if (prop.hasOwnProperty(key) || !me.hasOwnProperty(key)) continue;
+            if (key === 'onChange') {
+                prop.value = prop.hasOwnProperty('value') ? prop.value : state[config.title];
+                if (config[key] !== false) {
+                    prop.onChange = function (e) {
+                        var obj = {};
+                        obj[config.title] = e.target.value;
+                        me.setState(obj);
+                        me.onChange(e);
+                    };
+                }
+            }
+            else {
+                if (config[key] !== false) prop[key] = me[key];
+            }
         }
     }
 
@@ -65,7 +81,7 @@ define(function (require) {
                 typeof this.props.alert === 'function' && this.props.alert('onChange: ' + e.target.value);
             },
             render: function () {
-                return (<div>{producer(Component, items, this, handlers)}</div>);
+                return (<div>{producer(Component, items, this, this.state, handlers)}</div>);
             }
         });
     };

@@ -9,12 +9,13 @@ define(function (require) {
 
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
+    var InputWidgetStreem = require('./mixins/InputWidgetStreem');
     var cTools = require('./core/componentTools');
 
 
     return React.createClass({
         // @override
-        mixins: [InputWidget],
+        mixins: [InputWidget, InputWidgetStreem],
         // @override
         getDefaultProps: function () {
             return {
@@ -27,39 +28,15 @@ define(function (require) {
             };
         },
         // @override
-        componentWillReceiveProps: function (nextProps) {
-            // 注意，此处不符合fcui2开发规范，主要是为了解决https://github.com/facebook/react/issues/3926这个问题
-            if (
-                (
-                    nextProps.value + '' === this.state.___value___ + ''
-                    && this.refs.inputbox && nextProps.value + '' === this.refs.inputbox.value + ''
-                )
-                || nextProps.value === undefined
-                || nextProps.value === null
-            ) {
-                return;
-            }
-            this.setState({
-                ___value___: nextProps.value
-            });
-        },
-        // @override
         getInitialState: function () {
-            var value = this.props.value;
-            value = value === undefined || value === null ? '' : value + '';
-            return {
-                ___value___: this.props.value || ''
-            };
-        },
-        onChange: function (e) {
-            if (this.props.disabled) return;
-            this.___dispatchChange___(e);
+            return {};
         },
         focus: function () {
             this.refs.inputbox.focus();
         },
         render: function () {
-            var value = this.state.___value___;
+            var value = this.___getValue___();
+            value = value === undefined || value == null ? '' : (value + '');
             var width = cTools.getValueFromPropsAndStyle(this.props, 'width', 400);
             var height = cTools.getValueFromPropsAndStyle(this.props, 'height', 300);
             width = isNaN(width) ? 400 : +width;
@@ -72,15 +49,17 @@ define(function (require) {
             })
             var inputProp = {
                 ref: 'inputbox',
-                value: value,
-                onChange: this.onChange,
                 disabled: this.props.disabled,
                 spellCheck: false,
                 // 其实不应该这样写，可是textarea的padding和border会导致整体尺寸变大
                 style: {
                     width: width - 22,
                     height: height - 22
-                }
+                },
+                onCompositionStart: this.___onCompositionStart___,
+                onCompositionEnd: this.___onCompositionEnd___,
+                onKeyUp: this.___onKeyUp___,
+                onPaste: this.___onPaste___
             };
             // 由于IE和Chrome下placeholder表现不一致，所以自己做。IE下得到焦点后，placeholder会消失，chrome不会。
             var labelProp = {

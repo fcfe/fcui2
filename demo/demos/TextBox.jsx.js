@@ -14,7 +14,6 @@ define(function (require) {
         },
         {
             title: 'Readonly TextBox',
-            onChange: false,
             props: {value: 'readonly'}
         },
         {

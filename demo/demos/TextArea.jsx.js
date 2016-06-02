@@ -14,7 +14,6 @@ define(function (require) {
         },
         {
             title: 'Readonly TextArea',
-            onChange: false,
             props: {value: 'readonly'}
         },
         {
