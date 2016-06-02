@@ -6,6 +6,13 @@
     top: 11px;
     margin-top: -11px; // 为了维护inline-block元素的上下间距，需要利用margin把差距补回来，也是醉了。
     height: 30px;
+    .fcui2-numberbox-placeholder {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        text-align: center;
+    }
     input {
         position: absolute;
         left: 0;
@@ -36,6 +43,10 @@
         &:hover,&:active {
             border-color: @color-btn-hover;
         }
+    }
+    .fcui2-numberbox-placeholder {
+        color: @color-disabled-text;
+        font-size: 12px;
     }
     .btn-container {
         background-color: @color-bg-btn;

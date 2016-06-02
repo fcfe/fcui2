@@ -105,6 +105,8 @@ define(function (require) {
          * @override
          */
         componentWillReceiveProps: function(nextProps) {
+            var valueField = this.props.___uitype___ === 'checkbox' || this.props.___uitype___ === 'radio'
+                ? 'checked' : 'value';
             this.___validations___ = validationTools.validationFactory(nextProps.validations || {});
             this.___hasValueLink___ = nextProps.hasOwnProperty('valueLink')
                 && nextProps.valueLink.hasOwnProperty('value')

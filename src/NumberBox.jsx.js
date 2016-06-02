@@ -26,6 +26,7 @@ define(function (require) {
                 className: '',
                 style: {},
                 disabled: false,
+                placeholder: '',
                 max: Number.POSITIVE_INFINITY,
                 min: Number.NEGATIVE_INFINITY,
                 step: 1.00,
@@ -78,15 +79,22 @@ define(function (require) {
         },
         render: function () {
             var value = this.___getValue___();
+            value = tools.numberFormater(value, this.props);
             var width = cTools.getValueFromPropsAndStyle(this.props, 'width', 200);
             width = isNaN(width) ? 200 : +width;
             var containerProp = cTools.containerBaseProps('numberbox', this, {
                 style: {width: width}
             });
+            var placeholderProp = {
+                className: 'fcui2-numberbox-placeholder',
+                style: {
+                    visibility: value.length === 0 ? 'visible' : 'hidden'
+                }
+            };
             var inputProp = {
                 ref: 'inputbox',
                 type: 'text',
-                value: tools.numberFormater(value, this.props),
+                value: value,
                 // 因为怎么用CSS定位，在Chrome和IE下显示都不一致，所以用最原始的方式组织DOM，然后用js计算尺寸
                 style: {
                     height: 26,
@@ -106,6 +114,7 @@ define(function (require) {
             };
             return (
                 <div {...containerProp}>
+                    <div {...placeholderProp}>{this.props.placeholder}</div>
                     <input {...inputProp} disabled={this.props.disabled} ref="inputbox"/>
                     <div {...btnContainerProp}>
                         <div className="font-icon font-icon-largeable-caret-up"
