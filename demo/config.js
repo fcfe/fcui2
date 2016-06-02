@@ -32,6 +32,7 @@ define(function (require) {
         },
         demos: {
             TestBaseLine: require('./demos/BaseLineTesting.jsx'),
+            TestFormField: require('./demos/FormFieldTesting.jsx'),
             Button: require('./demos/Button.jsx'), 
             TextBox: require('./demos/TextBox.jsx'),
             NumberBox: require('./demos/NumberBox.jsx'),
@@ -65,14 +66,14 @@ define(function (require) {
             ShojiScreen: require('./demos/ShojiScreen.jsx')
         },
         list: [
-            'TestBaseLine', '',
+            'TestBaseLine', 'TestFormField', '',
             'Tip', 'Button', 'List', 'DropDownList', 'ComboList', 'Pager', 'Tab', 'Crumb', 'Wizard', 'Layer',
             'TitleWindow', 'ShojiScreen', 'Dialog', '',
 
             'Checkbox', 'Radio', 'TextBox', 'NumberBox', 'TextArea', 'Select', 'Calendar', 'DropDownCalendar',
             'RangeCalendar', 'Region', 'DropDownRegion', 'SearchBox', 'Slider', '',
 
-            'Table', 'Form', 'Schedule', 'Tree', 'DualTreeSelector',
+            'Table', 'Form', '', 'Schedule', 'Tree', 'DualTreeSelector',
         ]
     };
 

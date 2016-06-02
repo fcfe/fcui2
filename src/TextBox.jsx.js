@@ -52,7 +52,7 @@ define(function (require) {
                 ref: 'inputbox',
                 disabled: this.props.disabled,
                 type: 'text',
-                style: {width: width - 20},
+                style: {width: width - 22},
                 onCompositionStart: this.___onCompositionStart___,
                 onCompositionEnd: this.___onCompositionEnd___,
                 onKeyUp: this.___onKeyUp___,
