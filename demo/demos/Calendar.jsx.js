@@ -16,7 +16,6 @@ define(function (require) {
         },
         {
             title: 'Readonly Calendar',
-            onChange: false,
             props: {value: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + timer.getDate()}
         },
         {

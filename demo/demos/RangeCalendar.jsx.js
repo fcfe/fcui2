@@ -19,7 +19,6 @@ define(function (require) {
         },
         {
             title: 'Readonly RangeCalendar',
-            onChange: false,
             props: {value: tmpValue}
         },
         {
@@ -28,7 +27,6 @@ define(function (require) {
         },
         {
             title: 'RangeCalendar with Min and Max',
-            onChange: true,
             props: {
                 min: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() - 5),
                 max: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() + 5)
@@ -36,7 +34,6 @@ define(function (require) {
         },
         {
             title: 'RangeCalendar with ShortCut',
-            onChange: true,
             props: {
                 shortCut: [
                     {label: '今天', getValues: calendarTools.getDataRange.today},
@@ -54,7 +51,6 @@ define(function (require) {
         },
         {
             title: 'RangeCalendar with ShortCut and Min and Max',
-            onChange: true,
             props: {
                 min: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() - 5),
                 max: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() + 5),
@@ -74,7 +70,6 @@ define(function (require) {
         },
         {
             title: 'RangeCalendar with RangeValidator',
-            onChange: true,
             props: {
                 rangeValidator: function (v1, v2) {
                     var d = v2.getTime() - v1.getTime();

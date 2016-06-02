@@ -40,7 +40,6 @@ define(function (require) {
         },
         {
             title: 'Readonly Select',
-            onChange: false,
             props: {
                 placeholder: 'select',
                 value: 'option3',

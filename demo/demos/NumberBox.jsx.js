@@ -14,7 +14,6 @@ define(function (require) {
         },
         {
             title: 'Readonly NumberBox',
-            onChange: false,
             props: {value: 235}
         },
         {

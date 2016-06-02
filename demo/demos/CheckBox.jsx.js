@@ -34,7 +34,6 @@ define(function (require) {
         },
         {
             title: 'Readonly CheckBox',
-            onChange: false,
             props: {checked: true}
         }
     ];

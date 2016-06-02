@@ -41,7 +41,6 @@ define(function (require) {
         },
         {
             title: 'ComboList with a very long Option',
-            onChange: true,
             props: {
                 value: 'Main Command4',
                 datasource: [
@@ -55,7 +54,6 @@ define(function (require) {
         },
         {
             title: 'ComboList with ClassName',
-            onChange: true,
             props: {
                 className: 'floatRight',
                 value: 'Main Command5',
@@ -70,7 +68,6 @@ define(function (require) {
         },
         {
             title: 'ComboList with Icon and long datasource',
-            onChange: true,
             props: {
                 value: 'Main Command6',
                 icon: 'font-icon-star-half',

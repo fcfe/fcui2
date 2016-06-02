@@ -14,7 +14,6 @@ define(function (require) {
         },
         {
             title: 'Readonly Pager',
-            onChange: false,
             props: {value: '4'}
         },
         {
