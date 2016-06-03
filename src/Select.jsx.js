@@ -75,7 +75,7 @@ define(function (require) {
                 onClick: this.onListClick
             };
             containerProp[this.props.openLayerType] = this.onMouseEnter;
-            containerProp['onMouseLeave'] = this.onMouseLeave;
+            containerProp.onMouseLeave = this.onMouseLeave;
             for (var i = 0; i < this.props.datasource.length; i++) {
                 if (this.props.datasource[i].value + '' === value + '') {
                     label = this.props.datasource[i].label;

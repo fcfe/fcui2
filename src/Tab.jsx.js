@@ -57,7 +57,7 @@ define(function (require) {
             var Renderer = typeof me.props.renderer === 'function' ? me.props.renderer : NormalRenderer;
             var props = me.props.datasource[i];
             props.key = i;
-            props.onClick = props.disabled ? undefined : me.onClick;
+            props.onClick = props.disabled ? cTools.noop : me.onClick;
             if (me.props.disabled || props.disabled) {
                 props.className = 'fcui2-tab-item-disabled';
             }

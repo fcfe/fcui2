@@ -86,7 +86,7 @@ define(function (require) {
 
         close: function () {
             var evt = document.createEvent('UIEvents');
-            evt.targteComponent = this;
+            evt.targetComponent = this;
             evt.returnValue = true;
             typeof this.props.onBeforeClose === 'function' && this.props.onBeforeClose(evt);
             if (evt.returnValue) {

@@ -126,7 +126,7 @@ define(function (require) {
         // 销毁窗体，并且会触发this.props.onBeforeClose和this.props.onClose
         close: function () {
             var evt = document.createEvent('UIEvents');
-            evt.targteComponent = this;
+            evt.targetComponent = this;
             evt.returnValue = true;
             typeof this.props.onBeforeClose === 'function' && this.props.onBeforeClose(evt);
             if (evt.returnValue) {
@@ -148,7 +148,7 @@ define(function (require) {
                 var skin = props.skin;
                 this.___container___.className = 'fcui2-shojiscreen'
                     + (typeof className === 'string' && className ? (' ' + className) : '')
-                    + ' fcui2-sojiscreen-' + (typeof skin === 'string' && skin ? skin : 'normal');
+                    + ' fcui2-shojiscreen-' + (typeof skin === 'string' && skin ? skin : 'normal');
                 this.___workspace___.style.width = (isNaN(width) ? 1000 : width) + 'px';
                 if (!this.___appended___) {
                     this.___oldOverflow___ = util.getStyle(document.body, 'overflow');

@@ -88,19 +88,23 @@ body {
         padding: 5px;
     }
 }
-.demo-form {
-    border: 1px solid #C8C8C8;
-    padding: 0px 10px 20px;
-    font-size: 12px;
-    .form-textarea {
-        margin-left: 35px;
-    }
-    td {
-        vertical-align: top;
-        padding: 10px;
-    }
-}
 
+.demo-form {
+    form {
+        >label {
+            font-size: 12px;
+            margin-left: 10px;
+            color: grey;
+        }
+        >span {
+            display: inline-block;
+            width: 80px;
+            text-align: right;
+            padding: 0 10px;
+        }
+    }
+    
+}
 
 .marginLeft100 {
     margin-left: 100px;

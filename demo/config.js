@@ -2,33 +2,7 @@ define(function (require) {
 
     return {
         version : {
-            button: '0.0.2',
-            tip: '0.0.2',
-            list: '0.0.2',
-            dropdownlist: '0.0.2',
-            combolist: '0.0.2',
-            pager: '0.0.2',
-            tab: '0.0.2',
-            crumb: '0.0.2',
-            wizard: '0.0.2',
-            layer: '0.0.2',
-            titlewindow: '0.0.2',
-            shojiscreen: '0.0.2',
-            checkbox: '0.0.2',
-            radio: '0.0.2',
-            textbox: '0.0.2',
-            numberbox: '0.0.2',
-            textarea: '0.0.2',
-            select: '0.0.2',
-            calendar: '0.0.2',
-            dropdowncalendar: '0.0.2',
-            rangecalendar: '0.0.2',
-            region: '0.0.2',
-            dropdownregion: '0.0.2',
-            dialog: '0.0.2',
-            searchbox: '0.0.2',
-            slider: '0.0.2',
-            table: '0.0.2'
+
         },
         demos: {
             TestBaseLine: require('./demos/BaseLineTesting.jsx'),
@@ -73,7 +47,7 @@ define(function (require) {
             'Checkbox', 'Radio', 'TextBox', 'NumberBox', 'TextArea', 'Select', 'Calendar', 'DropDownCalendar',
             'RangeCalendar', 'Region', 'DropDownRegion', 'SearchBox', 'Slider', '',
 
-            'Table', 'Form', '', 'Schedule', 'Tree', 'DualTreeSelector',
+            'Form', 'Table', '', 'Schedule', 'Tree', 'DualTreeSelector',
         ]
     };
 

@@ -9,13 +9,13 @@ define(function (require) {
 
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
-    var InputWidgetStreem = require('./mixins/InputWidgetStreem');
+    var InputWidgetImeFixed = require('./mixins/InputWidgetImeFixed');
     var cTools = require('./core/componentTools');
 
 
     return React.createClass({
         // @override
-        mixins: [InputWidget, InputWidgetStreem],
+        mixins: [InputWidget, InputWidgetImeFixed],
         // @override
         getDefaultProps: function () {
             return {

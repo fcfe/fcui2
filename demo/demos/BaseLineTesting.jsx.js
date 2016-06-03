@@ -52,7 +52,7 @@ define(function (require) {
                         <DropDownCalendar/>
                     </div>
                     <div style={{border: '1px solid #000', lineHeight: '50px', marginTop: '30px'}}>
-                        <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
+                        <span style={{textDecoration: 'underline',fontSize: 48}}>Display Base Line:</span>
                         <Button/>
                         <RangeCalendar/>
                         <DropDownRegion/>
