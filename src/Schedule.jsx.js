@@ -1,5 +1,5 @@
 /**
- * @file 时间选择组件
+ *  时间选择组件
  * @author Brian Li
  * @author Han Bing Feng
  * @email lbxxlht@163.com

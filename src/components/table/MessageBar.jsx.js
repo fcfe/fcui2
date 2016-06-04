@@ -1,5 +1,5 @@
 /**
- * @file 黄色信息栏
+ *  黄色信息栏
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

@@ -1,5 +1,5 @@
 /**
- * @file 组件公共方法
+ *  组件公共方法
  * @author Brian Li
  * @email lbxxlht@163.com
  * @author Han Bing Feng

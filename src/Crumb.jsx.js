@@ -1,5 +1,5 @@
 /**
- * @file 面包屑组件
+ *  面包屑组件
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

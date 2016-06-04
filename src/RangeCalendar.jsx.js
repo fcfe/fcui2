@@ -1,5 +1,5 @@
 /**
- * @file 日期区间选择框组件
+ *  日期区间选择框组件
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

@@ -1,7 +1,8 @@
+@import "./defaultParser.less";
+
 body {
     margin: 0px;
 }
-
 
 .logo {
     position: fixed;
@@ -51,6 +52,7 @@ body {
     margin-top: 60px;
     margin: 60px 0 300px 201px;
     padding: 50px;
+    font-size: 12px;
 }
 
 
@@ -73,6 +75,7 @@ body {
     font-size: 14px;
     font-weight: 700;
     cursor: default;
+    color: #333;
 }
 .list-item:hover {
     background-color: #F2F8FF;
@@ -80,59 +83,5 @@ body {
 }
 .list-item-selectd {
     background-color: #F2F8FF;
-}
-
-
-.demo-item {
-    line-height: 30px;
-    border: 1px solid #E6E6E6;
-    padding: 10px;
-    margin-bottom: 10px;
-    h3 {
-        border-bottom: 1px solid #E6E6E6;
-    }
-    .label {
-        margin-right: 10px;
-        font-size: 12px;
-        text-decoration: underline;
-    }
-    .props {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        background-color: #E6E6E6;
-        min-height: 60px;
-        word-break:break-all;
-        padding: 5px;
-    }
-}
-
-.demo-form {
-    form {
-        >label {
-            font-size: 12px;
-            margin-left: 10px;
-            color: grey;
-        }
-        >span {
-            display: inline-block;
-            width: 80px;
-            text-align: right;
-            padding: 0 10px;
-        }
-    }
-    
-}
-
-.marginLeft100 {
-    margin-left: 100px;
-}
-.border2 {
-    border: 2px solid #000;
-}
-.floatRight {
-    float: right;
-}
-.colorRed {
-    color: #F00 !important;
 }
 

@@ -1,5 +1,4 @@
 /**
- * @file 日历组件
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2
@@ -75,7 +74,6 @@ define(function (require) {
                 month = month < -1 ? -1 : month;
                 month = month > 11 ? 11: month;
             }
-            //this.monthInRange();
             this.setState({
                 inRange: tool.monthInRange(this.state.displayYear, month, this.props.min, this.props.max),
                 inputMonth: e.target.value,

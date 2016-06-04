@@ -1,5 +1,5 @@
 /**
- * @file 功能性弹层组件，用法跟Dialog不一样，这个更先进
+ *  功能性弹层组件，用法跟Dialog不一样，这个更先进
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

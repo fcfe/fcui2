@@ -1,5 +1,5 @@
 /**
- * @file 带折叠按钮的列
+ *  带折叠按钮的列
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

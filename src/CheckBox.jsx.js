@@ -1,5 +1,5 @@
 /**
- * @file 复选框组件
+ *  复选框组件
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

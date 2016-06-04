@@ -1,5 +1,5 @@
 /**
- * @file 封装树及树选择器相关的方法
+ *  封装树及树选择器相关的方法
  * @author Han Bing Feng (hanbingfeng@)
  */
 

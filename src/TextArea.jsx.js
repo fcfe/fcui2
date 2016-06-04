@@ -1,5 +1,5 @@
 /**
- * @file 文本域组件
+ *  文本域组件
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

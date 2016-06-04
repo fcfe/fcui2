@@ -1,5 +1,5 @@
 /**
- * @file input类型组件基础mixin
+ *  input类型组件基础mixin
  * @author Brian Li
  * @email lbxxlht@163.com
  *
@@ -125,6 +125,7 @@ define(function (require) {
          *
          * @return {AnyType} 输入组件当前值
          *
+         * @notice
          * （0）radio做了非常特殊的处理
          * （1）如果用户使用了valueLink，则返回valueLink记录的值
          * （2）不满足1，如果用户通过props.value设置value，则返回props.value

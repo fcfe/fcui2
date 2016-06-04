@@ -1,5 +1,5 @@
 /**
- * @file 含有layer组件基础mixin
+ *  含有layer组件基础mixin
  * @author Brian Li
  * @email lbxxlht@163.com
  *

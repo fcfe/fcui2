@@ -1,8 +1,8 @@
 /**
- * @file Alert窗体内容
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2
+ * @test 这就是个测试，看看能不能自定义语法。如果能，还用YUI自己的语法干啥？
  */
 define(function (require) {
 

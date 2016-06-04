@@ -427,128 +427,144 @@ define(function(require){return {
     "elements": {},
     "classitems": [
         {
-            "file": "Alert窗体内容",
+            "file": "src\\components\\dialog\\Alert.jsx.js",
             "line": 1,
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2",
+            "test": "这就是个测试，看看能不能自定义语法。如果能，还用YUI自己的语法干啥？",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\dialog\\Confirm.jsx.js",
+            "line": 1,
+            "description": "Confirm窗体内容",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "Confirm窗体内容",
+            "file": "src\\components\\list\\NormalRenderer.jsx.js",
             "line": 1,
+            "description": "List组件item渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "List组件item渲染器",
+            "file": "src\\components\\region\\NormalProvince.jsx.js",
             "line": 1,
+            "description": "省选择零件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "省选择零件",
+            "file": "src\\components\\region\\NormalRegion.jsx.js",
             "line": 1,
+            "description": "大区选择零件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "大区选择零件",
+            "file": "src\\components\\region\\StatisticsProvince.jsx.js",
             "line": 1,
+            "description": "省选择零件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "省选择零件",
+            "file": "src\\components\\tab\\NormalRenderer.jsx.js",
             "line": 1,
+            "description": "切换组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "切换组件",
+            "file": "src\\components\\table\\ButtonRenderer.jsx.js",
             "line": 1,
+            "description": "带按钮的td",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "带按钮的td",
+            "file": "src\\components\\table\\Expander.jsx.js",
             "line": 1,
+            "description": "带折叠按钮的列",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "带折叠按钮的列",
+            "file": "src\\components\\table\\MessageBar.jsx.js",
             "line": 1,
+            "description": "黄色信息栏",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "黄色信息栏",
+            "file": "src\\components\\table\\NormalHeader.jsx.js",
             "line": 1,
+            "description": "表头",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "表头",
+            "file": "src\\components\\table\\NormalRenderer.jsx.js",
             "line": 1,
+            "description": "普通td",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "普通td",
+            "file": "src\\components\\table\\NumberRenderer.jsx.js",
             "line": 1,
+            "description": "数值型td",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "数值型td",
+            "file": "src\\components\\table\\SelectorInHeader.jsx.js",
             "line": 1,
+            "description": "表头列选择器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "表头列选择器",
+            "file": "src\\components\\table\\SelectorInTBody.jsx.js",
             "line": 1,
+            "description": "行选择器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "行选择器",
+            "file": "src\\core\\componentTools.js",
             "line": 1,
-            "author": "Brian Li",
-            "email": "lbxxlht@163.com",
-            "version": "0.0.2",
-            "class": ""
-        },
-        {
-            "file": "组件公共方法",
-            "line": 1,
+            "description": "组件公共方法",
             "author": "Han Bing Feng",
             "email": "lbxxlht@163.com",
             "class": ""
@@ -1138,8 +1154,9 @@ define(function(require){return {
             "class": ""
         },
         {
-            "file": "封装树及树选择器相关的方法",
+            "file": "src\\core\\treeTools.es6.js",
             "line": 1,
+            "description": "封装树及树选择器相关的方法",
             "author": "Han Bing Feng (hanbingfeng@)",
             "class": ""
         },
@@ -1339,10 +1356,11 @@ define(function(require){return {
             "class": ""
         },
         {
-            "file": "全局工具集",
+            "file": "src\\core\\util.js",
             "line": 1,
+            "description": "全局工具集",
             "author": "Brian Li",
-            "email": "lbxxlht@163.com\n\n此工具库所有方法，不但fcui2可以使用，其他任何项目都可以把它拿出去单独使用。\n此工具库不支持ES6语法，确保所有方法在所有浏览器基础环境中都能正确运行。\n不允许在此工具集中引入或使用或合并其他任何库，比如underscore, jQuery等。\n此工具集包含了操作原生DOM的方法，不能在node中使用。\n目前符合AMD规范，将来会支持CMD和直接引入。",
+            "email": "lbxxlht@163.com\n\n 此工具库所有方法，不但fcui2可以使用，其他任何项目都可以把它拿出去单独使用。\n 此工具库不支持ES6语法，确保所有方法在所有浏览器基础环境中都能正确运行。\n 不允许在此工具集中引入或使用或合并其他任何库，比如underscore, jQuery等。\n 此工具集包含了操作原生DOM的方法，不能在node中使用。\n 目前符合AMD规范，将来会支持CMD和直接引入。",
             "class": ""
         },
         {
@@ -1510,16 +1528,18 @@ define(function(require){return {
             "class": ""
         },
         {
-            "file": "default validation rules",
+            "file": "src\\core\\validations.js",
             "line": 1,
+            "description": "default validation rules",
             "author": "Brian Li (lbxxlht@163.com)",
             "class": ""
         },
         {
-            "file": "input类型组件基础mixin",
+            "file": "src\\mixins\\InputWidget.js",
             "line": 1,
+            "description": "input类型组件基础mixin",
             "author": "Brian Li",
-            "email": "lbxxlht@163.com\n\n此mixin主要作用：\n1.解决input类型组件的渲染回馈问题\n（1）原生dom可以使用valueLink绑定value到父级组件的state，但valueLink属性跟onChange + value属性是互斥的，且会抛错提示。\n     本mixin解决了上述问题，让自定义input组件具有和原生demo一致的属性表现。\n（2）input类型组件含有valueLink属性时，组件的数据源value和onChange回调被封装在props.valueLink内部，\n     与不含有valueLink属性时解决方案不同，本mixin提供获取value的公共方法，同时提供派发回调的公共接口。\n2.解决input类型组件与Form的衔接问题\n（1）input类型组件配置name属性后要在包裹它的表单Form中注册自己\n（2）input组件允许导入校验规则并根据这些规则进行校验\n（3）input组件发生change事件时，通知表单指的变化\n\n\n使用此mixin的组件应包含如下内容：\n[optional] this.props.value {string | boolean | number} 基础类型，表示组件的值\n[optional] this.props.onChange {function} 组件被操作后的回调\n[optional] this.props.valueLink {Object} 替代this.props.value + this.props.onChange的valueLink插件\n[optional] this.props.name {string} 组件在表单Form中的域名\n[optional] this.props.validations {Object} 组件值的校验机\n[optional] this.props.customErrorTemplates {Object} 组件值校验失败后错误提示处理机\n\n\n此mixin在state中注入如下内容：\n（1）this.state.___value___ {Any} 组件的临时值，只有当props中未传入value且未使用valueLink时，此项才被读取\n（2）this.state.___beOperated___ {boolean} 组件是否被操作过\n（3）this.state.isValid {boolean} 组件是否通过了校验，此项一般由组件外部的Form设置\n\n\n此mixin在组件实例中注入如下内容：\n（1）this.___hasValueLink___ {boolean} 实例属性中是否含有valueLink\n（2）this.___formAttached___ {boolean} 实例是否在表单中注册成功\n（3）this.___validations___ {Object} this.props.validations配置转换好的校验hash",
+            "email": "lbxxlht@163.com\n\n 此mixin主要作用：\n 1.解决input类型组件的渲染回馈问题\n （1）原生dom可以使用valueLink绑定value到父级组件的state，但valueLink属性跟onChange + value属性是互斥的，且会抛错提示。\n    本mixin解决了上述问题，让自定义input组件具有和原生demo一致的属性表现。\n （2）input类型组件含有valueLink属性时，组件的数据源value和onChange回调被封装在props.valueLink内部，\n    与不含有valueLink属性时解决方案不同，本mixin提供获取value的公共方法，同时提供派发回调的公共接口。\n 2.解决input类型组件与Form的衔接问题\n （1）input类型组件配置name属性后要在包裹它的表单Form中注册自己\n （2）input组件允许导入校验规则并根据这些规则进行校验\n （3）input组件发生change事件时，通知表单指的变化\n\n\n 使用此mixin的组件应包含如下内容：\n [optional] this.props.value {string | boolean | number} 基础类型，表示组件的值\n [optional] this.props.onChange {function} 组件被操作后的回调\n [optional] this.props.valueLink {Object} 替代this.props.value + this.props.onChange的valueLink插件\n [optional] this.props.name {string} 组件在表单Form中的域名\n [optional] this.props.validations {Object} 组件值的校验机\n [optional] this.props.customErrorTemplates {Object} 组件值校验失败后错误提示处理机\n\n\n 此mixin在state中注入如下内容：\n （1）this.state.___value___ {Any} 组件的临时值，只有当props中未传入value且未使用valueLink时，此项才被读取\n （2）this.state.___beOperated___ {boolean} 组件是否被操作过\n （3）this.state.isValid {boolean} 组件是否通过了校验，此项一般由组件外部的Form设置\n\n\n 此mixin在组件实例中注入如下内容：\n （1）this.___hasValueLink___ {boolean} 实例属性中是否含有valueLink\n （2）this.___formAttached___ {boolean} 实例是否在表单中注册成功\n （3）this.___validations___ {Object} this.props.validations配置转换好的校验hash",
             "class": ""
         },
         {
@@ -1555,14 +1575,15 @@ define(function(require){return {
             "line": 123,
             "description": "获取value",
             "return": {
-                "description": "输入组件当前值\n\n（0）radio做了非常特殊的处理\n（1）如果用户使用了valueLink，则返回valueLink记录的值\n（2）不满足1，如果用户通过props.value设置value，则返回props.value\n（3）不满足2，如果组件state中存储了临时值，返回这个临时值\n（4）不满足3，如果组件存在默认值模版，返回值模板\n（5）不满足4，返回null",
+                "description": "输入组件当前值",
                 "type": "AnyType"
             },
+            "notice": "（0）radio做了非常特殊的处理\n（1）如果用户使用了valueLink，则返回valueLink记录的值\n（2）不满足1，如果用户通过props.value设置value，则返回props.value\n（3）不满足2，如果组件state中存储了临时值，返回这个临时值\n（4）不满足3，如果组件存在默认值模版，返回值模板\n（5）不满足4，返回null",
             "class": ""
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 160,
+            "line": 161,
             "description": "派发onChange事件",
             "params": [
                 {
@@ -1594,7 +1615,7 @@ define(function(require){return {
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 210,
+            "line": 211,
             "description": "手动调用校验",
             "params": [
                 {
@@ -1615,38 +1636,51 @@ define(function(require){return {
             "class": ""
         },
         {
-            "file": "输入框流劫持",
+            "file": "src\\mixins\\InputWidgetImeFixed.js",
             "line": 1,
+            "description": "输入框流劫持",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "含有layer组件基础mixin",
+            "file": "src\\mixins\\LayerContainerBase.js",
             "line": 1,
+            "description": "含有layer组件基础mixin",
             "author": "Brian Li",
-            "email": "lbxxlht@163.com\n\n此mixin主要作用是为某些组件提供一些弹出layer的功能，依赖MouseWidgetBase\n\n使用此mixin的组件中应含有如下内容：\n1. [required] this.props.layerContent {function}\n     用于渲染layer内容的组件构造函数，可以是其他任何组件\n2. [optional] this.props.layerProps {Object}\n     渲染layer时，此属性会当作layer的原始props传入进去\n3. [optional] this.props.layerPolicymaker {boolean | function}\n     是否弹出layer的决策算法，如果被设置成true或false则直接使用\n     如果是函数，就将制作好的layerProps传过去由外界计算，根据返回值决定是否弹出\n     当然在这个函数里改layerProps的值都没问题，不过不建议这样做\n4. [optional] this.props.layerInterface {string}\n     layerContent组件需要用回调方法与父组件通信，这里给出外部响应的主回调名称\n     可能难于理解，详情请看代码中 “// 创建layer props”之后的部分\n5. [optional] this.props.datasource {Any}\n     绝大多数情况下，layer是一个列表，因此会把props.datasource加到props.layerProps中传入进去\n     但如果props.layerProps存在datasource，不会被覆盖，也不会merge\n6. [required] this.props.layerProps.layerAnchor || this.refs.container\n     组件的根容器或锚容器引用，用于layer的自动定位：定位的默认优先级是先下后上，先右后左，也可配置；\n7. [optional] this.layerClose\n     组件的一个方法，layer关闭后回调\n8. [optional] this.layerAction\n     组件的一个方法，layer发生props.layerInterface动作时回调，即将组件的layerAction方法，放在layerProps中，\n     并命名为this.props.layerInterface，通过layer传递给layer中的layerContent组件\n\n在初始化layer时，mixin会在props.layerProps中加入parent属性，记录当前组件；同时传入当前组件的this.layerAction方法，\n以提供layer内容的回调接口。\n\n此mixin会在this下注入两个内部变量，this.___layerContainer___，存放layer的最外dom容器；this.___layer___，存放layer\n初始化完毕后的react组件实例\n\n此mixin会在this下暴露两个接口，this.layerShow用于弹出layer，this.layerHide用于移除layer",
+            "email": "lbxxlht@163.com\n\n 此mixin主要作用是为某些组件提供一些弹出layer的功能，依赖MouseWidgetBase\n\n 使用此mixin的组件中应含有如下内容：\n 1. [required] this.props.layerContent {function}\n    用于渲染layer内容的组件构造函数，可以是其他任何组件\n 2. [optional] this.props.layerProps {Object}\n    渲染layer时，此属性会当作layer的原始props传入进去\n 3. [optional] this.props.layerPolicymaker {boolean | function}\n    是否弹出layer的决策算法，如果被设置成true或false则直接使用\n    如果是函数，就将制作好的layerProps传过去由外界计算，根据返回值决定是否弹出\n    当然在这个函数里改layerProps的值都没问题，不过不建议这样做\n 4. [optional] this.props.layerInterface {string}\n    layerContent组件需要用回调方法与父组件通信，这里给出外部响应的主回调名称\n    可能难于理解，详情请看代码中 “// 创建layer props”之后的部分\n 5. [optional] this.props.datasource {Any}\n    绝大多数情况下，layer是一个列表，因此会把props.datasource加到props.layerProps中传入进去\n    但如果props.layerProps存在datasource，不会被覆盖，也不会merge\n 6. [required] this.props.layerProps.layerAnchor || this.refs.container\n    组件的根容器或锚容器引用，用于layer的自动定位：定位的默认优先级是先下后上，先右后左，也可配置；\n 7. [optional] this.layerClose\n    组件的一个方法，layer关闭后回调\n 8. [optional] this.layerAction\n    组件的一个方法，layer发生props.layerInterface动作时回调，即将组件的layerAction方法，放在layerProps中，\n    并命名为this.props.layerInterface，通过layer传递给layer中的layerContent组件\n\n 在初始化layer时，mixin会在props.layerProps中加入parent属性，记录当前组件；同时传入当前组件的this.layerAction方法，\n 以提供layer内容的回调接口。\n\n 此mixin会在this下注入两个内部变量，this.___layerContainer___，存放layer的最外dom容器；this.___layer___，存放layer\n 初始化完毕后的react组件实例\n\n 此mixin会在this下暴露两个接口，this.layerShow用于弹出layer，this.layerHide用于移除layer",
             "attention": "此mixin已停止维护，并已废弃，即将删除",
             "class": ""
         },
         {
-            "file": "响应鼠标类型组件基础mixin",
+            "file": "src\\mixins\\MouseWidgetBase.js",
             "line": 1,
+            "description": "响应鼠标类型组件基础mixin",
             "author": "Brian Li",
-            "email": "lbxxlht@163.com\n\n此mixin主要作用是提供某些鼠标事件\n将mouseover, mousedown状态记录在state中\n这些鼠标事件应由组件设计者自行绑定，或在自定义事件中调用",
+            "email": "lbxxlht@163.com\n\n 此mixin主要作用是提供某些鼠标事件\n 将mouseover, mousedown状态记录在state中\n 这些鼠标事件应由组件设计者自行绑定，或在自定义事件中调用",
             "attention": "此mixin已停止维护，即将废弃。",
             "class": ""
         },
         {
-            "file": "用于fixed 组件内部某个DOM position的mixin",
+            "file": "src\\mixins\\WidgetWithFixedDom.js",
             "line": 1,
+            "description": "用于fixed 组件内部某个DOM position的mixin",
             "author": "Brian Li",
-            "email": "lbxxlht@163.com\n\n此mixin主要作用是固定组件内部某些DOM的位置",
+            "email": "lbxxlht@163.com\n\n 此mixin主要作用是固定组件内部某些DOM的位置",
             "class": ""
         },
         {
-            "file": "按钮组件",
+            "file": "src\\Button.jsx.js",
+            "line": 1,
+            "description": "按钮组件",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2",
+            "class": ""
+        },
+        {
+            "file": "src\\Calendar.jsx.js",
             "line": 1,
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
@@ -1654,40 +1688,36 @@ define(function(require){return {
             "class": ""
         },
         {
-            "file": "日历组件",
+            "file": "src\\CheckBox.jsx.js",
             "line": 1,
+            "description": "复选框组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "复选框组件",
+            "file": "src\\ComboList.jsx.js",
             "line": 1,
+            "description": "组合控制列表组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "组合控制列表组件",
+            "file": "src\\Crumb.jsx.js",
             "line": 1,
+            "description": "面包屑组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "面包屑组件",
+            "file": "src\\Dialog.jsx.js",
             "line": 1,
-            "author": "Brian Li",
-            "email": "lbxxlht@163.com",
-            "version": "0.0.2",
-            "class": ""
-        },
-        {
-            "file": "对话框",
-            "line": 1,
+            "description": "对话框",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
@@ -1867,32 +1897,36 @@ define(function(require){return {
             "class": ""
         },
         {
-            "file": "日期选择框组件",
+            "file": "src\\DropDownCalendar.jsx.js",
             "line": 1,
+            "description": "日期选择框组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "下拉控制列表组件",
+            "file": "src\\DropDownList.jsx.js",
             "line": 1,
+            "description": "下拉控制列表组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "下拉地域选择器组件",
+            "file": "src\\DropDownRegion.jsx.js",
             "line": 1,
+            "description": "下拉地域选择器组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "双树选择器。",
+            "file": "src\\DualTreeSelector.jsx.js",
             "line": 1,
+            "description": "双树选择器。",
             "author": "Han Bing Feng (hanbingfeng@baidu.com)",
             "version": "0.0.1",
             "class": ""
@@ -2099,56 +2133,63 @@ define(function(require){return {
             "class": ""
         },
         {
-            "file": "表单组件",
+            "file": "src\\Form.jsx.js",
             "line": 1,
+            "description": "表单组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "功能性弹层组件",
+            "file": "src\\Layer.jsx.js",
             "line": 1,
+            "description": "功能性弹层组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "列表组件",
+            "file": "src\\List.jsx.js",
             "line": 1,
+            "description": "列表组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "数字输入框组件",
+            "file": "src\\NumberBox.jsx.js",
             "line": 1,
+            "description": "数字输入框组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "页码组件",
+            "file": "src\\Pager.jsx.js",
             "line": 1,
+            "description": "页码组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "单选框组件",
+            "file": "src\\Radio.jsx.js",
             "line": 1,
+            "description": "单选框组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "日期区间选择框组件",
+            "file": "src\\RangeCalendar.jsx.js",
             "line": 1,
+            "description": "日期区间选择框组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
@@ -2161,16 +2202,18 @@ define(function(require){return {
             "class": ""
         },
         {
-            "file": "地域选择组件",
+            "file": "src\\Region.jsx.js",
             "line": 1,
+            "description": "地域选择组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "时间选择组件",
+            "file": "src\\Schedule.jsx.js",
             "line": 1,
+            "description": "时间选择组件",
             "author": "Han Bing Feng",
             "email": "lbxxlht@163.com",
             "version": "0.0.1",
@@ -2329,88 +2372,99 @@ define(function(require){return {
             "class": ""
         },
         {
-            "file": "搜索框组件",
+            "file": "src\\SearchBox.jsx.js",
             "line": 1,
+            "description": "搜索框组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "选择框组件",
+            "file": "src\\Select.jsx.js",
             "line": 1,
+            "description": "选择框组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "横拉谈层",
+            "file": "src\\ShojiScreen.jsx.js",
             "line": 1,
+            "description": "横拉谈层",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2\n\n注：<日> n.障子，日本房屋用的纸糊木框，亦作shoji screen。如用木框糊纸的拉窗、拉门、纸拉窗、纸拉门。",
+            "version": "0.0.2\n\n 注：<日> n.障子，日本房屋用的纸糊木框，亦作shoji screen。如用木框糊纸的拉窗、拉门、纸拉窗、纸拉门。",
             "class": ""
         },
         {
-            "file": "滑块组件",
+            "file": "src\\Slider.jsx.js",
             "line": 1,
-            "author": "Brian Li",
-            "email": "lbxxlht@163.com",
-            "version": "0.0.2",
-            "class": ""
-        },
-        {
-            "file": "切换组件",
-            "line": 1,
+            "description": "滑块组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "表格组件",
+            "file": "src\\Tab.jsx.js",
             "line": 1,
+            "description": "切换组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "文本域组件",
+            "file": "src\\Table.jsx.js",
             "line": 1,
+            "description": "表格组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "文本输入框组件",
+            "file": "src\\TextArea.jsx.js",
             "line": 1,
+            "description": "文本域组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "提示组件",
+            "file": "src\\TextBox.jsx.js",
             "line": 1,
+            "description": "文本输入框组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "功能性弹层组件，用法跟Dialog不一样，这个更先进",
+            "file": "src\\Tip.jsx.js",
             "line": 1,
+            "description": "提示组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
             "class": ""
         },
         {
-            "file": "一个树形选择控件。",
+            "file": "src\\TitleWindow.jsx.js",
             "line": 1,
+            "description": "功能性弹层组件，用法跟Dialog不一样，这个更先进",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2",
+            "class": ""
+        },
+        {
+            "file": "src\\Tree.jsx.js",
+            "line": 1,
+            "description": "一个树形选择控件。",
             "author": "Han Bing Feng (hanbingfeng@baidu.com)",
             "version": "0.0.1",
             "class": ""
@@ -2762,8 +2816,9 @@ define(function(require){return {
             "class": ""
         },
         {
-            "file": "向导组件",
+            "file": "src\\Wizard.jsx.js",
             "line": 1,
+            "description": "向导组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
@@ -2773,127 +2828,131 @@ define(function(require){return {
     "warnings": [
         {
             "message": "unknown tag: email",
-            "line": "  Alert窗体内容:1"
+            "line": " src\\components\\dialog\\Alert.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  Alert窗体内容:1"
+            "line": " src\\components\\dialog\\Alert.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: test",
+            "line": " src\\components\\dialog\\Alert.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  Confirm窗体内容:1"
+            "line": " src\\components\\dialog\\Confirm.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  Confirm窗体内容:1"
+            "line": " src\\components\\dialog\\Confirm.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  List组件item渲染器:1"
+            "line": " src\\components\\list\\NormalRenderer.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  List组件item渲染器:1"
+            "line": " src\\components\\list\\NormalRenderer.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  省选择零件:1"
+            "line": " src\\components\\region\\NormalProvince.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  省选择零件:1"
+            "line": " src\\components\\region\\NormalProvince.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  大区选择零件:1"
+            "line": " src\\components\\region\\NormalRegion.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  大区选择零件:1"
+            "line": " src\\components\\region\\NormalRegion.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  省选择零件:1"
+            "line": " src\\components\\region\\StatisticsProvince.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  省选择零件:1"
+            "line": " src\\components\\region\\StatisticsProvince.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  切换组件:1"
+            "line": " src\\components\\tab\\NormalRenderer.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  切换组件:1"
+            "line": " src\\components\\tab\\NormalRenderer.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  带按钮的td:1"
+            "line": " src\\components\\table\\ButtonRenderer.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  带按钮的td:1"
+            "line": " src\\components\\table\\ButtonRenderer.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  带折叠按钮的列:1"
+            "line": " src\\components\\table\\Expander.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  带折叠按钮的列:1"
+            "line": " src\\components\\table\\Expander.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  黄色信息栏:1"
+            "line": " src\\components\\table\\MessageBar.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  黄色信息栏:1"
+            "line": " src\\components\\table\\MessageBar.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  表头:1"
+            "line": " src\\components\\table\\NormalHeader.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  表头:1"
+            "line": " src\\components\\table\\NormalHeader.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  普通td:1"
+            "line": " src\\components\\table\\NormalRenderer.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  普通td:1"
+            "line": " src\\components\\table\\NormalRenderer.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  数值型td:1"
+            "line": " src\\components\\table\\NumberRenderer.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  数值型td:1"
+            "line": " src\\components\\table\\NumberRenderer.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  表头列选择器:1"
+            "line": " src\\components\\table\\SelectorInHeader.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  表头列选择器:1"
+            "line": " src\\components\\table\\SelectorInHeader.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  行选择器:1"
+            "line": " src\\components\\table\\SelectorInTBody.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  行选择器:1"
+            "line": " src\\components\\table\\SelectorInTBody.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  组件公共方法:1"
+            "line": " src\\core\\componentTools.js:1"
         },
         {
             "message": "unknown tag: override",
@@ -2909,11 +2968,11 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: email",
-            "line": "  全局工具集:1"
+            "line": " src\\core\\util.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  input类型组件基础mixin:1"
+            "line": " src\\mixins\\InputWidget.js:1"
         },
         {
             "message": "unknown tag: override",
@@ -2932,336 +2991,340 @@ define(function(require){return {
             "line": " src\\mixins\\InputWidget.js:102"
         },
         {
+            "message": "unknown tag: notice",
+            "line": " src\\mixins\\InputWidget.js:123"
+        },
+        {
             "message": "unknown tag: email",
-            "line": "  输入框流劫持:1"
+            "line": " src\\mixins\\InputWidgetImeFixed.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  输入框流劫持:1"
+            "line": " src\\mixins\\InputWidgetImeFixed.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  含有layer组件基础mixin:1"
+            "line": " src\\mixins\\LayerContainerBase.js:1"
         },
         {
             "message": "unknown tag: attention",
-            "line": "  含有layer组件基础mixin:1"
+            "line": " src\\mixins\\LayerContainerBase.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  响应鼠标类型组件基础mixin:1"
+            "line": " src\\mixins\\MouseWidgetBase.js:1"
         },
         {
             "message": "unknown tag: attention",
-            "line": "  响应鼠标类型组件基础mixin:1"
+            "line": " src\\mixins\\MouseWidgetBase.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  用于fixed 组件内部某个DOM position的mixin:1"
+            "line": " src\\mixins\\WidgetWithFixedDom.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  按钮组件:1"
+            "line": " src\\Button.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  按钮组件:1"
+            "line": " src\\Button.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  日历组件:1"
+            "line": " src\\Calendar.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  日历组件:1"
+            "line": " src\\Calendar.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  复选框组件:1"
+            "line": " src\\CheckBox.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  复选框组件:1"
+            "line": " src\\CheckBox.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  组合控制列表组件:1"
+            "line": " src\\ComboList.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  组合控制列表组件:1"
+            "line": " src\\ComboList.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  面包屑组件:1"
+            "line": " src\\Crumb.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  面包屑组件:1"
+            "line": " src\\Crumb.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  对话框:1"
+            "line": " src\\Dialog.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  对话框:1"
+            "line": " src\\Dialog.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  日期选择框组件:1"
+            "line": " src\\DropDownCalendar.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  日期选择框组件:1"
+            "line": " src\\DropDownCalendar.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  下拉控制列表组件:1"
+            "line": " src\\DropDownList.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  下拉控制列表组件:1"
+            "line": " src\\DropDownList.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  下拉地域选择器组件:1"
+            "line": " src\\DropDownRegion.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  下拉地域选择器组件:1"
+            "line": " src\\DropDownRegion.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  双树选择器。:1"
+            "line": " src\\DualTreeSelector.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  表单组件:1"
+            "line": " src\\Form.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  表单组件:1"
+            "line": " src\\Form.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  功能性弹层组件:1"
+            "line": " src\\Layer.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  功能性弹层组件:1"
+            "line": " src\\Layer.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  列表组件:1"
+            "line": " src\\List.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  列表组件:1"
+            "line": " src\\List.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  数字输入框组件:1"
+            "line": " src\\NumberBox.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  数字输入框组件:1"
+            "line": " src\\NumberBox.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  页码组件:1"
+            "line": " src\\Pager.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  页码组件:1"
+            "line": " src\\Pager.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  单选框组件:1"
+            "line": " src\\Radio.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  单选框组件:1"
+            "line": " src\\Radio.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  日期区间选择框组件:1"
+            "line": " src\\RangeCalendar.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  日期区间选择框组件:1"
+            "line": " src\\RangeCalendar.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  地域选择组件:1"
+            "line": " src\\Region.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  地域选择组件:1"
+            "line": " src\\Region.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  时间选择组件:1"
+            "line": " src\\Schedule.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  时间选择组件:1"
+            "line": " src\\Schedule.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  搜索框组件:1"
+            "line": " src\\SearchBox.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  搜索框组件:1"
+            "line": " src\\SearchBox.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  选择框组件:1"
+            "line": " src\\Select.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  选择框组件:1"
+            "line": " src\\Select.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  横拉谈层:1"
+            "line": " src\\ShojiScreen.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  横拉谈层:1"
+            "line": " src\\ShojiScreen.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  滑块组件:1"
+            "line": " src\\Slider.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  滑块组件:1"
+            "line": " src\\Slider.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  切换组件:1"
+            "line": " src\\Tab.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  切换组件:1"
+            "line": " src\\Tab.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  表格组件:1"
+            "line": " src\\Table.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  表格组件:1"
+            "line": " src\\Table.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  文本域组件:1"
+            "line": " src\\TextArea.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  文本域组件:1"
+            "line": " src\\TextArea.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  文本输入框组件:1"
+            "line": " src\\TextBox.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  文本输入框组件:1"
+            "line": " src\\TextBox.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  提示组件:1"
+            "line": " src\\Tip.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  提示组件:1"
+            "line": " src\\Tip.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  功能性弹层组件，用法跟Dialog不一样，这个更先进:1"
+            "line": " src\\TitleWindow.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  功能性弹层组件，用法跟Dialog不一样，这个更先进:1"
+            "line": " src\\TitleWindow.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  一个树形选择控件。:1"
+            "line": " src\\Tree.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
-            "line": "  向导组件:1"
+            "line": " src\\Wizard.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
-            "line": "  向导组件:1"
+            "line": " src\\Wizard.jsx.js:1"
         },
         {
             "message": "Missing item type",
-            "line": " Alert窗体内容:1"
+            "line": " src\\components\\dialog\\Alert.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " Confirm窗体内容:1"
+            "message": "Missing item type\nConfirm窗体内容",
+            "line": " src\\components\\dialog\\Confirm.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " List组件item渲染器:1"
+            "message": "Missing item type\nList组件item渲染器",
+            "line": " src\\components\\list\\NormalRenderer.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 省选择零件:1"
+            "message": "Missing item type\n省选择零件",
+            "line": " src\\components\\region\\NormalProvince.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 大区选择零件:1"
+            "message": "Missing item type\n大区选择零件",
+            "line": " src\\components\\region\\NormalRegion.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 省选择零件:1"
+            "message": "Missing item type\n省选择零件",
+            "line": " src\\components\\region\\StatisticsProvince.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 切换组件:1"
+            "message": "Missing item type\n切换组件",
+            "line": " src\\components\\tab\\NormalRenderer.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 带按钮的td:1"
+            "message": "Missing item type\n带按钮的td",
+            "line": " src\\components\\table\\ButtonRenderer.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 带折叠按钮的列:1"
+            "message": "Missing item type\n带折叠按钮的列",
+            "line": " src\\components\\table\\Expander.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 黄色信息栏:1"
+            "message": "Missing item type\n黄色信息栏",
+            "line": " src\\components\\table\\MessageBar.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 表头:1"
+            "message": "Missing item type\n表头",
+            "line": " src\\components\\table\\NormalHeader.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 普通td:1"
+            "message": "Missing item type\n普通td",
+            "line": " src\\components\\table\\NormalRenderer.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 数值型td:1"
+            "message": "Missing item type\n数值型td",
+            "line": " src\\components\\table\\NumberRenderer.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 表头列选择器:1"
+            "message": "Missing item type\n表头列选择器",
+            "line": " src\\components\\table\\SelectorInHeader.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 行选择器:1"
+            "message": "Missing item type\n行选择器",
+            "line": " src\\components\\table\\SelectorInTBody.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 组件公共方法:1"
+            "message": "Missing item type\n组件公共方法",
+            "line": " src\\core\\componentTools.js:1"
         },
         {
             "message": "Missing item type\n模拟符合React规则的synthetic event",
@@ -3376,8 +3439,8 @@ define(function(require){return {
             "line": " src\\core\\tableTools.js:162"
         },
         {
-            "message": "Missing item type",
-            "line": " 封装树及树选择器相关的方法:1"
+            "message": "Missing item type\n封装树及树选择器相关的方法",
+            "line": " src\\core\\treeTools.es6.js:1"
         },
         {
             "message": "Missing item type\n先深遍历所有节点。",
@@ -3408,8 +3471,8 @@ define(function(require){return {
             "line": " src\\core\\treeTools.es6.js:157"
         },
         {
-            "message": "Missing item type",
-            "line": " 全局工具集:1"
+            "message": "Missing item type\n全局工具集",
+            "line": " src\\core\\util.js:1"
         },
         {
             "message": "Missing item type\n浏览器是否是IE",
@@ -3452,12 +3515,12 @@ define(function(require){return {
             "line": " src\\core\\util.js:185"
         },
         {
-            "message": "Missing item type",
-            "line": " default validation rules:1"
+            "message": "Missing item type\ndefault validation rules",
+            "line": " src\\core\\validations.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " input类型组件基础mixin:1"
+            "message": "Missing item type\ninput类型组件基础mixin",
+            "line": " src\\mixins\\InputWidget.js:1"
         },
         {
             "message": "Missing item type\n检查valueLink、value、onChange\n组件初始化前，检查valueLink和value + onChange，同时存在则抛错，并阻塞系统",
@@ -3481,51 +3544,51 @@ define(function(require){return {
         },
         {
             "message": "Missing item type\n派发onChange事件",
-            "line": " src\\mixins\\InputWidget.js:160"
+            "line": " src\\mixins\\InputWidget.js:161"
         },
         {
             "message": "Missing item type\n手动调用校验",
-            "line": " src\\mixins\\InputWidget.js:210"
+            "line": " src\\mixins\\InputWidget.js:211"
+        },
+        {
+            "message": "Missing item type\n输入框流劫持",
+            "line": " src\\mixins\\InputWidgetImeFixed.js:1"
+        },
+        {
+            "message": "Missing item type\n含有layer组件基础mixin",
+            "line": " src\\mixins\\LayerContainerBase.js:1"
+        },
+        {
+            "message": "Missing item type\n响应鼠标类型组件基础mixin",
+            "line": " src\\mixins\\MouseWidgetBase.js:1"
+        },
+        {
+            "message": "Missing item type\n用于fixed 组件内部某个DOM position的mixin",
+            "line": " src\\mixins\\WidgetWithFixedDom.js:1"
+        },
+        {
+            "message": "Missing item type\n按钮组件",
+            "line": " src\\Button.jsx.js:1"
         },
         {
             "message": "Missing item type",
-            "line": " 输入框流劫持:1"
+            "line": " src\\Calendar.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 含有layer组件基础mixin:1"
+            "message": "Missing item type\n复选框组件",
+            "line": " src\\CheckBox.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 响应鼠标类型组件基础mixin:1"
+            "message": "Missing item type\n组合控制列表组件",
+            "line": " src\\ComboList.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 用于fixed 组件内部某个DOM position的mixin:1"
+            "message": "Missing item type\n面包屑组件",
+            "line": " src\\Crumb.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 按钮组件:1"
-        },
-        {
-            "message": "Missing item type",
-            "line": " 日历组件:1"
-        },
-        {
-            "message": "Missing item type",
-            "line": " 复选框组件:1"
-        },
-        {
-            "message": "Missing item type",
-            "line": " 组合控制列表组件:1"
-        },
-        {
-            "message": "Missing item type",
-            "line": " 面包屑组件:1"
-        },
-        {
-            "message": "Missing item type",
-            "line": " 对话框:1"
+            "message": "Missing item type\n对话框",
+            "line": " src\\Dialog.jsx.js:1"
         },
         {
             "message": "Missing item type\ndialog构造函数",
@@ -3556,20 +3619,20 @@ define(function(require){return {
             "line": " src\\Dialog.jsx.js:150"
         },
         {
-            "message": "Missing item type",
-            "line": " 日期选择框组件:1"
+            "message": "Missing item type\n日期选择框组件",
+            "line": " src\\DropDownCalendar.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 下拉控制列表组件:1"
+            "message": "Missing item type\n下拉控制列表组件",
+            "line": " src\\DropDownList.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 下拉地域选择器组件:1"
+            "message": "Missing item type\n下拉地域选择器组件",
+            "line": " src\\DropDownRegion.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 双树选择器。:1"
+            "message": "Missing item type\n双树选择器。",
+            "line": " src\\DualTreeSelector.jsx.js:1"
         },
         {
             "message": "Missing item type\n全部可选节点的列表",
@@ -3640,44 +3703,44 @@ define(function(require){return {
             "line": " src\\DualTreeSelector.jsx.js:129"
         },
         {
-            "message": "Missing item type",
-            "line": " 表单组件:1"
+            "message": "Missing item type\n表单组件",
+            "line": " src\\Form.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 功能性弹层组件:1"
+            "message": "Missing item type\n功能性弹层组件",
+            "line": " src\\Layer.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 列表组件:1"
+            "message": "Missing item type\n列表组件",
+            "line": " src\\List.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 数字输入框组件:1"
+            "message": "Missing item type\n数字输入框组件",
+            "line": " src\\NumberBox.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 页码组件:1"
+            "message": "Missing item type\n页码组件",
+            "line": " src\\Pager.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 单选框组件:1"
+            "message": "Missing item type\n单选框组件",
+            "line": " src\\Radio.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 日期区间选择框组件:1"
+            "message": "Missing item type\n日期区间选择框组件",
+            "line": " src\\RangeCalendar.jsx.js:1"
         },
         {
             "message": "Missing item type\n快捷按钮配置\n两个日历上方的快捷按钮配置，按钮的一切都由外部导入，包括处理函数，元素格式如下：\n{label: '今天', getValues: function () {return {value1: new Date(), value2: new Date()};}}",
             "line": " src\\RangeCalendar.jsx.js:44"
         },
         {
-            "message": "Missing item type",
-            "line": " 地域选择组件:1"
+            "message": "Missing item type\n地域选择组件",
+            "line": " src\\Region.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 时间选择组件:1"
+            "message": "Missing item type\n时间选择组件",
+            "line": " src\\Schedule.jsx.js:1"
         },
         {
             "message": "Missing item type\n是否使用列选择器。",
@@ -3740,48 +3803,48 @@ define(function(require){return {
             "line": " src\\Schedule.jsx.js:384"
         },
         {
-            "message": "Missing item type",
-            "line": " 搜索框组件:1"
+            "message": "Missing item type\n搜索框组件",
+            "line": " src\\SearchBox.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 选择框组件:1"
+            "message": "Missing item type\n选择框组件",
+            "line": " src\\Select.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 横拉谈层:1"
+            "message": "Missing item type\n横拉谈层",
+            "line": " src\\ShojiScreen.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 滑块组件:1"
+            "message": "Missing item type\n滑块组件",
+            "line": " src\\Slider.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 切换组件:1"
+            "message": "Missing item type\n切换组件",
+            "line": " src\\Tab.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 表格组件:1"
+            "message": "Missing item type\n表格组件",
+            "line": " src\\Table.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 文本域组件:1"
+            "message": "Missing item type\n文本域组件",
+            "line": " src\\TextArea.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 文本输入框组件:1"
+            "message": "Missing item type\n文本输入框组件",
+            "line": " src\\TextBox.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 提示组件:1"
+            "message": "Missing item type\n提示组件",
+            "line": " src\\Tip.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 功能性弹层组件，用法跟Dialog不一样，这个更先进:1"
+            "message": "Missing item type\n功能性弹层组件，用法跟Dialog不一样，这个更先进",
+            "line": " src\\TitleWindow.jsx.js:1"
         },
         {
-            "message": "Missing item type",
-            "line": " 一个树形选择控件。:1"
+            "message": "Missing item type\n一个树形选择控件。",
+            "line": " src\\Tree.jsx.js:1"
         },
         {
             "message": "Missing item type\n一个树节点的定义",
@@ -3872,8 +3935,8 @@ define(function(require){return {
             "line": " src\\Tree.jsx.js:229"
         },
         {
-            "message": "Missing item type",
-            "line": " 向导组件:1"
+            "message": "Missing item type\n向导组件",
+            "line": " src\\Wizard.jsx.js:1"
         }
     ]
 };});

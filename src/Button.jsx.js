@@ -1,5 +1,6 @@
 /**
- * @file 按钮组件
+ * 按钮组件
+ *
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

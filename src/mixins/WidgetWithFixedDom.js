@@ -1,5 +1,5 @@
 /**
- * @file 用于fixed 组件内部某个DOM position的mixin
+ *  用于fixed 组件内部某个DOM position的mixin
  * @author Brian Li
  * @email lbxxlht@163.com
  *

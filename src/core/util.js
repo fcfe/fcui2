@@ -1,5 +1,5 @@
 /**
- * @file 全局工具集
+ *  全局工具集
  * @author Brian Li
  * @email lbxxlht@163.com
  *

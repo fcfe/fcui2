@@ -1,5 +1,5 @@
 /**
- * @file 下拉地域选择器组件
+ *  下拉地域选择器组件
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

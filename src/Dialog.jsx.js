@@ -1,5 +1,5 @@
 /**
- * @file 对话框
+ *  对话框
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

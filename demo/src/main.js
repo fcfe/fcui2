@@ -27,6 +27,7 @@ define(function (require) {
                 hash = hash.length === 0 ? '' : hash.substr(1, hash.length);
                 var obj = parseQuery(hash);
                 for (var key in param) {
+                    if (!param.hasOwnProperty(key)) continue;
                     obj[key] = param[key];
                 }
                 window.location.hash = stringifyQuery(obj);

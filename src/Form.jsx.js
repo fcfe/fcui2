@@ -1,5 +1,5 @@
 /**
- * @file 表单组件
+ *  表单组件
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

@@ -1,5 +1,5 @@
 /**
- * @file 数值型td
+ *  数值型td
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

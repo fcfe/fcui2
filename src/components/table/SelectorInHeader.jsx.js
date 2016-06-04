@@ -1,5 +1,5 @@
 /**
- * @file 表头列选择器
+ *  表头列选择器
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

@@ -1,5 +1,5 @@
 /**
- * @file 横拉谈层
+ *  横拉谈层
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

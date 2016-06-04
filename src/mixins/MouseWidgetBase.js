@@ -1,5 +1,5 @@
 /**
- * @file 响应鼠标类型组件基础mixin
+ *  响应鼠标类型组件基础mixin
  * @author Brian Li
  * @email lbxxlht@163.com
  *

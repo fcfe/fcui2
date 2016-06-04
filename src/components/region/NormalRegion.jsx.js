@@ -1,5 +1,5 @@
 /**
- * @file 大区选择零件
+ *  大区选择零件
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

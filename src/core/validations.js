@@ -1,5 +1,5 @@
 /**
- * @file default validation rules
+ *  default validation rules
  * @author Hu Jian <hujian02@baidu.com>
  * @author Brian Li (lbxxlht@163.com)
  */

@@ -2,6 +2,7 @@ define(function (require) {
 
 
     var React = require('react');
+    var Parse = require('./Parse.jsx');
     var config = require('./config');
 
 
@@ -19,17 +20,13 @@ define(function (require) {
             if (me.props.level !== config.menu[i].level) continue;
             for (var j = 0; j < config.menu[i].children.length; j++) {
                 var item = config.menu[i].children[j];
-                if (item === '') {
-                    doms.push(<hr key={i + '-' + j}/>);
-                    continue;
-                }
                 var itemProp = {
                     key: i + '-' + j,
-                    'data-demo': item,
-                    className: 'list-item' + (me.props.demo === item ? ' list-item-selectd' : ''),
-                    onClick: me.onDemoChange
+                    'data-file': item.id,
+                    className: 'list-item' + (me.props.file === item.id ? ' list-item-selectd' : ''),
+                    onClick: me.onFileChange
                 };
-                doms.push(<div {...itemProp}>{item}</div>);
+                doms.push(<div {...itemProp}>{item.label}</div>);
             }
         }
         return doms;
@@ -40,39 +37,31 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                level: 'base',
-                demo: 'Tip',
-                title: 'FCUI2 Demos',
+                file: 'src\\Button.jsx.js',
+                level: 'widget',
+                title: 'FCUI2 Docs',
                 dispatch: function () {}
             };
-        },
-        // @override
-        getInitialState: function () {
-            return {
-                message: ''
-            };
-        },
-        onDemoChange: function (e) {
-            var demo = e.target.dataset.demo;
-            if (demo === this.props.demo) return;
-            this.props.dispatch('changeHash', {demo: demo});
         },
         onLevelChange: function (e) {
             var level = e.target.dataset.level;
             level = level === this.props.level ? '' : level;
             this.props.dispatch('changeHash', {level: level});
         },
-        changeMessage: function (str) {
-            this.setState({message: str})
+        onFileChange: function (e) {
+            var file = e.target.dataset.file;
+            if (file === this.props.file) return;
+            this.props.dispatch('changeHash', {file: file});
         },
         render: function () {
-            var Demo = config.demos[this.props.demo] || config.demos['Tip'];
             return (
                 <div>
                     <div className="logo">{this.props.title}</div>
                     <div className="left-container">{menuFactory(this)}</div>
-                    <div className="right-top-container">{this.state.message}</div>
-                    <div className="right-middle-container"><Demo alert={this.changeMessage}/></div>
+                    <div className="right-top-container"></div>
+                    <div className="right-middle-container">
+                        <Parse file={this.props.file}/>
+                    </div>
                 </div>
             );
         }

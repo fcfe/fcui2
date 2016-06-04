@@ -2,7 +2,6 @@ define(function (require) {
 
     return {
         version : {
-
         },
         demos: {
             TestBaseLine: require('../demos/BaseLineTesting.jsx'),
@@ -39,15 +38,44 @@ define(function (require) {
             TitleWindow: require('../demos/TitleWindow.jsx'),
             ShojiScreen: require('../demos/ShojiScreen.jsx')
         },
-        list: [
-            'TestBaseLine', 'TestFormField', '',
-            'Tip', 'Button', 'List', 'DropDownList', 'ComboList', 'Pager', 'Tab', 'Crumb', 'Wizard', 'Layer',
-            'TitleWindow', 'ShojiScreen', 'Dialog', '',
-
-            'Checkbox', 'Radio', 'TextBox', 'NumberBox', 'TextArea', 'Select', 'Calendar', 'DropDownCalendar',
-            'RangeCalendar', 'Region', 'DropDownRegion', 'SearchBox', 'Slider', '',
-
-            'Form', 'Table', '', 'Schedule', 'Tree', 'DualTreeSelector',
+        menu: [
+            {
+                level: 'base',
+                label: 'Base Widgets',
+                children: [
+                    'Tip', 'Button', 'List', 'DropDownList', 'ComboList', 'Crumb', '',
+                    'Pager', 'Tab', 'Wizard'
+                ]
+            },
+            {
+                level: 'input',
+                label: 'Input Widgets',
+                children: [
+                    'Checkbox', 'Radio', 'TextBox', 'NumberBox', 'TextArea', 'Select', 'SearchBox', 'Slider', '', 
+                    'Calendar', 'RangeCalendar', 'DropDownCalendar', '',
+                    'Region', 'DropDownRegion'
+                ]
+            },
+            
+            {
+                level: 'layout',
+                label: 'Layout Widgets',
+                children: [
+                    'Layer', 'TitleWindow', 'ShojiScreen', 'Dialog'
+                ]
+            },
+            {
+                level: 'functional',
+                label: 'Functional Widgets',
+                children: [
+                    'Form', 'Table'
+                ]
+            },
+            {
+                level: 'test',
+                label: 'Test Demos',
+                children: ['TestBaseLine', 'TestFormField', 'Schedule', 'Tree', 'DualTreeSelector']
+            }
         ]
     };
 

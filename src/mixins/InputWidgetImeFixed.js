@@ -1,5 +1,5 @@
 /**
- * @file 输入框流劫持
+ *  输入框流劫持
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2
