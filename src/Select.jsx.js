@@ -34,7 +34,8 @@ define(function (require) {
         // @override
         getInitialState: function () {
             return {
-                layerOpen: false
+                layerOpen: false,
+                mouseenter: false
             };
         },
         onListClick: function (e) {
@@ -42,6 +43,16 @@ define(function (require) {
             if (this.props.disabled || value === e.target.value) return;
             this.___dispatchChange___(e);
             this.setState({layerOpen: false});
+        },
+        onMouseEnter: function () {
+            this.setState({
+                mouseenter: true,
+                layerOpen: true
+            });
+        },
+        onMouseLeave: function () {
+            this.setState({mouseenter: false});
+            cTools.closeLayerHandler.call(this);
         },
         render: function () {
             var me = this;
@@ -54,7 +65,8 @@ define(function (require) {
                 anchor: this.refs.container,
                 onMouseLeave: cTools.closeLayerHandler.bind(this),
                 style: {
-                    minWidth: '150px'
+                    maxHeight: '240px',
+                    overflow: 'auto'
                 }
             };
             var listProp = {
@@ -62,8 +74,8 @@ define(function (require) {
                 ref: 'list',
                 onClick: this.onListClick
             };
-            containerProp[this.props.openLayerType] = cTools.openLayerHandler.bind(this);
-            containerProp.onMouseLeave = cTools.closeLayerHandler.bind(this);
+            containerProp[this.props.openLayerType] = this.onMouseEnter;
+            containerProp.onMouseLeave = this.onMouseLeave;
             for (var i = 0; i < this.props.datasource.length; i++) {
                 if (this.props.datasource[i].value + '' === value + '') {
                     label = this.props.datasource[i].label;

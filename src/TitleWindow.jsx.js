@@ -10,6 +10,7 @@ define(function (require) {
     var React = require('react');
     var ReactDOM = require('react-dom');
     var renderSubtreeIntoContainer = require("react-dom").unstable_renderSubtreeIntoContainer;
+    var util = require('./core/util');
     var noop = function () {};
 
 
@@ -20,8 +21,11 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 className: '',
+                skin: '',
                 isOpen: false,
                 title: 'Title Window',
+                size: {},
+                isFullScreen: false,
                 showCloseButton: true,
                 onRender: noop,
                 onBeforeClose: noop,
@@ -34,17 +38,14 @@ define(function (require) {
         componentDidMount: function () {
 
             if (!window || !document) return;
+
             var container = document.createElement('div');
             var background = document.createElement('div');
             var workspace = document.createElement('div');
 
             background.className = 'fcui2-titlewindow-background';
-
             container.className = 'fcui2-titlewindow-container';
-            container.appendChild(background);
-            container.appendChild(workspace);
-
-            workspace.className = 'fcui2-titlewindow-workspace';
+            workspace.className = 'fcui2-titlewindow';
             workspace.style.left = '-9999px';
             workspace.style.top = '-9999px';
             workspace.innerHTML = [
@@ -55,6 +56,9 @@ define(function (require) {
                 '<div class="content">',
                 '</div>'
             ].join('');
+            container.appendChild(background);
+            container.appendChild(workspace);
+
             workspace.childNodes[0].childNodes[1].addEventListener('click', this.close);
 
             this.___container___ = container;
@@ -82,7 +86,7 @@ define(function (require) {
 
         close: function () {
             var evt = document.createEvent('UIEvents');
-            evt.fcuiTarget = this;
+            evt.targetComponent = this;
             evt.returnValue = true;
             typeof this.props.onBeforeClose === 'function' && this.props.onBeforeClose(evt);
             if (evt.returnValue) {
@@ -107,6 +111,8 @@ define(function (require) {
             height = content.offsetHeight + title.offsetHeight;
             if (height > doc.clientHeight) width += 20;
             // 设置尺寸并移入可视区
+            width = width > doc.clientWidth - 10 ? (doc.clientWidth - 10) : width;
+            height = height > doc.clientHeight - 10 ? (doc.clientHeight - 10) : height;
             container.style.width = width + 'px';
             container.style.height = height + 'px';
             container.style.left = 0.5 * (doc.clientWidth - container.clientWidth) + 'px';
@@ -118,17 +124,33 @@ define(function (require) {
         renderSubTree: function (props) {
             // update
             if (!this.___container___) return;
-            var container = this.___container___;
             var titleBar = this.___workspace___.childNodes[0];
+            var className = props.className;
+            var skin = props.skin;
             titleBar.childNodes[0].innerHTML = props.title;
             titleBar.childNodes[1].style.display = props.showCloseButton ? 'block': 'none';
-            container.className = 'fcui2-titlewindow-container ' + props.className;
+            this.___workspace___.className = 'fcui2-titlewindow'
+                + (typeof className === 'string' && className.length ? (' ' + className) : '')
+                + ' fcui2-titlewindow-' + (typeof skin === 'string' && skin.length ? skin : 'normal');
             if (!props.isOpen && !this.___appended___) return;
             // open
             var me = this;
             if (props.isOpen) {
                 if (!this.___appended___) {
-                    document.body.appendChild(container);
+                    this.___oldOverflow___ = util.getStyle(document.body, 'overflow');
+                    document.body.appendChild(this.___container___);
+                    document.body.style.overflow = 'hidden';
+                    if (props.size) {
+                        var width = (props.size.width + '').replace('px', '');
+                        var height = (props.size.height + '').replace('px', '');
+                        this.___content___.style.width = isNaN(width) ? 'auto' : (width + 'px');
+                        this.___content___.style.height = isNaN(height) ? 'auto' : (height + 'px');
+                    }
+                    if (props.isFullScreen) {
+                        var doc = document.documentElement;
+                        this.___content___.style.width = (doc.offsetWidth - 10) + 'px';
+                        this.___content___.style.height = (doc.offsetHeight - 10 - titleBar.offsetHeight) + 'px';
+                    }
                     this.___appended___ = true;
                 }
                 renderSubtreeIntoContainer(this, props.children, this.___content___, function () {
@@ -146,8 +168,11 @@ define(function (require) {
             if (!this.___appended___) return;
             ReactDOM.unmountComponentAtNode(this.___content___);
             this.___workspace___.style.left = '-9999px';
-            this.___workspace___.style.top = '-9999px';  
+            this.___workspace___.style.top = '-9999px'; 
+            this.___content___.style.width = 'auto';
+            this.___content___.style.height = 'auto'; 
             document.body.removeChild(this.___container___);
+            document.body.style.overflow = this.___oldOverflow___;
             this.___appended___ = false;
         },
 

@@ -44,7 +44,6 @@ define(function (require) {
         },
         {
             title: 'Readonly Tab',
-            onChange: false,
             props: {
                 value: 'option3',
                 datasource: [

@@ -1,73 +1,90 @@
-@import "../skin.less";
+// version 0.0.2
+
 .fcui2-numberbox {
-    position: relative;
     display: inline-block;
-    height: @height-outer;
-    background-color: @bgcolor-active;
-    input {
-        outline: none;
-        height: @height-normal;
-        border: @border-normal;
-        padding: @padding-normal;
-        background-color: transparent;
+    position: relative;
+    top: 11px;
+    margin-top: -11px; // 为了维护inline-block元素的上下间距，需要利用margin把差距补回来，也是醉了。
+    height: 30px;
+    .fcui2-numberbox-placeholder {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
         text-align: center;
-        vertical-align: top;
     }
-    input:hover {
-        border: @border-active;
-    }
-    input:focus {
-        border: @border-active;
+    input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        outline: none;
+        border: 1px solid;
+        text-align: center;
     }
     .btn-container {
-        float: right;
-        width: 18px;
-        height: @height-normal;
-        border: @border-normal;
-        border-left: 0px;
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        width: 20px;
+        height: 28px;
+        border-left: 1px solid;
         .font-icon {
-            line-height: @lineheight-small2;
-            background-color: @bgcolor-normal;
+            line-height: 14px;
             text-align: center;
-            cursor: default;
-            moz-user-select: -moz-none;
-            -moz-user-select: none;
-            -o-user-select:none;
-            -khtml-user-select:none;
-            -webkit-user-select:none;
-            -ms-user-select:none;
-            user-select:none;
         }
-        .font-icon:hover {
-            background-color: @bgcolor-important;
-            color: @fontcolor-important;
+    }
+}
+
+.fcui2-numberbox-normal {
+    background-color: @color-bg;
+    input {
+        border-color: @color-outer-border;
+        background-color: transparent;
+        &:hover,&:active {
+            border-color: @color-btn-hover;
         }
-        .font-icon:active {
-            background-color: @bgcolor-important-hover;
+    }
+    .fcui2-numberbox-placeholder {
+        color: @color-disabled-text;
+        font-size: 12px;
+    }
+    .btn-container {
+        background-color: @color-bg-btn;
+        border-left-color: @color-outer-border;
+        .font-icon {
+            cursor: pointer;
+            &:hover {
+                background-color: @color-btn;
+                color: @color-bg;
+            }
+            &:active {
+                background-color: @color-btn-hover;
+            }
         }
         .font-icon-largeable-caret-up {
-            line-height: @lineheight-small1 !important;
-            border-bottom: @border-normal;
+            border-bottom-color: @color-outer-border;
         }
     }
 }
+
 .fcui2-numberbox-reject {
     input {
-        border-color: #F00 !important;
+        border-color: @color-error !important;
     }
 }
+
 .fcui2-numberbox-disabled {
-    input:hover {
-        border: @border-normal !important;
+    input {
+        background-color: @color-bg-btn;
+        &:hover,&:active {
+            border-color: @color-outer-border !important;
+        }
     }
     .font-icon {
-        color: @color-disabled !important;
-    }
-    .font-icon:hover {
-        background-color: @bgcolor-normal !important;
-        color: @color-disabled !important;
-    }
-    .font-icon:active {
-        background-color: @bgcolor-normal !important;
+        color: @color-disabled-text !important;
+        &:hover,&:active {
+            background-color: @color-bg-btn !important;
+            color: @color-disabled-text !important;
+        }
     }
 }

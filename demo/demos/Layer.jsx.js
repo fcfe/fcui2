@@ -5,9 +5,11 @@
 
 define(function (require) {
 
+
     let React = require('react');
     let Button = require('fcui/Button.jsx');
     let Layer = require('fcui/Layer.jsx');
+
 
     let LayerContent =  React.createClass({
         getDefaultProps() {
@@ -43,12 +45,6 @@ define(function (require) {
 
 
     return React.createClass({
-        // @override
-        getDefaultProps() {
-            return {
-                alert() {}
-            };
-        },
         getInitialState() {
             return {
                 layerOpen: false,
@@ -71,9 +67,13 @@ define(function (require) {
                 <div>
                     <div className="demo-item" key="1">
                         <h3>Normal Popup Layer</h3>
-                        <Button label="Click me to open Layer" onClick={this.openLayer}/>
-                        <div ref="anchor" style={{border: '1px solid black'}}>it is anchor for Layer</div>
-                        <Layer isOpen={this.state.layerOpen} anchor={this.refs.anchor} closeWithBodyClick={true}>
+                        <Button ref="button" label="Click me to open Layer" onClick={this.openLayer}/>
+                        <div ref="anchor" style={{border: '1px solid black', marginTop: 20}}>it is anchor for Layer</div>
+                        <Layer
+                            isOpen={this.state.layerOpen}
+                            anchor={this.refs.anchor}
+                            closeWithBodyClick={true}
+                        >
                             <LayerContent count={this.state.count}
                                 enterHandler={this.closeLayer}
                                 cancelHandler={this.closeLayer}

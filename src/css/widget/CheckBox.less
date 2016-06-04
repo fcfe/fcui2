@@ -1,35 +1,33 @@
-@import "../skin.less";
+// version 0.0.2
+
 .fcui2-checkbox {
-    font-family: @font-normal;
-
     display: inline-block;
-    height: @height-normal;
-    line-height: @height-normal;
-
-    .fcui2-checkbox-label {
-        cursor: pointer;
-         moz-user-select: -moz-none;
-        -moz-user-select: none;
-        -o-user-select:none;
-        -khtml-user-select:none;
-        -webkit-user-select:none;
-        -ms-user-select:none;
-        user-select:none;
-        font-size: @fontsize-button;
-    }
-
+    height: 28px;
+    line-height: 28px;
     input {
         position: relative;
         top: 3px;
-        width: @fontsize-icon;
-        height: @fontsize-icon;
+        width: 14px;
+        height: 14px;
+    }
+}
+
+.fcui2-checkbox-normal {
+    .fcui2-checkbox-label {
+        cursor: pointer;
+        font-size: 12px;
+    }
+    input {
         cursor: pointer;
     }
 }
+
 .fcui2-checkbox-disabled {
     .fcui2-checkbox-label {
-        color: @color-disabled;
+        cursor: default;
+        color: @color-disabled-text;
+    }
+    input {
+        cursor: default;
     }
 }
-
-

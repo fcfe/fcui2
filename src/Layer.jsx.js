@@ -53,10 +53,11 @@ define(function (require) {
             if (!window || !document) return;
             var layer = document.createElement('div');
             var style = this.props.style || {};
+            var className = typeof this.props.className === 'string' ? (' ' + this.props.className) : '';
+            var skin = ' fcui2-layer-' +
+                (typeof this.props.skin === 'string' && this.props.skin.length ? this.props.skin : 'normal')
             // 设置容器皮肤及样式
-            layer.className = 'fcui2-layer'
-                + (typeof this.props.className === 'string' && this.props.className ? (' ' + this.props.className) : '')
-                + (typeof this.props.skin === 'string' && this.props.skin ? (' fcui2-layer-' + this.props.skin) : '');
+            layer.className = 'fcui2-layer' + className + skin;
             for (var key in style) {
                 if (!style.hasOwnProperty(key)) continue;
                 layer.style[key] = style[key];
@@ -118,7 +119,7 @@ define(function (require) {
 
         close: function () {
             var evt = document.createEvent('UIEvents');
-            evt.fcuiTarget = this;
+            evt.targteComponent = this;
             evt.returnValue = true;
             typeof this.props.onBeforeClose === 'function' && this.props.onBeforeClose(evt);
             if (evt.returnValue) {

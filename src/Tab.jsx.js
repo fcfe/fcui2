@@ -33,7 +33,7 @@ define(function (require) {
             return {};
         },
         onClick: function (e) {
-            if (this.props.disabled) return;
+            if (this.props.disabled || e.target.value === this.___getValue___()) return;
             var value = e.target.value;
             e.target = this.refs.container;
             e.target.value = value;
@@ -57,7 +57,7 @@ define(function (require) {
             var Renderer = typeof me.props.renderer === 'function' ? me.props.renderer : NormalRenderer;
             var props = me.props.datasource[i];
             props.key = i;
-            props.onClick = me.onClick;
+            props.onClick = props.disabled ? cTools.noop : me.onClick;
             if (me.props.disabled || props.disabled) {
                 props.className = 'fcui2-tab-item-disabled';
             }

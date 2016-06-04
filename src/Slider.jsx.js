@@ -82,6 +82,7 @@ define(function (require) {
                 }
             });
             var x = tool.value2position(value, this, 10);
+            x = isNaN(x) ? 10 : x;
             return (
                 <div {...containerProp}>
                     <div className="fcui2-slider-base-axis"></div>

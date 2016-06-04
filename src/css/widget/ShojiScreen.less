@@ -1,7 +1,7 @@
-@import "../skin.less";
+// version 0.0.2
 
 
-.fcui2-shojiscreen-container {
+.fcui2-shojiscreen {
     position: fixed;
     top: 0px;
     left: 0px;
@@ -9,9 +9,85 @@
     right: 0px;
     z-index: 9999;
     overflow: hidden;
+    .fcui2-shojiscreen-background {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        background-color: black;
+        opacity: 0.2;
+    }
+    .fcui2-shojiscreen-workspace {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        bottom: 0px;
+        width: 299px;
+        .content {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            padding-bottom: 50px;
+            overflow: auto;
+        }
+        .button-bar {
+            position: absolute;
+            left: 0px;
+            right: 20px;
+            height: 50px;
+            bottom: 0px;
+            border-top: 1px solid;
+            >div {
+                display: inline-block;
+                width: 110px;
+            }
+        }
+        .hide-button {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            left: -50px;
+            top: 100px;
+        }
+        .metro-button {
+            line-height: 50px;
+            text-align: center;
+        }
+    }
 }
 
+.fcui2-sojiscreen-normal {
+    .fcui2-shojiscreen-workspace {
+        background-color: @color-bg;
+        .button-bar {
+            border-top-color: @color-outer-border;
+            background-color: @color-bg;
+        }
+        .metro-button {
+            font-size: 14px;
+            font-family: @font-normal;
+            cursor: pointer;
+        }
+        .normal-button {
+            background-color: @color-disabled-icon;
+            &:hover {
+                background-color: @color-inner-border;
+            }
+        }
+        .highlight-button {
+            background-color: @color-btn;
+            color: @color-bg;
+            &:hover {
+                background-color: @color-btn-hover;
+            }
+        }
+    }
+}
 
+// 展开按钮不在.fcui2-shojiscreen域内
 .fcui2-shojiscreen-expand-button {
     position: fixed;
     right: 0px;
@@ -22,94 +98,9 @@
     font-size: 14px;
     font-family: @font-normal;
     cursor: pointer;
-    moz-user-select: -moz-none;
-    -moz-user-select: none;
-    -o-user-select:none;
-    -khtml-user-select:none;
-    -webkit-user-select:none;
-    -ms-user-select:none;
-    user-select:none;
-    background-color: #4593FF;
-    color: #FFF;
-}
-.fcui2-shojiscreen-expand-button:hover {
-    background-color: #2F82F5;
-}
-
-.fcui2-shojiscreen-workspace {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
-    width: 299px;
-    background-color: @bgcolor-active;
-    .content {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        right: 0px;
-        bottom: 0px;
-        padding-bottom: 50px;
-        overflow: auto;
-    }
-    .button-bar {
-        position: absolute;
-        left: 0px;
-        right: 20px;
-        height: 50px;
-        bottom: 0px;
-        border-top: 1px solid #E3E3E3;
-        background-color: #FFF;
-        >div {
-            display: inline-block;
-            width: 110px;
-        }
-    }
-    .hide-button {
-        position: absolute;
-        width: 50px;
-        height: 50px;
-        left: -50px;
-        top: 100px;
-    }
-    .metro-button {
-        line-height: 50px;
-        text-align: center;
-        font-size: 14px;
-        font-family: @font-normal;
-        cursor: pointer;
-        moz-user-select: -moz-none;
-        -moz-user-select: none;
-        -o-user-select:none;
-        -khtml-user-select:none;
-        -webkit-user-select:none;
-        -ms-user-select:none;
-        user-select:none;
-    }
-    .normal-button {
-        background-color: #DCDCDC;
-        color: #000;
-    }
-    .normal-button:hover {
-        background-color: #F8F8F8;
-    }
-    .highlight-button {
-        background-color: #4593FF;
-        color: #FFF;
-    }
-    .highlight-button:hover {
-        background-color: #2F82F5;
+    background-color: @color-btn;
+    color: @color-bg;
+    &:hover {
+        background-color: @color-btn-hover;
     }
 }
-
-
-.fcui2-shojiscreen-background {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    bottom: 0px;
-    right: 0px;
-    background-color: @bgcolor-window-background;
-    opacity: 0.2;
-}
-

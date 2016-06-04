@@ -1,48 +1,56 @@
-@import "../skin.less";
+// version 0.0.2
+
 .fcui2-textbox {
+    display: inline-block;
     position: relative;
     left: 0px;
     top: 9px;
-    display: inline-block;
-    height: @height-normal;
+    margin-top: -9px;
+    height: 28px;
     input {
         position: absolute;
         left: 0px;
         top: 0px;
         outline: none;
-        height: @height-normal;
-        border: @border-normal;
-        padding: @padding-normal;
-        background-color: transparent;
-    }
-    input:hover {
-        border: @border-active;
-    }
-    input:focus {
-        border: @border-active;
+        height: 28px;
+        border: 1px solid;
+        padding: 0 10px;
     }
     div {
         position: absolute;
         left: 0px;
         top: 0px;
-        line-height: @lineheight-normal;
-        padding: @padding-normal;
-        color: @color-disabled;
-        font-size: @fontsize-button;
+        line-height: 28px;
+        padding: 0 10px;
     }
 }
+
+.fcui2-textbox-normal {
+    input {
+        background-color: transparent;
+        border-color: @color-outer-border;
+        &:hover,&:focus {
+            border-color: @color-btn-hover;
+        }
+    }
+    div {
+        color: @color-disabled-text;
+        font-size: 12px;
+    }
+}
+
 .fcui2-textbox-reject {
     input {
-        border-color: #F00 !important;
+        border-color: @color-error !important;
     }
 }
-.fcui2-textbox-disabled {
-    input:hover {
-        border: @border-normal !important;
-    }
 
+.fcui2-textbox-disabled {
+    background-color: @color-bg-btn !important;
     input {
-        color: @color-disabled;
-        background-color: rgba(248, 248, 248, 0.6);
+        color: @color-disabled-text !important;
+        &:hover {
+            border-color: @color-outer-border !important;
+        }
     }
 }

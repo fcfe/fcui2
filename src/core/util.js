@@ -13,6 +13,18 @@ define(function (require) {
     var exports = {
 
         /**
+         * 浏览器是否是IE
+         */
+        isIE: function () {
+            if (!!window.ActiveXObject || 'ActiveXObject' in window) {
+                return true;
+            }  
+            else {
+                return false;
+            }    
+        },
+
+        /**
          * 获取window下的某个namespace，如果不存在，则创建一个空对象
          */
         getNamespace: function (namespace) {

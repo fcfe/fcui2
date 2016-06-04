@@ -87,7 +87,8 @@ define(function (require) {
             var table = this.props.tableComponent;
             var info = getInformationFromTable(table);
             var containerProp = {
-                className: 'table-selector fcui2-dropdownlist',
+                className: 'table-selector fcui2-dropdownlist fcui2-dropdownlist-'
+                    + (typeof table.props.skin === 'string' && table.props.skin.length ? table.props.skin : 'normal'),
                 onMouseEnter: cTools.openLayerHandler.bind(this),
                 onMouseLeave: cTools.closeLayerHandler.bind(this),
                 ref: 'container'
@@ -101,12 +102,10 @@ define(function (require) {
                 ref: 'mainCheckbox',
                 onClick: this.onMainSelectorChange
             };
-            if (info.workMode === SELECT_MODE.CURRENT_PAGE || info.workMode === SELECT_MODE.ALL) {
+            if (info.workMode === SELECT_MODE.CURRENT_PAGE || info.workMode === SELECT_MODE.ALL) {  
                 return (
-                    <th>
-                        <div ref="container" className="table-selector fcui2-dropdownlist">
-                            <input {...mainCheckboxProp}/>
-                        </div>
+                    <th className="th-header table-selector" ref="container">
+                        <input {...mainCheckboxProp}/>
                     </th>
                 );
             }

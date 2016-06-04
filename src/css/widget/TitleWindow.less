@@ -1,5 +1,4 @@
-@import "../skin.less";
-
+// version 0.0.2
 
 .fcui2-titlewindow-container {
     position: fixed;
@@ -11,42 +10,53 @@
     overflow: hidden;
 }
 
+.fcui2-titlewindow-background {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background-color: black;
+    opacity: 0.2;
+}
 
-.fcui2-titlewindow-workspace {
+.fcui2-titlewindow {
     position: absolute;
     left: -9999px;
     top: -9999px;
     width: 9999px;
     height: 9999px;
-    background-color: @bgcolor-active;
+}
+
+.fcui2-titlewindow-normal {
+    background-color: @color-bg;
     .title-bar {
         position: relative;
         cursor: default;
-        color: @fontcolor-important;
-        padding: @padding-normal;
-        background-color: @bgcolor-window-title;
-        font-weight: @fontweight-title;
-        line-height: @lineheight-window-title;
+        padding: 0 10px;
+        font-weight: 700;
+        line-height: 40px;
+        color: @color-bg;
+        background-color: @color-blue-8;
         .font-icon-times {
             position: absolute;
             top: 0px;
             right: 5px;
             float: right;
-            font-size: @fontsize-close-button;
-            line-height: @lineheight-window-title;
-            color: @fontcolor-close-button;
+            font-size: 20px;
+            line-height: 40px;
+            color: @color-bg;
             z-index: 1;
-        }
-        .font-icon-times:hover {
-            color: @fontcolor-important;
-            cursor: pointer !important;
+            &:hover {
+                cursor: pointer; 
+                color: @color-blue-7;
+            }
         }
     }
     .content {
         position: absolute;
         top: 40px;
         left: 0px;
-        border: @border-normal;
     }
     .content-fixed {
         right: 0px;
@@ -54,15 +64,3 @@
         overflow: auto;
     }
 }
-
-
-.fcui2-titlewindow-background {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    bottom: 0px;
-    right: 0px;
-    background-color: @bgcolor-window-background;
-    opacity: 0.2;
-}
-

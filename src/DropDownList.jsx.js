@@ -66,7 +66,7 @@ define(function (require) {
                 onClick: this.onListClick
             };
             containerProp[this.props.openLayerType] = this.onMouseEnter;
-            containerProp['onMouseLeave'] = this.onMouseLeave;
+            containerProp.onMouseLeave = this.onMouseLeave;
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>

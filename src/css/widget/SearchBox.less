@@ -1,31 +1,70 @@
-@import "../skin.less";
+// version 0.0.2
+
+
 .fcui2-searchbox {
     display: inline-block;
     position: relative;
-    top: 9px;
+    left: 0px;
+    top: 11px;
+    margin-top: -11px;
     height: 30px;
-    .fcui2-textbox {
+    input {
+        position: absolute;
+        left: 0px;
         top: 0px;
-        input {
-            padding-right: 25px;
-        }
+        outline: none;
+        height: 28px;
+        border: 1px solid;
+        padding: 0 20px 0 10px;
+    }
+    .placeholder {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        line-height: 28px;
+        padding: 0 10px;
     }
     .font-icon-search {
         position: absolute;
         top: 6px;
         right: 5px;
-        color: #888888;
+    }
+}
+
+
+.fcui2-searchbox-normal {
+    input {
+        background-color: transparent;
+        border-color: @color-outer-border;
+        &:hover,&:focus {
+            border-color: @color-btn-hover;
+        }
+    }
+    .font-icon-search {
+        color: @color-disabled-text;
         cursor: pointer;
+        &:hover {
+            color: @color-btn;
+        }
+    }
+    .placeholder {
+        color: @color-disabled-text;
+        font-size: 12px;
     }
 }
-.fcui2-searchbox:hover {
-    .font-icon-search {
-        color: @color-active;
+
+
+.fcui2-searchbox-disabled {
+    background-color: @color-bg-btn !important;
+    input {
+        color: @color-disabled-text !important;
+        &:hover {
+            border-color: @color-outer-border !important;
+        }
     }
-}
-.fcui2-searchbox-disabled:hover {
-    .font-icon-search {
+    .font-icon-search:hover {
         cursor: default;
-        color: #888888;
+        color: @color-disabled-text;
     }
 }
+

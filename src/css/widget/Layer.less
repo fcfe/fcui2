@@ -1,14 +1,16 @@
-@import "../skin.less";
+// version 0.0.2
+
 .fcui2-layer {
     position: absolute;
     left: -9999px;
     top: -9999px;
-    background-color: @bgcolor-active;
-    border: @border-normal;
-    -webkit-box-shadow: @shadow-normal;
-    -moz-box-shadow: @shadow-normal;
-    box-shadow: @shadow-normal;
+    border: 1px solid;
     z-index: 10000;
-    font-family: @font-normal;
     overflow: auto;
+}
+
+.fcui2-layer-normal {
+    background-color: @color-bg;
+    border-color: @color-outer-border;
+    font-family: @font-normal;
 }

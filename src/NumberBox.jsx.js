@@ -26,6 +26,7 @@ define(function (require) {
                 className: '',
                 style: {},
                 disabled: false,
+                placeholder: '',
                 max: Number.POSITIVE_INFINITY,
                 min: Number.NEGATIVE_INFINITY,
                 step: 1.00,
@@ -42,8 +43,6 @@ define(function (require) {
         // @override
         componentDidMount: function () {
             this.___cursorPosition___ = -1;
-            var containerWidth = this.refs.container.offsetWidth;
-            this.refs.inputbox.style.width = (containerWidth - (this.props.showSpinButton ? 40 : 20) - 1) + 'px';
         },
         // @override
         componentDidUpdate: function () {
@@ -64,11 +63,7 @@ define(function (require) {
             this.___cursorPosition___ = -1;
         }, 
         onSpinButtonClick: function (e) {
-            if (
-                this.props.disabled
-                || isNaN(this.refs.inputbox.value)
-                || this.refs.inputbox.value.length === 0
-            ) {
+            if (this.props.disabled || isNaN(this.refs.inputbox.value) || this.refs.inputbox.value.length === 0) {
                 return;
             }
             var dataset = util.getDataset(e.target);
@@ -84,11 +79,29 @@ define(function (require) {
         },
         render: function () {
             var value = this.___getValue___();
-            var containerProp = cTools.containerBaseProps('numberbox', this, {});
+            value = tools.numberFormater(value, this.props);
+            var width = cTools.getValueFromPropsAndStyle(this.props, 'width', 200);
+            width = isNaN(width) ? 200 : +width;
+            var containerProp = cTools.containerBaseProps('numberbox', this, {
+                style: {width: width}
+            });
+            var placeholderProp = {
+                className: 'fcui2-numberbox-placeholder',
+                style: {
+                    visibility: value.length === 0 ? 'visible' : 'hidden'
+                }
+            };
             var inputProp = {
                 ref: 'inputbox',
                 type: 'text',
-                value: tools.numberFormater(value, this.props),
+                value: value,
+                // 因为怎么用CSS定位，在Chrome和IE下显示都不一致，所以用最原始的方式组织DOM，然后用js计算尺寸
+                style: {
+                    height: 26,
+                    width: this.props.showSpinButton ? (width - 42) : (width - 22),
+                    paddingLeft: 10,
+                    paddingRight: this.props.showSpinButton ? 30 : 10
+                },
                 onChange: this.onInputBoxChange,
                 onKeyDown: this.onInputBoxKeyDown,
                 onBlur: this.onInputBoxBlur
@@ -101,13 +114,14 @@ define(function (require) {
             };
             return (
                 <div {...containerProp}>
+                    <div {...placeholderProp}>{this.props.placeholder}</div>
+                    <input {...inputProp} disabled={this.props.disabled} ref="inputbox"/>
                     <div {...btnContainerProp}>
                         <div className="font-icon font-icon-largeable-caret-up"
                             data-ui-cmd="add" onClick={this.onSpinButtonClick}></div>
                         <div className="font-icon font-icon-largeable-caret-down"
                             data-ui-cmd="sub" onClick={this.onSpinButtonClick}></div>
                     </div>
-                    <input {...inputProp} disabled={this.props.disabled} ref="inputbox"/>
                 </div>
             );
         }

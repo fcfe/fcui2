@@ -9,16 +9,17 @@ define(function (require) {
 
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
-    var TextBox = require('./TextBox.jsx');
+    var InputWidgetImeFixed = require('./mixins/InputWidgetImeFixed');
     var cTools = require('./core/componentTools');
 
 
     return React.createClass({
         // @override
-        mixins: [InputWidget],
+        mixins: [InputWidget, InputWidgetImeFixed],
         // @override
         getDefaultProps: function () {
             return {
+                // 样式属性
                 skin: '',
                 className: '',
                 style: {},
@@ -30,16 +31,7 @@ define(function (require) {
         },
         // @override
         getInitialState: function () {
-            var width = this.props.width;
-            width = isNaN(width) && this.props.hasOwnProperty('style') && !isNaN(width) ? this.props.style.width: width;
-            width = isNaN(width) ? 200 : width;
-            return {
-                width: width
-            };
-        },
-        onTextBoxChange: function (e) {
-            if (this.props.disabled) return;
-            this.___dispatchChange___(e);
+            return {};
         },
         onButtonClick: function (e) {
             e.target = this.refs.container;
@@ -50,25 +42,38 @@ define(function (require) {
             this.refs.inputbox.focus();
         },
         render: function () {
+            var value = this.___getValue___();
+            value = value === undefined || value == null ? '' : (value + '');
+            var width = cTools.getValueFromPropsAndStyle(this.props, 'width', 200);
+            width = isNaN(width) ? 200 : +width;
             var containerProp = cTools.containerBaseProps('searchbox', this, {
-                style: {
-                    width: this.state.width
-                }
+                style: {width: width}
             });
+            var placeholderProp = {
+                className: 'placeholder',
+                style: {
+                    visibility: value && value.length ? 'hidden' : 'visible'
+                }
+            };
             var inputProp = {
                 ref: 'inputbox',
-                width: this.state.width - 16,
+                type: 'text',
                 disabled: this.props.disabled,
-                placeholder: this.props.placeholder,
-                value: this.___getValue___(),
-                onChange: this.onTextBoxChange
+                style: {width: width - 30},
+                onCompositionStart: this.___onCompositionStart___,
+                onCompositionEnd: this.___onCompositionEnd___,
+                onKeyUp: this.___onKeyUp___,
+                onPaste: this.___onPaste___
             };
             return (
                 <div {...containerProp}>
-                    <TextBox {...inputProp}/>
+                    <div {...placeholderProp}>{this.props.placeholder}</div>
+                    <input {...inputProp}/>
                     <div className="font-icon font-icon-search" onClick={this.onButtonClick}></div>
                 </div>
             );
         }
     });
+
+
 });

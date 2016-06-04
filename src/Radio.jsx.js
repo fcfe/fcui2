@@ -26,7 +26,7 @@ define(function (require) {
                 name: undefined,
                 label: '',
                 value: '',
-                labelPosition: 'left',
+                labelPosition: 'right',
                 valueTemplate: false
             };
         },

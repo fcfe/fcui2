@@ -65,17 +65,17 @@ define(function (require) {
                         </TitleWindow>
                     </div>
                     <div className="demo-item">
-                        <h3>Window without close button.</h3>
+                        <h3>Window without close button in title bar</h3>
                         <Button label="Open" onClick={this.openWindow} value="window3"/>
                         <TitleWindow isOpen={this.state.window3} showCloseButton={false}>
-                            <div>
-                                <h1>Window without close button.</h1>
+                            <div style={{width: 400, height: 300}}>
+                                <h1>Window without close button in title bar.</h1>
                                 <Button label="close" onClick={this.closerFactory('window3')}/>
                             </div>
                         </TitleWindow>
                     </div>
                     <div className="demo-item">
-                        <h3>Window with closing confirm.</h3>
+                        <h3>Window with closing confirm</h3>
                         <Button label="Open" onClick={this.openWindow} value="window4"/>
                         <TitleWindow isOpen={this.state.window4}
                             onBeforeClose={this.confirmClosing}
@@ -83,6 +83,38 @@ define(function (require) {
                         >
                             <div>
                                 <h1>Window with closing confirm.</h1>
+                            </div>
+                        </TitleWindow>
+                    </div>
+                    <div className="demo-item">
+                        <h3>Window with a huge content</h3>
+                        <Button label="Open" onClick={this.openWindow} value="window5"/>
+                        <TitleWindow isOpen={this.state.window5} onClose={this.closerFactory('window5')}>
+                            <div style={{width: 3000, height: 4000}}>
+                                3000 x 4000
+                            </div>
+                        </TitleWindow>
+                    </div>
+                    <div className="demo-item">
+                        <h3>Window with size</h3>
+                        <Button label="Open" onClick={this.openWindow} value="window6"/>
+                        <TitleWindow size={{width: 400, height: 300}}
+                            isOpen={this.state.window6}
+                            onClose={this.closerFactory('window6')}
+                        >
+                            <div>
+                                <h1>TitleWindow with Size</h1>
+                            </div>
+                        </TitleWindow>
+                    </div>
+                    <div className="demo-item">
+                        <h3>FullScreen TitleWindow</h3>
+                        <Button label="Open" onClick={this.openWindow} value="window7"/>
+                        <TitleWindow isFullScreen={true} isOpen={this.state.window7}
+                            onClose={this.closerFactory('window7')}
+                        >
+                            <div>
+                                <h1>FullScreen TitleWindow</h1>
                             </div>
                         </TitleWindow>
                     </div>

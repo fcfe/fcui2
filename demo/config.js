@@ -2,17 +2,11 @@ define(function (require) {
 
     return {
         version : {
-            button: '0.0.2',
-            tip: '0.0.2',
-            list: '0.0.2',
-            dropdownlist: '0.0.2',
-            combolist: '0.0.2',
-            pager: '0.0.2',
-            tab: '0.0.2',
-            crumb: '0.0.2',
-            wizard: '0.0.2'
+
         },
         demos: {
+            TestBaseLine: require('./demos/BaseLineTesting.jsx'),
+            TestFormField: require('./demos/FormFieldTesting.jsx'),
             Button: require('./demos/Button.jsx'), 
             TextBox: require('./demos/TextBox.jsx'),
             NumberBox: require('./demos/NumberBox.jsx'),
@@ -46,13 +40,14 @@ define(function (require) {
             ShojiScreen: require('./demos/ShojiScreen.jsx')
         },
         list: [
+            'TestBaseLine', 'TestFormField', '',
             'Tip', 'Button', 'List', 'DropDownList', 'ComboList', 'Pager', 'Tab', 'Crumb', 'Wizard', 'Layer',
-            'TitleWindow', 'ShojiScreen', '',
+            'TitleWindow', 'ShojiScreen', 'Dialog', '',
 
             'Checkbox', 'Radio', 'TextBox', 'NumberBox', 'TextArea', 'Select', 'Calendar', 'DropDownCalendar',
-            'RangeCalendar', 'Schedule', 'Region', 'DropDownRegion', 'SearchBox', 'Slider', 'Tree', '',
+            'RangeCalendar', 'Region', 'DropDownRegion', 'SearchBox', 'Slider', '',
 
-            'Table', 'Dialog', 'Form', 'DualTreeSelector',
+            'Form', 'Table', '', 'Schedule', 'Tree', 'DualTreeSelector',
         ]
     };
 

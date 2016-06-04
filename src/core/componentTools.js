@@ -51,6 +51,18 @@ define(function (require) {
 
         },
 
+        /**
+         * 从props中获取某个值，如果props中没有这个值，就在props.style中找。
+         *
+         * @param {Object} props 实例属性结合
+         * @param {string} key 要找值的键
+         * @param {Any} defaultValue 如果props[key]和props.style[key]都不存在，返回这个值
+         */
+        getValueFromPropsAndStyle: function (props, key, defaultValue) {
+            if (props.hasOwnProperty(key)) return props[key];
+            if (props.hasOwnProperty('style') && props.style.hasOwnProperty(key)) return props.style[key];
+            return defaultValue;
+        },
 
         /**
          * 弹出Layer的通用方法，请自定绑定上下文

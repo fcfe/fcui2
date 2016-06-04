@@ -20,7 +20,8 @@ define(function (require) {
         }
     });
 
-    var AutoSize = React.createClass({
+
+    var AutoSizeApp = React.createClass({
         timer: null,
         getDefaultProps: function () {
             return {};
@@ -54,7 +55,8 @@ define(function (require) {
         }
     });
 
-    var UpdateProp = React.createClass({
+
+    var UpdatePropApp = React.createClass({
         getDefaultProps: function () {
             return {
                 text: 'init'
@@ -92,7 +94,7 @@ define(function (require) {
             clearInterval(this.updateTimer);
             dialog.pop({
                 title: 'Update Content Props after Pop',
-                content: UpdateProp,
+                content: UpdatePropApp,
                 contentProps: {
                     text: 'Message From Demo.'
                 }
@@ -107,7 +109,7 @@ define(function (require) {
             clearInterval(this.updateTimer);
             dialog.pop({
                 title: 'Auto Resize Demo',
-                content: AutoSize
+                content: AutoSizeApp
             });
         },
         subapp: function (e) {
@@ -169,21 +171,67 @@ define(function (require) {
                 }
             });
         },
+        fullscreen: function () {
+            dialog.pop({
+                title: 'Fullscreen Dialog',
+                content: SubApp,
+                isFullScreen: true,
+                contentProps: {
+                    message: 'it is subapp\'s content, imported from outside.'
+                },
+                onClose: function () {
+                    me.props.alert('Fullscreen Dialog has been closed!');
+                }
+            });
+        },
+        size: function () {
+            dialog.pop({
+                title: 'Fullscreen Dialog',
+                content: SubApp,
+                size: {width: 300, height: 300},
+                contentProps: {
+                    message: 'it is subapp\'s content, imported from outside.'
+                },
+                onClose: function () {
+                    me.props.alert('Fullscreen Dialog has been closed!');
+                }
+            });
+        },
         render: function () {
             return (
                 <div>
-                    <h3>Alert</h3>
-                    <Button label="Alert" onClick={this.alert}/>
-                    <h3>Confirm</h3>
-                    <Button label="Confirm" onClick={this.confirm}/>
-                    <h3>SubApp</h3>
-                    <Button label="SubApp" onClick={this.subapp}/>
-                    <h3>Closing need confirm</h3>
-                    <Button label="Closing need confirm" onClick={this.closeConfirm}/>
-                    <h3>Auto Resize Dialog</h3>
-                    <Button label="Auto Resize" onClick={this.autoResize}/>
-                    <h3>Update Content Props after Pop</h3>
-                    <Button label="Update Props" onClick={this.update}/>
+                    <div className="demo-item">
+                        <h3>Alert</h3>
+                        <Button label="Alert" onClick={this.alert}/>
+                    </div>
+                    <div className="demo-item">
+                        <h3>Confirm</h3>
+                        <Button label="Confirm" onClick={this.confirm}/>
+                    </div>
+                    <div className="demo-item">
+                        <h3>SubApp</h3>
+                        <Button label="SubApp" onClick={this.subapp}/>
+                    </div>
+                    <div className="demo-item">
+                        <h3>Closing need confirm</h3>
+                        <Button label="Closing need confirm" onClick={this.closeConfirm}/>
+                    </div>
+                    <div className="demo-item">
+                        <h3>Auto Resize Dialog</h3>
+                        <Button label="Auto Resize" onClick={this.autoResize}/>
+                    </div>
+                    <div className="demo-item">
+                        <h3>Update Content Props after Pop</h3>
+                        <Button label="Update Props" onClick={this.update}/>
+                    </div>
+                    <div className="demo-item">
+                        <h3>Fullscreen Dialog</h3>
+                        <Button label="Fullscreen Dialog" onClick={this.fullscreen}/>
+                    </div>
+                    <div className="demo-item">
+                        <h3>Dialog with Size</h3>
+                        <Button label="Dialog with Size" onClick={this.size}/>
+                    </div>
                 </div>
             );
         }

@@ -47,7 +47,7 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 demo: 'Tip',
-                title: 'FCUI v2.0.2',
+                title: 'FCUI v2.0.2 Demos',
                 dispatch: function () {}
             };
         },
