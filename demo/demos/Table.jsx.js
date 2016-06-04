@@ -2,7 +2,7 @@ define(function (require) {
 
 
     var React = require('react');
-    var Creater = require('../ReactClassCreater.jsx');
+    var Creater = require('../src/ReactClassCreater.jsx');
     var Table = require('fcui/Table.jsx');
     var datasource = require('./tools/tableDatasource');
     var fieldConfig = require('./tools/tableFieldConfig');

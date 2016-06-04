@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var Creater = require('../ReactClassCreater.jsx');
+    var Creater = require('../src/ReactClassCreater.jsx');
     var RangeCalendar = require('fcui/RangeCalendar.jsx');
     var calendarTools = require('fcui/core/calendarTools');
 

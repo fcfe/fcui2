@@ -1,7 +1,7 @@
 define(function (require) {
 
     var Button = require('fcui/Button.jsx');
-    var Creater = require('../ReactClassCreater.jsx');
+    var Creater = require('../src/ReactClassCreater.jsx');
 
     var items = [
         {

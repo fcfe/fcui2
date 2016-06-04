@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var Creater = require('../ReactClassCreater.jsx');
+    var Creater = require('../src/ReactClassCreater.jsx');
     var DropDownCalendar = require('fcui/DropDownCalendar.jsx');
 
     var timer = new Date();

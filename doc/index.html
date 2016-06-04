@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>FCUI v2.0.2</title>
+<link rel="stylesheet" href="../src/css/icon/fc-icon.css"/>
+<link rel="stylesheet" href="../src/css/main.css"/>
+</head>
+<body><div id="react-container"></div></body>
+<script type="text/javascript" src="../dep/require.min.js"></script>
+<script type="text/javascript">
+    require.config({
+        baseUrl: './src',
+        paths: {
+            'react-dom': '../../dep/react-dom',
+            'react': '../../dep/react-with-addons'
+        },
+        packages: [
+            {
+                name: 'fcui',
+                location: '../../src',
+                main: 'main'
+            },
+            {
+                name: 'underscore',
+                location: '../../dep/underscore/1.8.5/src',
+                main: 'underscore'
+            }
+        ]
+    });
+    require(['main']);
+</script>
+</html>

@@ -2,7 +2,7 @@ define(function (require) {
 
 
     var DropDownList = require('fcui/DropDownList.jsx');
-    var Creater = require('../ReactClassCreater.jsx');
+    var Creater = require('../src/ReactClassCreater.jsx');
 
 
     var items = [
