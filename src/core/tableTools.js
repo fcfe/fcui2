@@ -190,6 +190,7 @@ define(function (require) {
                         prepare: (function (oldPrepare) {
                             return function (props, item, row, column, me) {
                                 props.onRowSelect = me.onRowSelect;
+                                props.disabled = me.props.disabled;
                                 typeof oldPrepare === 'function' && oldPrepare(props, item, row, column, me);
                             };
                         })(item.prepare)

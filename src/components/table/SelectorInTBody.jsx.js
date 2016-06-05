@@ -17,6 +17,7 @@ define(function (require) {
             return {
                 ___isRowSelected___: false,
                 row: -1,
+                disabled: false,
                 onRowSelect: function () {}
             };
         },
@@ -28,6 +29,7 @@ define(function (require) {
             var checkboxProp = {
                 value: this.props.row + '',
                 checked: this.props.___isRowSelected___,
+                disabled: this.props.disabled,
                 onChange: this.props.onRowSelect
             };
             return (

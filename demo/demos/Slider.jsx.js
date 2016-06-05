@@ -18,7 +18,7 @@ define(function (require) {
         },
         {
             title: 'Readonly Slider',
-            props: {value: 50}
+            props: {value: 50, width: 300}
         },
         {
             title: 'Slider with Float Value',
@@ -30,7 +30,7 @@ define(function (require) {
         },
         {
             title: 'Slider with Min, and an incorrect Value',
-            props: {min: 10, value: 1}
+            props: {min: 10, value: 1, width: 200}
         },
         {
             title: 'Slider with Fixed',
