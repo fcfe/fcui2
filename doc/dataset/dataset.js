@@ -565,13 +565,14 @@ define(function(require){return {
             "file": "src\\core\\componentTools.js",
             "line": 1,
             "description": "组件公共方法",
-            "author": "Han Bing Feng",
+            "author": "Brian Li",
             "email": "lbxxlht@163.com",
+            "version": "0.0.2",
             "class": ""
         },
         {
             "file": "src\\core\\componentTools.js",
-            "line": 20,
+            "line": 19,
             "description": "模拟符合React规则的synthetic event",
             "params": [
                 {
@@ -585,13 +586,13 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\componentTools.js",
-            "line": 47,
+            "line": 46,
             "description": "一个空函数",
             "class": ""
         },
         {
             "file": "src\\core\\componentTools.js",
-            "line": 54,
+            "line": 53,
             "description": "从props中获取某个值，如果props中没有这个值，就在props.style中找。",
             "params": [
                 {
@@ -614,19 +615,19 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\componentTools.js",
-            "line": 67,
+            "line": 66,
             "description": "弹出Layer的通用方法，请自定绑定上下文",
             "class": ""
         },
         {
             "file": "src\\core\\componentTools.js",
-            "line": 76,
+            "line": 75,
             "description": "关闭Layer的通用方法，请自定绑定上下文",
             "class": ""
         },
         {
             "file": "src\\core\\componentTools.js",
-            "line": 88,
+            "line": 87,
             "description": "创建组件通用根容器属性集合",
             "params": [
                 {
@@ -649,6 +650,34 @@ define(function(require){return {
                 "description": "根容器基本配置",
                 "type": "Object"
             },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\componentTools.js",
+            "line": 95,
+            "properties": "",
+            "params": [
+                {
+                    "name": "skin",
+                    "description": "组件皮肤。此属性最终加在组件根容器的class上，例如：fcui2-componentname-skinname。",
+                    "type": "String"
+                },
+                {
+                    "name": "className",
+                    "description": "外接class。此属性最终加在组件根容器的class上。",
+                    "type": "String"
+                },
+                {
+                    "name": "style",
+                    "description": "外接style。此属性最终加在组件根容器的style上。",
+                    "type": "Object"
+                },
+                {
+                    "name": "disabled",
+                    "description": "组件是否可用。",
+                    "type": "Boolean"
+                }
+            ],
             "class": ""
         },
         {
@@ -1536,43 +1565,78 @@ define(function(require){return {
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 1,
-            "description": "input类型组件基础mixin",
-            "author": "Brian Li",
-            "email": "lbxxlht@163.com\n\n 此mixin主要作用：\n 1.解决input类型组件的渲染回馈问题\n （1）原生dom可以使用valueLink绑定value到父级组件的state，但valueLink属性跟onChange + value属性是互斥的，且会抛错提示。\n    本mixin解决了上述问题，让自定义input组件具有和原生demo一致的属性表现。\n （2）input类型组件含有valueLink属性时，组件的数据源value和onChange回调被封装在props.valueLink内部，\n    与不含有valueLink属性时解决方案不同，本mixin提供获取value的公共方法，同时提供派发回调的公共接口。\n 2.解决input类型组件与Form的衔接问题\n （1）input类型组件配置name属性后要在包裹它的表单Form中注册自己\n （2）input组件允许导入校验规则并根据这些规则进行校验\n （3）input组件发生change事件时，通知表单指的变化\n\n\n 使用此mixin的组件应包含如下内容：\n [optional] this.props.value {string | boolean | number} 基础类型，表示组件的值\n [optional] this.props.onChange {function} 组件被操作后的回调\n [optional] this.props.valueLink {Object} 替代this.props.value + this.props.onChange的valueLink插件\n [optional] this.props.name {string} 组件在表单Form中的域名\n [optional] this.props.validations {Object} 组件值的校验机\n [optional] this.props.customErrorTemplates {Object} 组件值校验失败后错误提示处理机\n\n\n 此mixin在state中注入如下内容：\n （1）this.state.___value___ {Any} 组件的临时值，只有当props中未传入value且未使用valueLink时，此项才被读取\n （2）this.state.___beOperated___ {boolean} 组件是否被操作过\n （3）this.state.isValid {boolean} 组件是否通过了校验，此项一般由组件外部的Form设置\n\n\n 此mixin在组件实例中注入如下内容：\n （1）this.___hasValueLink___ {boolean} 实例属性中是否含有valueLink\n （2）this.___formAttached___ {boolean} 实例是否在表单中注册成功\n （3）this.___validations___ {Object} this.props.validations配置转换好的校验hash",
+            "line": 39,
+            "properties": "",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "组件的值，具体类型视具体组件而定。",
+                    "type": "String|boolean|number"
+                },
+                {
+                    "name": "onChange",
+                    "description": "组件发生输入后触发的回调。",
+                    "type": "Function"
+                },
+                {
+                    "name": "name",
+                    "description": "组件在Form表单中的域名，如果Form中有多个同名输入组件，则最靠上的有效，Radio除外。",
+                    "type": "String"
+                },
+                {
+                    "name": "validations",
+                    "description": "组件的校验机，参见src\\mixins\\InputWidget.js。",
+                    "type": "Object"
+                },
+                {
+                    "name": "customErrorTemplates",
+                    "description": "组件的校验结果机，参见src\\mixins\\InputWidget.js。",
+                    "type": "Object"
+                },
+                {
+                    "name": "valueTemplate",
+                    "description": "组件的默认值，优先级最低，参见src\\mixins\\InputWidget.js。",
+                    "type": "String|boolean|number"
+                },
+                {
+                    "name": "valueLink",
+                    "description": "React官方的valueLink插件对象，此对象与value + onChange组合互斥。",
+                    "type": "Object"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 58,
+            "line": 72,
             "description": "检查valueLink、value、onChange\n组件初始化前，检查valueLink和value + onChange，同时存在则抛错，并阻塞系统",
             "override": "",
             "class": ""
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 77,
+            "line": 91,
             "description": "注册表单域，更新校验对象",
             "override": "",
             "class": ""
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 90,
+            "line": 104,
             "description": "解除表单域注册",
             "override": "",
             "class": ""
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 102,
+            "line": 116,
             "description": "更新校验对象",
             "override": "",
             "class": ""
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 123,
+            "line": 137,
             "description": "获取value",
             "return": {
                 "description": "输入组件当前值",
@@ -1583,7 +1647,7 @@ define(function(require){return {
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 161,
+            "line": 175,
             "description": "派发onChange事件",
             "params": [
                 {
@@ -1615,7 +1679,7 @@ define(function(require){return {
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 211,
+            "line": 225,
             "description": "手动调用校验",
             "params": [
                 {
@@ -1673,18 +1737,105 @@ define(function(require){return {
         {
             "file": "src\\Button.jsx.js",
             "line": 1,
-            "description": "按钮组件",
+            "description": "按钮",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\Button.jsx.js",
+            "line": 17,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "label",
+                    "description": "显示在按钮上的文字。",
+                    "type": "String"
+                },
+                {
+                    "name": "title",
+                    "description": "鼠标悬浮在按钮上时提示的文字。",
+                    "type": "String"
+                },
+                {
+                    "name": "icon",
+                    "description": "按钮上显示的图标，具体见src/css/icon/variable.less。",
+                    "type": "String"
+                },
+                {
+                    "name": "type",
+                    "description": "按钮类型，目前支持：button、submit、reset，如果按钮在Form中，会触发相应事件。",
+                    "type": "String"
+                },
+                {
+                    "name": "name",
+                    "description": "按钮域名，如果组件在表单中，此属性等同于原生dom的name属性。",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "按钮的值，此属性会通过onClick回调回传。",
+                    "type": "String"
+                },
+                {
+                    "name": "onClick",
+                    "description": "按钮被点击时触发。",
+                    "type": "Function"
+                },
+                {
+                    "name": "onMouseEnter",
+                    "description": "鼠标滑入按钮时触发。",
+                    "type": "Function"
+                },
+                {
+                    "name": "onMouseLeave",
+                    "description": "鼠标滑出按钮时触发。",
+                    "type": "Function"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\Calendar.jsx.js",
             "line": 1,
+            "description": "日历",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\Calendar.jsx.js",
+            "line": 25,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "min",
+                    "description": "日历最小值，在这一天之前的日期不能被选定，格式：YYYY-MM-DD。",
+                    "type": "String"
+                },
+                {
+                    "name": "max",
+                    "description": "日历最大值，在这一天之后的日期不能被选定，格式：YYYY-MM-DD。",
+                    "type": "String"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink",
+                    "type": "Import|Properties"
+                }
+            ],
             "class": ""
         },
         {
@@ -2955,6 +3106,14 @@ define(function(require){return {
             "line": " src\\core\\componentTools.js:1"
         },
         {
+            "message": "unknown tag: version",
+            "line": " src\\core\\componentTools.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\core\\componentTools.js:95"
+        },
+        {
             "message": "unknown tag: override",
             "line": " src\\core\\scheduleTools.js:46"
         },
@@ -2971,28 +3130,28 @@ define(function(require){return {
             "line": " src\\core\\util.js:1"
         },
         {
-            "message": "unknown tag: email",
-            "line": " src\\mixins\\InputWidget.js:1"
+            "message": "unknown tag: properties",
+            "line": " src\\mixins\\InputWidget.js:39"
         },
         {
             "message": "unknown tag: override",
-            "line": " src\\mixins\\InputWidget.js:58"
+            "line": " src\\mixins\\InputWidget.js:72"
         },
         {
             "message": "unknown tag: override",
-            "line": " src\\mixins\\InputWidget.js:77"
+            "line": " src\\mixins\\InputWidget.js:91"
         },
         {
             "message": "unknown tag: override",
-            "line": " src\\mixins\\InputWidget.js:90"
+            "line": " src\\mixins\\InputWidget.js:104"
         },
         {
             "message": "unknown tag: override",
-            "line": " src\\mixins\\InputWidget.js:102"
+            "line": " src\\mixins\\InputWidget.js:116"
         },
         {
             "message": "unknown tag: notice",
-            "line": " src\\mixins\\InputWidget.js:123"
+            "line": " src\\mixins\\InputWidget.js:137"
         },
         {
             "message": "unknown tag: email",
@@ -3031,12 +3190,20 @@ define(function(require){return {
             "line": " src\\Button.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\Button.jsx.js:17"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\Calendar.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
             "line": " src\\Calendar.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\Calendar.jsx.js:25"
         },
         {
             "message": "unknown tag: email",
@@ -3328,27 +3495,31 @@ define(function(require){return {
         },
         {
             "message": "Missing item type\n模拟符合React规则的synthetic event",
-            "line": " src\\core\\componentTools.js:20"
+            "line": " src\\core\\componentTools.js:19"
         },
         {
             "message": "Missing item type\n一个空函数",
-            "line": " src\\core\\componentTools.js:47"
+            "line": " src\\core\\componentTools.js:46"
         },
         {
             "message": "Missing item type\n从props中获取某个值，如果props中没有这个值，就在props.style中找。",
-            "line": " src\\core\\componentTools.js:54"
+            "line": " src\\core\\componentTools.js:53"
         },
         {
             "message": "Missing item type\n弹出Layer的通用方法，请自定绑定上下文",
-            "line": " src\\core\\componentTools.js:67"
+            "line": " src\\core\\componentTools.js:66"
         },
         {
             "message": "Missing item type\n关闭Layer的通用方法，请自定绑定上下文",
-            "line": " src\\core\\componentTools.js:76"
+            "line": " src\\core\\componentTools.js:75"
         },
         {
             "message": "Missing item type\n创建组件通用根容器属性集合",
-            "line": " src\\core\\componentTools.js:88"
+            "line": " src\\core\\componentTools.js:87"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\core\\componentTools.js:95"
         },
         {
             "message": "Missing item type\n计算Layer的位置",
@@ -3519,36 +3690,36 @@ define(function(require){return {
             "line": " src\\core\\validations.js:1"
         },
         {
-            "message": "Missing item type\ninput类型组件基础mixin",
-            "line": " src\\mixins\\InputWidget.js:1"
+            "message": "Missing item type",
+            "line": " src\\mixins\\InputWidget.js:39"
         },
         {
             "message": "Missing item type\n检查valueLink、value、onChange\n组件初始化前，检查valueLink和value + onChange，同时存在则抛错，并阻塞系统",
-            "line": " src\\mixins\\InputWidget.js:58"
+            "line": " src\\mixins\\InputWidget.js:72"
         },
         {
             "message": "Missing item type\n注册表单域，更新校验对象",
-            "line": " src\\mixins\\InputWidget.js:77"
+            "line": " src\\mixins\\InputWidget.js:91"
         },
         {
             "message": "Missing item type\n解除表单域注册",
-            "line": " src\\mixins\\InputWidget.js:90"
+            "line": " src\\mixins\\InputWidget.js:104"
         },
         {
             "message": "Missing item type\n更新校验对象",
-            "line": " src\\mixins\\InputWidget.js:102"
+            "line": " src\\mixins\\InputWidget.js:116"
         },
         {
             "message": "Missing item type\n获取value",
-            "line": " src\\mixins\\InputWidget.js:123"
+            "line": " src\\mixins\\InputWidget.js:137"
         },
         {
             "message": "Missing item type\n派发onChange事件",
-            "line": " src\\mixins\\InputWidget.js:161"
+            "line": " src\\mixins\\InputWidget.js:175"
         },
         {
             "message": "Missing item type\n手动调用校验",
-            "line": " src\\mixins\\InputWidget.js:211"
+            "line": " src\\mixins\\InputWidget.js:225"
         },
         {
             "message": "Missing item type\n输入框流劫持",
@@ -3567,12 +3738,20 @@ define(function(require){return {
             "line": " src\\mixins\\WidgetWithFixedDom.js:1"
         },
         {
-            "message": "Missing item type\n按钮组件",
+            "message": "Missing item type\n按钮",
             "line": " src\\Button.jsx.js:1"
         },
         {
             "message": "Missing item type",
+            "line": " src\\Button.jsx.js:17"
+        },
+        {
+            "message": "Missing item type\n日历",
             "line": " src\\Calendar.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Calendar.jsx.js:25"
         },
         {
             "message": "Missing item type\n复选框组件",

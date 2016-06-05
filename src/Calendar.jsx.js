@@ -1,7 +1,9 @@
 /**
+ * 日历
+ *
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -19,6 +21,35 @@ define(function (require) {
 
 
     return React.createClass({
+
+        /**
+         * @properties
+         *
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {String} min 日历最小值，在这一天之前的日期不能被选定，格式：YYYY-MM-DD。
+         * @param {String} max 日历最大值，在这一天之后的日期不能被选定，格式：YYYY-MM-DD。
+         * @param {Import|Properties} src\mixins\InputWidget.js
+         *      value onChange name validations customErrorTemplates valueLink
+         */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            min: React.PropTypes.string,
+            max: React.PropTypes.string,
+            // mixin
+            value: React.PropTypes.string,
+            valueLink: React.PropTypes.object,
+            name: React.PropTypes.string,
+            onChange: React.PropTypes.func,
+            validations: React.PropTypes.object,
+            customErrorTemplates: React.PropTypes.object,
+            valueTemplate: React.PropTypes.string
+        },
         // @override
         mixins: [InputWidget],
         // @override
@@ -44,6 +75,7 @@ define(function (require) {
                 inRange: true
             };
         },
+        // 主区域表示天的按钮被点击
         onDayClick: function (e) {
             if (this.props.disabled) return;
             var timer = tool.str2date(
@@ -53,19 +85,20 @@ define(function (require) {
             e.target.value = util.dateFormat(timer, 'YYYY-MM-DD');
             this.___dispatchChange___(e);
         },
+        // 操作区年输入框被修改
         onYearChange: function (e) {
             if (this.props.disabled) return;
             var year = this.state.displayYear;
             if (!isNaN(e.target.value)) {
                 year = e.target.value * 1;
             }
-            ;
             this.setState({
                 inputYear: e.target.value,
                 displayYear: year,
                 inRange: tool.monthInRange(year, this.state.displayMonth, this.props.min, this.props.max)
             });
         },
+        // 操作区月输入框被修改
         onMonthChange: function (e) {
             if (this.props.disabled) return;
             var month = this.state.displayMonth;
@@ -80,6 +113,7 @@ define(function (require) {
                 displayMonth: month
             });
         },
+        // 操作区右侧按钮被点击
         onMonthAdd: function (e) {
             if (this.props.disabled) return;
             var month = this.state.displayMonth;
@@ -97,6 +131,7 @@ define(function (require) {
                 inputMonth: month + 1
             });
         },
+        // 操作区左侧按钮被点击
         onMonthSub: function (e) {
             if (this.props.disabled) return;
             var month = this.state.displayMonth;
@@ -166,11 +201,27 @@ define(function (require) {
     });
 
 
+
+    // 注意如下函数注释的写法。/* */这样写不会被yuidocjs解析，因为这个函数的注释没必要出现在帮助文档中。
+    /*
+     * 生成日历的星期栏
+     * @param {string} v 星期几
+     * @return {ReactComponent} 星期标签
+     */
     function dayLabelFactory(v) {
         return <div key={'day-' + v}>{v}</div>;
     }
 
 
+    /*
+     * 生成按钮属性
+     * 
+     * @param {Date} timer 当前按钮代表的时间
+     * @param {boolean} disabled 按钮是否可用
+     * @param {string} key 按钮键值
+     * @param {string} skin 按钮皮肤
+     * @return {Object} 用于初始化按钮的属性集合
+     */
     function buttonPropsFactory(timer, disabled, key, skin) {
         skin = skin || 'calendar';
         return {
@@ -186,6 +237,12 @@ define(function (require) {
     }
 
 
+    /*
+     * 生成主区域每天的按钮
+     *
+     * @param {Object} me 日历组件实例
+     * @return {Array.<ReactComponent>} 按钮集合
+     */
     function buttonFactory(me) {
 
         var value = tool.str2date(me.___getValue___()) || new Date();
@@ -204,9 +261,7 @@ define(function (require) {
         for (var i = (timer.getDay() || 7) - 1; i > 0; i--) {
             tmpTimer.setTime(timer.getTime());
             tmpTimer.setDate(timer.getDate() - i);
-            buttons.push(
-                <Button {...buttonPropsFactory(tmpTimer, true, buttons.length)}/>
-            );
+            buttons.push(<Button {...buttonPropsFactory(tmpTimer, true, buttons.length)}/>);
         }
 
         // 导入本月日期
@@ -220,21 +275,18 @@ define(function (require) {
                 onClick: me.onDayClick,
                 value: tmpTimer.getDate()
             };
-            buttons.push(
-                <Button {...buttonPropsFactory(tmpTimer, disabled, buttons.length, skin)} {...props}/>
-            );
+            buttons.push(<Button {...buttonPropsFactory(tmpTimer, disabled, buttons.length, skin)} {...props}/>);
             tmpTimer.setDate(tmpTimer.getDate() + 1);
         }
 
         // 导入本月后的日期
         while(buttons.length < 42) {
-            buttons.push(
-                <Button {...buttonPropsFactory(tmpTimer, true, buttons.length)}/>
-            );
+            buttons.push(<Button {...buttonPropsFactory(tmpTimer, true, buttons.length)}/>);
             tmpTimer.setDate(tmpTimer.getDate() + 1);
         }
    
         return buttons;
     }
+
 
 });

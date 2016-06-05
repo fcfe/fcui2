@@ -1,4 +1,4 @@
-/**
+/*
  *  input类型组件基础mixin
  * @author Brian Li
  * @email lbxxlht@163.com
@@ -35,6 +35,20 @@
  * （2）this.___formAttached___ {boolean} 实例是否在表单中注册成功
  * （3）this.___validations___ {Object} this.props.validations配置转换好的校验hash
  */
+
+/**
+ * @properties
+ * @param {String|boolean|number} value 组件的值，具体类型视具体组件而定。
+ * @param {Function} onChange 组件发生输入后触发的回调。
+ * @param {String} name 组件在Form表单中的域名，如果Form中有多个同名输入组件，则最靠上的有效，Radio除外。
+ * @param {Object} validations 组件的校验机，参见src\mixins\InputWidget.js。
+ * @param {Object} customErrorTemplates 组件的校验结果机，参见src\mixins\InputWidget.js。
+ * @param {String|boolean|number} valueTemplate 组件的默认值，优先级最低，参见src\mixins\InputWidget.js。
+ * @param {Object} valueLink React官方的valueLink插件对象，此对象与value + onChange组合互斥。
+ */
+
+
+
 define(function (require) {
 
 

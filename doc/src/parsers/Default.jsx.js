@@ -9,7 +9,7 @@ define(function (require) {
         for (var key in item) {
             if (!item.hasOwnProperty(key) || key === 'file' || key === 'line' || !item[key].length) continue;
             doms.push(
-                <div key={key} className="default-parser-item">
+                <div key={key} className="parser-default-item">
                     <div>{key}</div>
                     <div>{JSON.stringify(item[key])}</div>
                 </div>
@@ -27,7 +27,7 @@ define(function (require) {
             };
         },
         render: function () {
-            return (<div className="default-parser">{factory(this.props.item)}</div>);
+            return (<div className="parser-default">{factory(this.props.item)}</div>);
         }
     });
 

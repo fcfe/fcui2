@@ -10,8 +10,12 @@ define(function (require) {
             };
         },
         render: function () {
+            var item = this.props.item;
             return (
-                <div></div>
+                <div className="parser-introduction">
+                    <h3>{item.description + ' v' + item.version}</h3>
+                    <div>{item.author + ' (' + item.email + ')'}</div>
+                </div>
             );
         }
     });

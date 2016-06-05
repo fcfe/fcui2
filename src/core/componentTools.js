@@ -1,10 +1,9 @@
 /**
- *  组件公共方法
+ * 组件公共方法
  * @author Brian Li
  * @email lbxxlht@163.com
- * @author Han Bing Feng
+ * @version 0.0.2
  */
-
 define(function (require) {
     var _ = require('underscore');
 
@@ -92,6 +91,14 @@ define(function (require) {
          * @param {Object} me 组件实例
          * @param {Object} options 配置项
          * @return {Object} 根容器基本配置
+         */
+        /**
+         * @properties
+         *
+         * @param {String} skin 组件皮肤。此属性最终加在组件根容器的class上，例如：fcui2-componentname-skinname。
+         * @param {String} className 外接class。此属性最终加在组件根容器的class上。
+         * @param {Object} style 外接style。此属性最终加在组件根容器的style上。
+         * @param {boolean} disabled 组件是否可用。
          */
         containerBaseProps: function (type, me, options) {
             // 原始集

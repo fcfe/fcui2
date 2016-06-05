@@ -4,8 +4,16 @@ define(function (require) {
     var React = require('react');
     var items = require('./config').items;
     var warning = require('./config').warnings;
-    var getParser = require('./getParser');
+    var DefaultParser = require('./parsers/Default.jsx');
+    var parsers = require('./parsers');
     
+
+    function getParser(item) {
+        for (var i = 0; i < parsers.length; i++) {
+            if (parsers[i].validation(item)) return parsers[i].parser;
+        }
+        return DefaultParser;
+    }
 
 
     function itemFactory(file) {
@@ -35,11 +43,7 @@ define(function (require) {
             ) {
                 return 'no data';
             }
-            return (
-                <div>
-                    {itemFactory(this.props.file)}
-                </div>
-            );
+            return (<div>{itemFactory(this.props.file)}</div>);
         }
     });
 
