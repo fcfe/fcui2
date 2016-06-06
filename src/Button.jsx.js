@@ -13,7 +13,6 @@ define(function (require) {
 
 
     return React.createClass({
-
         /**
          * @properties
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
@@ -27,7 +26,6 @@ define(function (require) {
          * @param {Function} onMouseEnter 鼠标滑入按钮时触发。
          * @param {Function} onMouseLeave 鼠标滑出按钮时触发。
          */
-
         // @override
         propTypes: {
             // base
@@ -46,7 +44,6 @@ define(function (require) {
             onMouseEnter: React.PropTypes.func,
             onMouseLeave: React.PropTypes.func
         },
-
         // @override
         getDefaultProps: function () {
             return {

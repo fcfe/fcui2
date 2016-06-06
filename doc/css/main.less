@@ -2,10 +2,13 @@
 @import "./parsers/default.less";
 @import "./parsers/introduction.less";
 @import "./parsers/properties.less";
+@import "./parsers/constructor.less";
 @import "./parsers/params.less";
+@import "./parsers/code.less";
 
 body {
     margin: 0px;
+    background-color: #F8F8F8;
 }
 h3 {
     color: #3574ca;
@@ -23,7 +26,6 @@ h3 {
     text-align: center;
     font-size: 26px;
     font-weight: 700;
-    background-color: #F8F8F8;
     color: #333333;
     border-bottom: 1px solid #E6E6E6;
 }
@@ -35,6 +37,7 @@ h3 {
     width: 200px;
     border-right: 1px solid #E6E6E6;
     overflow-y: auto;
+    overflow-x: hidden;
     hr {
         margin: 0px;
         border-top: 1px solid #E6E6E6;
@@ -51,9 +54,9 @@ h3 {
     font-weight: 700;
     font-size: 16px;
     line-height: 60px;
-    background-color: #F8F8F8;
     border-bottom: 1px solid #E6E6E6;
     color: #333333;
+    background-color: #F8F8F8;
     z-index: 1;
 }
 .right-middle-container {
@@ -80,16 +83,18 @@ h3 {
 .list-item {
     height: 40px;
     line-height: 40px;
-    text-align: center;
+    text-align: left;
+    padding-left: 40px;
     font-size: 14px;
     font-weight: 700;
     cursor: default;
     color: #333;
 }
 .list-item:hover {
-    background-color: #F2F8FF;
-    color: #333;
+    background-color: #2F82F5;
+    color: #FFF;
 }
 .list-item-selectd {
-    background-color: #F2F8FF;
+    background-color: #3879D6;
+    color: #FFF;
 }

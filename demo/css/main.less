@@ -25,6 +25,7 @@ body {
     width: 200px;
     border-right: 1px solid #E6E6E6;
     overflow-y: auto;
+    overflow-x: hidden;
     hr {
         margin: 0px;
         border-top: 1px solid #E6E6E6;
@@ -53,7 +54,6 @@ body {
     padding: 50px;
 }
 
-
 .menu-item {
     padding-left: 10px;
     height: 40px;
@@ -69,17 +69,20 @@ body {
 .list-item {
     height: 40px;
     line-height: 40px;
-    text-align: center;
+    text-align: left;
+    padding-left: 40px;
     font-size: 14px;
     font-weight: 700;
     cursor: default;
-}
-.list-item:hover {
-    background-color: #F2F8FF;
     color: #333;
 }
+.list-item:hover {
+    background-color: #2F82F5;
+    color: #FFF;
+}
 .list-item-selectd {
-    background-color: #F2F8FF;
+    background-color: #3879D6;
+    color: #FFF;
 }
 
 

@@ -1,8 +1,8 @@
 /**
- *  组合控制列表组件
+ * 组合控制列表
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -14,6 +14,33 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         *
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {String} label 主按钮上显示的文字。
+         * @param {String} icon 主按钮上显示的图标，具体见src/css/icon/variable.less。
+         * @param {String} value 主按钮的值，发生点击后随事件对象返回给回调。
+         * @param {Array.<ListItemObject>} datasource 列表数据源。
+         * @param {Function} onClick 发生点击后的回调。
+         */
+        /**
+         * @structure Import src\List.jsx.js ListItemObject
+         */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            label: React.PropTypes.string,
+            value: React.PropTypes.string,
+            icon: React.PropTypes.string,
+            datasource: React.PropTypes.array,
+            onClick: React.PropTypes.func
+        },
         // @override
         getDefaultProps: function () {
             return {
@@ -34,11 +61,13 @@ define(function (require) {
                 layerOpen: false
             };
         },
+        // 列表被点击
         onListClick: function (e) {
             if (this.props.disabled) return;
             this.props.onClick(e);
             this.setState({layerOpen: false});  
         },
+        // 主按钮被点击
         onMainButtonClick: function (e) {
             if (this.props.disabled) return;
             e.target = this.refs.container;
@@ -46,11 +75,13 @@ define(function (require) {
             this.setState({layerOpen: false});
             this.props.onClick(e);
         },
+        // 右侧下拉按钮被点击，弹出列表layer
         onDropDownButtonClick: function (e) {
             if (this.props.disabled) return;
             this.setState({layerOpen: true});
             e.stopPropagation();
         },
+        // 鼠标移出组件区域，关闭layer
         onMouseLeave: function (e) {
             if (this.props.disabled) return;
             cTools.closeLayerHandler.call(this);

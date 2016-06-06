@@ -1,8 +1,8 @@
 /**
- *  对话框
+ * 对话框
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -19,6 +19,9 @@ define(function (require) {
 
     /**
      * dialog构造函数
+     *
+     * @constructor
+     * @name Dialog
      */
     function Dialog() {
         this.___tempContainer___ = document.createElement('div');
@@ -27,6 +30,8 @@ define(function (require) {
 
     /**
      * 关闭窗口
+     * @name close
+     * @className Dialog
      */
     Dialog.prototype.close = function () {
         var me = this;

@@ -12,6 +12,18 @@ define(function (require) {
             validation: function (item) {
                 return item.hasOwnProperty('properties');
             }
+        },
+        {
+            parser: require('./parsers/Structure.jsx'),
+            validation: function (item) {
+                return item.hasOwnProperty('structure');
+            }
+        },
+        {
+            parser: require('./parsers/Constructor.jsx'),
+            validation: function (item) {
+                return item.is_constructor;
+            }
         }
     ];
 

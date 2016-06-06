@@ -1745,7 +1745,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Button.jsx.js",
-            "line": 17,
+            "line": 16,
             "properties": "",
             "params": [
                 {
@@ -1812,7 +1812,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Calendar.jsx.js",
-            "line": 25,
+            "line": 24,
             "properties": "",
             "params": [
                 {
@@ -1841,28 +1841,164 @@ define(function(require){return {
         {
             "file": "src\\CheckBox.jsx.js",
             "line": 1,
-            "description": "复选框组件",
+            "description": "复选框",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\CheckBox.jsx.js",
+            "line": 16,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "label",
+                    "description": "复选框旁边显示的文字，点击文字也可以改变选中状态。",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "复选框的值，触发onChange时随事件对象返回，用于区分复选框的身份。",
+                    "type": "String"
+                },
+                {
+                    "name": "checked",
+                    "description": "复选框是否被选中，触发onChange时随事件对象返回，用于表明复选框时候被选中。",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "indeterminate",
+                    "description": "复选框时候处于半选状态，如果checked为false、indeterminate为true，复选框将呈现\n     为半选状态。",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "labelPosition",
+                    "description": "文本标签显示的位置，'right'为复选框右侧，否则在左侧。",
+                    "type": "String"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "onChange name validations customErrorTemplates valueLink",
+                    "type": "Import|Properties"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\ComboList.jsx.js",
             "line": 1,
-            "description": "组合控制列表组件",
+            "description": "组合控制列表",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\ComboList.jsx.js",
+            "line": 17,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "label",
+                    "description": "主按钮上显示的文字。",
+                    "type": "String"
+                },
+                {
+                    "name": "icon",
+                    "description": "主按钮上显示的图标，具体见src/css/icon/variable.less。",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "主按钮的值，发生点击后随事件对象返回给回调。",
+                    "type": "String"
+                },
+                {
+                    "name": "datasource",
+                    "description": "列表数据源。",
+                    "type": "Array.<ListItemObject>"
+                },
+                {
+                    "name": "onClick",
+                    "description": "发生点击后的回调。",
+                    "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\ComboList.jsx.js",
+            "line": 27,
+            "structure": "Import src\\List.jsx.js ListItemObject",
             "class": ""
         },
         {
             "file": "src\\Crumb.jsx.js",
             "line": 1,
-            "description": "面包屑组件",
+            "description": "面包屑",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\Crumb.jsx.js",
+            "line": 15,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "datasource",
+                    "description": "面包屑数据源。",
+                    "type": "Array.<CrumbItemObject>"
+                },
+                {
+                    "name": "separator",
+                    "description": "链接间分隔符。",
+                    "type": "String"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Crumb.jsx.js",
+            "line": 22,
+            "structure": "CrumbItemObject",
+            "example": [
+                "\n {\n     href: <required>,\n     label: <required>,\n     target: <optional>\n }"
+            ],
+            "params": [
+                {
+                    "name": "href",
+                    "description": "链接地址。",
+                    "type": "String"
+                },
+                {
+                    "name": "label",
+                    "description": "链接文字。",
+                    "type": "String"
+                },
+                {
+                    "name": "target",
+                    "description": "链接打开方式，同a标签target属性。",
+                    "type": "String"
+                }
+            ],
             "class": ""
         },
         {
@@ -1871,24 +2007,28 @@ define(function(require){return {
             "description": "对话框",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
             "class": ""
         },
         {
             "file": "src\\Dialog.jsx.js",
             "line": 20,
             "description": "dialog构造函数",
+            "is_constructor": 1,
+            "name": "Dialog",
             "class": ""
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 28,
+            "line": 31,
             "description": "关闭窗口",
+            "name": "close",
+            "classname": "Dialog",
             "class": ""
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 45,
+            "line": 50,
             "description": "弹出dialog",
             "params": [
                 {
@@ -1948,7 +2088,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 78,
+            "line": 83,
             "description": "更新弹出窗体的content的props，此方法会自动触发resize",
             "params": [
                 {
@@ -1961,7 +2101,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 100,
+            "line": 105,
             "description": "弹出Alert提示框",
             "params": [
                 {
@@ -1991,7 +2131,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 123,
+            "line": 128,
             "description": "弹出Confirm确认框",
             "params": [
                 {
@@ -2031,7 +2171,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 150,
+            "line": 155,
             "description": "Dialog Component Factory",
             "params": [
                 {
@@ -2308,6 +2448,37 @@ define(function(require){return {
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
+            "class": ""
+        },
+        {
+            "file": "src\\List.jsx.js",
+            "line": 17,
+            "structure": "ListItemObject",
+            "example": [
+                "\n {\n     label: <required>,\n     value: <required>,\n     disabled: <optional>,\n     renderer: <optional>\n }"
+            ],
+            "params": [
+                {
+                    "name": "label",
+                    "description": "列表项显示的文字。",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "列表项对应的值，随事件对象通过返回。",
+                    "type": "String"
+                },
+                {
+                    "name": "disabled",
+                    "description": "列表项是否可用。",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "renderer",
+                    "description": "列表项渲染器。",
+                    "type": "ReactComponent"
+                }
+            ],
             "class": ""
         },
         {
@@ -3191,7 +3362,7 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: properties",
-            "line": " src\\Button.jsx.js:17"
+            "line": " src\\Button.jsx.js:16"
         },
         {
             "message": "unknown tag: email",
@@ -3203,7 +3374,7 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: properties",
-            "line": " src\\Calendar.jsx.js:25"
+            "line": " src\\Calendar.jsx.js:24"
         },
         {
             "message": "unknown tag: email",
@@ -3214,12 +3385,24 @@ define(function(require){return {
             "line": " src\\CheckBox.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\CheckBox.jsx.js:16"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\ComboList.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
             "line": " src\\ComboList.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\ComboList.jsx.js:17"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\ComboList.jsx.js:27"
         },
         {
             "message": "unknown tag: email",
@@ -3230,12 +3413,32 @@ define(function(require){return {
             "line": " src\\Crumb.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\Crumb.jsx.js:15"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\Crumb.jsx.js:22"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\Dialog.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
             "line": " src\\Dialog.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " src\\Dialog.jsx.js:20"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " src\\Dialog.jsx.js:31"
+        },
+        {
+            "message": "unknown tag: classname",
+            "line": " src\\Dialog.jsx.js:31"
         },
         {
             "message": "unknown tag: email",
@@ -3288,6 +3491,10 @@ define(function(require){return {
         {
             "message": "unknown tag: version",
             "line": " src\\List.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\List.jsx.js:17"
         },
         {
             "message": "unknown tag: email",
@@ -3743,7 +3950,7 @@ define(function(require){return {
         },
         {
             "message": "Missing item type",
-            "line": " src\\Button.jsx.js:17"
+            "line": " src\\Button.jsx.js:16"
         },
         {
             "message": "Missing item type\n日历",
@@ -3751,19 +3958,39 @@ define(function(require){return {
         },
         {
             "message": "Missing item type",
-            "line": " src\\Calendar.jsx.js:25"
+            "line": " src\\Calendar.jsx.js:24"
         },
         {
-            "message": "Missing item type\n复选框组件",
+            "message": "Missing item type\n复选框",
             "line": " src\\CheckBox.jsx.js:1"
         },
         {
-            "message": "Missing item type\n组合控制列表组件",
+            "message": "Missing item type",
+            "line": " src\\CheckBox.jsx.js:16"
+        },
+        {
+            "message": "Missing item type\n组合控制列表",
             "line": " src\\ComboList.jsx.js:1"
         },
         {
-            "message": "Missing item type\n面包屑组件",
+            "message": "Missing item type",
+            "line": " src\\ComboList.jsx.js:17"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\ComboList.jsx.js:27"
+        },
+        {
+            "message": "Missing item type\n面包屑",
             "line": " src\\Crumb.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Crumb.jsx.js:15"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Crumb.jsx.js:22"
         },
         {
             "message": "Missing item type\n对话框",
@@ -3775,27 +4002,27 @@ define(function(require){return {
         },
         {
             "message": "Missing item type\n关闭窗口",
-            "line": " src\\Dialog.jsx.js:28"
+            "line": " src\\Dialog.jsx.js:31"
         },
         {
             "message": "Missing item type\n弹出dialog",
-            "line": " src\\Dialog.jsx.js:45"
+            "line": " src\\Dialog.jsx.js:50"
         },
         {
             "message": "Missing item type\n更新弹出窗体的content的props，此方法会自动触发resize",
-            "line": " src\\Dialog.jsx.js:78"
+            "line": " src\\Dialog.jsx.js:83"
         },
         {
             "message": "Missing item type\n弹出Alert提示框",
-            "line": " src\\Dialog.jsx.js:100"
+            "line": " src\\Dialog.jsx.js:105"
         },
         {
             "message": "Missing item type\n弹出Confirm确认框",
-            "line": " src\\Dialog.jsx.js:123"
+            "line": " src\\Dialog.jsx.js:128"
         },
         {
             "message": "Missing item type\nDialog Component Factory",
-            "line": " src\\Dialog.jsx.js:150"
+            "line": " src\\Dialog.jsx.js:155"
         },
         {
             "message": "Missing item type\n日期选择框组件",
@@ -3892,6 +4119,10 @@ define(function(require){return {
         {
             "message": "Missing item type\n列表组件",
             "line": " src\\List.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\List.jsx.js:17"
         },
         {
             "message": "Missing item type\n数字输入框组件",

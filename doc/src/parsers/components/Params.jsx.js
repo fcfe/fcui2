@@ -65,25 +65,25 @@ define(function (require) {
 
 
     // 生成表格数据源
-    function datasourceFactory(params) {
+    function datasourceFactory(params, prefix) {
         var result = [];
         for (var i = 0; i < params.length; i++) {
-            itemFactory(params[i], 1, 'this.props');
+            itemFactory(params[i], 1, prefix);
         }
         return result;
-        function itemFactory(item, level, parentName) {
+        function itemFactory(item, level, prefix) {
             // 处理导入命令
             if (item.type.indexOf('Import|') === 0) {
                 var insert = getImportProperties(item);
                 for (var i = 0; i < insert.length; i++) {
-                    itemFactory(insert[i], level, parentName);
+                    itemFactory(insert[i], level, prefix);
                 }
                 return;
             }
             // 处理一般类型
             var obj = JSON.parse(JSON.stringify(item));
             delete obj.props;
-            obj.name = parentName + '.' + obj.name;
+            obj.name = prefix + '.' + obj.name;
             obj.level = level;
             result.push(obj);
             if (item.hasOwnProperty('props') && item.props.length) {
@@ -99,13 +99,14 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                params: []
+                params: [],
+                prefix: 'this.props'
             };
         },
         render: function () {
             var tableProp = {
                 fieldConfig: fieldConfig,
-                datasource: datasourceFactory(this.props.params),
+                datasource: datasourceFactory(this.props.params, this.props.prefix),
                 flags: {showHeader: true}
             };
             return (<div><Table {...tableProp}/></div>);

@@ -17,7 +17,7 @@ define(function (require) {
             if (item.hasOwnProperty('params') && item.params.length > 0) {
                 return (
                     <div className="parser-properties">
-                        <h3>属性集</h3>
+                        <h3>this.props</h3>
                         <div><Params params={item.params}/></div>
                     </div>
                 );

@@ -21,7 +21,6 @@ define(function (require) {
 
 
     return React.createClass({
-
         /**
          * @properties
          *

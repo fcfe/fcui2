@@ -1,8 +1,8 @@
 /**
- *  面包屑组件
+ *  面包屑
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -12,14 +12,46 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         *
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {Array.<CrumbItemObject>} datasource 面包屑数据源。
+         * @param {String} separator 链接间分隔符。
+         */
+        /**
+         * @structure CrumbItemObject
+         * @example
+         *  {
+         *      href: <required>,
+         *      label: <required>,
+         *      target: <optional>
+         *  }
+         * @param {String} href 链接地址。
+         * @param {String} label 链接文字。
+         * @param {String} target 链接打开方式，同a标签target属性。
+         */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            datasource: React.PropTypes.array,
+            separator: React.PropTypes.string
+        },
         // @override
         getDefaultProps: function () {
             return {
+                // base
                 skin: '',
                 className: '',
                 style: {},
                 disabled: false, 
-                datasource: [], // {href: '', label: '', target: ''}
+                // self
+                datasource: [],
                 separator: '>'
             };
         },
@@ -34,6 +66,11 @@ define(function (require) {
     });
 
 
+    /*
+     * 链接工厂，负责生成所有链接和分隔符
+     * @param {Object} me 面包屑实例
+     * @return {Array.<ReactComponent>}
+     */
     function linkFactory(me) {
         var doms = [];
         for (var i = 0; i < me.props.datasource.length; i++) {
