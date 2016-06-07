@@ -51,7 +51,7 @@ define(function (require) {
         },
 
         /**
-         * 从props中获取某个值，如果props中没有这个值，就在props.style中找。
+         * 从props中获取某个值，如果props中没有这个值，就在props.style中找
          *
          * @param {Object} props 实例属性结合
          * @param {string} key 要找值的键
@@ -95,10 +95,10 @@ define(function (require) {
         /**
          * @properties
          *
-         * @param {String} skin 组件皮肤。此属性最终加在组件根容器的class上，例如：fcui2-componentname-skinname。
-         * @param {String} className 外接class。此属性最终加在组件根容器的class上。
-         * @param {Object} style 外接style。此属性最终加在组件根容器的style上。
-         * @param {boolean} disabled 组件是否可用。
+         * @param {String} skin 组件皮肤此属性最终加在组件根容器的class上，例如：fcui2-componentname-skinname
+         * @param {String} className 外接class此属性最终加在组件根容器的class上
+         * @param {Object} style 外接style此属性最终加在组件根容器的style上
+         * @param {boolean} disabled 组件是否可用
          */
         containerBaseProps: function (type, me, options) {
             // 原始集

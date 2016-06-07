@@ -25,10 +25,10 @@ define(function (require) {
          * @properties
          *
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
-         * @param {String} min 日历最小值，在这一天之前的日期不能被选定，格式：YYYY-MM-DD。
-         * @param {String} max 日历最大值，在这一天之后的日期不能被选定，格式：YYYY-MM-DD。
+         * @param {String} min 日历最小值，在这一天之前的日期不能被选定，格式：YYYY-MM-DD
+         * @param {String} max 日历最大值，在这一天之后的日期不能被选定，格式：YYYY-MM-DD
          * @param {Import|Properties} src\mixins\InputWidget.js
-         *      value onChange name validations customErrorTemplates valueLink
+         *      value onChange name validations customErrorTemplates valueLink valueTemplate
          */
         // @override
         propTypes: {
@@ -201,7 +201,7 @@ define(function (require) {
 
 
 
-    // 注意如下函数注释的写法。/* */这样写不会被yuidocjs解析，因为这个函数的注释没必要出现在帮助文档中。
+    // 注意如下函数注释的写法/* */这样写不会被yuidocjs解析，因为这个函数的注释没必要出现在帮助文档中
     /*
      * 生成日历的星期栏
      * @param {string} v 星期几

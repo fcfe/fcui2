@@ -115,7 +115,7 @@ define(function (require) {
         isAlphanumeric: function (value) {
             return {
                 isValid: matchRegexp(value, /^[0-9A-Z_]+$/i),
-                template: '请勿使用除字母、数字和英文下划线外的其他字符。'
+                template: '请勿使用除字母、数字和英文下划线外的其他字符'
             };
         },
 

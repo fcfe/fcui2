@@ -14,10 +14,10 @@ define(function (require) {
          *
          * 数组元素为null或string：
          * （1）null表示该时段没有被选择；
-         * （2）string表示该时段被选择，string的内容为当前时段的label标签内容，相邻时段相同值的label会被合并。
-         * 若label为''，则显示时段跨度如1:00-2:00。
+         * （2）string表示该时段被选择，string的内容为当前时段的label标签内容，相邻时段相同值的label会被合并
+         * 若label为''，则显示时段跨度如1:00-2:00
          *
-         * @param {string} value 选定的时段值。
+         * @param {string} value 选定的时段值
          * @return {Array}
          */
         parseValue: function (value) {
@@ -106,7 +106,7 @@ define(function (require) {
         },
 
         /**
-         * 根据schedule mouse state，计算所选的schedule区域。
+         * 根据schedule mouse state，计算所选的schedule区域
          *
          * @param  {Object} state mouse state
          * @return {Object} schedule区域
@@ -133,12 +133,12 @@ define(function (require) {
         },
 
         /**
-         * 返回一个时间段的文字表示。
+         * 返回一个时间段的文字表示
          * 若提供startHour，返回 startHour:00
          * 若提供startHour, endHour，返回startHour:00-(endHour+1):00
          * 若提供startHour, endHour, startWeekday，返回 星期x startHour:00-(endHour+1):00
          * 若提供startHour, endHour, startWeekday， endWeekday，返回 星期x-星期x，startHour:00-(endHour+1):00
-         * 若startHour=0，endHour=23，返回 全天。
+         * 若startHour=0，endHour=23，返回 全天
          *
          * @param  {number} startHour 开始小时数
          * @param  {number} endHour 结束小时数
@@ -178,8 +178,8 @@ define(function (require) {
         },
 
         /**
-         * 将数组形式的24小时值转换为一组label。数组每一位值表示当前小时的状态，
-         * 相同状态的值将合并为一个label元素返回。每一个label元素为一个object。
+         * 将数组形式的24小时值转换为一组label数组每一位值表示当前小时的状态，
+         * 相同状态的值将合并为一个label元素返回每一个label元素为一个object
          *
          * @param  {Array<string>} arr 数组形式的24小时值
          * @return {Object} label元素数组
@@ -222,9 +222,9 @@ define(function (require) {
         },
 
         /**
-         * 给定一组labels， 返回一个label，其中包含给定的index。或返回null，如果任
-         * 一个label都不包含index。
-         * label格式参见value2label。
+         * 给定一组labels， 返回一个label，其中包含给定的index或返回null，如果任
+         * 一个label都不包含index
+         * label格式参见value2label
          *
          * @param  {number} index  要查找的被label包含的index
          * @param  {Array<Object>} labels 所有labels
@@ -257,7 +257,7 @@ define(function (require) {
         },
 
         /**
-         * 根据相对左上角坐标的x, y坐标, 返回其在控件天小时格子里的位置。
+         * 根据相对左上角坐标的x, y坐标, 返回其在控件天小时格子里的位置
          *
          * @param {number} x x坐标
          * @param {number} y y坐标

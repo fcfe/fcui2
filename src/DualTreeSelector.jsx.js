@@ -1,9 +1,8 @@
 /**
- *  双树选择器。
+ * 双树选择器
  * @author Han Bing Feng (hanbingfeng@baidu.com)
  * @version 0.0.1
  */
-
 define(function (require) {
     let _ = require('underscore');
     let React = require('react');
@@ -13,65 +12,18 @@ define(function (require) {
 
     let DualTreeSelector = React.createClass({
         propTypes: {
-            /**
-             * 全部可选节点的列表
-             */
             treeNodes: React.PropTypes.arrayOf(Tree.treeNodeType),
-            /**
-             * 已选节点的id集合
-             */
             value: React.PropTypes.objectOf(React.PropTypes.bool),
-            /**
-             * 左树的tree node name filter。
-             */
             leftTreeFilter: React.PropTypes.string,
-            /**
-             * 左子树的宽度，px
-             */
             leftTreeWidth: React.PropTypes.number,
-            /**
-             * 右子树的宽度，px
-             */
             rightTreeWidth: React.PropTypes.number,
-            /**
-             * 选择器中树的高度，px
-             */
             height: React.PropTypes.number,
-            /**
-             * 左树的标题
-             */
             leftTreeTitle: React.PropTypes.string,
-            /**
-             * 右树的标题
-             */
             rightTreeTitle: React.PropTypes.string,
-            /**
-             * 左树左下角的提示话术
-             */
             leftTreeSummary: React.PropTypes.string,
-            /**
-             * 右树右下角的提示话术
-             */
             rightTreeSummary: React.PropTypes.string,
-            /**
-             * 树点击选择按钮后的回调。
-             * @param {object} onChange.e 选择后的树节点
-             */
             onChange: React.PropTypes.func,
-            /**
-             * 左树节点展开时的回调
-             * @param {SyntheticEvent} onLeftTreeNodeExpand.e 点击事件对象
-             * @param {treeNodeType} onLeftTreeNodeExpand.treeNode 被操作的树节点数据
-             * @param {Array<treeNodeType>} onLeftTreeNodeExpand.parentTreeNodes 当前节点的父节点列表
-             */
             onLeftTreeNodeExpand: React.PropTypes.func,
-            /**
-             * 左树“操作”按钮点击时的回调
-             *
-             * @param {SyntheticEvent} e 点击事件对象
-             * @param {treeNodeType} treeNode 被操作的树节点数据
-             * @param {Array<treeNodeType>} parentTreeNodes 当前节点的父节点列表
-             */
             onLeftTreeNodeOperationClicked: React.PropTypes.func
         },
 

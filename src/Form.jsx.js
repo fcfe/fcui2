@@ -1,8 +1,8 @@
 /**
- *  表单组件
+ * 表单组件
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 
 define(function (require) {
@@ -14,12 +14,26 @@ define(function (require) {
 
     return React.createClass({
 
+        /**
+         * @properties
+         *
+         * @param {Import|Properties} src\core\componentTools.js className
+         * @param {Object} validations 表单级别校验机，可以在这里放置跨域校验
+         * @param {Function} onFieldChange 表单域发生变化后的回调
+         * @param {Function} onSubmit 表单通过所有校验提交前触发的回调
+         */
+        // @override
+        propTypes: {
+            className: React.PropTypes.string,
+            validations: React.PropTypes.object,
+            onFieldChange: React.PropTypes.func,
+            onSubmit: React.PropTypes.func
+        },
 
         // @override
         childContextTypes: {
             ___form___: React.PropTypes.object
         },
-
 
         // @override
         getChildContext: function () {
@@ -28,30 +42,26 @@ define(function (require) {
             };
         },
 
-
         // @override
         getDefaultProps: function () {
             return {
                 className: '',
-                validations: {},            // 表单级别的校验，比如判断“密码确认”和“密码”是否一致
-                onSubmit: function () {},   // 返回正确的表单信息
-                onFieldChange: function () {} // 返回实时输入信息和校验信息
+                validations: {},
+                onSubmit: function () {},
+                onFieldChange: function () {}
             };
         },
-
 
         // @override
         getInitialState: function () {
             return {};
         },
 
-
         // @override
         componentWillMount: function () {
             // 存储输入域组件
             this.___inputs___ = {};
         },
-
 
         // @override
         render: function () {
@@ -61,7 +71,6 @@ define(function (require) {
                 </form>
             );
         },
-
 
         // 注册表单域
         attach: function (name, component) {
@@ -77,13 +86,11 @@ define(function (require) {
             }
         },
 
-
         // 解除表单域
         detach: function (name, component) {
             name = component.props.___uitype___ === 'radio' ? name + '___radio___' + component.props.value : name;
             delete this.___inputs___[name];
         },
-
 
         // 更新表单域
         updateField: function (field, value, component) {
@@ -113,52 +120,52 @@ define(function (require) {
             });
         },
 
-
-        submit: function (event) {
-            event && event.preventDefault();
+        validate: function () {
             var inputs = this.___inputs___;
             var dataset = {};
-            var validationResults = {};
-            var formValidationResult = true;
-
+            var fieldResult = {};
+            var formResult = [];
+            var isValid = true;
             // 获取并校验每个域的值，存储值和校验结果
             for (var field in inputs) {
                 dataset[field] = inputs[field].___getValue___();
-                validationResults[field] = inputs[field].validate(null, dataset[field]);
-                inputs[field].setState({isValid: validationResults[field].length < 1});
-                formValidationResult = formValidationResult && validationResults[field].length < 1;
+                fieldResult[field] = inputs[field].validate(null, dataset[field]);
+                inputs[field].setState({isValid: fieldResult[field].length < 1});
+                isValid = isValid && fieldResult[field].length < 1;
             }
             dataset = tools.mergeRadioDataset(dataset);
-            validationResults = tools.mergeRadioValidationResults(validationResults);
-            if (!formValidationResult) {
-                this.props.onFieldChange({
-                    targetCompontent: this,
-                    isValid: false,
-                    dataset: dataset,
-                    validationResults: validationResults
-                });
-                return;
-            }
-
+            fieldResult = tools.mergeRadioValidationResults(fieldResult);
             // 表单级别校验
-            formValidationResult = [];
             for (var key in this.props.validations) {
                 if (typeof this.props.validations[key] !== 'function') continue;
                 var result = this.props.validations[key](dataset);
                 if (result === true) continue;
-                formValidationResult.push(result);
+                isValid = false;
+                formResult.push(result);
             }
-            validationResults.form = formValidationResult;
+            return {
+                dataset: dataset,
+                fieldResult: fieldResult,
+                formResult: formResult,
+                isValid: isValid
+            };
+        },
 
-            // 派发
+        submit: function (event) {
+            event && event.preventDefault();
+            var validationResults = this.validate();
+            var validations = validationResults.fieldResult;
+            validations.form = validationResults.formResult;
             var callbackParam = {
                 targetCompontent: this,
-                isValid: formValidationResult.length === 0,
-                dataset: dataset,
-                validationResults: validationResults
+                isValid: validationResults.isValid,
+                dataset: validationResults.dataset,
+                validationResults: validations
             };
-            this.props.onFieldChange(callbackParam);
-            this.props.onSubmit(dataset);
+            typeof this.props.onFieldChange === 'function' && this.props.onFieldChange(callbackParam);
+            if (callbackParam.isValid) {
+                typeof this.props.onFieldChange === 'function' && this.props.onSubmit(validationResults.dataset);
+            }
         }
     });
 

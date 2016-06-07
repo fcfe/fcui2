@@ -24,6 +24,12 @@ define(function (require) {
             validation: function (item) {
                 return item.is_constructor;
             }
+        },
+        {
+            parser: null,
+            validation: function (item) {
+                return item.hasOwnProperty('name') && item.hasOwnProperty('classname');
+            }
         }
     ];
 

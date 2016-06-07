@@ -1,5 +1,5 @@
 /**
- *  一个树形选择控件。
+ *  一个树形选择控件
  * @author Han Bing Feng (hanbingfeng@baidu.com)
  * @version 0.0.1
  */
@@ -35,7 +35,7 @@ define(function (require) {
     });
 
     /**
-     * 默认的树单个节点的Renderer。
+     * 默认的树单个节点的Renderer
      *
      * @param {Object} props the props
      * @param {treeNodeType} props.treeNode 节点数据
@@ -50,11 +50,11 @@ define(function (require) {
      * @param {SyntheticEvent} props.onTreeNodeExpandClicked.e 点击事件对象
      * @param {treeNodeType} props.onTreeNodeExpandClicked.treeNode 被展开的树节点数据
      *
-     * @param {Function} props.onTreeNodeOperationClicked 树节点“操作”按钮被点击时的回调。
+     * @param {Function} props.onTreeNodeOperationClicked 树节点“操作”按钮被点击时的回调
      * @param {SyntheticEvent} props.onTreeNodeOperationClicked.e 点击事件对象
      * @param {treeNodeType} props.onTreeNodeOperationClicked.treeNode 被操作的树节点数据
      *
-     * @param {Function} props.onTreeNodeClicked 树节点其他位置被点击时的回调。
+     * @param {Function} props.onTreeNodeClicked 树节点其他位置被点击时的回调
      * @param {SyntheticEvent} props.onTreeNodeClicked.e 点击事件对象
      * @param {treeNodeType} props.onTreeNodeClicked.treeNode 被点击的树节点数据
      *
@@ -118,10 +118,10 @@ define(function (require) {
     function supportLoadingText(TreeNodeRenderer) {
 
         /**
-         * 支持绘制树节点的loading状态的Renderer。
+         * 支持绘制树节点的loading状态的Renderer
          *
          * @param {Object} props the props
-         * @param {string} props.textLoading 树节点载入中时的话术提示。
+         * @param {string} props.textLoading 树节点载入中时的话术提示
          * @return {ReactElement} rendered element
          */
         return function (props) {
@@ -145,18 +145,18 @@ define(function (require) {
     }
 
     /**
-     * 扩展TreeNodeRenderer，支持根据nameFilter加入filter class。
+     * 扩展TreeNodeRenderer，支持根据nameFilter加入filter class
      *
-     * @param  {Function} TreeNodeRenderer 被扩展的Renderer。
-     * @return {Function} 支持根据nameFilter加入filter class的Renderer。
+     * @param  {Function} TreeNodeRenderer 被扩展的Renderer
+     * @return {Function} 支持根据nameFilter加入filter class的Renderer
      */
     function supportNameFilter(TreeNodeRenderer) {
 
         /**
-         * 支持根据nameFilter加入filter class。
+         * 支持根据nameFilter加入filter class
          *
          * @param {Object} props the props
-         * @param {string} props.nameFilter 树名字过滤器，不包含过滤器中字符串的节点将加上class`fcui2-tree-node-filtered`。
+         * @param {string} props.nameFilter 树名字过滤器，不包含过滤器中字符串的节点将加上class`fcui2-tree-node-filtered`
          * @return {ReactElement} rendered element
          */
         return function (props) {
@@ -190,21 +190,21 @@ define(function (require) {
              */
             getTreeLevelStyle: React.PropTypes.func,
             /**
-             * 树节点展开按钮被点击时的回调。
+             * 树节点展开按钮被点击时的回调
              * @param {SyntheticEvent} onTreeNodeExpandClicked.e 点击事件对象
              * @param {treeNodeType} onTreeNodeExpandClicked.treeNode 被展开的树节点数据
              * @param {Array<treeNodeType>} onTreeNodeExpandClicked.parentTreeNodes 当前节点的父节点列表
              */
             onTreeNodeExpandClicked: React.PropTypes.func,
             /**
-             * 树节点“操作”按钮被点击时的回调。
+             * 树节点“操作”按钮被点击时的回调
              * @param {SyntheticEvent} onTreeNodeOperationClicked.e 点击事件对象
              * @param {treeNodeType} onTreeNodeOperationClicked.treeNode 被操作的树节点数据
              * @param {Array<treeNodeType>} onTreeNodeOperationClicked.parentTreeNodes 当前节点的父节点列表
              */
             onTreeNodeOperationClicked: React.PropTypes.func,
             /**
-             * 树节点其他位置被点击时的回调。
+             * 树节点其他位置被点击时的回调
              * @param {SyntheticEvent} onTreeNodeClicked.e 点击事件对象
              * @param {treeNodeType} onTreeNodeClicked.treeNode 被操作的树节点数据
              * @param {Array<treeNodeType>} onTreeNodeClicked.parentTreeNodes 当前节点的父节点列表

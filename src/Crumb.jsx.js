@@ -16,8 +16,8 @@ define(function (require) {
          * @properties
          *
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
-         * @param {Array.<CrumbItemObject>} datasource 面包屑数据源。
-         * @param {String} separator 链接间分隔符。
+         * @param {Array.<CrumbItemObject>} datasource 面包屑数据源
+         * @param {String} separator 链接间分隔符
          */
         /**
          * @structure CrumbItemObject
@@ -27,9 +27,9 @@ define(function (require) {
          *      label: <required>,
          *      target: <optional>
          *  }
-         * @param {String} href 链接地址。
-         * @param {String} label 链接文字。
-         * @param {String} target 链接打开方式，同a标签target属性。
+         * @param {String} href 链接地址
+         * @param {String} label 链接文字
+         * @param {String} target 链接打开方式，同a标签target属性
          */
         // @override
         propTypes: {

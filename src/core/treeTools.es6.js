@@ -9,7 +9,7 @@ define(function (require) {
     let exports = {};
 
     /**
-     * 先深遍历所有节点。
+     * 先深遍历所有节点
      *
      * @param {Function} cb 回调函数
      * @param {treeNode} cb.node 当前访问的节点
@@ -34,7 +34,7 @@ define(function (require) {
     },
 
     /**
-     * 从treeNode起始标记节点及其所有孩子被选择。返回被选择的节点列表。
+     * 从treeNode起始标记节点及其所有孩子被选择返回被选择的节点列表
      *
      * @param {treeNode} treeNode 被选择的 tree node
      * @param {Array<treeNode>} parentTreeNodes 从根节点至treeNode父节点的数组
@@ -43,7 +43,7 @@ define(function (require) {
      */
     exports.selectTreeNode = function (treeNode, parentTreeNodes, selectedTreeNodeId) {
         if (selectedTreeNodeId[treeNode.id]) {
-            // 增加treeId到集合中，如果这个id已经加过，则它和它的孩子一定已经加过，不需要再处理。
+            // 增加treeId到集合中，如果这个id已经加过，则它和它的孩子一定已经加过，不需要再处理
             return selectedTreeNodeId;
         }
 
@@ -76,7 +76,7 @@ define(function (require) {
     };
 
     /**
-     * 从selectedTreeNodeId中移除treeNode。
+     * 从selectedTreeNodeId中移除treeNode
      *
      * @param {treeNode} treeNode 待移除的treeNode
      * @param {Array<treeNode>} parentTreeNodes 从根节点至treeNode父节点的数组
@@ -100,7 +100,7 @@ define(function (require) {
     };
 
     /**
-     * 返回新的expandedTreeNodeId， 展开刚刚选择的节点。
+     * 返回新的expandedTreeNodeId， 展开刚刚选择的节点
      *
      * @param {ReactComponent} dualTreeComponent tree component
      * @param {Object} originSelected 前一展开转台

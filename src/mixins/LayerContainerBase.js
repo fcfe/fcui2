@@ -29,7 +29,7 @@
  *      并命名为this.props.layerInterface，通过layer传递给layer中的layerContent组件
  *
  * 在初始化layer时，mixin会在props.layerProps中加入parent属性，记录当前组件；同时传入当前组件的this.layerAction方法，
- * 以提供layer内容的回调接口。
+ * 以提供layer内容的回调接口
  *
  * 此mixin会在this下注入两个内部变量，this.___layerContainer___，存放layer的最外dom容器；this.___layer___，存放layer
  * 初始化完毕后的react组件实例
@@ -99,7 +99,7 @@ define(function (require) {
             var me = this;
             if (me.___layerContainer___ == null) {
                 me.___layerContainer___ = document.createElement('div');
-                me.___layerContainer___.className = 'fcui2-layer'
+                me.___layerContainer___.className = 'fcui2-layer fcui2-layer-normal';
             }
             // 弹出条件1
             if (typeof me.props.layerContent !== 'function' || me.props.disabled || me.props.layerPolicymaker === false) {

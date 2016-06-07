@@ -16,15 +16,15 @@ define(function (require) {
         /**
          * @properties
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
-         * @param {String} label 显示在按钮上的文字。
-         * @param {String} title 鼠标悬浮在按钮上时提示的文字。
-         * @param {String} icon 按钮上显示的图标，具体见src/css/icon/variable.less。
-         * @param {String} type 按钮类型，目前支持：button、submit、reset，如果按钮在Form中，会触发相应事件。
-         * @param {String} name 按钮域名，如果组件在表单中，此属性等同于原生dom的name属性。
-         * @param {String} value 按钮的值，此属性会通过onClick回调回传。
-         * @param {Function} onClick 按钮被点击时触发。
-         * @param {Function} onMouseEnter 鼠标滑入按钮时触发。
-         * @param {Function} onMouseLeave 鼠标滑出按钮时触发。
+         * @param {String} label 显示在按钮上的文字
+         * @param {String} title 鼠标悬浮在按钮上时提示的文字
+         * @param {String} icon 按钮上显示的图标，具体见src/css/icon/variable.less
+         * @param {String} type 按钮类型，目前支持：button、submit、reset，如果按钮在Form中，会触发相应事件
+         * @param {String} name 按钮域名，如果组件在表单中，此属性等同于原生dom的name属性
+         * @param {String} value 按钮的值，此属性会通过onClick回调回传
+         * @param {Function} onClick 按钮被点击时触发
+         * @param {Function} onMouseEnter 鼠标滑入按钮时触发
+         * @param {Function} onMouseLeave 鼠标滑出按钮时触发
          */
         // @override
         propTypes: {

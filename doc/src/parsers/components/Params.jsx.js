@@ -10,7 +10,14 @@ define(function (require) {
         {
             label: 'Property',
             field: 'name',
-            prepare: tdPrepare
+            prepare: function (props, item, row, column, me) {
+                var level = +item.level - 1;
+                if (level > 0) {
+                    props.style = props.style || {};
+                    props.style.paddingLeft = level * 24 + 'px';
+                }
+                tdPrepare.apply(null, arguments);
+            }
         },
         {
             label: 'Type',
@@ -83,12 +90,12 @@ define(function (require) {
             // 处理一般类型
             var obj = JSON.parse(JSON.stringify(item));
             delete obj.props;
-            obj.name = prefix + '.' + obj.name;
+            obj.name = prefix + obj.name;
             obj.level = level;
             result.push(obj);
             if (item.hasOwnProperty('props') && item.props.length) {
                 for (var i = 0; i < item.props.length; i++) {
-                    itemFactory(item.props[i], level + 1, obj.name);
+                    itemFactory(item.props[i], level + 1, obj.name + '.');
                 }
             }
         }
@@ -100,7 +107,7 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 params: [],
-                prefix: 'this.props'
+                prefix: 'this.props.'
             };
         },
         render: function () {

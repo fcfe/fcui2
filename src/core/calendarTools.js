@@ -49,7 +49,7 @@ define(function (require) {
             date.setFullYear(parseInt(arr[0], 10));
             return date;
         },
-        // 比较两个日期，a和b。如果a、b是同一天返回0；a在b之前返回-1；否则返回1。
+        // 比较两个日期，a和b如果a、b是同一天返回0；a在b之前返回-1；否则返回1
         compareDate: function (a, b) {
             if (
                 a.getFullYear() === b.getFullYear()

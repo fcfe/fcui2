@@ -23,28 +23,28 @@ define(function (require) {
     return React.createClass({
         propTypes: {
             /**
-             * 是否使用列选择器。
+             * 是否使用列选择器
              */
             enableColumnSelector: React.PropTypes.bool,
             /**
-             * 是否使用行选择器。
+             * 是否使用行选择器
              */
             enableRowSelector: React.PropTypes.bool,
             /**
-             * 选定的时段值。
-             * 是一个有7x24元素的数组JSON.stringify后的值。日优先存放一星期每天24小时的时段选择情况。
-             * 每个元素可为null，或者一个string。
-             * 当为null时，表示该时段没有被选择。
-             * 当为string时，表示该时段被选择，string的内容为当前时段的label。
-             * 相邻时段相同值的label会被合并。
-             * 若label为空串（''），则显示默认label。默认为时段跨度。如1:00-2:00
+             * 选定的时段值
+             * 是一个有7x24元素的数组JSON.stringify后的值日优先存放一星期每天24小时的时段选择情况
+             * 每个元素可为null，或者一个string
+             * 当为null时，表示该时段没有被选择
+             * 当为string时，表示该时段被选择，string的内容为当前时段的label
+             * 相邻时段相同值的label会被合并
+             * 若label为空串（''），则显示默认label默认为时段跨度如1:00-2:00
              */
             value: React.PropTypes.string,
             /**
-             * 划出了一个新的时段块时的回调。
-             * 回调可通过e.preventDefault()阻止更新发生。此时组件会通过设置
-             * isPreventMouseEvent state来阻止后续鼠标事件响应。
-             * 使用方做适当处理后，需设置isPreventMouseEvent为false来恢复鼠标响应。
+             * 划出了一个新的时段块时的回调
+             * 回调可通过e.preventDefault()阻止更新发生此时组件会通过设置
+             * isPreventMouseEvent state来阻止后续鼠标事件响应
+             * 使用方做适当处理后，需设置isPreventMouseEvent为false来恢复鼠标响应
              * @param {SyntheticEvent} onScheduleSelected.e 鼠标mouseup事件
              * @param {number} onScheduleSelected.startHour
              * @param {number} onScheduleSelected.startWeekday
@@ -59,7 +59,7 @@ define(function (require) {
              */
             titleLayerRenderer: React.PropTypes.func,
             /**
-             * 预设的labels列表。
+             * 预设的labels列表
              * @param {string} presetLables[].value 同value定义
              */
             presetLabels: React.PropTypes.arrayOf(React.PropTypes.shape({
@@ -129,7 +129,7 @@ define(function (require) {
             window.removeEventListener('mousemove', this.onBodyMouseMove);
         },
         /**
-         * 处理body鼠标抬起事件。如果当前处于拖拽状态, 点击会触发onScheduleSelected。其他情况无作用。
+         * 处理body鼠标抬起事件如果当前处于拖拽状态, 点击会触发onScheduleSelected其他情况无作用
          * @param {Event} e 点击事件对象
          */
         onBodyMouseUp(e) {
@@ -140,7 +140,7 @@ define(function (require) {
             this.optUpHandler(new componentTools.SyntheticEvent(e));
         },
         /**
-         * 处理body鼠标移动事件。如果当前处于拖拽状态, 拖拽会改变cursor大小, 其他情况无作用。
+         * 处理body鼠标移动事件如果当前处于拖拽状态, 拖拽会改变cursor大小, 其他情况无作用
          * @param {Event} e 移动事件对象
          */
         onBodyMouseMove(e) {
@@ -261,7 +261,7 @@ define(function (require) {
         },
 
         /**
-         * 混合presets label，得到最终的value。
+         * 混合presets label，得到最终的value
          *
          * @return {string} 混合后的value
          */

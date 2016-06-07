@@ -1,8 +1,8 @@
 /**
- *  下拉地域选择器组件
+ * 下拉地域选择器
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -22,6 +22,40 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         *
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {String} label 下拉按钮上显示的文字，如果type为'single'并且value的值合法，将显示地域名称
+         * @param {String} openLayerType 控制浮层打开的动作，onMouseEnter或onClick
+         * @param {Import|Properties} src\Region.jsx.js type noLinkage provinceRenderer regionRenderer countryRenderer
+         * @param {Import|Properties} src\mixins\InputWidget.js
+         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            label: React.PropTypes.string,
+            openLayerType: React.PropTypes.string,
+            type: React.PropTypes.string,
+            noLinkage: React.PropTypes.bool,
+            provinceRenderer: React.PropTypes.func,
+            regionRenderer: React.PropTypes.func,
+            countryRenderer: React.PropTypes.func,
+            // mixin
+            value: React.PropTypes.string,
+            valueLink: React.PropTypes.object,
+            name: React.PropTypes.string,
+            onChange: React.PropTypes.func,
+            validations: React.PropTypes.object,
+            customErrorTemplates: React.PropTypes.object,
+            valueTemplate: React.PropTypes.string
+        },
         // @override
         mixins: [InputWidget],
         // @override
@@ -32,8 +66,9 @@ define(function (require) {
                 style: {},
                 disabled: false,
                 label: 'DropDownRegion',
-                type: 'multi',
                 openLayerType: 'onMouseEnter',
+                type: 'multi',
+                noLinkage: false,
                 provinceRenderer: undefined,
                 regionRenderer: undefined,
                 countryRenderer: undefined,
@@ -167,6 +202,7 @@ define(function (require) {
                 value: this.props.type === 'single' ? this.___getValue___() : this.state.multiValue,
                 disabled: this.props.disabled,
                 type: this.props.type,
+                noLinkage: this.props.noLinkage,
                 provinceRenderer: this.props.provinceRenderer,
                 regionRenderer: this.props.regionRenderer,
                 countryRenderer: this.props.countryRenderer,

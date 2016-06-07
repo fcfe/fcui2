@@ -25,6 +25,10 @@ define(function (require) {
             props: {max: 10}
         },
         {
+            title: 'NumberBox with PlaceHolder',
+            props: {placeholder: '请输入数字'}
+        },
+        {
             title: 'NumberBox with Min, and an incorrect Value',
             props: {min: 10, value: 1}
         },

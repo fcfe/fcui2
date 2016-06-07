@@ -18,11 +18,11 @@ define(function (require) {
          * @properties
          *
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
-         * @param {String} label 主按钮上显示的文字。
-         * @param {String} icon 主按钮上显示的图标，具体见src/css/icon/variable.less。
-         * @param {String} value 主按钮的值，发生点击后随事件对象返回给回调。
-         * @param {Array.<ListItemObject>} datasource 列表数据源。
-         * @param {Function} onClick 发生点击后的回调。
+         * @param {String} label 主按钮上显示的文字
+         * @param {String} icon 主按钮上显示的图标，具体见src/css/icon/variable.less
+         * @param {String} value 主按钮的值，发生点击后随事件对象返回给回调
+         * @param {Array.<ListItemObject>} datasource 列表数据源
+         * @param {Function} onClick 发生点击后的回调
          */
         /**
          * @structure Import src\List.jsx.js ListItemObject

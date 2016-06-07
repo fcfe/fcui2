@@ -432,7 +432,7 @@ define(function(require){return {
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
-            "test": "这就是个测试，看看能不能自定义语法。如果能，还用YUI自己的语法干啥？",
+            "test": "这就是个测试，看看能不能自定义语法如果能，还用YUI自己的语法干啥？",
             "class": ""
         },
         {
@@ -593,7 +593,7 @@ define(function(require){return {
         {
             "file": "src\\core\\componentTools.js",
             "line": 53,
-            "description": "从props中获取某个值，如果props中没有这个值，就在props.style中找。",
+            "description": "从props中获取某个值，如果props中没有这个值，就在props.style中找",
             "params": [
                 {
                     "name": "props",
@@ -659,22 +659,22 @@ define(function(require){return {
             "params": [
                 {
                     "name": "skin",
-                    "description": "组件皮肤。此属性最终加在组件根容器的class上，例如：fcui2-componentname-skinname。",
+                    "description": "组件皮肤此属性最终加在组件根容器的class上，例如：fcui2-componentname-skinname",
                     "type": "String"
                 },
                 {
                     "name": "className",
-                    "description": "外接class。此属性最终加在组件根容器的class上。",
+                    "description": "外接class此属性最终加在组件根容器的class上",
                     "type": "String"
                 },
                 {
                     "name": "style",
-                    "description": "外接style。此属性最终加在组件根容器的style上。",
+                    "description": "外接style此属性最终加在组件根容器的style上",
                     "type": "Object"
                 },
                 {
                     "name": "disabled",
-                    "description": "组件是否可用。",
+                    "description": "组件是否可用",
                     "type": "Boolean"
                 }
             ],
@@ -702,7 +702,7 @@ define(function(require){return {
                 }
             ],
             "return": {
-                "description": "显示结果\n\n\nlayerLocation说明\n （1）字段含义：\n     top：从anchor的上边框向上展开layer\n     bottom：从anchor的下边框向下展开layer\n     left：从anchor的右边框向左展开layer\n     right：从anchor的左边框向右展开layer\n （2）显示原则：\n     top和bottom放在一起分析，与left、right无关；\n     left和right是一对，放在一起分析，与top、button无关；\n     如果只有top，没有bottom，则按照top显示，反之亦然；\n     如果同时出现top和bottom，则top优先，若top形式显示不下layer，则换成bottom，反之亦然；\n     left、right的显示跟top、bottom的显示原则一致。\n显示数据结构\n     return.left {number} layer最终显示的left\n     return.top {number} layer最终显示的top\n     return.isLeft {boolean} layer是否按照left形式展开\n     return.isTop {boolean} layer是否按照top形式展开",
+                "description": "显示结果\n\n\nlayerLocation说明\n （1）字段含义：\n     top：从anchor的上边框向上展开layer\n     bottom：从anchor的下边框向下展开layer\n     left：从anchor的右边框向左展开layer\n     right：从anchor的左边框向右展开layer\n （2）显示原则：\n     top和bottom放在一起分析，与left、right无关；\n     left和right是一对，放在一起分析，与top、button无关；\n     如果只有top，没有bottom，则按照top显示，反之亦然；\n     如果同时出现top和bottom，则top优先，若top形式显示不下layer，则换成bottom，反之亦然；\n     left、right的显示跟top、bottom的显示原则一致\n显示数据结构\n     return.left {number} layer最终显示的left\n     return.top {number} layer最终显示的top\n     return.isLeft {boolean} layer是否按照left形式展开\n     return.isTop {boolean} layer是否按照top形式展开",
                 "type": "Object"
             },
             "class": ""
@@ -819,11 +819,11 @@ define(function(require){return {
         {
             "file": "src\\core\\scheduleTools.js",
             "line": 12,
-            "description": "将string类型的value转换成日优先的二维数组，第一维是天，第二维是小时\n\n数组元素为null或string：\n（1）null表示该时段没有被选择；\n（2）string表示该时段被选择，string的内容为当前时段的label标签内容，相邻时段相同值的label会被合并。\n若label为''，则显示时段跨度如1:00-2:00。",
+            "description": "将string类型的value转换成日优先的二维数组，第一维是天，第二维是小时\n\n数组元素为null或string：\n（1）null表示该时段没有被选择；\n（2）string表示该时段被选择，string的内容为当前时段的label标签内容，相邻时段相同值的label会被合并\n若label为''，则显示时段跨度如1:00-2:00",
             "params": [
                 {
                     "name": "value",
-                    "description": "选定的时段值。",
+                    "description": "选定的时段值",
                     "type": "String"
                 }
             ],
@@ -854,7 +854,7 @@ define(function(require){return {
         {
             "file": "src\\core\\scheduleTools.js",
             "line": 108,
-            "description": "根据schedule mouse state，计算所选的schedule区域。",
+            "description": "根据schedule mouse state，计算所选的schedule区域",
             "params": [
                 {
                     "name": "state",
@@ -891,7 +891,7 @@ define(function(require){return {
         {
             "file": "src\\core\\scheduleTools.js",
             "line": 135,
-            "description": "返回一个时间段的文字表示。\n若提供startHour，返回 startHour:00\n若提供startHour, endHour，返回startHour:00-(endHour+1):00\n若提供startHour, endHour, startWeekday，返回 星期x startHour:00-(endHour+1):00\n若提供startHour, endHour, startWeekday， endWeekday，返回 星期x-星期x，startHour:00-(endHour+1):00\n若startHour=0，endHour=23，返回 全天。",
+            "description": "返回一个时间段的文字表示\n若提供startHour，返回 startHour:00\n若提供startHour, endHour，返回startHour:00-(endHour+1):00\n若提供startHour, endHour, startWeekday，返回 星期x startHour:00-(endHour+1):00\n若提供startHour, endHour, startWeekday， endWeekday，返回 星期x-星期x，startHour:00-(endHour+1):00\n若startHour=0，endHour=23，返回 全天",
             "params": [
                 {
                     "name": "startHour",
@@ -923,7 +923,7 @@ define(function(require){return {
         {
             "file": "src\\core\\scheduleTools.js",
             "line": 180,
-            "description": "将数组形式的24小时值转换为一组label。数组每一位值表示当前小时的状态，\n相同状态的值将合并为一个label元素返回。每一个label元素为一个object。",
+            "description": "将数组形式的24小时值转换为一组label数组每一位值表示当前小时的状态，\n相同状态的值将合并为一个label元素返回每一个label元素为一个object",
             "params": [
                 {
                     "name": "arr",
@@ -955,7 +955,7 @@ define(function(require){return {
         {
             "file": "src\\core\\scheduleTools.js",
             "line": 224,
-            "description": "给定一组labels， 返回一个label，其中包含给定的index。或返回null，如果任\n一个label都不包含index。\nlabel格式参见value2label。",
+            "description": "给定一组labels， 返回一个label，其中包含给定的index或返回null，如果任\n一个label都不包含index\nlabel格式参见value2label",
             "params": [
                 {
                     "name": "index",
@@ -977,7 +977,7 @@ define(function(require){return {
         {
             "file": "src\\core\\scheduleTools.js",
             "line": 259,
-            "description": "根据相对左上角坐标的x, y坐标, 返回其在控件天小时格子里的位置。",
+            "description": "根据相对左上角坐标的x, y坐标, 返回其在控件天小时格子里的位置",
             "params": [
                 {
                     "name": "x",
@@ -1192,7 +1192,7 @@ define(function(require){return {
         {
             "file": "src\\core\\treeTools.es6.js",
             "line": 11,
-            "description": "先深遍历所有节点。",
+            "description": "先深遍历所有节点",
             "params": [
                 {
                     "name": "cb",
@@ -1227,7 +1227,7 @@ define(function(require){return {
         {
             "file": "src\\core\\treeTools.es6.js",
             "line": 36,
-            "description": "从treeNode起始标记节点及其所有孩子被选择。返回被选择的节点列表。",
+            "description": "从treeNode起始标记节点及其所有孩子被选择返回被选择的节点列表",
             "params": [
                 {
                     "name": "treeNode",
@@ -1254,7 +1254,7 @@ define(function(require){return {
         {
             "file": "src\\core\\treeTools.es6.js",
             "line": 78,
-            "description": "从selectedTreeNodeId中移除treeNode。",
+            "description": "从selectedTreeNodeId中移除treeNode",
             "params": [
                 {
                     "name": "treeNode",
@@ -1281,7 +1281,7 @@ define(function(require){return {
         {
             "file": "src\\core\\treeTools.es6.js",
             "line": 102,
-            "description": "返回新的expandedTreeNodeId， 展开刚刚选择的节点。",
+            "description": "返回新的expandedTreeNodeId， 展开刚刚选择的节点",
             "params": [
                 {
                     "name": "dualTreeComponent",
@@ -1389,7 +1389,7 @@ define(function(require){return {
             "line": 1,
             "description": "全局工具集",
             "author": "Brian Li",
-            "email": "lbxxlht@163.com\n\n 此工具库所有方法，不但fcui2可以使用，其他任何项目都可以把它拿出去单独使用。\n 此工具库不支持ES6语法，确保所有方法在所有浏览器基础环境中都能正确运行。\n 不允许在此工具集中引入或使用或合并其他任何库，比如underscore, jQuery等。\n 此工具集包含了操作原生DOM的方法，不能在node中使用。\n 目前符合AMD规范，将来会支持CMD和直接引入。",
+            "email": "lbxxlht@163.com\n\n 此工具库所有方法，不但fcui2可以使用，其他任何项目都可以把它拿出去单独使用\n 此工具库不支持ES6语法，确保所有方法在所有浏览器基础环境中都能正确运行\n 不允许在此工具集中引入或使用或合并其他任何库，比如underscore, jQuery等\n 此工具集包含了操作原生DOM的方法，不能在node中使用\n 目前符合AMD规范，将来会支持CMD和直接引入",
             "class": ""
         },
         {
@@ -1421,7 +1421,7 @@ define(function(require){return {
                 }
             ],
             "return": {
-                "description": "通过闭包形式返回上下文绑定好的函数。",
+                "description": "通过闭包形式返回上下文绑定好的函数",
                 "type": "Function"
             },
             "class": ""
@@ -1570,37 +1570,37 @@ define(function(require){return {
             "params": [
                 {
                     "name": "value",
-                    "description": "组件的值，具体类型视具体组件而定。",
+                    "description": "组件的值，具体类型视具体组件而定",
                     "type": "String|boolean|number"
                 },
                 {
                     "name": "onChange",
-                    "description": "组件发生输入后触发的回调。",
+                    "description": "组件发生输入后触发的回调",
                     "type": "Function"
                 },
                 {
                     "name": "name",
-                    "description": "组件在Form表单中的域名，如果Form中有多个同名输入组件，则最靠上的有效，Radio除外。",
+                    "description": "组件在Form表单中的域名，如果Form中有多个同名输入组件，则最靠上的有效，Radio除外",
                     "type": "String"
                 },
                 {
                     "name": "validations",
-                    "description": "组件的校验机，参见src\\mixins\\InputWidget.js。",
+                    "description": "组件的校验机，参见src\\mixins\\InputWidget.js",
                     "type": "Object"
                 },
                 {
                     "name": "customErrorTemplates",
-                    "description": "组件的校验结果机，参见src\\mixins\\InputWidget.js。",
+                    "description": "组件的校验结果机，参见src\\mixins\\InputWidget.js",
                     "type": "Object"
                 },
                 {
                     "name": "valueTemplate",
-                    "description": "组件的默认值，优先级最低，参见src\\mixins\\InputWidget.js。",
+                    "description": "组件的默认值，优先级最低，参见src\\mixins\\InputWidget.js",
                     "type": "String|boolean|number"
                 },
                 {
                     "name": "valueLink",
-                    "description": "React官方的valueLink插件对象，此对象与value + onChange组合互斥。",
+                    "description": "React官方的valueLink插件对象，此对象与value + onChange组合互斥",
                     "type": "Object"
                 }
             ],
@@ -1713,7 +1713,7 @@ define(function(require){return {
             "line": 1,
             "description": "含有layer组件基础mixin",
             "author": "Brian Li",
-            "email": "lbxxlht@163.com\n\n 此mixin主要作用是为某些组件提供一些弹出layer的功能，依赖MouseWidgetBase\n\n 使用此mixin的组件中应含有如下内容：\n 1. [required] this.props.layerContent {function}\n    用于渲染layer内容的组件构造函数，可以是其他任何组件\n 2. [optional] this.props.layerProps {Object}\n    渲染layer时，此属性会当作layer的原始props传入进去\n 3. [optional] this.props.layerPolicymaker {boolean | function}\n    是否弹出layer的决策算法，如果被设置成true或false则直接使用\n    如果是函数，就将制作好的layerProps传过去由外界计算，根据返回值决定是否弹出\n    当然在这个函数里改layerProps的值都没问题，不过不建议这样做\n 4. [optional] this.props.layerInterface {string}\n    layerContent组件需要用回调方法与父组件通信，这里给出外部响应的主回调名称\n    可能难于理解，详情请看代码中 “// 创建layer props”之后的部分\n 5. [optional] this.props.datasource {Any}\n    绝大多数情况下，layer是一个列表，因此会把props.datasource加到props.layerProps中传入进去\n    但如果props.layerProps存在datasource，不会被覆盖，也不会merge\n 6. [required] this.props.layerProps.layerAnchor || this.refs.container\n    组件的根容器或锚容器引用，用于layer的自动定位：定位的默认优先级是先下后上，先右后左，也可配置；\n 7. [optional] this.layerClose\n    组件的一个方法，layer关闭后回调\n 8. [optional] this.layerAction\n    组件的一个方法，layer发生props.layerInterface动作时回调，即将组件的layerAction方法，放在layerProps中，\n    并命名为this.props.layerInterface，通过layer传递给layer中的layerContent组件\n\n 在初始化layer时，mixin会在props.layerProps中加入parent属性，记录当前组件；同时传入当前组件的this.layerAction方法，\n 以提供layer内容的回调接口。\n\n 此mixin会在this下注入两个内部变量，this.___layerContainer___，存放layer的最外dom容器；this.___layer___，存放layer\n 初始化完毕后的react组件实例\n\n 此mixin会在this下暴露两个接口，this.layerShow用于弹出layer，this.layerHide用于移除layer",
+            "email": "lbxxlht@163.com\n\n 此mixin主要作用是为某些组件提供一些弹出layer的功能，依赖MouseWidgetBase\n\n 使用此mixin的组件中应含有如下内容：\n 1. [required] this.props.layerContent {function}\n    用于渲染layer内容的组件构造函数，可以是其他任何组件\n 2. [optional] this.props.layerProps {Object}\n    渲染layer时，此属性会当作layer的原始props传入进去\n 3. [optional] this.props.layerPolicymaker {boolean | function}\n    是否弹出layer的决策算法，如果被设置成true或false则直接使用\n    如果是函数，就将制作好的layerProps传过去由外界计算，根据返回值决定是否弹出\n    当然在这个函数里改layerProps的值都没问题，不过不建议这样做\n 4. [optional] this.props.layerInterface {string}\n    layerContent组件需要用回调方法与父组件通信，这里给出外部响应的主回调名称\n    可能难于理解，详情请看代码中 “// 创建layer props”之后的部分\n 5. [optional] this.props.datasource {Any}\n    绝大多数情况下，layer是一个列表，因此会把props.datasource加到props.layerProps中传入进去\n    但如果props.layerProps存在datasource，不会被覆盖，也不会merge\n 6. [required] this.props.layerProps.layerAnchor || this.refs.container\n    组件的根容器或锚容器引用，用于layer的自动定位：定位的默认优先级是先下后上，先右后左，也可配置；\n 7. [optional] this.layerClose\n    组件的一个方法，layer关闭后回调\n 8. [optional] this.layerAction\n    组件的一个方法，layer发生props.layerInterface动作时回调，即将组件的layerAction方法，放在layerProps中，\n    并命名为this.props.layerInterface，通过layer传递给layer中的layerContent组件\n\n 在初始化layer时，mixin会在props.layerProps中加入parent属性，记录当前组件；同时传入当前组件的this.layerAction方法，\n 以提供layer内容的回调接口\n\n 此mixin会在this下注入两个内部变量，this.___layerContainer___，存放layer的最外dom容器；this.___layer___，存放layer\n 初始化完毕后的react组件实例\n\n 此mixin会在this下暴露两个接口，this.layerShow用于弹出layer，this.layerHide用于移除layer",
             "attention": "此mixin已停止维护，并已废弃，即将删除",
             "class": ""
         },
@@ -1723,7 +1723,7 @@ define(function(require){return {
             "description": "响应鼠标类型组件基础mixin",
             "author": "Brian Li",
             "email": "lbxxlht@163.com\n\n 此mixin主要作用是提供某些鼠标事件\n 将mouseover, mousedown状态记录在state中\n 这些鼠标事件应由组件设计者自行绑定，或在自定义事件中调用",
-            "attention": "此mixin已停止维护，即将废弃。",
+            "attention": "此mixin已停止维护，即将废弃",
             "class": ""
         },
         {
@@ -1755,47 +1755,47 @@ define(function(require){return {
                 },
                 {
                     "name": "label",
-                    "description": "显示在按钮上的文字。",
+                    "description": "显示在按钮上的文字",
                     "type": "String"
                 },
                 {
                     "name": "title",
-                    "description": "鼠标悬浮在按钮上时提示的文字。",
+                    "description": "鼠标悬浮在按钮上时提示的文字",
                     "type": "String"
                 },
                 {
                     "name": "icon",
-                    "description": "按钮上显示的图标，具体见src/css/icon/variable.less。",
+                    "description": "按钮上显示的图标，具体见src/css/icon/variable.less",
                     "type": "String"
                 },
                 {
                     "name": "type",
-                    "description": "按钮类型，目前支持：button、submit、reset，如果按钮在Form中，会触发相应事件。",
+                    "description": "按钮类型，目前支持：button、submit、reset，如果按钮在Form中，会触发相应事件",
                     "type": "String"
                 },
                 {
                     "name": "name",
-                    "description": "按钮域名，如果组件在表单中，此属性等同于原生dom的name属性。",
+                    "description": "按钮域名，如果组件在表单中，此属性等同于原生dom的name属性",
                     "type": "String"
                 },
                 {
                     "name": "value",
-                    "description": "按钮的值，此属性会通过onClick回调回传。",
+                    "description": "按钮的值，此属性会通过onClick回调回传",
                     "type": "String"
                 },
                 {
                     "name": "onClick",
-                    "description": "按钮被点击时触发。",
+                    "description": "按钮被点击时触发",
                     "type": "Function"
                 },
                 {
                     "name": "onMouseEnter",
-                    "description": "鼠标滑入按钮时触发。",
+                    "description": "鼠标滑入按钮时触发",
                     "type": "Function"
                 },
                 {
                     "name": "onMouseLeave",
-                    "description": "鼠标滑出按钮时触发。",
+                    "description": "鼠标滑出按钮时触发",
                     "type": "Function"
                 }
             ],
@@ -1822,17 +1822,17 @@ define(function(require){return {
                 },
                 {
                     "name": "min",
-                    "description": "日历最小值，在这一天之前的日期不能被选定，格式：YYYY-MM-DD。",
+                    "description": "日历最小值，在这一天之前的日期不能被选定，格式：YYYY-MM-DD",
                     "type": "String"
                 },
                 {
                     "name": "max",
-                    "description": "日历最大值，在这一天之后的日期不能被选定，格式：YYYY-MM-DD。",
+                    "description": "日历最大值，在这一天之后的日期不能被选定，格式：YYYY-MM-DD",
                     "type": "String"
                 },
                 {
                     "name": "src\\mixins\\InputWidget.js",
-                    "description": "value onChange name validations customErrorTemplates valueLink",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
                     "type": "Import|Properties"
                 }
             ],
@@ -1859,32 +1859,32 @@ define(function(require){return {
                 },
                 {
                     "name": "label",
-                    "description": "复选框旁边显示的文字，点击文字也可以改变选中状态。",
+                    "description": "复选框旁边显示的文字，点击文字也可以改变选中状态",
                     "type": "String"
                 },
                 {
                     "name": "value",
-                    "description": "复选框的值，触发onChange时随事件对象返回，用于区分复选框的身份。",
+                    "description": "复选框的值，触发onChange时随事件对象返回，用于区分复选框的身份",
                     "type": "String"
                 },
                 {
                     "name": "checked",
-                    "description": "复选框是否被选中，触发onChange时随事件对象返回，用于表明复选框时候被选中。",
+                    "description": "复选框是否被选中，触发onChange时随事件对象返回，用于表明复选框时候被选中",
                     "type": "Boolean"
                 },
                 {
                     "name": "indeterminate",
-                    "description": "复选框时候处于半选状态，如果checked为false、indeterminate为true，复选框将呈现\n     为半选状态。",
+                    "description": "复选框时候处于半选状态，如果checked为false、indeterminate为true，复选框将呈现\n     为半选状态",
                     "type": "Boolean"
                 },
                 {
                     "name": "labelPosition",
-                    "description": "文本标签显示的位置，'right'为复选框右侧，否则在左侧。",
+                    "description": "文本标签显示的位置，'right'为复选框右侧，否则在左侧",
                     "type": "String"
                 },
                 {
                     "name": "src\\mixins\\InputWidget.js",
-                    "description": "onChange name validations customErrorTemplates valueLink",
+                    "description": "onChange name validations customErrorTemplates valueLink valueTemplate",
                     "type": "Import|Properties"
                 }
             ],
@@ -1911,27 +1911,27 @@ define(function(require){return {
                 },
                 {
                     "name": "label",
-                    "description": "主按钮上显示的文字。",
+                    "description": "主按钮上显示的文字",
                     "type": "String"
                 },
                 {
                     "name": "icon",
-                    "description": "主按钮上显示的图标，具体见src/css/icon/variable.less。",
+                    "description": "主按钮上显示的图标，具体见src/css/icon/variable.less",
                     "type": "String"
                 },
                 {
                     "name": "value",
-                    "description": "主按钮的值，发生点击后随事件对象返回给回调。",
+                    "description": "主按钮的值，发生点击后随事件对象返回给回调",
                     "type": "String"
                 },
                 {
                     "name": "datasource",
-                    "description": "列表数据源。",
+                    "description": "列表数据源",
                     "type": "Array.<ListItemObject>"
                 },
                 {
                     "name": "onClick",
-                    "description": "发生点击后的回调。",
+                    "description": "发生点击后的回调",
                     "type": "Function"
                 }
             ],
@@ -1964,12 +1964,12 @@ define(function(require){return {
                 },
                 {
                     "name": "datasource",
-                    "description": "面包屑数据源。",
+                    "description": "面包屑数据源",
                     "type": "Array.<CrumbItemObject>"
                 },
                 {
                     "name": "separator",
-                    "description": "链接间分隔符。",
+                    "description": "链接间分隔符",
                     "type": "String"
                 }
             ],
@@ -1985,17 +1985,17 @@ define(function(require){return {
             "params": [
                 {
                     "name": "href",
-                    "description": "链接地址。",
+                    "description": "链接地址",
                     "type": "String"
                 },
                 {
                     "name": "label",
-                    "description": "链接文字。",
+                    "description": "链接文字",
                     "type": "String"
                 },
                 {
                     "name": "target",
-                    "description": "链接打开方式，同a标签target属性。",
+                    "description": "链接打开方式，同a标签target属性",
                     "type": "String"
                 }
             ],
@@ -2013,7 +2013,7 @@ define(function(require){return {
         {
             "file": "src\\Dialog.jsx.js",
             "line": 20,
-            "description": "dialog构造函数",
+            "description": "弹窗类",
             "is_constructor": 1,
             "name": "Dialog",
             "class": ""
@@ -2021,29 +2021,33 @@ define(function(require){return {
         {
             "file": "src\\Dialog.jsx.js",
             "line": 31,
-            "description": "关闭窗口",
-            "name": "close",
+            "description": "弹出窗体",
+            "name": "pop",
             "classname": "Dialog",
-            "class": ""
-        },
-        {
-            "file": "src\\Dialog.jsx.js",
-            "line": 50,
-            "description": "弹出dialog",
             "params": [
                 {
                     "name": "param",
-                    "description": "dialog配置",
+                    "description": "弹出配置",
                     "type": "Object",
                     "props": [
                         {
+                            "name": "content",
+                            "description": "Dialog内部组件",
+                            "type": "ReactClass"
+                        },
+                        {
+                            "name": "contentProps",
+                            "description": "Dialog内部组件初始化时的属性集",
+                            "type": "Object"
+                        },
+                        {
                             "name": "className",
-                            "description": "加载到Dialog根容器的class",
+                            "description": "挂在到Dialog窗体DOM上的class",
                             "type": "String"
                         },
                         {
                             "name": "style",
-                            "description": "加载到Dialog根容器的样式",
+                            "description": "挂在Dialog窗体DOM上的样式表",
                             "type": "Object"
                         },
                         {
@@ -2053,33 +2057,45 @@ define(function(require){return {
                         },
                         {
                             "name": "title",
-                            "description": "标题",
+                            "description": "Dialog标题栏中显示的标题",
                             "type": "String"
                         },
                         {
+                            "name": "size",
+                            "description": "Dialog窗体的尺寸，与isFullScreen互斥",
+                            "type": "Object",
+                            "props": [
+                                {
+                                    "name": "width",
+                                    "description": "Dialog渲染后的宽度",
+                                    "type": "Number"
+                                },
+                                {
+                                    "name": "height",
+                                    "description": "Dialog渲染后的高度",
+                                    "type": "Number"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "isFullScreen",
+                            "description": "Dialog弹出后时候直接全屏显示",
+                            "type": "Boolean"
+                        },
+                        {
                             "name": "showCloseButton",
-                            "description": "关闭按钮开关",
+                            "description": "是否显示Dialog标题栏中的关闭按钮",
                             "type": "Boolean"
                         },
                         {
                             "name": "onBeforeClose",
-                            "description": "Dialog关闭前的回调，可以用于阻止窗体关闭",
+                            "description": "Dialog关闭前触发的回调，可以在这个回调中阻止窗体关闭",
                             "type": "Function"
                         },
                         {
                             "name": "onClose",
-                            "description": "关闭后回调",
+                            "description": "Dialog关闭后的回调",
                             "type": "Function"
-                        },
-                        {
-                            "name": "content",
-                            "description": "dialog的子内容component",
-                            "type": "Function"
-                        },
-                        {
-                            "name": "contentProps",
-                            "description": "content初始化时传入的属性集合",
-                            "type": "Object"
                         }
                     ]
                 }
@@ -2088,20 +2104,32 @@ define(function(require){return {
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 83,
-            "description": "更新弹出窗体的content的props，此方法会自动触发resize",
-            "params": [
-                {
-                    "name": "props",
-                    "description": "dialog content初始化所需要的属性集",
-                    "type": "Object"
-                }
-            ],
+            "line": 65,
+            "description": "关闭窗体",
+            "name": "close",
+            "classname": "Dialog",
+            "attention": "此方法直接无条件关闭并销毁窗体，不会触发任何回调函数",
             "class": ""
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 105,
+            "line": 86,
+            "description": "更新content属性集",
+            "params": [
+                {
+                    "name": "props",
+                    "description": "Dialog content初始化所需要的属性集",
+                    "type": "Object"
+                }
+            ],
+            "name": "updatePopContentProps",
+            "classname": "Dialog",
+            "attention": "此方法支持刷新param.contentProps的部分属性和新增属性，不支持删除原有属性",
+            "class": ""
+        },
+        {
+            "file": "src\\Dialog.jsx.js",
+            "line": 111,
             "description": "弹出Alert提示框",
             "params": [
                 {
@@ -2127,11 +2155,14 @@ define(function(require){return {
                     ]
                 }
             ],
+            "name": "alert",
+            "classname": "Dialog",
+            "attention": "此方法内部调用了dialog.pop",
             "class": ""
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 128,
+            "line": 137,
             "description": "弹出Confirm确认框",
             "params": [
                 {
@@ -2167,160 +2198,154 @@ define(function(require){return {
                     ]
                 }
             ],
-            "class": ""
-        },
-        {
-            "file": "src\\Dialog.jsx.js",
-            "line": 155,
-            "description": "Dialog Component Factory",
-            "params": [
-                {
-                    "name": "param",
-                    "description": "Dialog配置，见Dialog.pop注释",
-                    "type": "Object"
-                },
-                {
-                    "name": "dialog",
-                    "description": "弹出此component的dialog实例",
-                    "type": "Object"
-                }
-            ],
+            "name": "confirm",
+            "classname": "Dialog",
+            "attention": "此方法内部调用了dialog.pop",
             "class": ""
         },
         {
             "file": "src\\DropDownCalendar.jsx.js",
             "line": 1,
-            "description": "日期选择框组件",
+            "description": "下拉日期选择器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\DropDownCalendar.jsx.js",
+            "line": 19,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "src\\Calendar.jsx.js",
+                    "description": "min max",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "placeholder",
+                    "description": "组件为选择且无初始值时，下拉按钮上显示的值",
+                    "type": "String"
+                },
+                {
+                    "name": "openLayerType",
+                    "description": "控制浮层打开的动作，onMouseEnter或onClick",
+                    "type": "String"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\DropDownList.jsx.js",
             "line": 1,
-            "description": "下拉控制列表组件",
+            "description": "下拉控制列表",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\DropDownList.jsx.js",
+            "line": 17,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "label",
+                    "description": "下拉按钮上显示的文字",
+                    "type": "String"
+                },
+                {
+                    "name": "openLayerType",
+                    "description": "控制浮层打开的动作，onMouseEnter或onClick",
+                    "type": "String"
+                },
+                {
+                    "name": "datasource",
+                    "description": "列表数据源",
+                    "type": "Array.<ListItemObject>"
+                },
+                {
+                    "name": "onClick",
+                    "description": "点击列表后的回调",
+                    "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\DropDownList.jsx.js",
+            "line": 26,
+            "structure": "Import src\\List.jsx.js ListItemObject",
             "class": ""
         },
         {
             "file": "src\\DropDownRegion.jsx.js",
             "line": 1,
-            "description": "下拉地域选择器组件",
+            "description": "下拉地域选择器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\DropDownRegion.jsx.js",
+            "line": 25,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "label",
+                    "description": "下拉按钮上显示的文字，如果type为'single'并且value的值合法，将显示地域名称",
+                    "type": "String"
+                },
+                {
+                    "name": "openLayerType",
+                    "description": "控制浮层打开的动作，onMouseEnter或onClick",
+                    "type": "String"
+                },
+                {
+                    "name": "src\\Region.jsx.js",
+                    "description": "type noLinkage provinceRenderer regionRenderer countryRenderer",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\DualTreeSelector.jsx.js",
             "line": 1,
-            "description": "双树选择器。",
+            "description": "双树选择器",
             "author": "Han Bing Feng (hanbingfeng@baidu.com)",
             "version": "0.0.1",
             "class": ""
         },
         {
             "file": "src\\DualTreeSelector.jsx.js",
-            "line": 16,
-            "description": "全部可选节点的列表",
-            "class": ""
-        },
-        {
-            "file": "src\\DualTreeSelector.jsx.js",
-            "line": 20,
-            "description": "已选节点的id集合",
-            "class": ""
-        },
-        {
-            "file": "src\\DualTreeSelector.jsx.js",
-            "line": 24,
-            "description": "左树的tree node name filter。",
-            "class": ""
-        },
-        {
-            "file": "src\\DualTreeSelector.jsx.js",
-            "line": 28,
-            "description": "左子树的宽度，px",
-            "class": ""
-        },
-        {
-            "file": "src\\DualTreeSelector.jsx.js",
-            "line": 32,
-            "description": "右子树的宽度，px",
-            "class": ""
-        },
-        {
-            "file": "src\\DualTreeSelector.jsx.js",
-            "line": 36,
-            "description": "选择器中树的高度，px",
-            "class": ""
-        },
-        {
-            "file": "src\\DualTreeSelector.jsx.js",
-            "line": 40,
-            "description": "左树的标题",
-            "class": ""
-        },
-        {
-            "file": "src\\DualTreeSelector.jsx.js",
             "line": 44,
-            "description": "右树的标题",
-            "class": ""
-        },
-        {
-            "file": "src\\DualTreeSelector.jsx.js",
-            "line": 48,
-            "description": "左树左下角的提示话术",
-            "class": ""
-        },
-        {
-            "file": "src\\DualTreeSelector.jsx.js",
-            "line": 52,
-            "description": "右树右下角的提示话术",
-            "class": ""
-        },
-        {
-            "file": "src\\DualTreeSelector.jsx.js",
-            "line": 56,
-            "description": "树点击选择按钮后的回调。",
-            "params": [
-                {
-                    "name": "onChange.e",
-                    "description": "选择后的树节点",
-                    "type": "Object"
-                }
-            ],
-            "class": ""
-        },
-        {
-            "file": "src\\DualTreeSelector.jsx.js",
-            "line": 61,
-            "description": "左树节点展开时的回调",
-            "params": [
-                {
-                    "name": "onLeftTreeNodeExpand.e",
-                    "description": "点击事件对象",
-                    "type": "SyntheticEvent"
-                },
-                {
-                    "name": "onLeftTreeNodeExpand.treeNode",
-                    "description": "被操作的树节点数据",
-                    "type": "TreeNodeType"
-                },
-                {
-                    "name": "onLeftTreeNodeExpand.parentTreeNodes",
-                    "description": "当前节点的父节点列表",
-                    "type": "Array<treeNodeType>"
-                }
-            ],
-            "class": ""
-        },
-        {
-            "file": "src\\DualTreeSelector.jsx.js",
-            "line": 68,
             "description": "左树“操作”按钮点击时的回调",
             "params": [
                 {
@@ -2343,30 +2368,7 @@ define(function(require){return {
         },
         {
             "file": "src\\DualTreeSelector.jsx.js",
-            "line": 92,
-            "description": "左树“操作”按钮点击时的回调",
-            "params": [
-                {
-                    "name": "e",
-                    "description": "点击事件对象",
-                    "type": "SyntheticEvent"
-                },
-                {
-                    "name": "treeNode",
-                    "description": "被操作的树节点数据",
-                    "type": "TreeNodeType"
-                },
-                {
-                    "name": "parentTreeNodes",
-                    "description": "当前节点的父节点列表",
-                    "type": "Array<treeNodeType>"
-                }
-            ],
-            "class": ""
-        },
-        {
-            "file": "src\\DualTreeSelector.jsx.js",
-            "line": 107,
+            "line": 59,
             "description": "左树“展开”按钮点击时的回调",
             "params": [
                 {
@@ -2389,7 +2391,7 @@ define(function(require){return {
         },
         {
             "file": "src\\DualTreeSelector.jsx.js",
-            "line": 118,
+            "line": 70,
             "description": "右树“操作”按钮点击时的回调",
             "params": [
                 {
@@ -2412,7 +2414,7 @@ define(function(require){return {
         },
         {
             "file": "src\\DualTreeSelector.jsx.js",
-            "line": 129,
+            "line": 81,
             "description": "全部删除时的回调",
             "params": [
                 {
@@ -2429,7 +2431,35 @@ define(function(require){return {
             "description": "表单组件",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\Form.jsx.js",
+            "line": 17,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "className",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "validations",
+                    "description": "表单级别校验机，可以在这里放置跨域校验",
+                    "type": "Object"
+                },
+                {
+                    "name": "onFieldChange",
+                    "description": "表单域发生变化后的回调",
+                    "type": "Function"
+                },
+                {
+                    "name": "onSubmit",
+                    "description": "表单通过所有校验提交前触发的回调",
+                    "type": "Function"
+                }
+            ],
             "class": ""
         },
         {
@@ -2460,23 +2490,23 @@ define(function(require){return {
             "params": [
                 {
                     "name": "label",
-                    "description": "列表项显示的文字。",
+                    "description": "列表项显示的文字",
                     "type": "String"
                 },
                 {
                     "name": "value",
-                    "description": "列表项对应的值，随事件对象通过返回。",
+                    "description": "列表项对应的值，随事件对象通过返回",
                     "type": "String"
                 },
                 {
                     "name": "disabled",
-                    "description": "列表项是否可用。",
+                    "description": "列表项是否可用",
                     "type": "Boolean"
                 },
                 {
                     "name": "renderer",
-                    "description": "列表项渲染器。",
-                    "type": "ReactComponent"
+                    "description": "列表项渲染器",
+                    "type": "ReactClass"
                 }
             ],
             "class": ""
@@ -2526,10 +2556,53 @@ define(function(require){return {
         {
             "file": "src\\Region.jsx.js",
             "line": 1,
-            "description": "地域选择组件",
+            "description": "地域选择器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\Region.jsx.js",
+            "line": 27,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "type",
+                    "description": "工作模式，如果是'single'标识单选，否则为多选",
+                    "type": "String"
+                },
+                {
+                    "name": "noLinkage",
+                    "description": "是否关闭联动选择，如果关闭将打断地域间的联带关系",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "provinceRenderer",
+                    "description": "省渲染器",
+                    "type": "ReactClass"
+                },
+                {
+                    "name": "regionRenderer",
+                    "description": "地区渲染器",
+                    "type": "ReactClass"
+                },
+                {
+                    "name": "countryRenderer",
+                    "description": "国家渲染器",
+                    "type": "ReactClass"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                }
+            ],
             "class": ""
         },
         {
@@ -2544,25 +2617,25 @@ define(function(require){return {
         {
             "file": "src\\Schedule.jsx.js",
             "line": 25,
-            "description": "是否使用列选择器。",
+            "description": "是否使用列选择器",
             "class": ""
         },
         {
             "file": "src\\Schedule.jsx.js",
             "line": 29,
-            "description": "是否使用行选择器。",
+            "description": "是否使用行选择器",
             "class": ""
         },
         {
             "file": "src\\Schedule.jsx.js",
             "line": 33,
-            "description": "选定的时段值。\n是一个有7x24元素的数组JSON.stringify后的值。日优先存放一星期每天24小时的时段选择情况。\n每个元素可为null，或者一个string。\n当为null时，表示该时段没有被选择。\n当为string时，表示该时段被选择，string的内容为当前时段的label。\n相邻时段相同值的label会被合并。\n若label为空串（''），则显示默认label。默认为时段跨度。如1:00-2:00",
+            "description": "选定的时段值\n是一个有7x24元素的数组JSON.stringify后的值日优先存放一星期每天24小时的时段选择情况\n每个元素可为null，或者一个string\n当为null时，表示该时段没有被选择\n当为string时，表示该时段被选择，string的内容为当前时段的label\n相邻时段相同值的label会被合并\n若label为空串（''），则显示默认label默认为时段跨度如1:00-2:00",
             "class": ""
         },
         {
             "file": "src\\Schedule.jsx.js",
             "line": 43,
-            "description": "划出了一个新的时段块时的回调。\n回调可通过e.preventDefault()阻止更新发生。此时组件会通过设置\nisPreventMouseEvent state来阻止后续鼠标事件响应。\n使用方做适当处理后，需设置isPreventMouseEvent为false来恢复鼠标响应。",
+            "description": "划出了一个新的时段块时的回调\n回调可通过e.preventDefault()阻止更新发生此时组件会通过设置\nisPreventMouseEvent state来阻止后续鼠标事件响应\n使用方做适当处理后，需设置isPreventMouseEvent为false来恢复鼠标响应",
             "params": [
                 {
                     "name": "onScheduleSelected.e",
@@ -2610,7 +2683,7 @@ define(function(require){return {
         {
             "file": "src\\Schedule.jsx.js",
             "line": 61,
-            "description": "预设的labels列表。",
+            "description": "预设的labels列表",
             "params": [
                 {
                     "name": "presetLables[].value",
@@ -2654,7 +2727,7 @@ define(function(require){return {
         {
             "file": "src\\Schedule.jsx.js",
             "line": 131,
-            "description": "处理body鼠标抬起事件。如果当前处于拖拽状态, 点击会触发onScheduleSelected。其他情况无作用。",
+            "description": "处理body鼠标抬起事件如果当前处于拖拽状态, 点击会触发onScheduleSelected其他情况无作用",
             "params": [
                 {
                     "name": "e",
@@ -2667,7 +2740,7 @@ define(function(require){return {
         {
             "file": "src\\Schedule.jsx.js",
             "line": 142,
-            "description": "处理body鼠标移动事件。如果当前处于拖拽状态, 拖拽会改变cursor大小, 其他情况无作用。",
+            "description": "处理body鼠标移动事件如果当前处于拖拽状态, 拖拽会改变cursor大小, 其他情况无作用",
             "params": [
                 {
                     "name": "e",
@@ -2680,7 +2753,7 @@ define(function(require){return {
         {
             "file": "src\\Schedule.jsx.js",
             "line": 263,
-            "description": "混合presets label，得到最终的value。",
+            "description": "混合presets label，得到最终的value",
             "return": {
                 "description": "混合后的value",
                 "type": "String"
@@ -2717,7 +2790,7 @@ define(function(require){return {
             "description": "横拉谈层",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2\n\n 注：<日> n.障子，日本房屋用的纸糊木框，亦作shoji screen。如用木框糊纸的拉窗、拉门、纸拉窗、纸拉门。",
+            "version": "0.0.2\n\n 注：<日> n.障子，日本房屋用的纸糊木框，亦作shoji screen如用木框糊纸的拉窗、拉门、纸拉窗、纸拉门",
             "class": ""
         },
         {
@@ -2786,7 +2859,7 @@ define(function(require){return {
         {
             "file": "src\\Tree.jsx.js",
             "line": 1,
-            "description": "一个树形选择控件。",
+            "description": "一个树形选择控件",
             "author": "Han Bing Feng (hanbingfeng@baidu.com)",
             "version": "0.0.1",
             "class": ""
@@ -2830,7 +2903,7 @@ define(function(require){return {
         {
             "file": "src\\Tree.jsx.js",
             "line": 37,
-            "description": "默认的树单个节点的Renderer。",
+            "description": "默认的树单个节点的Renderer",
             "params": [
                 {
                     "name": "props",
@@ -2886,7 +2959,7 @@ define(function(require){return {
                         },
                         {
                             "name": "onTreeNodeOperationClicked",
-                            "description": "树节点“操作”按钮被点击时的回调。",
+                            "description": "树节点“操作”按钮被点击时的回调",
                             "type": "Function",
                             "props": [
                                 {
@@ -2903,7 +2976,7 @@ define(function(require){return {
                         },
                         {
                             "name": "onTreeNodeClicked",
-                            "description": "树节点其他位置被点击时的回调。",
+                            "description": "树节点其他位置被点击时的回调",
                             "type": "Function",
                             "props": [
                                 {
@@ -2947,7 +3020,7 @@ define(function(require){return {
         {
             "file": "src\\Tree.jsx.js",
             "line": 120,
-            "description": "支持绘制树节点的loading状态的Renderer。",
+            "description": "支持绘制树节点的loading状态的Renderer",
             "params": [
                 {
                     "name": "props",
@@ -2956,7 +3029,7 @@ define(function(require){return {
                     "props": [
                         {
                             "name": "textLoading",
-                            "description": "树节点载入中时的话术提示。",
+                            "description": "树节点载入中时的话术提示",
                             "type": "String"
                         }
                     ]
@@ -2971,16 +3044,16 @@ define(function(require){return {
         {
             "file": "src\\Tree.jsx.js",
             "line": 147,
-            "description": "扩展TreeNodeRenderer，支持根据nameFilter加入filter class。",
+            "description": "扩展TreeNodeRenderer，支持根据nameFilter加入filter class",
             "params": [
                 {
                     "name": "TreeNodeRenderer",
-                    "description": "被扩展的Renderer。",
+                    "description": "被扩展的Renderer",
                     "type": "Function"
                 }
             ],
             "return": {
-                "description": "支持根据nameFilter加入filter class的Renderer。",
+                "description": "支持根据nameFilter加入filter class的Renderer",
                 "type": "Function"
             },
             "class": ""
@@ -2988,7 +3061,7 @@ define(function(require){return {
         {
             "file": "src\\Tree.jsx.js",
             "line": 155,
-            "description": "支持根据nameFilter加入filter class。",
+            "description": "支持根据nameFilter加入filter class",
             "params": [
                 {
                     "name": "props",
@@ -2997,7 +3070,7 @@ define(function(require){return {
                     "props": [
                         {
                             "name": "nameFilter",
-                            "description": "树名字过滤器，不包含过滤器中字符串的节点将加上class`fcui2-tree-node-filtered`。",
+                            "description": "树名字过滤器，不包含过滤器中字符串的节点将加上class`fcui2-tree-node-filtered`",
                             "type": "String"
                         }
                     ]
@@ -3041,7 +3114,7 @@ define(function(require){return {
         {
             "file": "src\\Tree.jsx.js",
             "line": 192,
-            "description": "树节点展开按钮被点击时的回调。",
+            "description": "树节点展开按钮被点击时的回调",
             "params": [
                 {
                     "name": "onTreeNodeExpandClicked.e",
@@ -3064,7 +3137,7 @@ define(function(require){return {
         {
             "file": "src\\Tree.jsx.js",
             "line": 199,
-            "description": "树节点“操作”按钮被点击时的回调。",
+            "description": "树节点“操作”按钮被点击时的回调",
             "params": [
                 {
                     "name": "onTreeNodeOperationClicked.e",
@@ -3087,7 +3160,7 @@ define(function(require){return {
         {
             "file": "src\\Tree.jsx.js",
             "line": 206,
-            "description": "树节点其他位置被点击时的回调。",
+            "description": "树节点其他位置被点击时的回调",
             "params": [
                 {
                     "name": "onTreeNodeClicked.e",
@@ -3441,12 +3514,64 @@ define(function(require){return {
             "line": " src\\Dialog.jsx.js:31"
         },
         {
+            "message": "unknown tag: name",
+            "line": " src\\Dialog.jsx.js:65"
+        },
+        {
+            "message": "unknown tag: classname",
+            "line": " src\\Dialog.jsx.js:65"
+        },
+        {
+            "message": "unknown tag: attention",
+            "line": " src\\Dialog.jsx.js:65"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " src\\Dialog.jsx.js:86"
+        },
+        {
+            "message": "unknown tag: classname",
+            "line": " src\\Dialog.jsx.js:86"
+        },
+        {
+            "message": "unknown tag: attention",
+            "line": " src\\Dialog.jsx.js:86"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " src\\Dialog.jsx.js:111"
+        },
+        {
+            "message": "unknown tag: classname",
+            "line": " src\\Dialog.jsx.js:111"
+        },
+        {
+            "message": "unknown tag: attention",
+            "line": " src\\Dialog.jsx.js:111"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " src\\Dialog.jsx.js:137"
+        },
+        {
+            "message": "unknown tag: classname",
+            "line": " src\\Dialog.jsx.js:137"
+        },
+        {
+            "message": "unknown tag: attention",
+            "line": " src\\Dialog.jsx.js:137"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\DropDownCalendar.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
             "line": " src\\DropDownCalendar.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\DropDownCalendar.jsx.js:19"
         },
         {
             "message": "unknown tag: email",
@@ -3457,12 +3582,24 @@ define(function(require){return {
             "line": " src\\DropDownList.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\DropDownList.jsx.js:17"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\DropDownList.jsx.js:26"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\DropDownRegion.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
             "line": " src\\DropDownRegion.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\DropDownRegion.jsx.js:25"
         },
         {
             "message": "unknown tag: version",
@@ -3475,6 +3612,10 @@ define(function(require){return {
         {
             "message": "unknown tag: version",
             "line": " src\\Form.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\Form.jsx.js:17"
         },
         {
             "message": "unknown tag: email",
@@ -3535,6 +3676,10 @@ define(function(require){return {
         {
             "message": "unknown tag: version",
             "line": " src\\Region.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\Region.jsx.js:27"
         },
         {
             "message": "unknown tag: email",
@@ -3709,7 +3854,7 @@ define(function(require){return {
             "line": " src\\core\\componentTools.js:46"
         },
         {
-            "message": "Missing item type\n从props中获取某个值，如果props中没有这个值，就在props.style中找。",
+            "message": "Missing item type\n从props中获取某个值，如果props中没有这个值，就在props.style中找",
             "line": " src\\core\\componentTools.js:53"
         },
         {
@@ -3749,7 +3894,7 @@ define(function(require){return {
             "line": " src\\core\\numberboxTools.js:92"
         },
         {
-            "message": "Missing item type\n将string类型的value转换成日优先的二维数组，第一维是天，第二维是小时\n\n数组元素为null或string：\n（1）null表示该时段没有被选择；\n（2）string表示该时段被选择，string的内容为当前时段的label标签内容，相邻时段相同值的label会被合并。\n若label为''，则显示时段跨度如1:00-2:00。",
+            "message": "Missing item type\n将string类型的value转换成日优先的二维数组，第一维是天，第二维是小时\n\n数组元素为null或string：\n（1）null表示该时段没有被选择；\n（2）string表示该时段被选择，string的内容为当前时段的label标签内容，相邻时段相同值的label会被合并\n若label为''，则显示时段跨度如1:00-2:00",
             "line": " src\\core\\scheduleTools.js:12"
         },
         {
@@ -3757,23 +3902,23 @@ define(function(require){return {
             "line": " src\\core\\scheduleTools.js:46"
         },
         {
-            "message": "Missing item type\n根据schedule mouse state，计算所选的schedule区域。",
+            "message": "Missing item type\n根据schedule mouse state，计算所选的schedule区域",
             "line": " src\\core\\scheduleTools.js:108"
         },
         {
-            "message": "Missing item type\n返回一个时间段的文字表示。\n若提供startHour，返回 startHour:00\n若提供startHour, endHour，返回startHour:00-(endHour+1):00\n若提供startHour, endHour, startWeekday，返回 星期x startHour:00-(endHour+1):00\n若提供startHour, endHour, startWeekday， endWeekday，返回 星期x-星期x，startHour:00-(endHour+1):00\n若startHour=0，endHour=23，返回 全天。",
+            "message": "Missing item type\n返回一个时间段的文字表示\n若提供startHour，返回 startHour:00\n若提供startHour, endHour，返回startHour:00-(endHour+1):00\n若提供startHour, endHour, startWeekday，返回 星期x startHour:00-(endHour+1):00\n若提供startHour, endHour, startWeekday， endWeekday，返回 星期x-星期x，startHour:00-(endHour+1):00\n若startHour=0，endHour=23，返回 全天",
             "line": " src\\core\\scheduleTools.js:135"
         },
         {
-            "message": "Missing item type\n将数组形式的24小时值转换为一组label。数组每一位值表示当前小时的状态，\n相同状态的值将合并为一个label元素返回。每一个label元素为一个object。",
+            "message": "Missing item type\n将数组形式的24小时值转换为一组label数组每一位值表示当前小时的状态，\n相同状态的值将合并为一个label元素返回每一个label元素为一个object",
             "line": " src\\core\\scheduleTools.js:180"
         },
         {
-            "message": "Missing item type\n给定一组labels， 返回一个label，其中包含给定的index。或返回null，如果任\n一个label都不包含index。\nlabel格式参见value2label。",
+            "message": "Missing item type\n给定一组labels， 返回一个label，其中包含给定的index或返回null，如果任\n一个label都不包含index\nlabel格式参见value2label",
             "line": " src\\core\\scheduleTools.js:224"
         },
         {
-            "message": "Missing item type\n根据相对左上角坐标的x, y坐标, 返回其在控件天小时格子里的位置。",
+            "message": "Missing item type\n根据相对左上角坐标的x, y坐标, 返回其在控件天小时格子里的位置",
             "line": " src\\core\\scheduleTools.js:259"
         },
         {
@@ -3821,19 +3966,19 @@ define(function(require){return {
             "line": " src\\core\\treeTools.es6.js:1"
         },
         {
-            "message": "Missing item type\n先深遍历所有节点。",
+            "message": "Missing item type\n先深遍历所有节点",
             "line": " src\\core\\treeTools.es6.js:11"
         },
         {
-            "message": "Missing item type\n从treeNode起始标记节点及其所有孩子被选择。返回被选择的节点列表。",
+            "message": "Missing item type\n从treeNode起始标记节点及其所有孩子被选择返回被选择的节点列表",
             "line": " src\\core\\treeTools.es6.js:36"
         },
         {
-            "message": "Missing item type\n从selectedTreeNodeId中移除treeNode。",
+            "message": "Missing item type\n从selectedTreeNodeId中移除treeNode",
             "line": " src\\core\\treeTools.es6.js:78"
         },
         {
-            "message": "Missing item type\n返回新的expandedTreeNodeId， 展开刚刚选择的节点。",
+            "message": "Missing item type\n返回新的expandedTreeNodeId， 展开刚刚选择的节点",
             "line": " src\\core\\treeTools.es6.js:102"
         },
         {
@@ -3997,120 +4142,84 @@ define(function(require){return {
             "line": " src\\Dialog.jsx.js:1"
         },
         {
-            "message": "Missing item type\ndialog构造函数",
+            "message": "Missing item type\n弹窗类",
             "line": " src\\Dialog.jsx.js:20"
         },
         {
-            "message": "Missing item type\n关闭窗口",
+            "message": "Missing item type\n弹出窗体",
             "line": " src\\Dialog.jsx.js:31"
         },
         {
-            "message": "Missing item type\n弹出dialog",
-            "line": " src\\Dialog.jsx.js:50"
+            "message": "Missing item type\n关闭窗体",
+            "line": " src\\Dialog.jsx.js:65"
         },
         {
-            "message": "Missing item type\n更新弹出窗体的content的props，此方法会自动触发resize",
-            "line": " src\\Dialog.jsx.js:83"
+            "message": "Missing item type\n更新content属性集",
+            "line": " src\\Dialog.jsx.js:86"
         },
         {
             "message": "Missing item type\n弹出Alert提示框",
-            "line": " src\\Dialog.jsx.js:105"
+            "line": " src\\Dialog.jsx.js:111"
         },
         {
             "message": "Missing item type\n弹出Confirm确认框",
-            "line": " src\\Dialog.jsx.js:128"
+            "line": " src\\Dialog.jsx.js:137"
         },
         {
-            "message": "Missing item type\nDialog Component Factory",
-            "line": " src\\Dialog.jsx.js:155"
-        },
-        {
-            "message": "Missing item type\n日期选择框组件",
+            "message": "Missing item type\n下拉日期选择器",
             "line": " src\\DropDownCalendar.jsx.js:1"
         },
         {
-            "message": "Missing item type\n下拉控制列表组件",
+            "message": "Missing item type",
+            "line": " src\\DropDownCalendar.jsx.js:19"
+        },
+        {
+            "message": "Missing item type\n下拉控制列表",
             "line": " src\\DropDownList.jsx.js:1"
         },
         {
-            "message": "Missing item type\n下拉地域选择器组件",
+            "message": "Missing item type",
+            "line": " src\\DropDownList.jsx.js:17"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\DropDownList.jsx.js:26"
+        },
+        {
+            "message": "Missing item type\n下拉地域选择器",
             "line": " src\\DropDownRegion.jsx.js:1"
         },
         {
-            "message": "Missing item type\n双树选择器。",
+            "message": "Missing item type",
+            "line": " src\\DropDownRegion.jsx.js:25"
+        },
+        {
+            "message": "Missing item type\n双树选择器",
             "line": " src\\DualTreeSelector.jsx.js:1"
         },
         {
-            "message": "Missing item type\n全部可选节点的列表",
-            "line": " src\\DualTreeSelector.jsx.js:16"
-        },
-        {
-            "message": "Missing item type\n已选节点的id集合",
-            "line": " src\\DualTreeSelector.jsx.js:20"
-        },
-        {
-            "message": "Missing item type\n左树的tree node name filter。",
-            "line": " src\\DualTreeSelector.jsx.js:24"
-        },
-        {
-            "message": "Missing item type\n左子树的宽度，px",
-            "line": " src\\DualTreeSelector.jsx.js:28"
-        },
-        {
-            "message": "Missing item type\n右子树的宽度，px",
-            "line": " src\\DualTreeSelector.jsx.js:32"
-        },
-        {
-            "message": "Missing item type\n选择器中树的高度，px",
-            "line": " src\\DualTreeSelector.jsx.js:36"
-        },
-        {
-            "message": "Missing item type\n左树的标题",
-            "line": " src\\DualTreeSelector.jsx.js:40"
-        },
-        {
-            "message": "Missing item type\n右树的标题",
+            "message": "Missing item type\n左树“操作”按钮点击时的回调",
             "line": " src\\DualTreeSelector.jsx.js:44"
         },
         {
-            "message": "Missing item type\n左树左下角的提示话术",
-            "line": " src\\DualTreeSelector.jsx.js:48"
-        },
-        {
-            "message": "Missing item type\n右树右下角的提示话术",
-            "line": " src\\DualTreeSelector.jsx.js:52"
-        },
-        {
-            "message": "Missing item type\n树点击选择按钮后的回调。",
-            "line": " src\\DualTreeSelector.jsx.js:56"
-        },
-        {
-            "message": "Missing item type\n左树节点展开时的回调",
-            "line": " src\\DualTreeSelector.jsx.js:61"
-        },
-        {
-            "message": "Missing item type\n左树“操作”按钮点击时的回调",
-            "line": " src\\DualTreeSelector.jsx.js:68"
-        },
-        {
-            "message": "Missing item type\n左树“操作”按钮点击时的回调",
-            "line": " src\\DualTreeSelector.jsx.js:92"
-        },
-        {
             "message": "Missing item type\n左树“展开”按钮点击时的回调",
-            "line": " src\\DualTreeSelector.jsx.js:107"
+            "line": " src\\DualTreeSelector.jsx.js:59"
         },
         {
             "message": "Missing item type\n右树“操作”按钮点击时的回调",
-            "line": " src\\DualTreeSelector.jsx.js:118"
+            "line": " src\\DualTreeSelector.jsx.js:70"
         },
         {
             "message": "Missing item type\n全部删除时的回调",
-            "line": " src\\DualTreeSelector.jsx.js:129"
+            "line": " src\\DualTreeSelector.jsx.js:81"
         },
         {
             "message": "Missing item type\n表单组件",
             "line": " src\\Form.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Form.jsx.js:17"
         },
         {
             "message": "Missing item type\n功能性弹层组件",
@@ -4145,27 +4254,31 @@ define(function(require){return {
             "line": " src\\RangeCalendar.jsx.js:44"
         },
         {
-            "message": "Missing item type\n地域选择组件",
+            "message": "Missing item type\n地域选择器",
             "line": " src\\Region.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Region.jsx.js:27"
         },
         {
             "message": "Missing item type\n时间选择组件",
             "line": " src\\Schedule.jsx.js:1"
         },
         {
-            "message": "Missing item type\n是否使用列选择器。",
+            "message": "Missing item type\n是否使用列选择器",
             "line": " src\\Schedule.jsx.js:25"
         },
         {
-            "message": "Missing item type\n是否使用行选择器。",
+            "message": "Missing item type\n是否使用行选择器",
             "line": " src\\Schedule.jsx.js:29"
         },
         {
-            "message": "Missing item type\n选定的时段值。\n是一个有7x24元素的数组JSON.stringify后的值。日优先存放一星期每天24小时的时段选择情况。\n每个元素可为null，或者一个string。\n当为null时，表示该时段没有被选择。\n当为string时，表示该时段被选择，string的内容为当前时段的label。\n相邻时段相同值的label会被合并。\n若label为空串（''），则显示默认label。默认为时段跨度。如1:00-2:00",
+            "message": "Missing item type\n选定的时段值\n是一个有7x24元素的数组JSON.stringify后的值日优先存放一星期每天24小时的时段选择情况\n每个元素可为null，或者一个string\n当为null时，表示该时段没有被选择\n当为string时，表示该时段被选择，string的内容为当前时段的label\n相邻时段相同值的label会被合并\n若label为空串（''），则显示默认label默认为时段跨度如1:00-2:00",
             "line": " src\\Schedule.jsx.js:33"
         },
         {
-            "message": "Missing item type\n划出了一个新的时段块时的回调。\n回调可通过e.preventDefault()阻止更新发生。此时组件会通过设置\nisPreventMouseEvent state来阻止后续鼠标事件响应。\n使用方做适当处理后，需设置isPreventMouseEvent为false来恢复鼠标响应。",
+            "message": "Missing item type\n划出了一个新的时段块时的回调\n回调可通过e.preventDefault()阻止更新发生此时组件会通过设置\nisPreventMouseEvent state来阻止后续鼠标事件响应\n使用方做适当处理后，需设置isPreventMouseEvent为false来恢复鼠标响应",
             "line": " src\\Schedule.jsx.js:43"
         },
         {
@@ -4173,7 +4286,7 @@ define(function(require){return {
             "line": " src\\Schedule.jsx.js:56"
         },
         {
-            "message": "Missing item type\n预设的labels列表。",
+            "message": "Missing item type\n预设的labels列表",
             "line": " src\\Schedule.jsx.js:61"
         },
         {
@@ -4197,15 +4310,15 @@ define(function(require){return {
             "line": " src\\Schedule.jsx.js:117"
         },
         {
-            "message": "Missing item type\n处理body鼠标抬起事件。如果当前处于拖拽状态, 点击会触发onScheduleSelected。其他情况无作用。",
+            "message": "Missing item type\n处理body鼠标抬起事件如果当前处于拖拽状态, 点击会触发onScheduleSelected其他情况无作用",
             "line": " src\\Schedule.jsx.js:131"
         },
         {
-            "message": "Missing item type\n处理body鼠标移动事件。如果当前处于拖拽状态, 拖拽会改变cursor大小, 其他情况无作用。",
+            "message": "Missing item type\n处理body鼠标移动事件如果当前处于拖拽状态, 拖拽会改变cursor大小, 其他情况无作用",
             "line": " src\\Schedule.jsx.js:142"
         },
         {
-            "message": "Missing item type\n混合presets label，得到最终的value。",
+            "message": "Missing item type\n混合presets label，得到最终的value",
             "line": " src\\Schedule.jsx.js:263"
         },
         {
@@ -4253,7 +4366,7 @@ define(function(require){return {
             "line": " src\\TitleWindow.jsx.js:1"
         },
         {
-            "message": "Missing item type\n一个树形选择控件。",
+            "message": "Missing item type\n一个树形选择控件",
             "line": " src\\Tree.jsx.js:1"
         },
         {
@@ -4281,7 +4394,7 @@ define(function(require){return {
             "line": " src\\Tree.jsx.js:31"
         },
         {
-            "message": "Missing item type\n默认的树单个节点的Renderer。",
+            "message": "Missing item type\n默认的树单个节点的Renderer",
             "line": " src\\Tree.jsx.js:37"
         },
         {
@@ -4289,15 +4402,15 @@ define(function(require){return {
             "line": " src\\Tree.jsx.js:112"
         },
         {
-            "message": "Missing item type\n支持绘制树节点的loading状态的Renderer。",
+            "message": "Missing item type\n支持绘制树节点的loading状态的Renderer",
             "line": " src\\Tree.jsx.js:120"
         },
         {
-            "message": "Missing item type\n扩展TreeNodeRenderer，支持根据nameFilter加入filter class。",
+            "message": "Missing item type\n扩展TreeNodeRenderer，支持根据nameFilter加入filter class",
             "line": " src\\Tree.jsx.js:147"
         },
         {
-            "message": "Missing item type\n支持根据nameFilter加入filter class。",
+            "message": "Missing item type\n支持根据nameFilter加入filter class",
             "line": " src\\Tree.jsx.js:155"
         },
         {
@@ -4313,15 +4426,15 @@ define(function(require){return {
             "line": " src\\Tree.jsx.js:186"
         },
         {
-            "message": "Missing item type\n树节点展开按钮被点击时的回调。",
+            "message": "Missing item type\n树节点展开按钮被点击时的回调",
             "line": " src\\Tree.jsx.js:192"
         },
         {
-            "message": "Missing item type\n树节点“操作”按钮被点击时的回调。",
+            "message": "Missing item type\n树节点“操作”按钮被点击时的回调",
             "line": " src\\Tree.jsx.js:199"
         },
         {
-            "message": "Missing item type\n树节点其他位置被点击时的回调。",
+            "message": "Missing item type\n树节点其他位置被点击时的回调",
             "line": " src\\Tree.jsx.js:206"
         },
         {

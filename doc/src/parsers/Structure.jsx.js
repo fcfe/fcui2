@@ -32,7 +32,7 @@ define(function (require) {
             item = !item ? this.props.item : item;
             var prefix = item.structure.replace(/(\w)/, function (v) {return v.toLowerCase();});
             return (
-                <div className="structure-introduction">
+                <div className="parser-structure">
                     <h3>{'<' + item.structure + '>'}</h3>
                     {
                         item.hasOwnProperty('example') && item.example.length > 0

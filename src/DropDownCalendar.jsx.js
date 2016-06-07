@@ -1,8 +1,8 @@
 /**
- *  日期选择框组件
+ * 下拉日期选择器
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -16,6 +16,37 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         *
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {Import|Properties} src\Calendar.jsx.js min max
+         * @param {String} placeholder 组件为选择且无初始值时，下拉按钮上显示的值
+         * @param {String} openLayerType 控制浮层打开的动作，onMouseEnter或onClick
+         * @param {Import|Properties} src\mixins\InputWidget.js
+         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            placeholder: React.PropTypes.string,
+            min: React.PropTypes.string,
+            max: React.PropTypes.string,
+            openLayerType: React.PropTypes.string,
+            // mixin
+            value: React.PropTypes.string,
+            valueLink: React.PropTypes.object,
+            name: React.PropTypes.string,
+            onChange: React.PropTypes.func,
+            validations: React.PropTypes.object,
+            customErrorTemplates: React.PropTypes.object,
+            valueTemplate: React.PropTypes.string
+        },
         // @override
         mixins: [InputWidget],
         // @override

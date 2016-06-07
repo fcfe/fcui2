@@ -5,10 +5,10 @@
  *
  * 此mixin主要作用：
  * 1.解决input类型组件的渲染回馈问题
- * （1）原生dom可以使用valueLink绑定value到父级组件的state，但valueLink属性跟onChange + value属性是互斥的，且会抛错提示。
- *      本mixin解决了上述问题，让自定义input组件具有和原生demo一致的属性表现。
+ * （1）原生dom可以使用valueLink绑定value到父级组件的state，但valueLink属性跟onChange + value属性是互斥的，且会抛错提示
+ *      本mixin解决了上述问题，让自定义input组件具有和原生demo一致的属性表现
  * （2）input类型组件含有valueLink属性时，组件的数据源value和onChange回调被封装在props.valueLink内部，
- *      与不含有valueLink属性时解决方案不同，本mixin提供获取value的公共方法，同时提供派发回调的公共接口。
+ *      与不含有valueLink属性时解决方案不同，本mixin提供获取value的公共方法，同时提供派发回调的公共接口
  * 2.解决input类型组件与Form的衔接问题
  * （1）input类型组件配置name属性后要在包裹它的表单Form中注册自己
  * （2）input组件允许导入校验规则并根据这些规则进行校验
@@ -38,13 +38,13 @@
 
 /**
  * @properties
- * @param {String|boolean|number} value 组件的值，具体类型视具体组件而定。
- * @param {Function} onChange 组件发生输入后触发的回调。
- * @param {String} name 组件在Form表单中的域名，如果Form中有多个同名输入组件，则最靠上的有效，Radio除外。
- * @param {Object} validations 组件的校验机，参见src\mixins\InputWidget.js。
- * @param {Object} customErrorTemplates 组件的校验结果机，参见src\mixins\InputWidget.js。
- * @param {String|boolean|number} valueTemplate 组件的默认值，优先级最低，参见src\mixins\InputWidget.js。
- * @param {Object} valueLink React官方的valueLink插件对象，此对象与value + onChange组合互斥。
+ * @param {String|boolean|number} value 组件的值，具体类型视具体组件而定
+ * @param {Function} onChange 组件发生输入后触发的回调
+ * @param {String} name 组件在Form表单中的域名，如果Form中有多个同名输入组件，则最靠上的有效，Radio除外
+ * @param {Object} validations 组件的校验机，参见src\mixins\InputWidget.js
+ * @param {Object} customErrorTemplates 组件的校验结果机，参见src\mixins\InputWidget.js
+ * @param {String|boolean|number} valueTemplate 组件的默认值，优先级最低，参见src\mixins\InputWidget.js
+ * @param {Object} valueLink React官方的valueLink插件对象，此对象与value + onChange组合互斥
  */
 
 

@@ -1,8 +1,8 @@
 /**
- *  下拉控制列表组件
+ * 下拉控制列表
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -14,6 +14,31 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         *
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {String} label 下拉按钮上显示的文字
+         * @param {String} openLayerType 控制浮层打开的动作，onMouseEnter或onClick
+         * @param {Array.<ListItemObject>} datasource 列表数据源
+         * @param {Function} onClick 点击列表后的回调
+         */
+        /**
+         * @structure Import src\List.jsx.js ListItemObject
+         */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            label: React.PropTypes.string,
+            openLayerType: React.PropTypes.string,
+            datasource: React.PropTypes.array,
+            onClick: React.PropTypes.func
+        },
         // @override
         getDefaultProps: function () {
             return {

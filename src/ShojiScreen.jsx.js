@@ -4,7 +4,7 @@
  * @email lbxxlht@163.com
  * @version 0.0.2
  *
- * 注：<日> n.障子，日本房屋用的纸糊木框，亦作shoji screen。如用木框糊纸的拉窗、拉门、纸拉窗、纸拉门。
+ * 注：<日> n.障子，日本房屋用的纸糊木框，亦作shoji screen如用木框糊纸的拉窗、拉门、纸拉窗、纸拉门
  */
 define(function (require) {
 

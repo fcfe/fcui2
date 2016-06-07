@@ -1,8 +1,8 @@
 /**
- *  地域选择组件
+ * 地域选择器
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -24,6 +24,40 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         *
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {String} type 工作模式，如果是'single'标识单选，否则为多选
+         * @param {Boolean} noLinkage 是否关闭联动选择，如果关闭将打断地域间的联带关系
+         * @param {ReactClass} provinceRenderer 省渲染器
+         * @param {ReactClass} regionRenderer 地区渲染器
+         * @param {ReactClass} countryRenderer 国家渲染器
+         * @param {Import|Properties} src\mixins\InputWidget.js
+         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            type: React.PropTypes.string,
+            noLinkage: React.PropTypes.bool,
+            provinceRenderer: React.PropTypes.func,
+            regionRenderer: React.PropTypes.func,
+            countryRenderer: React.PropTypes.func,
+            // mixin
+            value: React.PropTypes.string,
+            valueLink: React.PropTypes.object,
+            name: React.PropTypes.string,
+            onChange: React.PropTypes.func,
+            validations: React.PropTypes.object,
+            customErrorTemplates: React.PropTypes.object,
+            valueTemplate: React.PropTypes.string
+        },
         // @override
         mixins: [InputWidget],
         // @override
@@ -78,6 +112,13 @@ define(function (require) {
     });
 
 
+    /*
+     * 子渲染器属性制作工厂
+     * @param {String} id 地域编号
+     * @param {Object} value 地域选择器的value hash
+     * @param {ReactComponent} me 地域选择器实例
+     * @param {Object} 渲染器属性集合
+     */
     function rendererPropsFactory(id, value, me) {
         return {
             key: id,
@@ -91,6 +132,13 @@ define(function (require) {
     }
 
 
+    /*
+     * 创建国家区域
+     * @param {Array.<String>} arr 国家编号列表
+     * @param {Object} value 地域选择器的value hash
+     * @param {ReactComponent} me 地域选择器实例
+     * @return {ReactComponent} 国家区域虚拟DOM
+     */
     function countryFactory(arr, value, me) {
         value = tools.parseValue(value);
         var doms = [];
@@ -107,6 +155,13 @@ define(function (require) {
     }
 
 
+    /*
+     * 创建地区区域
+     * @param {Array.<String>} arr 地区编号列表
+     * @param {Object} value 地域选择器的value hash
+     * @param {ReactComponent} me 地域选择器实例
+     * @return {ReactComponent} 地区区域虚拟DOM
+     */
     function regionFactory(arr, value, me) {
         if (!arr) return '';
         var doms = [];
@@ -141,6 +196,13 @@ define(function (require) {
     }
 
 
+    /*
+     * 创建省区域
+     * @param {Array.<String>} arr 省编号列表
+     * @param {Object} value 地域选择器的value hash
+     * @param {ReactComponent} me 地域选择器实例
+     * @return {ReactComponent} 省区域虚拟DOM
+     */
     function provinceFactory(arr, value, me) {
         if (!arr) return '';
         var doms = [];

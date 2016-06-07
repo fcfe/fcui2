@@ -23,10 +23,10 @@ define(function (require) {
          *      disabled: <optional>,
          *      renderer: <optional>
          *  }
-         * @param {String} label 列表项显示的文字。
-         * @param {String} value 列表项对应的值，随事件对象通过返回。
-         * @param {Boolean} disabled 列表项是否可用。
-         * @param {ReactComponent} renderer 列表项渲染器。
+         * @param {String} label 列表项显示的文字
+         * @param {String} value 列表项对应的值，随事件对象通过返回
+         * @param {Boolean} disabled 列表项是否可用
+         * @param {ReactClass} renderer 列表项渲染器
          */
         // @override
         getDefaultProps: function () {

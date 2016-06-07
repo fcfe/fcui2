@@ -3,11 +3,11 @@
  * @author Brian Li
  * @email lbxxlht@163.com
  *
- * 此工具库所有方法，不但fcui2可以使用，其他任何项目都可以把它拿出去单独使用。
- * 此工具库不支持ES6语法，确保所有方法在所有浏览器基础环境中都能正确运行。
- * 不允许在此工具集中引入或使用或合并其他任何库，比如underscore, jQuery等。
- * 此工具集包含了操作原生DOM的方法，不能在node中使用。
- * 目前符合AMD规范，将来会支持CMD和直接引入。
+ * 此工具库所有方法，不但fcui2可以使用，其他任何项目都可以把它拿出去单独使用
+ * 此工具库不支持ES6语法，确保所有方法在所有浏览器基础环境中都能正确运行
+ * 不允许在此工具集中引入或使用或合并其他任何库，比如underscore, jQuery等
+ * 此工具集包含了操作原生DOM的方法，不能在node中使用
+ * 目前符合AMD规范，将来会支持CMD和直接引入
  */
 define(function (require) {
     var exports = {
@@ -37,7 +37,7 @@ define(function (require) {
          *
          * @param {Function} func 需要绑定的函数
          * @param {Object} me 绑定到函数的上下文
-         * @return {Function} 通过闭包形式返回上下文绑定好的函数。
+         * @return {Function} 通过闭包形式返回上下文绑定好的函数
          */
         bind: function (func, me) {
             return function () {

@@ -22,6 +22,7 @@ define(function (require) {
         for (var i = 0; i < items[file].length; i++) {
             var item = items[file][i];
             var Parser = getParser(item);
+            if (!Parser) continue;
             doms.push(<Parser key={'item' + i} item={item} />);
         }
         return doms;
@@ -36,14 +37,15 @@ define(function (require) {
             };
         },
         render: function () {
-            var file = this.props.file;
+            var file = this.props.file || '';
+            file = file.replace(/_/g, '\\');
             if (
                 (!items.hasOwnProperty(file) || items[file].length === 0)
                 && (!warning.hasOwnProperty(file) || warning[file].length === 0)
             ) {
-                return 'no data';
+                return <div></div>;
             }
-            return (<div>{itemFactory(this.props.file)}</div>);
+            return (<div>{itemFactory(file)}</div>);
         }
     });
 

@@ -39,3 +39,5 @@
     @name 方法名，YUIDocjs好像不会自动抓方法名，用这个暂时对付一下。
 
     @className 类名，方法所属的类的名称，该类必须有@constructor标记，否则不会联合显示。
+
+    @attention 注意事项

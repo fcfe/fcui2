@@ -23,7 +23,7 @@ define(function (require) {
          *      left和right是一对，放在一起分析，与top、button无关；
          *      如果只有top，没有bottom，则按照top显示，反之亦然；
          *      如果同时出现top和bottom，则top优先，若top形式显示不下layer，则换成bottom，反之亦然；
-         *      left、right的显示跟top、bottom的显示原则一致。
+         *      left、right的显示跟top、bottom的显示原则一致
          * 显示数据结构
          *      return.left {number} layer最终显示的left
          *      return.top {number} layer最终显示的top

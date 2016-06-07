@@ -22,8 +22,8 @@ define(function (require) {
                 var item = config.menu[i].children[j];
                 var itemProp = {
                     key: i + '-' + j,
-                    'data-file': item.id,
-                    className: 'list-item' + (me.props.file === item.id ? ' list-item-selectd' : ''),
+                    'data-file': item.id.replace(/\\/g, '_'),
+                    className: 'list-item' + (me.props.file === item.id.replace(/\\/g, '_') ? ' list-item-selectd' : ''),
                     onClick: me.onFileChange
                 };
                 doms.push(<div {...itemProp}>{item.label}</div>);

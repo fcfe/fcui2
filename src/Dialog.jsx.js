@@ -18,7 +18,7 @@ define(function (require) {
 
 
     /**
-     * dialog构造函数
+     * 弹窗类
      *
      * @constructor
      * @name Dialog
@@ -29,9 +29,45 @@ define(function (require) {
 
 
     /**
-     * 关闭窗口
+     * 弹出窗体
+     *
+     * @name pop
+     * @className Dialog
+     * @param {Object} param 弹出配置
+     * @param {ReactClass} param.content Dialog内部组件
+     * @param {Object} param.contentProps Dialog内部组件初始化时的属性集
+     * @param {String} param.className 挂在到Dialog窗体DOM上的class
+     * @param {Object} param.style 挂在Dialog窗体DOM上的样式表
+     * @param {String} param.skin Dialog皮肤
+     * @param {String} param.title Dialog标题栏中显示的标题
+     * @param {Object} param.size Dialog窗体的尺寸，与isFullScreen互斥
+     * @param {Number} param.size.width Dialog渲染后的宽度
+     * @param {Number} param.size.height Dialog渲染后的高度
+     * @param {Boolean} param.isFullScreen Dialog弹出后时候直接全屏显示
+     * @param {Boolean} param.showCloseButton 是否显示Dialog标题栏中的关闭按钮
+     * @param {Function} param.onBeforeClose Dialog关闭前触发的回调，可以在这个回调中阻止窗体关闭
+     * @param {Function} param.onClose Dialog关闭后的回调 
+     */
+    Dialog.prototype.pop = function (param) {
+        var me = this;
+        var ReactElement = React.createElement(dialogComponentFactory(param, me), {});
+        me.___ui___ = null;
+        ReactDOM.render(
+            ReactElement,
+            me.___tempContainer___,
+            function () {
+                me.___ui___ = this;
+            }
+        );
+    };
+
+
+    /**
+     * 关闭窗体
+     *
      * @name close
      * @className Dialog
+     * @attention 此方法直接无条件关闭并销毁窗体，不会触发任何回调函数
      */
     Dialog.prototype.close = function () {
         var me = this;
@@ -48,42 +84,12 @@ define(function (require) {
 
 
     /**
-     * 弹出dialog
+     * 更新content属性集
      *
-     * @param {Object} param dialog配置
-     *
-     * @param {string} param.className 加载到Dialog根容器的class
-     * @param {object} param.style 加载到Dialog根容器的样式
-     * @param {string} param.skin Dialog皮肤 
-     * @param {string} param.title 标题
-     * @param {boolean} param.showCloseButton 关闭按钮开关
-     * @param {Function} param.onBeforeClose Dialog关闭前的回调，可以用于阻止窗体关闭
-     * @param {Function} param.onClose 关闭后回调
-     *
-     * @param {Function} param.content dialog的子内容component
-     * @param {Object} param.contentProps content初始化时传入的属性集合
-     */
-    Dialog.prototype.pop = function (param) {
-        var me = this;
-        var ReactElement = React.createElement(
-            dialogComponentFactory(param, me),
-            {}
-        );
-        me.___ui___ = null;
-        ReactDOM.render(
-            ReactElement,
-            me.___tempContainer___,
-            function () {
-                me.___ui___ = this;
-            }
-        );
-    };
-
-
-    /**
-     * 更新弹出窗体的content的props，此方法会自动触发resize
-     *
-     * @param {Object} props dialog content初始化所需要的属性集
+     * @param {Object} props Dialog content初始化所需要的属性集
+     * @name updatePopContentProps
+     * @className Dialog
+     * @attention 此方法支持刷新param.contentProps的部分属性和新增属性，不支持删除原有属性
      */
     Dialog.prototype.updatePopContentProps = function (props) {
         if (!this.___ui___) return;
@@ -106,9 +112,12 @@ define(function (require) {
      * 弹出Alert提示框
      *
      * @param {Object} param 对话框属性集
-     * @param {string} param.title 提示框标题
-     * @param {string} param.message 提示内容
-     * @param {function} param.onClose 关闭后的回调
+     * @param {String} param.title 提示框标题
+     * @param {String} param.message 提示内容
+     * @param {Function} param.onClose 关闭后的回调
+     * @name alert
+     * @className Dialog
+     * @attention 此方法内部调用了dialog.pop
      */
     Dialog.prototype.alert = function (param) {
         param = param || {};
@@ -129,11 +138,14 @@ define(function (require) {
      * 弹出Confirm确认框
      *
      * @param {Object} param 对话框属性集
-     * @param {string} param.title 提示框标题
-     * @param {string} param.message 提示内容
-     * @param {function} param.onClose 关闭后的回调
-     * @param {function} param.onEnter 点击确定后的回调
-     * @param {function} param.onCancel 点击取消后的回调
+     * @param {String} param.title 提示框标题
+     * @param {String} param.message 提示内容
+     * @param {Function} param.onClose 关闭后的回调
+     * @param {Function} param.onEnter 点击确定后的回调
+     * @param {Function} param.onCancel 点击取消后的回调
+     * @name confirm
+     * @className Dialog
+     * @attention 此方法内部调用了dialog.pop
      */
     Dialog.prototype.confirm = function (param) {
         param = param || {};
@@ -152,7 +164,7 @@ define(function (require) {
     };
 
 
-    /**
+    /*
      * Dialog Component Factory
      *
      * @param {Object} param Dialog配置，见Dialog.pop注释

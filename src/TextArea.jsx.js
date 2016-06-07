@@ -61,7 +61,7 @@ define(function (require) {
                 onKeyUp: this.___onKeyUp___,
                 onPaste: this.___onPaste___
             };
-            // 由于IE和Chrome下placeholder表现不一致，所以自己做。IE下得到焦点后，placeholder会消失，chrome不会。
+            // 由于IE和Chrome下placeholder表现不一致，所以自己做IE下得到焦点后，placeholder会消失，chrome不会
             var labelProp = {
                 style: {
                     visibility: value && value.length ? 'hidden' : 'visible'
