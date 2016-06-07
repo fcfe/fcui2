@@ -2463,6 +2463,86 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\Form.jsx.js",
+            "line": 69,
+            "description": "注册表单输入域",
+            "interface": "attach",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "输入域名称",
+                    "type": "String"
+                },
+                {
+                    "name": "component",
+                    "description": "输入域React组件实例",
+                    "type": "ReactComponent"
+                }
+            ],
+            "return": {
+                "description": "输入域是否注册成功",
+                "type": "Boolean"
+            },
+            "attention": "此方法一般由InputWidget调用",
+            "class": ""
+        },
+        {
+            "file": "src\\Form.jsx.js",
+            "line": 91,
+            "description": "解除表单输入域",
+            "interface": "detach",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "输入域名称",
+                    "type": "String"
+                },
+                {
+                    "name": "component",
+                    "description": "输入域React组件实例",
+                    "type": "ReactComponent"
+                }
+            ],
+            "attention": "此方法一般由InputWidget调用",
+            "class": ""
+        },
+        {
+            "file": "src\\Form.jsx.js",
+            "line": 103,
+            "description": "更新表单域",
+            "interface": "updateField",
+            "params": [
+                {
+                    "name": "field",
+                    "description": "域名称",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "域的新值",
+                    "type": "String | Boolean | Number"
+                },
+                {
+                    "name": "component",
+                    "description": "触发更新的React输入组件",
+                    "type": "ReactComponent"
+                }
+            ],
+            "attention": "此方法一般由InputWidget触发，并会触发表单onFieldChange事件",
+            "class": ""
+        },
+        {
+            "file": "src\\Form.jsx.js",
+            "line": 138,
+            "description": "校验整个表单",
+            "interface": "validate",
+            "return": {
+                "description": "表单校验结果",
+                "type": "FormValidationObject"
+            },
+            "class": ""
+        },
+        {
             "file": "src\\Layer.jsx.js",
             "line": 1,
             "description": "功能性弹层组件",
@@ -3618,6 +3698,18 @@ define(function(require){return {
             "line": " src\\Form.jsx.js:17"
         },
         {
+            "message": "unknown tag: attention",
+            "line": " src\\Form.jsx.js:69"
+        },
+        {
+            "message": "unknown tag: attention",
+            "line": " src\\Form.jsx.js:91"
+        },
+        {
+            "message": "unknown tag: attention",
+            "line": " src\\Form.jsx.js:103"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\Layer.jsx.js:1"
         },
@@ -4220,6 +4312,22 @@ define(function(require){return {
         {
             "message": "Missing item type",
             "line": " src\\Form.jsx.js:17"
+        },
+        {
+            "message": "Missing item type\n注册表单输入域",
+            "line": " src\\Form.jsx.js:69"
+        },
+        {
+            "message": "Missing item type\n解除表单输入域",
+            "line": " src\\Form.jsx.js:91"
+        },
+        {
+            "message": "Missing item type\n更新表单域",
+            "line": " src\\Form.jsx.js:103"
+        },
+        {
+            "message": "Missing item type\n校验整个表单",
+            "line": " src\\Form.jsx.js:138"
         },
         {
             "message": "Missing item type\n功能性弹层组件",

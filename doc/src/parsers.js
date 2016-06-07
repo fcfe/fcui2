@@ -30,6 +30,12 @@ define(function (require) {
             validation: function (item) {
                 return item.hasOwnProperty('name') && item.hasOwnProperty('classname');
             }
+        },
+        {
+            parser: require('./parsers/Interface.jsx'),
+            validation: function (item) {
+                return item.hasOwnProperty('interface') && item.interface.length;
+            }
         }
     ];
 

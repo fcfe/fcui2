@@ -29,19 +29,16 @@ define(function (require) {
             onFieldChange: React.PropTypes.func,
             onSubmit: React.PropTypes.func
         },
-
         // @override
         childContextTypes: {
             ___form___: React.PropTypes.object
         },
-
         // @override
         getChildContext: function () {
             return {
                 ___form___: this
             };
         },
-
         // @override
         getDefaultProps: function () {
             return {
@@ -51,18 +48,15 @@ define(function (require) {
                 onFieldChange: function () {}
             };
         },
-
         // @override
         getInitialState: function () {
             return {};
         },
-
         // @override
         componentWillMount: function () {
             // 存储输入域组件
             this.___inputs___ = {};
         },
-
         // @override
         render: function () {
             return (
@@ -72,7 +66,15 @@ define(function (require) {
             );
         },
 
-        // 注册表单域
+        /**
+         * 注册表单输入域
+         *
+         * @interface attach
+         * @param {String} name 输入域名称
+         * @param {ReactComponent} component 输入域React组件实例
+         * @return {Boolean} 输入域是否注册成功
+         * @attention 此方法一般由InputWidget调用
+         */
         attach: function (name, component) {
             if (typeof name !== 'string' || !name.length) return false;
             name = component.props.___uitype___ === 'radio' ? name + '___radio___' + component.props.value : name;
@@ -86,13 +88,26 @@ define(function (require) {
             }
         },
 
-        // 解除表单域
+        /**
+         * 解除表单输入域
+         * @interface detach
+         * @param {String} name 输入域名称
+         * @param {ReactComponent} component 输入域React组件实例
+         * @attention 此方法一般由InputWidget调用
+         */
         detach: function (name, component) {
             name = component.props.___uitype___ === 'radio' ? name + '___radio___' + component.props.value : name;
             delete this.___inputs___[name];
         },
 
-        // 更新表单域
+        /**
+         * 更新表单域
+         * @interface updateField
+         * @param {String} field 域名称
+         * @param {String | Boolean | Number} value 域的新值
+         * @param {ReactComponent} component 触发更新的React输入组件
+         * @attention 此方法一般由InputWidget触发，并会触发表单onFieldChange事件
+         */
         updateField: function (field, value, component) {
             var inputs = this.___inputs___;
             var dataset = {};
@@ -120,6 +135,11 @@ define(function (require) {
             });
         },
 
+        /**
+         * 校验整个表单
+         * @interface validate
+         * @return {FormValidationObject} 表单校验结果
+         */
         validate: function () {
             var inputs = this.___inputs___;
             var dataset = {};
@@ -150,7 +170,7 @@ define(function (require) {
                 isValid: isValid
             };
         },
-
+        // 
         submit: function (event) {
             event && event.preventDefault();
             var validationResults = this.validate();

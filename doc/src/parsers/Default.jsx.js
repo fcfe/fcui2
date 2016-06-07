@@ -7,7 +7,7 @@ define(function (require) {
     function factory (item) {
         var doms = [];
         for (var key in item) {
-            if (!item.hasOwnProperty(key) || key === 'file' || key === 'line' || !item[key].length) continue;
+            if (!item.hasOwnProperty(key)) continue;
             doms.push(
                 <div key={key} className="parser-default-item">
                     <div>{key}</div>

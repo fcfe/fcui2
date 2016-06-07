@@ -16,8 +16,13 @@ define(function (require) {
             result += params.join(', ');
         }
         result += ')';
+        if (item.hasOwnProperty('return')) {
+            var returnObj = item['return'];
+            result = '{' + returnObj.type + '} ' + result;
+        }
         return result;
     }
+
 
     return React.createClass({
         // @override
@@ -28,11 +33,16 @@ define(function (require) {
         },
         render: function () {
             var item = this.props.item;
+            var description = item.description;
+            if (item.hasOwnProperty('return')) {
+                var returnObj = item['return'];
+                description += ', 返回:' + returnObj.description;
+            }
             return (
                 <div className="method-container">
                     <h4>{getMethodName(item)}</h4>
                     <h6>
-                        {item.description}
+                        {description}
                         {
                             item.attention && item.attention.length
                             ? <span style={{color: 'red', float: 'right'}}>{item.attention}</span> : null
