@@ -13,7 +13,8 @@ define(function (require) {
             var item = this.props.item;
             return (
                 <div className="parser-introduction">
-                    <h3>{item.description + ' v' + item.version}</h3>
+                    <h3>{item.description}</h3>
+                    <div style={{float: 'right'}}>{'v' + item.version}</div>
                     <div>{item.author + ' (' + item.email + ')'}</div>
                 </div>
             );

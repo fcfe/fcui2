@@ -1,8 +1,8 @@
 /**
- *  提示组件
+ * 提示
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -14,6 +14,25 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {String} tip 弹出提示的标题
+         * @param {String} content 弹出提示的内容，可以含有html标签
+         * @param {String} icon 提示组件外部显示的图标，具体见src/css/icon/variable.less
+         */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            tip: React.PropTypes.string,
+            content: React.PropTypes.string,
+            icon: React.PropTypes.string
+        },
         // @override
         getDefaultProps: function () {
             return {

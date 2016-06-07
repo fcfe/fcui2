@@ -1,8 +1,8 @@
 /**
- *  切换组件
+ * 标签导航
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -14,6 +14,37 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         *
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {Array.<ListItemObject>} datasource 标签导航数据源
+         * @param {ReactClass} renderer 标签渲染器
+         * @param {Import|Properties} src\mixins\InputWidget.js
+         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         */
+        /**
+         * @structure Import src\List.jsx.js ListItemObject
+         */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            datasource: React.PropTypes.array,
+            renderer: React.PropTypes.func,
+            // mixin
+            value: React.PropTypes.string,
+            valueLink: React.PropTypes.object,
+            name: React.PropTypes.string,
+            onChange: React.PropTypes.func,
+            validations: React.PropTypes.object,
+            customErrorTemplates: React.PropTypes.object,
+            valueTemplate: React.PropTypes.string
+        },
         // @override
         mixins: [InputWidget],
         // @override
@@ -23,7 +54,7 @@ define(function (require) {
                 className: '',
                 style: {},
                 disabled: false,
-                datasource: [], // {label: '', value: ''}
+                datasource: [],
                 renderer: NormalRenderer,
                 valueTemplate: ''
             };

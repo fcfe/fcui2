@@ -1,8 +1,8 @@
 /**
- *  向导组件
+ * 向导
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -14,6 +14,32 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         *
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {Array.<String>} datasource 向导标签文字列表
+         * @param {Import|Properties} src\mixins\InputWidget.js
+         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            datasource: React.PropTypes.array,
+            // mixin
+            value: React.PropTypes.number,
+            valueLink: React.PropTypes.object,
+            name: React.PropTypes.string,
+            onChange: React.PropTypes.func,
+            validations: React.PropTypes.object,
+            customErrorTemplates: React.PropTypes.object,
+            valueTemplate: React.PropTypes.number
+        },
         // @override
         mixins: [InputWidget],
         // @override
@@ -23,7 +49,7 @@ define(function (require) {
                 className: '',
                 style: {},
                 disabled: false,
-                datasource: [], // ['']
+                datasource: [],
                 valueTemplate: 0
             };
         },

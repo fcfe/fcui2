@@ -140,6 +140,20 @@ define(function (require) {
          * @interface validate
          * @return {FormValidationObject} 表单校验结果
          */
+        /**
+         * @structure FormValidationObject
+         * @example
+         *  {
+         *      dataset: {},
+         *      fieldResult: {},
+         *      formResult: [],
+         *      isValid: true
+         *  }
+         * @param {Object} dataset Form数据集，以输入域name为key
+         * @param {Object} fieldResult 域校验结果，以输入域name为key，值为数组，存放该域所有校验错误结果
+         * @param {Array.<string>} formResult 表单级别校验结果集
+         * @param {Boolean} isValid 表单是否通过了校验，只有所有域和Form级别校验都通过，此项才为true，否则为false
+         */
         validate: function () {
             var inputs = this.___inputs___;
             var dataset = {};
@@ -170,7 +184,6 @@ define(function (require) {
                 isValid: isValid
             };
         },
-        // 
         submit: function (event) {
             event && event.preventDefault();
             var validationResults = this.validate();
