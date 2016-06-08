@@ -1,8 +1,8 @@
 /**
- *  文本输入框组件
+ *  文本输入框
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -14,6 +14,32 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         *
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {String} placeholder 文本框中无内容时显示的提示文字
+         * @param {Import|Properties} src\mixins\InputWidget.js
+         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            placeholder: React.PropTypes.string,
+            // mixin
+            value: React.PropTypes.string,
+            valueLink: React.PropTypes.object,
+            name: React.PropTypes.string,
+            onChange: React.PropTypes.func,
+            validations: React.PropTypes.object,
+            customErrorTemplates: React.PropTypes.object,
+            valueTemplate: React.PropTypes.string
+        },
         // @override
         mixins: [InputWidget, InputWidgetImeFixed],
         // @override
@@ -32,6 +58,10 @@ define(function (require) {
         getInitialState: function () {
             return {};
         },
+        /**
+         * 让输入框获得焦点
+         * @interface focus
+         */
         focus: function () {
             this.refs.inputbox.focus();
         },

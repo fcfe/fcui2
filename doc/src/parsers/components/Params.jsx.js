@@ -21,7 +21,7 @@ define(function (require) {
         },
         {
             label: 'Type',
-            field: 'type',
+            content: function (item) {return item.type},
             prepare: tdPrepare
         },
         {

@@ -1,8 +1,8 @@
 /**
- *  功能性弹层组件，用法跟Dialog不一样，这个更先进
+ * 弹窗
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -15,8 +15,34 @@ define(function (require) {
 
 
     return React.createClass({
-
-
+        /**
+         * @properties
+         * @param {String} className 添加到TitleWindow容器上的类，此容器为内部容器，将添加到body中，是TitleWindow content根容器的外壳
+         * @param {Object} skin 挂在TitleWindow容器上的皮肤
+         * @param {Boolean} isOpen TitleWindow是否显示，如果为true，layer容器将被添加到body中
+         * @param {String} title TitleWindow标题栏中显示的标题
+         * @param {Object} size TitleWindow窗体的尺寸，与isFullScreen互斥
+         * @param {Number} size.width TitleWindow渲染后的宽度
+         * @param {Number} size.height TitleWindow渲染后的高度
+         * @param {Boolean} isFullScreen TitleWindow弹出后时候直接全屏显示
+         * @param {Boolean} showCloseButton 是否显示TitleWindow标题栏中的关闭按钮
+         * @param {Function} onRender TitleWindow渲染完成后的回调
+         * @param {Function} onBeforeClose TitleWindow关闭前触发的回调，可以在这个回调中阻止窗体关闭
+         * @param {Function} onClose TitleWindow关闭后的回调 
+         */
+        // @override
+        propTypes: {
+            className: React.PropTypes.string,
+            skin: React.PropTypes.string,
+            isOpen: React.PropTypes.bool,
+            title: React.PropTypes.string,
+            size: React.PropTypes.object,
+            isFullScreen: React.PropTypes.bool,
+            showCloseButton: React.PropTypes.bool,
+            onRender: React.PropTypes.func,
+            onClose: React.PropTypes.func,
+            onBeforeClose: React.PropTypes.func
+        },
         // @override
         getDefaultProps: function () {
             return {

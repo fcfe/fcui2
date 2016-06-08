@@ -1,8 +1,8 @@
 /**
- *  单选框组件
+ * 单选框
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -13,6 +13,37 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         *
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {String} label 单选框旁边显示的文字，点击文字也可以改变选中状态
+         * @param {String} value 单选框的值，触发onChange时随事件对象返回，用于区分单选框的身份
+         * @param {Boolean} checked 单选框是否被选中，触发onChange时随事件对象返回，用于表明单选框时候被选中
+         * @param {String} labelPosition 文本标签显示的位置，'right'为单选框右侧，否则在左侧
+         * @param {Import|Properties} src\mixins\InputWidget.js
+         *      onChange name validations customErrorTemplates valueLink valueTemplate
+         */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            label: React.PropTypes.string,
+            value: React.PropTypes.string,
+            checked: React.PropTypes.bool,
+            labelPosition: React.PropTypes.string,
+            // mixin
+            valueLink: React.PropTypes.object,
+            name: React.PropTypes.string,
+            onChange: React.PropTypes.func,
+            validations: React.PropTypes.object,
+            customErrorTemplates: React.PropTypes.object,
+            valueTemplate: React.PropTypes.string
+        },
         // @override
         mixins: [InputWidget],
         // @override
@@ -23,7 +54,6 @@ define(function (require) {
                 className: '',
                 style: {},
                 disabled: false,
-                name: undefined,
                 label: '',
                 value: '',
                 labelPosition: 'right',

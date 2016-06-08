@@ -1,10 +1,10 @@
 /**
- *  横拉谈层
+ * 侧拉门
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
- *
- * 注：<日> n.障子，日本房屋用的纸糊木框，亦作shoji screen如用木框糊纸的拉窗、拉门、纸拉窗、纸拉门
+ * @version 0.0.2.1
+ * @note
+ *      Shoji <日> n.障子，日本房屋用的纸糊木框，亦作shoji screen。如用木框糊纸的拉窗、拉门、纸拉窗、纸拉门。
  */
 define(function (require) {
 
@@ -20,6 +20,30 @@ define(function (require) {
 
     return React.createClass({
 
+        /**
+         * @properties
+         * @param {String} className 添加到ShojiScreen容器上的类，此容器为内部容器，将添加到body中，是ShojiScreen content根容器的外壳
+         * @param {Object} skin 挂在ShojiScreen容器上的皮肤
+         * @param {Number} workspaceWidth ShojiScreen工作区宽度
+         * @param {Boolean} isOpen ShojiScreen是否显示，如果为true，layer容器将被添加到body中
+         * @param {Function} onAction 功能回调接口，目前有四种内部回调，type分别是
+         *      EnterButtonClick, CancelButtonClick, HideButtonClick, ExpandButtonClick
+         * @param {Function} onRender ShojiScreen渲染完成后的回调
+         * @param {Function} onBeforeClose ShojiScreen关闭前触发的回调，可以在这个回调中阻止窗体关闭
+         * @param {Function} onClose ShojiScreen关闭后的回调 
+         */
+        // @override
+        propTypes: {
+            className: React.PropTypes.string,
+            skin: React.PropTypes.string,
+            workspaceWidth: React.PropTypes.number,
+            isOpen: React.PropTypes.bool,
+            onAction: React.PropTypes.func, 
+            onRender: React.PropTypes.func,
+            onBeforeClose: React.PropTypes.func,
+            onClose: React.PropTypes.func
+        },
+
 
         // @override
         getDefaultProps: function () {
@@ -29,8 +53,6 @@ define(function (require) {
                 workspaceWidth: 1000,
                 isOpen: false,
                 onRender: noop,
-                // 页面有某些操作后的回调：类似于table的onAction，回调第一个参数为type，第二个为param 
-                // type分别是：EnterButtonClick, CancelButtonClick, HideButtonClick, ExpandButtonClick
                 onAction: noop, 
                 onBeforeClose: noop,
                 onClose: noop

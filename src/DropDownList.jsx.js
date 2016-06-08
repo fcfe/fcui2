@@ -1,5 +1,5 @@
 /**
- * 下拉控制列表
+ * 下拉列表
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2.1

@@ -1,8 +1,8 @@
 /**
- *  表格组件
+ * 表格
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -26,39 +26,135 @@ define(function (require) {
     
 
     return React.createClass({
+        /**
+         * @properties
+         *
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         *
+         * @param {Array.<TableFieldObject>} fieldConfig 表格列配置
+         * @param {Object} flags 表格附属功能开关集合
+         * @param {Boolean} flags.sortEnable 是否显示排序按钮，默认false
+         * @param {Boolean} flags.showHeader 是否显示表头，默认false
+         * @param {Boolean} flags.showSummary 是否在表头下方显示汇总栏，默认false
+         * @param {Boolean} flags.showSelector 是否在第一列显示行选择器，默认false，不建议使用，改在fieldConfig中添加。
+         *      此属性改为配置选择器工作模式：false|0 关闭；true|1 开启；2 选择当前页；3 选择全部
+         * @param {Array.<Object>} datasource 表格数据源
+         * @param {Object} summary 表格汇总信息的数据源
+         * @param {Object} message 表格信息栏的数据源
+         * @param {String} message.content 信息栏中显示的信息，不制定，信息栏将不会显示
+         * @param {String} message.buttonLabel 信息栏中紧随信息文本的按钮标签，点击此按钮会通过onAction回调TableMessageBarClick事件
+         * @param {Array.<TableFixedObject>} fixedPosition 当body滚动条发生滚动事，满足条件后位置固定的元素配置信息
+         * @param {Function} onAction 表格内部子渲染器的回调接口
+         *
+         * @param {Import|Properties} src\mixins\InputWidget.js
+         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         */
+        /**
+         * @structure TableFieldObject
+         * @example
+         *  {
+         *      isSelector: <optional>
+         *      label: <optional>  
+         *      field: <optional>
+         *      content: function (dataItem, rowIndex, columnIndex, tableComponent)) <optional>
+         *      renderer: <optional>
+         *      isEmptyHeader: <optional>
+         *      thRenderer: <optional>
+         *      prepare: function (tdRendererProps, dataItem, rowIndex, columnIndex, tableComponent) <optional>
+         *  }
+         *
+         * @attention TableFieldObject中，除function类型的值，其他数据都会无条件灌入renderer中，
+         *      以下属性除外：item, row, column, key, onAction
+         *
+         * @param {Boolean} isSelector 该列是否是选择器，如果为true，其他配置均无效
+         * @param {String} label 显示在表头的列名
+         * @param {String} field 列名称
+         * @param {String | Function} content 列显示的数据域或域处理函数；如果为字符串，则此处会被替换为dataItem[content]
+         *      如果是函数，此处将被替换函数的返回值
+         * @param {ReactClass} renderer 列单元格渲染器
+         * @param {Boolean} isEmptyHeader 表头是否留空，如果为true，则thRenderer无效
+         * @param {ReactClass} thRenderer 列表头渲染器
+         * @param {Function} prepare 单元格渲染前，生成的props属性集以及一些其他参数会以指针形式调用此回调，在这个回调中，
+         *      可以对props做任意修改
+         * @param {Any} width,align,verticalAlign,color 将要被下降到tdRendererProps.style中的属性
+         */
+        /**
+         * @structure TableFixedObject
+         * @example
+         *  {
+         *      ref: <required>
+         *      top: <required>
+         *      zIndex: <optional>
+         *  }
+         * @param {String} ref 将被固定的dom的ref属性值
+         * @param {Number} top 当dom在屏幕中的显示位置，上边框到window顶部（注意不是body顶部）距离小于top时，将被固定
+         * @param {Number} zIndex 如果有多个dom要被固定，zIndex用来约束他们的层次顺序
+         */
+        /**
+         * @structure TableValueTemplate
+         * @example
+         *  {
+         *      sortField: <optional>
+         *      sortType: <optional>
+         *      selected: <optional>
+         *  }
+         * @attention table的value类型是字符串，用JSON.stringify方法将示例中的数据结构转换，因此操作value时不能出环
+         * @param {String} sortField table当前排序的列名
+         * @param {String} sortType table当前排序的类型
+         * @param {Array.<Number> | Number} selected table当前选中的元素的行号集合，如果此项为-1，则标识table被全选
+         */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            fieldConfig: React.PropTypes.array,
+            flags: React.PropTypes.object,
+            datasource: React.PropTypes.array,
+            summary: React.PropTypes.object,
+            message: React.PropTypes.object,
+            fixedPosition: React.PropTypes.array,
+            onAction: React.PropTypes.func,
+            // mixin
+            value: React.PropTypes.string,
+            valueLink: React.PropTypes.object,
+            name: React.PropTypes.string,
+            onChange: React.PropTypes.func,
+            validations: React.PropTypes.object,
+            customErrorTemplates: React.PropTypes.object,
+            valueTemplate: React.PropTypes.string
+        },
         // @override
         mixins: [InputWidget, WidgetWithFixedDom],
         // @override
         getDefaultProps: function () {
             return {
-                // 样式属性
                 skin: '',
                 className: '',
                 style: {},
                 disabled: false,
-                // 配置属性
                 fieldConfig: [],
                 flags: {
                     sortEnable: false,
                     showHeader: false,
                     showSummary: false,
-                    showSelector: false // false | 0: 关闭；true | 1: 开启；2：选择当前页；3：选择全部
+                    showSelector: false
                 },
-                // 数据属性
                 datasource: [],
                 summary: {},
                 message: {
                     content: '',
                     buttonLabel: language.button.fresh
                 },
-                fixedPosition: [],  // {ref: 'shadowTableContainer', top: 0, zIndex: 998}
-                // 回调属性
+                fixedPosition: [],
                 onAction: cTools.noop,
-                // value模板, 此项目只能为基本类型，不能为object
                 valueTemplate: JSON.stringify({
                     sortField: '',
                     sortType: 'asc',
-                    selected: []    // 如果为全选，则此处为-1，否则，为行在datasource中的索引
+                    selected: []
                 })
             };
         },
@@ -146,7 +242,7 @@ define(function (require) {
         var td = [];
         var fields = tools.fieldConfigFactory(me, Others);
         for (var i = 0; i < fields.length; i++) {
-            var width = isNaN(fields[i].width) ? 0 : fields[i].width * 1;
+            var width = cTools.getValueFromPropsAndStyle(fields[i], 'width', 0);
             td.push(<col style={{width: width + 'px'}} key={'colgroup-' + i} />);
         }
         return <colgroup>{td}</colgroup>

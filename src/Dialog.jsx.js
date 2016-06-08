@@ -18,8 +18,6 @@ define(function (require) {
 
 
     /**
-     * 弹窗类
-     *
      * @constructor
      * @name Dialog
      */

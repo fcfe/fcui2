@@ -63,8 +63,13 @@ define(function (require) {
                 },
                 onClick: this.onSortClick
             };
+            var thProp = {
+                className: 'th-header',
+                textAlign: fieldConfig.align || 'left',
+                verticalAlign: fieldConfig.verticalAlign || 'top'
+            };
             return (
-                <th className="th-header" style={{textAlign: fieldConfig.align || 'left'}}>
+                <th {...thProp}>
                     <span>{fieldConfig.label}</span>
                     <Tip {...fieldConfig.tip}/>
                     <div {...sortButtonProp}></div>

@@ -35,6 +35,10 @@ define(function (require) {
                 <div className="parser-structure">
                     <h3>{'<' + item.structure + '>'}</h3>
                     {
+                        item.attention && item.attention.length
+                        ? <div className="attention">{item.attention}</div> : null
+                    }
+                    {
                         item.hasOwnProperty('example') && item.example.length > 0
                         ? <Code codes={item.example}/> : null
                     }

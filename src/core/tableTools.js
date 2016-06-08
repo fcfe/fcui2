@@ -2,7 +2,9 @@ define(function (require) {
 
 
     var STYLES_MERGE_FROM_CONF_TO_PROPS = {
+        width: 'width',
         align: 'textAlign',
+        verticalAlign: 'verticalAlign',
         color: 'color'
     };
 

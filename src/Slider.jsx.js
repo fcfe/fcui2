@@ -1,8 +1,8 @@
 /**
- *  滑块组件
+ * 数值滑竿
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -17,6 +17,44 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         *
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {Number} max 最大值
+         * @param {Number} min 最小值
+         * @param {Number} step 滑动后最小变动值
+         * @param {String} type 数字的类型，float或int
+         * @param {Number} fixed 保留的小数位数，只有当type为float时有效
+         * @param {String} measure 说明框上显示的单位
+         * @param {Boolean} showLabel 是否显示说明框
+         * @param {Import|Properties} src\mixins\InputWidget.js
+         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            max: React.PropTypes.number,
+            min: React.PropTypes.number,
+            step: React.PropTypes.number,
+            measure: React.PropTypes.string,
+            type: React.PropTypes.string,
+            fixed: React.PropTypes.number,
+            showLabel: React.PropTypes.bool,
+            // mixin
+            value: React.PropTypes.string,
+            valueLink: React.PropTypes.object,
+            name: React.PropTypes.string,
+            onChange: React.PropTypes.func,
+            validations: React.PropTypes.object,
+            customErrorTemplates: React.PropTypes.object,
+            valueTemplate: React.PropTypes.string
+        },
         // @override
         mixins: [InputWidget],
         // @override
@@ -30,7 +68,7 @@ define(function (require) {
                 min: 0,
                 step: 1,
                 measure: '',
-                type: 'int', // int, float
+                type: 'int',
                 fixed: 2,
                 valueTemplate: 0,
                 showLabel: false

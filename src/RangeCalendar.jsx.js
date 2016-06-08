@@ -1,8 +1,8 @@
 /**
- *  日期区间选择框组件
+ * 日期区间选择器
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -24,12 +24,57 @@ define(function (require) {
 
     // 浮层弹出按钮
     return React.createClass({
-
-
+        /**
+         * @properties
+         *
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {String} placeholder 弹出按钮默认显示的文字，如果选择了日期区间，则此项不显示
+         * @param {String} max 日历最大值，在这一天之后的日期不能被选定，格式：YYYY-MM-DD
+         * @param {String} min 日历最小值，在这一天之前的日期不能被选定，格式：YYYY-MM-DD
+         * @param {Array.<RangeCalendarShortCut>} shortCut 快捷选择按钮配置
+         * @param {Function} rangeValidator 日期区间校验机
+         * @param {Import|Properties} src\mixins\InputWidget.js
+         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         */
+        /**
+         * @structure RangeCalendarShortCut
+         * @example
+         *  {
+         *      label: '',                  <required>
+         *      getValues: function () {    <required>
+         *          return {
+         *              value1: new Date(), <required>
+         *              value2: new Date()  <required>
+         *          };
+         *      }
+         *  }
+         * @param {String} label 快捷按钮标签
+         * @param {Function} getValues 返回值接口
+         */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            placeholder: React.PropTypes.string,
+            max: React.PropTypes.string,
+            min: React.PropTypes.string,
+            shortCut: React.PropTypes.array,
+            rangeValidator: React.PropTypes.func,
+            // mixin
+            value: React.PropTypes.string,
+            valueLink: React.PropTypes.object,
+            name: React.PropTypes.string,
+            onChange: React.PropTypes.func,
+            validations: React.PropTypes.object,
+            customErrorTemplates: React.PropTypes.object,
+            valueTemplate: React.PropTypes.string
+        },
         // @override
         mixins: [InputWidget],
-
-
         // @override
         getDefaultProps: function () {
             return {
@@ -41,18 +86,10 @@ define(function (require) {
                 min: '0-1-1',
                 max: '9999-12-31',
                 valueTemplate: '',
-                /**
-                 * 快捷按钮配置
-                 * 两个日历上方的快捷按钮配置，按钮的一切都由外部导入，包括处理函数，元素格式如下：
-                 * {label: '今天', getValues: function () {return {value1: new Date(), value2: new Date()};}}
-                 */
                 shortCut: [],
-                // 时间跨度校验
                 rangeValidator: function () {}
             };
         },
-
-
         // @override
         getInitialState: function () {
             var values = tools.cutValues(this.___getValue___());
@@ -60,35 +97,25 @@ define(function (require) {
             values.rangeValidationResult = '';
             return values;
         },
-
-
         // @override
         componentWillReceiveProps: function (nextProps) {
             var state = tools.cutValues(nextProps.value);
             state.rangeValidationResult = '';
             this.setState(state);
         },
-
-
         onMainButtonClick: function (e) {
             if (this.props.disabled) return;
             this.setState({layerOpen: true});
         },
-
-
         onEnterButtonClick: function (e) {
             e.target = this.refs.container;
             e.target.value = this.state.value1 + ';' + this.state.value2;
             this.___dispatchChange___(e);
             this.setState({layerOpen: false});
         },
-
-
         onCancelButtonClick: function (e) {
             this.setState({layerOpen: false});
         },
-
-
         onShortCutClick: function (e) {
             var i = util.getDataset(e.target).uiCmd * 1;
             var values = this.props.shortCut[i].getValues();
@@ -126,8 +153,6 @@ define(function (require) {
             });
             this.setState(values);
         },
-
-
         onCalendarChange1: function (e) {
             var value = tools.str2date(e.target.value);
             var rangeValidationResult = this.props.rangeValidator(value, this.state.___v2);
@@ -137,8 +162,6 @@ define(function (require) {
                 rangeValidationResult: typeof rangeValidationResult === 'string' ? rangeValidationResult : ''
             });
         },
-
-
         onCalendarChange2: function (e) {
             var value = tools.str2date(e.target.value);
             var rangeValidationResult = this.props.rangeValidator(this.state.___v1, value);
@@ -148,8 +171,6 @@ define(function (require) {
                 rangeValidationResult: typeof rangeValidationResult === 'string' ? rangeValidationResult : ''
             });
         },
-
-
         render: function () {
             var me = this;
             var containerProp = cTools.containerBaseProps('dropdownlist', this, {

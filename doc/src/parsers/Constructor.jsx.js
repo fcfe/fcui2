@@ -33,7 +33,7 @@ define(function (require) {
             var item = this.props.item;
             return (
                 <div className="parser-constructor">
-                    <h3>{'Class ' + item.name + ' ' + item.description}</h3>
+                    <h3>{'Class ' + item.name}</h3>
                     <Method item={item}/>
                     {methodFactory(item.file, item.name)}
                 </div>

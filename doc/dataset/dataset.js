@@ -1047,7 +1047,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\tableTools.js",
-            "line": 13,
+            "line": 15,
             "description": "根据选中hash，计算选中item个数",
             "params": [
                 {
@@ -1065,13 +1065,13 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\tableTools.js",
-            "line": 29,
+            "line": 31,
             "description": "判断是否有数据",
             "class": ""
         },
         {
             "file": "src\\core\\tableTools.js",
-            "line": 40,
+            "line": 42,
             "description": "从table的value中，获取选中行的数据结构",
             "params": [
                 {
@@ -1088,7 +1088,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\tableTools.js",
-            "line": 59,
+            "line": 61,
             "description": "更新选中集",
             "params": [
                 {
@@ -1125,7 +1125,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\tableTools.js",
-            "line": 113,
+            "line": 115,
             "description": "根据fieldConfig的配置生成渲染单元格的props",
             "params": [
                 {
@@ -1162,7 +1162,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\tableTools.js",
-            "line": 162,
+            "line": 164,
             "description": "重新组织fieldConfig",
             "params": [
                 {
@@ -1893,7 +1893,7 @@ define(function(require){return {
         {
             "file": "src\\ComboList.jsx.js",
             "line": 1,
-            "description": "组合控制列表",
+            "description": "组合下拉列表",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2.1",
@@ -2013,14 +2013,13 @@ define(function(require){return {
         {
             "file": "src\\Dialog.jsx.js",
             "line": 20,
-            "description": "弹窗类",
             "is_constructor": 1,
             "name": "Dialog",
             "class": ""
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 31,
+            "line": 29,
             "description": "弹出窗体",
             "name": "pop",
             "classname": "Dialog",
@@ -2104,7 +2103,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 65,
+            "line": 63,
             "description": "关闭窗体",
             "name": "close",
             "classname": "Dialog",
@@ -2113,7 +2112,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 86,
+            "line": 84,
             "description": "更新content属性集",
             "params": [
                 {
@@ -2129,7 +2128,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 111,
+            "line": 109,
             "description": "弹出Alert提示框",
             "params": [
                 {
@@ -2162,7 +2161,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 137,
+            "line": 135,
             "description": "弹出Confirm确认框",
             "params": [
                 {
@@ -2248,7 +2247,7 @@ define(function(require){return {
         {
             "file": "src\\DropDownList.jsx.js",
             "line": 1,
-            "description": "下拉控制列表",
+            "description": "下拉列表",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2.1",
@@ -2576,10 +2575,88 @@ define(function(require){return {
         {
             "file": "src\\Layer.jsx.js",
             "line": 1,
-            "description": "功能性弹层组件",
+            "description": "弹层",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\Layer.jsx.js",
+            "line": 18,
+            "properties": "",
+            "params": [
+                {
+                    "name": "className",
+                    "description": "添加到layer容器上类，此容器为内部容器，将添加到body中，是layer content根容器的外壳",
+                    "type": "String"
+                },
+                {
+                    "name": "skin",
+                    "description": "添加到layer容器上的皮肤",
+                    "type": "String"
+                },
+                {
+                    "name": "style",
+                    "description": "添加到layer容器上的样式表",
+                    "type": "String"
+                },
+                {
+                    "name": "isOpen",
+                    "description": "layer是否显示，如果为true，layer容器将被添加到body中",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "anchor",
+                    "description": "<required>layer定位的锚点，只有设置了锚点，layer才会显示，就是说这项是必须的",
+                    "type": "HtmlElement"
+                },
+                {
+                    "name": "location",
+                    "description": "layer位置配置：'left right'从anchor右边框向左展开优先，屏幕位置不够，就从anchor左边框\n 向右展开；'right left'则向右展开优先；top、bottom含义类似。",
+                    "type": "String"
+                },
+                {
+                    "name": "closeWithBodyClick",
+                    "description": "layer展开后，点击屏幕其他位置，layer是否自动关闭，默认false",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "fixedWidthToAnchor",
+                    "description": "当layer宽度小于anchor时，是否根据anchor自适应宽度，默认true",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "onOffset",
+                    "description": "layer展开后计算出显示位置，调用此回调，此回调可以对显示位置进行修正，指针方法",
+                    "type": "Function"
+                },
+                {
+                    "name": "onMouseEnter",
+                    "description": "鼠标滑入layer时的回调",
+                    "type": "Function"
+                },
+                {
+                    "name": "onMouseLeave",
+                    "description": "鼠标滑出layer时的回调",
+                    "type": "Function"
+                },
+                {
+                    "name": "onRender",
+                    "description": "layer渲染完成后的回调",
+                    "type": "Function"
+                },
+                {
+                    "name": "onClose",
+                    "description": "layer关闭后的回调",
+                    "type": "Function"
+                },
+                {
+                    "name": "onCloseByWindow",
+                    "description": "屏幕其他位置被点击导致layer关闭后触发的回调，只有closeWithBodyClick为true\n 时有效",
+                    "type": "Function"
+                }
+            ],
             "class": ""
         },
         {
@@ -2648,10 +2725,70 @@ define(function(require){return {
         {
             "file": "src\\NumberBox.jsx.js",
             "line": 1,
-            "description": "数字输入框组件",
+            "description": "数字输入框",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\NumberBox.jsx.js",
+            "line": 20,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "placeholder",
+                    "description": "数字输入框中无内容时显示的提示文字",
+                    "type": "String"
+                },
+                {
+                    "name": "max",
+                    "description": "允许输入的最大值",
+                    "type": "Number"
+                },
+                {
+                    "name": "min",
+                    "description": "允许输入的最小值",
+                    "type": "Number"
+                },
+                {
+                    "name": "step",
+                    "description": "调节按钮点击时值跳动的步频",
+                    "type": "Number"
+                },
+                {
+                    "name": "type",
+                    "description": "输入数字的类型，float或int",
+                    "type": "String"
+                },
+                {
+                    "name": "fixed",
+                    "description": "保留的小数位数，只有当type为float时有效",
+                    "type": "Number"
+                },
+                {
+                    "name": "showSpinButton",
+                    "description": "是否显示调节按钮",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\NumberBox.jsx.js",
+            "line": 115,
+            "description": "让输入框获得焦点",
+            "interface": "focus",
             "class": ""
         },
         {
@@ -2699,25 +2836,121 @@ define(function(require){return {
         {
             "file": "src\\Radio.jsx.js",
             "line": 1,
-            "description": "单选框组件",
+            "description": "单选框",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\Radio.jsx.js",
+            "line": 16,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "label",
+                    "description": "单选框旁边显示的文字，点击文字也可以改变选中状态",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "单选框的值，触发onChange时随事件对象返回，用于区分单选框的身份",
+                    "type": "String"
+                },
+                {
+                    "name": "checked",
+                    "description": "单选框是否被选中，触发onChange时随事件对象返回，用于表明单选框时候被选中",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "labelPosition",
+                    "description": "文本标签显示的位置，'right'为单选框右侧，否则在左侧",
+                    "type": "String"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\RangeCalendar.jsx.js",
             "line": 1,
-            "description": "日期区间选择框组件",
+            "description": "日期区间选择器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
             "class": ""
         },
         {
             "file": "src\\RangeCalendar.jsx.js",
-            "line": 44,
-            "description": "快捷按钮配置\n两个日历上方的快捷按钮配置，按钮的一切都由外部导入，包括处理函数，元素格式如下：\n{label: '今天', getValues: function () {return {value1: new Date(), value2: new Date()};}}",
+            "line": 27,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "placeholder",
+                    "description": "弹出按钮默认显示的文字，如果选择了日期区间，则此项不显示",
+                    "type": "String"
+                },
+                {
+                    "name": "max",
+                    "description": "日历最大值，在这一天之后的日期不能被选定，格式：YYYY-MM-DD",
+                    "type": "String"
+                },
+                {
+                    "name": "min",
+                    "description": "日历最小值，在这一天之前的日期不能被选定，格式：YYYY-MM-DD",
+                    "type": "String"
+                },
+                {
+                    "name": "shortCut",
+                    "description": "快捷选择按钮配置",
+                    "type": "Array.<RangeCalendarShortCut>"
+                },
+                {
+                    "name": "rangeValidator",
+                    "description": "日期区间校验机",
+                    "type": "Function"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\RangeCalendar.jsx.js",
+            "line": 39,
+            "structure": "RangeCalendarShortCut",
+            "example": [
+                "\n {\n     label: '',                  <required>\n     getValues: function () {    <required>\n         return {\n             value1: new Date(), <required>\n             value2: new Date()  <required>\n         };\n     }\n }"
+            ],
+            "params": [
+                {
+                    "name": "label",
+                    "description": "快捷按钮标签",
+                    "type": "String"
+                },
+                {
+                    "name": "getValues",
+                    "description": "返回值接口",
+                    "type": "Function"
+                }
+            ],
             "class": ""
         },
         {
@@ -2936,37 +3169,206 @@ define(function(require){return {
         {
             "file": "src\\SearchBox.jsx.js",
             "line": 1,
-            "description": "搜索框组件",
+            "description": "搜索框",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\SearchBox.jsx.js",
+            "line": 17,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "placeholder",
+                    "description": "文本框中无内容时显示的提示文字",
+                    "type": "String"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "onClick",
+                    "description": "搜索按钮点击时的回调",
+                    "type": "Function"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\Select.jsx.js",
             "line": 1,
-            "description": "选择框组件",
+            "description": "选择器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\Select.jsx.js",
+            "line": 19,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "placeholder",
+                    "description": "组件为选择且无初始值时，下拉按钮上显示的值",
+                    "type": "String"
+                },
+                {
+                    "name": "openLayerType",
+                    "description": "控制浮层打开的动作，onMouseEnter或onClick",
+                    "type": "String"
+                },
+                {
+                    "name": "datasource",
+                    "description": "列表数据源",
+                    "type": "Array.<ListItemObject>"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Select.jsx.js",
+            "line": 29,
+            "structure": "Import src\\List.jsx.js ListItemObject",
             "class": ""
         },
         {
             "file": "src\\ShojiScreen.jsx.js",
             "line": 1,
-            "description": "横拉谈层",
+            "description": "侧拉门",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2\n\n 注：<日> n.障子，日本房屋用的纸糊木框，亦作shoji screen如用木框糊纸的拉窗、拉门、纸拉窗、纸拉门",
+            "version": "0.0.2.1",
+            "note": "Shoji <日> n.障子，日本房屋用的纸糊木框，亦作shoji screen。如用木框糊纸的拉窗、拉门、纸拉窗、纸拉门。",
+            "class": ""
+        },
+        {
+            "file": "src\\ShojiScreen.jsx.js",
+            "line": 23,
+            "properties": "",
+            "params": [
+                {
+                    "name": "className",
+                    "description": "添加到ShojiScreen容器上的类，此容器为内部容器，将添加到body中，是ShojiScreen content根容器的外壳",
+                    "type": "String"
+                },
+                {
+                    "name": "skin",
+                    "description": "挂在ShojiScreen容器上的皮肤",
+                    "type": "Object"
+                },
+                {
+                    "name": "workspaceWidth",
+                    "description": "ShojiScreen工作区宽度",
+                    "type": "Number"
+                },
+                {
+                    "name": "isOpen",
+                    "description": "ShojiScreen是否显示，如果为true，layer容器将被添加到body中",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "onAction",
+                    "description": "功能回调接口，目前有四种内部回调，type分别是\n     EnterButtonClick, CancelButtonClick, HideButtonClick, ExpandButtonClick",
+                    "type": "Function"
+                },
+                {
+                    "name": "onRender",
+                    "description": "ShojiScreen渲染完成后的回调",
+                    "type": "Function"
+                },
+                {
+                    "name": "onBeforeClose",
+                    "description": "ShojiScreen关闭前触发的回调，可以在这个回调中阻止窗体关闭",
+                    "type": "Function"
+                },
+                {
+                    "name": "onClose",
+                    "description": "ShojiScreen关闭后的回调",
+                    "type": "Function"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\Slider.jsx.js",
             "line": 1,
-            "description": "滑块组件",
+            "description": "数值滑竿",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\Slider.jsx.js",
+            "line": 20,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "max",
+                    "description": "最大值",
+                    "type": "Number"
+                },
+                {
+                    "name": "min",
+                    "description": "最小值",
+                    "type": "Number"
+                },
+                {
+                    "name": "step",
+                    "description": "滑动后最小变动值",
+                    "type": "Number"
+                },
+                {
+                    "name": "type",
+                    "description": "数字的类型，float或int",
+                    "type": "String"
+                },
+                {
+                    "name": "fixed",
+                    "description": "保留的小数位数，只有当type为float时有效",
+                    "type": "Number"
+                },
+                {
+                    "name": "measure",
+                    "description": "说明框上显示的单位",
+                    "type": "String"
+                },
+                {
+                    "name": "showLabel",
+                    "description": "是否显示说明框",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                }
+            ],
             "class": ""
         },
         {
@@ -3015,28 +3417,285 @@ define(function(require){return {
         {
             "file": "src\\Table.jsx.js",
             "line": 1,
-            "description": "表格组件",
+            "description": "表格",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\Table.jsx.js",
+            "line": 29,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "fieldConfig",
+                    "description": "表格列配置",
+                    "type": "Array.<TableFieldObject>"
+                },
+                {
+                    "name": "flags",
+                    "description": "表格附属功能开关集合",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "sortEnable",
+                            "description": "是否显示排序按钮，默认false",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "showHeader",
+                            "description": "是否显示表头，默认false",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "showSummary",
+                            "description": "是否在表头下方显示汇总栏，默认false",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "showSelector",
+                            "description": "是否在第一列显示行选择器，默认false，不建议使用，改在fieldConfig中添加。\n     此属性改为配置选择器工作模式：false|0 关闭；true|1 开启；2 选择当前页；3 选择全部",
+                            "type": "Boolean"
+                        }
+                    ]
+                },
+                {
+                    "name": "datasource",
+                    "description": "表格数据源",
+                    "type": "Array.<Object>"
+                },
+                {
+                    "name": "summary",
+                    "description": "表格汇总信息的数据源",
+                    "type": "Object"
+                },
+                {
+                    "name": "message",
+                    "description": "表格信息栏的数据源",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "content",
+                            "description": "信息栏中显示的信息，不制定，信息栏将不会显示",
+                            "type": "String"
+                        },
+                        {
+                            "name": "buttonLabel",
+                            "description": "信息栏中紧随信息文本的按钮标签，点击此按钮会通过onAction回调TableMessageBarClick事件",
+                            "type": "String"
+                        }
+                    ]
+                },
+                {
+                    "name": "fixedPosition",
+                    "description": "当body滚动条发生滚动事，满足条件后位置固定的元素配置信息",
+                    "type": "Array.<TableFixedObject>"
+                },
+                {
+                    "name": "onAction",
+                    "description": "表格内部子渲染器的回调接口",
+                    "type": "Function"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Table.jsx.js",
+            "line": 52,
+            "structure": "TableFieldObject",
+            "example": [
+                "\n {\n     isSelector: <optional>\n     label: <optional>  \n     field: <optional>\n     content: function (dataItem, rowIndex, columnIndex, tableComponent)) <optional>\n     renderer: <optional>\n     isEmptyHeader: <optional>\n     thRenderer: <optional>\n     prepare: function (tdRendererProps, dataItem, rowIndex, columnIndex, tableComponent) <optional>\n }"
+            ],
+            "attention": "TableFieldObject中，除function类型的值，其他数据都会无条件灌入renderer中，\n     以下属性除外：item, row, column, key, onAction",
+            "params": [
+                {
+                    "name": "isSelector",
+                    "description": "该列是否是选择器，如果为true，其他配置均无效",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "label",
+                    "description": "显示在表头的列名",
+                    "type": "String"
+                },
+                {
+                    "name": "field",
+                    "description": "列名称",
+                    "type": "String"
+                },
+                {
+                    "name": "content",
+                    "description": "列显示的数据域或域处理函数；如果为字符串，则此处会被替换为dataItem[content]\n     如果是函数，此处将被替换函数的返回值",
+                    "type": "String | Function"
+                },
+                {
+                    "name": "renderer",
+                    "description": "列单元格渲染器",
+                    "type": "ReactClass"
+                },
+                {
+                    "name": "isEmptyHeader",
+                    "description": "表头是否留空，如果为true，则thRenderer无效",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "thRenderer",
+                    "description": "列表头渲染器",
+                    "type": "ReactClass"
+                },
+                {
+                    "name": "prepare",
+                    "description": "单元格渲染前，生成的props属性集以及一些其他参数会以指针形式调用此回调，在这个回调中，\n     可以对props做任意修改",
+                    "type": "Function"
+                },
+                {
+                    "name": "width,align,verticalAlign,color",
+                    "description": "将要被下降到tdRendererProps.style中的属性",
+                    "type": "Any"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Table.jsx.js",
+            "line": 81,
+            "structure": "TableFixedObject",
+            "example": [
+                "\n {\n     ref: <required>\n     top: <required>\n     zIndex: <optional>\n }"
+            ],
+            "params": [
+                {
+                    "name": "ref",
+                    "description": "将被固定的dom的ref属性值",
+                    "type": "String"
+                },
+                {
+                    "name": "top",
+                    "description": "当dom在屏幕中的显示位置，上边框到window顶部（注意不是body顶部）距离小于top时，将被固定",
+                    "type": "Number"
+                },
+                {
+                    "name": "zIndex",
+                    "description": "如果有多个dom要被固定，zIndex用来约束他们的层次顺序",
+                    "type": "Number"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Table.jsx.js",
+            "line": 93,
+            "structure": "TableValueTemplate",
+            "example": [
+                "\n {\n     sortField: <optional>\n     sortType: <optional>\n     selected: <optional>\n }"
+            ],
+            "attention": "table的value类型是字符串，用JSON.stringify方法将示例中的数据结构转换，因此操作value时不能出环",
+            "params": [
+                {
+                    "name": "sortField",
+                    "description": "table当前排序的列名",
+                    "type": "String"
+                },
+                {
+                    "name": "sortType",
+                    "description": "table当前排序的类型",
+                    "type": "String"
+                },
+                {
+                    "name": "selected",
+                    "description": "table当前选中的元素的行号集合，如果此项为-1，则标识table被全选",
+                    "type": "Array.<Number> | Number"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\TextArea.jsx.js",
             "line": 1,
-            "description": "文本域组件",
+            "description": "文本域",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\TextArea.jsx.js",
+            "line": 17,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "placeholder",
+                    "description": "文本域中无内容时显示的提示文字",
+                    "type": "String"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\TextArea.jsx.js",
+            "line": 60,
+            "description": "让文本域获得焦点",
+            "interface": "focus",
             "class": ""
         },
         {
             "file": "src\\TextBox.jsx.js",
             "line": 1,
-            "description": "文本输入框组件",
+            "description": "文本输入框",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\TextBox.jsx.js",
+            "line": 17,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "placeholder",
+                    "description": "文本框中无内容时显示的提示文字",
+                    "type": "String"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\TextBox.jsx.js",
+            "line": 61,
+            "description": "让输入框获得焦点",
+            "interface": "focus",
             "class": ""
         },
         {
@@ -3079,10 +3738,80 @@ define(function(require){return {
         {
             "file": "src\\TitleWindow.jsx.js",
             "line": 1,
-            "description": "功能性弹层组件，用法跟Dialog不一样，这个更先进",
+            "description": "弹窗",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\TitleWindow.jsx.js",
+            "line": 18,
+            "properties": "",
+            "params": [
+                {
+                    "name": "className",
+                    "description": "添加到TitleWindow容器上的类，此容器为内部容器，将添加到body中，是TitleWindow content根容器的外壳",
+                    "type": "String"
+                },
+                {
+                    "name": "skin",
+                    "description": "挂在TitleWindow容器上的皮肤",
+                    "type": "Object"
+                },
+                {
+                    "name": "isOpen",
+                    "description": "TitleWindow是否显示，如果为true，layer容器将被添加到body中",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "title",
+                    "description": "TitleWindow标题栏中显示的标题",
+                    "type": "String"
+                },
+                {
+                    "name": "size",
+                    "description": "TitleWindow窗体的尺寸，与isFullScreen互斥",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "width",
+                            "description": "TitleWindow渲染后的宽度",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "height",
+                            "description": "TitleWindow渲染后的高度",
+                            "type": "Number"
+                        }
+                    ]
+                },
+                {
+                    "name": "isFullScreen",
+                    "description": "TitleWindow弹出后时候直接全屏显示",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "showCloseButton",
+                    "description": "是否显示TitleWindow标题栏中的关闭按钮",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "onRender",
+                    "description": "TitleWindow渲染完成后的回调",
+                    "type": "Function"
+                },
+                {
+                    "name": "onBeforeClose",
+                    "description": "TitleWindow关闭前触发的回调，可以在这个回调中阻止窗体关闭",
+                    "type": "Function"
+                },
+                {
+                    "name": "onClose",
+                    "description": "TitleWindow关闭后的回调",
+                    "type": "Function"
+                }
+            ],
             "class": ""
         },
         {
@@ -3759,59 +4488,59 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: name",
-            "line": " src\\Dialog.jsx.js:31"
+            "line": " src\\Dialog.jsx.js:29"
         },
         {
             "message": "unknown tag: classname",
-            "line": " src\\Dialog.jsx.js:31"
+            "line": " src\\Dialog.jsx.js:29"
         },
         {
             "message": "unknown tag: name",
-            "line": " src\\Dialog.jsx.js:65"
+            "line": " src\\Dialog.jsx.js:63"
         },
         {
             "message": "unknown tag: classname",
-            "line": " src\\Dialog.jsx.js:65"
+            "line": " src\\Dialog.jsx.js:63"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Dialog.jsx.js:65"
+            "line": " src\\Dialog.jsx.js:63"
         },
         {
             "message": "unknown tag: name",
-            "line": " src\\Dialog.jsx.js:86"
+            "line": " src\\Dialog.jsx.js:84"
         },
         {
             "message": "unknown tag: classname",
-            "line": " src\\Dialog.jsx.js:86"
+            "line": " src\\Dialog.jsx.js:84"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Dialog.jsx.js:86"
+            "line": " src\\Dialog.jsx.js:84"
         },
         {
             "message": "unknown tag: name",
-            "line": " src\\Dialog.jsx.js:111"
+            "line": " src\\Dialog.jsx.js:109"
         },
         {
             "message": "unknown tag: classname",
-            "line": " src\\Dialog.jsx.js:111"
+            "line": " src\\Dialog.jsx.js:109"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Dialog.jsx.js:111"
+            "line": " src\\Dialog.jsx.js:109"
         },
         {
             "message": "unknown tag: name",
-            "line": " src\\Dialog.jsx.js:137"
+            "line": " src\\Dialog.jsx.js:135"
         },
         {
             "message": "unknown tag: classname",
-            "line": " src\\Dialog.jsx.js:137"
+            "line": " src\\Dialog.jsx.js:135"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Dialog.jsx.js:137"
+            "line": " src\\Dialog.jsx.js:135"
         },
         {
             "message": "unknown tag: email",
@@ -3894,6 +4623,10 @@ define(function(require){return {
             "line": " src\\Layer.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\Layer.jsx.js:18"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\List.jsx.js:1"
         },
@@ -3918,6 +4651,10 @@ define(function(require){return {
             "line": " src\\NumberBox.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\NumberBox.jsx.js:20"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\Pager.jsx.js:1"
         },
@@ -3938,12 +4675,24 @@ define(function(require){return {
             "line": " src\\Radio.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\Radio.jsx.js:16"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\RangeCalendar.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
             "line": " src\\RangeCalendar.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\RangeCalendar.jsx.js:27"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\RangeCalendar.jsx.js:39"
         },
         {
             "message": "unknown tag: email",
@@ -3974,12 +4723,24 @@ define(function(require){return {
             "line": " src\\SearchBox.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\SearchBox.jsx.js:17"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\Select.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
             "line": " src\\Select.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\Select.jsx.js:19"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\Select.jsx.js:29"
         },
         {
             "message": "unknown tag: email",
@@ -3990,12 +4751,24 @@ define(function(require){return {
             "line": " src\\ShojiScreen.jsx.js:1"
         },
         {
+            "message": "unknown tag: note",
+            "line": " src\\ShojiScreen.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\ShojiScreen.jsx.js:23"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\Slider.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
             "line": " src\\Slider.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\Slider.jsx.js:20"
         },
         {
             "message": "unknown tag: email",
@@ -4022,6 +4795,30 @@ define(function(require){return {
             "line": " src\\Table.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\Table.jsx.js:29"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\Table.jsx.js:52"
+        },
+        {
+            "message": "unknown tag: attention",
+            "line": " src\\Table.jsx.js:52"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\Table.jsx.js:81"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\Table.jsx.js:93"
+        },
+        {
+            "message": "unknown tag: attention",
+            "line": " src\\Table.jsx.js:93"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\TextArea.jsx.js:1"
         },
@@ -4030,12 +4827,20 @@ define(function(require){return {
             "line": " src\\TextArea.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\TextArea.jsx.js:17"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\TextBox.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
             "line": " src\\TextBox.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\TextBox.jsx.js:17"
         },
         {
             "message": "unknown tag: email",
@@ -4056,6 +4861,10 @@ define(function(require){return {
         {
             "message": "unknown tag: version",
             "line": " src\\TitleWindow.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\TitleWindow.jsx.js:18"
         },
         {
             "message": "unknown tag: version",
@@ -4231,27 +5040,27 @@ define(function(require){return {
         },
         {
             "message": "Missing item type\n根据选中hash，计算选中item个数",
-            "line": " src\\core\\tableTools.js:13"
+            "line": " src\\core\\tableTools.js:15"
         },
         {
             "message": "Missing item type\n判断是否有数据",
-            "line": " src\\core\\tableTools.js:29"
+            "line": " src\\core\\tableTools.js:31"
         },
         {
             "message": "Missing item type\n从table的value中，获取选中行的数据结构",
-            "line": " src\\core\\tableTools.js:40"
+            "line": " src\\core\\tableTools.js:42"
         },
         {
             "message": "Missing item type\n更新选中集",
-            "line": " src\\core\\tableTools.js:59"
+            "line": " src\\core\\tableTools.js:61"
         },
         {
             "message": "Missing item type\n根据fieldConfig的配置生成渲染单元格的props",
-            "line": " src\\core\\tableTools.js:113"
+            "line": " src\\core\\tableTools.js:115"
         },
         {
             "message": "Missing item type\n重新组织fieldConfig",
-            "line": " src\\core\\tableTools.js:162"
+            "line": " src\\core\\tableTools.js:164"
         },
         {
             "message": "Missing item type\n封装树及树选择器相关的方法",
@@ -4406,7 +5215,7 @@ define(function(require){return {
             "line": " src\\CheckBox.jsx.js:16"
         },
         {
-            "message": "Missing item type\n组合控制列表",
+            "message": "Missing item type\n组合下拉列表",
             "line": " src\\ComboList.jsx.js:1"
         },
         {
@@ -4434,28 +5243,28 @@ define(function(require){return {
             "line": " src\\Dialog.jsx.js:1"
         },
         {
-            "message": "Missing item type\n弹窗类",
+            "message": "Missing item type",
             "line": " src\\Dialog.jsx.js:20"
         },
         {
             "message": "Missing item type\n弹出窗体",
-            "line": " src\\Dialog.jsx.js:31"
+            "line": " src\\Dialog.jsx.js:29"
         },
         {
             "message": "Missing item type\n关闭窗体",
-            "line": " src\\Dialog.jsx.js:65"
+            "line": " src\\Dialog.jsx.js:63"
         },
         {
             "message": "Missing item type\n更新content属性集",
-            "line": " src\\Dialog.jsx.js:86"
+            "line": " src\\Dialog.jsx.js:84"
         },
         {
             "message": "Missing item type\n弹出Alert提示框",
-            "line": " src\\Dialog.jsx.js:111"
+            "line": " src\\Dialog.jsx.js:109"
         },
         {
             "message": "Missing item type\n弹出Confirm确认框",
-            "line": " src\\Dialog.jsx.js:137"
+            "line": " src\\Dialog.jsx.js:135"
         },
         {
             "message": "Missing item type\n下拉日期选择器",
@@ -4466,7 +5275,7 @@ define(function(require){return {
             "line": " src\\DropDownCalendar.jsx.js:19"
         },
         {
-            "message": "Missing item type\n下拉控制列表",
+            "message": "Missing item type\n下拉列表",
             "line": " src\\DropDownList.jsx.js:1"
         },
         {
@@ -4534,8 +5343,12 @@ define(function(require){return {
             "line": " src\\Form.jsx.js:143"
         },
         {
-            "message": "Missing item type\n功能性弹层组件",
+            "message": "Missing item type\n弹层",
             "line": " src\\Layer.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Layer.jsx.js:18"
         },
         {
             "message": "Missing item type\n列表",
@@ -4550,8 +5363,16 @@ define(function(require){return {
             "line": " src\\List.jsx.js:24"
         },
         {
-            "message": "Missing item type\n数字输入框组件",
+            "message": "Missing item type\n数字输入框",
             "line": " src\\NumberBox.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\NumberBox.jsx.js:20"
+        },
+        {
+            "message": "Missing item type\n让输入框获得焦点",
+            "line": " src\\NumberBox.jsx.js:115"
         },
         {
             "message": "Missing item type\n翻页器",
@@ -4562,16 +5383,24 @@ define(function(require){return {
             "line": " src\\Pager.jsx.js:18"
         },
         {
-            "message": "Missing item type\n单选框组件",
+            "message": "Missing item type\n单选框",
             "line": " src\\Radio.jsx.js:1"
         },
         {
-            "message": "Missing item type\n日期区间选择框组件",
+            "message": "Missing item type",
+            "line": " src\\Radio.jsx.js:16"
+        },
+        {
+            "message": "Missing item type\n日期区间选择器",
             "line": " src\\RangeCalendar.jsx.js:1"
         },
         {
-            "message": "Missing item type\n快捷按钮配置\n两个日历上方的快捷按钮配置，按钮的一切都由外部导入，包括处理函数，元素格式如下：\n{label: '今天', getValues: function () {return {value1: new Date(), value2: new Date()};}}",
-            "line": " src\\RangeCalendar.jsx.js:44"
+            "message": "Missing item type",
+            "line": " src\\RangeCalendar.jsx.js:27"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\RangeCalendar.jsx.js:39"
         },
         {
             "message": "Missing item type\n地域选择器",
@@ -4646,20 +5475,40 @@ define(function(require){return {
             "line": " src\\Schedule.jsx.js:384"
         },
         {
-            "message": "Missing item type\n搜索框组件",
+            "message": "Missing item type\n搜索框",
             "line": " src\\SearchBox.jsx.js:1"
         },
         {
-            "message": "Missing item type\n选择框组件",
+            "message": "Missing item type",
+            "line": " src\\SearchBox.jsx.js:17"
+        },
+        {
+            "message": "Missing item type\n选择器",
             "line": " src\\Select.jsx.js:1"
         },
         {
-            "message": "Missing item type\n横拉谈层",
+            "message": "Missing item type",
+            "line": " src\\Select.jsx.js:19"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Select.jsx.js:29"
+        },
+        {
+            "message": "Missing item type\n侧拉门",
             "line": " src\\ShojiScreen.jsx.js:1"
         },
         {
-            "message": "Missing item type\n滑块组件",
+            "message": "Missing item type",
+            "line": " src\\ShojiScreen.jsx.js:23"
+        },
+        {
+            "message": "Missing item type\n数值滑竿",
             "line": " src\\Slider.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Slider.jsx.js:20"
         },
         {
             "message": "Missing item type\n标签导航",
@@ -4674,16 +5523,48 @@ define(function(require){return {
             "line": " src\\Tab.jsx.js:26"
         },
         {
-            "message": "Missing item type\n表格组件",
+            "message": "Missing item type\n表格",
             "line": " src\\Table.jsx.js:1"
         },
         {
-            "message": "Missing item type\n文本域组件",
+            "message": "Missing item type",
+            "line": " src\\Table.jsx.js:29"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Table.jsx.js:52"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Table.jsx.js:81"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Table.jsx.js:93"
+        },
+        {
+            "message": "Missing item type\n文本域",
             "line": " src\\TextArea.jsx.js:1"
         },
         {
-            "message": "Missing item type\n文本输入框组件",
+            "message": "Missing item type",
+            "line": " src\\TextArea.jsx.js:17"
+        },
+        {
+            "message": "Missing item type\n让文本域获得焦点",
+            "line": " src\\TextArea.jsx.js:60"
+        },
+        {
+            "message": "Missing item type\n文本输入框",
             "line": " src\\TextBox.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\TextBox.jsx.js:17"
+        },
+        {
+            "message": "Missing item type\n让输入框获得焦点",
+            "line": " src\\TextBox.jsx.js:61"
         },
         {
             "message": "Missing item type\n提示",
@@ -4694,8 +5575,12 @@ define(function(require){return {
             "line": " src\\Tip.jsx.js:17"
         },
         {
-            "message": "Missing item type\n功能性弹层组件，用法跟Dialog不一样，这个更先进",
+            "message": "Missing item type\n弹窗",
             "line": " src\\TitleWindow.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\TitleWindow.jsx.js:18"
         },
         {
             "message": "Missing item type\n一个树形选择控件",

@@ -1,8 +1,8 @@
 /**
- *  数字输入框组件
+ * 数字输入框
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -17,6 +17,44 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         *
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {String} placeholder 数字输入框中无内容时显示的提示文字
+         * @param {Number} max 允许输入的最大值
+         * @param {Number} min 允许输入的最小值
+         * @param {Number} step 调节按钮点击时值跳动的步频
+         * @param {String} type 输入数字的类型，float或int
+         * @param {Number} fixed 保留的小数位数，只有当type为float时有效
+         * @param {Boolean} showSpinButton 是否显示调节按钮
+         * @param {Import|Properties} src\mixins\InputWidget.js
+         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            placeholder: React.PropTypes.string,
+            max: React.PropTypes.number,
+            min: React.PropTypes.number,
+            step: React.PropTypes.number,
+            type: React.PropTypes.string,
+            fixed: React.PropTypes.number,
+            showSpinButton: React.PropTypes.bool,
+            // mixin
+            value: React.PropTypes.string,
+            valueLink: React.PropTypes.object,
+            name: React.PropTypes.string,
+            onChange: React.PropTypes.func,
+            validations: React.PropTypes.object,
+            customErrorTemplates: React.PropTypes.object,
+            valueTemplate: React.PropTypes.string
+        },
         // @override
         mixins: [InputWidget],
         // @override
@@ -74,6 +112,10 @@ define(function (require) {
             e.target = target;
             this.___dispatchChange___(e);
         },
+        /**
+         * 让输入框获得焦点
+         * @interface focus
+         */
         focus: function () {
             this.refs.inputbox.focus();
         },
@@ -95,7 +137,6 @@ define(function (require) {
                 ref: 'inputbox',
                 type: 'text',
                 value: value,
-                // 因为怎么用CSS定位，在Chrome和IE下显示都不一致，所以用最原始的方式组织DOM，然后用js计算尺寸
                 style: {
                     height: 26,
                     width: this.props.showSpinButton ? (width - 42) : (width - 22),

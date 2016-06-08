@@ -1,8 +1,8 @@
 /**
- *  功能性弹层组件
+ * 弹层
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -15,8 +15,42 @@ define(function (require) {
 
 
     return React.createClass({
-
-
+        /**
+         * @properties
+         * @param {String} className 添加到layer容器上类，此容器为内部容器，将添加到body中，是layer content根容器的外壳
+         * @param {String} skin 添加到layer容器上的皮肤
+         * @param {String} style 添加到layer容器上的样式表
+         * @param {Boolean} isOpen layer是否显示，如果为true，layer容器将被添加到body中
+         * @param {HtmlElement} anchor <required>layer定位的锚点，只有设置了锚点，layer才会显示，就是说这项是必须的 
+         * @param {String} location layer位置配置：'left right'从anchor右边框向左展开优先，屏幕位置不够，就从anchor左边框
+         *  向右展开；'right left'则向右展开优先；top、bottom含义类似。 
+         * @param {Boolean} closeWithBodyClick layer展开后，点击屏幕其他位置，layer是否自动关闭，默认false
+         * @param {Boolean} fixedWidthToAnchor 当layer宽度小于anchor时，是否根据anchor自适应宽度，默认true
+         * @param {Function} onOffset layer展开后计算出显示位置，调用此回调，此回调可以对显示位置进行修正，指针方法
+         * @param {Function} onMouseEnter 鼠标滑入layer时的回调
+         * @param {Function} onMouseLeave 鼠标滑出layer时的回调
+         * @param {Function} onRender layer渲染完成后的回调
+         * @param {Function} onClose layer关闭后的回调
+         * @param {Function} onCloseByWindow 屏幕其他位置被点击导致layer关闭后触发的回调，只有closeWithBodyClick为true
+         *  时有效
+         */
+        // @override
+        propTypes: {
+            className: React.PropTypes.string,
+            skin: React.PropTypes.string,
+            style: React.PropTypes.object,
+            isOpen: React.PropTypes.bool,
+            anchor: React.PropTypes.object,
+            location: React.PropTypes.string,
+            closeWithBodyClick: React.PropTypes.bool,
+            fixedWidthToAnchor: React.PropTypes.bool,
+            onOffset: React.PropTypes.func,
+            onMouseEnter: React.PropTypes.func,
+            onMouseLeave: React.PropTypes.func,
+            onRender: React.PropTypes.func,
+            onClose: React.PropTypes.func,
+            onCloseByWindow: React.PropTypes.func
+        },
         // @override
         getDefaultProps: function () {
             return {
@@ -31,23 +65,17 @@ define(function (require) {
                 onOffset: noop,
                 onMouseEnter: noop,
                 onMouseLeave: noop,
-                onBeforeOpen: noop,
                 onRender: noop,
-                onBeforeClose: noop,
                 onClose: noop,
                 onCloseByWindow: noop
             };
         },
-
-
         // @override
         getInitialState: function () {
             return {
                 mouseenter: false
             };
         },
-
-
         // @override
         componentDidMount: function () {
             if (!window || !document) return;
@@ -75,14 +103,10 @@ define(function (require) {
             // 渲染子树
             this.renderSubTree(this.props);
         },
-
-
         // @override
         componentWillReceiveProps: function(newProps) {
             this.renderSubTree(newProps);
         },
-
-
         // @override
         componentWillUnmount: function() {
             var layer = this.___layerContainer___;
@@ -92,20 +116,14 @@ define(function (require) {
             this.___renderCount___ = 0;
             this.removeSubTree();
         },
-
-
         onLayerMouseEnter: function () {
             this.setState({mouseenter: true});
             typeof this.props.onMouseEnter === 'function' && this.props.onMouseEnter();
         },
-
-
         onLayerMouseLeave: function () {
             this.setState({mouseenter: false});
             typeof this.props.onMouseLeave === 'function' && this.props.onMouseLeave();
         },
-
-
         onBodyClick: function (e) {
             if (this.state.mouseenter || !this.props.closeWithBodyClick) return;
             if (this.___renderCount___ === 1) {
@@ -115,20 +133,6 @@ define(function (require) {
             this.removeSubTree();
             typeof this.props.onCloseByWindow === 'function' && this.props.onCloseByWindow();
         },
-
-
-        close: function () {
-            var evt = document.createEvent('UIEvents');
-            evt.targteComponent = this;
-            evt.returnValue = true;
-            typeof this.props.onBeforeClose === 'function' && this.props.onBeforeClose(evt);
-            if (evt.returnValue) {
-                this.removeSubTree();
-                typeof this.props.onClose === 'function' && this.props.onClose();
-            }
-        },
-
-
         renderSubTree: function (props) {
             if (!this.___layerContainer___ || !props.anchor) return;
             if (!props.isOpen && !this.___layerAppended___) return;
@@ -138,7 +142,6 @@ define(function (require) {
                 if (!this.___layerAppended___) {
                     this.___layerAppended___ = true;
                     document.body.appendChild(this.___layerContainer___);
-                    typeof props.onBeforeOpen === 'function' && props.onBeforeOpen();
                 }
                 renderSubtreeIntoContainer(this, props.children, this.___layerContainer___, function () {
                     me.fixedPosition(props);
@@ -148,10 +151,19 @@ define(function (require) {
                 return;
             }
             // close
-            this.close();
+            this.removeSubTree();
+            typeof this.props.onClose === 'function' && this.props.onClose();
         },
-
-
+        removeSubTree: function () {
+            if (!this.___layerAppended___) return;
+            ReactDOM.unmountComponentAtNode(this.___layerContainer___);
+            this.___layerContainer___.style.left = '-9999px';
+            this.___layerContainer___.style.top = '-9999px';
+            document.body.removeChild(this.___layerContainer___);
+            this.___layerAppended___ = false;
+            this.___renderCount___ = 0;
+            this.setState({mouseenter: false});
+        },
         fixedPosition: function (props) {
             var layer = this.___layerContainer___;
             if (layer.scrollHeight > layer.offsetHeight && !layer.__expandWidth___) {
@@ -166,20 +178,6 @@ define(function (require) {
             layer.style.left = pos.left + 'px';
             layer.style.top = pos.top + 'px';
         },
-
-
-        removeSubTree: function () {
-            if (!this.___layerAppended___) return;
-            ReactDOM.unmountComponentAtNode(this.___layerContainer___);
-            this.___layerContainer___.style.left = '-9999px';
-            this.___layerContainer___.style.top = '-9999px';
-            document.body.removeChild(this.___layerContainer___);
-            this.___layerAppended___ = false;
-            this.___renderCount___ = 0;
-            this.setState({mouseenter: false});
-        },
-
-
         render: function () {
             return React.DOM.noscript();
         }
