@@ -1,8 +1,8 @@
 /**
- *  列表组件
+ * 列表
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -15,19 +15,36 @@ define(function (require) {
 
     return React.createClass({
         /**
+         * @properties
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {Array.<ListItemObject>} datasource 列表数据源
+         * @param {Function} onClick 列表点击后的回调
+         * @param {ReactClass} itemRenderer 列表项渲染器
+         */
+        /**
          * @structure ListItemObject
          * @example
          *  {
          *      label: <required>,
          *      value: <required>,
-         *      disabled: <optional>,
-         *      renderer: <optional>
+         *      disabled: <optional>
          *  }
          * @param {String} label 列表项显示的文字
          * @param {String} value 列表项对应的值，随事件对象通过返回
          * @param {Boolean} disabled 列表项是否可用
-         * @param {ReactClass} renderer 列表项渲染器
          */
+        // @override
+        propTypes: {
+            // base
+            skin: React.PropTypes.string,
+            className: React.PropTypes.string,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+            // self
+            datasource: React.PropTypes.array,
+            onClick: React.PropTypes.func,
+            itemRenderer: React.PropTypes.func
+        },
         // @override
         getDefaultProps: function () {
             return {
@@ -35,7 +52,7 @@ define(function (require) {
                 className: '',
                 style: {},
                 disabled: false,
-                datasource: [],  // {label: <string>, value: <string>, disabled: <boolean>, renderer: <function>}
+                datasource: [],
                 onClick: cTools.noop,
                 itemRenderer: NormalRenderer
             };

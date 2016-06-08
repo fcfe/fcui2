@@ -1,6 +1,9 @@
 define(function (require) {
 
+
     var React = require('react');
+    var Method = require('./components/Method.jsx');
+
 
     return React.createClass({
         // @override
@@ -11,11 +14,10 @@ define(function (require) {
         },
         render: function () {
             var item = this.props.item;
+            item.name = 'this.' + item.interface;
             return (
-                <div className="parser-introduction">
-                    <h3>{item.description}</h3>
-                    <div style={{float: 'right'}}>{'v' + item.version}</div>
-                    <div>{item.author + ' (' + item.email + ')'}</div>
+                <div className="parser-properties">
+                    <Method item={item}/>
                 </div>
             );
         }

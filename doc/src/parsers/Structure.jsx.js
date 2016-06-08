@@ -40,7 +40,7 @@ define(function (require) {
                     }
                     {
                         item.hasOwnProperty('params') && item.params.length > 0
-                        ? <Params params={item.params} prefix={prefix}/> : null
+                        ? <Params params={item.params} prefix={prefix + '.'}/> : null
                     }
                 </div>
             );

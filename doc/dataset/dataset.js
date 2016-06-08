@@ -2463,6 +2463,117 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\Form.jsx.js",
+            "line": 69,
+            "description": "注册表单输入域",
+            "interface": "attach",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "输入域名称",
+                    "type": "String"
+                },
+                {
+                    "name": "component",
+                    "description": "输入域React组件实例",
+                    "type": "ReactComponent"
+                }
+            ],
+            "return": {
+                "description": "输入域是否注册成功",
+                "type": "Boolean"
+            },
+            "attention": "此方法一般由InputWidget调用",
+            "class": ""
+        },
+        {
+            "file": "src\\Form.jsx.js",
+            "line": 91,
+            "description": "解除表单输入域",
+            "interface": "detach",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "输入域名称",
+                    "type": "String"
+                },
+                {
+                    "name": "component",
+                    "description": "输入域React组件实例",
+                    "type": "ReactComponent"
+                }
+            ],
+            "attention": "此方法一般由InputWidget调用",
+            "class": ""
+        },
+        {
+            "file": "src\\Form.jsx.js",
+            "line": 103,
+            "description": "更新表单域",
+            "interface": "updateField",
+            "params": [
+                {
+                    "name": "field",
+                    "description": "域名称",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "域的新值",
+                    "type": "String | Boolean | Number"
+                },
+                {
+                    "name": "component",
+                    "description": "触发更新的React输入组件",
+                    "type": "ReactComponent"
+                }
+            ],
+            "attention": "此方法一般由InputWidget触发，并会触发表单onFieldChange事件",
+            "class": ""
+        },
+        {
+            "file": "src\\Form.jsx.js",
+            "line": 138,
+            "description": "校验整个表单",
+            "interface": "validate",
+            "return": {
+                "description": "表单校验结果",
+                "type": "FormValidationObject"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\Form.jsx.js",
+            "line": 143,
+            "structure": "FormValidationObject",
+            "example": [
+                "\n {\n     dataset: {},\n     fieldResult: {},\n     formResult: [],\n     isValid: true\n }"
+            ],
+            "params": [
+                {
+                    "name": "dataset",
+                    "description": "Form数据集，以输入域name为key",
+                    "type": "Object"
+                },
+                {
+                    "name": "fieldResult",
+                    "description": "域校验结果，以输入域name为key，值为数组，存放该域所有校验错误结果",
+                    "type": "Object"
+                },
+                {
+                    "name": "formResult",
+                    "description": "表单级别校验结果集",
+                    "type": "Array.<string>"
+                },
+                {
+                    "name": "isValid",
+                    "description": "表单是否通过了校验，只有所有域和Form级别校验都通过，此项才为true，否则为false",
+                    "type": "Boolean"
+                }
+            ],
+            "class": ""
+        },
+        {
             "file": "src\\Layer.jsx.js",
             "line": 1,
             "description": "功能性弹层组件",
@@ -2474,18 +2585,46 @@ define(function(require){return {
         {
             "file": "src\\List.jsx.js",
             "line": 1,
-            "description": "列表组件",
+            "description": "列表",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
             "class": ""
         },
         {
             "file": "src\\List.jsx.js",
             "line": 17,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "datasource",
+                    "description": "列表数据源",
+                    "type": "Array.<ListItemObject>"
+                },
+                {
+                    "name": "onClick",
+                    "description": "列表点击后的回调",
+                    "type": "Function"
+                },
+                {
+                    "name": "itemRenderer",
+                    "description": "列表项渲染器",
+                    "type": "ReactClass"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\List.jsx.js",
+            "line": 24,
             "structure": "ListItemObject",
             "example": [
-                "\n {\n     label: <required>,\n     value: <required>,\n     disabled: <optional>,\n     renderer: <optional>\n }"
+                "\n {\n     label: <required>,\n     value: <required>,\n     disabled: <optional>\n }"
             ],
             "params": [
                 {
@@ -2502,11 +2641,6 @@ define(function(require){return {
                     "name": "disabled",
                     "description": "列表项是否可用",
                     "type": "Boolean"
-                },
-                {
-                    "name": "renderer",
-                    "description": "列表项渲染器",
-                    "type": "ReactClass"
                 }
             ],
             "class": ""
@@ -2523,10 +2657,43 @@ define(function(require){return {
         {
             "file": "src\\Pager.jsx.js",
             "line": 1,
-            "description": "页码组件",
+            "description": "翻页器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\Pager.jsx.js",
+            "line": 18,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "min",
+                    "description": "翻页器最小页数",
+                    "type": "Number"
+                },
+                {
+                    "name": "max",
+                    "description": "翻页器最大页数",
+                    "type": "Number"
+                },
+                {
+                    "name": "threshold",
+                    "description": "翻页器阈值，显示时，距离value距离超过此值的按钮将被隐藏",
+                    "type": "Number"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                }
+            ],
             "class": ""
         },
         {
@@ -2805,10 +2972,44 @@ define(function(require){return {
         {
             "file": "src\\Tab.jsx.js",
             "line": 1,
-            "description": "切换组件",
+            "description": "标签导航",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\Tab.jsx.js",
+            "line": 17,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "datasource",
+                    "description": "标签导航数据源",
+                    "type": "Array.<ListItemObject>"
+                },
+                {
+                    "name": "renderer",
+                    "description": "标签渲染器",
+                    "type": "ReactClass"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Tab.jsx.js",
+            "line": 26,
+            "structure": "Import src\\List.jsx.js ListItemObject",
             "class": ""
         },
         {
@@ -2841,10 +3042,38 @@ define(function(require){return {
         {
             "file": "src\\Tip.jsx.js",
             "line": 1,
-            "description": "提示组件",
+            "description": "提示",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\Tip.jsx.js",
+            "line": 17,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "tip",
+                    "description": "弹出提示的标题",
+                    "type": "String"
+                },
+                {
+                    "name": "content",
+                    "description": "弹出提示的内容，可以含有html标签",
+                    "type": "String"
+                },
+                {
+                    "name": "icon",
+                    "description": "提示组件外部显示的图标，具体见src/css/icon/variable.less",
+                    "type": "String"
+                }
+            ],
             "class": ""
         },
         {
@@ -3213,10 +3442,33 @@ define(function(require){return {
         {
             "file": "src\\Wizard.jsx.js",
             "line": 1,
-            "description": "向导组件",
+            "description": "向导",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\Wizard.jsx.js",
+            "line": 17,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "datasource",
+                    "description": "向导标签文字列表",
+                    "type": "Array.<String>"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                }
+            ],
             "class": ""
         }
     ],
@@ -3618,26 +3870,46 @@ define(function(require){return {
             "line": " src\\Form.jsx.js:17"
         },
         {
-            "message": "unknown tag: email",
-            "line": " src\\Layer.jsx.js:1"
+            "message": "unknown tag: attention",
+            "line": " src\\Form.jsx.js:69"
         },
         {
-            "message": "unknown tag: version",
-            "line": " src\\Layer.jsx.js:1"
+            "message": "unknown tag: attention",
+            "line": " src\\Form.jsx.js:91"
         },
         {
-            "message": "unknown tag: email",
-            "line": " src\\List.jsx.js:1"
-        },
-        {
-            "message": "unknown tag: version",
-            "line": " src\\List.jsx.js:1"
+            "message": "unknown tag: attention",
+            "line": " src\\Form.jsx.js:103"
         },
         {
             "message": "unknown tag: structure",
+            "line": " src\\Form.jsx.js:143"
+        },
+        {
+            "message": "unknown tag: email",
+            "line": " src\\Layer.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\Layer.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: email",
+            "line": " src\\List.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\List.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
             "line": " src\\List.jsx.js:17"
         },
         {
+            "message": "unknown tag: structure",
+            "line": " src\\List.jsx.js:24"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\NumberBox.jsx.js:1"
         },
@@ -3652,6 +3924,10 @@ define(function(require){return {
         {
             "message": "unknown tag: version",
             "line": " src\\Pager.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\Pager.jsx.js:18"
         },
         {
             "message": "unknown tag: email",
@@ -3730,6 +4006,14 @@ define(function(require){return {
             "line": " src\\Tab.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\Tab.jsx.js:17"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\Tab.jsx.js:26"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\Table.jsx.js:1"
         },
@@ -3760,6 +4044,10 @@ define(function(require){return {
         {
             "message": "unknown tag: version",
             "line": " src\\Tip.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\Tip.jsx.js:17"
         },
         {
             "message": "unknown tag: email",
@@ -3780,6 +4068,10 @@ define(function(require){return {
         {
             "message": "unknown tag: version",
             "line": " src\\Wizard.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\Wizard.jsx.js:17"
         },
         {
             "message": "Missing item type",
@@ -4222,11 +4514,31 @@ define(function(require){return {
             "line": " src\\Form.jsx.js:17"
         },
         {
+            "message": "Missing item type\n注册表单输入域",
+            "line": " src\\Form.jsx.js:69"
+        },
+        {
+            "message": "Missing item type\n解除表单输入域",
+            "line": " src\\Form.jsx.js:91"
+        },
+        {
+            "message": "Missing item type\n更新表单域",
+            "line": " src\\Form.jsx.js:103"
+        },
+        {
+            "message": "Missing item type\n校验整个表单",
+            "line": " src\\Form.jsx.js:138"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Form.jsx.js:143"
+        },
+        {
             "message": "Missing item type\n功能性弹层组件",
             "line": " src\\Layer.jsx.js:1"
         },
         {
-            "message": "Missing item type\n列表组件",
+            "message": "Missing item type\n列表",
             "line": " src\\List.jsx.js:1"
         },
         {
@@ -4234,12 +4546,20 @@ define(function(require){return {
             "line": " src\\List.jsx.js:17"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\List.jsx.js:24"
+        },
+        {
             "message": "Missing item type\n数字输入框组件",
             "line": " src\\NumberBox.jsx.js:1"
         },
         {
-            "message": "Missing item type\n页码组件",
+            "message": "Missing item type\n翻页器",
             "line": " src\\Pager.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Pager.jsx.js:18"
         },
         {
             "message": "Missing item type\n单选框组件",
@@ -4342,8 +4662,16 @@ define(function(require){return {
             "line": " src\\Slider.jsx.js:1"
         },
         {
-            "message": "Missing item type\n切换组件",
+            "message": "Missing item type\n标签导航",
             "line": " src\\Tab.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Tab.jsx.js:17"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Tab.jsx.js:26"
         },
         {
             "message": "Missing item type\n表格组件",
@@ -4358,8 +4686,12 @@ define(function(require){return {
             "line": " src\\TextBox.jsx.js:1"
         },
         {
-            "message": "Missing item type\n提示组件",
+            "message": "Missing item type\n提示",
             "line": " src\\Tip.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Tip.jsx.js:17"
         },
         {
             "message": "Missing item type\n功能性弹层组件，用法跟Dialog不一样，这个更先进",
@@ -4458,8 +4790,12 @@ define(function(require){return {
             "line": " src\\Tree.jsx.js:229"
         },
         {
-            "message": "Missing item type\n向导组件",
+            "message": "Missing item type\n向导",
             "line": " src\\Wizard.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Wizard.jsx.js:17"
         }
     ]
 };});

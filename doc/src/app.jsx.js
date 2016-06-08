@@ -20,6 +20,10 @@ define(function (require) {
             if (me.props.level !== config.menu[i].level) continue;
             for (var j = 0; j < config.menu[i].children.length; j++) {
                 var item = config.menu[i].children[j];
+                if (item === '') {
+                    doms.push(<hr key={i + '-' + j}/>);
+                    continue;
+                }
                 var itemProp = {
                     key: i + '-' + j,
                     'data-file': item.id.replace(/\\/g, '_'),
