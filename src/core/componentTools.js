@@ -22,7 +22,7 @@ define(function (require) {
      * @constructor
      */
     function SyntheticEvent(nativeEvent) {
-        _.extend(this, _.pick(nativeEvent, function (prop, key) {
+        _.extend(this, _.pick(nativeEvent, function (prop) {
             if (typeof prop === 'function') {
                 return false;
             }
@@ -107,9 +107,10 @@ define(function (require) {
                 style: {},
                 className: 'fcui2-' + type
             };
+            var key = '';
             // 处理style，潜克隆一份，防止直接修改me.props.style导致报错
             if (me.props.hasOwnProperty('style')) {
-                for (var key in me.props.style) {
+                for (key in me.props.style) {
                     if (!me.props.style.hasOwnProperty(key)) continue;
                     result.style[key] = me.props.style[key];
                 }
@@ -131,12 +132,12 @@ define(function (require) {
             else if (me.props.disabled) {
                 result.className += ' fcui2-' + type + '-disabled';
             }
-            
+
             // 处理options.mergeFromProps
             options = options || {};
             if (options.mergeFromProps instanceof Array) {
                 for (var i = 0; i < options.mergeFromProps.length; i++) {
-                    var key = options.mergeFromProps[i];
+                    key = options.mergeFromProps[i];
                     if (me.props.hasOwnProperty(key) && !result.hasOwnProperty(key)) {
                         result[key] = me.props[key];
                     }
@@ -144,7 +145,7 @@ define(function (require) {
             }
             // 处理options.merge
             if (options.hasOwnProperty('merge')) {
-                for (var key in options.merge) {
+                for (key in options.merge) {
                     if (options.merge.hasOwnProperty(key) && !result.hasOwnProperty(key)) {
                         result[key] = options.merge[key];
                     }
@@ -152,15 +153,15 @@ define(function (require) {
             }
             // 处理options.style
             if (options.hasOwnProperty('style')) {
-                for (var key in options.style) {
+                for (key in options.style) {
                     if (options.style.hasOwnProperty(key) && !result.style.hasOwnProperty(key)) {
                         result.style[key] = options.style[key];
                     }
                 }
             }
             // 兼容：将部分props属性下降到result.style中
-            for (var i = 0; i < MERGE_FROM_PROPS_TO_STYLE.length; i++) {
-                var key = MERGE_FROM_PROPS_TO_STYLE[i];
+            for (var j = 0; j < MERGE_FROM_PROPS_TO_STYLE.length; j++) {
+                key = MERGE_FROM_PROPS_TO_STYLE[j];
                 if (!result.style.hasOwnProperty(key) && me.props.hasOwnProperty(key)) {
                     result.style[key] = me.props[key];
                 }
@@ -170,4 +171,4 @@ define(function (require) {
 
         SyntheticEvent: SyntheticEvent
     };
-})
+});
