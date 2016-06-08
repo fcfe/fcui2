@@ -49,7 +49,7 @@ define(function (require) {
                 skin: '',
                 className: '',
                 style: {},
-                disabled: false, 
+                disabled: false,
                 // self
                 datasource: [],
                 separator: '>'
