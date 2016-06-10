@@ -1,0 +1,29 @@
+
+.fcui2-tree-test {
+    hr {
+        border-bottom: 0;
+        margin: 0;
+    }
+}
+
+.fcui2-tree-test-normal {
+    .list-normal-item {
+        cursor: default;
+        font-size: 12px;
+        color: @color-text-3;
+        .expand-button {
+            display: inline-block;
+            position: relative;
+            top: 4px;
+            margin-top: -4px;
+            width: 15px;
+            cursor: pointer;
+        }
+        .font-icon-caret-right:hover, .font-icon-caret-down:hover {
+             color: @color-btn-hover;
+        }
+        &:hover {
+            background-color: @color-bg-hover-table;
+        }
+    }
+}

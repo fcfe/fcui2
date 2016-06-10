@@ -36,7 +36,8 @@ define(function (require) {
             DualTreeSelector: require('../demos/DualTreeSelector.jsx'),
             Layer: require('../demos/Layer.jsx'),
             TitleWindow: require('../demos/TitleWindow.jsx'),
-            ShojiScreen: require('../demos/ShojiScreen.jsx')
+            ShojiScreen: require('../demos/ShojiScreen.jsx'),
+            TreeTest: require('../demos/TreeTest.jsx')
         },
         menu: [
             {
@@ -74,7 +75,10 @@ define(function (require) {
             {
                 level: 'test',
                 label: 'Test Demos',
-                children: ['TestBaseLine', 'TestFormField', 'Schedule', 'Tree', 'DualTreeSelector']
+                children: [
+                    'TestBaseLine', 'TestFormField', 'Schedule', 'Tree', 'DualTreeSelector', '',
+                    'TreeTest'
+                ]
             }
         ]
     };
