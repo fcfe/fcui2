@@ -32,38 +32,16 @@ define(function (require) {
          *      value onChange name validations customErrorTemplates valueLink valueTemplate
          */
         // @override
-        propTypes: {
-            // base
-            skin: React.PropTypes.string,
-            className: React.PropTypes.string,
-            style: React.PropTypes.object,
-            disabled: React.PropTypes.bool,
-            // self
-            placeholder: React.PropTypes.string,
-            max: React.PropTypes.number,
-            min: React.PropTypes.number,
-            step: React.PropTypes.number,
-            type: React.PropTypes.string,
-            fixed: React.PropTypes.number,
-            showSpinButton: React.PropTypes.bool,
-            // mixin
-            value: React.PropTypes.string,
-            valueLink: React.PropTypes.object,
-            name: React.PropTypes.string,
-            onChange: React.PropTypes.func,
-            validations: React.PropTypes.object,
-            customErrorTemplates: React.PropTypes.object,
-            valueTemplate: React.PropTypes.string
-        },
-        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
             return {
+                // base
                 skin: '',
                 className: '',
                 style: {},
                 disabled: false,
+                // self
                 placeholder: '',
                 max: Number.POSITIVE_INFINITY,
                 min: Number.NEGATIVE_INFINITY,
@@ -71,6 +49,7 @@ define(function (require) {
                 type: 'float', // int, float
                 fixed: Number.POSITIVE_INFINITY,
                 showSpinButton: true,
+                // mixin
                 valueTemplate: ''
             };
         },

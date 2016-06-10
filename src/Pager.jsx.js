@@ -26,37 +26,20 @@ define(function (require) {
          *      value onChange name validations customErrorTemplates valueLink valueTemplate
          */
         // @override
-        propTypes: {
-            // base
-            skin: React.PropTypes.string,
-            className: React.PropTypes.string,
-            style: React.PropTypes.object,
-            disabled: React.PropTypes.bool,
-            // self
-            min: React.PropTypes.number,
-            max: React.PropTypes.number,
-            threshold: React.PropTypes.number,
-            // mixin
-            value: React.PropTypes.number,
-            valueLink: React.PropTypes.object,
-            name: React.PropTypes.string,
-            onChange: React.PropTypes.func,
-            validations: React.PropTypes.object,
-            customErrorTemplates: React.PropTypes.object,
-            valueTemplate: React.PropTypes.number
-        },
-        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
             return {
+                // base
                 skin: '',
                 className: '',
                 style: {},
                 disabled: false,
+                // self
                 min: 1,
                 max: 10,
                 threshold: Number.POSITIVE_INFINITY,
+                // mixin
                 valueTemplate: Number.POSITIVE_INFINITY
             };
         },

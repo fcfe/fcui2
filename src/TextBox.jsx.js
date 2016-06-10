@@ -1,5 +1,5 @@
 /**
- *  文本输入框
+ * 文本输入框
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2.1
@@ -23,34 +23,18 @@ define(function (require) {
          *      value onChange name validations customErrorTemplates valueLink valueTemplate
          */
         // @override
-        propTypes: {
-            // base
-            skin: React.PropTypes.string,
-            className: React.PropTypes.string,
-            style: React.PropTypes.object,
-            disabled: React.PropTypes.bool,
-            // self
-            placeholder: React.PropTypes.string,
-            // mixin
-            value: React.PropTypes.string,
-            valueLink: React.PropTypes.object,
-            name: React.PropTypes.string,
-            onChange: React.PropTypes.func,
-            validations: React.PropTypes.object,
-            customErrorTemplates: React.PropTypes.object,
-            valueTemplate: React.PropTypes.string
-        },
-        // @override
         mixins: [InputWidget, InputWidgetImeFixed],
         // @override
         getDefaultProps: function () {
             return {
-                // 样式属性
+                // base
                 skin: '',
                 className: '',
                 style: {},
                 disabled: false,
+                // self
                 placeholder: '',
+                // mixin
                 valueTemplate: ''
             };
         },

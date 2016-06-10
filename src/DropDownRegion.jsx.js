@@ -33,38 +33,16 @@ define(function (require) {
          *      value onChange name validations customErrorTemplates valueLink valueTemplate
          */
         // @override
-        propTypes: {
-            // base
-            skin: React.PropTypes.string,
-            className: React.PropTypes.string,
-            style: React.PropTypes.object,
-            disabled: React.PropTypes.bool,
-            // self
-            label: React.PropTypes.string,
-            openLayerType: React.PropTypes.string,
-            type: React.PropTypes.string,
-            noLinkage: React.PropTypes.bool,
-            provinceRenderer: React.PropTypes.func,
-            regionRenderer: React.PropTypes.func,
-            countryRenderer: React.PropTypes.func,
-            // mixin
-            value: React.PropTypes.string,
-            valueLink: React.PropTypes.object,
-            name: React.PropTypes.string,
-            onChange: React.PropTypes.func,
-            validations: React.PropTypes.object,
-            customErrorTemplates: React.PropTypes.object,
-            valueTemplate: React.PropTypes.string
-        },
-        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
             return {
+                // base
                 skin: '',
                 className: '',
                 style: {},
                 disabled: false,
+                // self
                 label: 'DropDownRegion',
                 openLayerType: 'onMouseEnter',
                 type: 'multi',
@@ -72,6 +50,7 @@ define(function (require) {
                 provinceRenderer: undefined,
                 regionRenderer: undefined,
                 countryRenderer: undefined,
+                // mixin
                 valueTemplate: ''
             };
         },

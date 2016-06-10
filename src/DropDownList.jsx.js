@@ -27,25 +27,14 @@ define(function (require) {
          * @structure Import src\List.jsx.js ListItemObject
          */
         // @override
-        propTypes: {
-            // base
-            skin: React.PropTypes.string,
-            className: React.PropTypes.string,
-            style: React.PropTypes.object,
-            disabled: React.PropTypes.bool,
-            // self
-            label: React.PropTypes.string,
-            openLayerType: React.PropTypes.string,
-            datasource: React.PropTypes.array,
-            onClick: React.PropTypes.func
-        },
-        // @override
         getDefaultProps: function () {
             return {
+                // base
                 skin: '',
                 className: '',
                 style: {},
                 disabled: false,
+                // self
                 label: 'DropDownList',
                 openLayerType: 'onMouseEnter',
                 datasource: [],

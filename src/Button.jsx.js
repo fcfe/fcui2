@@ -1,6 +1,5 @@
 /**
  * 按钮
- *
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2.1
@@ -27,30 +26,14 @@ define(function (require) {
          * @param {Function} onMouseLeave 鼠标滑出按钮时触发
          */
         // @override
-        propTypes: {
-            // base
-            skin: React.PropTypes.string,
-            className: React.PropTypes.string,
-            style: React.PropTypes.object,
-            disabled: React.PropTypes.bool,
-            // self
-            label: React.PropTypes.string,
-            title: React.PropTypes.string,
-            icon: React.PropTypes.string,
-            type: React.PropTypes.string,
-            name: React.PropTypes.string,
-            value: React.PropTypes.any,
-            onClick: React.PropTypes.func,
-            onMouseEnter: React.PropTypes.func,
-            onMouseLeave: React.PropTypes.func
-        },
-        // @override
         getDefaultProps: function () {
             return {
+                // base
                 skin: '',
                 className: '',
                 style: {},
                 disabled: false,
+                // self
                 label: 'Button',
                 title: '',
                 icon: '',

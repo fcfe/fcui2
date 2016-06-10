@@ -35,23 +35,6 @@ define(function (require) {
          *  时有效
          */
         // @override
-        propTypes: {
-            className: React.PropTypes.string,
-            skin: React.PropTypes.string,
-            style: React.PropTypes.object,
-            isOpen: React.PropTypes.bool,
-            anchor: React.PropTypes.object,
-            location: React.PropTypes.string,
-            closeWithBodyClick: React.PropTypes.bool,
-            fixedWidthToAnchor: React.PropTypes.bool,
-            onOffset: React.PropTypes.func,
-            onMouseEnter: React.PropTypes.func,
-            onMouseLeave: React.PropTypes.func,
-            onRender: React.PropTypes.func,
-            onClose: React.PropTypes.func,
-            onCloseByWindow: React.PropTypes.func
-        },
-        // @override
         getDefaultProps: function () {
             return {
                 skin: '',

@@ -1,6 +1,5 @@
 /**
  * 日历
- *
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2.1
@@ -31,25 +30,6 @@ define(function (require) {
          *      value onChange name validations customErrorTemplates valueLink valueTemplate
          */
         // @override
-        propTypes: {
-            // base
-            skin: React.PropTypes.string,
-            className: React.PropTypes.string,
-            style: React.PropTypes.object,
-            disabled: React.PropTypes.bool,
-            // self
-            min: React.PropTypes.string,
-            max: React.PropTypes.string,
-            // mixin
-            value: React.PropTypes.string,
-            valueLink: React.PropTypes.object,
-            name: React.PropTypes.string,
-            onChange: React.PropTypes.func,
-            validations: React.PropTypes.object,
-            customErrorTemplates: React.PropTypes.object,
-            valueTemplate: React.PropTypes.string
-        },
-        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
@@ -58,8 +38,10 @@ define(function (require) {
                 className: '',
                 style: {},
                 disabled: false,
+                // self
                 min: '0-1-1',
                 max: '9999-12-31',
+                // mixin
                 valueTemplate: util.dateFormat(null, 'YYYY-MM-DD')
             };
         },

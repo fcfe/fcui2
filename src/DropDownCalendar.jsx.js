@@ -27,39 +27,21 @@ define(function (require) {
          *      value onChange name validations customErrorTemplates valueLink valueTemplate
          */
         // @override
-        propTypes: {
-            // base
-            skin: React.PropTypes.string,
-            className: React.PropTypes.string,
-            style: React.PropTypes.object,
-            disabled: React.PropTypes.bool,
-            // self
-            placeholder: React.PropTypes.string,
-            min: React.PropTypes.string,
-            max: React.PropTypes.string,
-            openLayerType: React.PropTypes.string,
-            // mixin
-            value: React.PropTypes.string,
-            valueLink: React.PropTypes.object,
-            name: React.PropTypes.string,
-            onChange: React.PropTypes.func,
-            validations: React.PropTypes.object,
-            customErrorTemplates: React.PropTypes.object,
-            valueTemplate: React.PropTypes.string
-        },
-        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
             return {
+                // base
                 skin: '',
                 className: '',
                 style: {},
                 disabled: false,
+                // self
                 placeholder: 'please select',
                 openLayerType: 'onMouseEnter',
                 min: '0-1-1',
                 max: '9999-12-31',
+                // mixin
                 valueTemplate: ''
             };
         },

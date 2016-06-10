@@ -22,24 +22,14 @@ define(function (require) {
          * @param {String} icon 提示组件外部显示的图标，具体见src/css/icon/variable.less
          */
         // @override
-        propTypes: {
-            // base
-            skin: React.PropTypes.string,
-            className: React.PropTypes.string,
-            style: React.PropTypes.object,
-            disabled: React.PropTypes.bool,
-            // self
-            tip: React.PropTypes.string,
-            content: React.PropTypes.string,
-            icon: React.PropTypes.string
-        },
-        // @override
         getDefaultProps: function () {
             return {
+                // base
                 skin: '',
                 className: '',
                 style: {},
                 disabled: false,
+                // self
                 title: '',
                 content: '',
                 icon: 'font-icon-hint-question-s'

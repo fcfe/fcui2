@@ -31,19 +31,6 @@ define(function (require) {
          * @param {Function} onClose TitleWindow关闭后的回调 
          */
         // @override
-        propTypes: {
-            className: React.PropTypes.string,
-            skin: React.PropTypes.string,
-            isOpen: React.PropTypes.bool,
-            title: React.PropTypes.string,
-            size: React.PropTypes.object,
-            isFullScreen: React.PropTypes.bool,
-            showCloseButton: React.PropTypes.bool,
-            onRender: React.PropTypes.func,
-            onClose: React.PropTypes.func,
-            onBeforeClose: React.PropTypes.func
-        },
-        // @override
         getDefaultProps: function () {
             return {
                 className: '',

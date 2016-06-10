@@ -24,37 +24,20 @@ define(function (require) {
          * @param {Function} onClick 搜索按钮点击时的回调
          */
         // @override
-        propTypes: {
-            // base
-            skin: React.PropTypes.string,
-            className: React.PropTypes.string,
-            style: React.PropTypes.object,
-            disabled: React.PropTypes.bool,
-            // self
-            placeholder: React.PropTypes.string,
-            // mixin
-            value: React.PropTypes.string,
-            valueLink: React.PropTypes.object,
-            name: React.PropTypes.string,
-            onChange: React.PropTypes.func,
-            validations: React.PropTypes.object,
-            customErrorTemplates: React.PropTypes.object,
-            valueTemplate: React.PropTypes.string,
-            onClick: React.PropTypes.func
-        },
-        // @override
         mixins: [InputWidget, InputWidgetImeFixed],
         // @override
         getDefaultProps: function () {
             return {
-                // 样式属性
+                // base
                 skin: '',
                 className: '',
                 style: {},
                 disabled: false,
+                // self
                 placeholder: '',
-                valueTemplate: '',
-                onClick: function () {}
+                onClick: function () {},
+                // mixin
+                valueTemplate: ''
             };
         },
         // @override

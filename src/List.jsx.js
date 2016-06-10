@@ -34,24 +34,14 @@ define(function (require) {
          * @param {Boolean} disabled 列表项是否可用
          */
         // @override
-        propTypes: {
-            // base
-            skin: React.PropTypes.string,
-            className: React.PropTypes.string,
-            style: React.PropTypes.object,
-            disabled: React.PropTypes.bool,
-            // self
-            datasource: React.PropTypes.array,
-            onClick: React.PropTypes.func,
-            itemRenderer: React.PropTypes.func
-        },
-        // @override
         getDefaultProps: function () {
             return {
+                // base
                 skin: '',
                 className: '',
                 style: {},
                 disabled: false,
+                // self
                 datasource: [],
                 onClick: cTools.noop,
                 itemRenderer: NormalRenderer

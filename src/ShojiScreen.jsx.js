@@ -20,6 +20,7 @@ define(function (require) {
 
     return React.createClass({
 
+
         /**
          * @properties
          * @param {String} className 添加到ShojiScreen容器上的类，此容器为内部容器，将添加到body中，是ShojiScreen content根容器的外壳
@@ -32,17 +33,6 @@ define(function (require) {
          * @param {Function} onBeforeClose ShojiScreen关闭前触发的回调，可以在这个回调中阻止窗体关闭
          * @param {Function} onClose ShojiScreen关闭后的回调 
          */
-        // @override
-        propTypes: {
-            className: React.PropTypes.string,
-            skin: React.PropTypes.string,
-            workspaceWidth: React.PropTypes.number,
-            isOpen: React.PropTypes.bool,
-            onAction: React.PropTypes.func, 
-            onRender: React.PropTypes.func,
-            onBeforeClose: React.PropTypes.func,
-            onClose: React.PropTypes.func
-        },
 
 
         // @override

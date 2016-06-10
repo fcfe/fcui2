@@ -174,64 +174,64 @@ define(function (require) {
     }
 
     let Tree = React.createClass({
-        propTypes: {
+        /**
             /**
              * 树所展现的所有节点集合
-             */
+      
             treeNodes: React.PropTypes.arrayOf(treeNodeType),
             /**
              * 本层次树的上层节点
-             */
+    
             parentTreeNodes: React.PropTypes.arrayOf(treeNodeType),
             /**
              * 根据节点的层数，计算当前层的wrapper的style
              * @param {number} level 树的层数
              * @return {Object} 当前层的style object
-             */
+    
             getTreeLevelStyle: React.PropTypes.func,
             /**
              * 树节点展开按钮被点击时的回调
              * @param {SyntheticEvent} onTreeNodeExpandClicked.e 点击事件对象
              * @param {treeNodeType} onTreeNodeExpandClicked.treeNode 被展开的树节点数据
              * @param {Array<treeNodeType>} onTreeNodeExpandClicked.parentTreeNodes 当前节点的父节点列表
-             */
+      
             onTreeNodeExpandClicked: React.PropTypes.func,
             /**
              * 树节点“操作”按钮被点击时的回调
              * @param {SyntheticEvent} onTreeNodeOperationClicked.e 点击事件对象
              * @param {treeNodeType} onTreeNodeOperationClicked.treeNode 被操作的树节点数据
              * @param {Array<treeNodeType>} onTreeNodeOperationClicked.parentTreeNodes 当前节点的父节点列表
-             */
+ 
             onTreeNodeOperationClicked: React.PropTypes.func,
             /**
              * 树节点其他位置被点击时的回调
              * @param {SyntheticEvent} onTreeNodeClicked.e 点击事件对象
              * @param {treeNodeType} onTreeNodeClicked.treeNode 被操作的树节点数据
              * @param {Array<treeNodeType>} onTreeNodeClicked.parentTreeNodes 当前节点的父节点列表
-             */
+
             onTreeNodeClicked: React.PropTypes.func,
             /**
              * 节点加载中时的话术
-             */
+ 
             textLoading: React.PropTypes.string,
             /**
              * 需要高亮显示的节点
-             */
+
             focusedTreeNodeId: React.PropTypes.string,
             /**
              * filter string，不显示name中含有nameFilterString的node
-             */
+   
             nameFilter: React.PropTypes.string,
             /**
              * 被展开的节点集合
-             */
+
             expandedTreeNodeId: React.PropTypes.objectOf(React.PropTypes.bool),
             /**
              * 被标记的节点集合
-             */
+
             markedTreeNodeId: React.PropTypes.objectOf(React.PropTypes.bool)
         },
-
+*/
         statics: {
             treeNodeType,
             baseTreeNodeRenderer,

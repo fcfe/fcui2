@@ -11,7 +11,8 @@ define(function (require) {
     let treeTools = require('./core/treeTools.es6');
 
     let DualTreeSelector = React.createClass({
-        propTypes: {
+       
+         /*propTypes: {
             treeNodes: React.PropTypes.arrayOf(Tree.treeNodeType),
             value: React.PropTypes.objectOf(React.PropTypes.bool),
             leftTreeFilter: React.PropTypes.string,
@@ -25,7 +26,7 @@ define(function (require) {
             onChange: React.PropTypes.func,
             onLeftTreeNodeExpand: React.PropTypes.func,
             onLeftTreeNodeOperationClicked: React.PropTypes.func
-        },
+        },*/
 
         mixins: [InputWidget],
 

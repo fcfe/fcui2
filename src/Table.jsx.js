@@ -104,38 +104,16 @@ define(function (require) {
          * @param {Array.<Number> | Number} selected table当前选中的元素的行号集合，如果此项为-1，则标识table被全选
          */
         // @override
-        propTypes: {
-            // base
-            skin: React.PropTypes.string,
-            className: React.PropTypes.string,
-            style: React.PropTypes.object,
-            disabled: React.PropTypes.bool,
-            // self
-            fieldConfig: React.PropTypes.array,
-            flags: React.PropTypes.object,
-            datasource: React.PropTypes.array,
-            summary: React.PropTypes.object,
-            message: React.PropTypes.object,
-            fixedPosition: React.PropTypes.array,
-            onAction: React.PropTypes.func,
-            // mixin
-            value: React.PropTypes.string,
-            valueLink: React.PropTypes.object,
-            name: React.PropTypes.string,
-            onChange: React.PropTypes.func,
-            validations: React.PropTypes.object,
-            customErrorTemplates: React.PropTypes.object,
-            valueTemplate: React.PropTypes.string
-        },
-        // @override
         mixins: [InputWidget, WidgetWithFixedDom],
         // @override
         getDefaultProps: function () {
             return {
+                // base
                 skin: '',
                 className: '',
                 style: {},
                 disabled: false,
+                // self
                 fieldConfig: [],
                 flags: {
                     sortEnable: false,
@@ -151,6 +129,7 @@ define(function (require) {
                 },
                 fixedPosition: [],
                 onAction: cTools.noop,
+                // mixin
                 valueTemplate: JSON.stringify({
                     sortField: '',
                     sortType: 'asc',

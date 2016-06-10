@@ -1,5 +1,5 @@
 /**
- *  面包屑
+ * 面包屑
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2.1
@@ -31,17 +31,6 @@ define(function (require) {
          * @param {String} label 链接文字
          * @param {String} target 链接打开方式，同a标签target属性
          */
-        // @override
-        propTypes: {
-            // base
-            skin: React.PropTypes.string,
-            className: React.PropTypes.string,
-            style: React.PropTypes.object,
-            disabled: React.PropTypes.bool,
-            // self
-            datasource: React.PropTypes.array,
-            separator: React.PropTypes.string
-        },
         // @override
         getDefaultProps: function () {
             return {

@@ -23,13 +23,6 @@ define(function (require) {
          * @param {Function} onSubmit 表单通过所有校验提交前触发的回调
          */
         // @override
-        propTypes: {
-            className: React.PropTypes.string,
-            validations: React.PropTypes.object,
-            onFieldChange: React.PropTypes.func,
-            onSubmit: React.PropTypes.func
-        },
-        // @override
         childContextTypes: {
             ___form___: React.PropTypes.object
         },

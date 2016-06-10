@@ -21,14 +21,15 @@ define(function (require) {
     let CheckBox = require('./CheckBox.jsx');
 
     return React.createClass({
-        propTypes: {
+        /**
+        {
             /**
              * 是否使用列选择器
-             */
+    
             enableColumnSelector: React.PropTypes.bool,
             /**
              * 是否使用行选择器
-             */
+    
             enableRowSelector: React.PropTypes.bool,
             /**
              * 选定的时段值
@@ -38,7 +39,7 @@ define(function (require) {
              * 当为string时，表示该时段被选择，string的内容为当前时段的label
              * 相邻时段相同值的label会被合并
              * 若label为空串（''），则显示默认label默认为时段跨度如1:00-2:00
-             */
+    
             value: React.PropTypes.string,
             /**
              * 划出了一个新的时段块时的回调
@@ -51,17 +52,17 @@ define(function (require) {
              * @param {number} onScheduleSelected.endHour
              * @param {number} onScheduleSelected.endWeekday
              * @param {HTMLElement} onScheduleSelected.cursorDom 鼠标拖拽所产生的drag layer的dom节点
-             */
+  
             onScheduleSelected: React.PropTypes.func,
             /**
              * 绘制悬浮层
              * @return {ReactElement} 悬浮层Element
-             */
+
             titleLayerRenderer: React.PropTypes.func,
             /**
              * 预设的labels列表
              * @param {string} presetLables[].value 同value定义
-             */
+
             presetLabels: React.PropTypes.arrayOf(React.PropTypes.shape({
                 style: React.PropTypes.object,
                 value: React.PropTypes.string,
@@ -69,15 +70,16 @@ define(function (require) {
             })),
             /**
              * 显示在schedule顶部的info中的文字
-             */
+
             infoText: React.PropTypes.string,
             isShowLegend: React.PropTypes.bool,
             /**
              * legend的名字
              * @type {Object}
-             */
+
             infoLegendText: React.PropTypes.object
         },
+        */
         // @override
         mixins: [InputWidget],
         // @override
