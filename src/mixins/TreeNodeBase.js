@@ -9,15 +9,9 @@ define(function (require) {
 
     return {
         onExpand: function (e) {
-            if (this.props.disabled) return;
             e.stopPropagation();
+            if (this.props.disabled) return;
             var item = this.props.item;
-            // 派发onAction
-            if (!item.children.length && typeof this.props.onAction === 'function') {
-                var index = this.props.index.split(',');
-                index.shift();
-                this.props.onAction('TreeLoadChildren', {index: index});
-            }
             // 派发onChange
             var value = JSON.parse(JSON.stringify(this.props.value));
             value.expand = value.expand || {};
@@ -30,6 +24,10 @@ define(function (require) {
             e.target = this.refs.container;
             e.target.value = JSON.stringify(value);
             this.props.treeComponent.___dispatchChange___(e);
+            // 派发onAction
+            if (!item.children.length && typeof this.props.onAction === 'function') {
+                this.props.onAction('TreeLoadChildren', {index: this.props.index.split(',')});
+            }
         }
     }
 });

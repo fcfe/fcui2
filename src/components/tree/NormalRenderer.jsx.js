@@ -21,8 +21,7 @@ define(function (require) {
                 value: {},
                 treeComponent: {},
                 disabled: false, // 禁用
-                onAction: function () {},
-                onClick: function () {}
+                onAction: function () {}
             };
         },
         // @override
@@ -33,25 +32,23 @@ define(function (require) {
             if (this.props.disabled) return;
             e.target = this.refs.container;
             e.target.value = this.props.item.value;
-            typeof this.props.onClick === 'function' && this.props.onClick(e);
+            typeof this.props.onAction === 'function' && this.props.onAction('TreeLeafClick', {
+                item: this.props.item,
+                index: this.props.index
+            });
         },
         render: function () {
             var item = this.props.item;
-            var index = this.props.index.split(',');
             var expand = this.props.value.expand || {};
             var containerProp = {
                 ref: 'container',
                 className: 'list-normal-item' + (this.props.disabled ? ' list-normal-item-disabled' : ''),
                 onClick: this.onClick,
-                style: {
-                    paddingLeft: (index.length - 1) * 12
-                }
+                style: {paddingLeft: (this.props.index.split(',').length - 1) * 12}
             };
             var iconProp = {
                 className: 'expand-button font-icon font-icon-caret-' + (expand[item.value] ? 'down' : 'right'),
-                style: {
-                    visibility: !(item.children instanceof Array) ? 'hidden' : 'auto'
-                },
+                style: {visibility: !(item.children instanceof Array) ? 'hidden' : 'auto'},
                 onClick: this.onExpand // from TreeNodeBase Mixin
             };
             return (

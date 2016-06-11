@@ -1,0 +1,54 @@
+
+.fcui2-dualtreeselector-test {
+    .tree-container {
+        >div {
+            display: inline-block;
+        }
+        .fcui2-tree-test {
+            border: 1px solid;
+            width: 250px;
+            height: 345px;
+            overflow: auto;
+            .select-button {
+                display: inline-block;
+                float: right;
+                width: 20px;
+                height: 28px;
+                line-height: 28px;
+            }
+        }
+        .cut-rule {
+            display: inline-block;
+            position: relative;
+            width: 20px;
+            top: -173px;
+        }
+    }
+}
+
+.fcui2-dualtreeselector-test-normal {
+    .tree-container {
+        .fcui2-tree-test {
+            border-color: @color-outer-border;
+            .select-button {
+                color: @color-btn;
+                cursor: pointer;
+                &:hover {
+                    color: @color-btn-hover;
+                }
+            }
+            .select-button-disabled {
+                cursor: default;
+                color: @color-disabled-text;
+                &:hover {
+                    color: @color-disabled-text;
+                }
+            }
+        }
+        .cut-rule {
+            font-size: 18px;
+            color: @color-text-1;
+        }
+    }  
+}
+

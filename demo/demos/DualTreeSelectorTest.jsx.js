@@ -2,7 +2,7 @@ define(function (require) {
 
 
     var Creater = require('../src/ReactClassCreater.jsx');
-    var Tree = require('fcui/Tree-test.jsx');
+    var DualTreeSelector = require('fcui/DualTreeSelector-test.jsx');
     var treeTools = require('fcui/core/treeTools');
     var React = require('react');
 
@@ -29,13 +29,13 @@ define(function (require) {
     ];
     var items1 = [
         {
-            title: 'Normal Tree',
+            title: 'Normal DualTreeSelector',
             props: {
                 datasource: datasource
             }
         }
     ];
-    var Example1 = Creater(Tree, items1, ['onChange', 'onClick']);
+    var Example1 = Creater(DualTreeSelector, items1, ['onChange']);
 
 
     function getDisplayProps(props) {
@@ -63,9 +63,7 @@ define(function (require) {
             data[3].children = [];
             return {
                 asyncDatasource: data,
-                asyncValue: JSON.stringify({
-                    expand: {option1: true}
-                })
+                asyncValue: '{}'
             };
         },
         onAsyncTreeChange: function (e) {
@@ -105,9 +103,9 @@ define(function (require) {
                 <div>
                     <Example1 alert={this.props.alert}/>
                     <div className="demo-item">
-                        <h3>Tree with async datasource</h3>
+                        <h3>DualTreeSelector with async datasource</h3>
                         <div className="props">{getDisplayProps(asyncTreeProp)}</div>
-                        <Tree {...asyncTreeProp}/>
+                        <DualTreeSelector {...asyncTreeProp}/>
                     </div>
                 </div>
             );

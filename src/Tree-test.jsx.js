@@ -8,7 +8,6 @@ define(function (require) {
 
 
     var React = require('react');
-    var util = require('./core/util');
     var cTools = require('./core/componentTools');
     var NormalRenderer = require('./components/tree/NormalRenderer.jsx');
     var InputWidget = require('./mixins/InputWidget');
@@ -26,7 +25,6 @@ define(function (require) {
                 disabled: false,
                 datasource: [],
                 onAction: cTools.noop,
-                onClick: cTools.noop,
                 leafRenderer: NormalRenderer,
                 valueTemplate: JSON.stringify({
                     expand: {}
@@ -58,20 +56,20 @@ define(function (require) {
         }
         var expand = value.expand || {};
         var result = [];
-        addLeaves(me.props.datasource, 0);
+        addLeaves(me.props.datasource, '');
         return result;
         function addLeaves(arr, level) {
             for (var i = 0; i < arr.length; i++) {
                 var item = JSON.parse(JSON.stringify(arr[i]));
+                var key = level.length ? (level + ',' + i) : (i + '');
                 var props = {
-                    key: level + ',' + i,       // 层次
-                    index: level + ',' + i,     // react会吃掉key这个属性，呵呵
+                    key: key,                   // 层次
+                    index: key,                 // react会吃掉key这个属性，呵呵
                     item: item,                 // 数据源
                     value: value,               // tree的值
                     treeComponent: me,          // tree实例
                     disabled: me.props.disabled || item.disabled, // 禁用
-                    onAction: me.props.onAction,
-                    onClick: me.props.onClick
+                    onAction: me.props.onAction
                 };
                 if (item.hr) {
                     result.push(<hr {...props}/>);
