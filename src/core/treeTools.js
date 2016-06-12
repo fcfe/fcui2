@@ -16,31 +16,37 @@ define(function (require) {
             return result;
         },
 
-        getNodeSelectInfo: function (item, selectedHash) {
-            var total = 0;
-            var selected = 0;
-            if (!(item instanceof Array) && selectedHash[item.value] === true) {
-                total = selected = 1;
+        getNodeSelectInfo: function (item, selectedHash, index, loadCache) {
+            loadCache = loadCache || {};
+            index = index || '';
+            // 已缓存
+            if (loadCache.hasOwnProperty(index)) {
+                return loadCache[index];
             }
-            else {
-                scanChildren(item.children);
-            }
-            return {
-                total: total,
-                selected: selected
+            var result = {
+                total: 0,
+                selected: 0
             };
-            function scanChildren(arr) {
-                if (!(arr instanceof Array) || !arr.length) return;
-                for (var i = 0; i < arr.length; i++) {
-                    var obj = arr[i];
-                    if (obj.children instanceof Array) {
-                        scanChildren(obj.children);
-                        continue;
-                    }
-                    total++;
-                    selected += selectedHash[obj.value] === true ? 1 : 0;
-                }
+            // 叶子
+            if (!(item.children instanceof Array)) {
+                result.total = result.selected = selectedHash[item.value] === true ? 1 : 0;
+                loadCache[index] = JSON.parse(JSON.stringify(result));
+                console.log('write:' +  index);
+                return result;
             }
+            // 树
+            for (var i = 0; i < item.children.length; i++) {
+                var child = item.children[i];
+                var childIndex = index + ',' + i;
+                if (!loadCache.hasOwnProperty(childIndex)) {
+                    this.getNodeSelectInfo(child, selectedHash, childIndex, loadCache);
+                }
+                var cache = loadCache[childIndex];
+                result.total += cache.total;
+                result.selected += cache.selected;
+            }
+            loadCache[index] = JSON.parse(JSON.stringify(result));
+            return result;
         },
 
         dualTreeSelectorEngine: {

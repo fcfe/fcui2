@@ -173,7 +173,7 @@ define(function (require) {
             var hasSelector = false;
             var selectorConfig = {
                 isSelector: true,
-                width:60,
+                width: 60,
                 renderer: renderers.selectorItem,
                 thRenderer: renderers.selectorHeader,
                 prepare: function (props, item, row, column, me) {
@@ -186,7 +186,7 @@ define(function (require) {
                     hasSelector = true;
                     var newItem = {
                         isSelector: true,
-                        width:60,
+                        maxWidth:60,
                         renderer: renderers.selectorItem,
                         thRenderer: renderers.selectorHeader,
                         prepare: (function (oldPrepare) {
@@ -197,6 +197,7 @@ define(function (require) {
                             };
                         })(item.prepare)
                     };
+                    newItem.width = isNaN(item.width) ? 60 : item.width;
                     fields.push(newItem);
                 }
                 else {

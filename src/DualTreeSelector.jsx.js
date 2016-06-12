@@ -42,6 +42,10 @@ define(function (require) {
             };
         },
 
+        componentDidMount() {
+            console.warn('Warning: Please use DualTreeSelector-test.jsx instead.');
+        },
+
         /**
          * 左树“操作”按钮点击时的回调
          *

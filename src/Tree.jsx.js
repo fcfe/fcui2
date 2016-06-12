@@ -267,6 +267,10 @@ define(function (require) {
             };
         },
 
+        componentDidMount() {
+            console.warn('Warning: Please use Tree-test.jsx instead.');
+        },
+
         componentWillReceiveProps(nextProps) {
             this.setState(_.pick(nextProps, 'focusedTreeNodeId', 'expandedTreeNodeId', 'markedTreeNodeId'));
         },

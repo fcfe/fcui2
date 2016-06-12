@@ -36,6 +36,7 @@ define(function (require) {
             return {};
         },
         render: function () {
+            this.___loadingCache___ = {};
             return (
                 <div {...cTools.containerBaseProps('tree-test', this)}>
                     {leafFactory(this)}

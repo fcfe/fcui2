@@ -30,8 +30,6 @@ define(function (require) {
         },
         onClick: function (e) {
             if (this.props.disabled) return;
-            e.target = this.refs.container;
-            e.target.value = this.props.item.value;
             typeof this.props.onAction === 'function' && this.props.onAction('TreeLeafClick', {
                 item: this.props.item,
                 index: this.props.index

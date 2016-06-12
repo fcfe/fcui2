@@ -47,7 +47,12 @@ define(function (require) {
             // 树的展开状态
             var expand = me.props.value.expand || {};
             // 节点所在子树的选择状态
-            var select = tools.getNodeSelectInfo(item, me.props.value.selected || {});
+            var select = tools.getNodeSelectInfo(
+                item,
+                me.props.value.selected || {},
+                this.props.index,
+                this.props.treeComponent.___loadingCache___
+            );
             // 显示状态
             var display = me.props.value.display;
 

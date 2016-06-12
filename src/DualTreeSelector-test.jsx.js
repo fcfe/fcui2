@@ -52,7 +52,13 @@ define(function (require) {
                 for (var i = 0; i < arr.length; i++) {
                     var item = arr[i];
                     // 叶子节点
-                    if (!(item.children instanceof Array)) continue;
+                    if (!(item.children instanceof Array)) {
+                        // 空的children属性被删掉了
+                        if (selected[item.value] === 1) {
+                            selected[item.value] = true;
+                        }
+                        continue;
+                    }
                     // 无孩子节点
                     if (!item.children.length) continue;
                     // 有孩子节点，但不是新加载的
