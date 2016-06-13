@@ -25,6 +25,13 @@ define(function (require) {
          * @param {Function} onMouseEnter 鼠标滑入按钮时触发
          * @param {Function} onMouseLeave 鼠标滑出按钮时触发
          */
+        /**
+         * @fire button onClick
+         * @param {ReactMouseEvent} b 鼠标事件对象
+         * @param {ReactMouseEvent} e 鼠标事件对象
+         * @param {HtmlElement} e.target Button实例的根容器
+         * @param {String} e.target.value Button实例的value属性
+         */
         // @override
         getDefaultProps: function () {
             return {

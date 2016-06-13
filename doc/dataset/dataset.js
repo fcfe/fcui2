@@ -106,6 +106,20 @@ define(function(require){return {
             "fors": {},
             "namespaces": {}
         },
+        "src\\components\\tree\\NormalRenderer.jsx.js": {
+            "name": "src\\components\\tree\\NormalRenderer.jsx.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src\\components\\tree\\SelectRenderer.jsx.js": {
+            "name": "src\\components\\tree\\SelectRenderer.jsx.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "src\\core\\componentTools.js": {
             "name": "src\\core\\componentTools.js",
             "modules": {},
@@ -155,6 +169,13 @@ define(function(require){return {
             "fors": {},
             "namespaces": {}
         },
+        "src\\core\\treeTools.js": {
+            "name": "src\\core\\treeTools.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "src\\core\\util.js": {
             "name": "src\\core\\util.js",
             "modules": {},
@@ -192,6 +213,13 @@ define(function(require){return {
         },
         "src\\mixins\\MouseWidgetBase.js": {
             "name": "src\\mixins\\MouseWidgetBase.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src\\mixins\\TreeNodeBase.js": {
+            "name": "src\\mixins\\TreeNodeBase.js",
             "modules": {},
             "classes": {},
             "fors": {},
@@ -262,6 +290,13 @@ define(function(require){return {
         },
         "src\\DropDownRegion.jsx.js": {
             "name": "src\\DropDownRegion.jsx.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src\\DualTreeSelector-test.jsx.js": {
+            "name": "src\\DualTreeSelector-test.jsx.js",
             "modules": {},
             "classes": {},
             "fors": {},
@@ -402,6 +437,13 @@ define(function(require){return {
         },
         "src\\TitleWindow.jsx.js": {
             "name": "src\\TitleWindow.jsx.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src\\Tree-test.jsx.js": {
+            "name": "src\\Tree-test.jsx.js",
             "modules": {},
             "classes": {},
             "fors": {},
@@ -556,6 +598,24 @@ define(function(require){return {
             "file": "src\\components\\table\\SelectorInTBody.jsx.js",
             "line": 1,
             "description": "行选择器",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\tree\\NormalRenderer.jsx.js",
+            "line": 1,
+            "description": "tree组件item默认渲染器",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\tree\\SelectRenderer.jsx.js",
+            "line": 1,
+            "description": "tree 有选择功能的渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
@@ -1385,6 +1445,18 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\core\\treeTools.js",
+            "line": 54,
+            "description": "此处逻辑：\n（1）如果当前节点是叶子节点，标记为true\n（2）如果当前节点不是叶子节点，在其树下所有叶子标记为true\n（3）如果当点节点有children属性，但children长度为0，则将此节点标记为1",
+            "class": ""
+        },
+        {
+            "file": "src\\core\\treeTools.js",
+            "line": 87,
+            "description": "此处逻辑\n（1）如果是叶子，则删除\n（2）如果不是叶子，则删除该子树上的所有叶子",
+            "class": ""
+        },
+        {
             "file": "src\\core\\util.js",
             "line": 1,
             "description": "全局工具集",
@@ -1727,6 +1799,12 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\mixins\\TreeNodeBase.js",
+            "line": 1,
+            "description": "tree node base",
+            "class": ""
+        },
+        {
             "file": "src\\mixins\\WidgetWithFixedDom.js",
             "line": 1,
             "description": "用于fixed 组件内部某个DOM position的mixin",
@@ -1745,7 +1823,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Button.jsx.js",
-            "line": 16,
+            "line": 15,
             "properties": "",
             "params": [
                 {
@@ -1802,6 +1880,38 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\Button.jsx.js",
+            "line": 28,
+            "fire": "button onClick",
+            "params": [
+                {
+                    "name": "b",
+                    "description": "鼠标事件对象",
+                    "type": "ReactMouseEvent"
+                },
+                {
+                    "name": "e",
+                    "description": "鼠标事件对象",
+                    "type": "ReactMouseEvent",
+                    "props": [
+                        {
+                            "name": "target",
+                            "description": "Button实例的根容器",
+                            "type": "HtmlElement",
+                            "props": [
+                                {
+                                    "name": "value",
+                                    "description": "Button实例的value属性",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "class": ""
+        },
+        {
             "file": "src\\Calendar.jsx.js",
             "line": 1,
             "description": "日历",
@@ -1812,7 +1922,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Calendar.jsx.js",
-            "line": 24,
+            "line": 23,
             "properties": "",
             "params": [
                 {
@@ -2335,6 +2445,15 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\DualTreeSelector-test.jsx.js",
+            "line": 1,
+            "description": "双树选择器",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2",
+            "class": ""
+        },
+        {
             "file": "src\\DualTreeSelector.jsx.js",
             "line": 1,
             "description": "双树选择器",
@@ -2344,7 +2463,7 @@ define(function(require){return {
         },
         {
             "file": "src\\DualTreeSelector.jsx.js",
-            "line": 44,
+            "line": 49,
             "description": "左树“操作”按钮点击时的回调",
             "params": [
                 {
@@ -2367,7 +2486,7 @@ define(function(require){return {
         },
         {
             "file": "src\\DualTreeSelector.jsx.js",
-            "line": 59,
+            "line": 64,
             "description": "左树“展开”按钮点击时的回调",
             "params": [
                 {
@@ -2390,7 +2509,7 @@ define(function(require){return {
         },
         {
             "file": "src\\DualTreeSelector.jsx.js",
-            "line": 70,
+            "line": 75,
             "description": "右树“操作”按钮点击时的回调",
             "params": [
                 {
@@ -2413,7 +2532,7 @@ define(function(require){return {
         },
         {
             "file": "src\\DualTreeSelector.jsx.js",
-            "line": 81,
+            "line": 86,
             "description": "全部删除时的回调",
             "params": [
                 {
@@ -2463,7 +2582,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Form.jsx.js",
-            "line": 69,
+            "line": 62,
             "description": "注册表单输入域",
             "interface": "attach",
             "params": [
@@ -2487,7 +2606,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Form.jsx.js",
-            "line": 91,
+            "line": 84,
             "description": "解除表单输入域",
             "interface": "detach",
             "params": [
@@ -2507,7 +2626,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Form.jsx.js",
-            "line": 103,
+            "line": 96,
             "description": "更新表单域",
             "interface": "updateField",
             "params": [
@@ -2532,7 +2651,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Form.jsx.js",
-            "line": 138,
+            "line": 131,
             "description": "校验整个表单",
             "interface": "validate",
             "return": {
@@ -2543,7 +2662,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Form.jsx.js",
-            "line": 143,
+            "line": 136,
             "structure": "FormValidationObject",
             "example": [
                 "\n {\n     dataset: {},\n     fieldResult: {},\n     formResult: [],\n     isValid: true\n }"
@@ -2786,7 +2905,7 @@ define(function(require){return {
         },
         {
             "file": "src\\NumberBox.jsx.js",
-            "line": 115,
+            "line": 94,
             "description": "让输入框获得焦点",
             "interface": "focus",
             "class": ""
@@ -3016,117 +3135,31 @@ define(function(require){return {
         },
         {
             "file": "src\\Schedule.jsx.js",
-            "line": 25,
-            "description": "是否使用列选择器",
+            "line": 24,
+            "description": "{\n    /**\n     * 是否使用列选择器\n    \n    enableColumnSelector: React.PropTypes.bool,\n    /**\n     * 是否使用行选择器\n    \n    enableRowSelector: React.PropTypes.bool,\n    /**\n     * 选定的时段值\n     * 是一个有7x24元素的数组JSON.stringify后的值日优先存放一星期每天24小时的时段选择情况\n     * 每个元素可为null，或者一个string\n     * 当为null时，表示该时段没有被选择\n     * 当为string时，表示该时段被选择，string的内容为当前时段的label\n     * 相邻时段相同值的label会被合并\n     * 若label为空串（''），则显示默认label默认为时段跨度如1:00-2:00\n    \n    value: React.PropTypes.string,\n    /**\n     * 划出了一个新的时段块时的回调\n     * 回调可通过e.preventDefault()阻止更新发生此时组件会通过设置\n     * isPreventMouseEvent state来阻止后续鼠标事件响应\n     * 使用方做适当处理后，需设置isPreventMouseEvent为false来恢复鼠标响应\n     * @param {SyntheticEvent} onScheduleSelected.e 鼠标mouseup事件\n     * @param {number} onScheduleSelected.startHour\n     * @param {number} onScheduleSelected.startWeekday\n     * @param {number} onScheduleSelected.endHour\n     * @param {number} onScheduleSelected.endWeekday\n     * @param {HTMLElement} onScheduleSelected.cursorDom 鼠标拖拽所产生的drag layer的dom节点\n  \n    onScheduleSelected: React.PropTypes.func,\n    /**\n     * 绘制悬浮层\n     * @return {ReactElement} 悬浮层Element\n\n    titleLayerRenderer: React.PropTypes.func,\n    /**\n     * 预设的labels列表\n     * @param {string} presetLables[].value 同value定义\n\n    presetLabels: React.PropTypes.arrayOf(React.PropTypes.shape({\n        style: React.PropTypes.object,\n        value: React.PropTypes.string,\n        name: React.PropTypes.string\n    })),\n    /**\n     * 显示在schedule顶部的info中的文字\n\n    infoText: React.PropTypes.string,\n    isShowLegend: React.PropTypes.bool,\n    /**\n     * legend的名字\n     * @type {Object}\n\n    infoLegendText: React.PropTypes.object\n},",
             "class": ""
         },
         {
             "file": "src\\Schedule.jsx.js",
-            "line": 29,
-            "description": "是否使用行选择器",
-            "class": ""
-        },
-        {
-            "file": "src\\Schedule.jsx.js",
-            "line": 33,
-            "description": "选定的时段值\n是一个有7x24元素的数组JSON.stringify后的值日优先存放一星期每天24小时的时段选择情况\n每个元素可为null，或者一个string\n当为null时，表示该时段没有被选择\n当为string时，表示该时段被选择，string的内容为当前时段的label\n相邻时段相同值的label会被合并\n若label为空串（''），则显示默认label默认为时段跨度如1:00-2:00",
-            "class": ""
-        },
-        {
-            "file": "src\\Schedule.jsx.js",
-            "line": 43,
-            "description": "划出了一个新的时段块时的回调\n回调可通过e.preventDefault()阻止更新发生此时组件会通过设置\nisPreventMouseEvent state来阻止后续鼠标事件响应\n使用方做适当处理后，需设置isPreventMouseEvent为false来恢复鼠标响应",
-            "params": [
-                {
-                    "name": "onScheduleSelected.e",
-                    "description": "鼠标mouseup事件",
-                    "type": "SyntheticEvent"
-                },
-                {
-                    "name": "onScheduleSelected.startHour",
-                    "description": "",
-                    "type": "Number"
-                },
-                {
-                    "name": "onScheduleSelected.startWeekday",
-                    "description": "",
-                    "type": "Number"
-                },
-                {
-                    "name": "onScheduleSelected.endHour",
-                    "description": "",
-                    "type": "Number"
-                },
-                {
-                    "name": "onScheduleSelected.endWeekday",
-                    "description": "",
-                    "type": "Number"
-                },
-                {
-                    "name": "onScheduleSelected.cursorDom",
-                    "description": "鼠标拖拽所产生的drag layer的dom节点",
-                    "type": "HTMLElement"
-                }
-            ],
-            "class": ""
-        },
-        {
-            "file": "src\\Schedule.jsx.js",
-            "line": 56,
-            "description": "绘制悬浮层",
-            "return": {
-                "description": "悬浮层Element",
-                "type": "ReactElement"
-            },
-            "class": ""
-        },
-        {
-            "file": "src\\Schedule.jsx.js",
-            "line": 61,
-            "description": "预设的labels列表",
-            "params": [
-                {
-                    "name": "presetLables[].value",
-                    "description": "同value定义",
-                    "type": "String"
-                }
-            ],
-            "class": ""
-        },
-        {
-            "file": "src\\Schedule.jsx.js",
-            "line": 70,
-            "description": "显示在schedule顶部的info中的文字",
-            "class": ""
-        },
-        {
-            "file": "src\\Schedule.jsx.js",
-            "line": 75,
-            "description": "legend的名字",
-            "type": "{Object}",
-            "class": ""
-        },
-        {
-            "file": "src\\Schedule.jsx.js",
-            "line": 88,
+            "line": 90,
             "description": "快捷按钮配置\n上方的快捷按钮配置，按钮的一切都由外部导入，包括处理函数，元素格式如下：\n{label: '全部', getValues: function (currentValue) {return '';}}",
             "class": ""
         },
         {
             "file": "src\\Schedule.jsx.js",
-            "line": 113,
+            "line": 115,
             "description": "是否会阻断全部的鼠标事件",
             "class": ""
         },
         {
             "file": "src\\Schedule.jsx.js",
-            "line": 117,
+            "line": 119,
             "description": "鼠标是否离开了控件",
             "class": ""
         },
         {
             "file": "src\\Schedule.jsx.js",
-            "line": 131,
+            "line": 133,
             "description": "处理body鼠标抬起事件如果当前处于拖拽状态, 点击会触发onScheduleSelected其他情况无作用",
             "params": [
                 {
@@ -3139,7 +3172,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Schedule.jsx.js",
-            "line": 142,
+            "line": 144,
             "description": "处理body鼠标移动事件如果当前处于拖拽状态, 拖拽会改变cursor大小, 其他情况无作用",
             "params": [
                 {
@@ -3152,7 +3185,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Schedule.jsx.js",
-            "line": 263,
+            "line": 265,
             "description": "混合presets label，得到最终的value",
             "return": {
                 "description": "混合后的value",
@@ -3162,7 +3195,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Schedule.jsx.js",
-            "line": 384,
+            "line": 386,
             "description": "操作区由5层组成，从下到上依次是：\n1.网格层，不透明\n2.选中时间展示层，半透明，蓝色\n3.虚拟光标层，半透明，黄色，蓝边框\n4.鼠标信息显示层，不透明，白色\n5.鼠标事件响应层，透明",
             "class": ""
         },
@@ -3263,7 +3296,7 @@ define(function(require){return {
         },
         {
             "file": "src\\ShojiScreen.jsx.js",
-            "line": 23,
+            "line": 24,
             "properties": "",
             "params": [
                 {
@@ -3654,7 +3687,7 @@ define(function(require){return {
         },
         {
             "file": "src\\TextArea.jsx.js",
-            "line": 60,
+            "line": 45,
             "description": "让文本域获得焦点",
             "interface": "focus",
             "class": ""
@@ -3693,7 +3726,7 @@ define(function(require){return {
         },
         {
             "file": "src\\TextBox.jsx.js",
-            "line": 61,
+            "line": 45,
             "description": "让输入框获得焦点",
             "interface": "focus",
             "class": ""
@@ -3812,6 +3845,15 @@ define(function(require){return {
                     "type": "Function"
                 }
             ],
+            "class": ""
+        },
+        {
+            "file": "src\\Tree-test.jsx.js",
+            "line": 1,
+            "description": "树",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2",
             "class": ""
         },
         {
@@ -4042,130 +4084,8 @@ define(function(require){return {
         },
         {
             "file": "src\\Tree.jsx.js",
-            "line": 178,
-            "description": "树所展现的所有节点集合",
-            "class": ""
-        },
-        {
-            "file": "src\\Tree.jsx.js",
-            "line": 182,
-            "description": "本层次树的上层节点",
-            "class": ""
-        },
-        {
-            "file": "src\\Tree.jsx.js",
-            "line": 186,
-            "description": "根据节点的层数，计算当前层的wrapper的style",
-            "params": [
-                {
-                    "name": "level",
-                    "description": "树的层数",
-                    "type": "Number"
-                }
-            ],
-            "return": {
-                "description": "当前层的style object",
-                "type": "Object"
-            },
-            "class": ""
-        },
-        {
-            "file": "src\\Tree.jsx.js",
-            "line": 192,
-            "description": "树节点展开按钮被点击时的回调",
-            "params": [
-                {
-                    "name": "onTreeNodeExpandClicked.e",
-                    "description": "点击事件对象",
-                    "type": "SyntheticEvent"
-                },
-                {
-                    "name": "onTreeNodeExpandClicked.treeNode",
-                    "description": "被展开的树节点数据",
-                    "type": "TreeNodeType"
-                },
-                {
-                    "name": "onTreeNodeExpandClicked.parentTreeNodes",
-                    "description": "当前节点的父节点列表",
-                    "type": "Array<treeNodeType>"
-                }
-            ],
-            "class": ""
-        },
-        {
-            "file": "src\\Tree.jsx.js",
-            "line": 199,
-            "description": "树节点“操作”按钮被点击时的回调",
-            "params": [
-                {
-                    "name": "onTreeNodeOperationClicked.e",
-                    "description": "点击事件对象",
-                    "type": "SyntheticEvent"
-                },
-                {
-                    "name": "onTreeNodeOperationClicked.treeNode",
-                    "description": "被操作的树节点数据",
-                    "type": "TreeNodeType"
-                },
-                {
-                    "name": "onTreeNodeOperationClicked.parentTreeNodes",
-                    "description": "当前节点的父节点列表",
-                    "type": "Array<treeNodeType>"
-                }
-            ],
-            "class": ""
-        },
-        {
-            "file": "src\\Tree.jsx.js",
-            "line": 206,
-            "description": "树节点其他位置被点击时的回调",
-            "params": [
-                {
-                    "name": "onTreeNodeClicked.e",
-                    "description": "点击事件对象",
-                    "type": "SyntheticEvent"
-                },
-                {
-                    "name": "onTreeNodeClicked.treeNode",
-                    "description": "被操作的树节点数据",
-                    "type": "TreeNodeType"
-                },
-                {
-                    "name": "onTreeNodeClicked.parentTreeNodes",
-                    "description": "当前节点的父节点列表",
-                    "type": "Array<treeNodeType>"
-                }
-            ],
-            "class": ""
-        },
-        {
-            "file": "src\\Tree.jsx.js",
-            "line": 213,
-            "description": "节点加载中时的话术",
-            "class": ""
-        },
-        {
-            "file": "src\\Tree.jsx.js",
-            "line": 217,
-            "description": "需要高亮显示的节点",
-            "class": ""
-        },
-        {
-            "file": "src\\Tree.jsx.js",
-            "line": 221,
-            "description": "filter string，不显示name中含有nameFilterString的node",
-            "class": ""
-        },
-        {
-            "file": "src\\Tree.jsx.js",
-            "line": 225,
-            "description": "被展开的节点集合",
-            "class": ""
-        },
-        {
-            "file": "src\\Tree.jsx.js",
-            "line": 229,
-            "description": "被标记的节点集合",
+            "line": 177,
+            "description": "/**\n * 树所展现的所有节点集合\n      \ntreeNodes: React.PropTypes.arrayOf(treeNodeType),\n/**\n * 本层次树的上层节点\n    \nparentTreeNodes: React.PropTypes.arrayOf(treeNodeType),\n/**\n * 根据节点的层数，计算当前层的wrapper的style\n * @param {number} level 树的层数\n * @return {Object} 当前层的style object\n    \ngetTreeLevelStyle: React.PropTypes.func,\n/**\n * 树节点展开按钮被点击时的回调\n * @param {SyntheticEvent} onTreeNodeExpandClicked.e 点击事件对象\n * @param {treeNodeType} onTreeNodeExpandClicked.treeNode 被展开的树节点数据\n * @param {Array<treeNodeType>} onTreeNodeExpandClicked.parentTreeNodes 当前节点的父节点列表\n      \nonTreeNodeExpandClicked: React.PropTypes.func,\n/**\n * 树节点“操作”按钮被点击时的回调\n * @param {SyntheticEvent} onTreeNodeOperationClicked.e 点击事件对象\n * @param {treeNodeType} onTreeNodeOperationClicked.treeNode 被操作的树节点数据\n * @param {Array<treeNodeType>} onTreeNodeOperationClicked.parentTreeNodes 当前节点的父节点列表\n \nonTreeNodeOperationClicked: React.PropTypes.func,\n/**\n * 树节点其他位置被点击时的回调\n * @param {SyntheticEvent} onTreeNodeClicked.e 点击事件对象\n * @param {treeNodeType} onTreeNodeClicked.treeNode 被操作的树节点数据\n * @param {Array<treeNodeType>} onTreeNodeClicked.parentTreeNodes 当前节点的父节点列表\n\nonTreeNodeClicked: React.PropTypes.func,\n/**\n * 节点加载中时的话术\n \ntextLoading: React.PropTypes.string,\n/**\n * 需要高亮显示的节点\n\nfocusedTreeNodeId: React.PropTypes.string,\n/**\n * filter string，不显示name中含有nameFilterString的node\n   \nnameFilter: React.PropTypes.string,\n/**\n * 被展开的节点集合\n\nexpandedTreeNodeId: React.PropTypes.objectOf(React.PropTypes.bool),\n/**\n * 被标记的节点集合\n\nmarkedTreeNodeId: React.PropTypes.objectOf(React.PropTypes.bool)\n        },",
             "class": ""
         },
         {
@@ -4328,6 +4248,22 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: email",
+            "line": " src\\components\\tree\\NormalRenderer.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\components\\tree\\NormalRenderer.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: email",
+            "line": " src\\components\\tree\\SelectRenderer.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\components\\tree\\SelectRenderer.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: email",
             "line": " src\\core\\componentTools.js:1"
         },
         {
@@ -4416,7 +4352,11 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: properties",
-            "line": " src\\Button.jsx.js:16"
+            "line": " src\\Button.jsx.js:15"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\Button.jsx.js:28"
         },
         {
             "message": "unknown tag: email",
@@ -4428,7 +4368,7 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: properties",
-            "line": " src\\Calendar.jsx.js:24"
+            "line": " src\\Calendar.jsx.js:23"
         },
         {
             "message": "unknown tag: email",
@@ -4583,6 +4523,14 @@ define(function(require){return {
             "line": " src\\DropDownRegion.jsx.js:25"
         },
         {
+            "message": "unknown tag: email",
+            "line": " src\\DualTreeSelector-test.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\DualTreeSelector-test.jsx.js:1"
+        },
+        {
             "message": "unknown tag: version",
             "line": " src\\DualTreeSelector.jsx.js:1"
         },
@@ -4600,19 +4548,19 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Form.jsx.js:69"
+            "line": " src\\Form.jsx.js:62"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Form.jsx.js:91"
+            "line": " src\\Form.jsx.js:84"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Form.jsx.js:103"
+            "line": " src\\Form.jsx.js:96"
         },
         {
             "message": "unknown tag: structure",
-            "line": " src\\Form.jsx.js:143"
+            "line": " src\\Form.jsx.js:136"
         },
         {
             "message": "unknown tag: email",
@@ -4756,7 +4704,7 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: properties",
-            "line": " src\\ShojiScreen.jsx.js:23"
+            "line": " src\\ShojiScreen.jsx.js:24"
         },
         {
             "message": "unknown tag: email",
@@ -4867,6 +4815,14 @@ define(function(require){return {
             "line": " src\\TitleWindow.jsx.js:18"
         },
         {
+            "message": "unknown tag: email",
+            "line": " src\\Tree-test.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\Tree-test.jsx.js:1"
+        },
+        {
             "message": "unknown tag: version",
             "line": " src\\Tree.jsx.js:1"
         },
@@ -4941,6 +4897,14 @@ define(function(require){return {
         {
             "message": "Missing item type\n行选择器",
             "line": " src\\components\\table\\SelectorInTBody.jsx.js:1"
+        },
+        {
+            "message": "Missing item type\ntree组件item默认渲染器",
+            "line": " src\\components\\tree\\NormalRenderer.jsx.js:1"
+        },
+        {
+            "message": "Missing item type\ntree 有选择功能的渲染器",
+            "line": " src\\components\\tree\\SelectRenderer.jsx.js:1"
         },
         {
             "message": "Missing item type\n组件公共方法",
@@ -5095,6 +5059,14 @@ define(function(require){return {
             "line": " src\\core\\treeTools.es6.js:157"
         },
         {
+            "message": "Missing item type\n此处逻辑：\n（1）如果当前节点是叶子节点，标记为true\n（2）如果当前节点不是叶子节点，在其树下所有叶子标记为true\n（3）如果当点节点有children属性，但children长度为0，则将此节点标记为1",
+            "line": " src\\core\\treeTools.js:54"
+        },
+        {
+            "message": "Missing item type\n此处逻辑\n（1）如果是叶子，则删除\n（2）如果不是叶子，则删除该子树上的所有叶子",
+            "line": " src\\core\\treeTools.js:87"
+        },
+        {
             "message": "Missing item type\n全局工具集",
             "line": " src\\core\\util.js:1"
         },
@@ -5187,6 +5159,10 @@ define(function(require){return {
             "line": " src\\mixins\\MouseWidgetBase.js:1"
         },
         {
+            "message": "Missing item type\ntree node base",
+            "line": " src\\mixins\\TreeNodeBase.js:1"
+        },
+        {
             "message": "Missing item type\n用于fixed 组件内部某个DOM position的mixin",
             "line": " src\\mixins\\WidgetWithFixedDom.js:1"
         },
@@ -5196,7 +5172,11 @@ define(function(require){return {
         },
         {
             "message": "Missing item type",
-            "line": " src\\Button.jsx.js:16"
+            "line": " src\\Button.jsx.js:15"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Button.jsx.js:28"
         },
         {
             "message": "Missing item type\n日历",
@@ -5204,7 +5184,7 @@ define(function(require){return {
         },
         {
             "message": "Missing item type",
-            "line": " src\\Calendar.jsx.js:24"
+            "line": " src\\Calendar.jsx.js:23"
         },
         {
             "message": "Missing item type\n复选框",
@@ -5296,23 +5276,27 @@ define(function(require){return {
         },
         {
             "message": "Missing item type\n双树选择器",
+            "line": " src\\DualTreeSelector-test.jsx.js:1"
+        },
+        {
+            "message": "Missing item type\n双树选择器",
             "line": " src\\DualTreeSelector.jsx.js:1"
         },
         {
             "message": "Missing item type\n左树“操作”按钮点击时的回调",
-            "line": " src\\DualTreeSelector.jsx.js:44"
+            "line": " src\\DualTreeSelector.jsx.js:49"
         },
         {
             "message": "Missing item type\n左树“展开”按钮点击时的回调",
-            "line": " src\\DualTreeSelector.jsx.js:59"
+            "line": " src\\DualTreeSelector.jsx.js:64"
         },
         {
             "message": "Missing item type\n右树“操作”按钮点击时的回调",
-            "line": " src\\DualTreeSelector.jsx.js:70"
+            "line": " src\\DualTreeSelector.jsx.js:75"
         },
         {
             "message": "Missing item type\n全部删除时的回调",
-            "line": " src\\DualTreeSelector.jsx.js:81"
+            "line": " src\\DualTreeSelector.jsx.js:86"
         },
         {
             "message": "Missing item type\n表单组件",
@@ -5324,23 +5308,23 @@ define(function(require){return {
         },
         {
             "message": "Missing item type\n注册表单输入域",
-            "line": " src\\Form.jsx.js:69"
+            "line": " src\\Form.jsx.js:62"
         },
         {
             "message": "Missing item type\n解除表单输入域",
-            "line": " src\\Form.jsx.js:91"
+            "line": " src\\Form.jsx.js:84"
         },
         {
             "message": "Missing item type\n更新表单域",
-            "line": " src\\Form.jsx.js:103"
+            "line": " src\\Form.jsx.js:96"
         },
         {
             "message": "Missing item type\n校验整个表单",
-            "line": " src\\Form.jsx.js:138"
+            "line": " src\\Form.jsx.js:131"
         },
         {
             "message": "Missing item type",
-            "line": " src\\Form.jsx.js:143"
+            "line": " src\\Form.jsx.js:136"
         },
         {
             "message": "Missing item type\n弹层",
@@ -5372,7 +5356,7 @@ define(function(require){return {
         },
         {
             "message": "Missing item type\n让输入框获得焦点",
-            "line": " src\\NumberBox.jsx.js:115"
+            "line": " src\\NumberBox.jsx.js:94"
         },
         {
             "message": "Missing item type\n翻页器",
@@ -5415,64 +5399,36 @@ define(function(require){return {
             "line": " src\\Schedule.jsx.js:1"
         },
         {
-            "message": "Missing item type\n是否使用列选择器",
-            "line": " src\\Schedule.jsx.js:25"
-        },
-        {
-            "message": "Missing item type\n是否使用行选择器",
-            "line": " src\\Schedule.jsx.js:29"
-        },
-        {
-            "message": "Missing item type\n选定的时段值\n是一个有7x24元素的数组JSON.stringify后的值日优先存放一星期每天24小时的时段选择情况\n每个元素可为null，或者一个string\n当为null时，表示该时段没有被选择\n当为string时，表示该时段被选择，string的内容为当前时段的label\n相邻时段相同值的label会被合并\n若label为空串（''），则显示默认label默认为时段跨度如1:00-2:00",
-            "line": " src\\Schedule.jsx.js:33"
-        },
-        {
-            "message": "Missing item type\n划出了一个新的时段块时的回调\n回调可通过e.preventDefault()阻止更新发生此时组件会通过设置\nisPreventMouseEvent state来阻止后续鼠标事件响应\n使用方做适当处理后，需设置isPreventMouseEvent为false来恢复鼠标响应",
-            "line": " src\\Schedule.jsx.js:43"
-        },
-        {
-            "message": "Missing item type\n绘制悬浮层",
-            "line": " src\\Schedule.jsx.js:56"
-        },
-        {
-            "message": "Missing item type\n预设的labels列表",
-            "line": " src\\Schedule.jsx.js:61"
-        },
-        {
-            "message": "Missing item type\n显示在schedule顶部的info中的文字",
-            "line": " src\\Schedule.jsx.js:70"
-        },
-        {
-            "message": "Missing item type\nlegend的名字",
-            "line": " src\\Schedule.jsx.js:75"
+            "message": "Missing item type\n{\n    /**\n     * 是否使用列选择器\n    \n    enableColumnSelector: React.PropTypes.bool,\n    /**\n     * 是否使用行选择器\n    \n    enableRowSelector: React.PropTypes.bool,\n    /**\n     * 选定的时段值\n     * 是一个有7x24元素的数组JSON.stringify后的值日优先存放一星期每天24小时的时段选择情况\n     * 每个元素可为null，或者一个string\n     * 当为null时，表示该时段没有被选择\n     * 当为string时，表示该时段被选择，string的内容为当前时段的label\n     * 相邻时段相同值的label会被合并\n     * 若label为空串（''），则显示默认label默认为时段跨度如1:00-2:00\n    \n    value: React.PropTypes.string,\n    /**\n     * 划出了一个新的时段块时的回调\n     * 回调可通过e.preventDefault()阻止更新发生此时组件会通过设置\n     * isPreventMouseEvent state来阻止后续鼠标事件响应\n     * 使用方做适当处理后，需设置isPreventMouseEvent为false来恢复鼠标响应\n     * @param {SyntheticEvent} onScheduleSelected.e 鼠标mouseup事件\n     * @param {number} onScheduleSelected.startHour\n     * @param {number} onScheduleSelected.startWeekday\n     * @param {number} onScheduleSelected.endHour\n     * @param {number} onScheduleSelected.endWeekday\n     * @param {HTMLElement} onScheduleSelected.cursorDom 鼠标拖拽所产生的drag layer的dom节点\n  \n    onScheduleSelected: React.PropTypes.func,\n    /**\n     * 绘制悬浮层\n     * @return {ReactElement} 悬浮层Element\n\n    titleLayerRenderer: React.PropTypes.func,\n    /**\n     * 预设的labels列表\n     * @param {string} presetLables[].value 同value定义\n\n    presetLabels: React.PropTypes.arrayOf(React.PropTypes.shape({\n        style: React.PropTypes.object,\n        value: React.PropTypes.string,\n        name: React.PropTypes.string\n    })),\n    /**\n     * 显示在schedule顶部的info中的文字\n\n    infoText: React.PropTypes.string,\n    isShowLegend: React.PropTypes.bool,\n    /**\n     * legend的名字\n     * @type {Object}\n\n    infoLegendText: React.PropTypes.object\n},",
+            "line": " src\\Schedule.jsx.js:24"
         },
         {
             "message": "Missing item type\n快捷按钮配置\n上方的快捷按钮配置，按钮的一切都由外部导入，包括处理函数，元素格式如下：\n{label: '全部', getValues: function (currentValue) {return '';}}",
-            "line": " src\\Schedule.jsx.js:88"
+            "line": " src\\Schedule.jsx.js:90"
         },
         {
             "message": "Missing item type\n是否会阻断全部的鼠标事件",
-            "line": " src\\Schedule.jsx.js:113"
+            "line": " src\\Schedule.jsx.js:115"
         },
         {
             "message": "Missing item type\n鼠标是否离开了控件",
-            "line": " src\\Schedule.jsx.js:117"
+            "line": " src\\Schedule.jsx.js:119"
         },
         {
             "message": "Missing item type\n处理body鼠标抬起事件如果当前处于拖拽状态, 点击会触发onScheduleSelected其他情况无作用",
-            "line": " src\\Schedule.jsx.js:131"
+            "line": " src\\Schedule.jsx.js:133"
         },
         {
             "message": "Missing item type\n处理body鼠标移动事件如果当前处于拖拽状态, 拖拽会改变cursor大小, 其他情况无作用",
-            "line": " src\\Schedule.jsx.js:142"
+            "line": " src\\Schedule.jsx.js:144"
         },
         {
             "message": "Missing item type\n混合presets label，得到最终的value",
-            "line": " src\\Schedule.jsx.js:263"
+            "line": " src\\Schedule.jsx.js:265"
         },
         {
             "message": "Missing item type\n操作区由5层组成，从下到上依次是：\n1.网格层，不透明\n2.选中时间展示层，半透明，蓝色\n3.虚拟光标层，半透明，黄色，蓝边框\n4.鼠标信息显示层，不透明，白色\n5.鼠标事件响应层，透明",
-            "line": " src\\Schedule.jsx.js:384"
+            "line": " src\\Schedule.jsx.js:386"
         },
         {
             "message": "Missing item type\n搜索框",
@@ -5500,7 +5456,7 @@ define(function(require){return {
         },
         {
             "message": "Missing item type",
-            "line": " src\\ShojiScreen.jsx.js:23"
+            "line": " src\\ShojiScreen.jsx.js:24"
         },
         {
             "message": "Missing item type\n数值滑竿",
@@ -5552,7 +5508,7 @@ define(function(require){return {
         },
         {
             "message": "Missing item type\n让文本域获得焦点",
-            "line": " src\\TextArea.jsx.js:60"
+            "line": " src\\TextArea.jsx.js:45"
         },
         {
             "message": "Missing item type\n文本输入框",
@@ -5564,7 +5520,7 @@ define(function(require){return {
         },
         {
             "message": "Missing item type\n让输入框获得焦点",
-            "line": " src\\TextBox.jsx.js:61"
+            "line": " src\\TextBox.jsx.js:45"
         },
         {
             "message": "Missing item type\n提示",
@@ -5581,6 +5537,10 @@ define(function(require){return {
         {
             "message": "Missing item type",
             "line": " src\\TitleWindow.jsx.js:18"
+        },
+        {
+            "message": "Missing item type\n树",
+            "line": " src\\Tree-test.jsx.js:1"
         },
         {
             "message": "Missing item type\n一个树形选择控件",
@@ -5631,48 +5591,8 @@ define(function(require){return {
             "line": " src\\Tree.jsx.js:155"
         },
         {
-            "message": "Missing item type\n树所展现的所有节点集合",
-            "line": " src\\Tree.jsx.js:178"
-        },
-        {
-            "message": "Missing item type\n本层次树的上层节点",
-            "line": " src\\Tree.jsx.js:182"
-        },
-        {
-            "message": "Missing item type\n根据节点的层数，计算当前层的wrapper的style",
-            "line": " src\\Tree.jsx.js:186"
-        },
-        {
-            "message": "Missing item type\n树节点展开按钮被点击时的回调",
-            "line": " src\\Tree.jsx.js:192"
-        },
-        {
-            "message": "Missing item type\n树节点“操作”按钮被点击时的回调",
-            "line": " src\\Tree.jsx.js:199"
-        },
-        {
-            "message": "Missing item type\n树节点其他位置被点击时的回调",
-            "line": " src\\Tree.jsx.js:206"
-        },
-        {
-            "message": "Missing item type\n节点加载中时的话术",
-            "line": " src\\Tree.jsx.js:213"
-        },
-        {
-            "message": "Missing item type\n需要高亮显示的节点",
-            "line": " src\\Tree.jsx.js:217"
-        },
-        {
-            "message": "Missing item type\nfilter string，不显示name中含有nameFilterString的node",
-            "line": " src\\Tree.jsx.js:221"
-        },
-        {
-            "message": "Missing item type\n被展开的节点集合",
-            "line": " src\\Tree.jsx.js:225"
-        },
-        {
-            "message": "Missing item type\n被标记的节点集合",
-            "line": " src\\Tree.jsx.js:229"
+            "message": "Missing item type\n/**\n * 树所展现的所有节点集合\n      \ntreeNodes: React.PropTypes.arrayOf(treeNodeType),\n/**\n * 本层次树的上层节点\n    \nparentTreeNodes: React.PropTypes.arrayOf(treeNodeType),\n/**\n * 根据节点的层数，计算当前层的wrapper的style\n * @param {number} level 树的层数\n * @return {Object} 当前层的style object\n    \ngetTreeLevelStyle: React.PropTypes.func,\n/**\n * 树节点展开按钮被点击时的回调\n * @param {SyntheticEvent} onTreeNodeExpandClicked.e 点击事件对象\n * @param {treeNodeType} onTreeNodeExpandClicked.treeNode 被展开的树节点数据\n * @param {Array<treeNodeType>} onTreeNodeExpandClicked.parentTreeNodes 当前节点的父节点列表\n      \nonTreeNodeExpandClicked: React.PropTypes.func,\n/**\n * 树节点“操作”按钮被点击时的回调\n * @param {SyntheticEvent} onTreeNodeOperationClicked.e 点击事件对象\n * @param {treeNodeType} onTreeNodeOperationClicked.treeNode 被操作的树节点数据\n * @param {Array<treeNodeType>} onTreeNodeOperationClicked.parentTreeNodes 当前节点的父节点列表\n \nonTreeNodeOperationClicked: React.PropTypes.func,\n/**\n * 树节点其他位置被点击时的回调\n * @param {SyntheticEvent} onTreeNodeClicked.e 点击事件对象\n * @param {treeNodeType} onTreeNodeClicked.treeNode 被操作的树节点数据\n * @param {Array<treeNodeType>} onTreeNodeClicked.parentTreeNodes 当前节点的父节点列表\n\nonTreeNodeClicked: React.PropTypes.func,\n/**\n * 节点加载中时的话术\n \ntextLoading: React.PropTypes.string,\n/**\n * 需要高亮显示的节点\n\nfocusedTreeNodeId: React.PropTypes.string,\n/**\n * filter string，不显示name中含有nameFilterString的node\n   \nnameFilter: React.PropTypes.string,\n/**\n * 被展开的节点集合\n\nexpandedTreeNodeId: React.PropTypes.objectOf(React.PropTypes.bool),\n/**\n * 被标记的节点集合\n\nmarkedTreeNodeId: React.PropTypes.objectOf(React.PropTypes.bool)\n        },",
+            "line": " src\\Tree.jsx.js:177"
         },
         {
             "message": "Missing item type\n向导",

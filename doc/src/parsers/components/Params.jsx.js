@@ -10,6 +10,7 @@ define(function (require) {
         {
             label: 'Property',
             field: 'name',
+            width: 200,
             prepare: function (props, item, row, column, me) {
                 var level = +item.level - 1;
                 if (level > 0) {
@@ -21,6 +22,7 @@ define(function (require) {
         },
         {
             label: 'Type',
+            width: 150,
             content: function (item) {return item.type},
             prepare: tdPrepare
         },
@@ -48,7 +50,7 @@ define(function (require) {
         var items = classitems[item.name];
         // param名称过滤条件
         var description = item.description + ' ';
-        if (!filter || !items || description.length === ' ') return result;
+        if (!filter || !items || description === ' ') return result;
         // 扫描所有注释块
         for (var i = 0; i < items.length; i++) {
             var obj = items[i];

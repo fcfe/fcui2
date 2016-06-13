@@ -3,7 +3,7 @@ define(function (require) {
 
     var React = require('react');
     var Params = require('./components/Params.jsx');
-
+    var Callback = require('./components/Callback.jsx');
 
     return React.createClass({
         // @override
@@ -18,7 +18,8 @@ define(function (require) {
                 return (
                     <div className="parser-properties">
                         <h3>this.props</h3>
-                        <div><Params params={item.params}/></div>
+                        <Params params={item.params}/>
+                        <Callback item={item}/>
                     </div>
                 );
             }
