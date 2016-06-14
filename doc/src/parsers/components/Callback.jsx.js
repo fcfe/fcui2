@@ -2,9 +2,9 @@ define(function (require) {
 
 
     var React = require('react');
-    var classitems = require('../../config').items;
     var Params = require('./Params.jsx');
-
+    var classitems = require('../../config').items;
+    
 
     function getWidgetName(file) {
         var arr = file.split('\\');

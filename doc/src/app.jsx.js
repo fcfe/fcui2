@@ -2,7 +2,7 @@ define(function (require) {
 
 
     var React = require('react');
-    var Parse = require('./Parse.jsx');
+    var Parser = require('./parsers/Main.jsx');
     var config = require('./config');
 
 
@@ -17,7 +17,11 @@ define(function (require) {
                 onClick: me.onLevelChange
             };
             doms.push(<div {...prop}>{config.menu[i].label}</div>);
-            if (me.props.level !== config.menu[i].level) continue;
+            if (me.props.level !== config.menu[i].level) {
+                doms.push(<hr key={i + '-begin'}/>);
+                continue;
+            }
+            doms.push(<hr key={i + '-begin'}/>);
             for (var j = 0; j < config.menu[i].children.length; j++) {
                 var item = config.menu[i].children[j];
                 if (item === '') {
@@ -32,6 +36,7 @@ define(function (require) {
                 };
                 doms.push(<div {...itemProp}>{item.label}</div>);
             }
+            doms.push(<hr key={i + '-end'}/>);
         }
         return doms;
     }
@@ -47,6 +52,12 @@ define(function (require) {
                 dispatch: function () {}
             };
         },
+        // @override
+        getInitialState: function () {
+            return {
+                message: ''
+            };
+        },
         onLevelChange: function (e) {
             var level = e.target.dataset.level;
             level = level === this.props.level ? '' : level;
@@ -57,14 +68,26 @@ define(function (require) {
             if (file === this.props.file) return;
             this.props.dispatch('changeHash', {file: file});
         },
+        onMessage: function (str) {
+            this.setState({message: str});
+        },
         render: function () {
+            var Demo = config.demos[this.props.file.replace(/_/g, '\\')];
             return (
                 <div>
                     <div className="logo">{this.props.title}</div>
                     <div className="left-container">{menuFactory(this)}</div>
-                    <div className="right-top-container"></div>
+                    <div className="right-top-container">{this.state.message}</div>
                     <div className="right-middle-container">
-                        <Parse file={this.props.file}/>
+                        <Parser file={this.props.file}/>
+                        {
+                            Demo ? 
+                                <div className="demo-container">
+                                    <h3>Demos</h3>
+                                    <Demo alert={this.onMessage}/>
+                                </div> 
+                            : null
+                        }
                     </div>
                 </div>
             );

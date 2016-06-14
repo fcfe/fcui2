@@ -10,9 +10,7 @@ define(function (require) {
         result += item.name + '(';
         if (item.hasOwnProperty('params') && item.params.length) {
             var params = [];
-            for (var i = 0; i < item.params.length; i++) {
-                params.push(item.params[i].name);
-            }
+            for (var i = 0; i < item.params.length; i++) params.push(item.params[i].name);
             result += params.join(', ');
         }
         result += ')';

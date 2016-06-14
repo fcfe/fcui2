@@ -2,15 +2,15 @@ define(function (require) {
 
 
     var React = require('react');
-    var items = require('./config').items;
-    var warning = require('./config').warnings;
-    var DefaultParser = require('./parsers/Default.jsx');
-    var parsers = require('./parsers');
+    var DefaultParser = require('./Default.jsx');
+    var items = require('../config').items;
+    var warning = require('../config').warnings;
+    var router = require('./router');
     
 
     function getParser(item) {
-        for (var i = 0; i < parsers.length; i++) {
-            if (parsers[i].validation(item)) return parsers[i].parser;
+        for (var i = 0; i < router.length; i++) {
+            if (router[i].validation(item)) return router[i].parser;
         }
         return DefaultParser;
     }

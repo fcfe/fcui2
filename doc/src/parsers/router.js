@@ -2,25 +2,25 @@ define(function (require) {
 
     return [
         {
-            parser: require('./parsers/Introduction.jsx'),
+            parser: require('./Introduction.jsx'),
             validation: function (item) {
                 return item.line === 1;
             }
         },
         {
-            parser: require('./parsers/Properties.jsx'),
+            parser: require('./Properties.jsx'),
             validation: function (item) {
                 return item.hasOwnProperty('properties');
             }
         },
         {
-            parser: require('./parsers/Structure.jsx'),
+            parser: require('./Structure.jsx'),
             validation: function (item) {
                 return item.hasOwnProperty('structure');
             }
         },
         {
-            parser: require('./parsers/Constructor.jsx'),
+            parser: require('./Constructor.jsx'),
             validation: function (item) {
                 return item.is_constructor;
             }
@@ -38,7 +38,7 @@ define(function (require) {
             }
         },
         {
-            parser: require('./parsers/Interface.jsx'),
+            parser: require('./Interface.jsx'),
             validation: function (item) {
                 return item.hasOwnProperty('interface') && item.interface.length;
             }

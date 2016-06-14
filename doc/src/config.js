@@ -75,7 +75,9 @@ define(function (require) {
             children: []
         }
     ];
-
+    var demos = {
+        'src\\Button.jsx.js': require('./demos/components/Button.jsx')
+    }
 
     for (var key in dataset.files) {
         if (!dataset.files.hasOwnProperty(key)) continue;
@@ -124,6 +126,7 @@ define(function (require) {
 
     return {
         menu: menu,
+        demos: demos,
         items: items,
         warnings: warnings
     };

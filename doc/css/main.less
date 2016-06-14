@@ -7,6 +7,10 @@
 @import "./parsers/code.less";
 @import "./parsers/method.less";
 @import "./parsers/structure.less";
+@import "./menu.less";
+@import "./demo.less";
+
+@left-width: 230px;
 
 body {
     margin: 0px;
@@ -33,7 +37,7 @@ h6 {
     left: 0px;
     top: 0px;
     height: 60px;
-    width: 200px;
+    width: @left-width;
     line-height: 60px;
     text-align: center;
     font-size: 26px;
@@ -46,20 +50,27 @@ h6 {
     left: 0px;
     top: 61px;
     bottom: 0px;
-    width: 200px;
+    width: @left-width;
     border-right: 1px solid #C1C1C1;
     overflow-y: auto;
     overflow-x: hidden;
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     hr {
         margin: 0px;
-        border-top: 1px solid #C1C1C1;
+        border-top: 1px solid #E8E8E8;
         border-bottom: 0;
     }
 }
 .right-top-container {
     position: fixed;
     top: 0px;
-    left: 200px;
+    left: @left-width;
     right: 0px;
     height: 60px;
     text-align: center;
@@ -70,43 +81,18 @@ h6 {
     color: #333333;
     background-color: #F8F8F8;
     z-index: 1;
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .right-middle-container {
-    margin-left: 201px;
+    margin-left: @left-width + 1;
     margin-top: 60px;
-    margin: 60px 0 300px 201px;
+    margin: 60px 0 300px @left-width + 1;
     padding: 50px;
     font-size: 12px;
-}
-
-
-.menu-item {
-    padding-left: 10px;
-    height: 40px;
-    line-height: 40px;
-    text-align: left;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: default;
-    background-color: #F8F8F8;
-    color: #333333;
-}
-.list-item {
-    height: 40px;
-    line-height: 40px;
-    text-align: left;
-    padding-left: 40px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: default;
-    background-color: #FFF;
-    color: #333;
-}
-.list-item:hover {
-    background-color: #2F82F5;
-    color: #FFF;
-}
-.list-item-selectd {
-    background-color: #3879D6;
-    color: #FFF;
 }
