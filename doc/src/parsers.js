@@ -28,7 +28,13 @@ define(function (require) {
         {
             parser: null,
             validation: function (item) {
-                return item.hasOwnProperty('name') && item.hasOwnProperty('classname');
+                if (
+                    (item.hasOwnProperty('name') && item.hasOwnProperty('classname'))
+                    || item.hasOwnProperty('fire')
+                ) {
+                    return true;
+                }
+                return false;
             }
         },
         {

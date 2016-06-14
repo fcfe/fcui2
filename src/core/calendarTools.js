@@ -44,7 +44,9 @@ define(function (require) {
             date.setSeconds(0);
             date.setMinutes(0);
             date.setHours(0);
-            date.setDate(arr[2]);
+            date.setDate(31);
+            date.setMonth(11);
+            date.setDate(parseInt(arr[2], 10));
             date.setMonth(parseInt(arr[1], 10) - 1);
             date.setFullYear(parseInt(arr[0], 10));
             return date;
@@ -62,12 +64,13 @@ define(function (require) {
         },
         // 获取某个月的最后一天
         getLastDayInMonth: function (year, month) {
-            var date = this.str2date(year + '-' + (month + 1) + '-31');
-            var i = 12;
-            while(date.getMonth() + '' !== month + '' && i > 0) {
-                date.setDate(date.getDate() - 1);
+            var date = this.str2date(year + '-' + (month + 1) + '-1');
+            var i = 31;
+            while(date.getMonth() + '' === month + '' && i > 0) {
+                date.setDate(date.getDate() + 1);
                 i--;
             }
+            date.setDate(date.getDate() - 1);
             return date;
         },
         // 获取某个月第一天

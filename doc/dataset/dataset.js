@@ -1751,7 +1751,7 @@ define(function(require){return {
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 225,
+            "line": 224,
             "description": "手动调用校验",
             "params": [
                 {
@@ -1885,13 +1885,13 @@ define(function(require){return {
             "fire": "button onClick",
             "params": [
                 {
-                    "name": "b",
-                    "description": "鼠标事件对象",
+                    "name": "aaaaaa",
+                    "description": "第一个参数",
                     "type": "ReactMouseEvent"
                 },
                 {
                     "name": "e",
-                    "description": "鼠标事件对象",
+                    "description": "第二个参数",
                     "type": "ReactMouseEvent",
                     "props": [
                         {
@@ -1905,6 +1905,53 @@ define(function(require){return {
                                     "type": "String"
                                 }
                             ]
+                        }
+                    ]
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Button.jsx.js",
+            "line": 35,
+            "fire": "button onClick",
+            "params": [
+                {
+                    "name": "bbbbbb",
+                    "description": "第一个参数还可以是字符串",
+                    "type": "String"
+                },
+                {
+                    "name": "e",
+                    "description": "第二个参数",
+                    "type": "ReactMouseEvent",
+                    "props": [
+                        {
+                            "name": "target",
+                            "description": "Button实例的根容器",
+                            "type": "HtmlElement",
+                            "props": [
+                                {
+                                    "name": "id",
+                                    "description": "这个会合并进去",
+                                    "type": "String"
+                                },
+                                {
+                                    "name": "value",
+                                    "description": "这个在上一个片段有了不会合并",
+                                    "type": "String"
+                                },
+                                {
+                                    "name": "id",
+                                    "description": "这个在本片已经有了，不会合并",
+                                    "type": "String"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "target1",
+                            "description": "这个新target会合并",
+                            "type": "HtmlElement"
                         }
                     ]
                 }
@@ -4359,6 +4406,10 @@ define(function(require){return {
             "line": " src\\Button.jsx.js:28"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\Button.jsx.js:35"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\Calendar.jsx.js:1"
         },
@@ -5144,7 +5195,7 @@ define(function(require){return {
         },
         {
             "message": "Missing item type\n手动调用校验",
-            "line": " src\\mixins\\InputWidget.js:225"
+            "line": " src\\mixins\\InputWidget.js:224"
         },
         {
             "message": "Missing item type\n输入框流劫持",
@@ -5177,6 +5228,10 @@ define(function(require){return {
         {
             "message": "Missing item type",
             "line": " src\\Button.jsx.js:28"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Button.jsx.js:35"
         },
         {
             "message": "Missing item type\n日历",

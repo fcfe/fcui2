@@ -36,6 +36,8 @@
         @structure标签支持从其他文件中导入注释，如@structure Import src\List.jsx.js ListItemObject，
         作用是从src\List.jsx.js文件中导入名为ListItemObject的数据结构注释。
 
+    @fire 回调派发，表明该注释块描述了一个事件派发
+
 ###### 二级标签
     @name 方法名，YUIDocjs好像不会自动抓方法名，用这个暂时对付一下。
 
