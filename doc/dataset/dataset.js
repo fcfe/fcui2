@@ -778,7 +778,7 @@ define(function(require){return {
                 }
             ],
             "return": {
-                "description": "显示结果\n\n\nlayerLocation说明\n （1）字段含义：\n     top：从anchor的上边框向上展开layer\n     bottom：从anchor的下边框向下展开layer\n     left：从anchor的右边框向左展开layer\n     right：从anchor的左边框向右展开layer\n （2）显示原则：\n     top和bottom放在一起分析，与left、right无关；\n     left和right是一对，放在一起分析，与top、button无关；\n     如果只有top，没有bottom，则按照top显示，反之亦然；\n     如果同时出现top和bottom，则top优先，若top形式显示不下layer，则换成bottom，反之亦然；\n     left、right的显示跟top、bottom的显示原则一致\n显示数据结构\n     return.left {number} layer最终显示的left\n     return.top {number} layer最终显示的top\n     return.isLeft {boolean} layer是否按照left形式展开\n     return.isTop {boolean} layer是否按照top形式展开",
+                "description": "显示结果\n\nlayerLocation说明\n  (1)展开方向配置：展开方向配置有自适应的功能，比如左侧展不开，就向右展\n     top：从anchor的上边框向上展开layer，展开后layer下边框与anchor上边框重合\n     bottom：从anchor的下边框向下展开layer，展开后layer上边框与anchor下边框重合\n     left：从anchor的右边框向左展开layer，展开后layer右边框与anchor右边框在一条线上\n     right：从anchor的左边框向右展开layer，展开后layer左边框与anchor左边框在一条线上\n  (2)时钟方向配置：layer的最终位置在anchor的n点钟方向，时钟方向配置没有自适应功能\n     1：layer左下角与anchor左上角重合\n                        +--------------+\n                        |              |\n                        |              |\n                        +--------------+\n                        | anchor |\n                        +--------+\n     2：layer左下角与anchor右上角重合\n                                 +--------------+\n                                 |              |\n                                 |              |\n                        +--------+--------------+\n                        | anchor |\n                        +--------+\n     3：layer左下角与anchor右下角重合\n                                 +--------------+\n                        +--------|              |\n                        | anchor |              |\n                        +--------+--------------+\n     4：layer左上角与anchor右上角重合         \n                        +--------+--------------+\n                        | anchor |              |\n                        +--------|              |\n                                 +--------------+\n     5：layer左上角与anchor右下角重合\n                        +--------+\n                        | anchor |\n                        +--------+--------------+\n                                 |              |\n                                 |              |\n                                 +--------------+\n     6：layer左上角与anchor左下角重合\n                        +--------+\n                        | anchor |\n                        +--------------+\n                        |              |\n                        |              |\n                        +--------------+\n     7：layer右上角与anchor右下角重合\n                        +--------+\n                        | anchor |\n                  +--------------+\n                  |              |\n                  |              |\n                  +--------------+\n     8：layer右上角与anchor左下角重合\n                        +--------+\n                        | anchor |\n         +--------------+--------+\n         |              |\n         |              |\n         +--------------+\n     9：layer右上角和anchor左上角重合\n         +--------------+--------+\n         |              | anchor |\n         |              |--------+ \n         +--------------+\n     10：layer右下角与anchor左下角重合\n         +--------------+\n         |              |--------+\n         |              | anchor |\n         +--------------+--------+\n     11：layer右下角与anchor左上角重合\n         +--------------+\n         |              |\n         |              |\n         +--------------+--------+\n                        | anchor |\n                        +--------+\n     12：layer右下角与anchor右上角重合\n                  +--------------+\n                  |              |\n                  |              |\n                  +--------------+\n                        | anchor |\n                        +--------+\n (3)显示原则：\n     // 展开方向\n     top和bottom是一对，放在一起分析，与left、right无关；\n     如果只有top，没有bottom，则按照top展开，反之亦然；\n     如果同时出现top和bottom，且先出现top，则优先按照top展开，空间放不下layer，则按照bottom展开\n     left、right跟top、bottom原则一致；\n     // 时钟方向\n     优先级比展开方向配置高，且互斥，如果配置多个时钟位置，按照第一个配置显示\n     // 内部原则\n     展开方向配置，最终在内部会转成时钟方向配置，并将时钟方向通过result返回\n (4)显示数据结构\n     return.left {number} layer最终显示的left\n     return.top {number} layer最终显示的top\n     return.clock {number} 最终layer的时钟位置",
                 "type": "Object"
             },
             "class": ""
@@ -1164,7 +1164,29 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\tableTools.js",
-            "line": 61,
+            "line": 60,
+            "description": "获取行的选中状态",
+            "params": [
+                {
+                    "name": "row",
+                    "description": "行号",
+                    "type": "Number"
+                },
+                {
+                    "name": "value",
+                    "description": "table的value",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "选中状态：-1未选中；0选中；1半选中",
+                "type": "Number"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\tableTools.js",
+            "line": 79,
             "description": "更新选中集",
             "params": [
                 {
@@ -1201,7 +1223,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\tableTools.js",
-            "line": 115,
+            "line": 133,
             "description": "根据fieldConfig的配置生成渲染单元格的props",
             "params": [
                 {
@@ -1238,7 +1260,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\tableTools.js",
-            "line": 164,
+            "line": 182,
             "description": "重新组织fieldConfig",
             "params": [
                 {
@@ -2669,7 +2691,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Form.jsx.js",
-            "line": 84,
+            "line": 83,
             "description": "解除表单输入域",
             "interface": "detach",
             "params": [
@@ -2689,7 +2711,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Form.jsx.js",
-            "line": 96,
+            "line": 95,
             "description": "更新表单域",
             "interface": "updateField",
             "params": [
@@ -2714,7 +2736,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Form.jsx.js",
-            "line": 131,
+            "line": 130,
             "description": "校验整个表单",
             "interface": "validate",
             "return": {
@@ -2725,7 +2747,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Form.jsx.js",
-            "line": 136,
+            "line": 135,
             "structure": "FormValidationObject",
             "example": [
                 "\n {\n     dataset: {},\n     fieldResult: {},\n     formResult: [],\n     isValid: true\n }"
@@ -2795,7 +2817,7 @@ define(function(require){return {
                 },
                 {
                     "name": "location",
-                    "description": "layer位置配置：'left right'从anchor右边框向左展开优先，屏幕位置不够，就从anchor左边框\n 向右展开；'right left'则向右展开优先；top、bottom含义类似。",
+                    "description": "layer位置配置，配置方法见：src\\core\\layerTools.js",
                     "type": "String"
                 },
                 {
@@ -3847,6 +3869,11 @@ define(function(require){return {
                     "name": "layerLocation",
                     "description": "浮层的定位配置，见layer.props.location",
                     "type": "String"
+                },
+                {
+                    "name": "onOffset",
+                    "description": "浮层位置修正回调",
+                    "type": "Function"
                 }
             ],
             "class": ""
@@ -4647,15 +4674,15 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Form.jsx.js:84"
+            "line": " src\\Form.jsx.js:83"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Form.jsx.js:96"
+            "line": " src\\Form.jsx.js:95"
         },
         {
             "message": "unknown tag: structure",
-            "line": " src\\Form.jsx.js:136"
+            "line": " src\\Form.jsx.js:135"
         },
         {
             "message": "unknown tag: email",
@@ -5114,16 +5141,20 @@ define(function(require){return {
             "line": " src\\core\\tableTools.js:42"
         },
         {
+            "message": "Missing item type\n获取行的选中状态",
+            "line": " src\\core\\tableTools.js:60"
+        },
+        {
             "message": "Missing item type\n更新选中集",
-            "line": " src\\core\\tableTools.js:61"
+            "line": " src\\core\\tableTools.js:79"
         },
         {
             "message": "Missing item type\n根据fieldConfig的配置生成渲染单元格的props",
-            "line": " src\\core\\tableTools.js:115"
+            "line": " src\\core\\tableTools.js:133"
         },
         {
             "message": "Missing item type\n重新组织fieldConfig",
-            "line": " src\\core\\tableTools.js:164"
+            "line": " src\\core\\tableTools.js:182"
         },
         {
             "message": "Missing item type\n封装树及树选择器相关的方法",
@@ -5415,19 +5446,19 @@ define(function(require){return {
         },
         {
             "message": "Missing item type\n解除表单输入域",
-            "line": " src\\Form.jsx.js:84"
+            "line": " src\\Form.jsx.js:83"
         },
         {
             "message": "Missing item type\n更新表单域",
-            "line": " src\\Form.jsx.js:96"
+            "line": " src\\Form.jsx.js:95"
         },
         {
             "message": "Missing item type\n校验整个表单",
-            "line": " src\\Form.jsx.js:131"
+            "line": " src\\Form.jsx.js:130"
         },
         {
             "message": "Missing item type",
-            "line": " src\\Form.jsx.js:136"
+            "line": " src\\Form.jsx.js:135"
         },
         {
             "message": "Missing item type\n弹层",

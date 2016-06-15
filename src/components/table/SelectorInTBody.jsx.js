@@ -15,7 +15,7 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                ___isRowSelected___: false,
+                ___isRowSelected___: -1,
                 row: -1,
                 disabled: false,
                 onRowSelect: function () {}
@@ -28,7 +28,8 @@ define(function (require) {
         render: function () {
             var checkboxProp = {
                 value: this.props.row + '',
-                checked: this.props.___isRowSelected___,
+                checked: this.props.___isRowSelected___ === 0,
+                indeterminate: this.props.___isRowSelected___ === 1,
                 disabled: this.props.disabled,
                 onChange: this.props.onRowSelect
             };

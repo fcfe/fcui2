@@ -73,6 +73,14 @@ define(function (require) {
             level: 'mixin',
             label: 'Mixins', 
             children: []
+        },
+        {
+            level: 'testing',
+            label: 'Testing',
+            children:[
+                {id: 'BaseLineTesting.jsx.js', label: 'Display Base Line Test'},
+                {id: 'FormFieldTesting.jsx.js', label: 'Form Field Test'}
+            ]
         }
     ];
     var demos = {
@@ -103,7 +111,9 @@ define(function (require) {
         'src\\ShojiScreen.jsx.js': require('./demos/components/ShojiScreen.jsx'),
         'src\\Dialog.jsx.js': require('./demos/components/Dialog.jsx'),
         'src\\Form.jsx.js': require('./demos/components/Form.jsx'),
-        'src\\Table.jsx.js': require('./demos/components/Table.jsx')
+        'src\\Table.jsx.js': require('./demos/components/Table.jsx'),
+        'BaseLineTesting.jsx.js': require('./demos/components/BaseLineTesting.jsx'),
+        'FormFieldTesting.jsx.js': require('./demos/components/FormFieldTesting.jsx')
     }
 
     for (var key in dataset.files) {

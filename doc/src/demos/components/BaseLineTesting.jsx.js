@@ -23,11 +23,9 @@ define(function (require) {
         render: function () {
             return (
                 <div className="demo-content demo-item">
-                    <h1>Test Display Base Line</h1>
-                    <hr/>
-                    <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
+                    <h3>Test Display Base Line</h3>
                     <br/>
-                    <div style={{border: '1px solid #000'}}>
+                    <div style={{border: '1px solid #E8E8E8'}}>
                         <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
                         <Tip title="这是啥"/>
                         <Button/>
@@ -35,7 +33,7 @@ define(function (require) {
                         <ComboList/>
                         <SearchBox/>
                     </div>
-                    <div style={{border: '1px solid #000', lineHeight: '50px', marginTop: '30px'}}>
+                    <div style={{border: '1px solid #E8E8E8', lineHeight: '50px', marginTop: '30px'}}>
                         <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
                         <Button/>
                         <CheckBox label="复选框"/>
@@ -43,7 +41,7 @@ define(function (require) {
                         <TextBox/>
                         <SearchBox/>
                     </div>
-                    <div style={{border: '1px solid #000', lineHeight: '80px', marginTop: '30px'}}>
+                    <div style={{border: '1px solid #E8E8E8', lineHeight: '80px', marginTop: '30px'}}>
                         <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
                         <Button/>
                         <NumberBox/>
@@ -51,7 +49,7 @@ define(function (require) {
                         <Select/>
                         <DropDownCalendar/>
                     </div>
-                    <div style={{border: '1px solid #000', lineHeight: '50px', marginTop: '30px'}}>
+                    <div style={{border: '1px solid #E8E8E8', lineHeight: '50px', marginTop: '30px'}}>
                         <span style={{textDecoration: 'underline',fontSize: 48}}>Display Base Line:</span>
                         <Button/>
                         <RangeCalendar/>

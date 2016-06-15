@@ -45,7 +45,7 @@ define(function (require) {
          * @param {string} value table的value值
          * @return {object | number} 选中的行的index hash，如果全选返回-1
          */
-        getSelected: function (value) {
+        getSelectedHash: function (value) {
             value = typeof value === 'string' ? JSON.parse(value) : {};
             var selected = {};
             if (value.selected === -1) {
@@ -57,6 +57,24 @@ define(function (require) {
             return selected;
         },
 
+        /**
+         * 获取行的选中状态
+         *
+         * @param {Number} row 行号
+         * @param {String} value table的value
+         * @return {Number} 选中状态：-1未选中；0选中；1半选中
+         */
+        getRowSelectedState: function (row, value) {
+            var selectHash = this.getSelectedHash(value);
+            var indeterminate = {};
+            value = typeof value === 'string' ? JSON.parse(value) : {}; 
+            if (value.indeterminate instanceof Array) {
+                for (var i = 0; i < value.indeterminate.length; i++) indeterminate[value.indeterminate[i]] = true;
+            }
+            if (selectHash === -1 || selectHash[row]) return 0;
+            if (indeterminate[row]) return 1;
+            return -1;
+        },
 
         /**
          * 更新选中集
@@ -70,7 +88,7 @@ define(function (require) {
          */
         updateSelected: function (index, checked, selectMode, tableValue, datasource) {
             var result = [];
-            var selected = this.getSelected(tableValue);
+            var selected = this.getSelectedHash(tableValue);
             // 之前全选，取消一项
             if (selected === -1 && !checked) {
                 for (var i = 0; i < datasource.length; i++) {

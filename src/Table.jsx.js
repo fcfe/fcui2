@@ -78,7 +78,6 @@ define(function (require) {
          * @param {ReactClass} thRenderer 列表头渲染器
          * @param {Function} prepare 单元格渲染前，生成的props属性集以及一些其他参数会以指针形式调用此回调，在这个回调中，
          *      可以对props做任意修改
-         * @param {Any} width,align,verticalAlign,color 将要被下降到tdRendererProps.style中的属性
          */
         /**
          * @structure TableFixedObject
@@ -99,11 +98,13 @@ define(function (require) {
          *      sortField: <optional>
          *      sortType: <optional>
          *      selected: <optional>
+         *      indeterminate: <optional>
          *  }
          * @attention table的value类型是字符串，用JSON.stringify方法将示例中的数据结构转换，因此操作value时不能出环
          * @param {String} sortField table当前排序的列名
          * @param {String} sortType table当前排序的类型
          * @param {Array.<Number> | Number} selected table当前选中的元素的行号集合，如果此项为-1，则标识table被全选
+         * @param {Array.<Number>} indeterminate table当前处于半选状态的行
          */
         // @override
         mixins: [InputWidget, WidgetWithFixedDom],
@@ -136,7 +137,8 @@ define(function (require) {
                 valueTemplate: JSON.stringify({
                     sortField: '',
                     sortType: 'asc',
-                    selected: []
+                    selected: [],
+                    indeterminate: []
                 })
             };
         },
@@ -307,21 +309,19 @@ define(function (require) {
                 </tr>
             );
         }
-        // 获取表格当前值，并制作选中行的hash
-        var selectedHash = tools.getSelected(me.___getValue___());
         // 渲染行
         for (var index = 0; index < datasource.length; index++) {
             var td = [];
             var item = datasource[index];
-            var selected = selectedHash === -1 || selectedHash[index];
+            var selectState = tools.getRowSelectedState(index, me.___getValue___());
             var trProp = {
                 key: 'row-' + index,
-                className: selected ? 'tr-data tr-selected' : 'tr-data'
+                className: selectState === 0 ? 'tr-data tr-selected' : 'tr-data'
             };
             for (var j = 0; j < config.length; j++) {
                 var props = tools.tdPropsFactory(config[j], item, me, index, j);
                 var Renderer = typeof config[j].renderer === 'function' ? config[j].renderer : NormalRenderer;
-                props.___isRowSelected___ = selected;
+                props.___isRowSelected___ = selectState;
                 td.push(<Renderer {...props} />);
             }
             lines.push(<tr {...trProp}>{td}</tr>);

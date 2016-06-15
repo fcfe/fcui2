@@ -28,5 +28,5 @@ define(function (require) {
         }
     ];
 
-    return Creater(DropDownRegion, items, 'onClick');
+    return Creater(DropDownRegion, items, 'onChange');
 });

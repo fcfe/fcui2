@@ -26,7 +26,7 @@ define(function (require) {
 
 
     function getInformationFromTable(table) {
-        var selected = tools.getSelected(table.___getValue___());
+        var selected = tools.getSelectedHash(table.___getValue___());
         return {
             i: tools.getSelectedCount(selected),
             workMode: table.props.flags.showSelector + ''

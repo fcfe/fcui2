@@ -70,6 +70,7 @@ define(function (require) {
             title: 'ComboList with Icon and long datasource',
             props: {
                 value: 'Main Command6',
+                label: ' 星星',
                 icon: 'font-icon-star-half',
                 datasource: [
                     {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},

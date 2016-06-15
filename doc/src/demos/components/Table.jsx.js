@@ -238,7 +238,8 @@ define(function (require) {
                     tableExpandId: this.state.expandableTableId,
                     sortField: '',
                     sortType: 'asc',
-                    selected: []
+                    selected: [1],
+                    indeterminate: [0]
                 })
             };
             return (

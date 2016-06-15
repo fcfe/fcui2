@@ -19,8 +19,10 @@ define(function (require) {
             widgets.push(
                 <div className="demo-item" key={i}>
                     <Information title={item.title} props={item.props}/>
-                    <span>&nbsp;</span>
-                    <Component {...demoProp}/>
+                    <div className="demo-content">
+                        <span>&nbsp;</span>
+                        <Component {...demoProp}/>
+                    </div>
                 </div>
             );
         }

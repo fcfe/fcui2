@@ -99,7 +99,7 @@ define(function (require) {
                                 return true;
                             }
                         }}>
-                            <label>Brian Li永远不超过18岁，点确定校验。</label><br/>
+                            <label>Brian Li永远不超过18岁，点确定校验。</label><br/><br/>
                             <span>name: </span>
                             <TextBox name="name" value={this.state.form4.name}/><br/>
                             <span>age: </span>

@@ -110,8 +110,8 @@ define(function (require) {
         },
         render: function () {
             return (
-                <div className="demo-content demo-item">
-                    <h1>Test Form Field [{order.length}]</h1>
+                <div>
+                    <h3>Test Form Field [{order.length}]</h3>
                     <hr/>
                     <Form onFieldChange={this.onFormFieldChange}>
                         <table><tbody>{inputsFactory(this.state)}</tbody></table>
@@ -124,6 +124,7 @@ define(function (require) {
 
     function inputsFactory(state) {
         var doms = [];
+        var tdStyle = {width: 100, textAlign: 'right', height: 35};
         for (var i = 0; i < order.length; i++) {
             var key = order[i];
             var lKey = key.toLowerCase();
@@ -131,10 +132,8 @@ define(function (require) {
             if (lKey === 'radio') {
                 doms.push(
                     <tr key={lKey}>
-                        <td style={{width: 100, textAlign: 'right'}}>
-                            {key + ':'}
-                        </td>
-                        <td>
+                        <td style={tdStyle}>{key + ':'}</td>
+                        <td style={{lineHeight: '30px'}}>
                             <Component value="1"  checked={state.radio + '' === '1'} name="radio" label="op1"/>
                             <Component value="2" checked={state.radio + '' === '2'} name="radio" label="op2"/>
                             <Component value="3" checked={state.radio + '' === '3'} name="radio" label="op3"/>
@@ -149,12 +148,8 @@ define(function (require) {
             props[lKey === 'checkbox'? 'checked' : 'value'] = state[lKey];
             doms.push(
                 <tr key={lKey}>
-                    <td style={{width: 100, textAlign: 'right', verticalAlign: 'top'}}>
-                        {key + ':'}
-                    </td>
-                    <td>
-                        <Component {...props} {...defaultProps[lKey]}/>
-                    </td>
+                    <td style={tdStyle}>{key + ':'}</td>
+                    <td style={{lineHeight: '30px'}}><Component {...props} {...defaultProps[lKey]}/></td>
                 </tr>
             );
         }
