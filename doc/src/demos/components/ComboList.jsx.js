@@ -1,34 +1,28 @@
 define(function (require) {
 
-    var Creater = require('../src/ReactClassCreater.jsx');
-    var Select = require('fcui/Select.jsx');
+    var Creater = require('../main.jsx');
+    var ComboList = require('fcui/ComboList.jsx');
 
     var items = [
         {
-            title: 'Normal Select',
+            title: 'Normal ComboList',
             props: {
-                placeholder: 'select',
+                label: 'Main Command1',
+                value: 'Main Command1',
                 datasource: [
                     {label: 'option1', value: 'option1'},
-                    {hr: true},
                     {label: 'option2', value: 'option2', disabled: true},
                     {label: 'option3', value: 'option3'},
-                    {label: 'option4', value: 'option4'},
-                    {label: 'option5', value: 'option5'},
-                    {label: 'option4', value: 'option4'},
-                    {label: 'option5', value: 'option5'},
-                    {label: 'option4', value: 'option4'},
-                    {label: 'option5', value: 'option5'},
                     {label: 'option4', value: 'option4'},
                     {label: 'option5', value: 'option5'}
                 ]
             }
         },
         {
-            title: 'Disabled Select',
+            title: 'Disabled ComboList',
             props: {
-                placeholder: 'select',
                 disabled: true,
+                value: 'Main Command2',
                 datasource: [
                     {label: 'option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disabled: true},
@@ -39,31 +33,30 @@ define(function (require) {
             }
         },
         {
-            title: 'Readonly Select',
+            title: 'ComboList without Datasource',
             props: {
-                placeholder: 'select',
-                value: 'option3',
-                datasource: [
-                    {label: 'option1', value: 'option1'},
-                    {label: 'option2', value: 'option2', disabled: true},
-                    {label: 'option3', value: 'option3'},
-                    {label: 'option4', value: 'option4'},
-                    {label: 'option5', value: 'option5'}
-                ]
-            }
-        },
-        {
-            title: 'Select without Datasource',
-            props: {
-                value: 'option3',
+                value: 'Main Command3',
                 datasource: []
             }
         },
         {
-            title: 'Select with width and a very long Option',
+            title: 'ComboList with a very long Option',
             props: {
-                placeholder: 'select',
-                width: 150,
+                value: 'Main Command4',
+                datasource: [
+                    {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
+                    {label: 'option2', value: 'option2', disabled: true},
+                    {label: 'option3', value: 'option3', disabled: true},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'}
+                ]
+            }
+        },
+        {
+            title: 'ComboList with ClassName',
+            props: {
+                className: 'floatRight',
+                value: 'Main Command5',
                 datasource: [
                     {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disabled: true},
@@ -74,21 +67,31 @@ define(function (require) {
             }
         },
         {
-            title: 'Select with ClassName',
+            title: 'ComboList with Icon and long datasource',
             props: {
-                placeholder: 'select',
-                width: 150,
-                className: 'floatRight',
+                value: 'Main Command6',
+                icon: 'font-icon-star-half',
                 datasource: [
                     {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disabled: true},
                     {label: 'option3', value: 'option3'},
                     {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option5', value: 'option5'},
                     {label: 'option5', value: 'option5'}
                 ]
             }
         }
     ];
 
-    return Creater(Select, items, 'onChange');
+
+    return Creater(ComboList, items, 'onClick');
+
 });

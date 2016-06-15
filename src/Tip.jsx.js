@@ -23,7 +23,7 @@ define(function (require) {
          * @param {ReactClass} renderer Tip内部渲染的组件，如果指定，icon属性无效
          * @param {Object} renderProps Tip内部组件渲染的属性集
          * @param {String} layerLocation 浮层的定位配置，见layer.props.location
-         * @param {Function} onOffset 
+         * @param {Function} onOffset 浮层位置修正回调
          */
         // @override
         getDefaultProps: function () {

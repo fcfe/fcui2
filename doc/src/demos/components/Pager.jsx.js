@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var Creater = require('../src/ReactClassCreater.jsx');
+    var Creater = require('../main.jsx');
     var Pager = require('fcui/Pager.jsx');
 
     var items = [

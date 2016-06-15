@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var Creater = require('../src/ReactClassCreater.jsx');
+    var Creater = require('../main.jsx');
     var TextBox = require('fcui/TextBox.jsx');
 
     var items = [

@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var Creater = require('../src/ReactClassCreater.jsx');
+    var Creater = require('../main.jsx');
     var Region = require('fcui/Region.jsx');
 
     var items = [

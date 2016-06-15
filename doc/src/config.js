@@ -77,7 +77,33 @@ define(function (require) {
     ];
     var demos = {
         'src\\Button.jsx.js': require('./demos/components/Button.jsx'),
-        'src\\Tip.jsx.js': require('./demos/components/Tip.jsx')
+        'src\\Tip.jsx.js': require('./demos/components/Tip.jsx'),
+        'src\\List.jsx.js': require('./demos/components/List.jsx'),
+        'src\\DropDownList.jsx.js': require('./demos/components/DropDownList.jsx'),
+        'src\\ComboList.jsx.js': require('./demos/components/ComboList.jsx'),
+        'src\\Crumb.jsx.js': require('./demos/components/Crumb.jsx'),
+        'src\\Pager.jsx.js': require('./demos/components/Pager.jsx'),
+        'src\\Tab.jsx.js': require('./demos/components/Tab.jsx'),
+        'src\\Wizard.jsx.js': require('./demos/components/Wizard.jsx'),
+        'src\\CheckBox.jsx.js': require('./demos/components/CheckBox.jsx'),
+        'src\\Radio.jsx.js': require('./demos/components/Radio.jsx'),
+        'src\\TextBox.jsx.js': require('./demos/components/TextBox.jsx'),
+        'src\\NumberBox.jsx.js': require('./demos/components/NumberBox.jsx'),
+        'src\\TextArea.jsx.js': require('./demos/components/TextArea.jsx'),
+        'src\\Select.jsx.js': require('./demos/components/Select.jsx'),
+        'src\\SearchBox.jsx.js': require('./demos/components/SearchBox.jsx'),
+        'src\\Slider.jsx.js': require('./demos/components/Slider.jsx'),
+        'src\\Calendar.jsx.js': require('./demos/components/Calendar.jsx'),
+        'src\\RangeCalendar.jsx.js': require('./demos/components/RangeCalendar.jsx'),
+        'src\\DropDownCalendar.jsx.js': require('./demos/components/DropDownCalendar.jsx'),
+        'src\\Region.jsx.js': require('./demos/components/Region.jsx'),
+        'src\\DropDownRegion.jsx.js': require('./demos/components/DropDownRegion.jsx'),
+        'src\\Layer.jsx.js': require('./demos/components/Layer.jsx'),
+        'src\\TitleWindow.jsx.js': require('./demos/components/TitleWindow.jsx'),
+        'src\\ShojiScreen.jsx.js': require('./demos/components/ShojiScreen.jsx'),
+        'src\\Dialog.jsx.js': require('./demos/components/Dialog.jsx'),
+        'src\\Form.jsx.js': require('./demos/components/Form.jsx'),
+        'src\\Table.jsx.js': require('./demos/components/Table.jsx')
     }
 
     for (var key in dataset.files) {

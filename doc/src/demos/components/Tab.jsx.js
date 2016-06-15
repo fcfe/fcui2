@@ -1,28 +1,12 @@
 define(function (require) {
 
-
-    var DropDownList = require('fcui/DropDownList.jsx');
-    var Creater = require('../src/ReactClassCreater.jsx');
-
+    var Creater = require('../main.jsx');
+    var Tab = require('fcui/Tab.jsx');
 
     var items = [
         {
-            title: 'Normal DropDownList',
+            title: 'Normal Tab',
             props: {
-                label: 'Command List',
-                datasource: [
-                    {label: 'option1', value: 'option1', disabled: true},
-                    {label: 'option2', value: 'option2'},
-                    {label: 'option3', value: 'option3'},
-                    {label: 'option4', value: 'option4'},
-                    {label: 'option5', value: 'option5'}
-                ]
-            }
-        },
-        {
-            title: 'Disabled DropDownList',
-            props: {
-                disabled: true,
                 datasource: [
                     {label: 'option1', value: 'option1'},
                     {label: 'option2', value: 'option2'},
@@ -33,21 +17,12 @@ define(function (require) {
             }
         },
         {
-            title: 'DropDownList without Datasource',
+            title: 'Disabled Tab',
             props: {
-                value: 'option3',
-                datasource: []
-            }
-        },
-        {
-            title: 'DropDownList with Style',
-            props: {
-                placeholder: 'select',
-                style: {
-                    width: 200,
-                },
+                disabled: true,
+                value: 'option1',
                 datasource: [
-                    {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
+                    {label: 'option1', value: 'option1'},
                     {label: 'option2', value: 'option2'},
                     {label: 'option3', value: 'option3'},
                     {label: 'option4', value: 'option4'},
@@ -56,13 +31,23 @@ define(function (require) {
             }
         },
         {
-            title: 'DropDownList with ClassName',
+            title: 'Tab with Disabled Item',
             props: {
-                placeholder: 'select',
-                width: 150,
-                className: 'floatRight',
                 datasource: [
-                    {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
+                    {label: 'option1', value: 'option1'},
+                    {label: 'option2', value: 'option2', disabled: true},
+                    {label: 'option3', value: 'option3'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'}
+                ]
+            }
+        },
+        {
+            title: 'Readonly Tab',
+            props: {
+                value: 'option3',
+                datasource: [
+                    {label: 'option1', value: 'option1'},
                     {label: 'option2', value: 'option2'},
                     {label: 'option3', value: 'option3'},
                     {label: 'option4', value: 'option4'},
@@ -72,6 +57,5 @@ define(function (require) {
         }
     ];
 
-    
-    return Creater(DropDownList, items, 'onClick');
+    return Creater(Tab, items, 'onChange');
 });

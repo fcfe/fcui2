@@ -1,28 +1,34 @@
 define(function (require) {
 
-    var Creater = require('../src/ReactClassCreater.jsx');
-    var ComboList = require('fcui/ComboList.jsx');
+    var Creater = require('../main.jsx');
+    var Select = require('fcui/Select.jsx');
 
     var items = [
         {
-            title: 'Normal ComboList',
+            title: 'Normal Select',
             props: {
-                label: 'Main Command1',
-                value: 'Main Command1',
+                placeholder: 'select',
                 datasource: [
                     {label: 'option1', value: 'option1'},
+                    {hr: true},
                     {label: 'option2', value: 'option2', disabled: true},
                     {label: 'option3', value: 'option3'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'},
                     {label: 'option4', value: 'option4'},
                     {label: 'option5', value: 'option5'}
                 ]
             }
         },
         {
-            title: 'Disabled ComboList',
+            title: 'Disabled Select',
             props: {
+                placeholder: 'select',
                 disabled: true,
-                value: 'Main Command2',
                 datasource: [
                     {label: 'option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disabled: true},
@@ -33,65 +39,56 @@ define(function (require) {
             }
         },
         {
-            title: 'ComboList without Datasource',
+            title: 'Readonly Select',
             props: {
-                value: 'Main Command3',
+                placeholder: 'select',
+                value: 'option3',
+                datasource: [
+                    {label: 'option1', value: 'option1'},
+                    {label: 'option2', value: 'option2', disabled: true},
+                    {label: 'option3', value: 'option3'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'}
+                ]
+            }
+        },
+        {
+            title: 'Select without Datasource',
+            props: {
+                value: 'option3',
                 datasource: []
             }
         },
         {
-            title: 'ComboList with a very long Option',
+            title: 'Select with width and a very long Option',
             props: {
-                value: 'Main Command4',
+                placeholder: 'select',
+                width: 150,
                 datasource: [
                     {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disabled: true},
-                    {label: 'option3', value: 'option3', disabled: true},
+                    {label: 'option3', value: 'option3'},
                     {label: 'option4', value: 'option4'},
                     {label: 'option5', value: 'option5'}
                 ]
             }
         },
         {
-            title: 'ComboList with ClassName',
+            title: 'Select with ClassName',
             props: {
+                placeholder: 'select',
+                width: 150,
                 className: 'floatRight',
-                value: 'Main Command5',
                 datasource: [
                     {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disabled: true},
                     {label: 'option3', value: 'option3'},
                     {label: 'option4', value: 'option4'},
-                    {label: 'option5', value: 'option5'}
-                ]
-            }
-        },
-        {
-            title: 'ComboList with Icon and long datasource',
-            props: {
-                value: 'Main Command6',
-                icon: 'font-icon-star-half',
-                datasource: [
-                    {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
-                    {label: 'option2', value: 'option2', disabled: true},
-                    {label: 'option3', value: 'option3'},
-                    {label: 'option4', value: 'option4'},
-                    {label: 'option5', value: 'option5'},
-                    {label: 'option5', value: 'option5'},
-                    {label: 'option5', value: 'option5'},
-                    {label: 'option5', value: 'option5'},
-                    {label: 'option5', value: 'option5'},
-                    {label: 'option5', value: 'option5'},
-                    {label: 'option5', value: 'option5'},
-                    {label: 'option5', value: 'option5'},
-                    {label: 'option5', value: 'option5'},
                     {label: 'option5', value: 'option5'}
                 ]
             }
         }
     ];
 
-
-    return Creater(ComboList, items, 'onClick');
-
+    return Creater(Select, items, 'onChange');
 });
