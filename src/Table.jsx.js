@@ -13,6 +13,7 @@ define(function (require) {
     var TableMessage = require('./components/table/MessageBar.jsx');
     var TableHeader = require('./components/table/NormalHeader.jsx');
     var NormalRenderer = require('./components/table/NormalRenderer.jsx');
+    var NoDataRenderer = require('./components/table/NoDataRenderer.jsx');
     var Others = {
         selectorHeader: require('./components/table/SelectorInHeader.jsx'),
         selectorItem: require('./components/table/SelectorInTBody.jsx')
@@ -44,6 +45,7 @@ define(function (require) {
          * @param {String} message.content 信息栏中显示的信息，不制定，信息栏将不会显示
          * @param {String} message.buttonLabel 信息栏中紧随信息文本的按钮标签，点击此按钮会通过onAction回调TableMessageBarClick事件
          * @param {Array.<TableFixedObject>} fixedPosition 当body滚动条发生滚动事，满足条件后位置固定的元素配置信息
+         * @param {ReactClass} nodataRenderer 表格无数据时的渲染器
          * @param {Function} onAction 表格内部子渲染器的回调接口
          *
          * @param {Import|Properties} src\mixins\InputWidget.js
@@ -66,7 +68,7 @@ define(function (require) {
          * @attention TableFieldObject中，除function类型的值，其他数据都会无条件灌入renderer中，
          *      以下属性除外：item, row, column, key, onAction
          *
-         * @param {Boolean} isSelector 该列是否是选择器，如果为true，其他配置均无效
+         * @param {Boolean} isSelector 该列是否是选择器，如果为true，其他配置除width外均无效
          * @param {String} label 显示在表头的列名
          * @param {String} field 列名称
          * @param {String | Function} content 列显示的数据域或域处理函数；如果为字符串，则此处会被替换为dataItem[content]
@@ -128,6 +130,7 @@ define(function (require) {
                     buttonLabel: language.button.fresh
                 },
                 fixedPosition: [],
+                nodataRenderer: NoDataRenderer,
                 onAction: cTools.noop,
                 // mixin
                 valueTemplate: JSON.stringify({
@@ -186,6 +189,7 @@ define(function (require) {
             this.___dispatchChange___(e);
         },
         render: function () {
+            if (!(this.props.fieldConfig instanceof Array) || !this.props.fieldConfig.length) return null;
             return (
                 <div {...cTools.containerBaseProps('table', this)}>
                     <div ref="realTableContainer" className="table-container">
@@ -230,7 +234,7 @@ define(function (require) {
 
     // 生成表头
     function headerFactory(me) {
-        if (!me.props.flags || !me.props.flags.showHeader || !tools.haveDate(me)) return null;
+        if (!me.props.flags || !me.props.flags.showHeader) return null;
         var td = [];
         var fields = tools.fieldConfigFactory(me, Others);
         for (var i = 0; i < fields.length; i++) {
@@ -281,7 +285,7 @@ define(function (require) {
             message: me.props.message && me.props.message.content ? me.props.message.content : '',
             buttonLabel: me.props.message && me.props.message.buttonLabel ? me.props.message.buttonLabel : '',
             onClick: me.props.onAction,
-            colSpan: fields.length + 10
+            colSpan: fields.length
         };
         return (<TableMessage {...prop}/>);
     }
@@ -294,10 +298,11 @@ define(function (require) {
         var datasource = me.props.datasource instanceof Array ? me.props.datasource : [];
         // 没有数据源
         if (!tools.haveDate(me)) {
+            var NoData = typeof me.props.noDataRenderer === 'function' ? me.props.noDataRenderer : NoDataRenderer;
             return (
-                <tr>
-                    <td colSpan={config.length + 10} style={{textAlign: 'center'}}>
-                        <div className="table-nodata">{language.table.noData}</div>
+                <tr className="tr-data tr-nodata">
+                    <td colSpan={config.length} style={{textAlign: 'center'}}>
+                        <NoData/>
                     </td>
                 </tr>
             );
@@ -323,4 +328,6 @@ define(function (require) {
         }
         return lines;
     }
+
+
 });

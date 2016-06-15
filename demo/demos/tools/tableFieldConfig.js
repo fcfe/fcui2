@@ -22,13 +22,13 @@ define(function (require) {
             sortDisable: true,
             field: 'name',
             width: 100,
-            tip: {title: 'It is tip\'s title', content: 'blablablabla'}
+            tip: {title: 'It is tip\'s title', content: '<img width="300px" src="https://www.baidu.com/img/bd_logo1.png"/>'}
         },
         tipAge: {
             label: '年龄',
             field: 'age',
             width: 100,
-            tip: {title: 'It is tip\'s title', content: 'blablablabla', icon: 'font-icon-warning'}
+            tip: {title: 'It is tip\'s title', content: '<img width="300px" src="https://www.baidu.com/img/bd_logo1.png"/>', icon: 'font-icon-warning'}
         },
         tipBirth: {
             label: '日期',

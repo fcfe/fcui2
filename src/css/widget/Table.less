@@ -27,16 +27,6 @@
             z-index: 1;
         }
     }
-    .table-nodata {
-        display: inline-block;
-        margin: 20px;
-        border: 1px solid;
-        font-size: 12px;
-        line-height: 40px;
-        text-align: center;
-        height: 40px;
-        width: 150px;
-    }
 }
 
 
@@ -52,15 +42,27 @@
     tr:hover {
         background-color: @color-bg-hover-table;
     }
-    .table-nodata {
-        border-color: @color-inner-border;
-    }
 }
 
 
 // Renderers插件渲染
 .fcui2-table-normal {
-    // Table
+    // NoData
+    .table-nodata {
+        display: inline-block;
+        margin: 20px;
+        border: 1px solid;
+        font-size: 12px;
+        line-height: 40px;
+        text-align: center;
+        height: 40px;
+        width: 150px;
+        border-color: @color-inner-border;
+        &:hover {
+            background-color: @color-bg;
+        }
+    }
+    // Table Hack
     .table-container {
         .tr-header, .tr-message {
             visibility: hidden;

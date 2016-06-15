@@ -76,7 +76,8 @@ define(function (require) {
         }
     ];
     var demos = {
-        'src\\Button.jsx.js': require('./demos/components/Button.jsx')
+        'src\\Button.jsx.js': require('./demos/components/Button.jsx'),
+        'src\\Tip.jsx.js': require('./demos/components/Tip.jsx')
     }
 
     for (var key in dataset.files) {

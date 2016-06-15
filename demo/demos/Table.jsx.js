@@ -23,6 +23,9 @@ define(function (require) {
         {
             title: 'Table without Datasource',
             props: {
+                flags: {
+                    showHeader: true
+                },
                 fieldConfig: [
                     fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
                 ]

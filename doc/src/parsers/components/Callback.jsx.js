@@ -39,9 +39,13 @@ define(function (require) {
         return result;
         function mergeItem(from, to) {
             to = JSON.parse(JSON.stringify(to));
+            // 合并description
+            if (to.description.indexOf(from.description) < 0) {
+                to.description += '\n' + from.description;
+            }
+            // 合并type
             if (from.type !== to.type) {
-                to.type += '|' + from.type;
-                to.description += to.description.indexOf(from.description) < 0 ? '；' + from.description : '';
+                to.type += '\n' + from.type;
                 return to;
             }
             // 类型相同，合并子props
@@ -117,7 +121,7 @@ define(function (require) {
             }
             label += ')';
             doms.push(
-                <div key={i}>
+                <div key={i} style={{marginTop: 5}}>
                     <h3>{label}</h3>
                     <Params params={param} prefix=''/>
                 </div>

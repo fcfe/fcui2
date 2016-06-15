@@ -22,8 +22,7 @@ define(function (require) {
          * @param {String} style 添加到layer容器上的样式表
          * @param {Boolean} isOpen layer是否显示，如果为true，layer容器将被添加到body中
          * @param {HtmlElement} anchor <required>layer定位的锚点，只有设置了锚点，layer才会显示，就是说这项是必须的 
-         * @param {String} location layer位置配置：'left right'从anchor右边框向左展开优先，屏幕位置不够，就从anchor左边框
-         *  向右展开；'right left'则向右展开优先；top、bottom含义类似。 
+         * @param {String} location layer位置配置，配置方法见：src\core\layerTools.js
          * @param {Boolean} closeWithBodyClick layer展开后，点击屏幕其他位置，layer是否自动关闭，默认false
          * @param {Boolean} fixedWidthToAnchor 当layer宽度小于anchor时，是否根据anchor自适应宽度，默认true
          * @param {Function} onOffset layer展开后计算出显示位置，调用此回调，此回调可以对显示位置进行修正，指针方法

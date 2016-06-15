@@ -71,6 +71,13 @@ define(function(require){return {
             "fors": {},
             "namespaces": {}
         },
+        "src\\components\\table\\NoDataRenderer.jsx.js": {
+            "name": "src\\components\\table\\NoDataRenderer.jsx.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "src\\components\\table\\NormalHeader.jsx.js": {
             "name": "src\\components\\table\\NormalHeader.jsx.js",
             "modules": {},
@@ -553,6 +560,15 @@ define(function(require){return {
             "file": "src\\components\\table\\MessageBar.jsx.js",
             "line": 1,
             "description": "黄色信息栏",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\table\\NoDataRenderer.jsx.js",
+            "line": 1,
+            "description": "table无数据渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
@@ -1751,7 +1767,7 @@ define(function(require){return {
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 224,
+            "line": 225,
             "description": "手动调用校验",
             "params": [
                 {
@@ -1887,7 +1903,7 @@ define(function(require){return {
                 {
                     "name": "aaaaaa",
                     "description": "第一个参数",
-                    "type": "ReactMouseEvent"
+                    "type": "SyntheticEvent"
                 },
                 {
                     "name": "e",
@@ -3505,7 +3521,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Table.jsx.js",
-            "line": 29,
+            "line": 30,
             "properties": "",
             "params": [
                 {
@@ -3578,6 +3594,11 @@ define(function(require){return {
                     "type": "Array.<TableFixedObject>"
                 },
                 {
+                    "name": "nodataRenderer",
+                    "description": "表格无数据时的渲染器",
+                    "type": "ReactClass"
+                },
+                {
                     "name": "onAction",
                     "description": "表格内部子渲染器的回调接口",
                     "type": "Function"
@@ -3592,7 +3613,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Table.jsx.js",
-            "line": 52,
+            "line": 54,
             "structure": "TableFieldObject",
             "example": [
                 "\n {\n     isSelector: <optional>\n     label: <optional>  \n     field: <optional>\n     content: function (dataItem, rowIndex, columnIndex, tableComponent)) <optional>\n     renderer: <optional>\n     isEmptyHeader: <optional>\n     thRenderer: <optional>\n     prepare: function (tdRendererProps, dataItem, rowIndex, columnIndex, tableComponent) <optional>\n }"
@@ -3601,7 +3622,7 @@ define(function(require){return {
             "params": [
                 {
                     "name": "isSelector",
-                    "description": "该列是否是选择器，如果为true，其他配置均无效",
+                    "description": "该列是否是选择器，如果为true，其他配置除width外均无效",
                     "type": "Boolean"
                 },
                 {
@@ -3649,7 +3670,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Table.jsx.js",
-            "line": 81,
+            "line": 83,
             "structure": "TableFixedObject",
             "example": [
                 "\n {\n     ref: <required>\n     top: <required>\n     zIndex: <optional>\n }"
@@ -3675,7 +3696,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Table.jsx.js",
-            "line": 93,
+            "line": 95,
             "structure": "TableValueTemplate",
             "example": [
                 "\n {\n     sortField: <optional>\n     sortType: <optional>\n     selected: <optional>\n }"
@@ -3810,6 +3831,21 @@ define(function(require){return {
                 {
                     "name": "icon",
                     "description": "提示组件外部显示的图标，具体见src/css/icon/variable.less",
+                    "type": "String"
+                },
+                {
+                    "name": "renderer",
+                    "description": "Tip内部渲染的组件，如果指定，icon属性无效",
+                    "type": "ReactClass"
+                },
+                {
+                    "name": "renderProps",
+                    "description": "Tip内部组件渲染的属性集",
+                    "type": "Object"
+                },
+                {
+                    "name": "layerLocation",
+                    "description": "浮层的定位配置，见layer.props.location",
                     "type": "String"
                 }
             ],
@@ -4252,6 +4288,14 @@ define(function(require){return {
         {
             "message": "unknown tag: version",
             "line": " src\\components\\table\\MessageBar.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: email",
+            "line": " src\\components\\table\\NoDataRenderer.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\components\\table\\NoDataRenderer.jsx.js:1"
         },
         {
             "message": "unknown tag: email",
@@ -4795,27 +4839,27 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: properties",
-            "line": " src\\Table.jsx.js:29"
+            "line": " src\\Table.jsx.js:30"
         },
         {
             "message": "unknown tag: structure",
-            "line": " src\\Table.jsx.js:52"
+            "line": " src\\Table.jsx.js:54"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Table.jsx.js:52"
+            "line": " src\\Table.jsx.js:54"
         },
         {
             "message": "unknown tag: structure",
-            "line": " src\\Table.jsx.js:81"
+            "line": " src\\Table.jsx.js:83"
         },
         {
             "message": "unknown tag: structure",
-            "line": " src\\Table.jsx.js:93"
+            "line": " src\\Table.jsx.js:95"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Table.jsx.js:93"
+            "line": " src\\Table.jsx.js:95"
         },
         {
             "message": "unknown tag: email",
@@ -4928,6 +4972,10 @@ define(function(require){return {
         {
             "message": "Missing item type\n黄色信息栏",
             "line": " src\\components\\table\\MessageBar.jsx.js:1"
+        },
+        {
+            "message": "Missing item type\ntable无数据渲染器",
+            "line": " src\\components\\table\\NoDataRenderer.jsx.js:1"
         },
         {
             "message": "Missing item type\n表头",
@@ -5195,7 +5243,7 @@ define(function(require){return {
         },
         {
             "message": "Missing item type\n手动调用校验",
-            "line": " src\\mixins\\InputWidget.js:224"
+            "line": " src\\mixins\\InputWidget.js:225"
         },
         {
             "message": "Missing item type\n输入框流劫持",
@@ -5539,19 +5587,19 @@ define(function(require){return {
         },
         {
             "message": "Missing item type",
-            "line": " src\\Table.jsx.js:29"
+            "line": " src\\Table.jsx.js:30"
         },
         {
             "message": "Missing item type",
-            "line": " src\\Table.jsx.js:52"
+            "line": " src\\Table.jsx.js:54"
         },
         {
             "message": "Missing item type",
-            "line": " src\\Table.jsx.js:81"
+            "line": " src\\Table.jsx.js:83"
         },
         {
             "message": "Missing item type",
-            "line": " src\\Table.jsx.js:93"
+            "line": " src\\Table.jsx.js:95"
         },
         {
             "message": "Missing item type\n文本域",

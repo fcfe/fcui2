@@ -32,6 +32,9 @@ define(function (require) {
             };
         },
         render: function () {
+            if (this.props.hasOwnProperty('___isRowSelected___')) {
+                return (<td className="td-button" style={this.props.style}>{factory([this.props.content])}</td>);
+            }
             return (<div className="code-container">{factory(this.props.codes)}</div>);
         }
     });

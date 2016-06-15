@@ -1,14 +1,28 @@
 define(function (require) {
 
 
-    var Creater = require('../src/ReactClassCreater.jsx');
+    var Creater = require('../Main.jsx');
     var Tip = require('fcui/Tip.jsx');
+    var Button = require('fcui/Button.jsx');
 
 
     var items = [
         {
             title: 'Normal Tip',
             props: {title: 'It is tip\'s title', content: 'blablablabla'}
+        },
+        {
+            title: 'Tip with Renderer',
+            props: {
+                title: 'It is tip\'s title',
+                content: 'blablablabla',
+                renderer: Button,
+                renderProps:{value: 'Button in Tip'},
+                layerLocation: '4',
+                onOffset: function (result) {
+                    result.left += 20;
+                }
+            }
         },
         {
             title: 'Tip with Icon',

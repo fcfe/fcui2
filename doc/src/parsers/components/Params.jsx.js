@@ -4,7 +4,7 @@ define(function (require) {
     var React = require('react');
     var classitems = require('../../config').items;
     var Table = require('fcui/Table.jsx');
-
+    var Code = require('./Code.jsx');
 
     var fieldConfig = [
         {
@@ -23,21 +23,24 @@ define(function (require) {
         {
             label: 'Type',
             width: 150,
+            prepare: tdPrepare,
             content: function (item) {return item.type},
-            prepare: tdPrepare
+            renderer: Code
         },
         {
             label: 'Description',
             field: 'description',
-            prepare: tdPrepare
+            prepare: tdPrepare,
+            renderer: Code
         }
     ];
 
 
     function tdPrepare(props, item, row, column, me) {
-        props.className += ' level-' + item.level;
+        props.className = 'level-' + item.level;
         props.style = props.style || {};
         props.style.color = item.isImport ? 'green' : 'black';
+        props.style.verticalAlign = 'top';
     }
 
 

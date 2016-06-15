@@ -58,6 +58,10 @@ define(function (require) {
                 message: ''
             };
         },
+        // @override
+        componentDidMount: function () {
+            this.messageTimer = null;
+        },
         onLevelChange: function (e) {
             var level = e.target.dataset.level;
             level = level === this.props.level ? '' : level;
@@ -69,7 +73,12 @@ define(function (require) {
             this.props.dispatch('changeHash', {file: file});
         },
         onMessage: function (str) {
+            clearTimeout(this.messageTimer);
             this.setState({message: str});
+            var me = this;
+            this.messageTimer = setTimeout(function () {
+                me.setState({message: ''});
+            }, 2000);
         },
         render: function () {
             var Demo = config.demos[this.props.file.replace(/_/g, '\\')];

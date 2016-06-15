@@ -23,7 +23,7 @@ define(function (require) {
                 selectCurrentPage: '选择当前页'
             },
             table: {
-                noData: '没有数据'
+                noData: '没有数据或数据正在加载'
             },
             calendar: {
                 day: ['一', '二', '三', '四', '五', '六', '日']

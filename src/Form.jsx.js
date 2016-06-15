@@ -72,7 +72,6 @@ define(function (require) {
             if (typeof name !== 'string' || !name.length) return false;
             name = component.props.___uitype___ === 'radio' ? name + '___radio___' + component.props.value : name;
             if (this.___inputs___[name]) {
-                console.warn('input component with name "' + name + '" already attached');
                 return false;
             }
             else {
