@@ -21,7 +21,7 @@ define(function (require) {
             var tdProp = {
                 className: 'td-button ' + this.props.className,
                 style: this.props.style
-            };        
+            };
             return (
                 <td {...tdProp}>{this.props.content}</td>
             );

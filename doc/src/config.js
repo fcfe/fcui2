@@ -8,13 +8,11 @@ define(function (require) {
             level: 'base',
             label: 'Base Widgets',
             children: [
-                {id: 'src\\Tip.jsx.js', label: 'Tip'},
                 {id: 'src\\Button.jsx.js', label: 'Button'},
+                {id: 'src\\Tip.jsx.js', label: 'Tip'},
                 {id: 'src\\List.jsx.js', label: 'List'},
                 {id: 'src\\DropDownList.jsx.js', label: 'DropDownList'},
-                {id: 'src\\ComboList.jsx.js', label: 'ComboList'},
                 {id: 'src\\Crumb.jsx.js', label: 'Crumb'},
-                '',
                 {id: 'src\\Pager.jsx.js', label: 'Pager'},
                 {id: 'src\\Tab.jsx.js', label: 'Tab'},
                 {id: 'src\\Wizard.jsx.js', label: 'Wizard'}
@@ -29,16 +27,7 @@ define(function (require) {
                 {id: 'src\\TextBox.jsx.js', label: 'TextBox'},
                 {id: 'src\\NumberBox.jsx.js', label: 'NumberBox'},
                 {id: 'src\\TextArea.jsx.js', label: 'TextArea'},
-                {id: 'src\\Select.jsx.js', label: 'Select'},
-                {id: 'src\\SearchBox.jsx.js', label: 'SearchBox'},
-                {id: 'src\\Slider.jsx.js', label: 'Slider'},
-                '',
-                {id: 'src\\Calendar.jsx.js', label: 'Calendar'},
-                {id: 'src\\RangeCalendar.jsx.js', label: 'RangeCalendar'},
-                {id: 'src\\DropDownCalendar.jsx.js', label: 'DropDownCalendar'},
-                '',
-                {id: 'src\\Region.jsx.js', label: 'Region'},
-                {id: 'src\\DropDownRegion.jsx.js', label: 'DropDownRegion'}
+                {id: 'src\\Select.jsx.js', label: 'Select'}
             ]
         },
         {
@@ -55,6 +44,17 @@ define(function (require) {
             level: 'functional',
             label: 'Functional Widgets',
             children: [
+                {id: 'src\\ComboList.jsx.js', label: 'ComboList'},
+                {id: 'src\\SearchBox.jsx.js', label: 'SearchBox'},
+                {id: 'src\\Slider.jsx.js', label: 'Slider'},
+                '',
+                {id: 'src\\Region.jsx.js', label: 'Region'},
+                {id: 'src\\DropDownRegion.jsx.js', label: 'DropDownRegion'},
+                '',
+                {id: 'src\\Calendar.jsx.js', label: 'Calendar'},
+                {id: 'src\\RangeCalendar.jsx.js', label: 'RangeCalendar'},
+                {id: 'src\\DropDownCalendar.jsx.js', label: 'DropDownCalendar'},
+                '',
                 {id: 'src\\Form.jsx.js', label: 'Form'},
                 {id: 'src\\Table.jsx.js', label: 'Table'}
             ]
@@ -79,7 +79,8 @@ define(function (require) {
             label: 'Testing',
             children:[
                 {id: 'BaseLineTesting.jsx.js', label: 'Display Base Line Test'},
-                {id: 'FormFieldTesting.jsx.js', label: 'Form Field Test'}
+                {id: 'FormFieldTesting.jsx.js', label: 'Form Field Test'},
+                {id: 'src\\AlphabetRegion.jsx', label: 'AlphabetRegion'}
             ]
         }
     ];
@@ -112,6 +113,7 @@ define(function (require) {
         'src\\Dialog.jsx.js': require('./demos/components/Dialog.jsx'),
         'src\\Form.jsx.js': require('./demos/components/Form.jsx'),
         'src\\Table.jsx.js': require('./demos/components/Table.jsx'),
+        'src\\AlphabetRegion.jsx': require('./demos/components/AlphabetRegion.jsx'),
         'BaseLineTesting.jsx.js': require('./demos/components/BaseLineTesting.jsx'),
         'FormFieldTesting.jsx.js': require('./demos/components/FormFieldTesting.jsx')
     }

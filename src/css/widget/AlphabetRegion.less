@@ -1,0 +1,71 @@
+// version 0.0.2
+
+// 基础
+.fcui2-alphabet-region {
+    max-width: 280px;
+    border: 1px solid;
+    .short-cut-container {
+        border-bottom: 1px solid;
+        padding: 5px;
+        margin-bottom: 10px;
+        a {
+            display: inline-block;
+            font-size: 14px;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+    }
+    .content-container {
+        line-height: 20px;
+        max-height: 400px;
+        overflow-y: auto;
+        .alphabet-container {
+            margin-bottom: 10px;
+        }
+        .char-container {
+            float: left;
+            width: 30px;
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+        }
+        .region-container {
+            margin-left: 30px;
+            a {
+                display: inline-block;
+                padding-right: 10px;
+            }
+        }
+        .region-name-container {
+            float: left;
+            width: 55px;
+            a {
+                font-weight: 700;
+            }
+        }
+        .city-container {
+            margin-left: 55px;
+        }
+    }
+}
+
+// 皮肤
+.fcui2-alphabet-region-normal {
+    border-color: @color-outer-border;
+    a {
+        text-decoration: none;
+        color: #3D6DCC;
+    }
+    .short-cut-container {
+        border-bottom-color: @color-inner-border;
+    }
+    .content-container {
+        .char-container {
+            color: @color-disabled-text;
+        }
+    }
+}
+

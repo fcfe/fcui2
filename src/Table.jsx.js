@@ -45,7 +45,7 @@ define(function (require) {
          * @param {String} message.content 信息栏中显示的信息，不制定，信息栏将不会显示
          * @param {String} message.buttonLabel 信息栏中紧随信息文本的按钮标签，点击此按钮会通过onAction回调TableMessageBarClick事件
          * @param {Array.<TableFixedObject>} fixedPosition 当body滚动条发生滚动事，满足条件后位置固定的元素配置信息
-         * @param {ReactClass} nodataRenderer 表格无数据时的渲染器
+         * @param {ReactClass} noDataRenderer 表格无数据时的渲染器
          * @param {Function} onAction 表格内部子渲染器的回调接口
          *
          * @param {Import|Properties} src\mixins\InputWidget.js
@@ -131,7 +131,7 @@ define(function (require) {
                     buttonLabel: language.button.fresh
                 },
                 fixedPosition: [],
-                nodataRenderer: NoDataRenderer,
+                noDataRenderer: NoDataRenderer,
                 onAction: cTools.noop,
                 // mixin
                 valueTemplate: JSON.stringify({
