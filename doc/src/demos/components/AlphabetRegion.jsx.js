@@ -7,6 +7,18 @@ define(function (require) {
         {
             title: 'Normal AlphabetRegion',
             props: {}
+        },
+        {
+            title: 'AlphabetRegion with style',
+            props: {
+                style: {
+                    maxWidth: 400
+                }
+            }
+        },
+        {
+            title: 'Disabled AlphabetRegion',
+            props: {disabled: true}
         }
     ];
 
