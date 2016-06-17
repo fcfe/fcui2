@@ -18,6 +18,10 @@ define(function (require) {
             };
         },
         onButtonClick: function (e) {
+            /**
+             * @fire table onAction
+             * @param {String} type TableMessageBarClick: 表头下部信息栏被点击
+             */
             this.props.onClick('TableMessageBarClick', {});
         },
         render: function () {

@@ -20,11 +20,9 @@ define(function (require) {
          * @param {String} label 复选框旁边显示的文字，点击文字也可以改变选中状态
          * @param {String} value 复选框的值，触发onChange时随事件对象返回，用于区分复选框的身份
          * @param {Boolean} checked 复选框是否被选中，触发onChange时随事件对象返回，用于表明复选框时候被选中
-         * @param {Boolean} indeterminate 复选框时候处于半选状态，如果checked为false、indeterminate为true，复选框将呈现
-         *      为半选状态
+         * @param {Boolean} indeterminate 复选框时候处于半选状态，如果checked为false、indeterminate为true，复选框将呈现为半选状态
          * @param {String} labelPosition 文本标签显示的位置，'right'为复选框右侧，否则在左侧
-         * @param {Import|Properties} src\mixins\InputWidget.js
-         *      onChange name validations customErrorTemplates valueLink valueTemplate
+         * @param {Import|Properties} src\mixins\InputWidget.js onChange name validations customErrorTemplates valueLink valueTemplate
          */
         /**
          * @fire CheckBox onChange

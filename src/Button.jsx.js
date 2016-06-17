@@ -28,8 +28,8 @@ define(function (require) {
         /**
          * @fire button onClick
          * @param {SyntheticEvent} e React事件对象
-         * @param {HtmlElement} e.target Button实例的根容器
-         * @param {String} e.target.value Button实例的value属性
+         * @param {HtmlElement} e.target 组件实例的根容器
+         * @param {String} e.target.value 组件实例的value属性
          */
         /**
          * @fire button onMouseEnter

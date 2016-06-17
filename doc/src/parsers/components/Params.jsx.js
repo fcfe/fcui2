@@ -41,6 +41,12 @@ define(function (require) {
         props.style = props.style || {};
         props.style.color = item.isImport ? 'green' : 'black';
         props.style.verticalAlign = 'top';
+        if (item.description.indexOf('<required>') === 0) {
+            props.style.color = 'red';
+            if (column === 2) {
+                props.content = item.description.replace('<required>', '');
+            }
+        }
     }
 
 

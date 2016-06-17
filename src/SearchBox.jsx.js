@@ -23,6 +23,12 @@ define(function (require) {
          *      value onChange name validations customErrorTemplates valueLink valueTemplate
          * @param {Function} onClick 搜索按钮点击时的回调
          */
+        /**
+         * @fire Import src\mixins\InputWidget.js XXX onChange
+         */
+        /**
+         * @fire Import src\Button.jsx.js button onClick
+         */
         // @override
         mixins: [InputWidget, InputWidgetImeFixed],
         // @override

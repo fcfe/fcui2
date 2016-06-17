@@ -43,8 +43,8 @@ define(function (require) {
      * @param {Number} param.size.height Dialog渲染后的高度
      * @param {Boolean} param.isFullScreen Dialog弹出后时候直接全屏显示
      * @param {Boolean} param.showCloseButton 是否显示Dialog标题栏中的关闭按钮
-     * @param {Function} param.onBeforeClose Dialog关闭前触发的回调，可以在这个回调中阻止窗体关闭
-     * @param {Function} param.onClose Dialog关闭后的回调 
+     * @param {Function} param.onBeforeClose 同TitleWindow props.onBeforeClose
+     * @param {Function} param.onClose 同TitleWindow props.onClose
      */
     Dialog.prototype.pop = function (param) {
         var me = this;

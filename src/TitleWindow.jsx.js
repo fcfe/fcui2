@@ -30,6 +30,12 @@ define(function (require) {
          * @param {Function} onBeforeClose TitleWindow关闭前触发的回调，可以在这个回调中阻止窗体关闭
          * @param {Function} onClose TitleWindow关闭后的回调 
          */
+        /**
+         * @fire TitleWindow onBeforeClose
+         * @param {UIEvents} e JS原生UI事件对象
+         * @param {Boolean} e.returnValue 可以通过param1.returnValue = false的方法阻止继续关闭
+         * @param {ReactComponent}  e.targetComponent 当前组件实例
+         */
         // @override
         getDefaultProps: function () {
             return {

@@ -20,6 +20,14 @@ define(function (require) {
             };
         },
         onIconClick: function (e) {
+            /**
+             * @fire table onAction
+             * @param {String} type ButtonRendererClick: 单元格内的icon被点击
+             * @param {Object} param 控制参数对象
+             * @param {Object} param.item 单元格所在行数据源，ButtonRendererClick时此属性存在
+             * @param {Object} param.row 单元格行号，ButtonRendererClick时此属性存在
+             * @param {Object} param.column 单元格列号，ButtonRendererClick时此属性存在
+             */
             this.props.onAction('ButtonRendererClick', {
                 item: this.props.item,
                 row: this.props.row,

@@ -30,8 +30,18 @@ define(function (require) {
          * @param {Function} onMouseLeave 鼠标滑出layer时的回调
          * @param {Function} onRender layer渲染完成后的回调
          * @param {Function} onClose layer关闭后的回调
-         * @param {Function} onCloseByWindow 屏幕其他位置被点击导致layer关闭后触发的回调，只有closeWithBodyClick为true
-         *  时有效
+         * @param {Function} onCloseByWindow 屏幕其他位置被点击导致layer关闭后触发的回调，只有closeWithBodyClick为true时有效
+         */
+        /**
+         * @fire layer onOffset
+         * @param {Object} e 内部计算出的浮层将要显示的位置，可以对此对象进行指针操作
+         * @param {Number} e.left 浮层相对body的左边距
+         * @param {Number} e.top 浮层相对body的上边距
+         * @param {String} e.clockPosition 1-12的字符串或空串，表示浮层相对锚点的时钟位置，具体见src\core\layerTools.js
+         */
+        /**
+         * @fire layer onMouseEnter
+         *
          */
         // @override
         getDefaultProps: function () {

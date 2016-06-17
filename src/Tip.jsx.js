@@ -26,11 +26,7 @@ define(function (require) {
          * @param {Function} onOffset 浮层位置修正回调
          */
         /**
-         * @fire tip onOffset
-         * @param {Object} e 内部计算出的浮层将要显示的位置，可以对此对象进行指针操作
-         * @param {Number} e.left 浮层相对body的左边距
-         * @param {Number} e.top 浮层相对body的上边距
-         * @param {String} e.clockPosition 1-12的字符串或空串，表示浮层相对锚点的时钟位置，具体见src\core\layerTools.js
+         * @fire Import src\Layer.jsx.js layer onOffset
          */
         // @override
         getDefaultProps: function () {

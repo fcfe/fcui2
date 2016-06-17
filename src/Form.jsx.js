@@ -20,7 +20,20 @@ define(function (require) {
          * @param {Import|Properties} src\core\componentTools.js className
          * @param {Object} validations 表单级别校验机，可以在这里放置跨域校验
          * @param {Function} onFieldChange 表单域发生变化后的回调
-         * @param {Function} onSubmit 表单通过所有校验提交前触发的回调
+         * @param {Function} onSubmit 表单通过所有校验提交前触发的回调，给事件不会真正触发form向后台的提交行为
+         */
+        /**
+         * @fire form onFieldChange
+         * @param {Object} param 事件对象
+         * @param {ReactComponent} param.targetCompontent 触发事件的form实例
+         * @param {Boolean} param.isValid 表单是否通过了校验；该属性只在表单整体提交时存在
+         * @param {String} param.field 触发change的域名，即input组件的name属性；该属性在表单整体提交时不存在
+         * @param {Object} param.dataset 数据集，以field为key，以input组件的新value为值
+         * @param {Object} param.validationResults 校验结果，以field为key，以input组件上的校验机结果为值
+         */
+        /**
+         * @fire form onSubmit
+         * @param {Object} dataset 数据集，以field为key，以input组件的新value为值
          */
         // @override
         childContextTypes: {

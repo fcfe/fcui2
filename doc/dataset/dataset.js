@@ -582,6 +582,41 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\components\\table\\ButtonRenderer.jsx.js",
+            "line": 23,
+            "fire": "table onAction",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "ButtonRendererClick: 单元格内的icon被点击",
+                    "type": "String"
+                },
+                {
+                    "name": "param",
+                    "description": "控制参数对象",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "item",
+                            "description": "单元格所在行数据源，ButtonRendererClick时此属性存在",
+                            "type": "Object"
+                        },
+                        {
+                            "name": "row",
+                            "description": "单元格行号，ButtonRendererClick时此属性存在",
+                            "type": "Object"
+                        },
+                        {
+                            "name": "column",
+                            "description": "单元格列号，ButtonRendererClick时此属性存在",
+                            "type": "Object"
+                        }
+                    ]
+                }
+            ],
+            "class": ""
+        },
+        {
             "file": "src\\components\\table\\Expander.jsx.js",
             "line": 1,
             "description": "带折叠按钮的列",
@@ -591,12 +626,55 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\components\\table\\Expander.jsx.js",
+            "line": 29,
+            "fire": "table onAction",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "TableExpanderClick: 表格某行的展开按钮被点击",
+                    "type": "String"
+                },
+                {
+                    "name": "param",
+                    "description": "控制参数对象",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "expandId",
+                            "description": "操作行数据源中的expandId值，TableExpanderClick时此属性存在",
+                            "type": "String"
+                        },
+                        {
+                            "name": "expanded",
+                            "description": "操作后该行的展开状态，TableExpanderClick时此属性存在",
+                            "type": "Boolean"
+                        }
+                    ]
+                }
+            ],
+            "class": ""
+        },
+        {
             "file": "src\\components\\table\\MessageBar.jsx.js",
             "line": 1,
             "description": "黄色信息栏",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\table\\MessageBar.jsx.js",
+            "line": 21,
+            "fire": "table onAction",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "TableMessageBarClick: 表头下部信息栏被点击",
+                    "type": "String"
+                }
+            ],
             "class": ""
         },
         {
@@ -2017,12 +2095,12 @@ define(function(require){return {
                     "props": [
                         {
                             "name": "target",
-                            "description": "Button实例的根容器",
+                            "description": "组件实例的根容器",
                             "type": "HtmlElement",
                             "props": [
                                 {
                                     "name": "value",
-                                    "description": "Button实例的value属性",
+                                    "description": "组件实例的value属性",
                                     "type": "String"
                                 }
                             ]
@@ -2110,6 +2188,12 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\Calendar.jsx.js",
+            "line": 32,
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
+            "class": ""
+        },
+        {
             "file": "src\\CheckBox.jsx.js",
             "line": 1,
             "description": "复选框",
@@ -2145,7 +2229,7 @@ define(function(require){return {
                 },
                 {
                     "name": "indeterminate",
-                    "description": "复选框时候处于半选状态，如果checked为false、indeterminate为true，复选框将呈现\n     为半选状态",
+                    "description": "复选框时候处于半选状态，如果checked为false、indeterminate为true，复选框将呈现为半选状态",
                     "type": "Boolean"
                 },
                 {
@@ -2163,7 +2247,7 @@ define(function(require){return {
         },
         {
             "file": "src\\CheckBox.jsx.js",
-            "line": 29,
+            "line": 27,
             "fire": "CheckBox onChange",
             "params": [
                 {
@@ -2244,6 +2328,12 @@ define(function(require){return {
             "file": "src\\ComboList.jsx.js",
             "line": 27,
             "structure": "Import src\\List.jsx.js ListItemObject",
+            "class": ""
+        },
+        {
+            "file": "src\\ComboList.jsx.js",
+            "line": 30,
+            "fire": "Import src\\components\\list\\NormalRenderer.jsx.js List onClick",
             "class": ""
         },
         {
@@ -2391,12 +2481,12 @@ define(function(require){return {
                         },
                         {
                             "name": "onBeforeClose",
-                            "description": "Dialog关闭前触发的回调，可以在这个回调中阻止窗体关闭",
+                            "description": "同TitleWindow props.onBeforeClose",
                             "type": "Function"
                         },
                         {
                             "name": "onClose",
-                            "description": "Dialog关闭后的回调",
+                            "description": "同TitleWindow props.onClose",
                             "type": "Function"
                         }
                     ]
@@ -2548,6 +2638,12 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\DropDownCalendar.jsx.js",
+            "line": 29,
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
+            "class": ""
+        },
+        {
             "file": "src\\DropDownList.jsx.js",
             "line": 1,
             "description": "下拉列表",
@@ -2641,6 +2737,12 @@ define(function(require){return {
                     "type": "Import|Properties"
                 }
             ],
+            "class": ""
+        },
+        {
+            "file": "src\\DropDownRegion.jsx.js",
+            "line": 35,
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
             "class": ""
         },
         {
@@ -2773,7 +2875,7 @@ define(function(require){return {
                 },
                 {
                     "name": "onSubmit",
-                    "description": "表单通过所有校验提交前触发的回调",
+                    "description": "表单通过所有校验提交前触发的回调，给事件不会真正触发form向后台的提交行为",
                     "type": "Function"
                 }
             ],
@@ -2781,7 +2883,60 @@ define(function(require){return {
         },
         {
             "file": "src\\Form.jsx.js",
-            "line": 62,
+            "line": 25,
+            "fire": "form onFieldChange",
+            "params": [
+                {
+                    "name": "param",
+                    "description": "事件对象",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "targetCompontent",
+                            "description": "触发事件的form实例",
+                            "type": "ReactComponent"
+                        },
+                        {
+                            "name": "isValid",
+                            "description": "表单是否通过了校验；该属性只在表单整体提交时存在",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "field",
+                            "description": "触发change的域名，即input组件的name属性；该属性在表单整体提交时不存在",
+                            "type": "String"
+                        },
+                        {
+                            "name": "dataset",
+                            "description": "数据集，以field为key，以input组件的新value为值",
+                            "type": "Object"
+                        },
+                        {
+                            "name": "validationResults",
+                            "description": "校验结果，以field为key，以input组件上的校验机结果为值",
+                            "type": "Object"
+                        }
+                    ]
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Form.jsx.js",
+            "line": 34,
+            "fire": "form onSubmit",
+            "params": [
+                {
+                    "name": "dataset",
+                    "description": "数据集，以field为key，以input组件的新value为值",
+                    "type": "Object"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Form.jsx.js",
+            "line": 75,
             "description": "注册表单输入域",
             "interface": "attach",
             "params": [
@@ -2805,7 +2960,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Form.jsx.js",
-            "line": 83,
+            "line": 96,
             "description": "解除表单输入域",
             "interface": "detach",
             "params": [
@@ -2825,7 +2980,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Form.jsx.js",
-            "line": 95,
+            "line": 108,
             "description": "更新表单域",
             "interface": "updateField",
             "params": [
@@ -2850,7 +3005,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Form.jsx.js",
-            "line": 130,
+            "line": 143,
             "description": "校验整个表单",
             "interface": "validate",
             "return": {
@@ -2861,7 +3016,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Form.jsx.js",
-            "line": 135,
+            "line": 148,
             "structure": "FormValidationObject",
             "example": [
                 "\n {\n     dataset: {},\n     fieldResult: {},\n     formResult: [],\n     isValid: true\n }"
@@ -2971,10 +3126,46 @@ define(function(require){return {
                 },
                 {
                     "name": "onCloseByWindow",
-                    "description": "屏幕其他位置被点击导致layer关闭后触发的回调，只有closeWithBodyClick为true\n 时有效",
+                    "description": "屏幕其他位置被点击导致layer关闭后触发的回调，只有closeWithBodyClick为true时有效",
                     "type": "Function"
                 }
             ],
+            "class": ""
+        },
+        {
+            "file": "src\\Layer.jsx.js",
+            "line": 35,
+            "fire": "layer onOffset",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "内部计算出的浮层将要显示的位置，可以对此对象进行指针操作",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "left",
+                            "description": "浮层相对body的左边距",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "top",
+                            "description": "浮层相对body的上边距",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "clockPosition",
+                            "description": "1-12的字符串或空串，表示浮层相对锚点的时钟位置，具体见src\\core\\layerTools.js",
+                            "type": "String"
+                        }
+                    ]
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Layer.jsx.js",
+            "line": 42,
+            "fire": "layer onMouseEnter",
             "class": ""
         },
         {
@@ -3279,7 +3470,7 @@ define(function(require){return {
                 {
                     "name": "shortCut",
                     "description": "快捷选择按钮配置",
-                    "type": "Array.<RangeCalendarShortCut>"
+                    "type": "Array.<CalendarShortCut>"
                 },
                 {
                     "name": "rangeValidator",
@@ -3297,7 +3488,35 @@ define(function(require){return {
         {
             "file": "src\\RangeCalendar.jsx.js",
             "line": 39,
-            "structure": "RangeCalendarShortCut",
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
+            "class": ""
+        },
+        {
+            "file": "src\\RangeCalendar.jsx.js",
+            "line": 42,
+            "fire": "RangeCalendar rangeValidator",
+            "params": [
+                {
+                    "name": "param1",
+                    "description": "左侧日历的日期",
+                    "type": "Date"
+                },
+                {
+                    "name": "param2",
+                    "description": "右侧日历的日期",
+                    "type": "Date"
+                }
+            ],
+            "return": {
+                "description": "请返回校验结果，字符串表示校验未通过。",
+                "type": "Boolean|String"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\RangeCalendar.jsx.js",
+            "line": 48,
+            "structure": "CalendarShortCut",
             "example": [
                 "\n {\n     label: '',                  <required>\n     getValues: function () {    <required>\n         return {\n             value1: new Date(), <required>\n             value2: new Date()  <required>\n         };\n     }\n }"
             ],
@@ -3365,6 +3584,12 @@ define(function(require){return {
                     "type": "Import|Properties"
                 }
             ],
+            "class": ""
+        },
+        {
+            "file": "src\\Region.jsx.js",
+            "line": 39,
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
             "class": ""
         },
         {
@@ -3480,6 +3705,18 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\SearchBox.jsx.js",
+            "line": 26,
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
+            "class": ""
+        },
+        {
+            "file": "src\\SearchBox.jsx.js",
+            "line": 29,
+            "fire": "Import src\\Button.jsx.js button onClick",
+            "class": ""
+        },
+        {
             "file": "src\\Select.jsx.js",
             "line": 1,
             "description": "选择器",
@@ -3570,7 +3807,7 @@ define(function(require){return {
                 },
                 {
                     "name": "onAction",
-                    "description": "功能回调接口，目前有四种内部回调，type分别是\n     EnterButtonClick, CancelButtonClick, HideButtonClick, ExpandButtonClick",
+                    "description": "功能回调接口",
                     "type": "Function"
                 },
                 {
@@ -3587,6 +3824,25 @@ define(function(require){return {
                     "name": "onClose",
                     "description": "ShojiScreen关闭后的回调",
                     "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\ShojiScreen.jsx.js",
+            "line": 35,
+            "fire": "Import src\\TitleWindow.jsx.js TitleWindow onBeforeClose",
+            "class": ""
+        },
+        {
+            "file": "src\\ShojiScreen.jsx.js",
+            "line": 38,
+            "fire": "ShojiScreen onAction",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "回调类型：\n'EnterButtonClick'   确定按钮被点击\n'CancelButtonClick'  取消按钮被点击\n'HideButtonClick'    收起按钮被点击\n'ExpandButtonClick'  展开按钮被点击",
+                    "type": "String"
                 }
             ],
             "class": ""
@@ -3651,6 +3907,12 @@ define(function(require){return {
                     "type": "Import|Properties"
                 }
             ],
+            "class": ""
+        },
+        {
+            "file": "src\\Slider.jsx.js",
+            "line": 34,
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
             "class": ""
         },
         {
@@ -3748,7 +4010,7 @@ define(function(require){return {
                         },
                         {
                             "name": "showSelector",
-                            "description": "是否在第一列显示行选择器，默认false，不建议使用，改在fieldConfig中添加。\n     此属性改为配置选择器工作模式：false|0 关闭；true|1 开启；2 选择当前页；3 选择全部",
+                            "description": "是否在第一列显示行选择器，默认false，不建议使用，改在fieldConfig中添加。此属性改为配置选择器工作模式：\n  false|0: 关闭\n   true|1: 开启\n        2: 只选择当前页\n        3: 只选择全部",
                             "type": "Boolean"
                         }
                     ]
@@ -3792,7 +4054,7 @@ define(function(require){return {
                 },
                 {
                     "name": "onAction",
-                    "description": "表格内部子渲染器的回调接口",
+                    "description": "表格控制回调总线",
                     "type": "Function"
                 },
                 {
@@ -3805,12 +4067,12 @@ define(function(require){return {
         },
         {
             "file": "src\\Table.jsx.js",
-            "line": 54,
+            "line": 57,
             "structure": "TableFieldObject",
             "example": [
                 "\n {\n     isSelector: <optional>\n     label: <optional>  \n     field: <optional>\n     content: function (dataItem, rowIndex, columnIndex, tableComponent)) <optional>\n     renderer: <optional>\n     isEmptyHeader: <optional>\n     thRenderer: <optional>\n     prepare: function (tdRendererProps, dataItem, rowIndex, columnIndex, tableComponent) <optional>\n }"
             ],
-            "attention": "TableFieldObject中，除function类型的值，其他数据都会无条件灌入renderer中，\n     以下属性除外：item, row, column, key, onAction",
+            "attention": "TableFieldObject中，除function类型的值，其他数据都会无条件灌入renderer中，\n以下属性除外：item, row, column, key, onAction",
             "params": [
                 {
                     "name": "isSelector",
@@ -3824,13 +4086,13 @@ define(function(require){return {
                 },
                 {
                     "name": "field",
-                    "description": "列名称",
+                    "description": "域名称，如果不设置content属性，会根据此属性最终content的值",
                     "type": "String"
                 },
                 {
                     "name": "content",
-                    "description": "列显示的数据域或域处理函数；如果为字符串，则此处会被替换为dataItem[content]\n     如果是函数，此处将被替换函数的返回值",
-                    "type": "String | Function"
+                    "description": "列显示的数据域或域处理函数；如果为字符串，则此处会被替换为dataItem[content]。如果是函数，此处将被替换函数的返回值。",
+                    "type": "String|Function"
                 },
                 {
                     "name": "renderer",
@@ -3849,7 +4111,7 @@ define(function(require){return {
                 },
                 {
                     "name": "prepare",
-                    "description": "单元格渲染前，生成的props属性集以及一些其他参数会以指针形式调用此回调，在这个回调中，\n     可以对props做任意修改",
+                    "description": "单元格renderer渲染前，生成的props属性集以及一些其他参数会以指针形式调用此回调。\n在这个回调中，可以对props做任意修改。\nfunction prepare(props, item, row, column, me) {}\n     props   {Object} 用于渲染单元格的属性集\n     item    {Object} 单元格所在行的数据源\n     row     {Number} 单元格行号\n     column  {Number} 单元格所在列号\n     me      {ReactComponent} 表格组件实例",
                     "type": "Function"
                 }
             ],
@@ -3857,7 +4119,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Table.jsx.js",
-            "line": 82,
+            "line": 90,
             "structure": "TableFixedObject",
             "example": [
                 "\n {\n     ref: <required>\n     top: <required>\n     zIndex: <optional>\n }"
@@ -3883,7 +4145,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Table.jsx.js",
-            "line": 94,
+            "line": 102,
             "structure": "TableValueTemplate",
             "example": [
                 "\n {\n     sortField: <optional>\n     sortType: <optional>\n     selected: <optional>\n     indeterminate: <optional>\n }"
@@ -3909,6 +4171,30 @@ define(function(require){return {
                     "name": "indeterminate",
                     "description": "table当前处于半选状态的行",
                     "type": "Array.<Number>"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Table.jsx.js",
+            "line": 117,
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
+            "class": ""
+        },
+        {
+            "file": "src\\Table.jsx.js",
+            "line": 120,
+            "fire": "table onAction",
+            "params": [
+                {
+                    "name": "style",
+                    "description": "回调类型",
+                    "type": "String"
+                },
+                {
+                    "name": "param",
+                    "description": "控制参数对象",
+                    "type": "Object"
                 }
             ],
             "class": ""
@@ -4063,31 +4349,7 @@ define(function(require){return {
         {
             "file": "src\\Tip.jsx.js",
             "line": 28,
-            "fire": "tip onOffset",
-            "params": [
-                {
-                    "name": "e",
-                    "description": "内部计算出的浮层将要显示的位置，可以对此对象进行指针操作",
-                    "type": "Object",
-                    "props": [
-                        {
-                            "name": "left",
-                            "description": "浮层相对body的左边距",
-                            "type": "Number"
-                        },
-                        {
-                            "name": "top",
-                            "description": "浮层相对body的上边距",
-                            "type": "Number"
-                        },
-                        {
-                            "name": "clockPosition",
-                            "description": "1-12的字符串或空串，表示浮层相对锚点的时钟位置，具体见src\\core\\layerTools.js",
-                            "type": "String"
-                        }
-                    ]
-                }
-            ],
+            "fire": "Import src\\Layer.jsx.js layer onOffset",
             "class": ""
         },
         {
@@ -4165,6 +4427,31 @@ define(function(require){return {
                     "name": "onClose",
                     "description": "TitleWindow关闭后的回调",
                     "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\TitleWindow.jsx.js",
+            "line": 33,
+            "fire": "TitleWindow onBeforeClose",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "JS原生UI事件对象",
+                    "type": "UIEvents",
+                    "props": [
+                        {
+                            "name": "returnValue",
+                            "description": "可以通过param1.returnValue = false的方法阻止继续关闭",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "targetComponent",
+                            "description": "当前组件实例",
+                            "type": "ReactComponent"
+                        }
+                    ]
                 }
             ],
             "class": ""
@@ -4523,6 +4810,10 @@ define(function(require){return {
             "line": " src\\components\\table\\ButtonRenderer.jsx.js:1"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\components\\table\\ButtonRenderer.jsx.js:23"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\components\\table\\Expander.jsx.js:1"
         },
@@ -4531,12 +4822,20 @@ define(function(require){return {
             "line": " src\\components\\table\\Expander.jsx.js:1"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\components\\table\\Expander.jsx.js:29"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\components\\table\\MessageBar.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
             "line": " src\\components\\table\\MessageBar.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\components\\table\\MessageBar.jsx.js:21"
         },
         {
             "message": "unknown tag: email",
@@ -4735,6 +5034,10 @@ define(function(require){return {
             "line": " src\\Calendar.jsx.js:23"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\Calendar.jsx.js:32"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\CheckBox.jsx.js:1"
         },
@@ -4748,7 +5051,7 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: fire",
-            "line": " src\\CheckBox.jsx.js:29"
+            "line": " src\\CheckBox.jsx.js:27"
         },
         {
             "message": "unknown tag: email",
@@ -4765,6 +5068,10 @@ define(function(require){return {
         {
             "message": "unknown tag: structure",
             "line": " src\\ComboList.jsx.js:27"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\ComboList.jsx.js:30"
         },
         {
             "message": "unknown tag: email",
@@ -4863,6 +5170,10 @@ define(function(require){return {
             "line": " src\\DropDownCalendar.jsx.js:19"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\DropDownCalendar.jsx.js:29"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\DropDownList.jsx.js:1"
         },
@@ -4895,6 +5206,10 @@ define(function(require){return {
             "line": " src\\DropDownRegion.jsx.js:25"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\DropDownRegion.jsx.js:35"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\DualTreeSelector-test.jsx.js:1"
         },
@@ -4919,20 +5234,28 @@ define(function(require){return {
             "line": " src\\Form.jsx.js:17"
         },
         {
-            "message": "unknown tag: attention",
-            "line": " src\\Form.jsx.js:62"
+            "message": "unknown tag: fire",
+            "line": " src\\Form.jsx.js:25"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\Form.jsx.js:34"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Form.jsx.js:83"
+            "line": " src\\Form.jsx.js:75"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Form.jsx.js:95"
+            "line": " src\\Form.jsx.js:96"
+        },
+        {
+            "message": "unknown tag: attention",
+            "line": " src\\Form.jsx.js:108"
         },
         {
             "message": "unknown tag: structure",
-            "line": " src\\Form.jsx.js:135"
+            "line": " src\\Form.jsx.js:148"
         },
         {
             "message": "unknown tag: email",
@@ -4945,6 +5268,14 @@ define(function(require){return {
         {
             "message": "unknown tag: properties",
             "line": " src\\Layer.jsx.js:18"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\Layer.jsx.js:35"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\Layer.jsx.js:42"
         },
         {
             "message": "unknown tag: email",
@@ -5023,8 +5354,16 @@ define(function(require){return {
             "line": " src\\RangeCalendar.jsx.js:27"
         },
         {
-            "message": "unknown tag: structure",
+            "message": "unknown tag: fire",
             "line": " src\\RangeCalendar.jsx.js:39"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\RangeCalendar.jsx.js:42"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\RangeCalendar.jsx.js:48"
         },
         {
             "message": "unknown tag: email",
@@ -5037,6 +5376,10 @@ define(function(require){return {
         {
             "message": "unknown tag: properties",
             "line": " src\\Region.jsx.js:27"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\Region.jsx.js:39"
         },
         {
             "message": "unknown tag: email",
@@ -5057,6 +5400,14 @@ define(function(require){return {
         {
             "message": "unknown tag: properties",
             "line": " src\\SearchBox.jsx.js:17"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\SearchBox.jsx.js:26"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\SearchBox.jsx.js:29"
         },
         {
             "message": "unknown tag: email",
@@ -5095,6 +5446,14 @@ define(function(require){return {
             "line": " src\\ShojiScreen.jsx.js:24"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\ShojiScreen.jsx.js:35"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\ShojiScreen.jsx.js:38"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\Slider.jsx.js:1"
         },
@@ -5105,6 +5464,10 @@ define(function(require){return {
         {
             "message": "unknown tag: properties",
             "line": " src\\Slider.jsx.js:20"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\Slider.jsx.js:34"
         },
         {
             "message": "unknown tag: email",
@@ -5140,23 +5503,31 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: structure",
-            "line": " src\\Table.jsx.js:54"
+            "line": " src\\Table.jsx.js:57"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Table.jsx.js:54"
+            "line": " src\\Table.jsx.js:57"
         },
         {
             "message": "unknown tag: structure",
-            "line": " src\\Table.jsx.js:82"
+            "line": " src\\Table.jsx.js:90"
         },
         {
             "message": "unknown tag: structure",
-            "line": " src\\Table.jsx.js:94"
+            "line": " src\\Table.jsx.js:102"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Table.jsx.js:94"
+            "line": " src\\Table.jsx.js:102"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\Table.jsx.js:117"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\Table.jsx.js:120"
         },
         {
             "message": "unknown tag: email",
@@ -5217,6 +5588,10 @@ define(function(require){return {
         {
             "message": "unknown tag: properties",
             "line": " src\\TitleWindow.jsx.js:18"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\TitleWindow.jsx.js:33"
         },
         {
             "message": "unknown tag: email",
@@ -5283,12 +5658,24 @@ define(function(require){return {
             "line": " src\\components\\table\\ButtonRenderer.jsx.js:1"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\components\\table\\ButtonRenderer.jsx.js:23"
+        },
+        {
             "message": "Missing item type\n带折叠按钮的列",
             "line": " src\\components\\table\\Expander.jsx.js:1"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\components\\table\\Expander.jsx.js:29"
+        },
+        {
             "message": "Missing item type\n黄色信息栏",
             "line": " src\\components\\table\\MessageBar.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\components\\table\\MessageBar.jsx.js:21"
         },
         {
             "message": "Missing item type\ntable无数据渲染器",
@@ -5627,6 +6014,10 @@ define(function(require){return {
             "line": " src\\Calendar.jsx.js:23"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\Calendar.jsx.js:32"
+        },
+        {
             "message": "Missing item type\n复选框",
             "line": " src\\CheckBox.jsx.js:1"
         },
@@ -5636,7 +6027,7 @@ define(function(require){return {
         },
         {
             "message": "Missing item type",
-            "line": " src\\CheckBox.jsx.js:29"
+            "line": " src\\CheckBox.jsx.js:27"
         },
         {
             "message": "Missing item type\n组合下拉列表",
@@ -5649,6 +6040,10 @@ define(function(require){return {
         {
             "message": "Missing item type",
             "line": " src\\ComboList.jsx.js:27"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\ComboList.jsx.js:30"
         },
         {
             "message": "Missing item type\n面包屑",
@@ -5699,6 +6094,10 @@ define(function(require){return {
             "line": " src\\DropDownCalendar.jsx.js:19"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\DropDownCalendar.jsx.js:29"
+        },
+        {
             "message": "Missing item type\n下拉列表",
             "line": " src\\DropDownList.jsx.js:1"
         },
@@ -5721,6 +6120,10 @@ define(function(require){return {
         {
             "message": "Missing item type",
             "line": " src\\DropDownRegion.jsx.js:25"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\DropDownRegion.jsx.js:35"
         },
         {
             "message": "Missing item type\n双树选择器",
@@ -5755,24 +6158,32 @@ define(function(require){return {
             "line": " src\\Form.jsx.js:17"
         },
         {
-            "message": "Missing item type\n注册表单输入域",
-            "line": " src\\Form.jsx.js:62"
-        },
-        {
-            "message": "Missing item type\n解除表单输入域",
-            "line": " src\\Form.jsx.js:83"
-        },
-        {
-            "message": "Missing item type\n更新表单域",
-            "line": " src\\Form.jsx.js:95"
-        },
-        {
-            "message": "Missing item type\n校验整个表单",
-            "line": " src\\Form.jsx.js:130"
+            "message": "Missing item type",
+            "line": " src\\Form.jsx.js:25"
         },
         {
             "message": "Missing item type",
-            "line": " src\\Form.jsx.js:135"
+            "line": " src\\Form.jsx.js:34"
+        },
+        {
+            "message": "Missing item type\n注册表单输入域",
+            "line": " src\\Form.jsx.js:75"
+        },
+        {
+            "message": "Missing item type\n解除表单输入域",
+            "line": " src\\Form.jsx.js:96"
+        },
+        {
+            "message": "Missing item type\n更新表单域",
+            "line": " src\\Form.jsx.js:108"
+        },
+        {
+            "message": "Missing item type\n校验整个表单",
+            "line": " src\\Form.jsx.js:143"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Form.jsx.js:148"
         },
         {
             "message": "Missing item type\n弹层",
@@ -5781,6 +6192,14 @@ define(function(require){return {
         {
             "message": "Missing item type",
             "line": " src\\Layer.jsx.js:18"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Layer.jsx.js:35"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Layer.jsx.js:42"
         },
         {
             "message": "Missing item type\n列表",
@@ -5847,12 +6266,24 @@ define(function(require){return {
             "line": " src\\RangeCalendar.jsx.js:39"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\RangeCalendar.jsx.js:42"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\RangeCalendar.jsx.js:48"
+        },
+        {
             "message": "Missing item type\n地域选择器",
             "line": " src\\Region.jsx.js:1"
         },
         {
             "message": "Missing item type",
             "line": " src\\Region.jsx.js:27"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Region.jsx.js:39"
         },
         {
             "message": "Missing item type\n时间选择组件",
@@ -5899,6 +6330,14 @@ define(function(require){return {
             "line": " src\\SearchBox.jsx.js:17"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\SearchBox.jsx.js:26"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\SearchBox.jsx.js:29"
+        },
+        {
             "message": "Missing item type\n选择器",
             "line": " src\\Select.jsx.js:1"
         },
@@ -5923,12 +6362,24 @@ define(function(require){return {
             "line": " src\\ShojiScreen.jsx.js:24"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\ShojiScreen.jsx.js:35"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\ShojiScreen.jsx.js:38"
+        },
+        {
             "message": "Missing item type\n数值滑竿",
             "line": " src\\Slider.jsx.js:1"
         },
         {
             "message": "Missing item type",
             "line": " src\\Slider.jsx.js:20"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Slider.jsx.js:34"
         },
         {
             "message": "Missing item type\n标签导航",
@@ -5956,15 +6407,23 @@ define(function(require){return {
         },
         {
             "message": "Missing item type",
-            "line": " src\\Table.jsx.js:54"
+            "line": " src\\Table.jsx.js:57"
         },
         {
             "message": "Missing item type",
-            "line": " src\\Table.jsx.js:82"
+            "line": " src\\Table.jsx.js:90"
         },
         {
             "message": "Missing item type",
-            "line": " src\\Table.jsx.js:94"
+            "line": " src\\Table.jsx.js:102"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Table.jsx.js:117"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Table.jsx.js:120"
         },
         {
             "message": "Missing item type\n文本域",
@@ -6017,6 +6476,10 @@ define(function(require){return {
         {
             "message": "Missing item type",
             "line": " src\\TitleWindow.jsx.js:18"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\TitleWindow.jsx.js:33"
         },
         {
             "message": "Missing item type\n树",

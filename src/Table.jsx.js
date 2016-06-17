@@ -37,8 +37,11 @@ define(function (require) {
          * @param {Boolean} flags.sortEnable 是否显示排序按钮，默认false
          * @param {Boolean} flags.showHeader 是否显示表头，默认false
          * @param {Boolean} flags.showSummary 是否在表头下方显示汇总栏，默认false
-         * @param {Boolean} flags.showSelector 是否在第一列显示行选择器，默认false，不建议使用，改在fieldConfig中添加。
-         *      此属性改为配置选择器工作模式：false|0 关闭；true|1 开启；2 选择当前页；3 选择全部
+         * @param {Boolean} flags.showSelector 是否在第一列显示行选择器，默认false，不建议使用，改在fieldConfig中添加。此属性改为配置选择器工作模式：
+         *   false|0: 关闭
+         *    true|1: 开启
+         *         2: 只选择当前页
+         *         3: 只选择全部
          * @param {Array.<Object>} datasource 表格数据源
          * @param {Object} summary 表格汇总信息的数据源
          * @param {Object} message 表格信息栏的数据源
@@ -46,7 +49,7 @@ define(function (require) {
          * @param {String} message.buttonLabel 信息栏中紧随信息文本的按钮标签，点击此按钮会通过onAction回调TableMessageBarClick事件
          * @param {Array.<TableFixedObject>} fixedPosition 当body滚动条发生滚动事，满足条件后位置固定的元素配置信息
          * @param {ReactClass} noDataRenderer 表格无数据时的渲染器
-         * @param {Function} onAction 表格内部子渲染器的回调接口
+         * @param {Function} onAction 表格控制回调总线
          *
          * @param {Import|Properties} src\mixins\InputWidget.js
          *      value onChange name validations customErrorTemplates valueLink valueTemplate
@@ -66,18 +69,23 @@ define(function (require) {
          *  }
          *
          * @attention TableFieldObject中，除function类型的值，其他数据都会无条件灌入renderer中，
-         *      以下属性除外：item, row, column, key, onAction
+         * 以下属性除外：item, row, column, key, onAction
          *
          * @param {Boolean} isSelector 该列是否是选择器，如果为true，其他配置除width外均无效
          * @param {String} label 显示在表头的列名
-         * @param {String} field 列名称
-         * @param {String | Function} content 列显示的数据域或域处理函数；如果为字符串，则此处会被替换为dataItem[content]
-         *      如果是函数，此处将被替换函数的返回值
+         * @param {String} field 域名称，如果不设置content属性，会根据此属性最终content的值
+         * @param {String|Function} content 列显示的数据域或域处理函数；如果为字符串，则此处会被替换为dataItem[content]。如果是函数，此处将被替换函数的返回值。
          * @param {ReactClass} renderer 列单元格渲染器
          * @param {Boolean} isEmptyHeader 表头是否留空，如果为true，则thRenderer无效
          * @param {ReactClass} thRenderer 列表头渲染器
-         * @param {Function} prepare 单元格渲染前，生成的props属性集以及一些其他参数会以指针形式调用此回调，在这个回调中，
-         *      可以对props做任意修改
+         * @param {Function} prepare 单元格renderer渲染前，生成的props属性集以及一些其他参数会以指针形式调用此回调。
+         * 在这个回调中，可以对props做任意修改。
+         * function prepare(props, item, row, column, me) {}
+         *      props   {Object} 用于渲染单元格的属性集
+         *      item    {Object} 单元格所在行的数据源
+         *      row     {Number} 单元格行号
+         *      column  {Number} 单元格所在列号
+         *      me      {ReactComponent} 表格组件实例
          */
         /**
          * @structure TableFixedObject
@@ -105,6 +113,14 @@ define(function (require) {
          * @param {String} sortType table当前排序的类型
          * @param {Array.<Number> | Number} selected table当前选中的元素的行号集合，如果此项为-1，则标识table被全选
          * @param {Array.<Number>} indeterminate table当前处于半选状态的行
+         */
+        /**
+         * @fire Import src\mixins\InputWidget.js XXX onChange
+         */
+        /**
+         * @fire table onAction
+         * @param {String} style 回调类型
+         * @param {Object} param 控制参数对象
          */
         // @override
         mixins: [InputWidget, WidgetWithFixedDom],

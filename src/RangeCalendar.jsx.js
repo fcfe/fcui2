@@ -31,13 +31,22 @@ define(function (require) {
          * @param {String} placeholder 弹出按钮默认显示的文字，如果选择了日期区间，则此项不显示
          * @param {String} max 日历最大值，在这一天之后的日期不能被选定，格式：YYYY-MM-DD
          * @param {String} min 日历最小值，在这一天之前的日期不能被选定，格式：YYYY-MM-DD
-         * @param {Array.<RangeCalendarShortCut>} shortCut 快捷选择按钮配置
+         * @param {Array.<CalendarShortCut>} shortCut 快捷选择按钮配置
          * @param {Function} rangeValidator 日期区间校验机
          * @param {Import|Properties} src\mixins\InputWidget.js
          *      value onChange name validations customErrorTemplates valueLink valueTemplate
          */
         /**
-         * @structure RangeCalendarShortCut
+         * @fire Import src\mixins\InputWidget.js XXX onChange
+         */
+        /**
+         * @fire RangeCalendar rangeValidator
+         * @param {Date} param1 左侧日历的日期
+         * @param {Date} param2 右侧日历的日期
+         * @return {Boolean|String} 请返回校验结果，字符串表示校验未通过。
+         */
+        /**
+         * @structure CalendarShortCut
          * @example
          *  {
          *      label: '',                  <required>

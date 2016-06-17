@@ -101,6 +101,7 @@ define(function (require) {
                     continue;
                 }
                 mergeParams(result[arr[1]], item.params);
+                if (item['return']) result[arr[1]]['returnValue'] = item['return'];
             }
         }
 
@@ -114,8 +115,10 @@ define(function (require) {
             for (var i = 0; i < classitems[fileName].length; i++) {
                 var item = classitems[fileName][i];
                 if (!item.hasOwnProperty('fire') || item.fire !== fireDescription) continue;
+                if (item['return']) result['return'] = item['return'];
                 result[fireName] = result[fireName] || [];
                 result[fireName] = mergeParams(result[fireName], item.params);
+                if (item['return']) result[fireName]['returnValue'] = item['return'];
             }
         }
     }
@@ -183,17 +186,17 @@ define(function (require) {
         var doms = [];
         for (var i = 0; i < callbacks.length; i++) {
             var param = params[callbacks[i]];
-            if (!param || param.length === 0) {
-                console.warn('this.props.' + callbacks[i] + ' don not have documents.')
-                continue;
-            }
             var label = 'this.props.' + callbacks[i] + '(';
             for (var j = 0; j < param.length; j++) label += 'param' + (j + 1) + (j < param.length - 1 ? ', ' : ''); 
             label += ')';
+            if (param.returnValue) {
+                label = '{' + param.returnValue.type + '} ' + label;
+            }
             doms.push(
                 <div key={i} style={{marginTop: 5}}>
                     <h3>{label}</h3>
-                    <Params params={param} prefix=''/>
+                    {param.returnValue ? <h6>{param.returnValue.description}</h6> : ''}
+                    {param.length ? <Params params={param} prefix=''/> : null}
                 </div>
             );
         }

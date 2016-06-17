@@ -27,14 +27,22 @@ define(function (require) {
          * @param {Object} skin 挂在ShojiScreen容器上的皮肤
          * @param {Number} workspaceWidth ShojiScreen工作区宽度
          * @param {Boolean} isOpen ShojiScreen是否显示，如果为true，layer容器将被添加到body中
-         * @param {Function} onAction 功能回调接口，目前有四种内部回调，type分别是
-         *      EnterButtonClick, CancelButtonClick, HideButtonClick, ExpandButtonClick
+         * @param {Function} onAction 功能回调接口
          * @param {Function} onRender ShojiScreen渲染完成后的回调
          * @param {Function} onBeforeClose ShojiScreen关闭前触发的回调，可以在这个回调中阻止窗体关闭
          * @param {Function} onClose ShojiScreen关闭后的回调 
          */
-
-
+        /**
+         * @fire Import src\TitleWindow.jsx.js TitleWindow onBeforeClose
+         */
+        /**
+         * @fire ShojiScreen onAction
+         * @param {String} type 回调类型：
+         * 'EnterButtonClick'   确定按钮被点击
+         * 'CancelButtonClick'  取消按钮被点击
+         * 'HideButtonClick'    收起按钮被点击
+         * 'ExpandButtonClick'  展开按钮被点击
+         */
         // @override
         getDefaultProps: function () {
             return {
@@ -115,7 +123,7 @@ define(function (require) {
             document.body.appendChild(this.___expandButton___);
             tools.addExpandButton(this.___expandButton___);
             tools.freshExpandButton();
-            typeof this.props.onAction === 'function' && this.props.onAction('HideButtonClick', {});
+            typeof this.props.onAction === 'function' && this.props.onAction('HideButtonClick');
         },
 
 
@@ -124,14 +132,14 @@ define(function (require) {
             document.body.appendChild(this.___container___);
             document.body.style.overflow = 'hidden';
             document.body.removeChild(this.___expandButton___);
-            typeof this.props.onAction === 'function' && this.props.onAction('ExpandButtonClick', {});
+            typeof this.props.onAction === 'function' && this.props.onAction('ExpandButtonClick');
         },
 
 
         onButtonBarClick: function (e) {
             var dataset = util.getDataset(e.target);
             if (!dataset.uiCmd) return;
-            typeof this.props.onAction === 'function' && this.props.onAction(dataset.uiCmd, {});
+            typeof this.props.onAction === 'function' && this.props.onAction(dataset.uiCmd);
         },
 
 

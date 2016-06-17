@@ -13,7 +13,7 @@ define(function (require) {
         render: function () {
             var item = this.props.item;
             return (
-                <div>
+                <div className="introduction-container">
                     <div className="parser-introduction">
                         <h3>{item.description}</h3>
                         <div style={{float: 'right'}}>{'v' + item.version}</div>
