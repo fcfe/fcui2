@@ -17,13 +17,20 @@ define(function (require) {
         /**
          * @properties
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
-         * @param {String} tip 弹出提示的标题
+         * @param {String} title 弹出提示的标题
          * @param {String} content 弹出提示的内容，可以含有html标签
          * @param {String} icon 提示组件外部显示的图标，具体见src/css/icon/variable.less
          * @param {ReactClass} renderer Tip内部渲染的组件，如果指定，icon属性无效
          * @param {Object} renderProps Tip内部组件渲染的属性集
-         * @param {String} layerLocation 浮层的定位配置，见layer.props.location
+         * @param {String} layerLocation 浮层的定位配置，具体见src\core\layerTools.js
          * @param {Function} onOffset 浮层位置修正回调
+         */
+        /**
+         * @fire tip onOffset
+         * @param {Object} e 内部计算出的浮层将要显示的位置，可以对此对象进行指针操作
+         * @param {Number} e.left 浮层相对body的左边距
+         * @param {Number} e.top 浮层相对body的上边距
+         * @param {String} e.clockPosition 1-12的字符串或空串，表示浮层相对锚点的时钟位置，具体见src\core\layerTools.js
          */
         // @override
         getDefaultProps: function () {

@@ -24,6 +24,13 @@ define(function (require) {
          * @param {Import|Properties} src\mixins\InputWidget.js
          *      onChange name validations customErrorTemplates valueLink valueTemplate
          */
+        /**
+         * @fire Radio onChange
+         * @param {SyntheticEvent} e React事件对象。此事件一般不需要被监听。
+         * @param {HtmlElement} e.target 组件实例的根容器
+         * @param {Boolean} e.target.checked Radio是否被选中。如果onChange被触发这个值必然是true
+         * @param {String} e.target.value Radio的值，用于区别身份，等于this.props.value。
+         */
         // @override
         mixins: [InputWidget],
         // @override

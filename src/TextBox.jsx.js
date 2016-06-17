@@ -22,6 +22,9 @@ define(function (require) {
          * @param {Import|Properties} src\mixins\InputWidget.js
          *      value onChange name validations customErrorTemplates valueLink valueTemplate
          */
+        /**
+         * @fire Import src\mixins\InputWidget.js XXX onChange
+         */
         // @override
         mixins: [InputWidget, InputWidgetImeFixed],
         // @override

@@ -7,7 +7,12 @@
 * 文档中以"// "开头，或以"/*"和"*/"包含的注释将不被解析，只有以"/**"和"*/"包含的才会被解析。
 
 ### 官方标签
+
 ###### 一级标签
+
+    @constructor 构造函数，表明该函数为构造函数。
+
+    @interface 接口函数，表明该函数是组件对外接口。
 
 ###### 二级标签   
 
@@ -22,23 +27,23 @@
 
     @example 示例，标签中的例子会被显示成代码模式。
 
-    @constructor 构造函数，表明该函数为构造函数。
-
-    @interface 接口函数，表明该函数是组件对外接口。
-
 ### 自定义标签
 
 ###### 一级标签
+
     @properties 属性集，表明该注释块是属性集，其中描述了fcui2组件的this.props默认集合。
 
     @structure 数据结构，表明该注释块描述了一个数据结构。
 
         @structure标签支持从其他文件中导入注释，如@structure Import src\List.jsx.js ListItemObject，
-        作用是从src\List.jsx.js文件中导入名为ListItemObject的数据结构注释。
+        作用是从src\List.jsx.js文件中导入描述ListItemObject的structure注释。
 
     @fire 回调派发，表明该注释块描述了一个事件派发
+        @fire标签支持从其他文件导入注释，如@fire Import src\components\list\NormalRenderer.jsx.js List onClick，
+        作用是从src\components\list\NormalRenderer.jsx.js中导入描述为'List onClick'的fire注释。
 
 ###### 二级标签
+
     @name 方法名，YUIDocjs好像不会自动抓方法名，用这个暂时对付一下。
 
     @className 类名，方法所属的类的名称，该类必须有@constructor标记，否则不会联合显示。

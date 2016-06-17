@@ -10,6 +10,11 @@ define(function (require) {
     var language = require('../../core/language');
 
     return React.createClass({
+        getDefaultProps: function () {
+            return {
+                tableComponent: {}
+            };
+        },
         render: function () {
             return (<div className="table-nodata">{language.table.noData}</div>);
         }

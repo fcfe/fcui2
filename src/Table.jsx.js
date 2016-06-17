@@ -304,7 +304,7 @@ define(function (require) {
             return (
                 <tr className="tr-data tr-nodata">
                     <td colSpan={config.length} style={{textAlign: 'center'}}>
-                        <NoData/>
+                        <NoData tableComponent={me}/>
                     </td>
                 </tr>
             );

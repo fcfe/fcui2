@@ -26,6 +26,9 @@ define(function (require) {
         /**
          * @structure Import src\List.jsx.js ListItemObject
          */
+        /**
+         * @fire Import src\components\list\NormalRenderer.jsx.js List onClick
+         */
         // @override
         getDefaultProps: function () {
             return {

@@ -29,6 +29,9 @@ define(function (require) {
         /**
          * @structure Import src\List.jsx.js ListItemObject
          */
+        /**
+         * @fire Import src\mixins\InputWidget.js XXX onChange
+         */
         // @override
         mixins: [InputWidget],
         // @override

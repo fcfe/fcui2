@@ -48,7 +48,12 @@
  */
 
 
-
+/**
+ * @fire XXX onChange
+ * @param {SyntheticEvent} e React事件对象
+ * @param {HtmlElement} e.target 组件根容器
+ * @param {String|Number|Boolean} e.target.value 组件的值，类型视具体组件而定
+ */
 define(function (require) {
 
 

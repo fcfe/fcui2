@@ -26,6 +26,13 @@ define(function (require) {
          * @param {Import|Properties} src\mixins\InputWidget.js
          *      onChange name validations customErrorTemplates valueLink valueTemplate
          */
+        /**
+         * @fire CheckBox onChange
+         * @param {SyntheticEvent} e React事件对象
+         * @param {HtmlElement} e.target 组件实例的根容器
+         * @param {Boolean} e.target.checked checkbox是否被选中
+         * @param {String} e.target.value checkbox的值，用于区别身份，等于this.props.value
+         */
         // @override
         mixins: [InputWidget],
         // @override

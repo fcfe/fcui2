@@ -10,6 +10,7 @@ define(function (require) {
     var expandableTableDatasourceFactory = require('./tools/expandableTableDatasourceFactory');
 
 
+
     var items1 = [
         {
             title: 'Normal Table',
@@ -26,6 +27,7 @@ define(function (require) {
                 flags: {
                     showHeader: true
                 },
+                noDataRenderer: require('fcui/Button.jsx'),
                 fieldConfig: [
                     fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
                 ]

@@ -1,5 +1,5 @@
 /**
- *  List组件item渲染器
+ * List Item默认渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2
@@ -25,6 +25,12 @@ define(function (require) {
         getInitialState: function () {
             return {};
         },
+        /**
+         * @fire List onClick
+         * @param {SyntheticEvent} e React事件对象
+         * @param {HtmlElement} e.target List Item的根容器
+         * @param {String} e.target.value 对应ListItemObject.value
+         */
         onClick: function (e) {
             if (this.props.disabled) return;
             e.target = this.refs.container;

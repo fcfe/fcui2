@@ -27,21 +27,20 @@ define(function (require) {
          */
         /**
          * @fire button onClick
-         * @param {SyntheticEvent} aaaaaa 第一个参数
-         * @param {ReactMouseEvent} e 第二个参数
+         * @param {SyntheticEvent} e React事件对象
          * @param {HtmlElement} e.target Button实例的根容器
          * @param {String} e.target.value Button实例的value属性
          */
         /**
-         * @fire button onClick
-         * @param {String} bbbbbb 第一个参数还可以是字符串
-         * @param {ReactMouseEvent} e 第二个参数
+         * @fire button onMouseEnter
+         * @param {SyntheticEvent} e React事件对象
          * @param {HtmlElement} e.target Button实例的根容器
-         * @param {String} e.target.id 这个会合并进去
-         * @param {String} e.target.value 这个在上一个片段有了不会合并
-         * @param {String} e.target.id 这个在本片已经有了，不会合并
-         * @param {HtmlElement} e.target1 这个新target会合并
          */
+        /**
+         * @fire button onMouseLeave
+         * @param {SyntheticEvent} e React事件对象
+         * @param {HtmlElement} e.target Button实例的根容器
+         */ 
         // @override
         getDefaultProps: function () {
             return {

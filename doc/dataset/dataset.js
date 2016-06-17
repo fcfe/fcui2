@@ -239,6 +239,13 @@ define(function(require){return {
             "fors": {},
             "namespaces": {}
         },
+        "src\\AlphabetRegion.jsx.js": {
+            "name": "src\\AlphabetRegion.jsx.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "src\\Button.jsx.js": {
             "name": "src\\Button.jsx.js",
             "modules": {},
@@ -496,10 +503,37 @@ define(function(require){return {
         {
             "file": "src\\components\\list\\NormalRenderer.jsx.js",
             "line": 1,
-            "description": "List组件item渲染器",
+            "description": "List Item默认渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\list\\NormalRenderer.jsx.js",
+            "line": 28,
+            "fire": "List onClick",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "React事件对象",
+                    "type": "SyntheticEvent",
+                    "props": [
+                        {
+                            "name": "target",
+                            "description": "List Item的根容器",
+                            "type": "HtmlElement",
+                            "props": [
+                                {
+                                    "name": "value",
+                                    "description": "对应ListItemObject.value",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
             "class": ""
         },
         {
@@ -1718,35 +1752,62 @@ define(function(require){return {
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 72,
+            "line": 51,
+            "fire": "XXX onChange",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "React事件对象",
+                    "type": "SyntheticEvent",
+                    "props": [
+                        {
+                            "name": "target",
+                            "description": "组件根容器",
+                            "type": "HtmlElement",
+                            "props": [
+                                {
+                                    "name": "value",
+                                    "description": "组件的值，类型视具体组件而定",
+                                    "type": "String|Number|Boolean"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\mixins\\InputWidget.js",
+            "line": 77,
             "description": "检查valueLink、value、onChange\n组件初始化前，检查valueLink和value + onChange，同时存在则抛错，并阻塞系统",
             "override": "",
             "class": ""
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 91,
+            "line": 96,
             "description": "注册表单域，更新校验对象",
             "override": "",
             "class": ""
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 104,
+            "line": 109,
             "description": "解除表单域注册",
             "override": "",
             "class": ""
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 116,
+            "line": 121,
             "description": "更新校验对象",
             "override": "",
             "class": ""
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 137,
+            "line": 142,
             "description": "获取value",
             "return": {
                 "description": "输入组件当前值",
@@ -1757,7 +1818,7 @@ define(function(require){return {
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 175,
+            "line": 180,
             "description": "派发onChange事件",
             "params": [
                 {
@@ -1789,7 +1850,7 @@ define(function(require){return {
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 225,
+            "line": 230,
             "description": "手动调用校验",
             "params": [
                 {
@@ -1848,6 +1909,33 @@ define(function(require){return {
             "description": "用于fixed 组件内部某个DOM position的mixin",
             "author": "Brian Li",
             "email": "lbxxlht@163.com\n\n 此mixin主要作用是固定组件内部某些DOM的位置",
+            "class": ""
+        },
+        {
+            "file": "src\\AlphabetRegion.jsx.js",
+            "line": 1,
+            "description": "字母序地域选择器",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\AlphabetRegion.jsx.js",
+            "line": 20,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "onClick",
+                    "description": "响应回调",
+                    "type": "Function"
+                }
+            ],
             "class": ""
         },
         {
@@ -1923,14 +2011,9 @@ define(function(require){return {
             "fire": "button onClick",
             "params": [
                 {
-                    "name": "aaaaaa",
-                    "description": "第一个参数",
-                    "type": "SyntheticEvent"
-                },
-                {
                     "name": "e",
-                    "description": "第二个参数",
-                    "type": "ReactMouseEvent",
+                    "description": "React事件对象",
+                    "type": "SyntheticEvent",
                     "props": [
                         {
                             "name": "target",
@@ -1951,44 +2034,37 @@ define(function(require){return {
         },
         {
             "file": "src\\Button.jsx.js",
-            "line": 35,
-            "fire": "button onClick",
+            "line": 34,
+            "fire": "button onMouseEnter",
             "params": [
                 {
-                    "name": "bbbbbb",
-                    "description": "第一个参数还可以是字符串",
-                    "type": "String"
-                },
-                {
                     "name": "e",
-                    "description": "第二个参数",
-                    "type": "ReactMouseEvent",
+                    "description": "React事件对象",
+                    "type": "SyntheticEvent",
                     "props": [
                         {
                             "name": "target",
                             "description": "Button实例的根容器",
-                            "type": "HtmlElement",
-                            "props": [
-                                {
-                                    "name": "id",
-                                    "description": "这个会合并进去",
-                                    "type": "String"
-                                },
-                                {
-                                    "name": "value",
-                                    "description": "这个在上一个片段有了不会合并",
-                                    "type": "String"
-                                },
-                                {
-                                    "name": "id",
-                                    "description": "这个在本片已经有了，不会合并",
-                                    "type": "String"
-                                }
-                            ]
-                        },
+                            "type": "HtmlElement"
+                        }
+                    ]
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Button.jsx.js",
+            "line": 39,
+            "fire": "button onMouseLeave",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "React事件对象",
+                    "type": "SyntheticEvent",
+                    "props": [
                         {
-                            "name": "target1",
-                            "description": "这个新target会合并",
+                            "name": "target",
+                            "description": "Button实例的根容器",
                             "type": "HtmlElement"
                         }
                     ]
@@ -2081,6 +2157,38 @@ define(function(require){return {
                     "name": "src\\mixins\\InputWidget.js",
                     "description": "onChange name validations customErrorTemplates valueLink valueTemplate",
                     "type": "Import|Properties"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\CheckBox.jsx.js",
+            "line": 29,
+            "fire": "CheckBox onChange",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "React事件对象",
+                    "type": "SyntheticEvent",
+                    "props": [
+                        {
+                            "name": "target",
+                            "description": "组件实例的根容器",
+                            "type": "HtmlElement",
+                            "props": [
+                                {
+                                    "name": "checked",
+                                    "description": "checkbox是否被选中",
+                                    "type": "Boolean"
+                                },
+                                {
+                                    "name": "value",
+                                    "description": "checkbox的值，用于区别身份，等于this.props.value",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
                 }
             ],
             "class": ""
@@ -2485,6 +2593,12 @@ define(function(require){return {
             "file": "src\\DropDownList.jsx.js",
             "line": 26,
             "structure": "Import src\\List.jsx.js ListItemObject",
+            "class": ""
+        },
+        {
+            "file": "src\\DropDownList.jsx.js",
+            "line": 29,
+            "fire": "Import src\\components\\list\\NormalRenderer.jsx.js List onClick",
             "class": ""
         },
         {
@@ -2990,7 +3104,13 @@ define(function(require){return {
         },
         {
             "file": "src\\NumberBox.jsx.js",
-            "line": 94,
+            "line": 34,
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
+            "class": ""
+        },
+        {
+            "file": "src\\NumberBox.jsx.js",
+            "line": 97,
             "description": "让输入框获得焦点",
             "interface": "focus",
             "class": ""
@@ -3038,6 +3158,12 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\Pager.jsx.js",
+            "line": 28,
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
+            "class": ""
+        },
+        {
             "file": "src\\Radio.jsx.js",
             "line": 1,
             "description": "单选框",
@@ -3080,6 +3206,38 @@ define(function(require){return {
                     "name": "src\\mixins\\InputWidget.js",
                     "description": "onChange name validations customErrorTemplates valueLink valueTemplate",
                     "type": "Import|Properties"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Radio.jsx.js",
+            "line": 27,
+            "fire": "Radio onChange",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "React事件对象。此事件一般不需要被监听。",
+                    "type": "SyntheticEvent",
+                    "props": [
+                        {
+                            "name": "target",
+                            "description": "组件实例的根容器",
+                            "type": "HtmlElement",
+                            "props": [
+                                {
+                                    "name": "checked",
+                                    "description": "Radio是否被选中。如果onChange被触发这个值必然是true",
+                                    "type": "Boolean"
+                                },
+                                {
+                                    "name": "value",
+                                    "description": "Radio的值，用于区别身份，等于this.props.value。",
+                                    "type": "String"
+                                }
+                            ]
+                        }
+                    ]
                 }
             ],
             "class": ""
@@ -3370,6 +3528,12 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\Select.jsx.js",
+            "line": 32,
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
+            "class": ""
+        },
+        {
             "file": "src\\ShojiScreen.jsx.js",
             "line": 1,
             "description": "侧拉门",
@@ -3533,6 +3697,12 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\Tab.jsx.js",
+            "line": 29,
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
+            "class": ""
+        },
+        {
             "file": "src\\Table.jsx.js",
             "line": 1,
             "description": "表格",
@@ -3616,7 +3786,7 @@ define(function(require){return {
                     "type": "Array.<TableFixedObject>"
                 },
                 {
-                    "name": "nodataRenderer",
+                    "name": "noDataRenderer",
                     "description": "表格无数据时的渲染器",
                     "type": "ReactClass"
                 },
@@ -3681,18 +3851,13 @@ define(function(require){return {
                     "name": "prepare",
                     "description": "单元格渲染前，生成的props属性集以及一些其他参数会以指针形式调用此回调，在这个回调中，\n     可以对props做任意修改",
                     "type": "Function"
-                },
-                {
-                    "name": "width,align,verticalAlign,color",
-                    "description": "将要被下降到tdRendererProps.style中的属性",
-                    "type": "Any"
                 }
             ],
             "class": ""
         },
         {
             "file": "src\\Table.jsx.js",
-            "line": 83,
+            "line": 82,
             "structure": "TableFixedObject",
             "example": [
                 "\n {\n     ref: <required>\n     top: <required>\n     zIndex: <optional>\n }"
@@ -3718,10 +3883,10 @@ define(function(require){return {
         },
         {
             "file": "src\\Table.jsx.js",
-            "line": 95,
+            "line": 94,
             "structure": "TableValueTemplate",
             "example": [
-                "\n {\n     sortField: <optional>\n     sortType: <optional>\n     selected: <optional>\n }"
+                "\n {\n     sortField: <optional>\n     sortType: <optional>\n     selected: <optional>\n     indeterminate: <optional>\n }"
             ],
             "attention": "table的value类型是字符串，用JSON.stringify方法将示例中的数据结构转换，因此操作value时不能出环",
             "params": [
@@ -3739,6 +3904,11 @@ define(function(require){return {
                     "name": "selected",
                     "description": "table当前选中的元素的行号集合，如果此项为-1，则标识table被全选",
                     "type": "Array.<Number> | Number"
+                },
+                {
+                    "name": "indeterminate",
+                    "description": "table当前处于半选状态的行",
+                    "type": "Array.<Number>"
                 }
             ],
             "class": ""
@@ -3777,7 +3947,13 @@ define(function(require){return {
         },
         {
             "file": "src\\TextArea.jsx.js",
-            "line": 45,
+            "line": 25,
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
+            "class": ""
+        },
+        {
+            "file": "src\\TextArea.jsx.js",
+            "line": 48,
             "description": "让文本域获得焦点",
             "interface": "focus",
             "class": ""
@@ -3816,7 +3992,13 @@ define(function(require){return {
         },
         {
             "file": "src\\TextBox.jsx.js",
-            "line": 45,
+            "line": 25,
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
+            "class": ""
+        },
+        {
+            "file": "src\\TextBox.jsx.js",
+            "line": 48,
             "description": "让输入框获得焦点",
             "interface": "focus",
             "class": ""
@@ -3841,7 +4023,7 @@ define(function(require){return {
                     "type": "Import|Properties"
                 },
                 {
-                    "name": "tip",
+                    "name": "title",
                     "description": "弹出提示的标题",
                     "type": "String"
                 },
@@ -3867,13 +4049,43 @@ define(function(require){return {
                 },
                 {
                     "name": "layerLocation",
-                    "description": "浮层的定位配置，见layer.props.location",
+                    "description": "浮层的定位配置，具体见src\\core\\layerTools.js",
                     "type": "String"
                 },
                 {
                     "name": "onOffset",
                     "description": "浮层位置修正回调",
                     "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Tip.jsx.js",
+            "line": 28,
+            "fire": "tip onOffset",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "内部计算出的浮层将要显示的位置，可以对此对象进行指针操作",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "left",
+                            "description": "浮层相对body的左边距",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "top",
+                            "description": "浮层相对body的上边距",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "clockPosition",
+                            "description": "1-12的字符串或空串，表示浮层相对锚点的时钟位置，具体见src\\core\\layerTools.js",
+                            "type": "String"
+                        }
+                    ]
                 }
             ],
             "class": ""
@@ -4229,6 +4441,12 @@ define(function(require){return {
                 }
             ],
             "class": ""
+        },
+        {
+            "file": "src\\Wizard.jsx.js",
+            "line": 25,
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
+            "class": ""
         }
     ],
     "warnings": [
@@ -4259,6 +4477,10 @@ define(function(require){return {
         {
             "message": "unknown tag: version",
             "line": " src\\components\\list\\NormalRenderer.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\components\\list\\NormalRenderer.jsx.js:28"
         },
         {
             "message": "unknown tag: email",
@@ -4413,24 +4635,28 @@ define(function(require){return {
             "line": " src\\mixins\\InputWidget.js:39"
         },
         {
-            "message": "unknown tag: override",
-            "line": " src\\mixins\\InputWidget.js:72"
+            "message": "unknown tag: fire",
+            "line": " src\\mixins\\InputWidget.js:51"
         },
         {
             "message": "unknown tag: override",
-            "line": " src\\mixins\\InputWidget.js:91"
+            "line": " src\\mixins\\InputWidget.js:77"
         },
         {
             "message": "unknown tag: override",
-            "line": " src\\mixins\\InputWidget.js:104"
+            "line": " src\\mixins\\InputWidget.js:96"
         },
         {
             "message": "unknown tag: override",
-            "line": " src\\mixins\\InputWidget.js:116"
+            "line": " src\\mixins\\InputWidget.js:109"
+        },
+        {
+            "message": "unknown tag: override",
+            "line": " src\\mixins\\InputWidget.js:121"
         },
         {
             "message": "unknown tag: notice",
-            "line": " src\\mixins\\InputWidget.js:137"
+            "line": " src\\mixins\\InputWidget.js:142"
         },
         {
             "message": "unknown tag: email",
@@ -4462,6 +4688,18 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: email",
+            "line": " src\\AlphabetRegion.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\AlphabetRegion.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\AlphabetRegion.jsx.js:20"
+        },
+        {
+            "message": "unknown tag: email",
             "line": " src\\Button.jsx.js:1"
         },
         {
@@ -4478,7 +4716,11 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: fire",
-            "line": " src\\Button.jsx.js:35"
+            "line": " src\\Button.jsx.js:34"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\Button.jsx.js:39"
         },
         {
             "message": "unknown tag: email",
@@ -4503,6 +4745,10 @@ define(function(require){return {
         {
             "message": "unknown tag: properties",
             "line": " src\\CheckBox.jsx.js:16"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\CheckBox.jsx.js:29"
         },
         {
             "message": "unknown tag: email",
@@ -4633,6 +4879,10 @@ define(function(require){return {
             "line": " src\\DropDownList.jsx.js:26"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\DropDownList.jsx.js:29"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\DropDownRegion.jsx.js:1"
         },
@@ -4725,6 +4975,10 @@ define(function(require){return {
             "line": " src\\NumberBox.jsx.js:20"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\NumberBox.jsx.js:34"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\Pager.jsx.js:1"
         },
@@ -4737,6 +4991,10 @@ define(function(require){return {
             "line": " src\\Pager.jsx.js:18"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\Pager.jsx.js:28"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\Radio.jsx.js:1"
         },
@@ -4747,6 +5005,10 @@ define(function(require){return {
         {
             "message": "unknown tag: properties",
             "line": " src\\Radio.jsx.js:16"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\Radio.jsx.js:27"
         },
         {
             "message": "unknown tag: email",
@@ -4813,6 +5075,10 @@ define(function(require){return {
             "line": " src\\Select.jsx.js:29"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\Select.jsx.js:32"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\ShojiScreen.jsx.js:1"
         },
@@ -4857,6 +5123,10 @@ define(function(require){return {
             "line": " src\\Tab.jsx.js:26"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\Tab.jsx.js:29"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\Table.jsx.js:1"
         },
@@ -4878,15 +5148,15 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: structure",
-            "line": " src\\Table.jsx.js:83"
+            "line": " src\\Table.jsx.js:82"
         },
         {
             "message": "unknown tag: structure",
-            "line": " src\\Table.jsx.js:95"
+            "line": " src\\Table.jsx.js:94"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Table.jsx.js:95"
+            "line": " src\\Table.jsx.js:94"
         },
         {
             "message": "unknown tag: email",
@@ -4901,6 +5171,10 @@ define(function(require){return {
             "line": " src\\TextArea.jsx.js:17"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\TextArea.jsx.js:25"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\TextBox.jsx.js:1"
         },
@@ -4913,6 +5187,10 @@ define(function(require){return {
             "line": " src\\TextBox.jsx.js:17"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\TextBox.jsx.js:25"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\Tip.jsx.js:1"
         },
@@ -4923,6 +5201,10 @@ define(function(require){return {
         {
             "message": "unknown tag: properties",
             "line": " src\\Tip.jsx.js:17"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\Tip.jsx.js:28"
         },
         {
             "message": "unknown tag: email",
@@ -4961,6 +5243,10 @@ define(function(require){return {
             "line": " src\\Wizard.jsx.js:17"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\Wizard.jsx.js:25"
+        },
+        {
             "message": "Missing item type",
             "line": " src\\components\\dialog\\Alert.jsx.js:1"
         },
@@ -4969,8 +5255,12 @@ define(function(require){return {
             "line": " src\\components\\dialog\\Confirm.jsx.js:1"
         },
         {
-            "message": "Missing item type\nList组件item渲染器",
+            "message": "Missing item type\nList Item默认渲染器",
             "line": " src\\components\\list\\NormalRenderer.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\components\\list\\NormalRenderer.jsx.js:28"
         },
         {
             "message": "Missing item type\n省选择零件",
@@ -5249,32 +5539,36 @@ define(function(require){return {
             "line": " src\\mixins\\InputWidget.js:39"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\mixins\\InputWidget.js:51"
+        },
+        {
             "message": "Missing item type\n检查valueLink、value、onChange\n组件初始化前，检查valueLink和value + onChange，同时存在则抛错，并阻塞系统",
-            "line": " src\\mixins\\InputWidget.js:72"
+            "line": " src\\mixins\\InputWidget.js:77"
         },
         {
             "message": "Missing item type\n注册表单域，更新校验对象",
-            "line": " src\\mixins\\InputWidget.js:91"
+            "line": " src\\mixins\\InputWidget.js:96"
         },
         {
             "message": "Missing item type\n解除表单域注册",
-            "line": " src\\mixins\\InputWidget.js:104"
+            "line": " src\\mixins\\InputWidget.js:109"
         },
         {
             "message": "Missing item type\n更新校验对象",
-            "line": " src\\mixins\\InputWidget.js:116"
+            "line": " src\\mixins\\InputWidget.js:121"
         },
         {
             "message": "Missing item type\n获取value",
-            "line": " src\\mixins\\InputWidget.js:137"
+            "line": " src\\mixins\\InputWidget.js:142"
         },
         {
             "message": "Missing item type\n派发onChange事件",
-            "line": " src\\mixins\\InputWidget.js:175"
+            "line": " src\\mixins\\InputWidget.js:180"
         },
         {
             "message": "Missing item type\n手动调用校验",
-            "line": " src\\mixins\\InputWidget.js:225"
+            "line": " src\\mixins\\InputWidget.js:230"
         },
         {
             "message": "Missing item type\n输入框流劫持",
@@ -5297,6 +5591,14 @@ define(function(require){return {
             "line": " src\\mixins\\WidgetWithFixedDom.js:1"
         },
         {
+            "message": "Missing item type\n字母序地域选择器",
+            "line": " src\\AlphabetRegion.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\AlphabetRegion.jsx.js:20"
+        },
+        {
             "message": "Missing item type\n按钮",
             "line": " src\\Button.jsx.js:1"
         },
@@ -5310,7 +5612,11 @@ define(function(require){return {
         },
         {
             "message": "Missing item type",
-            "line": " src\\Button.jsx.js:35"
+            "line": " src\\Button.jsx.js:34"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Button.jsx.js:39"
         },
         {
             "message": "Missing item type\n日历",
@@ -5327,6 +5633,10 @@ define(function(require){return {
         {
             "message": "Missing item type",
             "line": " src\\CheckBox.jsx.js:16"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\CheckBox.jsx.js:29"
         },
         {
             "message": "Missing item type\n组合下拉列表",
@@ -5399,6 +5709,10 @@ define(function(require){return {
         {
             "message": "Missing item type",
             "line": " src\\DropDownList.jsx.js:26"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\DropDownList.jsx.js:29"
         },
         {
             "message": "Missing item type\n下拉地域选择器",
@@ -5489,8 +5803,12 @@ define(function(require){return {
             "line": " src\\NumberBox.jsx.js:20"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\NumberBox.jsx.js:34"
+        },
+        {
             "message": "Missing item type\n让输入框获得焦点",
-            "line": " src\\NumberBox.jsx.js:94"
+            "line": " src\\NumberBox.jsx.js:97"
         },
         {
             "message": "Missing item type\n翻页器",
@@ -5501,12 +5819,20 @@ define(function(require){return {
             "line": " src\\Pager.jsx.js:18"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\Pager.jsx.js:28"
+        },
+        {
             "message": "Missing item type\n单选框",
             "line": " src\\Radio.jsx.js:1"
         },
         {
             "message": "Missing item type",
             "line": " src\\Radio.jsx.js:16"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Radio.jsx.js:27"
         },
         {
             "message": "Missing item type\n日期区间选择器",
@@ -5585,6 +5911,10 @@ define(function(require){return {
             "line": " src\\Select.jsx.js:29"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\Select.jsx.js:32"
+        },
+        {
             "message": "Missing item type\n侧拉门",
             "line": " src\\ShojiScreen.jsx.js:1"
         },
@@ -5613,6 +5943,10 @@ define(function(require){return {
             "line": " src\\Tab.jsx.js:26"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\Tab.jsx.js:29"
+        },
+        {
             "message": "Missing item type\n表格",
             "line": " src\\Table.jsx.js:1"
         },
@@ -5626,11 +5960,11 @@ define(function(require){return {
         },
         {
             "message": "Missing item type",
-            "line": " src\\Table.jsx.js:83"
+            "line": " src\\Table.jsx.js:82"
         },
         {
             "message": "Missing item type",
-            "line": " src\\Table.jsx.js:95"
+            "line": " src\\Table.jsx.js:94"
         },
         {
             "message": "Missing item type\n文本域",
@@ -5641,8 +5975,12 @@ define(function(require){return {
             "line": " src\\TextArea.jsx.js:17"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\TextArea.jsx.js:25"
+        },
+        {
             "message": "Missing item type\n让文本域获得焦点",
-            "line": " src\\TextArea.jsx.js:45"
+            "line": " src\\TextArea.jsx.js:48"
         },
         {
             "message": "Missing item type\n文本输入框",
@@ -5653,8 +5991,12 @@ define(function(require){return {
             "line": " src\\TextBox.jsx.js:17"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\TextBox.jsx.js:25"
+        },
+        {
             "message": "Missing item type\n让输入框获得焦点",
-            "line": " src\\TextBox.jsx.js:45"
+            "line": " src\\TextBox.jsx.js:48"
         },
         {
             "message": "Missing item type\n提示",
@@ -5663,6 +6005,10 @@ define(function(require){return {
         {
             "message": "Missing item type",
             "line": " src\\Tip.jsx.js:17"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Tip.jsx.js:28"
         },
         {
             "message": "Missing item type\n弹窗",
@@ -5735,6 +6081,10 @@ define(function(require){return {
         {
             "message": "Missing item type",
             "line": " src\\Wizard.jsx.js:17"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Wizard.jsx.js:25"
         }
     ]
 };});
