@@ -28,10 +28,10 @@ define(function (require) {
             };
             /**
              * @fire table onAction
-             * @param {String} type TableExpanderClick: 表格某行的展开按钮被点击
-             * @param {Object} param 控制参数对象
-             * @param {String} param.expandId 操作行数据源中的expandId值，TableExpanderClick时此属性存在
-             * @param {Boolean} param.expanded 操作后该行的展开状态，TableExpanderClick时此属性存在
+             * @param {String} type TableExpanderClick: 表格某行的展开按钮被点击；<TableFieldObject>.renderer = Expander
+             * @param {Object} param
+             * @param {String} param.expandId 操作行数据源中的expandId值，param1 = 'TableExpanderClick'
+             * @param {Boolean} param.expanded 操作后该行的展开状态，param1 = 'TableExpanderClick'
              */
             typeof this.props.onAction === 'function' && this.props.onAction('TableExpanderClick', value);
         },

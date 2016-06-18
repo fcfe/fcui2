@@ -30,9 +30,16 @@ define(function (require) {
         },
         onClick: function (e) {
             if (this.props.disabled) return;
+            /**
+             * @fire Tree onAction
+             * @param {String} type TreeLeafClick：树节点被点击；leafRenderer = NormalRenderer
+             * @param {Object} param
+             * @param {Object} param.item 叶子对应的数据源；param1 = 'TreeLeafClick'
+             * @param {Array.<String>} param.index 叶子序列
+             */
             typeof this.props.onAction === 'function' && this.props.onAction('TreeLeafClick', {
                 item: this.props.item,
-                index: this.props.index
+                index: this.props.index.split(',')
             });
         },
         render: function () {

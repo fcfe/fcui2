@@ -25,7 +25,7 @@ define(function (require) {
     function getWidgetName(file) {
         var arr = file.split('\\');
         file = arr.pop();
-        return file.replace(/\.jsx|.js/g, '').toLowerCase();
+        return file.replace(/\.jsx|.js|-test/g, '').toLowerCase();
     }
 
 

@@ -588,27 +588,27 @@ define(function(require){return {
             "params": [
                 {
                     "name": "type",
-                    "description": "ButtonRendererClick: 单元格内的icon被点击",
+                    "description": "ButtonRendererClick: 单元格内的icon被点击；<TableFieldObject>.renderer = ButtonRenderer",
                     "type": "String"
                 },
                 {
                     "name": "param",
-                    "description": "控制参数对象",
+                    "description": "",
                     "type": "Object",
                     "props": [
                         {
                             "name": "item",
-                            "description": "单元格所在行数据源，ButtonRendererClick时此属性存在",
+                            "description": "单元格所在行数据源，param1 = 'ButtonRendererClick'",
                             "type": "Object"
                         },
                         {
                             "name": "row",
-                            "description": "单元格行号，ButtonRendererClick时此属性存在",
+                            "description": "单元格行号，param1 = 'ButtonRendererClick'",
                             "type": "Object"
                         },
                         {
                             "name": "column",
-                            "description": "单元格列号，ButtonRendererClick时此属性存在",
+                            "description": "单元格列号，param1 = 'ButtonRendererClick'",
                             "type": "Object"
                         }
                     ]
@@ -632,22 +632,22 @@ define(function(require){return {
             "params": [
                 {
                     "name": "type",
-                    "description": "TableExpanderClick: 表格某行的展开按钮被点击",
+                    "description": "TableExpanderClick: 表格某行的展开按钮被点击；<TableFieldObject>.renderer = Expander",
                     "type": "String"
                 },
                 {
                     "name": "param",
-                    "description": "控制参数对象",
+                    "description": "",
                     "type": "Object",
                     "props": [
                         {
                             "name": "expandId",
-                            "description": "操作行数据源中的expandId值，TableExpanderClick时此属性存在",
+                            "description": "操作行数据源中的expandId值，param1 = 'TableExpanderClick'",
                             "type": "String"
                         },
                         {
                             "name": "expanded",
-                            "description": "操作后该行的展开状态，TableExpanderClick时此属性存在",
+                            "description": "操作后该行的展开状态，param1 = 'TableExpanderClick'",
                             "type": "Boolean"
                         }
                     ]
@@ -741,12 +741,80 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\components\\tree\\NormalRenderer.jsx.js",
+            "line": 33,
+            "fire": "Tree onAction",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "TreeLeafClick：树节点被点击；leafRenderer = NormalRenderer",
+                    "type": "String"
+                },
+                {
+                    "name": "param",
+                    "description": "",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "item",
+                            "description": "叶子对应的数据源；param1 = 'TreeLeafClick'",
+                            "type": "Object"
+                        },
+                        {
+                            "name": "index",
+                            "description": "叶子序列",
+                            "type": "Array.<String>"
+                        }
+                    ]
+                }
+            ],
+            "class": ""
+        },
+        {
             "file": "src\\components\\tree\\SelectRenderer.jsx.js",
             "line": 1,
             "description": "tree 有选择功能的渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\tree\\SelectRenderer.jsx.js",
+            "line": 32,
+            "fire": "Tree onAction",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "TreeSelectLeaf：选择树节点；leafRenderer = SelectRenderer",
+                    "type": "String"
+                },
+                {
+                    "name": "param",
+                    "description": "",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "e",
+                            "description": "React事件对象；param1 = 'TreeSelectLeaf' || 'TreeUnselectLeaf'",
+                            "type": "SyntheticEvent"
+                        }
+                    ]
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\components\\tree\\SelectRenderer.jsx.js",
+            "line": 38,
+            "fire": "Tree onAction",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "TreeUnselectLeaf：取消选择树节点；leafRenderer = SelectRenderer",
+                    "type": "String"
+                }
+            ],
             "class": ""
         },
         {
@@ -1982,6 +2050,31 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\mixins\\TreeNodeBase.js",
+            "line": 27,
+            "fire": "Tree onAction",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "TreeLoadChildren：加载子树",
+                    "type": "String"
+                },
+                {
+                    "name": "param",
+                    "description": "回调参数",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "index",
+                            "description": "叶子序列",
+                            "type": "Array.<String>"
+                        }
+                    ]
+                }
+            ],
+            "class": ""
+        },
+        {
             "file": "src\\mixins\\WidgetWithFixedDom.js",
             "line": 1,
             "description": "用于fixed 组件内部某个DOM position的mixin",
@@ -2014,6 +2107,12 @@ define(function(require){return {
                     "type": "Function"
                 }
             ],
+            "class": ""
+        },
+        {
+            "file": "src\\AlphabetRegion.jsx.js",
+            "line": 26,
+            "fire": "Import src\\Button.jsx.js button onClick",
             "class": ""
         },
         {
@@ -2751,7 +2850,89 @@ define(function(require){return {
             "description": "双树选择器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\DualTreeSelector-test.jsx.js",
+            "line": 19,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "src\\Tree-test.jsx.js",
+                    "description": "datasource onAction leafRenderer",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "selectorEngine",
+                    "description": "选择逻辑引擎，见src\\core\\treeTools.js dualTreeSelectorEngine",
+                    "type": "Object"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\DualTreeSelector-test.jsx.js",
+            "line": 26,
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
+            "class": ""
+        },
+        {
+            "file": "src\\DualTreeSelector-test.jsx.js",
+            "line": 29,
+            "structure": "Import src\\Tree-test.jsx.js TreeItemObject",
+            "class": ""
+        },
+        {
+            "file": "src\\DualTreeSelector-test.jsx.js",
+            "line": 32,
+            "structure": "DualTreeSelectorValueTemplate",
+            "example": [
+                "\n {\n     selected: <optional>\n }"
+            ],
+            "attention": "DualTreeSelector的value类型是字符串，用JSON.stringify方法将示例中的数据结构转换，因此操作value时不能出环",
+            "params": [
+                {
+                    "name": "selected",
+                    "description": "树的选中状态，以TreeItemObject.value为key，存在的key表示该叶子被选中",
+                    "type": "Object"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\DualTreeSelector-test.jsx.js",
+            "line": 104,
+            "fire": "DualTreeSelector onAction",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "回调类型\nTreeLoadChildren：加载子树数据源",
+                    "type": "String"
+                },
+                {
+                    "name": "param",
+                    "description": "回调参数",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "index",
+                            "description": "子树序列",
+                            "type": "Array.<String>"
+                        }
+                    ]
+                }
+            ],
             "class": ""
         },
         {
@@ -4193,7 +4374,7 @@ define(function(require){return {
                 },
                 {
                     "name": "param",
-                    "description": "控制参数对象",
+                    "description": "回调参数",
                     "type": "Object"
                 }
             ],
@@ -4462,7 +4643,113 @@ define(function(require){return {
             "description": "树",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\Tree-test.jsx.js",
+            "line": 17,
+            "properties": "",
+            "params": [
+                {
+                    "name": "src\\core\\componentTools.js",
+                    "description": "skin className style disabled",
+                    "type": "Import|Properties"
+                },
+                {
+                    "name": "datasource",
+                    "description": "树数据源",
+                    "type": "Array.<TreeItemObject>"
+                },
+                {
+                    "name": "onAction",
+                    "description": "树回调总线",
+                    "type": "Function"
+                },
+                {
+                    "name": "leafRenderer",
+                    "description": "树叶子渲染器",
+                    "type": "ReactClass"
+                },
+                {
+                    "name": "src\\mixins\\InputWidget.js",
+                    "description": "value onChange name validations customErrorTemplates valueLink valueTemplate",
+                    "type": "Import|Properties"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Tree-test.jsx.js",
+            "line": 26,
+            "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
+            "class": ""
+        },
+        {
+            "file": "src\\Tree-test.jsx.js",
+            "line": 29,
+            "fire": "Tree onAction",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "回调类型：",
+                    "type": "String"
+                },
+                {
+                    "name": "param",
+                    "description": "回调参数",
+                    "type": "Object"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Tree-test.jsx.js",
+            "line": 34,
+            "fire": "Import src\\mixins\\TreeNodeBase.js Tree onAction",
+            "class": ""
+        },
+        {
+            "file": "src\\Tree-test.jsx.js",
+            "line": 37,
+            "structure": "TreeItemObject",
+            "example": [
+                "\n {\n     label: <required>,\n     value: <required>,\n     children: <optional>\n }"
+            ],
+            "params": [
+                {
+                    "name": "label",
+                    "description": "叶子显示的文字",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "叶子对应的值，随事件对象通过返回",
+                    "type": "String"
+                },
+                {
+                    "name": "children",
+                    "description": "子树数据源",
+                    "type": "Array.<TreeItemObject>"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\Tree-test.jsx.js",
+            "line": 49,
+            "structure": "TreeValueTemplate",
+            "example": [
+                "\n {\n     expand: <optional>\n }"
+            ],
+            "attention": "tree的value类型是字符串，用JSON.stringify方法将示例中的数据结构转换，因此操作value时不能出环",
+            "params": [
+                {
+                    "name": "expand",
+                    "description": "树的展开状态，以TreeItemObject.value为key，存在的key表示该子树的根层级为展开状态",
+                    "type": "Object"
+                }
+            ],
             "class": ""
         },
         {
@@ -4894,12 +5181,24 @@ define(function(require){return {
             "line": " src\\components\\tree\\NormalRenderer.jsx.js:1"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\components\\tree\\NormalRenderer.jsx.js:33"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\components\\tree\\SelectRenderer.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
             "line": " src\\components\\tree\\SelectRenderer.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\components\\tree\\SelectRenderer.jsx.js:32"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\components\\tree\\SelectRenderer.jsx.js:38"
         },
         {
             "message": "unknown tag: email",
@@ -4982,6 +5281,10 @@ define(function(require){return {
             "line": " src\\mixins\\MouseWidgetBase.js:1"
         },
         {
+            "message": "unknown tag: fire",
+            "line": " src\\mixins\\TreeNodeBase.js:27"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\mixins\\WidgetWithFixedDom.js:1"
         },
@@ -4996,6 +5299,10 @@ define(function(require){return {
         {
             "message": "unknown tag: properties",
             "line": " src\\AlphabetRegion.jsx.js:20"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\AlphabetRegion.jsx.js:26"
         },
         {
             "message": "unknown tag: email",
@@ -5216,6 +5523,30 @@ define(function(require){return {
         {
             "message": "unknown tag: version",
             "line": " src\\DualTreeSelector-test.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\DualTreeSelector-test.jsx.js:19"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\DualTreeSelector-test.jsx.js:26"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\DualTreeSelector-test.jsx.js:29"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\DualTreeSelector-test.jsx.js:32"
+        },
+        {
+            "message": "unknown tag: attention",
+            "line": " src\\DualTreeSelector-test.jsx.js:32"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\DualTreeSelector-test.jsx.js:104"
         },
         {
             "message": "unknown tag: version",
@@ -5602,6 +5933,34 @@ define(function(require){return {
             "line": " src\\Tree-test.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\Tree-test.jsx.js:17"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\Tree-test.jsx.js:26"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\Tree-test.jsx.js:29"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\Tree-test.jsx.js:34"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\Tree-test.jsx.js:37"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\Tree-test.jsx.js:49"
+        },
+        {
+            "message": "unknown tag: attention",
+            "line": " src\\Tree-test.jsx.js:49"
+        },
+        {
             "message": "unknown tag: version",
             "line": " src\\Tree.jsx.js:1"
         },
@@ -5706,8 +6065,20 @@ define(function(require){return {
             "line": " src\\components\\tree\\NormalRenderer.jsx.js:1"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\components\\tree\\NormalRenderer.jsx.js:33"
+        },
+        {
             "message": "Missing item type\ntree 有选择功能的渲染器",
             "line": " src\\components\\tree\\SelectRenderer.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\components\\tree\\SelectRenderer.jsx.js:32"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\components\\tree\\SelectRenderer.jsx.js:38"
         },
         {
             "message": "Missing item type\n组件公共方法",
@@ -5974,6 +6345,10 @@ define(function(require){return {
             "line": " src\\mixins\\TreeNodeBase.js:1"
         },
         {
+            "message": "Missing item type",
+            "line": " src\\mixins\\TreeNodeBase.js:27"
+        },
+        {
             "message": "Missing item type\n用于fixed 组件内部某个DOM position的mixin",
             "line": " src\\mixins\\WidgetWithFixedDom.js:1"
         },
@@ -5984,6 +6359,10 @@ define(function(require){return {
         {
             "message": "Missing item type",
             "line": " src\\AlphabetRegion.jsx.js:20"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\AlphabetRegion.jsx.js:26"
         },
         {
             "message": "Missing item type\n按钮",
@@ -6128,6 +6507,26 @@ define(function(require){return {
         {
             "message": "Missing item type\n双树选择器",
             "line": " src\\DualTreeSelector-test.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\DualTreeSelector-test.jsx.js:19"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\DualTreeSelector-test.jsx.js:26"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\DualTreeSelector-test.jsx.js:29"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\DualTreeSelector-test.jsx.js:32"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\DualTreeSelector-test.jsx.js:104"
         },
         {
             "message": "Missing item type\n双树选择器",
@@ -6484,6 +6883,30 @@ define(function(require){return {
         {
             "message": "Missing item type\n树",
             "line": " src\\Tree-test.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Tree-test.jsx.js:17"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Tree-test.jsx.js:26"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Tree-test.jsx.js:29"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Tree-test.jsx.js:34"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Tree-test.jsx.js:37"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\Tree-test.jsx.js:49"
         },
         {
             "message": "Missing item type\n一个树形选择控件",

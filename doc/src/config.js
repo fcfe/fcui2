@@ -12,6 +12,7 @@ define(function (require) {
                 {id: 'src\\Tip.jsx.js', label: 'Tip'},
                 {id: 'src\\List.jsx.js', label: 'List'},
                 {id: 'src\\DropDownList.jsx.js', label: 'DropDownList'},
+                {id: 'src\\Tree-test.jsx.js', label: 'Tree'},
                 {id: 'src\\Crumb.jsx.js', label: 'Crumb'},
                 {id: 'src\\Pager.jsx.js', label: 'Pager'},
                 {id: 'src\\Tab.jsx.js', label: 'Tab'},
@@ -47,8 +48,10 @@ define(function (require) {
                 {id: 'src\\ComboList.jsx.js', label: 'ComboList'},
                 {id: 'src\\SearchBox.jsx.js', label: 'SearchBox'},
                 {id: 'src\\Slider.jsx.js', label: 'Slider'},
+                {id: 'src\\DualTreeSelector-test.jsx.js', label: 'DualTreeSelector'},
                 '',
                 {id: 'src\\Region.jsx.js', label: 'Region'},
+                {id: 'src\\AlphabetRegion.jsx.js', label: 'AlphabetRegion'},
                 {id: 'src\\DropDownRegion.jsx.js', label: 'DropDownRegion'},
                 '',
                 {id: 'src\\Calendar.jsx.js', label: 'Calendar'},
@@ -79,8 +82,7 @@ define(function (require) {
             label: 'Testing',
             children:[
                 {id: 'BaseLineTesting.jsx.js', label: 'Display Base Line Test'},
-                {id: 'FormFieldTesting.jsx.js', label: 'Form Field Test'},
-                {id: 'src\\AlphabetRegion.jsx', label: 'AlphabetRegion'}
+                {id: 'FormFieldTesting.jsx.js', label: 'Form Field Test'}
             ]
         }
     ];
@@ -113,7 +115,9 @@ define(function (require) {
         'src\\Dialog.jsx.js': require('./demos/components/Dialog.jsx'),
         'src\\Form.jsx.js': require('./demos/components/Form.jsx'),
         'src\\Table.jsx.js': require('./demos/components/Table.jsx'),
-        'src\\AlphabetRegion.jsx': require('./demos/components/AlphabetRegion.jsx'),
+        'src\\AlphabetRegion.jsx.js': require('./demos/components/AlphabetRegion.jsx'),
+        'src\\Tree-test.jsx.js': require('./demos/components/TreeTest.jsx'),
+        'src\\DualTreeSelector-test.jsx.js': require('./demos/components/DualTreeSelectorTest.jsx'),
         'BaseLineTesting.jsx.js': require('./demos/components/BaseLineTesting.jsx'),
         'FormFieldTesting.jsx.js': require('./demos/components/FormFieldTesting.jsx')
     }

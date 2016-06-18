@@ -29,6 +29,16 @@ define(function (require) {
         getInitialState: function () {
             return {};
         },
+        /**
+         * @fire Tree onAction
+         * @param {String} type TreeSelectLeaf：选择树节点；leafRenderer = SelectRenderer
+         * @param {Object} param
+         * @param {SyntheticEvent} param.e React事件对象；param1 = 'TreeSelectLeaf' || 'TreeUnselectLeaf'
+         */
+        /**
+         * @fire Tree onAction
+         * @param {String} type TreeUnselectLeaf：取消选择树节点；leafRenderer = SelectRenderer
+         */
         onOperate: function (e) {
             e.stopPropagation();
             if (this.props.disabled) return;

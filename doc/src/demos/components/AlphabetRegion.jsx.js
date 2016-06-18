@@ -12,7 +12,8 @@ define(function (require) {
             title: 'AlphabetRegion with style',
             props: {
                 style: {
-                    maxWidth: 400
+                    width: 400,
+                    height: 300
                 }
             }
         },

@@ -23,6 +23,9 @@ define(function (require) {
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {Function} onClick 响应回调
          */
+        /**
+         * @fire Import src\Button.jsx.js button onClick
+         */
         // @override
         getDefaultProps: function () {
             return {
@@ -53,12 +56,22 @@ define(function (require) {
             this.refs.contentContainer.scrollTop = container.offsetTop - this.refs['alphabet-a'].offsetTop;
         },
         render: function () {
+            var containerProp = cTools.containerBaseProps('alphabet-region', this);
+            var contentProp = {
+                className: 'content-container',
+                ref: 'contentContainer',
+                onClick: this.onRegionClick,
+                style: {
+                    height: containerProp.style.height
+                }
+            };
+            delete containerProp.style.height;
             return (
-                <div {...cTools.containerBaseProps('alphabet-region', this)}>
+                <div {...containerProp}>
                     <div className="short-cut-container" onClick={this.onAnchorClick}>
                         {shortCutFactory()}
                     </div>
-                    <div className="content-container" ref="contentContainer" onClick={this.onRegionClick}>
+                    <div {...contentProp}>
                         {alphaFactory()}
                     </div>
                 </div>

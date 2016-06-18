@@ -120,7 +120,7 @@ define(function (require) {
         /**
          * @fire table onAction
          * @param {String} style 回调类型
-         * @param {Object} param 控制参数对象
+         * @param {Object} param 回调参数
          */
         // @override
         mixins: [InputWidget, WidgetWithFixedDom],

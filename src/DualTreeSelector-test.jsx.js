@@ -2,7 +2,7 @@
  * 双树选择器
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -16,6 +16,28 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {Import|Properties} src\Tree-test.jsx.js datasource onAction leafRenderer
+         * @param {Object} selectorEngine 选择逻辑引擎，见src\core\treeTools.js dualTreeSelectorEngine
+         * @param {Import|Properties} src\mixins\InputWidget.js value onChange name validations customErrorTemplates valueLink valueTemplate
+         */
+        /**
+         * @fire Import src\mixins\InputWidget.js XXX onChange
+         */
+        /**
+         * @structure Import src\Tree-test.jsx.js TreeItemObject
+         */
+        /**
+         * @structure DualTreeSelectorValueTemplate
+         * @example
+         *  {
+         *      selected: <optional>
+         *  }
+         * @attention DualTreeSelector的value类型是字符串，用JSON.stringify方法将示例中的数据结构转换，因此操作value时不能出环
+         * @param {Object} selected 树的选中状态，以TreeItemObject.value为key，存在的key表示该叶子被选中
+         */
         // @override
         mixins: [InputWidget],
         // @override
@@ -79,6 +101,13 @@ define(function (require) {
             var expand = (JSON.parse(e.target.value)).expand || {};
             this.setState({expand: expand});
         },
+        /**
+         * @fire DualTreeSelector onAction
+         * @param {String} type 回调类型
+         * TreeLoadChildren：加载子树数据源
+         * @param {Object} param 回调参数
+         * @param {Array.<String>} param.index 子树序列
+         */
         onTreeAction: function (type, param) {
             // 更新数据源
             if (type === 'TreeLoadChildren' && typeof this.props.onAction === 'function') {
