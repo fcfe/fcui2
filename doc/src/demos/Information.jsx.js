@@ -10,7 +10,8 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 title: '',
-                props: ''
+                props: '',
+                content: ''
             };
         },
         // @override
@@ -24,13 +25,14 @@ define(function (require) {
         },
         render: function () {
             var props = tools.trans2html(tools.formatter(tools.getDisplayProps(this.props.props)));
+            var contents = tools.trans2html(tools.formatter(this.props.content));
             var titleProp = {
                 className: 'font-icon font-icon-caret-' + (this.state.isOpen ? 'down' : 'right'),
                 onClick: this.togglePropsBoxFactory
             };
             var propboxProp = {
                 className: 'props',
-                dangerouslySetInnerHTML: {__html: props},
+                dangerouslySetInnerHTML: {__html: this.props.props === '' ? contents : props},
                 style: {display: this.state.isOpen ? 'block' : 'none'}
             };
             return (

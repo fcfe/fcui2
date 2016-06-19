@@ -9,79 +9,95 @@ define(function (require) {
     let React = require('react');
     let Button = require('fcui/Button.jsx');
     let Layer = require('fcui/Layer.jsx');
-
-
-    let LayerContent =  React.createClass({
-        getDefaultProps() {
-            return {
-                count: 0,
-                enterHandler: function () {},
-                cancelHandler: function () {}
-            };
-        },
-        getInitialState() {
-            return {};
-        },
-        enterHandler: function () {
-            this.props.enterHandler();
-        },
-        cancelHandler: function () {
-            this.props.cancelHandler();
-        },
-        render() {
-            return (
-                <div className="fcui2-droplayer" style={{width: 300}}>
-                    <div className="fcui2-droplayer-content">
-                        <h1>{'HELLO Layer NO.' + this.props.count}</h1>
-                    </div>
-                    <div className="fcui2-droplayer-footer" style={{padding: '10px'}}>
-                        <Button label="确定" skin="important" onClick={this.enterHandler} />
-                        <Button label="取消" onClick={this.cancelHandler} />
-                    </div>
-                </div>
-            );
-        }
-    });
+    let Information = require('../Information.jsx');
 
 
     return React.createClass({
         getInitialState() {
-            return {
-                layerOpen: false,
-                count: 0
+            return {};
+        },
+        // 大闭包工厂
+        layerHandlerFactory(id, isopen) {
+            let me = this;
+            return function () {
+                let obj = {};
+                obj[id] = isopen;
+                me.setState(obj);
             };
         },
-        openLayer() {
-            this.setState({
-                count: this.state.count + 1,
-                layerOpen: true
-            });
-        },
-        closeLayer() {
-            this.setState({
-                layerOpen: false
-            });
-        },
         render() {
-            return (
-                <div>
-                    <div className="demo-item" key="1">
-                        <h3>Normal Popup Layer</h3>
-                        <Button ref="button" label="Click me to open Layer" onClick={this.openLayer}/>
-                        <div ref="anchor" style={{border: '1px solid black', marginTop: 20}}>it is anchor for Layer</div>
-                        <Layer
-                            isOpen={this.state.layerOpen}
-                            anchor={this.refs.anchor}
-                            closeWithBodyClick={true}
-                        >
-                            <LayerContent count={this.state.count}
-                                enterHandler={this.closeLayer}
-                                cancelHandler={this.closeLayer}
-                            />
-                        </Layer>
-                    </div>
+            let config = [
+                {
+                    title: 'Normal Layer',
+                    props: {}
+                },
+                {
+                    title: 'Layer with ClassName',
+                    props: {
+                        className: 'border2'
+                    }
+                },
+                {
+                    title: 'Layer width Location',
+                    props: {
+                        location: '4'
+                    }
+                },
+                {
+                    title: 'Layer that can be closed by window click event',
+                    props: {
+                        closeWithBodyClick: true,
+                        onCloseByWindow: this.layerHandlerFactory('layer3', false)
+                    }
+                },
+                {
+                    title: 'Layer that can be located manully',
+                    props: {
+                        onOffset(result) {
+                            result.top += 10;
+                            result.left -= 30;
+                        }
+                    }
+                }
+            ];
+            for (let i = 0; i < config.length; i++) {
+                config[i].props.isOpen = this.state['layer' + i]
+            }
+            return (<div>{itemFactory(config, this)}</div>);
+        }
+    });
+
+
+    function itemFactory(arr, me) {
+        let doms = [];
+        for (let i = 0; i < arr.length; i++) {
+            let title = arr[i].title;
+            let props = arr[i].props;
+            let openProp = {
+                label: 'open',
+                onClick: me.layerHandlerFactory('layer' + i, true)
+            };
+            let closeProp = {
+                label: 'close',
+                onClick: me.layerHandlerFactory('layer' + i, false)
+            };
+            let anchorProp = {
+                ref: 'anchor' + i,
+                className: 'anchor'
+            };
+            doms.push(
+                <div className="demo-item" key={i}>
+                    <Information title={title} props={props}/>
+                    <Button {...openProp}/>
+                    <Button {...closeProp}/>
+                    <span {...anchorProp}>{'Anchor' + i}</span>
+                    <Layer {...props} anchor={me.refs ? me.refs['anchor' + i]: null}>
+                        <div style={{height: 200, width: 200}}>{'Layer' + i}</div>
+                    </Layer>
                 </div>
             );
         }
-    });
+        return doms;
+    }
+
 });

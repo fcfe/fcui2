@@ -3,8 +3,10 @@ define(function (require) {
 
     var React = require('react');
     var Button = require('fcui/Button.jsx');
+    var Information = require('../Information.jsx');
     var Dialog = require('fcui/Dialog.jsx');
     var dialog = new Dialog();
+
 
 
     var SubApp = React.createClass({
@@ -135,7 +137,7 @@ define(function (require) {
                 onClose: function () {
                     me.props.alert('Alert Dialog has been closed!');
                 }
-            })
+            });
         },
         confirm: function () {
             clearInterval(this.updateTimer);
@@ -172,6 +174,7 @@ define(function (require) {
             });
         },
         fullscreen: function () {
+            var me = this;
             dialog.pop({
                 title: 'Fullscreen Dialog',
                 content: SubApp,
@@ -185,55 +188,112 @@ define(function (require) {
             });
         },
         size: function () {
+            var me = this;
             dialog.pop({
-                title: 'Fullscreen Dialog',
+                title: 'Dialog with Size',
                 content: SubApp,
-                size: {width: 300, height: 300},
+                size: {width: 600, height: 300},
                 contentProps: {
                     message: 'it is subapp\'s content, imported from outside.'
                 },
                 onClose: function () {
-                    me.props.alert('Fullscreen Dialog has been closed!');
+                    me.props.alert('Dialog with Size has been closed!');
                 }
             });
         },
         render: function () {
-            return (
-                <div>
-                    <div className="demo-item">
-                        <h3>Alert</h3>
-                        <Button label="Alert" onClick={this.alert}/>
-                    </div>
-                    <div className="demo-item">
-                        <h3>Confirm</h3>
-                        <Button label="Confirm" onClick={this.confirm}/>
-                    </div>
-                    <div className="demo-item">
-                        <h3>SubApp</h3>
-                        <Button label="SubApp" onClick={this.subapp}/>
-                    </div>
-                    <div className="demo-item">
-                        <h3>Closing need confirm</h3>
-                        <Button label="Closing need confirm" onClick={this.closeConfirm}/>
-                    </div>
-                    <div className="demo-item">
-                        <h3>Auto Resize Dialog</h3>
-                        <Button label="Auto Resize" onClick={this.autoResize}/>
-                    </div>
-                    <div className="demo-item">
-                        <h3>Update Content Props after Pop</h3>
-                        <Button label="Update Props" onClick={this.update}/>
-                    </div>
-                    <div className="demo-item">
-                        <h3>Fullscreen Dialog</h3>
-                        <Button label="Fullscreen Dialog" onClick={this.fullscreen}/>
-                    </div>
-                    <div className="demo-item">
-                        <h3>Dialog with Size</h3>
-                        <Button label="Dialog with Size" onClick={this.size}/>
-                    </div>
+            var config = [
+                {
+                    title: 'Alert',
+                    onClick: this.alert,
+                    content: 'var Dialog = require(\'fcui/Dialog.jsx\');var dialog = new Dialog();'
+                        + 'dialog.alert({title: \'Alert Demo\',message: \'Alert message\',onClose: function () {'
+                        + 'me.props.alert(\'Alert Dialog has been closed!\');}});'
+                },
+                {
+                    title: 'Confirm',
+                    onClick: this.confirm,
+                    content: 'var Dialog = require(\'fcui/Dialog.jsx\');var dialog = new Dialog();'
+                        + 'dialog.confirm({title: \'Confirm Demo\',message: \'Confirm message\',onEnter: function () {'
+                        + 'me.props.alert(\'You press enter!\');},onCancel: function () {'
+                        + 'me.props.alert(\'You press cancel!\');}})'
+                },
+                {
+                    title: 'Sub App',
+                    onClick: this.subapp,
+                    content: 'var Dialog = require(\'fcui/Dialog.jsx\');var dialog = new Dialog();'
+                        + 'dialog.pop({title: \'SubApp Demo\',content: require(\'./SubApp.jsx\'),'
+                        + 'contentProps: {message: \'it is subapp content, imported from outside.\'},'
+                        + 'onClose: function () {me.props.alert(\'SubApp Demo has been closed!\');}});'
+                },
+                {
+                    title: 'Closing need confirm',
+                    onClick: this.closeConfirm,
+                    content: 'var Dialog = require(\'fcui/Dialog.jsx\');var dialog = new Dialog();dialog.pop({'
+                        + 'title:\'CloseConfirmDemo\',content:SubApp,contentProps:{message:\'There is a confirm '
+                        + 'after you press close button in titlebar.\'},onBeforeClose:function(e){if(!window.confirm'
+                        + '(\'Are you sure to close the dialog?\')){e.returnValue=false;me.props.alert(\'Closing '
+                        + 'operation has been canceled.\');}},onClose:function(){me.props.alert(\'Dialog has been '
+                        + 'closed!\');}});'
+                },
+                {
+                    title: 'Auto Resize Dialog',
+                    onClick: this.autoResize,
+                    content: 'var Dialog = require(\'fcui/Dialog.jsx\');var dialog = new Dialog();'
+                        + 'var AutoSizeApp = React.createClass({ timer: null, getDefaultProps: '
+                        + 'function () { return {}; }, getInitialState: function () { return {width: '
+                        + '400, height: 300}; }, componentDidUpdate: function () { if (!this.props.resize()) '
+                        + '{ clearInterval(this.timer); } }, componentWillUnmount: function () { clearInterval('
+                        + 'this.timer); }, componentDidMount: function () { var me = this; this.timer = '
+                        + 'setInterval(function () { var width = me.state.width + parseInt((-10 + 20 * Math.random())'
+                        + ', 10); var height = me.state.height + parseInt((-10 + 20 * Math.random()), 10); '
+                        + 'me.setState({width: width, height: height}); }, 1000); }});'
+                        + 'dialog.pop({title: \'Auto Resize Demo\',content: AutoSizeApp});'
+                },
+                {
+                    title: 'Update Content Props after Pop',
+                    onClick: this.update,
+                    content: 'var Dialog = require(\'fcui/Dialog.jsx\');var dialog = new Dialog();'
+                        + 'var updateTimer = null;clearInterval(updateTimer); dialog.pop({ title: \'Update Content '
+                        + 'Props after Pop\', '
+                        + 'content: UpdatePropApp, contentProps: { text: \'Message From Demo.\' } }); updateTimer = '
+                        + 'setInterval(function () { dialog.updatePopContentProps({ text: +new Date() }) }, 1000);'
+                },
+                {
+                    title: 'Fullscreen Dialog',
+                    onClick: this.fullscreen,
+                    content: 'var Dialog = require(\'fcui/Dialog.jsx\');var dialog = new Dialog();'
+                        + 'dialog.pop({ title: \'Fullscreen Dialog\', content: SubApp, isFullScreen: true, '
+                        + 'contentProps: { message: \'it is subapp content, imported from outside.\' }, onClose:'
+                        + ' function () { me.props.alert(\'Fullscreen Dialog has been closed!\'); } });'
+                },
+                {
+                    title: 'Dialog with Size',
+                    onClick: this.size,
+                    content: 'var Dialog = require(\'fcui/Dialog.jsx\');var dialog = new Dialog();'
+                        + 'dialog.pop({ title: \'Dialog with Size\', content: SubApp, size: {width: 600, '
+                        + 'height: 300}, contentProps: { message: \'it is subapp content, imported from outside.\''
+                        + ' }, onClose: function () { me.props.alert(\'Dialog with Size has been closed!\'); } });'
+                }
+            ];
+            return (<div>{itemFactory(config, this)}</div>);
+        }
+    });
+
+
+    function itemFactory(arr, me) {
+        var doms = [];
+        for (let i = 0; i < arr.length; i++) {
+            let item = arr[i];
+            doms.push(
+                <div className="demo-item" key={i}>
+                    <Information title={item.title} content={item.content}/>
+                    <Button label={item.title} onClick={item.onClick}/>
                 </div>
             );
         }
-    });
+        return doms;
+    }
+
+
 });

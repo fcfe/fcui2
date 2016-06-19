@@ -8,6 +8,7 @@ define(function (require) {
     let React = require('react');
     let Button = require('fcui/Button.jsx');
     let TitleWindow = require('fcui/TitleWindow.jsx');    
+    let Information = require('../Information.jsx');
 
     return React.createClass({
         // @override
@@ -18,18 +19,18 @@ define(function (require) {
             return {};
         },
         openWindow(e) {
-            var state = {};
+            let state = {};
             state[e.target.value] = true;
             this.setState(state);
         },
         closeWindow(e) {
-            var state = {};
+            let state = {};
             state[e.target.value] = false;
             this.setState(state);
         },
         closerFactory(id) {
-            var me = this;
-            var state = {};
+            let me = this;
+            let state = {};
             state[id] = false;
             return function () {
                 me.setState(state);
@@ -41,85 +42,72 @@ define(function (require) {
             }
         },
         render() {
-            return (
-                <div>
-                    <div className="demo-item">
-                        <h3>Normal Window</h3>
-                        <Button label="Open" onClick={this.openWindow} value="window1"/>
-                        <TitleWindow isOpen={this.state.window1} onClose={this.closerFactory('window1')}>
-                            <div style={{width: 400, height: 300}}>
-                                Normal Window
-                            </div>
-                        </TitleWindow>
-                    </div>
-                    <div className="demo-item">
-                        <h3>Window with title</h3>
-                        <Button label="Open" onClick={this.openWindow} value="window2"/>
-                        <TitleWindow isOpen={this.state.window2}
-                            title="It is a Window with Title."
-                            onClose={this.closerFactory('window2')}
-                        >
-                            <div>
-                                <h1>Window with title.</h1>
-                            </div>
-                        </TitleWindow>
-                    </div>
-                    <div className="demo-item">
-                        <h3>Window without close button in title bar</h3>
-                        <Button label="Open" onClick={this.openWindow} value="window3"/>
-                        <TitleWindow isOpen={this.state.window3} showCloseButton={false}>
-                            <div style={{width: 400, height: 300}}>
-                                <h1>Window without close button in title bar.</h1>
-                                <Button label="close" onClick={this.closerFactory('window3')}/>
-                            </div>
-                        </TitleWindow>
-                    </div>
-                    <div className="demo-item">
-                        <h3>Window with closing confirm</h3>
-                        <Button label="Open" onClick={this.openWindow} value="window4"/>
-                        <TitleWindow isOpen={this.state.window4}
-                            onBeforeClose={this.confirmClosing}
-                            onClose={this.closerFactory('window4')}
-                        >
-                            <div>
-                                <h1>Window with closing confirm.</h1>
-                            </div>
-                        </TitleWindow>
-                    </div>
-                    <div className="demo-item">
-                        <h3>Window with a huge content</h3>
-                        <Button label="Open" onClick={this.openWindow} value="window5"/>
-                        <TitleWindow isOpen={this.state.window5} onClose={this.closerFactory('window5')}>
-                            <div style={{width: 3000, height: 4000}}>
-                                3000 x 4000
-                            </div>
-                        </TitleWindow>
-                    </div>
-                    <div className="demo-item">
-                        <h3>Window with size</h3>
-                        <Button label="Open" onClick={this.openWindow} value="window6"/>
-                        <TitleWindow size={{width: 400, height: 300}}
-                            isOpen={this.state.window6}
-                            onClose={this.closerFactory('window6')}
-                        >
-                            <div>
-                                <h1>TitleWindow with Size</h1>
-                            </div>
-                        </TitleWindow>
-                    </div>
-                    <div className="demo-item">
-                        <h3>FullScreen TitleWindow</h3>
-                        <Button label="Open" onClick={this.openWindow} value="window7"/>
-                        <TitleWindow isFullScreen={true} isOpen={this.state.window7}
-                            onClose={this.closerFactory('window7')}
-                        >
-                            <div>
-                                <h1>FullScreen TitleWindow</h1>
-                            </div>
-                        </TitleWindow>
-                    </div>
+            let config = [
+                {
+                    title: 'Normal Window',
+                    props: {}
+                },
+                {
+                    title: 'Window with title',
+                    props: {
+                        title: 'It is a Window with Title'
+                    }
+                },
+                {
+                    title: 'Window without close button in title bar',
+                    props: {
+                        showCloseButton: false
+                    }
+                },
+                {
+                    title: 'Window with closing confirm',
+                    props: {
+                        onBeforeClose: this.confirmClosing
+                    }
+                },
+                {
+                    title: 'Window with size',
+                    props: {
+                        size: {width: 600, height: 300},
+
+                    }
+                },
+                {
+                    title: 'FullScreen TitleWindow',
+                    props: {
+                        isFullScreen: true
+                    }
+                }
+            ];
+            for (let i = 0; i < config.length; i++) {
+                config[i].props.isOpen = this.state['window' + (i + 1)],
+                config[i].props.onClose = this.closerFactory('window' + (i + 1))
+            }
+            return (<div>{itemFactory(config, this)}</div>);
+        }
+    });
+
+    function itemFactory(arr, me) {
+        let doms = [];
+        for (let i = 0; i < arr.length; i++) {
+            let item = arr[i];
+            doms.push(
+                <div className="demo-item" key={i}>
+                    <Information title={item.title} props={item.props}/>
+                    <Button label="Open" onClick={me.openWindow} value={'window' + (i + 1)}/>
+                    <TitleWindow {...item.props}>
+                        <div style={{width: 400, height: 300}}>
+                            {item.title}
+                            {
+                                item.title === 'Window without close button in title bar'
+                                    ? <Button label="close" onClick={me.closerFactory('window' + (i + 1))}/> : null
+                            }
+                        </div>
+                    </TitleWindow>
                 </div>
             );
         }
-    });
+        return doms;
+    }
+
 });

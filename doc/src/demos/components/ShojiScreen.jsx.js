@@ -7,7 +7,8 @@ define(function (require) {
 
     let React = require('react');
     let Button = require('fcui/Button.jsx');
-    let ShojiScreen = require('fcui/ShojiScreen.jsx');    
+    let ShojiScreen = require('fcui/ShojiScreen.jsx');
+    let Information = require('../Information.jsx');  
 
     return React.createClass({
         // @override
@@ -37,13 +38,26 @@ define(function (require) {
             this.setState({window2: false});
         },
         render() {
-            var sjc2Prop = {
-                ref: 'sjc2',
-                isOpen: this.state.window2,
-                onAction: this.onAction2,
-                onBeforeClose: this.onBeforeClose,
-                onClose: this.onClose
-            };
+            let config = [
+                {
+                    title: 'Normal ShojiScreen',
+                    props: {
+                        isOpen: this.state.window1,
+                        onAction: this.onAction1
+                    }
+                },
+                {
+                    title: 'ShojiScreen with closing confirm',
+                    props: {
+                        ref: 'sjc2',
+                        isOpen: this.state.window2,
+                        onAction: this.onAction2,
+                        onBeforeClose: this.onBeforeClose,
+                        onClose: this.onClose
+                    }
+                }
+            ];
+            return (<div>{itemFactory(config, this)}</div>);
             return (
                 <div>
                     <div className="demo-item">
@@ -69,4 +83,26 @@ define(function (require) {
             );
         }
     });
+
+    
+    function itemFactory(arr, me) {
+        var doms = [];
+        for (let i = 0; i < arr.length; i++) {
+            let item = arr[i];
+            doms.push(
+                <div className="demo-item" key={i}>
+                    <Information title={item.title} props={item.props}/>
+                    <Button label="Open" onClick={me.openWindow} value={'window' + (i + 1)}/>
+                    <ShojiScreen {...item.props}>
+                        <div style={{width: 400, height: 2000}}>
+                            <h1>{item.title}</h1>
+                        </div>
+                    </ShojiScreen>
+                </div>
+            );
+        }
+        return doms;
+    }
+
+
 });

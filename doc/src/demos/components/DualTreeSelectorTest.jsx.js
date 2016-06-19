@@ -3,6 +3,7 @@ define(function (require) {
 
     var Creater = require('../main.jsx');
     var DualTreeSelector = require('fcui/DualTreeSelector-test.jsx');
+    var Information = require('../Information.jsx');
     var treeTools = require('fcui/core/treeTools');
     var React = require('react');
 
@@ -103,8 +104,7 @@ define(function (require) {
                 <div>
                     <Example1 alert={this.props.alert}/>
                     <div className="demo-item">
-                        <h3>DualTreeSelector with async datasource</h3>
-                        <div className="props">{getDisplayProps(asyncTreeProp)}</div>
+                        <Information title="DualTreeSelector with async datasource" props={asyncTreeProp}/>
                         <DualTreeSelector {...asyncTreeProp}/>
                     </div>
                 </div>

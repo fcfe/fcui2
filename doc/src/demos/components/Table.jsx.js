@@ -4,6 +4,7 @@ define(function (require) {
     var React = require('react');
     var Creater = require('../main.jsx');
     var Table = require('fcui/Table.jsx');
+    var Information = require('../Information.jsx');
     var datasource = require('./tools/tableDatasource');
     var fieldConfig = require('./tools/tableFieldConfig');
     var expandableTableFieldFactory = require('./tools/expandableTableFieldFactory');
@@ -236,7 +237,7 @@ define(function (require) {
                 datasource: this.state.expandableTableData,
                 fieldConfig: expandableTableFieldFactory(),
                 onAction: this.expandableTableAction,
-                valueTemplate: JSON.stringify({
+                value: JSON.stringify({
                     tableExpandId: this.state.expandableTableId,
                     sortField: '',
                     sortType: 'asc',
@@ -248,9 +249,7 @@ define(function (require) {
                 <div>
                     <Example1 alert={this.props.alert}/>
                     <div className="demo-item">
-                        <h3>Expandable Table</h3>
-                        <div className="props">{JSON.stringify(expandTableProps)}</div>
-                        <span className="label">Display Base Line:</span>
+                        <Information title="Expandable Table" props={expandTableProps}/>
                         <Table {...expandTableProps}/>
                     </div>
                     <Example2 alert={this.props.alert}/>
