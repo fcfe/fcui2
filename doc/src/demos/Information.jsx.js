@@ -25,7 +25,7 @@ define(function (require) {
         },
         render: function () {
             var props = tools.trans2html(tools.formatter(tools.getDisplayProps(this.props.props)));
-            var contents = tools.trans2html(tools.formatter(this.props.content));
+            var contents = tools.trans2html(this.props.content);
             var titleProp = {
                 className: 'font-icon font-icon-caret-' + (this.state.isOpen ? 'down' : 'right'),
                 onClick: this.togglePropsBoxFactory

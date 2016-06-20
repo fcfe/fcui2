@@ -1,5 +1,5 @@
 /**
- *  切换组件
+ * tab 普通渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2
@@ -12,6 +12,14 @@ define(function (require) {
 
     return React.createClass({
         // @override
+        /**
+         * @properties
+         * @param {String} className 挂接在渲染器根容器上的类
+         * @param {String} label 渲染器显示的内容
+         * @param {String} value 渲染器的值
+         * @param {Function} onClick 渲染器被点击后的回调
+         * @attention <ListItemObject>中所有数据属性都会灌入此渲染器的props中，onClick除外
+         */
         getDefaultProps: function () {
             return {
                 className: '',

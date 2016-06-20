@@ -485,19 +485,60 @@ define(function(require){return {
         {
             "file": "src\\components\\dialog\\Alert.jsx.js",
             "line": 1,
+            "description": "Dialog Alert渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
-            "test": "这就是个测试，看看能不能自定义语法如果能，还用YUI自己的语法干啥？",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\dialog\\Alert.jsx.js",
+            "line": 15,
+            "properties": "",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "显示在主区域的内容",
+                    "type": "String"
+                },
+                {
+                    "name": "onClick",
+                    "description": "通知外部关闭的回调",
+                    "type": "Function"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\components\\dialog\\Confirm.jsx.js",
             "line": 1,
-            "description": "Confirm窗体内容",
+            "description": "Dialog Confirm渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\dialog\\Confirm.jsx.js",
+            "line": 15,
+            "properties": "",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "主区域显示的内容",
+                    "type": "String"
+                },
+                {
+                    "name": "onEnter",
+                    "description": "点击确定的回调",
+                    "type": "Function"
+                },
+                {
+                    "name": "onCancel",
+                    "description": "点击取消的回调",
+                    "type": "Function"
+                }
+            ],
             "class": ""
         },
         {
@@ -506,12 +547,41 @@ define(function(require){return {
             "description": "List Item默认渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
             "class": ""
         },
         {
             "file": "src\\components\\list\\NormalRenderer.jsx.js",
-            "line": 28,
+            "line": 14,
+            "properties": "",
+            "params": [
+                {
+                    "name": "label",
+                    "description": "item上显示的内容",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "item代表的值",
+                    "type": "String"
+                },
+                {
+                    "name": "disabled",
+                    "description": "item是否处于禁用状态",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "onClick",
+                    "description": "点击后的回调",
+                    "type": "Function"
+                }
+            ],
+            "attention": "<ListItemObject>中所有数据型属性（即不包含方法）都会传入List Item props，但disabled和onClick会被覆盖",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\list\\NormalRenderer.jsx.js",
+            "line": 35,
             "fire": "List onClick",
             "params": [
                 {
@@ -539,16 +609,101 @@ define(function(require){return {
         {
             "file": "src\\components\\region\\NormalProvince.jsx.js",
             "line": 1,
-            "description": "省选择零件",
+            "description": "Region 省级渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\region\\NormalProvince.jsx.js",
+            "line": 21,
+            "properties": "",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "省所属的编号",
+                    "type": "Number"
+                },
+                {
+                    "name": "value",
+                    "description": "Region组件转译后的value，以省市编号为key，有哪个key，代表哪个地区被选中",
+                    "type": "Object"
+                },
+                {
+                    "name": "parent",
+                    "description": "渲染器所属的Region组件实例",
+                    "type": "ReactComponent"
+                },
+                {
+                    "name": "disabled",
+                    "description": "渲染器是否处于禁用状态",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "type",
+                    "description": "渲染器的选择状态，'single'表示单选，其他为多选",
+                    "type": "String"
+                },
+                {
+                    "name": "onChange",
+                    "description": "选择状态改变后的回调",
+                    "type": "Function"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\components\\region\\NormalRegion.jsx.js",
             "line": 1,
-            "description": "大区选择零件",
+            "description": "Region大区域渲染器",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\region\\NormalRegion.jsx.js",
+            "line": 18,
+            "properties": "",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "省所属的编号",
+                    "type": "Number"
+                },
+                {
+                    "name": "value",
+                    "description": "Region组件转译后的value，以省市编号为key，有哪个key，代表哪个地区被选中",
+                    "type": "Object"
+                },
+                {
+                    "name": "parent",
+                    "description": "渲染器所属的Region组件实例",
+                    "type": "ReactComponent"
+                },
+                {
+                    "name": "disabled",
+                    "description": "渲染器是否处于禁用状态",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "type",
+                    "description": "渲染器的选择状态，'single'表示单选，其他为多选",
+                    "type": "String"
+                },
+                {
+                    "name": "onChange",
+                    "description": "选择状态改变后的回调",
+                    "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\components\\region\\StatisticsProvince.jsx.js",
+            "line": 1,
+            "description": "Region带有汇总信息的省渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
@@ -556,8 +711,46 @@ define(function(require){return {
         },
         {
             "file": "src\\components\\region\\StatisticsProvince.jsx.js",
+            "line": 22,
+            "properties": "",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "省所属的编号",
+                    "type": "Number"
+                },
+                {
+                    "name": "value",
+                    "description": "Region组件转译后的value，以省市编号为key，有哪个key，代表哪个地区被选中",
+                    "type": "Object"
+                },
+                {
+                    "name": "parent",
+                    "description": "渲染器所属的Region组件实例",
+                    "type": "ReactComponent"
+                },
+                {
+                    "name": "disabled",
+                    "description": "渲染器是否处于禁用状态",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "type",
+                    "description": "渲染器的选择状态，'single'表示单选，其他为多选",
+                    "type": "String"
+                },
+                {
+                    "name": "onChange",
+                    "description": "选择状态改变后的回调",
+                    "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\components\\tab\\NormalRenderer.jsx.js",
             "line": 1,
-            "description": "省选择零件",
+            "description": "tab 普通渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
@@ -565,25 +758,79 @@ define(function(require){return {
         },
         {
             "file": "src\\components\\tab\\NormalRenderer.jsx.js",
-            "line": 1,
-            "description": "切换组件",
-            "author": "Brian Li",
-            "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "line": 15,
+            "properties": "",
+            "params": [
+                {
+                    "name": "className",
+                    "description": "挂接在渲染器根容器上的类",
+                    "type": "String"
+                },
+                {
+                    "name": "label",
+                    "description": "渲染器显示的内容",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "渲染器的值",
+                    "type": "String"
+                },
+                {
+                    "name": "onClick",
+                    "description": "渲染器被点击后的回调",
+                    "type": "Function"
+                }
+            ],
+            "attention": "<ListItemObject>中所有数据属性都会灌入此渲染器的props中，onClick除外",
             "class": ""
         },
         {
             "file": "src\\components\\table\\ButtonRenderer.jsx.js",
             "line": 1,
-            "description": "带按钮的td",
+            "description": "table 带icon按钮的单元格渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
             "class": ""
         },
         {
             "file": "src\\components\\table\\ButtonRenderer.jsx.js",
-            "line": 23,
+            "line": 13,
+            "properties": "",
+            "params": [
+                {
+                    "name": "className",
+                    "description": "加在单元格td上的类",
+                    "type": "String"
+                },
+                {
+                    "name": "style",
+                    "description": "加在单元格td上的样式表",
+                    "type": "Object"
+                },
+                {
+                    "name": "row",
+                    "description": "单元格行索引",
+                    "type": "Number"
+                },
+                {
+                    "name": "column",
+                    "description": "单元格列索引",
+                    "type": "Number"
+                },
+                {
+                    "name": "onAction",
+                    "description": "表格回调总线",
+                    "type": "Function"
+                }
+            ],
+            "attention": "对于所有单元格渲染器，传入的props格式是一致的，具体见src\\core\\tableTools.js",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\table\\ButtonRenderer.jsx.js",
+            "line": 32,
             "fire": "table onAction",
             "params": [
                 {
@@ -619,15 +866,43 @@ define(function(require){return {
         {
             "file": "src\\components\\table\\Expander.jsx.js",
             "line": 1,
-            "description": "带折叠按钮的列",
+            "description": "table 有折叠功能的单元格渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
             "class": ""
         },
         {
             "file": "src\\components\\table\\Expander.jsx.js",
-            "line": 29,
+            "line": 16,
+            "properties": "",
+            "params": [
+                {
+                    "name": "style",
+                    "description": "加在单元格td上的样式表",
+                    "type": "Object"
+                },
+                {
+                    "name": "item",
+                    "description": "单元格所在行的数据源",
+                    "type": "Object"
+                },
+                {
+                    "name": "tableExpandId",
+                    "description": "表格当前展开状态标识",
+                    "type": "Number"
+                },
+                {
+                    "name": "onAction",
+                    "description": "表格回调总线",
+                    "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\components\\table\\Expander.jsx.js",
+            "line": 39,
             "fire": "table onAction",
             "params": [
                 {
@@ -658,15 +933,43 @@ define(function(require){return {
         {
             "file": "src\\components\\table\\MessageBar.jsx.js",
             "line": 1,
-            "description": "黄色信息栏",
+            "description": "table 信息栏渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
             "class": ""
         },
         {
             "file": "src\\components\\table\\MessageBar.jsx.js",
-            "line": 21,
+            "line": 12,
+            "properties": "",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "信息栏显示的内容",
+                    "type": "String"
+                },
+                {
+                    "name": "buttonLabel",
+                    "description": "信息栏按钮的文本，如果为空将不显示此按钮",
+                    "type": "String"
+                },
+                {
+                    "name": "colSpan",
+                    "description": "信息栏横跨单元格个数",
+                    "type": "Number"
+                },
+                {
+                    "name": "onClick",
+                    "description": "按钮点击回调，即table.props.onAction",
+                    "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\components\\table\\MessageBar.jsx.js",
+            "line": 28,
             "fire": "table onAction",
             "params": [
                 {
@@ -680,69 +983,235 @@ define(function(require){return {
         {
             "file": "src\\components\\table\\NoDataRenderer.jsx.js",
             "line": 1,
-            "description": "table无数据渲染器",
+            "description": "table 无数据渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\table\\NoDataRenderer.jsx.js",
+            "line": 13,
+            "properties": "",
+            "params": [
+                {
+                    "name": "tableComponent",
+                    "description": "table实例",
+                    "type": "ReactComponent"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\components\\table\\NormalHeader.jsx.js",
             "line": 1,
-            "description": "表头",
+            "description": "table 普通表头渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\table\\NormalHeader.jsx.js",
+            "line": 18,
+            "properties": "",
+            "params": [
+                {
+                    "name": "fieldConfig",
+                    "description": "表头所在列的配置信息",
+                    "type": "Object"
+                },
+                {
+                    "name": "tableComponent",
+                    "description": "表格实例",
+                    "type": "ReactComponent"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\components\\table\\NormalRenderer.jsx.js",
             "line": 1,
-            "description": "普通td",
+            "description": "table 普通单元格渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\table\\NormalRenderer.jsx.js",
+            "line": 10,
+            "properties": "",
+            "params": [
+                {
+                    "name": "className",
+                    "description": "加在单元格td上的类",
+                    "type": "String"
+                },
+                {
+                    "name": "style",
+                    "description": "加在单元格td上的样式表",
+                    "type": "String"
+                },
+                {
+                    "name": "content",
+                    "description": "单元格中显示的内容",
+                    "type": "String"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\components\\table\\NumberRenderer.jsx.js",
             "line": 1,
-            "description": "数值型td",
+            "description": "table 数值型单元格渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\table\\NumberRenderer.jsx.js",
+            "line": 12,
+            "properties": "",
+            "params": [
+                {
+                    "name": "className",
+                    "description": "加在单元格td上的类",
+                    "type": "String"
+                },
+                {
+                    "name": "style",
+                    "description": "加在单元格td上的样式表",
+                    "type": "String"
+                },
+                {
+                    "name": "content",
+                    "description": "单元格中显示的内容",
+                    "type": "String"
+                },
+                {
+                    "name": "renderType",
+                    "description": "数字显示类型：\n    int：整形\n  float：浮点\npercent：百分比",
+                    "type": "String"
+                },
+                {
+                    "name": "fixed",
+                    "description": "显示保留的小数位数，renderType = 'int' 时无效",
+                    "type": "Number"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\components\\table\\SelectorInHeader.jsx.js",
             "line": 1,
-            "description": "表头列选择器",
+            "description": "table 有选择功能的表头渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\table\\SelectorInHeader.jsx.js",
+            "line": 40,
+            "properties": "",
+            "params": [
+                {
+                    "name": "fieldConfig",
+                    "description": "当前列配置",
+                    "type": "Object"
+                },
+                {
+                    "name": "tableComponent",
+                    "description": "table实例对象",
+                    "type": "ReactComponent"
+                },
+                {
+                    "name": "datasource",
+                    "description": "选择器下拉菜单数据源",
+                    "type": "Array.<ListItemObject>"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\components\\table\\SelectorInTBody.jsx.js",
             "line": 1,
-            "description": "行选择器",
+            "description": "table 有选择功能的单元格渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\components\\table\\SelectorInTBody.jsx.js",
+            "line": 16,
+            "properties": "",
+            "params": [
+                {
+                    "name": "___isRowSelected___",
+                    "description": "行选择状态：\n-1: 未选择\n 0: 选择\n 1: 半选择 （有倒霉的业务需要半选择状态，这个一般跟有折叠功能的表格一起使用）",
+                    "type": "Number"
+                },
+                {
+                    "name": "disabled",
+                    "description": "是否禁用",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "onRowSelect",
+                    "description": "回调函数，一般为table.props.onAction",
+                    "type": "Function"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\components\\tree\\NormalRenderer.jsx.js",
             "line": 1,
-            "description": "tree组件item默认渲染器",
+            "description": "tree item默认渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
             "class": ""
         },
         {
             "file": "src\\components\\tree\\NormalRenderer.jsx.js",
-            "line": 33,
+            "line": 17,
+            "properties": "",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "叶子序列，通过此序列，可以从datasource中依次访问找到叶子的数据源",
+                    "type": "String"
+                },
+                {
+                    "name": "item",
+                    "description": "叶子对应的数据源",
+                    "type": "Object"
+                },
+                {
+                    "name": "treeComponent",
+                    "description": "叶子所在树的实例",
+                    "type": "ReactComponent"
+                },
+                {
+                    "name": "disabled",
+                    "description": "叶子是否在禁用状态",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "onAction",
+                    "description": "回调接口",
+                    "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\components\\tree\\NormalRenderer.jsx.js",
+            "line": 41,
             "fire": "Tree onAction",
             "params": [
                 {
@@ -781,7 +1250,40 @@ define(function(require){return {
         },
         {
             "file": "src\\components\\tree\\SelectRenderer.jsx.js",
-            "line": 32,
+            "line": 18,
+            "properties": "",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "叶子序列，通过此序列，可以从datasource中依次访问找到叶子的数据源",
+                    "type": "String"
+                },
+                {
+                    "name": "item",
+                    "description": "叶子对应的数据源",
+                    "type": "Object"
+                },
+                {
+                    "name": "treeComponent",
+                    "description": "叶子所在树的实例",
+                    "type": "ReactComponent"
+                },
+                {
+                    "name": "disabled",
+                    "description": "叶子是否在禁用状态",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "onAction",
+                    "description": "回调接口",
+                    "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\components\\tree\\SelectRenderer.jsx.js",
+            "line": 40,
             "fire": "Tree onAction",
             "params": [
                 {
@@ -806,7 +1308,7 @@ define(function(require){return {
         },
         {
             "file": "src\\components\\tree\\SelectRenderer.jsx.js",
-            "line": 38,
+            "line": 46,
             "fire": "Tree onAction",
             "params": [
                 {
@@ -1664,13 +2166,13 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\treeTools.js",
-            "line": 54,
+            "line": 53,
             "description": "此处逻辑：\n（1）如果当前节点是叶子节点，标记为true\n（2）如果当前节点不是叶子节点，在其树下所有叶子标记为true\n（3）如果当点节点有children属性，但children长度为0，则将此节点标记为1",
             "class": ""
         },
         {
             "file": "src\\core\\treeTools.js",
-            "line": 87,
+            "line": 86,
             "description": "此处逻辑\n（1）如果是叶子，则删除\n（2）如果不是叶子，则删除该子树上的所有叶子",
             "class": ""
         },
@@ -5033,8 +5535,8 @@ define(function(require){return {
             "line": " src\\components\\dialog\\Alert.jsx.js:1"
         },
         {
-            "message": "unknown tag: test",
-            "line": " src\\components\\dialog\\Alert.jsx.js:1"
+            "message": "unknown tag: properties",
+            "line": " src\\components\\dialog\\Alert.jsx.js:15"
         },
         {
             "message": "unknown tag: email",
@@ -5045,6 +5547,10 @@ define(function(require){return {
             "line": " src\\components\\dialog\\Confirm.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\components\\dialog\\Confirm.jsx.js:15"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\components\\list\\NormalRenderer.jsx.js:1"
         },
@@ -5053,8 +5559,16 @@ define(function(require){return {
             "line": " src\\components\\list\\NormalRenderer.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\components\\list\\NormalRenderer.jsx.js:14"
+        },
+        {
+            "message": "unknown tag: attention",
+            "line": " src\\components\\list\\NormalRenderer.jsx.js:14"
+        },
+        {
             "message": "unknown tag: fire",
-            "line": " src\\components\\list\\NormalRenderer.jsx.js:28"
+            "line": " src\\components\\list\\NormalRenderer.jsx.js:35"
         },
         {
             "message": "unknown tag: email",
@@ -5065,12 +5579,20 @@ define(function(require){return {
             "line": " src\\components\\region\\NormalProvince.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\components\\region\\NormalProvince.jsx.js:21"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\components\\region\\NormalRegion.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
             "line": " src\\components\\region\\NormalRegion.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\components\\region\\NormalRegion.jsx.js:18"
         },
         {
             "message": "unknown tag: email",
@@ -5081,12 +5603,24 @@ define(function(require){return {
             "line": " src\\components\\region\\StatisticsProvince.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\components\\region\\StatisticsProvince.jsx.js:22"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\components\\tab\\NormalRenderer.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
             "line": " src\\components\\tab\\NormalRenderer.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\components\\tab\\NormalRenderer.jsx.js:15"
+        },
+        {
+            "message": "unknown tag: attention",
+            "line": " src\\components\\tab\\NormalRenderer.jsx.js:15"
         },
         {
             "message": "unknown tag: email",
@@ -5097,8 +5631,16 @@ define(function(require){return {
             "line": " src\\components\\table\\ButtonRenderer.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\components\\table\\ButtonRenderer.jsx.js:13"
+        },
+        {
+            "message": "unknown tag: attention",
+            "line": " src\\components\\table\\ButtonRenderer.jsx.js:13"
+        },
+        {
             "message": "unknown tag: fire",
-            "line": " src\\components\\table\\ButtonRenderer.jsx.js:23"
+            "line": " src\\components\\table\\ButtonRenderer.jsx.js:32"
         },
         {
             "message": "unknown tag: email",
@@ -5109,8 +5651,12 @@ define(function(require){return {
             "line": " src\\components\\table\\Expander.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\components\\table\\Expander.jsx.js:16"
+        },
+        {
             "message": "unknown tag: fire",
-            "line": " src\\components\\table\\Expander.jsx.js:29"
+            "line": " src\\components\\table\\Expander.jsx.js:39"
         },
         {
             "message": "unknown tag: email",
@@ -5121,8 +5667,12 @@ define(function(require){return {
             "line": " src\\components\\table\\MessageBar.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\components\\table\\MessageBar.jsx.js:12"
+        },
+        {
             "message": "unknown tag: fire",
-            "line": " src\\components\\table\\MessageBar.jsx.js:21"
+            "line": " src\\components\\table\\MessageBar.jsx.js:28"
         },
         {
             "message": "unknown tag: email",
@@ -5133,12 +5683,20 @@ define(function(require){return {
             "line": " src\\components\\table\\NoDataRenderer.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\components\\table\\NoDataRenderer.jsx.js:13"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\components\\table\\NormalHeader.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
             "line": " src\\components\\table\\NormalHeader.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\components\\table\\NormalHeader.jsx.js:18"
         },
         {
             "message": "unknown tag: email",
@@ -5149,12 +5707,20 @@ define(function(require){return {
             "line": " src\\components\\table\\NormalRenderer.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\components\\table\\NormalRenderer.jsx.js:10"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\components\\table\\NumberRenderer.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
             "line": " src\\components\\table\\NumberRenderer.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\components\\table\\NumberRenderer.jsx.js:12"
         },
         {
             "message": "unknown tag: email",
@@ -5165,12 +5731,20 @@ define(function(require){return {
             "line": " src\\components\\table\\SelectorInHeader.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\components\\table\\SelectorInHeader.jsx.js:40"
+        },
+        {
             "message": "unknown tag: email",
             "line": " src\\components\\table\\SelectorInTBody.jsx.js:1"
         },
         {
             "message": "unknown tag: version",
             "line": " src\\components\\table\\SelectorInTBody.jsx.js:1"
+        },
+        {
+            "message": "unknown tag: properties",
+            "line": " src\\components\\table\\SelectorInTBody.jsx.js:16"
         },
         {
             "message": "unknown tag: email",
@@ -5181,8 +5755,12 @@ define(function(require){return {
             "line": " src\\components\\tree\\NormalRenderer.jsx.js:1"
         },
         {
+            "message": "unknown tag: properties",
+            "line": " src\\components\\tree\\NormalRenderer.jsx.js:17"
+        },
+        {
             "message": "unknown tag: fire",
-            "line": " src\\components\\tree\\NormalRenderer.jsx.js:33"
+            "line": " src\\components\\tree\\NormalRenderer.jsx.js:41"
         },
         {
             "message": "unknown tag: email",
@@ -5193,12 +5771,16 @@ define(function(require){return {
             "line": " src\\components\\tree\\SelectRenderer.jsx.js:1"
         },
         {
-            "message": "unknown tag: fire",
-            "line": " src\\components\\tree\\SelectRenderer.jsx.js:32"
+            "message": "unknown tag: properties",
+            "line": " src\\components\\tree\\SelectRenderer.jsx.js:18"
         },
         {
             "message": "unknown tag: fire",
-            "line": " src\\components\\tree\\SelectRenderer.jsx.js:38"
+            "line": " src\\components\\tree\\SelectRenderer.jsx.js:40"
+        },
+        {
+            "message": "unknown tag: fire",
+            "line": " src\\components\\tree\\SelectRenderer.jsx.js:46"
         },
         {
             "message": "unknown tag: email",
@@ -5981,12 +6563,20 @@ define(function(require){return {
             "line": " src\\Wizard.jsx.js:25"
         },
         {
-            "message": "Missing item type",
+            "message": "Missing item type\nDialog Alert渲染器",
             "line": " src\\components\\dialog\\Alert.jsx.js:1"
         },
         {
-            "message": "Missing item type\nConfirm窗体内容",
+            "message": "Missing item type",
+            "line": " src\\components\\dialog\\Alert.jsx.js:15"
+        },
+        {
+            "message": "Missing item type\nDialog Confirm渲染器",
             "line": " src\\components\\dialog\\Confirm.jsx.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\components\\dialog\\Confirm.jsx.js:15"
         },
         {
             "message": "Missing item type\nList Item默认渲染器",
@@ -5994,79 +6584,139 @@ define(function(require){return {
         },
         {
             "message": "Missing item type",
-            "line": " src\\components\\list\\NormalRenderer.jsx.js:28"
+            "line": " src\\components\\list\\NormalRenderer.jsx.js:14"
         },
         {
-            "message": "Missing item type\n省选择零件",
+            "message": "Missing item type",
+            "line": " src\\components\\list\\NormalRenderer.jsx.js:35"
+        },
+        {
+            "message": "Missing item type\nRegion 省级渲染器",
             "line": " src\\components\\region\\NormalProvince.jsx.js:1"
         },
         {
-            "message": "Missing item type\n大区选择零件",
+            "message": "Missing item type",
+            "line": " src\\components\\region\\NormalProvince.jsx.js:21"
+        },
+        {
+            "message": "Missing item type\nRegion大区域渲染器",
             "line": " src\\components\\region\\NormalRegion.jsx.js:1"
         },
         {
-            "message": "Missing item type\n省选择零件",
+            "message": "Missing item type",
+            "line": " src\\components\\region\\NormalRegion.jsx.js:18"
+        },
+        {
+            "message": "Missing item type\nRegion带有汇总信息的省渲染器",
             "line": " src\\components\\region\\StatisticsProvince.jsx.js:1"
         },
         {
-            "message": "Missing item type\n切换组件",
+            "message": "Missing item type",
+            "line": " src\\components\\region\\StatisticsProvince.jsx.js:22"
+        },
+        {
+            "message": "Missing item type\ntab 普通渲染器",
             "line": " src\\components\\tab\\NormalRenderer.jsx.js:1"
         },
         {
-            "message": "Missing item type\n带按钮的td",
+            "message": "Missing item type",
+            "line": " src\\components\\tab\\NormalRenderer.jsx.js:15"
+        },
+        {
+            "message": "Missing item type\ntable 带icon按钮的单元格渲染器",
             "line": " src\\components\\table\\ButtonRenderer.jsx.js:1"
         },
         {
             "message": "Missing item type",
-            "line": " src\\components\\table\\ButtonRenderer.jsx.js:23"
+            "line": " src\\components\\table\\ButtonRenderer.jsx.js:13"
         },
         {
-            "message": "Missing item type\n带折叠按钮的列",
+            "message": "Missing item type",
+            "line": " src\\components\\table\\ButtonRenderer.jsx.js:32"
+        },
+        {
+            "message": "Missing item type\ntable 有折叠功能的单元格渲染器",
             "line": " src\\components\\table\\Expander.jsx.js:1"
         },
         {
             "message": "Missing item type",
-            "line": " src\\components\\table\\Expander.jsx.js:29"
+            "line": " src\\components\\table\\Expander.jsx.js:16"
         },
         {
-            "message": "Missing item type\n黄色信息栏",
+            "message": "Missing item type",
+            "line": " src\\components\\table\\Expander.jsx.js:39"
+        },
+        {
+            "message": "Missing item type\ntable 信息栏渲染器",
             "line": " src\\components\\table\\MessageBar.jsx.js:1"
         },
         {
             "message": "Missing item type",
-            "line": " src\\components\\table\\MessageBar.jsx.js:21"
+            "line": " src\\components\\table\\MessageBar.jsx.js:12"
         },
         {
-            "message": "Missing item type\ntable无数据渲染器",
+            "message": "Missing item type",
+            "line": " src\\components\\table\\MessageBar.jsx.js:28"
+        },
+        {
+            "message": "Missing item type\ntable 无数据渲染器",
             "line": " src\\components\\table\\NoDataRenderer.jsx.js:1"
         },
         {
-            "message": "Missing item type\n表头",
+            "message": "Missing item type",
+            "line": " src\\components\\table\\NoDataRenderer.jsx.js:13"
+        },
+        {
+            "message": "Missing item type\ntable 普通表头渲染器",
             "line": " src\\components\\table\\NormalHeader.jsx.js:1"
         },
         {
-            "message": "Missing item type\n普通td",
+            "message": "Missing item type",
+            "line": " src\\components\\table\\NormalHeader.jsx.js:18"
+        },
+        {
+            "message": "Missing item type\ntable 普通单元格渲染器",
             "line": " src\\components\\table\\NormalRenderer.jsx.js:1"
         },
         {
-            "message": "Missing item type\n数值型td",
+            "message": "Missing item type",
+            "line": " src\\components\\table\\NormalRenderer.jsx.js:10"
+        },
+        {
+            "message": "Missing item type\ntable 数值型单元格渲染器",
             "line": " src\\components\\table\\NumberRenderer.jsx.js:1"
         },
         {
-            "message": "Missing item type\n表头列选择器",
+            "message": "Missing item type",
+            "line": " src\\components\\table\\NumberRenderer.jsx.js:12"
+        },
+        {
+            "message": "Missing item type\ntable 有选择功能的表头渲染器",
             "line": " src\\components\\table\\SelectorInHeader.jsx.js:1"
         },
         {
-            "message": "Missing item type\n行选择器",
+            "message": "Missing item type",
+            "line": " src\\components\\table\\SelectorInHeader.jsx.js:40"
+        },
+        {
+            "message": "Missing item type\ntable 有选择功能的单元格渲染器",
             "line": " src\\components\\table\\SelectorInTBody.jsx.js:1"
         },
         {
-            "message": "Missing item type\ntree组件item默认渲染器",
+            "message": "Missing item type",
+            "line": " src\\components\\table\\SelectorInTBody.jsx.js:16"
+        },
+        {
+            "message": "Missing item type\ntree item默认渲染器",
             "line": " src\\components\\tree\\NormalRenderer.jsx.js:1"
         },
         {
             "message": "Missing item type",
-            "line": " src\\components\\tree\\NormalRenderer.jsx.js:33"
+            "line": " src\\components\\tree\\NormalRenderer.jsx.js:17"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\components\\tree\\NormalRenderer.jsx.js:41"
         },
         {
             "message": "Missing item type\ntree 有选择功能的渲染器",
@@ -6074,11 +6724,15 @@ define(function(require){return {
         },
         {
             "message": "Missing item type",
-            "line": " src\\components\\tree\\SelectRenderer.jsx.js:32"
+            "line": " src\\components\\tree\\SelectRenderer.jsx.js:18"
         },
         {
             "message": "Missing item type",
-            "line": " src\\components\\tree\\SelectRenderer.jsx.js:38"
+            "line": " src\\components\\tree\\SelectRenderer.jsx.js:40"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\components\\tree\\SelectRenderer.jsx.js:46"
         },
         {
             "message": "Missing item type\n组件公共方法",
@@ -6238,11 +6892,11 @@ define(function(require){return {
         },
         {
             "message": "Missing item type\n此处逻辑：\n（1）如果当前节点是叶子节点，标记为true\n（2）如果当前节点不是叶子节点，在其树下所有叶子标记为true\n（3）如果当点节点有children属性，但children长度为0，则将此节点标记为1",
-            "line": " src\\core\\treeTools.js:54"
+            "line": " src\\core\\treeTools.js:53"
         },
         {
             "message": "Missing item type\n此处逻辑\n（1）如果是叶子，则删除\n（2）如果不是叶子，则删除该子树上的所有叶子",
-            "line": " src\\core\\treeTools.js:87"
+            "line": " src\\core\\treeTools.js:86"
         },
         {
             "message": "Missing item type\n全局工具集",

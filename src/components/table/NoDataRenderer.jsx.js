@@ -1,8 +1,8 @@
 /**
- * table无数据渲染器
+ * table 无数据渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -10,6 +10,10 @@ define(function (require) {
     var language = require('../../core/language');
 
     return React.createClass({
+        /**
+         * @properties
+         * @param {ReactComponent} tableComponent table实例
+         */
         getDefaultProps: function () {
             return {
                 tableComponent: {}

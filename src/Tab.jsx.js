@@ -73,7 +73,7 @@ define(function (require) {
         var value = me.___getValue___();
         for (var i = 0; i < me.props.datasource.length; i++) {
             var Renderer = typeof me.props.renderer === 'function' ? me.props.renderer : NormalRenderer;
-            var props = me.props.datasource[i];
+            var props = JSON.parse(JSON.stringify(me.props.datasource[i]));
             props.key = i;
             props.onClick = props.disabled ? cTools.noop : me.onClick;
             if (me.props.disabled || props.disabled) {

@@ -1,8 +1,8 @@
 /**
- *  Confirm窗体内容
+ * Dialog Confirm渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -12,6 +12,12 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties 
+         * @param {String} message 主区域显示的内容
+         * @param {Function} onEnter 点击确定的回调
+         * @param {Function} onCancel 点击取消的回调
+         */
         getDefaultProps : function () {
             return {
                 message: 'Message',

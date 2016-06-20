@@ -1,8 +1,8 @@
 /**
- *  省选择零件
+ * Region 省级渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -18,6 +18,15 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         * @param {Number} id 省所属的编号
+         * @param {Object} value Region组件转译后的value，以省市编号为key，有哪个key，代表哪个地区被选中
+         * @param {ReactComponent} parent 渲染器所属的Region组件实例
+         * @param {Boolean} disabled 渲染器是否处于禁用状态
+         * @param {String} type 渲染器的选择状态，'single'表示单选，其他为多选
+         * @param {Function} onChange 选择状态改变后的回调
+         */
         // @override
         getDefaultProps: function () {
             return {

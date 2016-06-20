@@ -2,7 +2,7 @@
  * List Item默认渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -11,9 +11,16 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         * @param {String} label item上显示的内容
+         * @param {String} value item代表的值 
+         * @param {Boolean} disabled item是否处于禁用状态
+         * @param {Function} onClick 点击后的回调
+         * @attention <ListItemObject>中所有数据型属性（即不包含方法）都会传入List Item props，但disabled和onClick会被覆盖
+         */
         // @override
         getDefaultProps: function () {
-            // 此处为List.props.datasource[i]
             return {
                 label: '',
                 value: '',

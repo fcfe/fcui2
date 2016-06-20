@@ -1,18 +1,30 @@
 /**
- *  数值型td
+ * table 数值型单元格渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
     var React = require('react');
 
     return React.createClass({
+        /**
+         * @properties
+         * @param {String} className 加在单元格td上的类
+         * @param {String} style 加在单元格td上的样式表
+         * @param {String} content 单元格中显示的内容
+         * @param {String} renderType 数字显示类型：
+         *     int：整形
+         *   float：浮点
+         * percent：百分比
+         * @param {Number} fixed 显示保留的小数位数，renderType = 'int' 时无效
+         */
         getDefaultProps: function () {
             return {
                 className: '',
                 style: {},
+                content: '',
                 renderType: 'int',
                 fixed: 2
             };

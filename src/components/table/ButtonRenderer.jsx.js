@@ -1,8 +1,8 @@
 /**
- *  带按钮的td
+ * table 带icon按钮的单元格渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -10,6 +10,15 @@ define(function (require) {
 
     return React.createClass({
         getDefaultProps: function () {
+            /**
+             * @properties
+             * @param {String} className 加在单元格td上的类
+             * @param {Object} style 加在单元格td上的样式表
+             * @param {Number} row 单元格行索引
+             * @param {Number} column 单元格列索引
+             * @param {Function} onAction 表格回调总线
+             * @attention 对于所有单元格渲染器，传入的props格式是一致的，具体见src\core\tableTools.js
+             */
             return {
                 className: '',
                 style: {},

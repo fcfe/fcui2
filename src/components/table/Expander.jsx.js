@@ -1,8 +1,8 @@
 /**
- *  带折叠按钮的列
+ * table 有折叠功能的单元格渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -13,7 +13,17 @@ define(function (require) {
     return React.createClass({
         // @override
         getDefaultProps: function () {
+            /**
+             * @properties
+             * @param {Object} style 加在单元格td上的样式表
+             * @param {Object} item 单元格所在行的数据源
+             * @param {Number} tableExpandId 表格当前展开状态标识
+             * @param {Function} onAction 表格回调总线
+             */
             return {
+                style: {},
+                item: {},
+                tableExpandId: -1, // from prepare
                 onAction: function () {}
             };
         },

@@ -18,6 +18,7 @@ define(function (require) {
                 return (
                     <div className="parser-properties">
                         <h3>this.props</h3>
+                        {item.attention ? <div className="attention">{item.attention}</div> : null}
                         <Params params={item.params}/>
                         <Callback item={item}/>
                     </div>

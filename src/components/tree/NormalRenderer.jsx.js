@@ -1,8 +1,8 @@
 /**
- * tree组件item默认渲染器
+ * tree item默认渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -14,6 +14,14 @@ define(function (require) {
     return React.createClass({
         mixins: [TreeNodeBase],
         // @override
+        /**
+         * @properties
+         * @param {String} index 叶子序列，通过此序列，可以从datasource中依次访问找到叶子的数据源
+         * @param {Object} item 叶子对应的数据源
+         * @param {ReactComponent} treeComponent 叶子所在树的实例
+         * @param {Boolean} disabled 叶子是否在禁用状态
+         * @param {Function} onAction 回调接口
+         */
         getDefaultProps: function () {
             return {
                 index: '',

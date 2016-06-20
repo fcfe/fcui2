@@ -1,8 +1,8 @@
 /**
+ * Dialog Alert渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
- * @test 这就是个测试，看看能不能自定义语法如果能，还用YUI自己的语法干啥？
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -12,6 +12,11 @@ define(function (require) {
 
 
     return React.createClass({
+        /**
+         * @properties
+         * @param {String} message 显示在主区域的内容
+         * @param {Function} onClick 通知外部关闭的回调
+         */
         getDefaultProps : function () {
             return {
                 message: 'Message',

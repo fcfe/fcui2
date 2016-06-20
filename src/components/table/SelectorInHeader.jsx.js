@@ -1,8 +1,8 @@
 /**
- *  表头列选择器
+ * table 有选择功能的表头渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -37,6 +37,12 @@ define(function (require) {
     return React.createClass({
         // @override
         getDefaultProps: function () {
+            /**
+             * @properties
+             * @param {Object} fieldConfig 当前列配置
+             * @param {ReactComponent} tableComponent table实例对象
+             * @param {Array.<ListItemObject>} datasource 选择器下拉菜单数据源
+             */
             return {
                 fieldConfig: {},
                 tableComponent: {},

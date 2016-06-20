@@ -6,7 +6,60 @@ define(function (require) {
     var Button = require('fcui/Button.jsx');
     var TextBox = require('fcui/TextBox.jsx');
     var NumberBox = require('fcui/NumberBox.jsx');
+    var Information = require('../Information.jsx');
 
+    var demos = {
+        'Readonly form with initial data': [
+            '<Form>',
+            '    <span>name: </span><TextBox value={this.state.form1.name}/><br/>',
+            '    <span>age: </span><NumberBox value={this.state.form1.age}/>',
+            '</Form>'
+        ],
+        'Form with field change handler': [
+            '<Form onFieldChange={this.formFieldChangeFactory(\'form2\')}>',
+            '    <span>name: </span><TextBox name="name" value={this.state.form2.name}/><br/>',
+            '    <span>age: </span><NumberBox name="age" value={this.state.form2.age}/>',
+            '</Form>'
+        ],
+        'Form with field validations': [
+            '<Form onFieldChange={this.formFieldChangeFactory(\'form3\')}>',
+            '    <span>name: </span>',
+            '    <TextBox name="name" value={this.state.form3.name}/><br/>',
+            '    <span>age: </span>',
+            '    <NumberBox name="age" value={this.state.form3.age}',
+            '        validations={{',
+            '            maxAge: function (e) {',
+            '                return e < 21 ? true : \'真不能大于20岁！\'',
+            '            }',
+            '        }}',
+            '    />',
+            '    <label>年龄不能大于20岁了</label>',
+            '</Form>'
+        ],
+        'Form with cross validations': [
+            '<Form onFieldChange={this.formFieldChangeFactory(\'form4\')}  validations={{',
+            '    maxAge: function (e) {',
+            '        if (',
+            '            e.hasOwnProperty(\'name\')',
+            '            && e.hasOwnProperty(\'age\')',
+            '            && e.name === \'Brian Li\'',
+            '            && e.age > 18',
+            '        ) {',
+            '            return \'这输入违反表单校验规则\';',
+            '        }',
+            '        return true;',
+            '    }',
+            '}}>',
+            '    <label>Brian Li永远不超过18岁，点确定校验。</label><br/><br/>',
+            '    <span>name: </span>',
+            '    <TextBox name="name" value={this.state.form4.name}/><br/>',
+            '    <span>age: </span>',
+            '    <NumberBox name="age" value={this.state.form4.age}/><br/>',
+            '    <Button label="确定" type="submit"/>',
+            '</Form>'
+        ]
+
+    };
 
     return React.createClass({
         // @override
@@ -55,21 +108,21 @@ define(function (require) {
             return (
                 <div className="demo-form">
                     <div className="demo-item">
-                        <h3>Readonly form with initial data</h3>
+                        <Information title="Readonly form with initial data" content={demos['Readonly form with initial data'].join('\n')}/>
                         <Form>
                             <span>name: </span><TextBox value={this.state.form1.name}/><br/>
                             <span>age: </span><NumberBox value={this.state.form1.age}/>
                         </Form>
                     </div>
                     <div className="demo-item">
-                        <h3>Form with field change handler</h3>
+                        <Information title="Form with field change handler" content={demos['Form with field change handler'].join('\n')}/>
                         <Form onFieldChange={this.formFieldChangeFactory('form2')}>
                             <span>name: </span><TextBox name="name" value={this.state.form2.name}/><br/>
                             <span>age: </span><NumberBox name="age" value={this.state.form2.age}/>
                         </Form>
                     </div>
                     <div className="demo-item">
-                        <h3>Form with field validations</h3>
+                        <Information title="Form with field validations" content={demos['Form with field validations'].join('\n')}/>
                         <Form onFieldChange={this.formFieldChangeFactory('form3')}>
                             <span>name: </span>
                             <TextBox name="name" value={this.state.form3.name}/><br/>
@@ -85,7 +138,7 @@ define(function (require) {
                         </Form>
                     </div>
                     <div className="demo-item">
-                        <h3>Form with cross validations</h3>
+                        <Information title="Form with cross validations" content={demos['Form with cross validations'].join('\n')}/>
                         <Form onFieldChange={this.formFieldChangeFactory('form4')}  validations={{
                             maxAge: function (e) {
                                 if (

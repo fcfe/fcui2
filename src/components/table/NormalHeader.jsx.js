@@ -1,8 +1,8 @@
 /**
- *  表头
+ * table 普通表头渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -15,6 +15,11 @@ define(function (require) {
 
 
         // @override
+        /**
+         * @properties
+         * @param {Object} fieldConfig 表头所在列的配置信息
+         * @param {ReactComponent} tableComponent 表格实例
+         */
         getDefaultProps: function () {
             return {
                 fieldConfig: {},
