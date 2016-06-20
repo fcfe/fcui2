@@ -2,9 +2,10 @@
  * 组件公共方法
  * @author Brian Li
  * @email lbxxlht@163.com
- * @version 0.0.2
+ * @version 0.0.2.1
  */
 define(function (require) {
+
     var _ = require('underscore');
 
     var MERGE_FROM_PROPS_TO_STYLE = [

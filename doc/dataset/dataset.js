@@ -127,6 +127,13 @@ define(function(require){return {
             "fors": {},
             "namespaces": {}
         },
+        "src\\core\\calendarTools.js": {
+            "name": "src\\core\\calendarTools.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "src\\core\\componentTools.js": {
             "name": "src\\core\\componentTools.js",
             "modules": {},
@@ -206,20 +213,6 @@ define(function(require){return {
         },
         "src\\mixins\\InputWidgetImeFixed.js": {
             "name": "src\\mixins\\InputWidgetImeFixed.js",
-            "modules": {},
-            "classes": {},
-            "fors": {},
-            "namespaces": {}
-        },
-        "src\\mixins\\LayerContainerBase.js": {
-            "name": "src\\mixins\\LayerContainerBase.js",
-            "modules": {},
-            "classes": {},
-            "fors": {},
-            "namespaces": {}
-        },
-        "src\\mixins\\MouseWidgetBase.js": {
-            "name": "src\\mixins\\MouseWidgetBase.js",
             "modules": {},
             "classes": {},
             "fors": {},
@@ -1317,6 +1310,309 @@ define(function(require){return {
                     "type": "String"
                 }
             ],
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 1,
+            "description": "日历组件工具集",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 13,
+            "description": "分割日期",
+            "interface": "cutValues",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "日期串，如：YYYY-MM-DD;YYYY-MM-DD",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "分割后的日期对象",
+                "type": "CalendarValues"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 19,
+            "structure": "CalendarValues",
+            "params": [
+                {
+                    "name": "___v1",
+                    "description": "输入串中日期靠前的Date实例",
+                    "type": "Date"
+                },
+                {
+                    "name": "___v2",
+                    "description": "输入串中日期靠后的Date实例",
+                    "type": "Date"
+                },
+                {
+                    "name": "value1",
+                    "description": "输入串中日期靠前的半部分",
+                    "type": "String"
+                },
+                {
+                    "name": "value2",
+                    "description": "输入串中日期靠后的半部分",
+                    "type": "String"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 56,
+            "description": "字符串转日期",
+            "interface": "str2date",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "日期字符串，要求年月日之间必须以'-'分割。",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "对应日期",
+                "type": "Date"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 79,
+            "description": "比较日期",
+            "interface": "compareDate",
+            "params": [
+                {
+                    "name": "a",
+                    "description": "日期A",
+                    "type": "Date"
+                },
+                {
+                    "name": "b",
+                    "description": "日期B",
+                    "type": "Date"
+                }
+            ],
+            "return": {
+                "description": "日期比较结果：-1，a在b之前；0，a和b是同一天；1，a在b之后",
+                "type": "Number"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 96,
+            "description": "获取某月最后一天",
+            "interface": "getLastDayInMonth",
+            "params": [
+                {
+                    "name": "year",
+                    "description": "年份",
+                    "type": "String|Number"
+                },
+                {
+                    "name": "month",
+                    "description": "月份",
+                    "type": "String|Number"
+                }
+            ],
+            "return": {
+                "description": "该月的最后一天日期实例",
+                "type": "Date"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 113,
+            "description": "获取某月第一天",
+            "interface": "getLastDayInMonth",
+            "params": [
+                {
+                    "name": "year",
+                    "description": "年份",
+                    "type": "String|Number"
+                },
+                {
+                    "name": "month",
+                    "description": "月份",
+                    "type": "String|Number"
+                }
+            ],
+            "return": {
+                "description": "该月第一天日期实例",
+                "type": "Date"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 123,
+            "description": "某月是否在指定区间内",
+            "interface": "monthInRange",
+            "params": [
+                {
+                    "name": "year",
+                    "description": "年份",
+                    "type": "String|Number"
+                },
+                {
+                    "name": "month",
+                    "description": "月份",
+                    "type": "String|Number"
+                },
+                {
+                    "name": "min",
+                    "description": "日期区间左值，格式：YYYY-MM-DD",
+                    "type": "String"
+                },
+                {
+                    "name": "max",
+                    "description": "日期区间右值，格式：YYYY-MM-DD",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "某月是否在给定区间内",
+                "type": "Boolean"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 140,
+            "description": "获取今天",
+            "interface": "getDataRange.today",
+            "return": {
+                "description": "日期区间",
+                "type": "CalendarRangeData"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 145,
+            "structure": "CalendarRangeData",
+            "params": [
+                {
+                    "name": "value1",
+                    "description": "日期区间左值",
+                    "type": "Date"
+                },
+                {
+                    "name": "value2",
+                    "description": "日期区间右值",
+                    "type": "Date"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 158,
+            "description": "获取昨天",
+            "interface": "getDataRange.yesterday",
+            "return": {
+                "description": "日期区间",
+                "type": "CalendarRangeData"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 172,
+            "description": "获取前天",
+            "interface": "getDataRange.beforeYesterday",
+            "return": {
+                "description": "日期区间",
+                "type": "CalendarRangeData"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 186,
+            "description": "获取上一周",
+            "interface": "getDataRange.lastWeek",
+            "return": {
+                "description": "日期区间",
+                "type": "CalendarRangeData"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 202,
+            "description": "获取过去7天",
+            "interface": "getDataRange.last7",
+            "return": {
+                "description": "日期区间",
+                "type": "CalendarRangeData"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 217,
+            "description": "获取过去14天",
+            "interface": "getDataRange.last14",
+            "return": {
+                "description": "日期区间",
+                "type": "CalendarRangeData"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 232,
+            "description": "获取过去30天",
+            "interface": "getDataRange.last30",
+            "return": {
+                "description": "日期区间",
+                "type": "CalendarRangeData"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 247,
+            "description": "获取当前月",
+            "interface": "getDataRange.currentMonth",
+            "return": {
+                "description": "日期区间",
+                "type": "CalendarRangeData"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 261,
+            "description": "获取上月",
+            "interface": "getDataRange.lastMonth",
+            "return": {
+                "description": "日期区间",
+                "type": "CalendarRangeData"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\calendarTools.js",
+            "line": 277,
+            "description": "获取上季度",
+            "interface": "getDataRange.lastQuarter",
+            "return": {
+                "description": "日期区间",
+                "type": "CalendarRangeData"
+            },
             "class": ""
         },
         {
@@ -2525,24 +2821,6 @@ define(function(require){return {
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
-            "class": ""
-        },
-        {
-            "file": "src\\mixins\\LayerContainerBase.js",
-            "line": 1,
-            "description": "含有layer组件基础mixin",
-            "author": "Brian Li",
-            "email": "lbxxlht@163.com\n\n 此mixin主要作用是为某些组件提供一些弹出layer的功能，依赖MouseWidgetBase\n\n 使用此mixin的组件中应含有如下内容：\n 1. [required] this.props.layerContent {function}\n    用于渲染layer内容的组件构造函数，可以是其他任何组件\n 2. [optional] this.props.layerProps {Object}\n    渲染layer时，此属性会当作layer的原始props传入进去\n 3. [optional] this.props.layerPolicymaker {boolean | function}\n    是否弹出layer的决策算法，如果被设置成true或false则直接使用\n    如果是函数，就将制作好的layerProps传过去由外界计算，根据返回值决定是否弹出\n    当然在这个函数里改layerProps的值都没问题，不过不建议这样做\n 4. [optional] this.props.layerInterface {string}\n    layerContent组件需要用回调方法与父组件通信，这里给出外部响应的主回调名称\n    可能难于理解，详情请看代码中 “// 创建layer props”之后的部分\n 5. [optional] this.props.datasource {Any}\n    绝大多数情况下，layer是一个列表，因此会把props.datasource加到props.layerProps中传入进去\n    但如果props.layerProps存在datasource，不会被覆盖，也不会merge\n 6. [required] this.props.layerProps.layerAnchor || this.refs.container\n    组件的根容器或锚容器引用，用于layer的自动定位：定位的默认优先级是先下后上，先右后左，也可配置；\n 7. [optional] this.layerClose\n    组件的一个方法，layer关闭后回调\n 8. [optional] this.layerAction\n    组件的一个方法，layer发生props.layerInterface动作时回调，即将组件的layerAction方法，放在layerProps中，\n    并命名为this.props.layerInterface，通过layer传递给layer中的layerContent组件\n\n 在初始化layer时，mixin会在props.layerProps中加入parent属性，记录当前组件；同时传入当前组件的this.layerAction方法，\n 以提供layer内容的回调接口\n\n 此mixin会在this下注入两个内部变量，this.___layerContainer___，存放layer的最外dom容器；this.___layer___，存放layer\n 初始化完毕后的react组件实例\n\n 此mixin会在this下暴露两个接口，this.layerShow用于弹出layer，this.layerHide用于移除layer",
-            "attention": "此mixin已停止维护，并已废弃，即将删除",
-            "class": ""
-        },
-        {
-            "file": "src\\mixins\\MouseWidgetBase.js",
-            "line": 1,
-            "description": "响应鼠标类型组件基础mixin",
-            "author": "Brian Li",
-            "email": "lbxxlht@163.com\n\n 此mixin主要作用是提供某些鼠标事件\n 将mouseover, mousedown状态记录在state中\n 这些鼠标事件应由组件设计者自行绑定，或在自定义事件中调用",
-            "attention": "此mixin已停止维护，即将废弃",
             "class": ""
         },
         {
@@ -5784,6 +6062,22 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: email",
+            "line": " src\\core\\calendarTools.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\core\\calendarTools.js:1"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\core\\calendarTools.js:19"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\core\\calendarTools.js:145"
+        },
+        {
+            "message": "unknown tag: email",
             "line": " src\\core\\componentTools.js:1"
         },
         {
@@ -5845,22 +6139,6 @@ define(function(require){return {
         {
             "message": "unknown tag: version",
             "line": " src\\mixins\\InputWidgetImeFixed.js:1"
-        },
-        {
-            "message": "unknown tag: email",
-            "line": " src\\mixins\\LayerContainerBase.js:1"
-        },
-        {
-            "message": "unknown tag: attention",
-            "line": " src\\mixins\\LayerContainerBase.js:1"
-        },
-        {
-            "message": "unknown tag: email",
-            "line": " src\\mixins\\MouseWidgetBase.js:1"
-        },
-        {
-            "message": "unknown tag: attention",
-            "line": " src\\mixins\\MouseWidgetBase.js:1"
         },
         {
             "message": "unknown tag: fire",
@@ -6735,6 +7013,82 @@ define(function(require){return {
             "line": " src\\components\\tree\\SelectRenderer.jsx.js:46"
         },
         {
+            "message": "Missing item type\n日历组件工具集",
+            "line": " src\\core\\calendarTools.js:1"
+        },
+        {
+            "message": "Missing item type\n分割日期",
+            "line": " src\\core\\calendarTools.js:13"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\core\\calendarTools.js:19"
+        },
+        {
+            "message": "Missing item type\n字符串转日期",
+            "line": " src\\core\\calendarTools.js:56"
+        },
+        {
+            "message": "Missing item type\n比较日期",
+            "line": " src\\core\\calendarTools.js:79"
+        },
+        {
+            "message": "Missing item type\n获取某月最后一天",
+            "line": " src\\core\\calendarTools.js:96"
+        },
+        {
+            "message": "Missing item type\n获取某月第一天",
+            "line": " src\\core\\calendarTools.js:113"
+        },
+        {
+            "message": "Missing item type\n某月是否在指定区间内",
+            "line": " src\\core\\calendarTools.js:123"
+        },
+        {
+            "message": "Missing item type\n获取今天",
+            "line": " src\\core\\calendarTools.js:140"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\core\\calendarTools.js:145"
+        },
+        {
+            "message": "Missing item type\n获取昨天",
+            "line": " src\\core\\calendarTools.js:158"
+        },
+        {
+            "message": "Missing item type\n获取前天",
+            "line": " src\\core\\calendarTools.js:172"
+        },
+        {
+            "message": "Missing item type\n获取上一周",
+            "line": " src\\core\\calendarTools.js:186"
+        },
+        {
+            "message": "Missing item type\n获取过去7天",
+            "line": " src\\core\\calendarTools.js:202"
+        },
+        {
+            "message": "Missing item type\n获取过去14天",
+            "line": " src\\core\\calendarTools.js:217"
+        },
+        {
+            "message": "Missing item type\n获取过去30天",
+            "line": " src\\core\\calendarTools.js:232"
+        },
+        {
+            "message": "Missing item type\n获取当前月",
+            "line": " src\\core\\calendarTools.js:247"
+        },
+        {
+            "message": "Missing item type\n获取上月",
+            "line": " src\\core\\calendarTools.js:261"
+        },
+        {
+            "message": "Missing item type\n获取上季度",
+            "line": " src\\core\\calendarTools.js:277"
+        },
+        {
             "message": "Missing item type\n组件公共方法",
             "line": " src\\core\\componentTools.js:1"
         },
@@ -6985,14 +7339,6 @@ define(function(require){return {
         {
             "message": "Missing item type\n输入框流劫持",
             "line": " src\\mixins\\InputWidgetImeFixed.js:1"
-        },
-        {
-            "message": "Missing item type\n含有layer组件基础mixin",
-            "line": " src\\mixins\\LayerContainerBase.js:1"
-        },
-        {
-            "message": "Missing item type\n响应鼠标类型组件基础mixin",
-            "line": " src\\mixins\\MouseWidgetBase.js:1"
         },
         {
             "message": "Missing item type\ntree node base",

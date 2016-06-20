@@ -2,7 +2,6 @@ define(function (require) {
 
     var dataset = require('./dataset/dataset.js');
     var items = {};
-    var warnings = {};
     var menu = [
         {
             level: 'base',
@@ -125,7 +124,6 @@ define(function (require) {
     for (var key in dataset.files) {
         if (!dataset.files.hasOwnProperty(key)) continue;
         items[key] = [];
-        warnings[key] = [];
         if (key.indexOf('src\\components\\') === 0) {
             menu[4].children.push({
                 id: key,
@@ -150,28 +148,11 @@ define(function (require) {
         if (!item.file || !items.hasOwnProperty(item.file)) continue;
         items[item.file].push(item);
     }
-    for (var i = 0; i < dataset.warnings.length; i++) {
-        var item = dataset.warnings[i];
-        item.file = item.line.split(':')[0].trim();
-        item.line = +item.line.split(':')[1];
-        if (!item.file || !warnings.hasOwnProperty(item.file)) continue;
-        warnings[item.file].push(item);
-    }
-    for (var key in items) {
-        if (!items.hasOwnProperty(key)) continue;
-        items[key] = items[key].sort(sorter);
-    }
-    for (var key in warnings) {
-        if (!warnings.hasOwnProperty(key)) continue;
-        warnings[key] = warnings[key].sort(sorter);
-    }
-
 
     return {
         menu: menu,
         demos: demos,
-        items: items,
-        warnings: warnings
+        items: items
     };
 
 
