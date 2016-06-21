@@ -1,5 +1,5 @@
 /**
- * table 有选择功能的表头渲染器
+ * Table 有选择功能的表头渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2.1
@@ -95,8 +95,8 @@ define(function (require) {
             var containerProp = {
                 className: 'table-selector fcui2-dropdownlist fcui2-dropdownlist-'
                     + (typeof table.props.skin === 'string' && table.props.skin.length ? table.props.skin : 'normal'),
-                onMouseEnter: cTools.openLayerHandler.bind(this),
-                onMouseLeave: cTools.closeLayerHandler.bind(this),
+                onMouseEnter: cTools.openLayerHandlerFactory(this, 'layerOpen'),
+                onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
                 ref: 'container'
             };
             var mainCheckboxProp = {
@@ -119,7 +119,7 @@ define(function (require) {
                  isOpen: this.state.layerOpen && !table.props.disabled,
                  anchor: this.refs.container,
                  location: 'bottom top right',
-                 onMouseLeave: cTools.closeLayerHandler.bind(this),
+                 onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
                  ref: 'layer'
             };
             return (

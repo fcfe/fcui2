@@ -75,7 +75,7 @@ define(function (require) {
         // 鼠标移出组件区域，关闭layer
         onMouseLeave: function (e) {
             if (this.props.disabled) return;
-            cTools.closeLayerHandler.call(this);
+            cTools.closeLayerHandlerFactory(this, 'layerOpen')();
         },
         render: function () {
             var me = this;

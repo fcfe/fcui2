@@ -69,7 +69,7 @@ define(function (require) {
         },
         onMouseLeave: function () {
             this.setState({mouseenter: false});
-            cTools.closeLayerHandler.call(this);
+            cTools.closeLayerHandlerFactory(this, 'layerOpen')();
         },
         render: function () {
             var me = this;
@@ -78,7 +78,7 @@ define(function (require) {
             var layerProp = {
                 isOpen: this.state.layerOpen && !this.props.disabled,
                 anchor: this.refs.container,
-                onMouseLeave: cTools.closeLayerHandler.bind(this),
+                onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
                 ref: 'layer'
             };
             var calendarProp = {

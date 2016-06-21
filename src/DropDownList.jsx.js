@@ -58,7 +58,7 @@ define(function (require) {
         },
         onMouseLeave: function () {
             this.setState({mouseenter: false});
-            cTools.closeLayerHandler.call(this);
+            cTools.closeLayerHandlerFactory(this, 'layerOpen')();
         },
         onListClick: function (e) {
             if (this.props.disabled) return;
@@ -70,7 +70,7 @@ define(function (require) {
             var containerProp = cTools.containerBaseProps('dropdownlist', this);
             var layerProp = {
                 ref: 'layer',
-                onMouseLeave: cTools.closeLayerHandler.bind(this),
+                onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
                 isOpen: this.state.layerOpen && !this.props.disabled && this.props.datasource.length,
                 anchor: this.refs.container,
                 style: {

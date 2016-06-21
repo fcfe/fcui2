@@ -71,7 +71,7 @@ define(function (require) {
         },
         onMouseLeave: function () {
             this.setState({mouseenter: false});
-            cTools.closeLayerHandler.call(this);
+            cTools.closeLayerHandlerFactory(this, 'layerOpen')();
         },
         render: function () {
             var me = this;
@@ -82,7 +82,7 @@ define(function (require) {
                 ref: 'layer',
                 isOpen: this.state.layerOpen && this.props.datasource.length && !this.props.disabled,
                 anchor: this.refs.container,
-                onMouseLeave: cTools.closeLayerHandler.bind(this),
+                onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
                 style: {
                     maxHeight: '240px',
                     overflow: 'auto'

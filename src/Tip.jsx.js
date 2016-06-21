@@ -63,8 +63,8 @@ define(function (require) {
         render: function () {
             var containerProp = cTools.containerBaseProps('tip', this, {
                 merge: {
-                    onMouseEnter: cTools.openLayerHandler.bind(this),
-                    onMouseLeave: cTools.closeLayerHandler.bind(this),
+                    onMouseEnter: cTools.openLayerHandlerFactory(this, 'layerOpen'),
+                    onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
                 },
                 style: (this.props.title || this.props.content) ? undefined : {display: 'none'}
             });
