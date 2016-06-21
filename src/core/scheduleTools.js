@@ -9,7 +9,7 @@ define(function (require) {
 
     return {
 
-        /**
+        /*
          * 将string类型的value转换成日优先的二维数组，第一维是天，第二维是小时
          *
          * 数组元素为null或string：
@@ -43,7 +43,7 @@ define(function (require) {
             return result;
         },
 
-        /**
+        /*
          * 将value从原始格式转换成string
          *
          * @override
@@ -105,7 +105,7 @@ define(function (require) {
             });
         },
 
-        /**
+        /*
          * 根据schedule mouse state，计算所选的schedule区域
          *
          * @param  {Object} state mouse state
@@ -132,7 +132,7 @@ define(function (require) {
             };
         },
 
-        /**
+        /*
          * 返回一个时间段的文字表示
          * 若提供startHour，返回 startHour:00
          * 若提供startHour, endHour，返回startHour:00-(endHour+1):00
@@ -177,7 +177,7 @@ define(function (require) {
             return res;
         },
 
-        /**
+        /*
          * 将数组形式的24小时值转换为一组label数组每一位值表示当前小时的状态，
          * 相同状态的值将合并为一个label元素返回每一个label元素为一个object
          *
@@ -221,7 +221,7 @@ define(function (require) {
             return result;
         },
 
-        /**
+        /*
          * 给定一组labels， 返回一个label，其中包含给定的index或返回null，如果任
          * 一个label都不包含index
          * label格式参见value2label
@@ -256,7 +256,7 @@ define(function (require) {
             return pos;
         },
 
-        /**
+        /*
          * 根据相对左上角坐标的x, y坐标, 返回其在控件天小时格子里的位置
          *
          * @param {number} x x坐标
@@ -282,7 +282,7 @@ define(function (require) {
             return {x: x, y: y};
         },
 
-        /**
+        /*
          * 根据鼠标状态, 返回cursor层的大小和位置
          * @param {Object} state 当前控件状态, 含有鼠标位置
          * @returns {{left: number, top: number, width: number, height: number}} cursor层大小和位置

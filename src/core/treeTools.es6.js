@@ -1,14 +1,14 @@
-/**
- *  封装树及树选择器相关的方法
- * @author Han Bing Feng (hanbingfeng@)
- */
+
 
 define(function (require) {
     let _ = require('underscore');
 
     let exports = {};
-
-    /**
+/*
+ *  封装树及树选择器相关的方法
+ * @author Han Bing Feng (hanbingfeng@)
+ */
+    /*
      * 先深遍历所有节点
      *
      * @param {Function} cb 回调函数
@@ -33,7 +33,7 @@ define(function (require) {
         });
     },
 
-    /**
+    /*
      * 从treeNode起始标记节点及其所有孩子被选择返回被选择的节点列表
      *
      * @param {treeNode} treeNode 被选择的 tree node
@@ -75,7 +75,7 @@ define(function (require) {
         return _.extend(newMarked, selectedTreeNodeId);
     };
 
-    /**
+    /*
      * 从selectedTreeNodeId中移除treeNode
      *
      * @param {treeNode} treeNode 待移除的treeNode
@@ -99,7 +99,7 @@ define(function (require) {
         return _.omit(selectedTreeNodeId, toRemove);
     };
 
-    /**
+    /*
      * 返回新的expandedTreeNodeId， 展开刚刚选择的节点
      *
      * @param {ReactComponent} dualTreeComponent tree component
@@ -113,7 +113,7 @@ define(function (require) {
         return _.extend(diff, dualTreeComponent.refs.rightTree.state.expandedTreeNodeId);
     };
 
-    /**
+    /*
      * 先深遍历所有已选节点
      *
      * @param {Function} cb 回调函数
@@ -130,7 +130,7 @@ define(function (require) {
         }, treeNodes);
     };
 
-    /**
+    /*
      * 获得已选树结构
      * @param {Array<treeNodes>} treeNodes 树节点全集
      * @param {Object} selectedTreeNodeId 已选树节点集合
@@ -154,7 +154,7 @@ define(function (require) {
         return selectedTreeNodes;
     };
 
-    /**
+    /*
      * 计数已选的叶子节点
      *
      * @param {Array<treeNodes>} treeNodes 树节点全集

@@ -155,8 +155,8 @@ define(function(require){return {
             "fors": {},
             "namespaces": {}
         },
-        "src\\core\\scheduleTools.js": {
-            "name": "src\\core\\scheduleTools.js",
+        "src\\core\\regionTools.js": {
+            "name": "src\\core\\regionTools.js",
             "modules": {},
             "classes": {},
             "fors": {},
@@ -169,15 +169,15 @@ define(function(require){return {
             "fors": {},
             "namespaces": {}
         },
-        "src\\core\\tableTools.js": {
-            "name": "src\\core\\tableTools.js",
+        "src\\core\\sliderTools.js": {
+            "name": "src\\core\\sliderTools.js",
             "modules": {},
             "classes": {},
             "fors": {},
             "namespaces": {}
         },
-        "src\\core\\treeTools.es6.js": {
-            "name": "src\\core\\treeTools.es6.js",
+        "src\\core\\tableTools.js": {
+            "name": "src\\core\\tableTools.js",
             "modules": {},
             "classes": {},
             "fors": {},
@@ -649,7 +649,7 @@ define(function(require){return {
         {
             "file": "src\\components\\region\\NormalRegion.jsx.js",
             "line": 1,
-            "description": "Region大区域渲染器",
+            "description": "Region 大区域渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2.1",
@@ -696,7 +696,7 @@ define(function(require){return {
         {
             "file": "src\\components\\region\\StatisticsProvince.jsx.js",
             "line": 1,
-            "description": "Region带有汇总信息的省渲染器",
+            "description": "Region 带有汇总信息的省渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
@@ -743,7 +743,7 @@ define(function(require){return {
         {
             "file": "src\\components\\tab\\NormalRenderer.jsx.js",
             "line": 1,
-            "description": "tab 普通渲染器",
+            "description": "Tab 普通渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
@@ -781,7 +781,7 @@ define(function(require){return {
         {
             "file": "src\\components\\table\\ButtonRenderer.jsx.js",
             "line": 1,
-            "description": "table 带icon按钮的单元格渲染器",
+            "description": "Table 带icon按钮的单元格渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2.1",
@@ -859,7 +859,7 @@ define(function(require){return {
         {
             "file": "src\\components\\table\\Expander.jsx.js",
             "line": 1,
-            "description": "table 有折叠功能的单元格渲染器",
+            "description": "Table 有折叠功能的单元格渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2.1",
@@ -926,7 +926,7 @@ define(function(require){return {
         {
             "file": "src\\components\\table\\MessageBar.jsx.js",
             "line": 1,
-            "description": "table 信息栏渲染器",
+            "description": "Table 信息栏渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2.1",
@@ -976,7 +976,7 @@ define(function(require){return {
         {
             "file": "src\\components\\table\\NoDataRenderer.jsx.js",
             "line": 1,
-            "description": "table 无数据渲染器",
+            "description": "Table 无数据渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2.1",
@@ -998,7 +998,7 @@ define(function(require){return {
         {
             "file": "src\\components\\table\\NormalHeader.jsx.js",
             "line": 1,
-            "description": "table 普通表头渲染器",
+            "description": "Table 普通表头渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2.1",
@@ -1025,7 +1025,7 @@ define(function(require){return {
         {
             "file": "src\\components\\table\\NormalRenderer.jsx.js",
             "line": 1,
-            "description": "table 普通单元格渲染器",
+            "description": "Table 普通单元格渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2.1",
@@ -1057,7 +1057,7 @@ define(function(require){return {
         {
             "file": "src\\components\\table\\NumberRenderer.jsx.js",
             "line": 1,
-            "description": "table 数值型单元格渲染器",
+            "description": "Table 数值型单元格渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2.1",
@@ -1099,7 +1099,7 @@ define(function(require){return {
         {
             "file": "src\\components\\table\\SelectorInHeader.jsx.js",
             "line": 1,
-            "description": "table 有选择功能的表头渲染器",
+            "description": "Table 有选择功能的表头渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2.1",
@@ -1131,7 +1131,7 @@ define(function(require){return {
         {
             "file": "src\\components\\table\\SelectorInTBody.jsx.js",
             "line": 1,
-            "description": "table 有选择功能的单元格渲染器",
+            "description": "Table 有选择功能的单元格渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2.1",
@@ -1163,7 +1163,7 @@ define(function(require){return {
         {
             "file": "src\\components\\tree\\NormalRenderer.jsx.js",
             "line": 1,
-            "description": "tree item默认渲染器",
+            "description": "Tree Item默认渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2.1",
@@ -1235,7 +1235,7 @@ define(function(require){return {
         {
             "file": "src\\components\\tree\\SelectRenderer.jsx.js",
             "line": 1,
-            "description": "tree 有选择功能的渲染器",
+            "description": "Tree 有选择功能的Item渲染器",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2",
@@ -1315,7 +1315,7 @@ define(function(require){return {
         {
             "file": "src\\core\\calendarTools.js",
             "line": 1,
-            "description": "日历组件工具集",
+            "description": "Calendar 工具集",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
             "version": "0.0.2.1",
@@ -1323,7 +1323,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 13,
+            "line": 12,
             "description": "分割日期",
             "interface": "cutValues",
             "params": [
@@ -1341,7 +1341,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 19,
+            "line": 18,
             "structure": "CalendarValues",
             "params": [
                 {
@@ -1369,7 +1369,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 56,
+            "line": 55,
             "description": "字符串转日期",
             "interface": "str2date",
             "params": [
@@ -1387,7 +1387,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 79,
+            "line": 78,
             "description": "比较日期",
             "interface": "compareDate",
             "params": [
@@ -1410,7 +1410,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 96,
+            "line": 95,
             "description": "获取某月最后一天",
             "interface": "getLastDayInMonth",
             "params": [
@@ -1433,7 +1433,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 113,
+            "line": 112,
             "description": "获取某月第一天",
             "interface": "getLastDayInMonth",
             "params": [
@@ -1456,7 +1456,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 123,
+            "line": 122,
             "description": "某月是否在指定区间内",
             "interface": "monthInRange",
             "params": [
@@ -1489,7 +1489,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 140,
+            "line": 139,
             "description": "获取今天",
             "interface": "getDataRange.today",
             "return": {
@@ -1500,7 +1500,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 145,
+            "line": 144,
             "structure": "CalendarRangeData",
             "params": [
                 {
@@ -1518,7 +1518,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 158,
+            "line": 157,
             "description": "获取昨天",
             "interface": "getDataRange.yesterday",
             "return": {
@@ -1529,7 +1529,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 172,
+            "line": 171,
             "description": "获取前天",
             "interface": "getDataRange.beforeYesterday",
             "return": {
@@ -1540,7 +1540,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 186,
+            "line": 185,
             "description": "获取上一周",
             "interface": "getDataRange.lastWeek",
             "return": {
@@ -1551,7 +1551,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 202,
+            "line": 201,
             "description": "获取过去7天",
             "interface": "getDataRange.last7",
             "return": {
@@ -1562,7 +1562,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 217,
+            "line": 216,
             "description": "获取过去14天",
             "interface": "getDataRange.last14",
             "return": {
@@ -1573,7 +1573,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 232,
+            "line": 231,
             "description": "获取过去30天",
             "interface": "getDataRange.last30",
             "return": {
@@ -1584,7 +1584,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 247,
+            "line": 246,
             "description": "获取当前月",
             "interface": "getDataRange.currentMonth",
             "return": {
@@ -1595,7 +1595,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 261,
+            "line": 260,
             "description": "获取上月",
             "interface": "getDataRange.lastMonth",
             "return": {
@@ -1606,7 +1606,7 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\calendarTools.js",
-            "line": 277,
+            "line": 276,
             "description": "获取上季度",
             "interface": "getDataRange.lastQuarter",
             "return": {
@@ -1621,33 +1621,24 @@ define(function(require){return {
             "description": "组件公共方法",
             "author": "Brian Li",
             "email": "lbxxlht@163.com",
-            "version": "0.0.2",
+            "version": "0.0.2.1",
             "class": ""
         },
         {
             "file": "src\\core\\componentTools.js",
-            "line": 19,
-            "description": "模拟符合React规则的synthetic event",
-            "params": [
-                {
-                    "name": "nativeEvent",
-                    "description": "",
-                    "type": "Event"
-                }
-            ],
-            "is_constructor": 1,
-            "class": ""
-        },
-        {
-            "file": "src\\core\\componentTools.js",
-            "line": 46,
+            "line": 44,
             "description": "一个空函数",
+            "interface": "noop",
+            "return": {
+                "description": "空函数",
+                "type": "Function"
+            },
             "class": ""
         },
         {
             "file": "src\\core\\componentTools.js",
             "line": 53,
-            "description": "从props中获取某个值，如果props中没有这个值，就在props.style中找",
+            "description": "从props和props.style中取值",
             "params": [
                 {
                     "name": "props",
@@ -1656,33 +1647,72 @@ define(function(require){return {
                 },
                 {
                     "name": "key",
-                    "description": "要找值的键",
+                    "description": "要查找的键",
                     "type": "String"
                 },
                 {
                     "name": "defaultValue",
-                    "description": "如果props[key]和props.style[key]都不存在，返回这个值",
+                    "description": "如果props[key]和props.style[key]都不存在，返回此值",
                     "type": "Any"
                 }
             ],
+            "return": {
+                "description": "待查找的值",
+                "type": "Any"
+            },
+            "interface": "getValueFromPropsAndStyle",
             "class": ""
         },
         {
             "file": "src\\core\\componentTools.js",
-            "line": 66,
-            "description": "弹出Layer的通用方法，请自定绑定上下文",
+            "line": 67,
+            "description": "弹出Layer方法工厂",
+            "params": [
+                {
+                    "name": "me",
+                    "description": "包含Layer组件的组件实例",
+                    "type": "ReactComponent"
+                },
+                {
+                    "name": "flag",
+                    "description": "控制Layer显示隐藏的开关名称，此开关必须在me的state中",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "弹出Layer的方法",
+                "type": "Function"
+            },
+            "interface": "openLayerHandlerFactory",
             "class": ""
         },
         {
             "file": "src\\core\\componentTools.js",
-            "line": 75,
-            "description": "关闭Layer的通用方法，请自定绑定上下文",
+            "line": 83,
+            "description": "关闭Layer方法工厂",
+            "params": [
+                {
+                    "name": "me",
+                    "description": "包含Layer组件的组件实例",
+                    "type": "ReactComponent"
+                },
+                {
+                    "name": "flag",
+                    "description": "控制Layer显示隐藏的开关名称，此开关必须在me的state中",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "关闭Layer的方法",
+                "type": "Function"
+            },
+            "interface": "closeLayerHandlerFactory",
             "class": ""
         },
         {
             "file": "src\\core\\componentTools.js",
-            "line": 87,
-            "description": "创建组件通用根容器属性集合",
+            "line": 101,
+            "description": "创建组件根容器通用属性集",
             "params": [
                 {
                     "name": "type",
@@ -1697,20 +1727,38 @@ define(function(require){return {
                 {
                     "name": "options",
                     "description": "配置项",
-                    "type": "Object"
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "mergeFromProps",
+                            "description": "导入配置。\n此配置中的字符串代表me.props的key，所有me.props[key]将被复制到result中。若result中已经存在key，则跳过。",
+                            "type": "Array.<String>"
+                        },
+                        {
+                            "name": "merge",
+                            "description": "合并配置。\noptions.merge最终将与result合并，冲突的键不合并。此配置优先级低于options.mergeFromProps。",
+                            "type": "Object"
+                        }
+                    ]
                 }
             ],
             "return": {
-                "description": "根容器基本配置",
+                "description": "根容器通用属性集",
                 "type": "Object"
             },
+            "interface": "containerBaseProps",
             "class": ""
         },
         {
             "file": "src\\core\\componentTools.js",
-            "line": 95,
+            "line": 113,
             "properties": "",
             "params": [
+                {
+                    "name": "ref",
+                    "description": "组件根容器索引，默认为'container'",
+                    "type": "String"
+                },
                 {
                     "name": "skin",
                     "description": "组件皮肤此属性最终加在组件根容器的class上，例如：fcui2-componentname-skinname",
@@ -1735,9 +1783,37 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\core\\componentTools.js",
+            "line": 190,
+            "description": "React事件对象封装器",
+            "params": [
+                {
+                    "name": "evt",
+                    "description": "原生UI对象",
+                    "type": "UIEvents"
+                }
+            ],
+            "return": {
+                "description": "React事件对象",
+                "type": "SyntheticEvent"
+            },
+            "interface": "SyntheticEvent",
+            "class": ""
+        },
+        {
             "file": "src\\core\\layerTools.js",
-            "line": 6,
+            "line": 1,
+            "description": "Layer 工具集",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\core\\layerTools.js",
+            "line": 12,
             "description": "计算Layer的位置",
+            "interface": "getLayerPosition",
             "params": [
                 {
                     "name": "layer",
@@ -1756,37 +1832,74 @@ define(function(require){return {
                 }
             ],
             "return": {
-                "description": "显示结果\n\nlayerLocation说明\n  (1)展开方向配置：展开方向配置有自适应的功能，比如左侧展不开，就向右展\n     top：从anchor的上边框向上展开layer，展开后layer下边框与anchor上边框重合\n     bottom：从anchor的下边框向下展开layer，展开后layer上边框与anchor下边框重合\n     left：从anchor的右边框向左展开layer，展开后layer右边框与anchor右边框在一条线上\n     right：从anchor的左边框向右展开layer，展开后layer左边框与anchor左边框在一条线上\n  (2)时钟方向配置：layer的最终位置在anchor的n点钟方向，时钟方向配置没有自适应功能\n     1：layer左下角与anchor左上角重合\n                        +--------------+\n                        |              |\n                        |              |\n                        +--------------+\n                        | anchor |\n                        +--------+\n     2：layer左下角与anchor右上角重合\n                                 +--------------+\n                                 |              |\n                                 |              |\n                        +--------+--------------+\n                        | anchor |\n                        +--------+\n     3：layer左下角与anchor右下角重合\n                                 +--------------+\n                        +--------|              |\n                        | anchor |              |\n                        +--------+--------------+\n     4：layer左上角与anchor右上角重合         \n                        +--------+--------------+\n                        | anchor |              |\n                        +--------|              |\n                                 +--------------+\n     5：layer左上角与anchor右下角重合\n                        +--------+\n                        | anchor |\n                        +--------+--------------+\n                                 |              |\n                                 |              |\n                                 +--------------+\n     6：layer左上角与anchor左下角重合\n                        +--------+\n                        | anchor |\n                        +--------------+\n                        |              |\n                        |              |\n                        +--------------+\n     7：layer右上角与anchor右下角重合\n                        +--------+\n                        | anchor |\n                  +--------------+\n                  |              |\n                  |              |\n                  +--------------+\n     8：layer右上角与anchor左下角重合\n                        +--------+\n                        | anchor |\n         +--------------+--------+\n         |              |\n         |              |\n         +--------------+\n     9：layer右上角和anchor左上角重合\n         +--------------+--------+\n         |              | anchor |\n         |              |--------+ \n         +--------------+\n     10：layer右下角与anchor左下角重合\n         +--------------+\n         |              |--------+\n         |              | anchor |\n         +--------------+--------+\n     11：layer右下角与anchor左上角重合\n         +--------------+\n         |              |\n         |              |\n         +--------------+--------+\n                        | anchor |\n                        +--------+\n     12：layer右下角与anchor右上角重合\n                  +--------------+\n                  |              |\n                  |              |\n                  +--------------+\n                        | anchor |\n                        +--------+\n (3)显示原则：\n     // 展开方向\n     top和bottom是一对，放在一起分析，与left、right无关；\n     如果只有top，没有bottom，则按照top展开，反之亦然；\n     如果同时出现top和bottom，且先出现top，则优先按照top展开，空间放不下layer，则按照bottom展开\n     left、right跟top、bottom原则一致；\n     // 时钟方向\n     优先级比展开方向配置高，且互斥，如果配置多个时钟位置，按照第一个配置显示\n     // 内部原则\n     展开方向配置，最终在内部会转成时钟方向配置，并将时钟方向通过result返回\n (4)显示数据结构\n     return.left {number} layer最终显示的left\n     return.top {number} layer最终显示的top\n     return.clock {number} 最终layer的时钟位置",
-                "type": "Object"
+                "description": "显示结果",
+                "type": "LayerPosition"
             },
+            "example": [
+                "\nlayerLocation配置说明\n\n1 展开方向配置：展开方向配置有自适应的功能，比如左侧展不开，就向右展开。\n\n1.1 字段含义\n      top：从anchor的上边框向上展开layer，展开后layer下边框与anchor上边框重合\n   bottom：从anchor的下边框向下展开layer，展开后layer上边框与anchor下边框重合\n     left：从anchor的右边框向左展开layer，展开后layer右边框与anchor右边框在一条线上\n    right：从anchor的左边框向右展开layer，展开后layer左边框与anchor左边框在一条线上\n     \n1.2 解析原则\n1.2.1 top和bottom是一对，放在一起分析，与left、right无关。\n1.2.2 如果配置中只包含top，不包含bottom，则按照top形式展开，此时没有自适应功能，反之亦然；left、right类似。\n1.2.3 如果配置中同时出现top和bottom，且top先出现，则优先按照top展开；如果上方放不下layer，则按照bottom展开。\n\n1.3 展开位置\n    使用展开方向配置，layer展开后的具体位置，只能有四种可能，这四种可能会被映射成时钟方向配置结果，通过返回值返回。\n\n\n2 时钟方向配置：layer的最终位置在anchor的n点钟方向，时钟方向配置没有自适应功能。\n\n2.1 layer左下角与anchor左上角重合\n                        +--------------+\n                        |       1      |\n                        |              |\n                        +--------------+\n                        | anchor |\n                        +--------+\n2.2 layer左下角与anchor右上角重合\n                                 +--------------+\n                                 |       2      |\n                                 |              |\n                        +--------+--------------+\n                        | anchor |\n                        +--------+\n2.3 layer左下角与anchor右下角重合\n                                 +--------------+\n                        +--------|       3      |\n                        | anchor |              |\n                        +--------+--------------+\n2.4 layer左上角与anchor右上角重合         \n                        +--------+--------------+\n                        | anchor |       4      |\n                        +--------|              |\n                                 +--------------+\n2.5 layer左上角与anchor右下角重合\n                        +--------+\n                        | anchor |\n                        +--------+--------------+\n                                 |       5      |\n                                 |              |\n                                 +--------------+\n2.6 layer左上角与anchor左下角重合\n                        +--------+\n                        | anchor |\n                        +--------------+\n                        |       6      |\n                        |              |\n                        +--------------+\n2.7 layer右上角与anchor右下角重合\n                        +--------+\n                        | anchor |\n                  +--------------+\n                  |       7      |\n                  |              |\n                  +--------------+\n2.8 layer右上角与anchor左下角重合\n                        +--------+\n                        | anchor |\n         +--------------+--------+\n         |       8      |\n         |              |\n         +--------------+\n2.9 layer右上角和anchor左上角重合\n         +--------------+--------+\n         |       9      | anchor |\n         |              |--------+ \n         +--------------+\n2.10 layer右下角与anchor左下角重合\n         +--------------+\n         |      10      |--------+\n         |              | anchor |\n         +--------------+--------+\n2.11 layer右下角与anchor左上角重合\n         +--------------+\n         |      11      |\n         |              |\n         +--------------+--------+\n                        | anchor |\n                        +--------+\n2.12 layer右下角与anchor右上角重合\n                  +--------------+\n                  |      12      |\n                  |              |\n                  +--------------+\n                        | anchor |\n                        +--------+"
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\core\\layerTools.js",
+            "line": 118,
+            "structure": "LayerPosition",
+            "params": [
+                {
+                    "name": "left",
+                    "description": "layer显示的left坐标",
+                    "type": "Number"
+                },
+                {
+                    "name": "top",
+                    "description": "layer显示的top坐标",
+                    "type": "Number"
+                },
+                {
+                    "name": "clock",
+                    "description": "layer相对与anchor的时钟位置",
+                    "type": "Number"
+                }
+            ],
             "class": ""
         },
         {
             "file": "src\\core\\numberboxTools.js",
-            "line": 6,
-            "description": "过滤掉字符串中所有非数字，包括串中间的负号，第二次出现的小数点，前方不合法的0",
+            "line": 1,
+            "description": "NumberBox 工具集",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\core\\numberboxTools.js",
+            "line": 12,
+            "description": "过滤掉字符串中所有非数字，包括串中间的负号、第二次出现的小数点、前方不合法的0",
+            "interface": "charFilter",
             "params": [
                 {
                     "name": "value",
-                    "description": "待处理数据",
-                    "type": "String | number"
+                    "description": "待处理的串",
+                    "type": "String|number"
                 }
             ],
             "return": {
-                "description": "过滤后串",
+                "description": "过滤后数字串",
                 "type": "String"
             },
             "class": ""
         },
         {
             "file": "src\\core\\numberboxTools.js",
-            "line": 42,
-            "description": "数字区间过滤，在区间内，返回值；否则返回区间边界",
+            "line": 48,
+            "description": "数字区间过滤，在区间内，返回值，否则返回区间边界",
+            "interface": "regionFilter",
             "params": [
                 {
                     "name": "value",
                     "description": "待处理值",
-                    "type": "String | number"
+                    "type": "String|number"
                 },
                 {
                     "name": "max",
@@ -1801,18 +1914,19 @@ define(function(require){return {
             ],
             "return": {
                 "description": "在区间内的值",
-                "type": "String | number"
+                "type": "String|Number"
             },
             "class": ""
         },
         {
             "file": "src\\core\\numberboxTools.js",
-            "line": 66,
-            "description": "截取小数点",
+            "line": 72,
+            "description": "截取小数点，只截取不补充",
+            "interface": "fixed",
             "params": [
                 {
                     "name": "value",
-                    "description": "是一个数字的字符串",
+                    "description": "是合法数字字符串",
                     "type": "String"
                 },
                 {
@@ -1822,14 +1936,16 @@ define(function(require){return {
                 }
             ],
             "return": {
-                "description": ""
+                "description": "截取了小数部分的数字字符串",
+                "type": "String"
             },
             "class": ""
         },
         {
             "file": "src\\core\\numberboxTools.js",
-            "line": 92,
+            "line": 98,
             "description": "根据配置将字符串处理成合法数字",
+            "interface": "numberFormater",
             "params": [
                 {
                     "name": "value",
@@ -1865,212 +1981,186 @@ define(function(require){return {
                 }
             ],
             "return": {
-                "description": "",
+                "description": "符合要求的数字字符串",
                 "type": "String"
             },
             "class": ""
         },
         {
-            "file": "src\\core\\scheduleTools.js",
-            "line": 12,
-            "description": "将string类型的value转换成日优先的二维数组，第一维是天，第二维是小时\n\n数组元素为null或string：\n（1）null表示该时段没有被选择；\n（2）string表示该时段被选择，string的内容为当前时段的label标签内容，相邻时段相同值的label会被合并\n若label为''，则显示时段跨度如1:00-2:00",
+            "file": "src\\core\\regionTools.js",
+            "line": 1,
+            "description": "Region 工具集",
+            "author": "0.0.2.1",
+            "email": "lbxxlht@163.com",
+            "class": ""
+        },
+        {
+            "file": "src\\core\\regionTools.js",
+            "line": 147,
+            "description": "获取地区的选中状态",
+            "interface": "getSelectedState",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "地区编号",
+                    "type": "Number"
+                },
+                {
+                    "name": "value",
+                    "description": "选中地区的hash",
+                    "type": "Object"
+                },
+                {
+                    "name": "noLinkage",
+                    "description": "是否禁止子孙联动查找",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "地区选中状态",
+                "type": "RegionSelectState"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\regionTools.js",
+            "line": 155,
+            "structure": "RegionSelectState",
+            "params": [
+                {
+                    "name": "checked",
+                    "description": "该地区是否被选中",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "indeterminate",
+                    "description": "该地区是否出去半选状态",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "selected",
+                    "description": "该地区子树上选中的节点个数",
+                    "type": "Number"
+                },
+                {
+                    "name": "total",
+                    "description": "该地区子树上所有节点个数",
+                    "type": "Number"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\core\\regionTools.js",
+            "line": 189,
+            "description": "指针方法，将提取添加到选中hash中",
+            "interface": "addValue",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "地区编号",
+                    "type": "Number"
+                },
+                {
+                    "name": "value",
+                    "description": "选中地区的hash",
+                    "type": "Object"
+                },
+                {
+                    "name": "noLinkage",
+                    "description": "是否禁止子孙联动添加",
+                    "type": "Boolean"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\core\\regionTools.js",
+            "line": 225,
+            "description": "指针方法，从选中hash中删除地区",
+            "interface": "deleteValue",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "地区编号",
+                    "type": "Number"
+                },
+                {
+                    "name": "value",
+                    "description": "选中地区的hash",
+                    "type": "Object"
+                },
+                {
+                    "name": "noLinkage",
+                    "description": "是否禁止子孙和祖先联动删除",
+                    "type": "Boolean"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\core\\regionTools.js",
+            "line": 257,
+            "description": "指针方法，删除选中hash中所有地区",
+            "interface": "clearValue",
             "params": [
                 {
                     "name": "value",
-                    "description": "选定的时段值",
-                    "type": "String"
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Array"
-            },
-            "class": ""
-        },
-        {
-            "file": "src\\core\\scheduleTools.js",
-            "line": 46,
-            "description": "将value从原始格式转换成string",
-            "override": "",
-            "params": [
-                {
-                    "name": "rawValue",
-                    "description": "原始值",
-                    "type": "Array"
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "String"
-            },
-            "class": ""
-        },
-        {
-            "file": "src\\core\\scheduleTools.js",
-            "line": 108,
-            "description": "根据schedule mouse state，计算所选的schedule区域",
-            "params": [
-                {
-                    "name": "state",
-                    "description": "mouse state",
+                    "description": "选中地区的hash",
                     "type": "Object"
-                },
-                {
-                    "name": "return.startHour",
-                    "description": "起始小时",
-                    "type": "Number"
-                },
-                {
-                    "name": "return.endHour",
-                    "description": "终止小时，包含",
-                    "type": "Number"
-                },
-                {
-                    "name": "return.startWeekday",
-                    "description": "起始星期",
-                    "type": "Number"
-                },
-                {
-                    "name": "return.endWeekday",
-                    "description": "终止星期，包含",
-                    "type": "Number"
                 }
             ],
-            "return": {
-                "description": "schedule区域",
-                "type": "Object"
-            },
             "class": ""
         },
         {
-            "file": "src\\core\\scheduleTools.js",
-            "line": 135,
-            "description": "返回一个时间段的文字表示\n若提供startHour，返回 startHour:00\n若提供startHour, endHour，返回startHour:00-(endHour+1):00\n若提供startHour, endHour, startWeekday，返回 星期x startHour:00-(endHour+1):00\n若提供startHour, endHour, startWeekday， endWeekday，返回 星期x-星期x，startHour:00-(endHour+1):00\n若startHour=0，endHour=23，返回 全天",
+            "file": "src\\core\\regionTools.js",
+            "line": 268,
+            "description": "将字符串类型的选中值转成hash",
+            "interface": "parseValue",
             "params": [
                 {
-                    "name": "startHour",
-                    "description": "开始小时数",
-                    "type": "Number"
-                },
-                {
-                    "name": "endHour",
-                    "description": "结束小时数",
-                    "type": "Number"
-                },
-                {
-                    "name": "startWeekday",
-                    "description": "起始星期数",
-                    "type": "Number"
-                },
-                {
-                    "name": "endWeekday",
-                    "description": "终止星期数",
-                    "type": "Number"
-                }
-            ],
-            "return": {
-                "description": "文字表示",
-                "type": "String"
-            },
-            "class": ""
-        },
-        {
-            "file": "src\\core\\scheduleTools.js",
-            "line": 180,
-            "description": "将数组形式的24小时值转换为一组label数组每一位值表示当前小时的状态，\n相同状态的值将合并为一个label元素返回每一个label元素为一个object",
-            "params": [
-                {
-                    "name": "arr",
-                    "description": "数组形式的24小时值",
-                    "type": "Array<string>"
-                },
-                {
-                    "name": "return.begin",
-                    "description": "label的开始小时",
-                    "type": "Number"
-                },
-                {
-                    "name": "return.end",
-                    "description": "label的结束小时",
-                    "type": "Number"
-                },
-                {
-                    "name": "return.value",
-                    "description": "label上显示的值，默认为当前小时范围",
+                    "name": "value",
+                    "description": "选中地区串，以','分隔地区编号",
                     "type": "String"
                 }
             ],
             "return": {
-                "description": "label元素数组",
+                "description": "",
                 "type": "Object"
             },
             "class": ""
         },
         {
-            "file": "src\\core\\scheduleTools.js",
-            "line": 224,
-            "description": "给定一组labels， 返回一个label，其中包含给定的index或返回null，如果任\n一个label都不包含index\nlabel格式参见value2label",
-            "params": [
-                {
-                    "name": "index",
-                    "description": "要查找的被label包含的index",
-                    "type": "Number"
-                },
-                {
-                    "name": "labels",
-                    "description": "所有labels",
-                    "type": "Array<Object>"
-                }
-            ],
-            "return": {
-                "description": "包含index的label， 或null",
-                "type": "Object"
-            },
-            "class": ""
-        },
-        {
-            "file": "src\\core\\scheduleTools.js",
-            "line": 259,
-            "description": "根据相对左上角坐标的x, y坐标, 返回其在控件天小时格子里的位置",
-            "params": [
-                {
-                    "name": "x",
-                    "description": "x坐标",
-                    "type": "Number"
-                },
-                {
-                    "name": "y",
-                    "description": "y坐标",
-                    "type": "Number"
-                }
-            ],
-            "return": {
-                "description": "} x为小时位置, [0, 23], y为天位置, [0, 6]",
-                "type": "X: number, y: number"
-            },
-            "class": ""
-        },
-        {
-            "file": "src\\core\\scheduleTools.js",
+            "file": "src\\core\\regionTools.js",
             "line": 285,
-            "description": "根据鼠标状态, 返回cursor层的大小和位置",
+            "description": "将地区选中hash转成字符串",
+            "interface": "stringifyValue",
             "params": [
                 {
-                    "name": "state",
-                    "description": "当前控件状态, 含有鼠标位置",
+                    "name": "地区选中hash，以地区编号为key",
+                    "description": "",
                     "type": "Object"
                 }
             ],
             "return": {
-                "description": "} cursor层大小和位置",
-                "type": "Left: number, top: number, width: number, height: number"
+                "description": "选中地区串，以','分隔地区编号",
+                "type": "String"
             },
             "class": ""
         },
         {
             "file": "src\\core\\shojiScreenTools.js",
-            "line": 9,
+            "line": 1,
+            "description": "ShojiScreen 工具集",
+            "author": "0.0.2.1",
+            "email": "lbxxlht@163.com",
+            "class": ""
+        },
+        {
+            "file": "src\\core\\shojiScreenTools.js",
+            "line": 15,
             "description": "向全局按钮队列中添加一个按钮，只操作队列，不进行其他任何操作",
+            "interface": "addExpandButton",
             "params": [
                 {
                     "name": "dom",
@@ -2082,8 +2172,9 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\shojiScreenTools.js",
-            "line": 25,
+            "line": 31,
             "description": "从全局按钮队列中移除一个按钮，只操作队列，不进行其他任何操作",
+            "interface": "removeExpandButton",
             "params": [
                 {
                     "name": "dom",
@@ -2095,38 +2186,149 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\shojiScreenTools.js",
-            "line": 43,
+            "line": 49,
             "description": "刷新所有可用按钮的位置",
+            "interface": "freshExpandButton",
+            "class": ""
+        },
+        {
+            "file": "src\\core\\sliderTools.js",
+            "line": 1,
+            "description": "Slider 工具集",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\core\\sliderTools.js",
+            "line": 28,
+            "description": "根据滑竿配置将值换算成屏幕相对",
+            "interface": "value2position",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "某个值",
+                    "type": "Number"
+                },
+                {
+                    "name": "me",
+                    "description": "滑竿组件实例",
+                    "type": "ReactComponent"
+                },
+                {
+                    "name": "margin",
+                    "description": "滑竿坐标轴两侧的margin值",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "值在坐标轴上的对应坐标",
+                "type": "Number"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\sliderTools.js",
+            "line": 48,
+            "description": "根据滑竿配置将坐标换算成值",
+            "interface": "position2value",
+            "params": [
+                {
+                    "name": "pop",
+                    "description": "滑竿坐标轴上的某一点坐标",
+                    "type": "Number"
+                },
+                {
+                    "name": "me",
+                    "description": "滑竿组件实例",
+                    "type": "ReactComponent"
+                },
+                {
+                    "name": "margin",
+                    "description": "滑竿坐标轴两侧的margin值",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "坐标轴上坐标对应的值",
+                "type": "Number"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\sliderTools.js",
+            "line": 67,
+            "description": "根据滑竿配置将值转换成可显示的值",
+            "interface": "displayValue",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "某个值",
+                    "type": "Number"
+                },
+                {
+                    "name": "滑竿组件实例",
+                    "description": "",
+                    "type": "ReactComponent"
+                }
+            ],
+            "return": {
+                "description": "符合滑竿配置要求的数字字符串",
+                "type": "String"
+            },
             "class": ""
         },
         {
             "file": "src\\core\\tableTools.js",
-            "line": 15,
-            "description": "根据选中hash，计算选中item个数",
+            "line": 1,
+            "description": "Table 工具集",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\core\\tableTools.js",
+            "line": 21,
+            "description": "计算选中hash中item个数",
+            "interface": "getSelectedCount",
             "params": [
                 {
                     "name": "obj",
                     "description": "选中hash，-1表示全选",
-                    "type": "Object | number"
-                },
-                {
-                    "name": "选中的item个数，即obj键的个数，-1为全选",
-                    "description": "",
-                    "type": "Number"
+                    "type": "Object|number"
                 }
             ],
+            "return": {
+                "description": "选中的item个数，即obj键的个数，-1为全选",
+                "type": "Number"
+            },
             "class": ""
         },
         {
             "file": "src\\core\\tableTools.js",
-            "line": 31,
-            "description": "判断是否有数据",
+            "line": 37,
+            "description": "表格是否含有数据",
+            "interface": "haveDate",
+            "params": [
+                {
+                    "name": "me",
+                    "description": "table组件实例",
+                    "type": "ReactComponent"
+                }
+            ],
+            "return": {
+                "description": "判断结果，如果不配列或不配数据源，都是true",
+                "type": "Boolean"
+            },
             "class": ""
         },
         {
             "file": "src\\core\\tableTools.js",
-            "line": 42,
-            "description": "从table的value中，获取选中行的数据结构",
+            "line": 51,
+            "description": "从table的value中获取选中hash",
+            "interface": "getSelectedHash",
             "params": [
                 {
                     "name": "value",
@@ -2136,14 +2338,15 @@ define(function(require){return {
             ],
             "return": {
                 "description": "选中的行的index hash，如果全选返回-1",
-                "type": "Object | number"
+                "type": "Object|number"
             },
             "class": ""
         },
         {
             "file": "src\\core\\tableTools.js",
-            "line": 60,
+            "line": 69,
             "description": "获取行的选中状态",
+            "interface": "getRowSelectedState",
             "params": [
                 {
                     "name": "row",
@@ -2164,8 +2367,9 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\tableTools.js",
-            "line": 79,
+            "line": 88,
             "description": "更新选中集",
+            "interface": "updateSelected",
             "params": [
                 {
                     "name": "index",
@@ -2195,60 +2399,62 @@ define(function(require){return {
             ],
             "return": {
                 "description": "选中行的数组，如果全选，返回-1",
-                "type": "Array | number"
+                "type": "Array|number"
             },
             "class": ""
         },
         {
             "file": "src\\core\\tableTools.js",
-            "line": 133,
-            "description": "根据fieldConfig的配置生成渲染单元格的props",
+            "line": 142,
+            "description": "单元格属性工厂",
+            "interface": "tdPropsFactory",
             "params": [
                 {
                     "name": "conf",
-                    "description": "列配置",
+                    "description": "单元格所在列的配置",
                     "type": "Object"
                 },
                 {
                     "name": "item",
-                    "description": "数据源",
+                    "description": "单元格所在行的数据源",
                     "type": "Object"
                 },
                 {
                     "name": "me",
-                    "description": "当前react对象",
-                    "type": "Object"
+                    "description": "table组件实例",
+                    "type": "ReactComponent"
                 },
                 {
                     "name": "row",
-                    "description": "item在datasource的行索引",
+                    "description": "单元格行索引",
                     "type": "Number"
                 },
                 {
                     "name": "column",
-                    "description": "当前渲染的列索引",
+                    "description": "单元格列索引",
                     "type": "Number"
                 }
             ],
             "return": {
-                "description": "用于渲染row行column列的props",
+                "description": "传入单元格渲染器的props",
                 "type": "Object"
             },
             "class": ""
         },
         {
             "file": "src\\core\\tableTools.js",
-            "line": 182,
-            "description": "重新组织fieldConfig",
+            "line": 191,
+            "description": "类配置工厂，主要用于嵌入选择器配置",
+            "interface": "fieldConfigFactory",
             "params": [
                 {
                     "name": "me",
-                    "description": "React table 实例",
-                    "type": "Object"
+                    "description": "table实例",
+                    "type": "ReactComponent"
                 },
                 {
                     "name": "renderers",
-                    "description": "外部导入的默认渲染器，由于某些渲染器可能会调用此文件，造成循环加载，所以从这里导入",
+                    "description": "外部导入的默认渲染器，由于某些渲染器可能会调用此文件，造成循环加载，所以从外部导入",
                     "type": "Object"
                 }
             ],
@@ -2259,217 +2465,130 @@ define(function(require){return {
             "class": ""
         },
         {
-            "file": "src\\core\\treeTools.es6.js",
+            "file": "src\\core\\treeTools.js",
             "line": 1,
-            "description": "封装树及树选择器相关的方法",
-            "author": "Han Bing Feng (hanbingfeng@)",
+            "description": "Tree 工具集",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2.1",
             "class": ""
         },
         {
-            "file": "src\\core\\treeTools.es6.js",
-            "line": 11,
-            "description": "先深遍历所有节点",
+            "file": "src\\core\\treeTools.js",
+            "line": 10,
+            "description": "获取Tree节点数据源",
+            "interface": "getLeafItem",
             "params": [
                 {
-                    "name": "cb",
-                    "description": "回调函数",
-                    "type": "Function",
-                    "props": [
-                        {
-                            "name": "node",
-                            "description": "当前访问的节点",
-                            "type": "TreeNode"
-                        },
-                        {
-                            "name": "parentTreeNodes",
-                            "description": "从根开始的当前访问节点的父节点数组",
-                            "type": "TreeNode"
-                        }
-                    ]
+                    "name": "datasource",
+                    "description": "Tree数据源",
+                    "type": "Array.<TreeItemObject>"
                 },
                 {
-                    "name": "treeNodes",
-                    "description": "treeNodes",
-                    "type": "TreeNode|Array<treeNode>"
-                },
-                {
-                    "name": "parentTreeNode",
-                    "description": "parentTreeNode",
-                    "type": "TreeNode"
-                }
-            ],
-            "class": ""
-        },
-        {
-            "file": "src\\core\\treeTools.es6.js",
-            "line": 36,
-            "description": "从treeNode起始标记节点及其所有孩子被选择返回被选择的节点列表",
-            "params": [
-                {
-                    "name": "treeNode",
-                    "description": "被选择的 tree node",
-                    "type": "TreeNode"
-                },
-                {
-                    "name": "parentTreeNodes",
-                    "description": "从根节点至treeNode父节点的数组",
-                    "type": "Array<treeNode>"
-                },
-                {
-                    "name": "selectedTreeNodeId",
-                    "description": "已选的 tree node id 的集合",
-                    "type": "Object"
+                    "name": "indexs",
+                    "description": "节点序列，从树的第一层开始，依照序列从children中检出",
+                    "type": "Array.<Number>"
                 }
             ],
             "return": {
-                "description": "加入了 treeNode 后的已选的 tree node id 的集合",
-                "type": "Object"
-            },
-            "class": ""
-        },
-        {
-            "file": "src\\core\\treeTools.es6.js",
-            "line": 78,
-            "description": "从selectedTreeNodeId中移除treeNode",
-            "params": [
-                {
-                    "name": "treeNode",
-                    "description": "待移除的treeNode",
-                    "type": "TreeNode"
-                },
-                {
-                    "name": "parentTreeNodes",
-                    "description": "从根节点至treeNode父节点的数组",
-                    "type": "Array<treeNode>"
-                },
-                {
-                    "name": "selectedTreeNodeId",
-                    "description": "已选的 tree node id 的集合",
-                    "type": "Object"
-                }
-            ],
-            "return": {
-                "description": "移除了 treeNode 后的已选的 tree node id 的集合",
-                "type": "Object"
-            },
-            "class": ""
-        },
-        {
-            "file": "src\\core\\treeTools.es6.js",
-            "line": 102,
-            "description": "返回新的expandedTreeNodeId， 展开刚刚选择的节点",
-            "params": [
-                {
-                    "name": "dualTreeComponent",
-                    "description": "tree component",
-                    "type": "ReactComponent"
-                },
-                {
-                    "name": "originSelected",
-                    "description": "前一展开转台",
-                    "type": "Object"
-                },
-                {
-                    "name": "newSelected",
-                    "description": "新的展开状态",
-                    "type": "Object"
-                }
-            ],
-            "return": {
-                "description": "新的展开的tree node id 数组",
-                "type": "Object"
-            },
-            "class": ""
-        },
-        {
-            "file": "src\\core\\treeTools.es6.js",
-            "line": 116,
-            "description": "先深遍历所有已选节点",
-            "params": [
-                {
-                    "name": "cb",
-                    "description": "回调函数",
-                    "type": "Function",
-                    "props": [
-                        {
-                            "name": "node",
-                            "description": "当前访问的节点",
-                            "type": "TreeNode"
-                        },
-                        {
-                            "name": "parentTreeNodes",
-                            "description": "从根开始的当前访问节点的父节点数组",
-                            "type": "TreeNode"
-                        }
-                    ]
-                },
-                {
-                    "name": "treeNodes",
-                    "description": "树节点全集",
-                    "type": "Array<treeNodes>"
-                },
-                {
-                    "name": "selectedTreeNodeId",
-                    "description": "已选树节点集合",
-                    "type": "Object"
-                }
-            ],
-            "class": ""
-        },
-        {
-            "file": "src\\core\\treeTools.es6.js",
-            "line": 133,
-            "description": "获得已选树结构",
-            "params": [
-                {
-                    "name": "treeNodes",
-                    "description": "树节点全集",
-                    "type": "Array<treeNodes>"
-                },
-                {
-                    "name": "selectedTreeNodeId",
-                    "description": "已选树节点集合",
-                    "type": "Object"
-                }
-            ],
-            "return": {
-                "description": "已选树结构",
-                "type": "Array<treeNodes>"
-            },
-            "class": ""
-        },
-        {
-            "file": "src\\core\\treeTools.es6.js",
-            "line": 157,
-            "description": "计数已选的叶子节点",
-            "params": [
-                {
-                    "name": "treeNodes",
-                    "description": "树节点全集",
-                    "type": "Array<treeNodes>"
-                },
-                {
-                    "name": "selectedTreeNodeId",
-                    "description": "已选树节点集合",
-                    "type": "Object"
-                }
-            ],
-            "return": {
-                "description": "叶子节点数目",
-                "type": "Number"
+                "description": "节点数据源",
+                "type": "TreeItemObject"
             },
             "class": ""
         },
         {
             "file": "src\\core\\treeTools.js",
-            "line": 53,
-            "description": "此处逻辑：\n（1）如果当前节点是叶子节点，标记为true\n（2）如果当前节点不是叶子节点，在其树下所有叶子标记为true\n（3）如果当点节点有children属性，但children长度为0，则将此节点标记为1",
+            "line": 28,
+            "description": "获取Tree节点的选择状态",
+            "interface": "getNodeSelectInfo",
+            "params": [
+                {
+                    "name": "item",
+                    "description": "节点数据源",
+                    "type": "TreeItemObject"
+                },
+                {
+                    "name": "selectedHash",
+                    "description": "Tree选择状态hash，以item.value为key",
+                    "type": "Object"
+                },
+                {
+                    "name": "index",
+                    "description": "节点序列",
+                    "type": "String"
+                },
+                {
+                    "name": "loadCache",
+                    "description": "树遍历临时hash，由于树遍历时出现相同计算，所以要使用cache以提高效率",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "节点选择状态",
+                "type": "TreeNodeSelectState"
+            },
             "class": ""
         },
         {
             "file": "src\\core\\treeTools.js",
-            "line": 86,
-            "description": "此处逻辑\n（1）如果是叶子，则删除\n（2）如果不是叶子，则删除该子树上的所有叶子",
+            "line": 37,
+            "structure": "TreeNodeSelectState",
+            "params": [
+                {
+                    "name": "total",
+                    "description": "子树所有节点个数",
+                    "type": "Number"
+                },
+                {
+                    "name": "selected",
+                    "description": "子树所有选中节点个数",
+                    "type": "Number"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\core\\treeTools.js",
+            "line": 75,
+            "description": "指针方法，选中子树",
+            "interface": "dualTreeSelectorEngine.select",
+            "params": [
+                {
+                    "name": "selected",
+                    "description": "Tree的选中hash",
+                    "type": "Object"
+                },
+                {
+                    "name": "item",
+                    "description": "节点数据源",
+                    "type": "TreeItemObject"
+                }
+            ],
+            "example": [
+                "\n此处逻辑：\n（1）如果当前节点是叶子节点，标记为true\n（2）如果当前节点不是叶子节点，在其树下所有叶子标记为true\n（3）如果当点节点有children属性，但children长度为0，则将此节点标记为1"
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\core\\treeTools.js",
+            "line": 113,
+            "description": "指针方法，删除子树",
+            "interface": "dualTreeSelectorEngine.unselect",
+            "params": [
+                {
+                    "name": "selected",
+                    "description": "Tree的选中hash",
+                    "type": "Object"
+                },
+                {
+                    "name": "item",
+                    "description": "节点数据源",
+                    "type": "TreeItemObject"
+                }
+            ],
+            "example": [
+                "\n此处逻辑\n（1）如果是叶子，则删除\n（2）如果不是叶子，则删除该子树上的所有叶子"
+            ],
             "class": ""
         },
         {
@@ -2477,25 +2596,45 @@ define(function(require){return {
             "line": 1,
             "description": "全局工具集",
             "author": "Brian Li",
-            "email": "lbxxlht@163.com\n\n 此工具库所有方法，不但fcui2可以使用，其他任何项目都可以把它拿出去单独使用\n 此工具库不支持ES6语法，确保所有方法在所有浏览器基础环境中都能正确运行\n 不允许在此工具集中引入或使用或合并其他任何库，比如underscore, jQuery等\n 此工具集包含了操作原生DOM的方法，不能在node中使用\n 目前符合AMD规范，将来会支持CMD和直接引入",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2.1",
+            "note": "1. 此工具库所有方法，不但fcui2可以使用，其他任何项目都可以拿出去单独使用\n2. 此工具库不支持ES6语法，确保所有方法在所有浏览器基础环境中都能正确运行\n3. 不允许在此工具集中引入或使用或合并其他任何库，比如underscore, jQuery等\n4. 此工具集包含了操作原生DOM的方法，不能在node中使用\n5. 目前符合AMD规范，将来会支持CMD和直接引入",
             "class": ""
         },
         {
             "file": "src\\core\\util.js",
-            "line": 15,
+            "line": 16,
             "description": "浏览器是否是IE",
+            "interface": "isIE",
+            "return": {
+                "description": "检查结果",
+                "type": "Boolean"
+            },
             "class": ""
         },
         {
             "file": "src\\core\\util.js",
-            "line": 27,
+            "line": 30,
             "description": "获取window下的某个namespace，如果不存在，则创建一个空对象",
+            "interface": "getNamespace",
+            "params": [
+                {
+                    "name": "namespace",
+                    "description": "命名空间名称",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "命名空间",
+                "type": "Object"
+            },
             "class": ""
         },
         {
             "file": "src\\core\\util.js",
-            "line": 35,
+            "line": 41,
             "description": "绑定函数上下文",
+            "interface": "bind",
             "params": [
                 {
                     "name": "func",
@@ -2516,8 +2655,9 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\util.js",
-            "line": 48,
+            "line": 54,
             "description": "获取dom某个css属性，不论这个属性是写在style里的，还是通过css设置的",
+            "interface": "getStyle",
             "params": [
                 {
                     "name": "dom",
@@ -2526,20 +2666,21 @@ define(function(require){return {
                 },
                 {
                     "name": "attr",
-                    "description": "style属性名称，驼峰格式",
+                    "description": "style属性名称，驼峰命名",
                     "type": "String"
                 }
             ],
             "return": {
-                "description": "对应的属性值",
-                "type": "*"
+                "description": "属性值",
+                "type": "Any"
             },
             "class": ""
         },
         {
             "file": "src\\core\\util.js",
-            "line": 59,
+            "line": 65,
             "description": "获取输入框光标位置",
+            "interface": "getCursorPosition",
             "params": [
                 {
                     "name": "dom",
@@ -2555,8 +2696,9 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\util.js",
-            "line": 80,
+            "line": 86,
             "description": "设置输入框中光标位置",
+            "interface": "setCursorPosition",
             "params": [
                 {
                     "name": "dom",
@@ -2573,8 +2715,9 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\util.js",
-            "line": 102,
-            "description": "获取DOM是否可见",
+            "line": 108,
+            "description": "获取DOM是否可见，组件自身或者祖先中，只要visibility:hidden或display:none，即为不可见",
+            "interface": "isDOMVisible",
             "params": [
                 {
                     "name": "dom",
@@ -2583,15 +2726,16 @@ define(function(require){return {
                 }
             ],
             "return": {
-                "description": "是否可见",
+                "description": "检查结果",
                 "type": "Boolean"
             },
             "class": ""
         },
         {
             "file": "src\\core\\util.js",
-            "line": 127,
+            "line": 133,
             "description": "获取dom节点的位置",
+            "interface": "getDOMPosition",
             "params": [
                 {
                     "name": "e",
@@ -2601,14 +2745,43 @@ define(function(require){return {
             ],
             "return": {
                 "description": "位置对象，left、top相对于body左上角；x、y相对于可见区域左上角;",
-                "type": "Object"
+                "type": "PositionState"
             },
             "class": ""
         },
         {
             "file": "src\\core\\util.js",
-            "line": 159,
+            "line": 139,
+            "structure": "PositionState",
+            "params": [
+                {
+                    "name": "left",
+                    "description": "dom相对于body左侧距离",
+                    "type": "Number"
+                },
+                {
+                    "name": "top",
+                    "description": "dom相对于body右侧距离",
+                    "type": "Number"
+                },
+                {
+                    "name": "x",
+                    "description": "dom相对于可视区域左侧距离",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "dom相对于可视区域右侧距离",
+                    "type": "Number"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\core\\util.js",
+            "line": 172,
             "description": "获取DOM节点dataset，主要为了兼容最老版本的IE9",
+            "interface": "getDataset",
             "params": [
                 {
                     "name": "dom",
@@ -2624,8 +2797,9 @@ define(function(require){return {
         },
         {
             "file": "src\\core\\util.js",
-            "line": 185,
+            "line": 198,
             "description": "将时间对象根据指定格式返回",
+            "interface": "dateFormat",
             "params": [
                 {
                     "name": "date",
@@ -6070,11 +6244,11 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: structure",
-            "line": " src\\core\\calendarTools.js:19"
+            "line": " src\\core\\calendarTools.js:18"
         },
         {
             "message": "unknown tag: structure",
-            "line": " src\\core\\calendarTools.js:145"
+            "line": " src\\core\\calendarTools.js:144"
         },
         {
             "message": "unknown tag: email",
@@ -6086,23 +6260,83 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: properties",
-            "line": " src\\core\\componentTools.js:95"
+            "line": " src\\core\\componentTools.js:113"
         },
         {
-            "message": "unknown tag: override",
-            "line": " src\\core\\scheduleTools.js:46"
+            "message": "unknown tag: email",
+            "line": " src\\core\\layerTools.js:1"
         },
         {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " src\\core\\scheduleTools.js:259"
+            "message": "unknown tag: version",
+            "line": " src\\core\\layerTools.js:1"
         },
         {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " src\\core\\scheduleTools.js:285"
+            "message": "unknown tag: structure",
+            "line": " src\\core\\layerTools.js:118"
+        },
+        {
+            "message": "unknown tag: email",
+            "line": " src\\core\\numberboxTools.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\core\\numberboxTools.js:1"
+        },
+        {
+            "message": "unknown tag: email",
+            "line": " src\\core\\regionTools.js:1"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\core\\regionTools.js:155"
+        },
+        {
+            "message": "unknown tag: email",
+            "line": " src\\core\\shojiScreenTools.js:1"
+        },
+        {
+            "message": "unknown tag: email",
+            "line": " src\\core\\sliderTools.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\core\\sliderTools.js:1"
+        },
+        {
+            "message": "unknown tag: email",
+            "line": " src\\core\\tableTools.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\core\\tableTools.js:1"
+        },
+        {
+            "message": "unknown tag: email",
+            "line": " src\\core\\treeTools.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\core\\treeTools.js:1"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\core\\treeTools.js:37"
         },
         {
             "message": "unknown tag: email",
             "line": " src\\core\\util.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\core\\util.js:1"
+        },
+        {
+            "message": "unknown tag: note",
+            "line": " src\\core\\util.js:1"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\core\\util.js:139"
         },
         {
             "message": "unknown tag: properties",
@@ -6877,7 +7111,7 @@ define(function(require){return {
             "line": " src\\components\\region\\NormalProvince.jsx.js:21"
         },
         {
-            "message": "Missing item type\nRegion大区域渲染器",
+            "message": "Missing item type\nRegion 大区域渲染器",
             "line": " src\\components\\region\\NormalRegion.jsx.js:1"
         },
         {
@@ -6885,7 +7119,7 @@ define(function(require){return {
             "line": " src\\components\\region\\NormalRegion.jsx.js:18"
         },
         {
-            "message": "Missing item type\nRegion带有汇总信息的省渲染器",
+            "message": "Missing item type\nRegion 带有汇总信息的省渲染器",
             "line": " src\\components\\region\\StatisticsProvince.jsx.js:1"
         },
         {
@@ -6893,7 +7127,7 @@ define(function(require){return {
             "line": " src\\components\\region\\StatisticsProvince.jsx.js:22"
         },
         {
-            "message": "Missing item type\ntab 普通渲染器",
+            "message": "Missing item type\nTab 普通渲染器",
             "line": " src\\components\\tab\\NormalRenderer.jsx.js:1"
         },
         {
@@ -6901,7 +7135,7 @@ define(function(require){return {
             "line": " src\\components\\tab\\NormalRenderer.jsx.js:15"
         },
         {
-            "message": "Missing item type\ntable 带icon按钮的单元格渲染器",
+            "message": "Missing item type\nTable 带icon按钮的单元格渲染器",
             "line": " src\\components\\table\\ButtonRenderer.jsx.js:1"
         },
         {
@@ -6913,7 +7147,7 @@ define(function(require){return {
             "line": " src\\components\\table\\ButtonRenderer.jsx.js:32"
         },
         {
-            "message": "Missing item type\ntable 有折叠功能的单元格渲染器",
+            "message": "Missing item type\nTable 有折叠功能的单元格渲染器",
             "line": " src\\components\\table\\Expander.jsx.js:1"
         },
         {
@@ -6925,7 +7159,7 @@ define(function(require){return {
             "line": " src\\components\\table\\Expander.jsx.js:39"
         },
         {
-            "message": "Missing item type\ntable 信息栏渲染器",
+            "message": "Missing item type\nTable 信息栏渲染器",
             "line": " src\\components\\table\\MessageBar.jsx.js:1"
         },
         {
@@ -6937,7 +7171,7 @@ define(function(require){return {
             "line": " src\\components\\table\\MessageBar.jsx.js:28"
         },
         {
-            "message": "Missing item type\ntable 无数据渲染器",
+            "message": "Missing item type\nTable 无数据渲染器",
             "line": " src\\components\\table\\NoDataRenderer.jsx.js:1"
         },
         {
@@ -6945,7 +7179,7 @@ define(function(require){return {
             "line": " src\\components\\table\\NoDataRenderer.jsx.js:13"
         },
         {
-            "message": "Missing item type\ntable 普通表头渲染器",
+            "message": "Missing item type\nTable 普通表头渲染器",
             "line": " src\\components\\table\\NormalHeader.jsx.js:1"
         },
         {
@@ -6953,7 +7187,7 @@ define(function(require){return {
             "line": " src\\components\\table\\NormalHeader.jsx.js:18"
         },
         {
-            "message": "Missing item type\ntable 普通单元格渲染器",
+            "message": "Missing item type\nTable 普通单元格渲染器",
             "line": " src\\components\\table\\NormalRenderer.jsx.js:1"
         },
         {
@@ -6961,7 +7195,7 @@ define(function(require){return {
             "line": " src\\components\\table\\NormalRenderer.jsx.js:10"
         },
         {
-            "message": "Missing item type\ntable 数值型单元格渲染器",
+            "message": "Missing item type\nTable 数值型单元格渲染器",
             "line": " src\\components\\table\\NumberRenderer.jsx.js:1"
         },
         {
@@ -6969,7 +7203,7 @@ define(function(require){return {
             "line": " src\\components\\table\\NumberRenderer.jsx.js:12"
         },
         {
-            "message": "Missing item type\ntable 有选择功能的表头渲染器",
+            "message": "Missing item type\nTable 有选择功能的表头渲染器",
             "line": " src\\components\\table\\SelectorInHeader.jsx.js:1"
         },
         {
@@ -6977,7 +7211,7 @@ define(function(require){return {
             "line": " src\\components\\table\\SelectorInHeader.jsx.js:40"
         },
         {
-            "message": "Missing item type\ntable 有选择功能的单元格渲染器",
+            "message": "Missing item type\nTable 有选择功能的单元格渲染器",
             "line": " src\\components\\table\\SelectorInTBody.jsx.js:1"
         },
         {
@@ -6985,7 +7219,7 @@ define(function(require){return {
             "line": " src\\components\\table\\SelectorInTBody.jsx.js:16"
         },
         {
-            "message": "Missing item type\ntree item默认渲染器",
+            "message": "Missing item type\nTree Item默认渲染器",
             "line": " src\\components\\tree\\NormalRenderer.jsx.js:1"
         },
         {
@@ -6997,7 +7231,7 @@ define(function(require){return {
             "line": " src\\components\\tree\\NormalRenderer.jsx.js:41"
         },
         {
-            "message": "Missing item type\ntree 有选择功能的渲染器",
+            "message": "Missing item type\nTree 有选择功能的Item渲染器",
             "line": " src\\components\\tree\\SelectRenderer.jsx.js:1"
         },
         {
@@ -7013,244 +7247,264 @@ define(function(require){return {
             "line": " src\\components\\tree\\SelectRenderer.jsx.js:46"
         },
         {
-            "message": "Missing item type\n日历组件工具集",
+            "message": "Missing item type\nCalendar 工具集",
             "line": " src\\core\\calendarTools.js:1"
         },
         {
             "message": "Missing item type\n分割日期",
-            "line": " src\\core\\calendarTools.js:13"
+            "line": " src\\core\\calendarTools.js:12"
         },
         {
             "message": "Missing item type",
-            "line": " src\\core\\calendarTools.js:19"
+            "line": " src\\core\\calendarTools.js:18"
         },
         {
             "message": "Missing item type\n字符串转日期",
-            "line": " src\\core\\calendarTools.js:56"
+            "line": " src\\core\\calendarTools.js:55"
         },
         {
             "message": "Missing item type\n比较日期",
-            "line": " src\\core\\calendarTools.js:79"
+            "line": " src\\core\\calendarTools.js:78"
         },
         {
             "message": "Missing item type\n获取某月最后一天",
-            "line": " src\\core\\calendarTools.js:96"
+            "line": " src\\core\\calendarTools.js:95"
         },
         {
             "message": "Missing item type\n获取某月第一天",
-            "line": " src\\core\\calendarTools.js:113"
+            "line": " src\\core\\calendarTools.js:112"
         },
         {
             "message": "Missing item type\n某月是否在指定区间内",
-            "line": " src\\core\\calendarTools.js:123"
+            "line": " src\\core\\calendarTools.js:122"
         },
         {
             "message": "Missing item type\n获取今天",
-            "line": " src\\core\\calendarTools.js:140"
+            "line": " src\\core\\calendarTools.js:139"
         },
         {
             "message": "Missing item type",
-            "line": " src\\core\\calendarTools.js:145"
+            "line": " src\\core\\calendarTools.js:144"
         },
         {
             "message": "Missing item type\n获取昨天",
-            "line": " src\\core\\calendarTools.js:158"
+            "line": " src\\core\\calendarTools.js:157"
         },
         {
             "message": "Missing item type\n获取前天",
-            "line": " src\\core\\calendarTools.js:172"
+            "line": " src\\core\\calendarTools.js:171"
         },
         {
             "message": "Missing item type\n获取上一周",
-            "line": " src\\core\\calendarTools.js:186"
+            "line": " src\\core\\calendarTools.js:185"
         },
         {
             "message": "Missing item type\n获取过去7天",
-            "line": " src\\core\\calendarTools.js:202"
+            "line": " src\\core\\calendarTools.js:201"
         },
         {
             "message": "Missing item type\n获取过去14天",
-            "line": " src\\core\\calendarTools.js:217"
+            "line": " src\\core\\calendarTools.js:216"
         },
         {
             "message": "Missing item type\n获取过去30天",
-            "line": " src\\core\\calendarTools.js:232"
+            "line": " src\\core\\calendarTools.js:231"
         },
         {
             "message": "Missing item type\n获取当前月",
-            "line": " src\\core\\calendarTools.js:247"
+            "line": " src\\core\\calendarTools.js:246"
         },
         {
             "message": "Missing item type\n获取上月",
-            "line": " src\\core\\calendarTools.js:261"
+            "line": " src\\core\\calendarTools.js:260"
         },
         {
             "message": "Missing item type\n获取上季度",
-            "line": " src\\core\\calendarTools.js:277"
+            "line": " src\\core\\calendarTools.js:276"
         },
         {
             "message": "Missing item type\n组件公共方法",
             "line": " src\\core\\componentTools.js:1"
         },
         {
-            "message": "Missing item type\n模拟符合React规则的synthetic event",
-            "line": " src\\core\\componentTools.js:19"
-        },
-        {
             "message": "Missing item type\n一个空函数",
-            "line": " src\\core\\componentTools.js:46"
+            "line": " src\\core\\componentTools.js:44"
         },
         {
-            "message": "Missing item type\n从props中获取某个值，如果props中没有这个值，就在props.style中找",
+            "message": "Missing item type\n从props和props.style中取值",
             "line": " src\\core\\componentTools.js:53"
         },
         {
-            "message": "Missing item type\n弹出Layer的通用方法，请自定绑定上下文",
-            "line": " src\\core\\componentTools.js:66"
+            "message": "Missing item type\n弹出Layer方法工厂",
+            "line": " src\\core\\componentTools.js:67"
         },
         {
-            "message": "Missing item type\n关闭Layer的通用方法，请自定绑定上下文",
-            "line": " src\\core\\componentTools.js:75"
+            "message": "Missing item type\n关闭Layer方法工厂",
+            "line": " src\\core\\componentTools.js:83"
         },
         {
-            "message": "Missing item type\n创建组件通用根容器属性集合",
-            "line": " src\\core\\componentTools.js:87"
+            "message": "Missing item type\n创建组件根容器通用属性集",
+            "line": " src\\core\\componentTools.js:101"
         },
         {
             "message": "Missing item type",
-            "line": " src\\core\\componentTools.js:95"
+            "line": " src\\core\\componentTools.js:113"
+        },
+        {
+            "message": "Missing item type\nReact事件对象封装器",
+            "line": " src\\core\\componentTools.js:190"
+        },
+        {
+            "message": "Missing item type\nLayer 工具集",
+            "line": " src\\core\\layerTools.js:1"
         },
         {
             "message": "Missing item type\n计算Layer的位置",
-            "line": " src\\core\\layerTools.js:6"
+            "line": " src\\core\\layerTools.js:12"
         },
         {
-            "message": "Missing item type\n过滤掉字符串中所有非数字，包括串中间的负号，第二次出现的小数点，前方不合法的0",
-            "line": " src\\core\\numberboxTools.js:6"
+            "message": "Missing item type",
+            "line": " src\\core\\layerTools.js:118"
         },
         {
-            "message": "Missing item type\n数字区间过滤，在区间内，返回值；否则返回区间边界",
-            "line": " src\\core\\numberboxTools.js:42"
+            "message": "Missing item type\nNumberBox 工具集",
+            "line": " src\\core\\numberboxTools.js:1"
         },
         {
-            "message": "Missing item type\n截取小数点",
-            "line": " src\\core\\numberboxTools.js:66"
+            "message": "Missing item type\n过滤掉字符串中所有非数字，包括串中间的负号、第二次出现的小数点、前方不合法的0",
+            "line": " src\\core\\numberboxTools.js:12"
+        },
+        {
+            "message": "Missing item type\n数字区间过滤，在区间内，返回值，否则返回区间边界",
+            "line": " src\\core\\numberboxTools.js:48"
+        },
+        {
+            "message": "Missing item type\n截取小数点，只截取不补充",
+            "line": " src\\core\\numberboxTools.js:72"
         },
         {
             "message": "Missing item type\n根据配置将字符串处理成合法数字",
-            "line": " src\\core\\numberboxTools.js:92"
+            "line": " src\\core\\numberboxTools.js:98"
         },
         {
-            "message": "Missing item type\n将string类型的value转换成日优先的二维数组，第一维是天，第二维是小时\n\n数组元素为null或string：\n（1）null表示该时段没有被选择；\n（2）string表示该时段被选择，string的内容为当前时段的label标签内容，相邻时段相同值的label会被合并\n若label为''，则显示时段跨度如1:00-2:00",
-            "line": " src\\core\\scheduleTools.js:12"
+            "message": "Missing item type\nRegion 工具集",
+            "line": " src\\core\\regionTools.js:1"
         },
         {
-            "message": "Missing item type\n将value从原始格式转换成string",
-            "line": " src\\core\\scheduleTools.js:46"
+            "message": "Missing item type\n获取地区的选中状态",
+            "line": " src\\core\\regionTools.js:147"
         },
         {
-            "message": "Missing item type\n根据schedule mouse state，计算所选的schedule区域",
-            "line": " src\\core\\scheduleTools.js:108"
+            "message": "Missing item type",
+            "line": " src\\core\\regionTools.js:155"
         },
         {
-            "message": "Missing item type\n返回一个时间段的文字表示\n若提供startHour，返回 startHour:00\n若提供startHour, endHour，返回startHour:00-(endHour+1):00\n若提供startHour, endHour, startWeekday，返回 星期x startHour:00-(endHour+1):00\n若提供startHour, endHour, startWeekday， endWeekday，返回 星期x-星期x，startHour:00-(endHour+1):00\n若startHour=0，endHour=23，返回 全天",
-            "line": " src\\core\\scheduleTools.js:135"
+            "message": "Missing item type\n指针方法，将提取添加到选中hash中",
+            "line": " src\\core\\regionTools.js:189"
         },
         {
-            "message": "Missing item type\n将数组形式的24小时值转换为一组label数组每一位值表示当前小时的状态，\n相同状态的值将合并为一个label元素返回每一个label元素为一个object",
-            "line": " src\\core\\scheduleTools.js:180"
+            "message": "Missing item type\n指针方法，从选中hash中删除地区",
+            "line": " src\\core\\regionTools.js:225"
         },
         {
-            "message": "Missing item type\n给定一组labels， 返回一个label，其中包含给定的index或返回null，如果任\n一个label都不包含index\nlabel格式参见value2label",
-            "line": " src\\core\\scheduleTools.js:224"
+            "message": "Missing item type\n指针方法，删除选中hash中所有地区",
+            "line": " src\\core\\regionTools.js:257"
         },
         {
-            "message": "Missing item type\n根据相对左上角坐标的x, y坐标, 返回其在控件天小时格子里的位置",
-            "line": " src\\core\\scheduleTools.js:259"
+            "message": "Missing item type\n将字符串类型的选中值转成hash",
+            "line": " src\\core\\regionTools.js:268"
         },
         {
-            "message": "Missing item type\n根据鼠标状态, 返回cursor层的大小和位置",
-            "line": " src\\core\\scheduleTools.js:285"
+            "message": "Missing item type\n将地区选中hash转成字符串",
+            "line": " src\\core\\regionTools.js:285"
+        },
+        {
+            "message": "Missing item type\nShojiScreen 工具集",
+            "line": " src\\core\\shojiScreenTools.js:1"
         },
         {
             "message": "Missing item type\n向全局按钮队列中添加一个按钮，只操作队列，不进行其他任何操作",
-            "line": " src\\core\\shojiScreenTools.js:9"
+            "line": " src\\core\\shojiScreenTools.js:15"
         },
         {
             "message": "Missing item type\n从全局按钮队列中移除一个按钮，只操作队列，不进行其他任何操作",
-            "line": " src\\core\\shojiScreenTools.js:25"
+            "line": " src\\core\\shojiScreenTools.js:31"
         },
         {
             "message": "Missing item type\n刷新所有可用按钮的位置",
-            "line": " src\\core\\shojiScreenTools.js:43"
+            "line": " src\\core\\shojiScreenTools.js:49"
         },
         {
-            "message": "Missing item type\n根据选中hash，计算选中item个数",
-            "line": " src\\core\\tableTools.js:15"
+            "message": "Missing item type\nSlider 工具集",
+            "line": " src\\core\\sliderTools.js:1"
         },
         {
-            "message": "Missing item type\n判断是否有数据",
-            "line": " src\\core\\tableTools.js:31"
+            "message": "Missing item type\n根据滑竿配置将值换算成屏幕相对",
+            "line": " src\\core\\sliderTools.js:28"
         },
         {
-            "message": "Missing item type\n从table的value中，获取选中行的数据结构",
-            "line": " src\\core\\tableTools.js:42"
+            "message": "Missing item type\n根据滑竿配置将坐标换算成值",
+            "line": " src\\core\\sliderTools.js:48"
+        },
+        {
+            "message": "Missing item type\n根据滑竿配置将值转换成可显示的值",
+            "line": " src\\core\\sliderTools.js:67"
+        },
+        {
+            "message": "Missing item type\nTable 工具集",
+            "line": " src\\core\\tableTools.js:1"
+        },
+        {
+            "message": "Missing item type\n计算选中hash中item个数",
+            "line": " src\\core\\tableTools.js:21"
+        },
+        {
+            "message": "Missing item type\n表格是否含有数据",
+            "line": " src\\core\\tableTools.js:37"
+        },
+        {
+            "message": "Missing item type\n从table的value中获取选中hash",
+            "line": " src\\core\\tableTools.js:51"
         },
         {
             "message": "Missing item type\n获取行的选中状态",
-            "line": " src\\core\\tableTools.js:60"
+            "line": " src\\core\\tableTools.js:69"
         },
         {
             "message": "Missing item type\n更新选中集",
-            "line": " src\\core\\tableTools.js:79"
+            "line": " src\\core\\tableTools.js:88"
         },
         {
-            "message": "Missing item type\n根据fieldConfig的配置生成渲染单元格的props",
-            "line": " src\\core\\tableTools.js:133"
+            "message": "Missing item type\n单元格属性工厂",
+            "line": " src\\core\\tableTools.js:142"
         },
         {
-            "message": "Missing item type\n重新组织fieldConfig",
-            "line": " src\\core\\tableTools.js:182"
+            "message": "Missing item type\n类配置工厂，主要用于嵌入选择器配置",
+            "line": " src\\core\\tableTools.js:191"
         },
         {
-            "message": "Missing item type\n封装树及树选择器相关的方法",
-            "line": " src\\core\\treeTools.es6.js:1"
+            "message": "Missing item type\nTree 工具集",
+            "line": " src\\core\\treeTools.js:1"
         },
         {
-            "message": "Missing item type\n先深遍历所有节点",
-            "line": " src\\core\\treeTools.es6.js:11"
+            "message": "Missing item type\n获取Tree节点数据源",
+            "line": " src\\core\\treeTools.js:10"
         },
         {
-            "message": "Missing item type\n从treeNode起始标记节点及其所有孩子被选择返回被选择的节点列表",
-            "line": " src\\core\\treeTools.es6.js:36"
+            "message": "Missing item type\n获取Tree节点的选择状态",
+            "line": " src\\core\\treeTools.js:28"
         },
         {
-            "message": "Missing item type\n从selectedTreeNodeId中移除treeNode",
-            "line": " src\\core\\treeTools.es6.js:78"
+            "message": "Missing item type",
+            "line": " src\\core\\treeTools.js:37"
         },
         {
-            "message": "Missing item type\n返回新的expandedTreeNodeId， 展开刚刚选择的节点",
-            "line": " src\\core\\treeTools.es6.js:102"
+            "message": "Missing item type\n指针方法，选中子树",
+            "line": " src\\core\\treeTools.js:75"
         },
         {
-            "message": "Missing item type\n先深遍历所有已选节点",
-            "line": " src\\core\\treeTools.es6.js:116"
-        },
-        {
-            "message": "Missing item type\n获得已选树结构",
-            "line": " src\\core\\treeTools.es6.js:133"
-        },
-        {
-            "message": "Missing item type\n计数已选的叶子节点",
-            "line": " src\\core\\treeTools.es6.js:157"
-        },
-        {
-            "message": "Missing item type\n此处逻辑：\n（1）如果当前节点是叶子节点，标记为true\n（2）如果当前节点不是叶子节点，在其树下所有叶子标记为true\n（3）如果当点节点有children属性，但children长度为0，则将此节点标记为1",
-            "line": " src\\core\\treeTools.js:53"
-        },
-        {
-            "message": "Missing item type\n此处逻辑\n（1）如果是叶子，则删除\n（2）如果不是叶子，则删除该子树上的所有叶子",
-            "line": " src\\core\\treeTools.js:86"
+            "message": "Missing item type\n指针方法，删除子树",
+            "line": " src\\core\\treeTools.js:113"
         },
         {
             "message": "Missing item type\n全局工具集",
@@ -7258,43 +7512,47 @@ define(function(require){return {
         },
         {
             "message": "Missing item type\n浏览器是否是IE",
-            "line": " src\\core\\util.js:15"
+            "line": " src\\core\\util.js:16"
         },
         {
             "message": "Missing item type\n获取window下的某个namespace，如果不存在，则创建一个空对象",
-            "line": " src\\core\\util.js:27"
+            "line": " src\\core\\util.js:30"
         },
         {
             "message": "Missing item type\n绑定函数上下文",
-            "line": " src\\core\\util.js:35"
+            "line": " src\\core\\util.js:41"
         },
         {
             "message": "Missing item type\n获取dom某个css属性，不论这个属性是写在style里的，还是通过css设置的",
-            "line": " src\\core\\util.js:48"
+            "line": " src\\core\\util.js:54"
         },
         {
             "message": "Missing item type\n获取输入框光标位置",
-            "line": " src\\core\\util.js:59"
+            "line": " src\\core\\util.js:65"
         },
         {
             "message": "Missing item type\n设置输入框中光标位置",
-            "line": " src\\core\\util.js:80"
+            "line": " src\\core\\util.js:86"
         },
         {
-            "message": "Missing item type\n获取DOM是否可见",
-            "line": " src\\core\\util.js:102"
+            "message": "Missing item type\n获取DOM是否可见，组件自身或者祖先中，只要visibility:hidden或display:none，即为不可见",
+            "line": " src\\core\\util.js:108"
         },
         {
             "message": "Missing item type\n获取dom节点的位置",
-            "line": " src\\core\\util.js:127"
+            "line": " src\\core\\util.js:133"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\core\\util.js:139"
         },
         {
             "message": "Missing item type\n获取DOM节点dataset，主要为了兼容最老版本的IE9",
-            "line": " src\\core\\util.js:159"
+            "line": " src\\core\\util.js:172"
         },
         {
             "message": "Missing item type\n将时间对象根据指定格式返回",
-            "line": " src\\core\\util.js:185"
+            "line": " src\\core\\util.js:198"
         },
         {
             "message": "Missing item type\ndefault validation rules",

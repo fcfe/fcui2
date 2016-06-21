@@ -1,5 +1,5 @@
 /**
- * tab 普通渲染器
+ * Tab 普通渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

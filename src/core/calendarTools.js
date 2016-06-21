@@ -1,6 +1,5 @@
 /**
- * 日历组件工具集
- *
+ * Calendar 工具集
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2.1

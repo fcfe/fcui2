@@ -1,5 +1,5 @@
 /**
- * table 无数据渲染器
+ * Table 无数据渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2.1

@@ -1,3 +1,9 @@
+/**
+ * Slider 工具集
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.2.1
+ */
 define(function (require) {
 
 
@@ -19,6 +25,14 @@ define(function (require) {
     }
 
     return {
+        /**
+         * 根据滑竿配置将值换算成屏幕相对
+         * @interface value2position
+         * @param {Number} value 某个值
+         * @param {ReactComponent} me 滑竿组件实例
+         * @param {Number} margin 滑竿坐标轴两侧的margin值
+         * @return {Number} 值在坐标轴上的对应坐标
+         */
         value2position: function (value, me, margin) {
             var min = isNaN(me.props.min) ? 0 : me.props.min * 1;
             var max = isNaN(me.props.max) ? 100 : me.props.max * 1;
@@ -31,6 +45,14 @@ define(function (require) {
             }
             return margin + (value - min) * (width - margin * 2) / (max - min);
         },
+        /**
+         * 根据滑竿配置将坐标换算成值
+         * @interface position2value
+         * @param {Number} pop 滑竿坐标轴上的某一点坐标
+         * @param {ReactComponent} me 滑竿组件实例
+         * @param {Number} margin 滑竿坐标轴两侧的margin值
+         * @return {Number} 坐标轴上坐标对应的值
+         */
         position2value: function (pos, me, margin) {
             var min = isNaN(me.props.min) ? 0 : me.props.min * 1;
             var max = isNaN(me.props.max) ? 100 : me.props.max * 1;
@@ -42,6 +64,13 @@ define(function (require) {
             }
             return min + (pos - margin) * (max - min) / (width - margin * 2);
         },
+        /**
+         * 根据滑竿配置将值转换成可显示的值
+         * @interface displayValue 
+         * @param {Number} value 某个值
+         * @param {ReactComponent} 滑竿组件实例
+         * @return {String} 符合滑竿配置要求的数字字符串 
+         */
         displayValue: function (value, me) {
             var min = isNaN(me.props.min) ? 0 : me.props.min * 1;
             var max = isNaN(me.props.max) ? 100 : me.props.max * 1;

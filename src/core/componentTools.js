@@ -17,12 +17,10 @@ define(function (require) {
         'maxHeight'
     ];
 
-    /**
-     * 模拟符合React规则的synthetic event
-     * @param {Event} nativeEvent
-     * @constructor
-     */
     function SyntheticEvent(nativeEvent) {
+        if (!(this instanceof SyntheticEvent)) {
+            return new SyntheticEvent(nativeEvent)();
+        }
         _.extend(this, _.pick(nativeEvent, function (prop) {
             if (typeof prop === 'function') {
                 return false;
@@ -43,20 +41,22 @@ define(function (require) {
 
     return {
 
-
         /**
          * 一个空函数
+         * @interface noop
+         * @return {Function} 空函数
          */
         noop: function () {
 
         },
 
         /**
-         * 从props中获取某个值，如果props中没有这个值，就在props.style中找
-         *
+         * 从props和props.style中取值
          * @param {Object} props 实例属性结合
-         * @param {string} key 要找值的键
-         * @param {Any} defaultValue 如果props[key]和props.style[key]都不存在，返回这个值
+         * @param {string} key 要查找的键
+         * @param {Any} defaultValue 如果props[key]和props.style[key]都不存在，返回此值
+         * @return {Any} 待查找的值
+         * @interface getValueFromPropsAndStyle
          */
         getValueFromPropsAndStyle: function (props, key, defaultValue) {
             if (props.hasOwnProperty(key)) return props[key];
@@ -65,37 +65,54 @@ define(function (require) {
         },
 
         /**
-         * 弹出Layer的通用方法，请自定绑定上下文
+         * 弹出Layer方法工厂
+         * @param {ReactComponent} me 包含Layer组件的组件实例
+         * @param {String} flag 控制Layer显示隐藏的开关名称，此开关必须在me的state中
+         * @return {Function} 弹出Layer的方法
+         * @interface openLayerHandlerFactory
          */
-        openLayerHandler: function () {
-            if (this.props.disabled) return;
-            this.setState({layerOpen: true});
+        openLayerHandlerFactory: function (me, flag) {
+            return function () {
+                if (me.props.disabled) return;
+                var obj = {};
+                obj[flag] = true;
+                me.setState(obj);
+            };
         },
 
-
         /**
-         * 关闭Layer的通用方法，请自定绑定上下文
+         * 关闭Layer方法工厂
+         * @param {ReactComponent} me 包含Layer组件的组件实例
+         * @param {String} flag 控制Layer显示隐藏的开关名称，此开关必须在me的state中
+         * @return {Function} 关闭Layer的方法
+         * @interface closeLayerHandlerFactory
          */
-        closeLayerHandler: function () {
-            var me = this;
-            setTimeout(function () {
-                if (me.state.mouseenter || (me.refs.layer && me.refs.layer.state.mouseenter)) return;
-                me.setState({layerOpen: false});
-            }, 200);
+        closeLayerHandlerFactory: function (me, flag) {
+            return function () {
+                setTimeout(function () {
+                    if (me.state.mouseenter || (me.refs.layer && me.refs.layer.state.mouseenter)) return;
+                    var obj = {};
+                    obj[flag] = false;
+                    me.setState(obj);
+                }, 200);
+            };
         },
 
-
         /**
-         * 创建组件通用根容器属性集合
-         *
+         * 创建组件根容器通用属性集
          * @param {string} type 组件类型
          * @param {Object} me 组件实例
          * @param {Object} options 配置项
-         * @return {Object} 根容器基本配置
+         * @param {Array.<String>} options.mergeFromProps 导入配置。
+         * 此配置中的字符串代表me.props的key，所有me.props[key]将被复制到result中。若result中已经存在key，则跳过。
+         * @param {Object} options.merge 合并配置。
+         * options.merge最终将与result合并，冲突的键不合并。此配置优先级低于options.mergeFromProps。
+         * @return {Object} 根容器通用属性集
+         * @interface containerBaseProps
          */
         /**
          * @properties
-         *
+         * @param {String} ref 组件根容器索引，默认为'container'
          * @param {String} skin 组件皮肤此属性最终加在组件根容器的class上，例如：fcui2-componentname-skinname
          * @param {String} className 外接class此属性最终加在组件根容器的class上
          * @param {Object} style 外接style此属性最终加在组件根容器的style上
@@ -170,6 +187,12 @@ define(function (require) {
             return result;
         },
 
+        /**
+         * React事件对象封装器
+         * @param {UIEvents} evt 原生UI对象
+         * @return {SyntheticEvent} React事件对象
+         * @interface SyntheticEvent
+         */
         SyntheticEvent: SyntheticEvent
     };
 });

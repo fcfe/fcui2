@@ -1,13 +1,19 @@
+/**
+ * NumberBox 工具集
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.2.1
+ */
 define(function (require) {
 
     return {
 
 
         /**
-         * 过滤掉字符串中所有非数字，包括串中间的负号，第二次出现的小数点，前方不合法的0
-         *
-         * @param {string | number} value 待处理数据
-         * @return {string} 过滤后串
+         * 过滤掉字符串中所有非数字，包括串中间的负号、第二次出现的小数点、前方不合法的0
+         * @interface charFilter
+         * @param {String|number} value 待处理的串
+         * @return {String} 过滤后数字串
          */
         charFilter: function (value) {
             value = (typeof value === 'string' || typeof value === 'number') ? value + '' : '';
@@ -40,12 +46,12 @@ define(function (require) {
 
 
         /**
-         * 数字区间过滤，在区间内，返回值；否则返回区间边界
-         *
-         * @param {string | number} value 待处理值
+         * 数字区间过滤，在区间内，返回值，否则返回区间边界
+         * @interface regionFilter
+         * @param {String|number} value 待处理值
          * @param {number} max 最大值
          * @param {number} min 最小值
-         * @return {string | number} 在区间内的值
+         * @return {String|Number} 在区间内的值
          */
         regionFilter: function (value, min, max) {
             if (isNaN(value)) return NaN;
@@ -64,11 +70,11 @@ define(function (require) {
 
 
         /**
-         * 截取小数点
-         *
-         * @param {string} value 是一个数字的字符串
-         * @param {number} fixed 小数位数
-         * @return {}
+         * 截取小数点，只截取不补充
+         * @interface fixed
+         * @param {String} value 是合法数字字符串
+         * @param {Number} fixed 小数位数
+         * @return {String} 截取了小数部分的数字字符串
          */
         fixed: function (value, fixed) {
             value = (typeof value === 'string' || typeof value === 'number') ? value + '' : '';
@@ -91,14 +97,14 @@ define(function (require) {
 
         /**
          * 根据配置将字符串处理成合法数字
-         *
-         * @param {string} value 字符串
+         * @interface numberFormater
+         * @param {String} value 字符串
          * @param {Object} config 配置参数
-         * @param {number} config.max 最大值
-         * @param {number} config.min 最小值
-         * @param {string} config.type 类型，int或float
-         * @param {number} config.fixed 小数位数，只在type=float时才有用
-         * @return {string} 
+         * @param {Number} config.max 最大值
+         * @param {Number} config.min 最小值
+         * @param {String} config.type 类型，int或float
+         * @param {Number} config.fixed 小数位数，只在type=float时才有用
+         * @return {String} 符合要求的数字字符串
          */
         numberFormater: function (value, config) {
             config = config || {};

@@ -3,7 +3,7 @@ define(function (require) {
 
     var React = require('react');
     var Method = require('./components/Method.jsx');
-
+    var Demo = require('./components/Code.jsx');
 
     return React.createClass({
         // @override
@@ -18,6 +18,7 @@ define(function (require) {
             return (
                 <div className="parser-properties">
                     <Method item={item}/>
+                    {item.example ? <Demo codes={item.example}/> : null} 
                 </div>
             );
         }

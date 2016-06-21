@@ -1,5 +1,5 @@
 /**
- * table 普通表头渲染器
+ * Table 普通表头渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2.1

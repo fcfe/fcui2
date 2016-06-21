@@ -1,5 +1,5 @@
 /**
- * tree 有选择功能的渲染器
+ * Tree 有选择功能的Item渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

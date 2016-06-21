@@ -1,3 +1,9 @@
+/**
+ * Region 工具集
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @author 0.0.2.1
+ */
 define(function (require) {
     // 祖先关系
     var ancestors = {
@@ -138,6 +144,21 @@ define(function (require) {
 
         regionAlphabetOrder: regionAlphabetOrder,
 
+        /**
+         * 获取地区的选中状态
+         * @interface getSelectedState
+         * @param {Number} id 地区编号
+         * @param {Object} value 选中地区的hash
+         * @param {Boolean} noLinkage 是否禁止子孙联动查找
+         * @return {RegionSelectState} 地区选中状态
+         */
+        /**
+         * @structure RegionSelectState
+         * @param {Boolean} checked 该地区是否被选中
+         * @param {Boolean} indeterminate 该地区是否出去半选状态
+         * @param {Number} selected 该地区子树上选中的节点个数
+         * @param {Number} total 该地区子树上所有节点个数
+         */
         getSelectedState: function (id, value, noLinkage) {
             var result = {
                 checked: false,
@@ -165,6 +186,13 @@ define(function (require) {
             }
         },
 
+        /**
+         * 指针方法，将提取添加到选中hash中
+         * @interface addValue
+         * @param {Number} key 地区编号
+         * @param {Object} value 选中地区的hash
+         * @param {Boolean} noLinkage 是否禁止子孙联动添加
+         */
         addValue: function (key, value, noLinkage) {
             var me = this;
             // 添加当前
@@ -194,6 +222,13 @@ define(function (require) {
             }
         },
 
+        /**
+         * 指针方法，从选中hash中删除地区
+         * @interface deleteValue
+         * @param {Number} key 地区编号
+         * @param {Object} value 选中地区的hash
+         * @param {Boolean} noLinkage 是否禁止子孙和祖先联动删除
+         */
         deleteValue: function (key, value, noLinkage) {
             // 删除当前
             delete value[key];
@@ -219,12 +254,23 @@ define(function (require) {
             }
         },
 
+        /**
+         * 指针方法，删除选中hash中所有地区
+         * @interface clearValue
+         * @param {Object} value 选中地区的hash
+         */
         clearValue: function (value) {
             for (var key in value) {
                 if (value.hasOwnProperty(key)) delete value[key];
             }
         },
 
+        /**
+         * 将字符串类型的选中值转成hash
+         * @interface parseValue
+         * @param {String} value 选中地区串，以','分隔地区编号
+         * @return {Object}
+         */
         parseValue: function (value) {
             if (typeof value !== 'string') return {};
             var result = {};
@@ -236,6 +282,12 @@ define(function (require) {
             return result;
         },
 
+        /**
+         * 将地区选中hash转成字符串
+         * @interface stringifyValue
+         * @param {Object} 地区选中hash，以地区编号为key
+         * @return {String} 选中地区串，以','分隔地区编号
+         */ 
         stringifyValue: function (value) {
             var result = [];
             for (var key in value) {

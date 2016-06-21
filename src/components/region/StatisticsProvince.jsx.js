@@ -1,5 +1,5 @@
 /**
- * Region带有汇总信息的省渲染器
+ * Region 带有汇总信息的省渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2

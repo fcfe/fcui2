@@ -1,3 +1,9 @@
+/**
+ * Table 工具集
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.2.1
+ */
 define(function (require) {
 
 
@@ -13,10 +19,10 @@ define(function (require) {
 
 
         /**
-         * 根据选中hash，计算选中item个数
-         *
-         * @param {Object | number} obj 选中hash，-1表示全选
-         * @param {number} 选中的item个数，即obj键的个数，-1为全选
+         * 计算选中hash中item个数
+         * @interface getSelectedCount
+         * @param {Object|number} obj 选中hash，-1表示全选
+         * @return {Number} 选中的item个数，即obj键的个数，-1为全选
          */
         getSelectedCount: function (obj) {
             if (obj === -1) return -1;
@@ -29,7 +35,10 @@ define(function (require) {
 
 
         /**
-         * 判断是否有数据
+         * 表格是否含有数据
+         * @interface haveDate
+         * @param {ReactComponent} me table组件实例
+         * @return {Boolean} 判断结果，如果不配列或不配数据源，都是true
          */
         haveDate: function (me) {
             var config = me.props.fieldConfig instanceof Array ? me.props.fieldConfig : [];
@@ -40,10 +49,10 @@ define(function (require) {
 
 
         /**
-         * 从table的value中，获取选中行的数据结构
-         *
+         * 从table的value中获取选中hash
+         * @interface getSelectedHash
          * @param {string} value table的value值
-         * @return {object | number} 选中的行的index hash，如果全选返回-1
+         * @return {object|number} 选中的行的index hash，如果全选返回-1
          */
         getSelectedHash: function (value) {
             value = typeof value === 'string' ? JSON.parse(value) : {};
@@ -59,7 +68,7 @@ define(function (require) {
 
         /**
          * 获取行的选中状态
-         *
+         * @interface getRowSelectedState
          * @param {Number} row 行号
          * @param {String} value table的value
          * @return {Number} 选中状态：-1未选中；0选中；1半选中
@@ -78,13 +87,13 @@ define(function (require) {
 
         /**
          * 更新选中集
-         *
+         * @interface updateSelected
          * @param {number} index 选择器的行号
          * @param {boolean} checked 选择器的选中状态
          * @param {string} selectMode 快捷选择方式
          * @param {string} tableValue table的value
          * @param {Array} datasource 表格数据源
-         * @return {Array | number} 选中行的数组，如果全选，返回-1
+         * @return {Array|number} 选中行的数组，如果全选，返回-1
          */
         updateSelected: function (index, checked, selectMode, tableValue, datasource) {
             var result = [];
@@ -131,14 +140,14 @@ define(function (require) {
 
 
         /**
-         * 根据fieldConfig的配置生成渲染单元格的props
-         *
-         * @param {Object} conf 列配置
-         * @param {Object} item 数据源
-         * @param {Object} me 当前react对象
-         * @param {number} row item在datasource的行索引
-         * @param {number } column 当前渲染的列索引
-         * @return {Object} 用于渲染row行column列的props
+         * 单元格属性工厂
+         * @interface tdPropsFactory
+         * @param {Object} conf 单元格所在列的配置
+         * @param {Object} item 单元格所在行的数据源
+         * @param {ReactComponent} me table组件实例
+         * @param {number} row 单元格行索引
+         * @param {number } column 单元格列索引
+         * @return {Object} 传入单元格渲染器的props
          */
         tdPropsFactory: function (conf, item, me, row, column) {
             // 深度克隆fieldConfig
@@ -180,10 +189,10 @@ define(function (require) {
 
 
         /**
-         * 重新组织fieldConfig
-         *
-         * @param {Object} me React table 实例
-         * @param {Object} renderers 外部导入的默认渲染器，由于某些渲染器可能会调用此文件，造成循环加载，所以从这里导入
+         * 类配置工厂，主要用于嵌入选择器配置
+         * @interface fieldConfigFactory
+         * @param {ReactComponent} me table实例
+         * @param {Object} renderers 外部导入的默认渲染器，由于某些渲染器可能会调用此文件，造成循环加载，所以从外部导入
          * @return {Array} 列配置
          */
         fieldConfigFactory: function (me, renderers) {

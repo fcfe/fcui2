@@ -1,5 +1,5 @@
 /**
- * table 数值型单元格渲染器
+ * Table 数值型单元格渲染器
  * @author Brian Li
  * @email lbxxlht@163.com
  * @version 0.0.2.1
