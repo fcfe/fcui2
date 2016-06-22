@@ -134,7 +134,7 @@ define(function (require) {
          * 获取dom节点的位置
          * @interface getDOMPosition
          * @param {HtmlElement} e dom节点
-         * @return {PositionState} 位置对象，left、top相对于body左上角；x、y相对于可见区域左上角;
+         * @return {PositionState} 位置对象
          */
         /**
          * @structure PositionState

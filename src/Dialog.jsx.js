@@ -68,16 +68,9 @@ define(function (require) {
      * @attention 此方法直接无条件关闭并销毁窗体，不会触发任何回调函数
      */
     Dialog.prototype.close = function () {
-        var me = this;
-        var ui = this.___ui___;
-        if (!ui) return;
-        if (ui.state.isOpen) {
-            ui.setState({isOpen: false});
-        }
-        setTimeout(function () {
-            ReactDOM.unmountComponentAtNode(me.___tempContainer___);
-            me.___ui___ = null;
-        }, 100);
+        if (!this.___ui___) return;
+        this.___ui___ = null;
+        ReactDOM.unmountComponentAtNode(this.___tempContainer___);
     };
 
 
@@ -182,14 +175,7 @@ define(function (require) {
                 };
             },
             close: function () {
-                if (this.state.isOpen) {
-                    this.setState({isOpen: false});
-                    setTimeout(function () {
-                        typeof param.onClose === 'function' && param.onClose();
-                        dialog.close();
-                    }, 100);
-                    return;
-                }
+                this.setState({isOpen: false});
                 typeof param.onClose === 'function' && param.onClose();
                 dialog.close();
             },
