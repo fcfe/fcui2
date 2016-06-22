@@ -34,7 +34,7 @@ define(function (require) {
         },
         {
             title: 'Readonly CheckBox',
-            props: {checked: true}
+            props: {checked: true, label: '请选择'}
         }
     ];
 
