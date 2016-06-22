@@ -37,9 +37,9 @@ define(function (require) {
          * @param {Boolean} isValid 是否通过校验
          * @param {String} template 未通过校验时的默认错误信息
          */
-        required: function (value) {
+        required: function (value, skip) {
             return {
-                isValid: isExisty(value) && !isEmpty(value),
+                isValid: (isExisty(value) && !isEmpty(value)) || (skip === false),
                 template: '此处不能留空'
             };
         },

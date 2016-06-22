@@ -4,7 +4,6 @@ define(function (require) {
     var React = require('react');
     var DefaultParser = require('./Default.jsx');
     var items = require('../config').items;
-    var warning = require('../config').warnings;
     var router = require('./router');
     
 
@@ -39,12 +38,7 @@ define(function (require) {
         render: function () {
             var file = this.props.file || '';
             file = file.replace(/_/g, '\\');
-            if (
-                (!items.hasOwnProperty(file) || items[file].length === 0)
-                && (!warning.hasOwnProperty(file) || warning[file].length === 0)
-            ) {
-                return <div></div>;
-            }
+            if (!items.hasOwnProperty(file) || items[file].length === 0) return <div></div>;
             return (<div>{itemFactory(file)}</div>);
         }
     });

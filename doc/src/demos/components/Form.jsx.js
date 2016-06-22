@@ -11,8 +11,8 @@ define(function (require) {
     var demos = {
         'Readonly form with initial data': [
             '<Form>',
-            '    <span>name: </span><TextBox value={this.state.form1.name}/><br/>',
-            '    <span>age: </span><NumberBox value={this.state.form1.age}/>',
+            '    <span>name: </span><TextBox name="name" value={this.state.form1.name}/><br/>',
+            '    <span>age: </span><NumberBox age="age" value={this.state.form1.age}/>',
             '</Form>'
         ],
         'Form with field change handler': [
@@ -24,7 +24,9 @@ define(function (require) {
         'Form with field validations': [
             '<Form onFieldChange={this.formFieldChangeFactory(\'form3\')}>',
             '    <span>name: </span>',
-            '    <TextBox name="name" value={this.state.form3.name}/><br/>',
+            '    <TextBox name="name" value={this.state.form3.name} validations={{',
+            '         required: true',
+            '    }}/><br/>',
             '    <span>age: </span>',
             '    <NumberBox name="age" value={this.state.form3.age}',
             '        validations={{',
@@ -77,7 +79,7 @@ define(function (require) {
                     age: 18
                 },
                 form3: {
-                    name: 'Brian Li',
+                    name: '',
                     age: 18
                 },
                 form4: {
@@ -110,8 +112,8 @@ define(function (require) {
                     <div className="demo-item">
                         <Information title="Readonly form with initial data" content={demos['Readonly form with initial data'].join('\n')}/>
                         <Form>
-                            <span>name: </span><TextBox value={this.state.form1.name}/><br/>
-                            <span>age: </span><NumberBox value={this.state.form1.age}/>
+                            <span>name: </span><TextBox name="name" value={this.state.form1.name}/><br/>
+                            <span>age: </span><NumberBox age="age" value={this.state.form1.age}/>
                         </Form>
                     </div>
                     <div className="demo-item">
@@ -125,7 +127,9 @@ define(function (require) {
                         <Information title="Form with field validations" content={demos['Form with field validations'].join('\n')}/>
                         <Form onFieldChange={this.formFieldChangeFactory('form3')}>
                             <span>name: </span>
-                            <TextBox name="name" value={this.state.form3.name}/><br/>
+                            <TextBox name="name" value={this.state.form3.name} validations={{
+                                required: true
+                            }}/><br/>
                             <span>age: </span>
                             <NumberBox name="age" value={this.state.form3.age}
                                 validations={{

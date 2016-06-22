@@ -3207,7 +3207,17 @@ define(function(require){return {
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 39,
+            "line": 1,
+            "description": "Input类型组件基础mixin",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2.1",
+            "note": "此mixin主要作用：\n1.解决input类型组件的渲染回馈问题\n（1）原生dom可以使用valueLink绑定value到父级组件的state，但valueLink属性跟onChange + value属性是互斥的，且会抛错提示\n     本mixin解决了上述问题，让自定义input组件具有和原生demo一致的属性表现\n（2）input类型组件含有valueLink属性时，组件的数据源value和onChange回调被封装在props.valueLink内部，\n     与不含有valueLink属性时解决方案不同，本mixin提供获取value的公共方法，同时提供派发回调的公共接口\n2.解决input类型组件与Form的衔接问题\n（1）input类型组件配置name属性后要在包裹它的表单Form中注册自己\n（2）input组件允许导入校验规则并根据这些规则进行校验\n（3）input组件发生change事件时，通知表单指的变化\n\n\n使用此mixin的组件应包含如下内容：\n[optional] this.props.value {string | boolean | number} 基础类型，表示组件的值\n[optional] this.props.onChange {function} 组件被操作后的回调\n[optional] this.props.valueLink {Object} 替代this.props.value + this.props.onChange的valueLink插件\n[optional] this.props.name {string} 组件在表单Form中的域名\n[optional] this.props.validations {Object} 组件值的校验机\n[optional] this.props.customErrorTemplates {Object} 组件值校验失败后错误提示处理机\n\n\n此mixin在state中注入如下内容：\n（1）this.state.___value___ {Any} 组件的临时值，只有当props中未传入value且未使用valueLink时，此项才被读取\n（2）this.state.___beOperated___ {boolean} 组件是否被操作过\n（3）this.state.isValid {boolean} 组件是否通过了校验，此项一般由组件外部的Form设置\n\n\n此mixin在组件实例中注入如下内容：\n（1）this.___hasValueLink___ {boolean} 实例属性中是否含有valueLink\n（2）this.___formAttached___ {boolean} 实例是否在表单中注册成功\n（3）this.___validations___ {Object} this.props.validations配置转换好的校验hash",
+            "class": ""
+        },
+        {
+            "file": "src\\mixins\\InputWidget.js",
+            "line": 41,
             "properties": "",
             "params": [
                 {
@@ -3250,7 +3260,7 @@ define(function(require){return {
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 51,
+            "line": 53,
             "fire": "XXX onChange",
             "params": [
                 {
@@ -3277,35 +3287,35 @@ define(function(require){return {
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 77,
+            "line": 79,
             "description": "检查valueLink、value、onChange\n组件初始化前，检查valueLink和value + onChange，同时存在则抛错，并阻塞系统",
             "override": "",
             "class": ""
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 96,
+            "line": 98,
             "description": "注册表单域，更新校验对象",
             "override": "",
             "class": ""
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 109,
+            "line": 111,
             "description": "解除表单域注册",
             "override": "",
             "class": ""
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 121,
+            "line": 123,
             "description": "更新校验对象",
             "override": "",
             "class": ""
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 142,
+            "line": 144,
             "description": "获取value",
             "return": {
                 "description": "输入组件当前值",
@@ -3316,7 +3326,7 @@ define(function(require){return {
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 180,
+            "line": 182,
             "description": "派发onChange事件",
             "params": [
                 {
@@ -3348,7 +3358,7 @@ define(function(require){return {
         },
         {
             "file": "src\\mixins\\InputWidget.js",
-            "line": 230,
+            "line": 232,
             "description": "手动调用校验",
             "params": [
                 {
@@ -6739,32 +6749,44 @@ define(function(require){return {
             "line": " src\\core\\validations.js:35"
         },
         {
+            "message": "unknown tag: email",
+            "line": " src\\mixins\\InputWidget.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\mixins\\InputWidget.js:1"
+        },
+        {
+            "message": "unknown tag: note",
+            "line": " src\\mixins\\InputWidget.js:1"
+        },
+        {
             "message": "unknown tag: properties",
-            "line": " src\\mixins\\InputWidget.js:39"
+            "line": " src\\mixins\\InputWidget.js:41"
         },
         {
             "message": "unknown tag: fire",
-            "line": " src\\mixins\\InputWidget.js:51"
+            "line": " src\\mixins\\InputWidget.js:53"
         },
         {
             "message": "unknown tag: override",
-            "line": " src\\mixins\\InputWidget.js:77"
+            "line": " src\\mixins\\InputWidget.js:79"
         },
         {
             "message": "unknown tag: override",
-            "line": " src\\mixins\\InputWidget.js:96"
+            "line": " src\\mixins\\InputWidget.js:98"
         },
         {
             "message": "unknown tag: override",
-            "line": " src\\mixins\\InputWidget.js:109"
+            "line": " src\\mixins\\InputWidget.js:111"
         },
         {
             "message": "unknown tag: override",
-            "line": " src\\mixins\\InputWidget.js:121"
+            "line": " src\\mixins\\InputWidget.js:123"
         },
         {
             "message": "unknown tag: notice",
-            "line": " src\\mixins\\InputWidget.js:142"
+            "line": " src\\mixins\\InputWidget.js:144"
         },
         {
             "message": "unknown tag: email",
@@ -8039,40 +8061,44 @@ define(function(require){return {
             "line": " src\\core\\validations.js:215"
         },
         {
-            "message": "Missing item type",
-            "line": " src\\mixins\\InputWidget.js:39"
+            "message": "Missing item type\nInput类型组件基础mixin",
+            "line": " src\\mixins\\InputWidget.js:1"
         },
         {
             "message": "Missing item type",
-            "line": " src\\mixins\\InputWidget.js:51"
+            "line": " src\\mixins\\InputWidget.js:41"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\mixins\\InputWidget.js:53"
         },
         {
             "message": "Missing item type\n检查valueLink、value、onChange\n组件初始化前，检查valueLink和value + onChange，同时存在则抛错，并阻塞系统",
-            "line": " src\\mixins\\InputWidget.js:77"
+            "line": " src\\mixins\\InputWidget.js:79"
         },
         {
             "message": "Missing item type\n注册表单域，更新校验对象",
-            "line": " src\\mixins\\InputWidget.js:96"
+            "line": " src\\mixins\\InputWidget.js:98"
         },
         {
             "message": "Missing item type\n解除表单域注册",
-            "line": " src\\mixins\\InputWidget.js:109"
+            "line": " src\\mixins\\InputWidget.js:111"
         },
         {
             "message": "Missing item type\n更新校验对象",
-            "line": " src\\mixins\\InputWidget.js:121"
+            "line": " src\\mixins\\InputWidget.js:123"
         },
         {
             "message": "Missing item type\n获取value",
-            "line": " src\\mixins\\InputWidget.js:142"
+            "line": " src\\mixins\\InputWidget.js:144"
         },
         {
             "message": "Missing item type\n派发onChange事件",
-            "line": " src\\mixins\\InputWidget.js:180"
+            "line": " src\\mixins\\InputWidget.js:182"
         },
         {
             "message": "Missing item type\n手动调用校验",
-            "line": " src\\mixins\\InputWidget.js:230"
+            "line": " src\\mixins\\InputWidget.js:232"
         },
         {
             "message": "Missing item type\n输入框流劫持",

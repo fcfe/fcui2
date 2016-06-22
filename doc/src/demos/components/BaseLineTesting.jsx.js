@@ -36,9 +36,9 @@ define(function (require) {
                     <div style={{border: '1px solid #E8E8E8', lineHeight: '50px', marginTop: '30px'}}>
                         <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
                         <Button/>
-                        <CheckBox label="复选框"/>
+                        <CheckBox label="复选框" checked={true}/>
                         <Radio label="主说要有光，于是有了光"/>
-                        <TextBox/>
+                        <TextBox value="abd"/>
                         <SearchBox/>
                     </div>
                     <div style={{border: '1px solid #E8E8E8', lineHeight: '80px', marginTop: '30px'}}>
