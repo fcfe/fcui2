@@ -197,6 +197,13 @@ define(function(require){return {
             "fors": {},
             "namespaces": {}
         },
+        "src\\core\\validationTools.js": {
+            "name": "src\\core\\validationTools.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "src\\core\\validations.js": {
             "name": "src\\core\\validations.js",
             "modules": {},
@@ -2744,7 +2751,7 @@ define(function(require){return {
                 }
             ],
             "return": {
-                "description": "位置对象，left、top相对于body左上角；x、y相对于可见区域左上角;",
+                "description": "位置对象",
                 "type": "PositionState"
             },
             "class": ""
@@ -2819,10 +2826,383 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\core\\validationTools.js",
+            "line": 1,
+            "description": "校验工具集",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2.1",
+            "note": "此工具集被src\\mixins\\InputWidget.js使用",
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validationTools.js",
+            "line": 12,
+            "description": "校验配置工厂。如果传入字符串，尝试用JSON.parse将字符串转成对象，否则什么都不做。",
+            "interface": "validationFactory",
+            "params": [
+                {
+                    "name": "validations",
+                    "description": "校验配置",
+                    "type": "Object|String"
+                }
+            ],
+            "return": {
+                "description": "校验机对象",
+                "type": "Object"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validationTools.js",
+            "line": 29,
+            "description": "检查input组件的外层表单实例上有没有某个方法",
+            "interface": "isCallbackExist",
+            "params": [
+                {
+                    "name": "me",
+                    "description": "Input类型组件，这种类型的组件引入的InputWidget mixin",
+                    "type": "ReactComponent"
+                },
+                {
+                    "name": "callback",
+                    "description": "方法名称",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "检查结果，input组件外层没有form或input组件没有配置name属性或form中没有命为callback的方法，都返回false",
+                "type": "Boolean"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validationTools.js",
+            "line": 49,
+            "description": "校验准则工厂",
+            "interface": "rulesFactory",
+            "params": [
+                {
+                    "name": "me",
+                    "description": "Input类型组件",
+                    "type": "ReactComponent"
+                },
+                {
+                    "name": "rules",
+                    "description": "校验名称集",
+                    "type": "String|Array.<String>"
+                }
+            ],
+            "return": {
+                "description": "校验机中存在的校验准则序列，rules中存在但组件校验机中不存在的准则名称将被过滤",
+                "type": "Array.<String>"
+            },
+            "class": ""
+        },
+        {
             "file": "src\\core\\validations.js",
             "line": 1,
-            "description": "default validation rules",
-            "author": "Brian Li (lbxxlht@163.com)",
+            "description": "常用校验机",
+            "author": "Hu Jian (hujian02@baidu.com), Brian Li (lbxxlht@163.com)",
+            "version": "0.0.2.1",
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validations.js",
+            "line": 29,
+            "description": "是否存在，null, undefined视为不存在，其他值均为存在。",
+            "interface": "required",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "待校验值",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "校验结果对象",
+                "type": "ValidateResult"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validations.js",
+            "line": 35,
+            "structure": "ValidateResult",
+            "params": [
+                {
+                    "name": "isValid",
+                    "description": "是否通过校验",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "template",
+                    "description": "未通过校验时的默认错误信息",
+                    "type": "String"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validations.js",
+            "line": 46,
+            "description": "是否通过正则检查。值不存在，或值为空字符串，也视为通过校验",
+            "interface": "matchRegexp",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "待校验值",
+                    "type": "Any"
+                },
+                {
+                    "name": "regexp",
+                    "description": "正则表达式",
+                    "type": "Reg"
+                }
+            ],
+            "return": {
+                "description": "校验结果对象",
+                "type": "ValidateResult"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validations.js",
+            "line": 58,
+            "description": "是否未通过正则检查。值不存在，或值为空字符串，也视为通过校验",
+            "interface": "notMatchRegexp",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "待校验值",
+                    "type": "Any"
+                },
+                {
+                    "name": "regexp",
+                    "description": "正则表达式",
+                    "type": "Reg"
+                }
+            ],
+            "return": {
+                "description": "校验结果对象",
+                "type": "ValidateResult"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validations.js",
+            "line": 70,
+            "description": "是否是合法的email地址，内部调用this.matchRegexp",
+            "interface": "isEmail",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "待校验值",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "校验结果对象",
+                "type": "ValidateResult"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validations.js",
+            "line": 83,
+            "description": "是否是合法的url地址，内部调用this.matchRegexp",
+            "interface": "isUrl",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "待校验值",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "校验结果对象",
+                "type": "ValidateResult"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validations.js",
+            "line": 96,
+            "description": "是否是合法的座机号码或手机号码，内部调用this.matchRegexp",
+            "interface": "isAnyPhone",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "待校验值",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "校验结果对象",
+                "type": "ValidateResult"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validations.js",
+            "line": 110,
+            "description": "是否是合法的手机号码，内部调用this.matchRegexp",
+            "interface": "isPhone",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "待校验值",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "校验结果对象",
+                "type": "ValidateResult"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validations.js",
+            "line": 123,
+            "description": "是否是合法的座机号码，内部调用this.matchRegexp",
+            "interface": "isTelephone",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "待校验值",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "校验结果对象",
+                "type": "ValidateResult"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validations.js",
+            "line": 136,
+            "description": "是否是合法数字，内部调用this.matchRegexp",
+            "interface": "isNumeric",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "待校验值",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "校验结果对象",
+                "type": "ValidateResult"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validations.js",
+            "line": 155,
+            "description": "是否是英文字母，内部调用this.matchRegexp",
+            "interface": "isAlpha",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "待校验值",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "校验结果对象",
+                "type": "ValidateResult"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validations.js",
+            "line": 167,
+            "description": "是否是英文字母或数字，内部调用this.matchRegexp",
+            "interface": "isAlphanumeric",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "待校验值",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "校验结果对象",
+                "type": "ValidateResult"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validations.js",
+            "line": 179,
+            "description": "是否小于最大长度，值如果不存在也会通过校验",
+            "interface": "maxLength",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "待校验值",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "校验结果对象",
+                "type": "ValidateResult"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validations.js",
+            "line": 191,
+            "description": "是否小于最大字节长度，值如果不存在也会通过校验，一个汉字的长度为2",
+            "interface": "maxByteLength",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "待校验值",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "校验结果对象",
+                "type": "ValidateResult"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validations.js",
+            "line": 203,
+            "description": "是否大于最小长度，值如果不存在或值为空也会通过校验",
+            "interface": "minLength",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "待校验值",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "校验结果对象",
+                "type": "ValidateResult"
+            },
+            "class": ""
+        },
+        {
+            "file": "src\\core\\validations.js",
+            "line": 215,
+            "description": "是否大于最小字节长度，值如果不存在或值为空也会通过校验，一个汉字的长度为2",
+            "interface": "minByteLength",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "待校验值",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "校验结果对象",
+                "type": "ValidateResult"
+            },
             "class": ""
         },
         {
@@ -3558,7 +3938,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 84,
+            "line": 77,
             "description": "更新content属性集",
             "params": [
                 {
@@ -3574,7 +3954,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 109,
+            "line": 102,
             "description": "弹出Alert提示框",
             "params": [
                 {
@@ -3607,7 +3987,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Dialog.jsx.js",
-            "line": 135,
+            "line": 128,
             "description": "弹出Confirm确认框",
             "params": [
                 {
@@ -6339,6 +6719,26 @@ define(function(require){return {
             "line": " src\\core\\util.js:139"
         },
         {
+            "message": "unknown tag: email",
+            "line": " src\\core\\validationTools.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\core\\validationTools.js:1"
+        },
+        {
+            "message": "unknown tag: note",
+            "line": " src\\core\\validationTools.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\core\\validations.js:1"
+        },
+        {
+            "message": "unknown tag: structure",
+            "line": " src\\core\\validations.js:35"
+        },
+        {
             "message": "unknown tag: properties",
             "line": " src\\mixins\\InputWidget.js:39"
         },
@@ -6524,39 +6924,39 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: name",
-            "line": " src\\Dialog.jsx.js:84"
+            "line": " src\\Dialog.jsx.js:77"
         },
         {
             "message": "unknown tag: classname",
-            "line": " src\\Dialog.jsx.js:84"
+            "line": " src\\Dialog.jsx.js:77"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Dialog.jsx.js:84"
+            "line": " src\\Dialog.jsx.js:77"
         },
         {
             "message": "unknown tag: name",
-            "line": " src\\Dialog.jsx.js:109"
+            "line": " src\\Dialog.jsx.js:102"
         },
         {
             "message": "unknown tag: classname",
-            "line": " src\\Dialog.jsx.js:109"
+            "line": " src\\Dialog.jsx.js:102"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Dialog.jsx.js:109"
+            "line": " src\\Dialog.jsx.js:102"
         },
         {
             "message": "unknown tag: name",
-            "line": " src\\Dialog.jsx.js:135"
+            "line": " src\\Dialog.jsx.js:128"
         },
         {
             "message": "unknown tag: classname",
-            "line": " src\\Dialog.jsx.js:135"
+            "line": " src\\Dialog.jsx.js:128"
         },
         {
             "message": "unknown tag: attention",
-            "line": " src\\Dialog.jsx.js:135"
+            "line": " src\\Dialog.jsx.js:128"
         },
         {
             "message": "unknown tag: email",
@@ -7555,8 +7955,88 @@ define(function(require){return {
             "line": " src\\core\\util.js:198"
         },
         {
-            "message": "Missing item type\ndefault validation rules",
+            "message": "Missing item type\n校验工具集",
+            "line": " src\\core\\validationTools.js:1"
+        },
+        {
+            "message": "Missing item type\n校验配置工厂。如果传入字符串，尝试用JSON.parse将字符串转成对象，否则什么都不做。",
+            "line": " src\\core\\validationTools.js:12"
+        },
+        {
+            "message": "Missing item type\n检查input组件的外层表单实例上有没有某个方法",
+            "line": " src\\core\\validationTools.js:29"
+        },
+        {
+            "message": "Missing item type\n校验准则工厂",
+            "line": " src\\core\\validationTools.js:49"
+        },
+        {
+            "message": "Missing item type\n常用校验机",
             "line": " src\\core\\validations.js:1"
+        },
+        {
+            "message": "Missing item type\n是否存在，null, undefined视为不存在，其他值均为存在。",
+            "line": " src\\core\\validations.js:29"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src\\core\\validations.js:35"
+        },
+        {
+            "message": "Missing item type\n是否通过正则检查。值不存在，或值为空字符串，也视为通过校验",
+            "line": " src\\core\\validations.js:46"
+        },
+        {
+            "message": "Missing item type\n是否未通过正则检查。值不存在，或值为空字符串，也视为通过校验",
+            "line": " src\\core\\validations.js:58"
+        },
+        {
+            "message": "Missing item type\n是否是合法的email地址，内部调用this.matchRegexp",
+            "line": " src\\core\\validations.js:70"
+        },
+        {
+            "message": "Missing item type\n是否是合法的url地址，内部调用this.matchRegexp",
+            "line": " src\\core\\validations.js:83"
+        },
+        {
+            "message": "Missing item type\n是否是合法的座机号码或手机号码，内部调用this.matchRegexp",
+            "line": " src\\core\\validations.js:96"
+        },
+        {
+            "message": "Missing item type\n是否是合法的手机号码，内部调用this.matchRegexp",
+            "line": " src\\core\\validations.js:110"
+        },
+        {
+            "message": "Missing item type\n是否是合法的座机号码，内部调用this.matchRegexp",
+            "line": " src\\core\\validations.js:123"
+        },
+        {
+            "message": "Missing item type\n是否是合法数字，内部调用this.matchRegexp",
+            "line": " src\\core\\validations.js:136"
+        },
+        {
+            "message": "Missing item type\n是否是英文字母，内部调用this.matchRegexp",
+            "line": " src\\core\\validations.js:155"
+        },
+        {
+            "message": "Missing item type\n是否是英文字母或数字，内部调用this.matchRegexp",
+            "line": " src\\core\\validations.js:167"
+        },
+        {
+            "message": "Missing item type\n是否小于最大长度，值如果不存在也会通过校验",
+            "line": " src\\core\\validations.js:179"
+        },
+        {
+            "message": "Missing item type\n是否小于最大字节长度，值如果不存在也会通过校验，一个汉字的长度为2",
+            "line": " src\\core\\validations.js:191"
+        },
+        {
+            "message": "Missing item type\n是否大于最小长度，值如果不存在或值为空也会通过校验",
+            "line": " src\\core\\validations.js:203"
+        },
+        {
+            "message": "Missing item type\n是否大于最小字节长度，值如果不存在或值为空也会通过校验，一个汉字的长度为2",
+            "line": " src\\core\\validations.js:215"
         },
         {
             "message": "Missing item type",
@@ -7712,15 +8192,15 @@ define(function(require){return {
         },
         {
             "message": "Missing item type\n更新content属性集",
-            "line": " src\\Dialog.jsx.js:84"
+            "line": " src\\Dialog.jsx.js:77"
         },
         {
             "message": "Missing item type\n弹出Alert提示框",
-            "line": " src\\Dialog.jsx.js:109"
+            "line": " src\\Dialog.jsx.js:102"
         },
         {
             "message": "Missing item type\n弹出Confirm确认框",
-            "line": " src\\Dialog.jsx.js:135"
+            "line": " src\\Dialog.jsx.js:128"
         },
         {
             "message": "Missing item type\n下拉日期选择器",
