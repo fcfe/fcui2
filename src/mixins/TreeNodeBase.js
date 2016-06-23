@@ -1,5 +1,8 @@
 /**
- * tree node base
+ * 树节点基础mixin
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.2.1
  */
 define(function (require) {
 
@@ -8,6 +11,11 @@ define(function (require) {
 
 
     return {
+        /**
+         * 展开节点，通知Tree展开某个节点
+         * @interface onExpand
+         * @param {SyntheticEvent} e React事件对象
+         */
         onExpand: function (e) {
             e.stopPropagation();
             if (this.props.disabled) return;

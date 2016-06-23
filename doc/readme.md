@@ -12,7 +12,7 @@
 
     @constructor 构造函数，表明该函数为构造函数。
 
-    @interface 接口函数，表明该函数是组件对外接口。
+    @interface 接口函数，表明该函数是对象的一个方法。
 
 ###### 二级标签   
 
@@ -49,3 +49,5 @@
     @className 类名，方法所属的类的名称，该类必须有@constructor标记，否则不会联合显示。
 
     @attention 注意事项
+
+    @note 说明笔记，此标签支持Markdown，此标签只在每个文档的第一个注释块、含有@interface的注释块中有效

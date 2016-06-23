@@ -47,7 +47,7 @@ define(function (require) {
          * @param {Object} message 表格信息栏的数据源
          * @param {String} message.content 信息栏中显示的信息，不制定，信息栏将不会显示
          * @param {String} message.buttonLabel 信息栏中紧随信息文本的按钮标签，点击此按钮会通过onAction回调TableMessageBarClick事件
-         * @param {Array.<TableFixedObject>} fixedPosition 当body滚动条发生滚动事，满足条件后位置固定的元素配置信息
+         * @param {Array.<FixedObject>} fixedPosition 当body滚动条发生滚动事，满足条件后位置固定的元素配置信息
          * @param {ReactClass} noDataRenderer 表格无数据时的渲染器
          * @param {Function} onAction 表格控制回调总线
          *
@@ -88,7 +88,7 @@ define(function (require) {
          *      me      {ReactComponent} 表格组件实例
          */
         /**
-         * @structure TableFixedObject
+         * @structure FixedObject
          * @example
          *  {
          *      ref: <required>

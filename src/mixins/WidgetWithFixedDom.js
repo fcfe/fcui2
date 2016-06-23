@@ -1,9 +1,17 @@
 /**
- *  用于fixed 组件内部某个DOM position的mixin
+ * fixed组件内部DOM位置的mixin
  * @author Brian Li
  * @email lbxxlht@163.com
- *
- * 此mixin主要作用是固定组件内部某些DOM的位置
+ * @version 0.0.2.1
+ * @note
+ * ###说明文档
+ * #####mixin作用
+ * 当滚动条滚动到某个位置后，组件内部某些DOM可能会需要固定到屏幕的特定位置，比如表头，本mixin解决了这个问题
+ * #####props依赖
+ * this.props.fixedPosition {Array.<FixedObject>} 固定配置
+ */
+/**
+ * @structure Import src\Table.jsx.js FixedObject
  */
 define(function (require) {
 

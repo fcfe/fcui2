@@ -27,6 +27,7 @@ define(function (require) {
          * @param {Object} skin 挂在ShojiScreen容器上的皮肤
          * @param {Number} workspaceWidth ShojiScreen工作区宽度
          * @param {Boolean} isOpen ShojiScreen是否显示，如果为true，layer容器将被添加到body中
+         * @param {String} footBarInnerHtml 写入Shoji下部按钮后面的html
          * @param {Function} onAction 功能回调接口
          * @param {Function} onRender ShojiScreen渲染完成后的回调
          * @param {Function} onBeforeClose ShojiScreen关闭前触发的回调，可以在这个回调中阻止窗体关闭
@@ -50,6 +51,7 @@ define(function (require) {
                 skin: '',
                 workspaceWidth: 1000,
                 isOpen: false,
+                footBarInnerHtml: '',
                 onRender: noop,
                 onAction: noop, 
                 onBeforeClose: noop,
@@ -86,6 +88,7 @@ define(function (require) {
                     '<div data-ui-cmd="CancelButtonClick" class="metro-button normal-button">',
                         language.cancel,
                     '</div>',
+                    '<div class="button-bar-right-container"></div>',
                 '</div>',
                 '<div class="hide-button metro-button highlight-button">' + language.hide + '</div>'
             ].join('');
@@ -170,6 +173,8 @@ define(function (require) {
                     + (typeof className === 'string' && className ? (' ' + className) : '')
                     + ' fcui2-shojiscreen-' + (typeof skin === 'string' && skin ? skin : 'normal');
                 this.___workspace___.style.width = (isNaN(width) ? 1000 : width) + 'px';
+                this.___workspace___.childNodes[1].childNodes[2].innerHTML = 
+                    typeof props.footBarInnerHtml === 'string' ? props.footBarInnerHtml : '';
                 if (!this.___appended___) {
                     this.___oldOverflow___ = util.getStyle(document.body, 'overflow');
                     document.body.appendChild(this.___container___);

@@ -4,7 +4,7 @@ define(function (require) {
     var React = require('react');
     var Parser = require('./parsers/Main.jsx');
     var config = require('./config');
-
+    var util = require('fcui/core/util');
 
     function menuFactory(me) {
         var doms = [];
@@ -63,12 +63,12 @@ define(function (require) {
             this.messageTimer = null;
         },
         onLevelChange: function (e) {
-            var level = e.target.dataset.level;
+            var level = util.getDataset(e.target).level;
             level = level === this.props.level ? '' : level;
             this.props.dispatch('changeHash', {level: level});
         },
         onFileChange: function (e) {
-            var file = e.target.dataset.file;
+            var file = util.getDataset(e.target).file;
             if (file === this.props.file) return;
             this.props.dispatch('changeHash', {file: file});
         },

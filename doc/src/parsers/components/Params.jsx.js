@@ -11,6 +11,8 @@ define(function (require) {
             label: 'Property',
             field: 'name',
             width: 200,
+            isNotMD: true,
+            renderer: Code,
             prepare: function (props, item, row, column, me) {
                 var level = +item.level - 1;
                 if (level > 0) {
@@ -23,12 +25,15 @@ define(function (require) {
         {
             label: 'Type',
             width: 150,
+            isNotMD: true,
             prepare: tdPrepare,
             content: function (item) {return item.type},
             renderer: Code
         },
         {
             label: 'Description',
+            width: 900,
+            isNotMD: true,
             field: 'description',
             prepare: tdPrepare,
             renderer: Code

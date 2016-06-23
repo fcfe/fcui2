@@ -2,23 +2,15 @@ define(function (require) {
 
 
     var React = require('react');
+    var markdown = require('markdown');
+    var tools = require('../../demos/tools');
 
 
-    function trans(code) {
-        while (code.charAt(0) === '\n') code = code.slice(1, code.length);
-        return code
-            .replace(/  /g, '&nbsp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/\n/g, '<br>');
-    }
-
-
-    function factory(codes) {
+    function factory(codes, isNotMD) {
         var doms = [];
         for (var i = 0; i < codes.length; i++) {
-            doms.push(<div key={i} dangerouslySetInnerHTML={{__html: trans(codes[i])}}></div>);
+            var content = isNotMD ? tools.trans2html(codes[i]) : markdown.toHTML(codes[i]);
+            doms.push(<div key={i} dangerouslySetInnerHTML={{__html: content}}></div>);
         }
         return doms;
     }
@@ -28,14 +20,23 @@ define(function (require) {
         // @override
         getDefaultProps: function () {
             return {
-                codes: []
+                codes: [],
+                isNotMD: false
             };
         },
         render: function () {
             if (this.props.hasOwnProperty('___isRowSelected___')) {
-                return (<td className="td-button" style={this.props.style}>{factory([this.props.content])}</td>);
+                return (
+                    <td className="td-button" style={this.props.style}>
+                        {factory([this.props.content], this.props.isNotMD)}
+                    </td>
+                );
             }
-            return (<div className="code-container">{factory(this.props.codes)}</div>);
+            return (
+                <div className="code-container">
+                    {factory(this.props.codes, this.props.isNotMD)}
+                </div>
+            );
         }
     });
 });

@@ -137,7 +137,7 @@ define(function (require) {
                 }
                 renderSubtreeIntoContainer(this, props.children, this.___layerContainer___, function () {
                     me.fixedPosition(props);
-                    typeof props.onRender === 'function' && props.onRender();
+                    typeof props.onRender === 'function' && me.___renderCount___ === 0 && props.onRender();
                     me.___renderCount___ ++;
                 });
                 return;
