@@ -7,9 +7,6 @@
 define(function (require) {
 
 
-    var React = require('react');
-
-
     return {
         /**
          * 展开节点，通知Tree展开某个节点

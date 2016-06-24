@@ -25,8 +25,8 @@ define(function (require) {
             props: {type: 'float'}
         },
         {
-            title: 'Slider with Max',
-            props: {max: 10, type: 'float', step: '0.1'}
+            title: 'Slider with Max and Step',
+            props: {max: 200, step: 20}
         },
         {
             title: 'Slider with Min, and an incorrect Value',

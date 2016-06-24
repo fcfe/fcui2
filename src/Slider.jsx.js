@@ -9,6 +9,7 @@ define(function (require) {
 
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
+    var DragableWidget = require('./mixins/DragableWidget');
 
 
     var cTools = require('./core/componentTools');
@@ -35,7 +36,7 @@ define(function (require) {
          * @fire Import src\mixins\InputWidget.js XXX onChange
          */
         // @override
-        mixins: [InputWidget],
+        mixins: [InputWidget, DragableWidget],
         // @override
         getDefaultProps: function () {
             return {
@@ -58,53 +59,71 @@ define(function (require) {
         },
         // @override
         getInitialState: function () {
-            return {mouseX: -1};
+            return {
+                valuePosition: -1
+            };
         },
-        onMouseDown: function (e) {
-            this.setState({mouseX: e.clientX});
-        },
-        onMouseMove: function (e) {
-            if (this.state.mouseX < 0 || this.props.disabled) return;
-            var p = tool.value2position(this.___getValue___(), this, 10) + e.clientX - this.state.mouseX;
-            this.changeValue(p, e.clientX, e);
-        },
-        onMouseLeave: function (e) {
+        onDragStart: function (e) {
             if (this.props.disabled) return;
-            this.setState({mouseX: -1});
+            this.setState({
+                valuePosition: tool.value2position(this.___getValue___(), this, 10)
+            });
+            this.___dragStart___(e);
         },
-        onMouseUp: function (e) {
+        onDrag: function (dx, dy) {
+            var newPos = this.state.valuePosition + dx;
+            newPos = newPos < 10 ? 10 : newPos;
+            newPos = newPos > this.refs.container.offsetWidth - 10 ? this.refs.container.offsetWidth - 10 : newPos;
+            this.setState({
+                valuePosition: newPos
+            });
+        },
+        onDrop: function (dx, dy) {
+            this.setState({
+                valuePosition: -1
+            });
+            this.changeValue(dx);
+        },
+        onClick: function (e) {
             if (this.props.disabled) return;
-            if (this.state.mouseX < 0) {
-                var pos = util.getDOMPosition(this.refs.container);
-                this.changeValue(e.clientX - pos.x, -1, e);
-            }
-            else {
-                this.setState({mouseX: -1});
-            }
+            var pos = util.getDOMPosition(this.refs.container);
+            var oldPos = tool.value2position(this.___getValue___(), this, 10);
+            this.changeValue(e.clientX - pos.x - oldPos);
         },
-        changeValue: function (newPosition, mouseState, e) {
+        changeValue: function (dx) {
+
+            var newPos = tool.value2position(this.___getValue___(), this, 10) + dx;
+            newPos = newPos < 10 ? 10 : newPos;
+            newPos = newPos > this.refs.container.offsetWidth - 10 ? this.refs.container.offsetWidth - 10 : newPos;
+
+            var newValue = tool.position2value(newPos, this, 10);
             var oldValue = tool.displayValue(this.___getValue___(), this) * 1;
-            var newValue = tool.position2value(newPosition, this, 10);
             var step = isNaN(this.props.step) ? 1: this.props.step * 1;
-            newValue = oldValue + Math.round((newValue - oldValue) / step) * step;
+            var dValue = Math.abs(newValue - oldValue);
+            var dDirect = newValue - oldValue > 0 ? 1 : -1;
+
+            dValue = parseInt(dValue / step, 10) * step;
+            dValue = dValue < Math.abs(newValue - oldValue) ? (dValue + step) : dValue;
+            newValue = oldValue + dValue * dDirect;
+            var e = {};
             e.target = this.refs.container;
             e.target.value = tool.displayValue(newValue, this);
-            this.setState({mouseX: mouseState});
             this.___dispatchChange___(e);
+
         },
         render: function () {
             var value = this.___getValue___();
-            var containerProp = cTools.containerBaseProps('slider', this, {
-                merge: {
-                    onMouseMove: this.onMouseMove,
-                    onMouseLeave: this.onMouseLeave,
-                    onMouseUp: this.onMouseUp
-                }
-            });
-            var x = tool.value2position(value, this, 10);
-            x = isNaN(x) ? 10 : x;
+            var valuePosition = tool.value2position(value, this, 10);
+            valuePosition = isNaN(valuePosition) ? 10 : valuePosition;
+            valuePosition = this.state.valuePosition > -1 ? this.state.valuePosition : valuePosition;
+            var cursorProp = {
+                ref: 'cursor',
+                className: 'fcui2-slider-cursor',
+                style: {left: valuePosition - 8},
+                onMouseDown: this.onDragStart
+            };
             return (
-                <div {...containerProp}>
+                <div {...cTools.containerBaseProps('slider', this)} onClick={this.onClick}>
                     <div className="fcui2-slider-base-axis"></div>
                     <div className="fcui2-slider-left-rule"></div>
                     <div className="fcui2-slider-right-rule"></div>
@@ -116,14 +135,14 @@ define(function (require) {
                     </div>
                     <div className="fcui2-slider-value-label"
                         style={{
-                            left: x - 25,
+                            left: valuePosition - 25,
                             display: this.props.showLabel ? 'block' : 'none'
                         }}>
-                        {tool.displayValue(value, this) + this.props.measure}
+                        {tool.displayValue(tool.position2value(valuePosition, this, 10), this) + this.props.measure}
                         <span className="fcui2-slider-arrow"></span>
                     </div>
-                    <div className="fcui2-slider-value-axis" style={{width: x}}></div>
-                    <div className="fcui2-slider-cursor" style={{left: x - 8}} onMouseDown={this.onMouseDown}></div>
+                    <div className="fcui2-slider-value-axis" style={{width: valuePosition + 7}}></div>
+                    <div {...cursorProp}></div>
                 </div>
             );
         }
