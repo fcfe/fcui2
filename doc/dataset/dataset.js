@@ -211,6 +211,13 @@ define(function(require){return {
             "fors": {},
             "namespaces": {}
         },
+        "src\\mixins\\DragableWidget.js": {
+            "name": "src\\mixins\\DragableWidget.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "src\\mixins\\InputWidget.js": {
             "name": "src\\mixins\\InputWidget.js",
             "modules": {},
@@ -3204,6 +3211,16 @@ define(function(require){return {
             "class": ""
         },
         {
+            "file": "src\\mixins\\DragableWidget.js",
+            "line": 1,
+            "description": "有拖拽功能的mixin",
+            "author": "Brian Li",
+            "email": "lbxxlht@163.com",
+            "version": "0.0.2.1",
+            "note": "###说明文档\n#####此mixin作用\n某些需要有拖拽功能的组件，需要一些公共方法，如：鼠标拖动过程中，触发一个onDrag事件，回传鼠标位移向量；\n鼠标抬起后，触发一个onDrop事件，回传鼠标从按下到抬起的位移向量，此mixin解决了整个问题。\n#####this实例注入\n* this.___dragStart___：开始拖拽的入口，一般放在某个DOM的onMouseDown事件中\n#####触发回调\n* this.onDrag(dx, dy)：鼠标拖动过程中触发此回调，dx、dy分别为位移向量\n* this.onDrop(dx, dy)：鼠标拖动结束松开时触发此回调，dx、dy为鼠标释放位置相对按下位置的位移向量",
+            "class": ""
+        },
+        {
             "file": "src\\mixins\\InputWidget.js",
             "line": 1,
             "description": "Input类型组件基础mixin",
@@ -3378,7 +3395,7 @@ define(function(require){return {
         },
         {
             "file": "src\\mixins\\TreeNodeBase.js",
-            "line": 14,
+            "line": 11,
             "description": "展开节点，通知Tree展开某个节点",
             "interface": "onExpand",
             "params": [
@@ -3392,7 +3409,7 @@ define(function(require){return {
         },
         {
             "file": "src\\mixins\\TreeNodeBase.js",
-            "line": 35,
+            "line": 32,
             "fire": "Tree onAction",
             "params": [
                 {
@@ -5393,7 +5410,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Slider.jsx.js",
-            "line": 20,
+            "line": 21,
             "properties": "",
             "params": [
                 {
@@ -5446,7 +5463,7 @@ define(function(require){return {
         },
         {
             "file": "src\\Slider.jsx.js",
-            "line": 34,
+            "line": 35,
             "fire": "Import src\\mixins\\InputWidget.js XXX onChange",
             "class": ""
         },
@@ -6764,6 +6781,18 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: email",
+            "line": " src\\mixins\\DragableWidget.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src\\mixins\\DragableWidget.js:1"
+        },
+        {
+            "message": "unknown tag: note",
+            "line": " src\\mixins\\DragableWidget.js:1"
+        },
+        {
+            "message": "unknown tag: email",
             "line": " src\\mixins\\InputWidget.js:1"
         },
         {
@@ -6812,7 +6841,7 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: fire",
-            "line": " src\\mixins\\TreeNodeBase.js:35"
+            "line": " src\\mixins\\TreeNodeBase.js:32"
         },
         {
             "message": "unknown tag: email",
@@ -7336,11 +7365,11 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: properties",
-            "line": " src\\Slider.jsx.js:20"
+            "line": " src\\Slider.jsx.js:21"
         },
         {
             "message": "unknown tag: fire",
-            "line": " src\\Slider.jsx.js:34"
+            "line": " src\\Slider.jsx.js:35"
         },
         {
             "message": "unknown tag: email",
@@ -8087,6 +8116,10 @@ define(function(require){return {
             "line": " src\\core\\validations.js:215"
         },
         {
+            "message": "Missing item type\n有拖拽功能的mixin",
+            "line": " src\\mixins\\DragableWidget.js:1"
+        },
+        {
             "message": "Missing item type\nInput类型组件基础mixin",
             "line": " src\\mixins\\InputWidget.js:1"
         },
@@ -8120,11 +8153,11 @@ define(function(require){return {
         },
         {
             "message": "Missing item type\n展开节点，通知Tree展开某个节点",
-            "line": " src\\mixins\\TreeNodeBase.js:14"
+            "line": " src\\mixins\\TreeNodeBase.js:11"
         },
         {
             "message": "Missing item type",
-            "line": " src\\mixins\\TreeNodeBase.js:35"
+            "line": " src\\mixins\\TreeNodeBase.js:32"
         },
         {
             "message": "Missing item type\nfixed组件内部DOM位置的mixin",
@@ -8556,11 +8589,11 @@ define(function(require){return {
         },
         {
             "message": "Missing item type",
-            "line": " src\\Slider.jsx.js:20"
+            "line": " src\\Slider.jsx.js:21"
         },
         {
             "message": "Missing item type",
-            "line": " src\\Slider.jsx.js:34"
+            "line": " src\\Slider.jsx.js:35"
         },
         {
             "message": "Missing item type\n标签导航",
