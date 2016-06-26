@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var Creater = require('../main.jsx');
+    var Creater = require('../Main.jsx');
     var ComboList = require('fcui/ComboList.jsx');
 
     var items = [

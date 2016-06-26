@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var dataset = require('./dataset/dataset.js');
+    var dataset = require('../dataset/dataset');
     var items = {};
     var menu = [
         {

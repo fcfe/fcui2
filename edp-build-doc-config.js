@@ -13,7 +13,7 @@ exports.input = path.resolve(cwd);
  *
  * @type {string}
  */
-exports.output = path.resolve( cwd, 'build' );
+exports.output = path.resolve(cwd, 'build-doc');
 
 /**
  * 排除文件pattern列表
@@ -29,30 +29,22 @@ exports.exclude = [
     '*.swp',
     '.eslintrc.json',
     'node_modules',
-    'dep',
-    'doc',
-    'demo',
     'test',
-    'build',
-    'build-doc',
     '.gitignore',
     '.gitreview',
     '.travis.yml',
     'edp-*.js',
     'FcDocsBuilder.js',
     'FcBabelProcessor.js',
-    'index.html',
     'karma.conf.js',
     'LICENSE',
     '*.json',
     '*.conf',
     '*.md',
+    '*.md5',
     'karma-test-main.js'
 ];
 
-
-var moduleEntries = 'html,htm,phtml,tpl,vm,js';
-var pageEntries = 'html,htm,phtml,tpl,vm';
 
 /**
  * 获取构建processors的方法
@@ -64,34 +56,36 @@ exports.getProcessors = function () {
 
     return [
         new FcBabelProcessor(),
-        new LessCompiler( {
+        new LessCompiler({
             files: [
-                'src/css/main.less'
+                'src/css/main.less',
+                'src/css/icon/fc-icon.less',
+                'doc/css/main.less'
             ]
-        } ),
+        }),
         new CssCompressor(),
-        new ModuleCompiler( {
-            configFile: './edp-build.conf',
-            entryExtnames: moduleEntries
-        } ),
+        new ModuleCompiler({
+            configFile: './edp-build-doc.conf'
+        }),
         new JsCompressor({
             files: [
-                'dist/fcui2.js'
-            ],
-            compressOptions: {
-                warnings: false
-            },
-            sourceMapOptions: {
-                enable: false
-            }
+                'doc/src/main.js'
+            ]
         }),
         new OutputCleaner({
             files: [
-                '*.less'
+                '*.js',
+                '*.less',
+                '!doc/src/main.js',
+                '!dep/require.min.js',
+                '!src/css/main.less',
+                '!src/css/icon/fc-icon.less',
+                '!doc/css/main.less'
             ]
         })
     ];
 };
+
 
 /**
  * builder主模块注入processor构造器的方法

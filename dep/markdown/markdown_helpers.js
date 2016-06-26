@@ -17,15 +17,16 @@ define([], function (w) {
 
   // node
   function mk_block_inspect() {
-    var util = require("util");
-    return "Markdown.mk_block( " +
-            util.inspect(this.toString()) +
-            ", " +
-            util.inspect(this.trailing) +
-            ", " +
-            util.inspect(this.lineNumber) +
-            " )";
-
+    console.log('no util');
+    return '';
+    // var util = require("util");
+    // return "Markdown.mk_block( " +
+    //         util.inspect(this.toString()) +
+    //         ", " +
+    //         util.inspect(this.trailing) +
+    //         ", " +
+    //         util.inspect(this.lineNumber) +
+    //         " )";
   }
 
   MarkdownHelpers.mk_block = function(block, trail, line) {

@@ -14,7 +14,7 @@ define(function (require) {
     var components = {
         textbox: require('fcui/TextBox.jsx'),
         numberbox: require('fcui/NumberBox.jsx'),
-        checkbox: require('fcui/Checkbox.jsx'),
+        checkbox: require('fcui/CheckBox.jsx'),
         radio: require('fcui/Radio.jsx'),
         select: require('fcui/Select.jsx'),
         textarea: require('fcui/TextArea.jsx'),

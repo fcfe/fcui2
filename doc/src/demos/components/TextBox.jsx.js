@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var Creater = require('../main.jsx');
+    var Creater = require('../Main.jsx');
     var TextBox = require('fcui/TextBox.jsx');
 
     var items = [

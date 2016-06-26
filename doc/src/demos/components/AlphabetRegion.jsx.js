@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var Creater = require('../main.jsx');
+    var Creater = require('../Main.jsx');
     var AlphabetRegion = require('fcui/AlphabetRegion.jsx');
 
     var items = [

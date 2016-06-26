@@ -2,7 +2,7 @@ define(function (require) {
 
 
     var React = require('react');
-    var Creater = require('../main.jsx');
+    var Creater = require('../Main.jsx');
     var Table = require('fcui/Table.jsx');
     var Information = require('../Information.jsx');
     var datasource = require('./tools/tableDatasource');

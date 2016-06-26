@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var Creater = require('../main.jsx');
+    var Creater = require('../Main.jsx');
     var RangeCalendar = require('fcui/RangeCalendar.jsx');
     var calendarTools = require('fcui/core/calendarTools');
 

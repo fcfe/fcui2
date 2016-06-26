@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var Creater = require('../main.jsx');
+    var Creater = require('../Main.jsx');
     var Radio = require('fcui/Radio.jsx');
     var name = parseInt(10000 * Math.random(), 10) + '-' + parseInt(10000 * Math.random(), 10);
 

@@ -1,7 +1,7 @@
 define(function (require) {
 
 
-    var Creater = require('../main.jsx');
+    var Creater = require('../Main.jsx');
     var Tree = require('fcui/Tree-test.jsx');
     var Information = require('../Information.jsx');
     var treeTools = require('fcui/core/treeTools');
