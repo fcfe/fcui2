@@ -29,6 +29,7 @@ exports.exclude = [
     '*.swp',
     '.eslintrc.json',
     'node_modules',
+    'build',
     'test',
     '.gitignore',
     '.gitreview',
