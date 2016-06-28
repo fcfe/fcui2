@@ -2,6 +2,21 @@ define(function (require) {
 
     var dataset = require('../dataset/dataset');
     var items = {};
+    var components = {
+        level: 'component',
+        label: 'Components',
+        children: []
+    };
+    var tools = {
+        level: 'tool',
+        label: 'Tools',
+        children: []
+    };
+    var mixins = {
+        level: 'mixin',
+        label: 'Mixins', 
+        children: []
+    };
     var menu = [
         {
             level: 'base',
@@ -62,20 +77,15 @@ define(function (require) {
             ]
         },
         {
-            level: 'component',
-            label: 'Components',
-            children: []
+            level: 'enterprise',
+            label: 'Enterprise Widgets',
+            children: [
+                {id: 'src\\enterprise\\DualTreeSelector.jsx.js', label: 'DualTreeSelector'},
+            ]
         },
-        {
-            level: 'tool',
-            label: 'Tools',
-            children: []
-        },
-        {
-            level: 'mixin',
-            label: 'Mixins', 
-            children: []
-        },
+        components,
+        tools,
+        mixins,
         {
             level: 'testing',
             label: 'Testing',
@@ -118,26 +128,27 @@ define(function (require) {
         'src\\Tree.jsx.js': require('./demos/components/Tree.jsx'),
         'src\\DualTreeSelector.jsx.js': require('./demos/components/DualTreeSelector.jsx'),
         'BaseLineTesting.jsx.js': require('./demos/components/BaseLineTesting.jsx'),
-        'FormFieldTesting.jsx.js': require('./demos/components/FormFieldTesting.jsx')
+        'FormFieldTesting.jsx.js': require('./demos/components/FormFieldTesting.jsx'),
+        'src\\enterprise\\DualTreeSelector.jsx.js': require('./demos/components/DualTreeSelectorEnterprise.jsx'),
     };
 
     for (var key in dataset.files) {
         if (!dataset.files.hasOwnProperty(key)) continue;
         items[key] = [];
         if (key.indexOf('src\\components\\') === 0) {
-            menu[4].children.push({
+            components.children.push({
                 id: key,
                 label: key.replace(/src\\components\\|.jsx.js|.es6.js|.js/g, '')
             });
         }
         else if (key.indexOf('src\\core\\') === 0) {
-            menu[5].children.push({
+            tools.children.push({
                 id: key,
                 label: key.replace(/src\\core\\|.jsx.js|.es6.js|.js/g, '')
             });
         }
         else if (key.indexOf('src\\mixins\\') === 0) {
-            menu[6].children.push({
+            mixins.children.push({
                 id: key,
                 label: key.replace(/src\\mixins\\|.jsx.js|.es6.js|.js/g, '')
             });
