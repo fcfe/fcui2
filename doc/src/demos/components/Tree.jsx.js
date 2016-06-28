@@ -1,196 +1,120 @@
-/**
- * @file Tree Demo
- * @author Han Bing Feng (hanbingfeng@)
- */
-
 define(function (require) {
-    let React = require('react');
-    let Tree = require('fcui/Tree.jsx');
-    let _ = require('underscore');
 
-    let items = [
+
+    var Creater = require('../Main.jsx');
+    var Tree = require('fcui/Tree.jsx');
+    var Information = require('../Information.jsx');
+    var treeTools = require('fcui/core/treeTools');
+    var React = require('react');
+
+
+    var datasource = [
+        {
+            label: 'option1',
+            value: 'option1',
+            children: [
+                {label: 'option1-1', value: 'option1-1'},
+                {
+                    label: 'option1-2', value: 'option1-2', children: [
+                        {label: 'option1-2-1', value: 'option1-2-1'},
+                        {label: 'option1-2-2', value: 'option1-2-2'},
+                        {label: 'option1-2-3', value: 'option1-2-3'}
+                    ]
+                },
+            ]
+        },
+        {label: 'option2', value: 'option2'},
+        {label: 'option3', value: 'option3'},
+        {label: 'option4', value: 'option4'},
+        {label: 'option5', value: 'option5'}
+    ];
+    var items1 = [
         {
             title: 'Normal Tree',
             props: {
-                treeNodes: [{
-                    id: '1',
-                    name: 'Node 1',
-                    isChildrenLoaded: true
-                }, {
-                    id: '2',
-                    name: 'Node 2',
-                    isChildrenLoaded: true
-                }]
-            }
-        },
-        {
-            title: 'Tree with children',
-            props: {
-                treeNodes: [{
-                    id: '1',
-                    name: 'Node 1 with children',
-                    isChildrenLoaded: true,
-                    children: [{
-                        id: '1.1',
-                        name: 'Node 1.1',
-                        isChildrenLoaded: true
-                    }, {
-                        id: '1.2',
-                        name: 'Node 1.2',
-                        isChildrenLoaded: true
-                    }]
-                }, {
-                    id: '2',
-                    name: 'Node 2',
-                    isChildrenLoaded: true
-                }]
-            }
-        },
-        {
-            title: '3-level Tree with children',
-            props: {
-                treeNodes: [{
-                    id: '1',
-                    name: 'Node 1 with children',
-                    isChildrenLoaded: true,
-                    children: [{
-                        id: '1.1',
-                        name: 'Node 1.1 with children',
-                        isChildrenLoaded: true,
-                        children: [{
-                            id: '1.1.1',
-                            name: 'Node 1.1.1',
-                            isChildrenLoaded: true                                
-                        }]
-                    }, {
-                        id: '1.2',
-                        name: 'Node 1.2',
-                        isChildrenLoaded: true
-                    }]
-                }, {
-                    id: '2',
-                    name: 'Node 2',
-                    isChildrenLoaded: true
-                }]
-            }
-        },
-        {
-            title: 'Tree with filter set to "2"',
-            props: {
-                nameFilter: '2',
-                treeNodes: [{
-                    id: '1',
-                    name: 'Node 1',
-                    isChildrenLoaded: true
-                }, {
-                    id: '2',
-                    name: 'Node 2',
-                    isChildrenLoaded: true
-                }]
+                datasource: datasource
             }
         }
     ];
+    var Example1 = Creater(Tree, items1, ['onChange', 'onClick']);
 
-    let asyncState = 'initial';
 
-    function factory(me, items) {
-        let widgets = [];
-        let omitChildren = _.partial(
-            _.omit, _, 'children'
-        );
-        function alertEvents(eventType, e, treeNode, parentTreeNodes) {
-            me.props.alert(
-                eventType
-                + ' | '
-                + JSON.stringify(omitChildren(treeNode))
-                + ' | '
-                + JSON.stringify(parentTreeNodes.map(omitChildren))
-            );
-        }
-        // the async one
-        function asyncOnTreeNodeExpandClicked(e, treeNode, parentTreeNodes) {
-            if (treeNode.isChildrenLoaded) {
-                alertEvents('expand', e, treeNode, parentTreeNodes);
-                return;
+    function getDisplayProps(props) {
+        var result = JSON.parse(JSON.stringify(props));
+        for (var key in props) {
+            if (!props.hasOwnProperty(key)) continue;
+            if (typeof props[key] === 'function') {
+                result[key] = '[Function]';
             }
+        }
+        return JSON.stringify(result);
+    }
 
-            e.preventDefault();
 
-            asyncState = 'loading';
-
-            me.forceUpdate();
-
-            setTimeout(() => {
-                asyncState = 'loaded';
-                me.forceUpdate();
+    return React.createClass({
+        // @override
+        getDefaultProps: function () {
+            return {};
+        },
+        // @override
+        getInitialState: function () {
+            var data = JSON.parse(JSON.stringify(datasource));
+            data[0].children[1].children[1].children = [];
+            data[2].children = [];
+            data[3].children = [];
+            return {
+                asyncDatasource: data,
+                asyncValue: JSON.stringify({
+                    expand: {option1: true}
+                })
+            };
+        },
+        onAsyncTreeChange: function (e) {
+            this.setState({asyncValue: e.target.value});
+        },
+        onAsyncTreeAction: function (type, param) {
+            if (type !== 'TreeLoadChildren' || !param.index instanceof Array || !param.index.length) return;
+            if (this.refs.asyncTree.___loading___) return;
+            var me = this;
+            var data = JSON.parse(JSON.stringify(this.refs.asyncTree.props.datasource));
+            var item = treeTools.getLeafItem(data, param.index);
+            item.label = item.label + ' 加载2s';
+            this.refs.asyncTree.___loading___ = true;
+            this.setState({asyncDatasource: data});
+            setTimeout(function () {
+                var data = JSON.parse(JSON.stringify(me.refs.asyncTree.props.datasource));
+                var item = treeTools.getLeafItem(data, param.index);
+                item.label = item.label.replace(' 加载2s', '');
+                item.children = [
+                    {label: 'new option1', value: 'new option1'},
+                    {label: 'new option2', value: 'new option2'},
+                    {label: 'new option3', value: 'new option3'},
+                ];
+                me.refs.asyncTree.___loading___ = false;
+                me.setState({asyncDatasource: data});
             }, 1000);
-        }
-        items = items.concat({
-            title: 'Tree with children with async loading',
-            props: {
-                onTreeNodeExpandClicked: asyncOnTreeNodeExpandClicked,
-                expandedTreeNodeId: asyncState === 'loaded'
-                    ? {
-                        1: true
-                    }
-                    : {},
-                treeNodes: [{
-                    id: '1',
-                    name: 'Node 1 with children with async loading',
-                    isChildrenLoaded: asyncState === 'loaded',
-                    isChildrenLoading: asyncState === 'loading',
-                    children: asyncState === 'loaded'
-                        ? [{
-                            id: '1.1',
-                            name: 'Node 1.1',
-                            isChildrenLoaded: true
-                        }, {
-                            id: '1.2',
-                            name: 'Node 1.2',
-                            isChildrenLoaded: true
-                        }]
-                        : []
-                }, {
-                    id: '2',
-                    name: 'Node 2',
-                    isChildrenLoaded: true
-                }]
-            }
-        });
-
-        for (let i = 0; i < items.length; i++) {
-            let item = items[i];
-            let prop = item.props;
-            prop = _.extend({
-                onTreeNodeExpandClicked: _.partial(alertEvents, 'expand'),
-                onTreeNodeOperationClicked: _.partial(alertEvents, 'operation'),
-                onTreeNodeClicked: _.partial(alertEvents, 'click')
-            }, prop);
-            let conf = JSON.stringify(prop);
-            widgets.push(
-                <div className="demo-item" key={i}>
-                    <h3>{item.title}</h3>
-                    <div className="props">{conf}</div>
-                    <Tree {...prop}/>
+        },
+        render: function () {
+            var asyncTreeProp = {
+                ref: 'asyncTree',
+                datasource: this.state.asyncDatasource,
+                value: this.state.asyncValue,
+                onChange: this.onAsyncTreeChange,
+                onAction: this.onAsyncTreeAction
+            };
+            return (
+                <div>
+                    <Example1 alert={this.props.alert}/>
+                    <div className="demo-item">
+                        <Information title="Tree with async datasource" props={asyncTreeProp}/>
+                        <div className="demo-content">
+                            <Tree {...asyncTreeProp}/>
+                        </div>
+                    </div>
                 </div>
             );
         }
-        return widgets;
-    }
-
-    return React.createClass({
-        mixins: [React.addons.LinkedStateMixin],
-        // @override
-        getDefaultProps() {
-            return {
-                alert() {}
-            };
-        },
-        clickHandler(e) {
-            this.props.alert(e.target.value);
-        },
-        render() {
-            return (<div>{factory(this, items)}</div>);
-        }
     });
+
+
 });

@@ -1,83 +1,33 @@
-@import "../icon/fc-icon-mixin.less";
-
 
 .fcui2-tree {
-    overflow: auto;
-
-    .fcui2-tree-node {
+    hr {
+        border-bottom: 0;
+        margin: 0;
+    }
+    .list-normal-item {
         line-height: 30px;
-        position: relative;
+    }
+}
 
-        &:hover {
-            background-color: #F2F8FF;
-        }
-
-        &-focused {
-            background-color: #ebf3ff;
-            font-weight: bold;
-        }
-
-        .fcui2-tree-node-name {
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            padding-right: 40px;
-        }
-
-        .fcui2-tree-node-loading {
-            color: #333;
-            font-size: 80%;
-            margin-right: 10px;
-        }
-
-        .fcui2-tree-node-collapsed {
-            &:after {
-                #fc-icon > .use-font-icon(@font-icon-caret-right);
-            }
-        }
-        .fcui2-tree-node-expanded {
-            &:after {
-                #fc-icon > .use-font-icon(@font-icon-caret-down);
-            }
-        }
-        .fcui2-tree-node-oper-handle {
-            float: right;
-            color: #2F82F5;
-            margin-right: 10px;
-            &:after {
-                #fc-icon > .use-font-icon(@font-icon-times);
-            }
-        }
-        .fcui2-tree-node-collapsed,
-        .fcui2-tree-node-expanded {
-            color: #888;
-            width: 16px;
-            height: 15px;
-            margin: 7px 10px 7px 10px;
-        }
-        .fcui2-tree-node-collapsed,
-        .fcui2-tree-node-expanded,
-        .fcui2-tree-node-oper-handle {
+.fcui2-tree-normal {
+    .list-normal-item {
+        cursor: default;
+        font-size: 12px;
+        color: @color-text-3;
+        .expand-button {
+            display: inline-block;
+            position: relative;
+            top: 4px;
+            margin-top: -4px;
+            width: 15px;
+            color: @color-text-1;
             cursor: pointer;
         }
-
-        &-marked {
-            .fcui2-tree-node-oper-handle {
-                cursor: default;
-                color: #C8C8C8;
-            }
+        .font-icon-caret-right:hover, .font-icon-caret-down:hover {
+             color: @color-btn-hover;
         }
-
-        &-leaf {
-            padding-left: 36px;
-            .fcui2-tree-node-collapsed,
-            .fcui2-tree-node-expanded {
-                display: none;
-            }
-        }
-
-        &-filtered {
-            display: none;
+        &:hover {
+            background-color: @color-bg-hover-table;
         }
     }
 }

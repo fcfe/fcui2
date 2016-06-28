@@ -11,7 +11,7 @@ define(function (require) {
                 {id: 'src\\Tip.jsx.js', label: 'Tip'},
                 {id: 'src\\List.jsx.js', label: 'List'},
                 {id: 'src\\DropDownList.jsx.js', label: 'DropDownList'},
-                {id: 'src\\Tree-test.jsx.js', label: 'Tree'},
+                {id: 'src\\Tree.jsx.js', label: 'Tree'},
                 {id: 'src\\Crumb.jsx.js', label: 'Crumb'},
                 {id: 'src\\Pager.jsx.js', label: 'Pager'},
                 {id: 'src\\Tab.jsx.js', label: 'Tab'},
@@ -47,7 +47,7 @@ define(function (require) {
                 {id: 'src\\ComboList.jsx.js', label: 'ComboList'},
                 {id: 'src\\SearchBox.jsx.js', label: 'SearchBox'},
                 {id: 'src\\Slider.jsx.js', label: 'Slider'},
-                {id: 'src\\DualTreeSelector-test.jsx.js', label: 'DualTreeSelector'},
+                {id: 'src\\DualTreeSelector.jsx.js', label: 'DualTreeSelector'},
                 '',
                 {id: 'src\\Region.jsx.js', label: 'Region'},
                 {id: 'src\\AlphabetRegion.jsx.js', label: 'AlphabetRegion'},
@@ -115,11 +115,11 @@ define(function (require) {
         'src\\Form.jsx.js': require('./demos/components/Form.jsx'),
         'src\\Table.jsx.js': require('./demos/components/Table.jsx'),
         'src\\AlphabetRegion.jsx.js': require('./demos/components/AlphabetRegion.jsx'),
-        'src\\Tree-test.jsx.js': require('./demos/components/TreeTest.jsx'),
-        'src\\DualTreeSelector-test.jsx.js': require('./demos/components/DualTreeSelectorTest.jsx'),
+        'src\\Tree.jsx.js': require('./demos/components/Tree.jsx'),
+        'src\\DualTreeSelector.jsx.js': require('./demos/components/DualTreeSelector.jsx'),
         'BaseLineTesting.jsx.js': require('./demos/components/BaseLineTesting.jsx'),
         'FormFieldTesting.jsx.js': require('./demos/components/FormFieldTesting.jsx')
-    }
+    };
 
     for (var key in dataset.files) {
         if (!dataset.files.hasOwnProperty(key)) continue;

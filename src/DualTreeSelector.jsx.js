@@ -1,153 +1,163 @@
 /**
  * 双树选择器
- * @author Han Bing Feng (hanbingfeng@baidu.com)
- * @version 0.0.1
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.2.1
  */
 define(function (require) {
-    let _ = require('underscore');
-    let React = require('react');
-    let InputWidget = require('./mixins/InputWidget');
-    let Tree = require('./Tree.jsx');
-    let treeTools = require('./core/treeTools.es6');
 
-    let DualTreeSelector = React.createClass({
-       
-         /*propTypes: {
-            treeNodes: React.PropTypes.arrayOf(Tree.treeNodeType),
-            value: React.PropTypes.objectOf(React.PropTypes.bool),
-            leftTreeFilter: React.PropTypes.string,
-            leftTreeWidth: React.PropTypes.number,
-            rightTreeWidth: React.PropTypes.number,
-            height: React.PropTypes.number,
-            leftTreeTitle: React.PropTypes.string,
-            rightTreeTitle: React.PropTypes.string,
-            leftTreeSummary: React.PropTypes.string,
-            rightTreeSummary: React.PropTypes.string,
-            onChange: React.PropTypes.func,
-            onLeftTreeNodeExpand: React.PropTypes.func,
-            onLeftTreeNodeOperationClicked: React.PropTypes.func
-        },*/
 
+    var React = require('react');
+    var cTools = require('./core/componentTools');
+    var Tree = require('./Tree.jsx');
+    var Renderer = require('./components/tree/SelectRenderer.jsx');
+    var InputWidget = require('./mixins/InputWidget');
+    var tools = require('./core/treeTools');
+
+
+    return React.createClass({
+        /**
+         * @properties
+         * @param {Import|Properties} src\core\componentTools.js skin className style disabled
+         * @param {Import|Properties} src\Tree.jsx.js datasource onAction leafRenderer
+         * @param {Object} selectorEngine 选择逻辑引擎，见src\core\treeTools.js dualTreeSelectorEngine
+         * @param {Import|Properties} src\mixins\InputWidget.js value onChange name validations customErrorTemplates valueLink valueTemplate
+         */
+        /**
+         * @fire Import src\mixins\InputWidget.js XXX onChange
+         */
+        /**
+         * @structure Import src\Tree.jsx.js TreeItemObject
+         */
+        /**
+         * @structure DualTreeSelectorValueTemplate
+         * @example
+         *  {
+         *      selected: <optional>
+         *  }
+         * @attention DualTreeSelector的value类型是字符串，用JSON.stringify方法将示例中的数据结构转换，因此操作value时不能出环
+         * @param {Object} selected 树的选中状态，以TreeItemObject.value为key，存在的key表示该叶子被选中
+         */
+        // @override
         mixins: [InputWidget],
-
-        getDefaultProps() {
+        // @override
+        getDefaultProps: function () {
             return {
-                leftTreeWidth: 310,
-                rightTreeWidth: 310,
-                height: 380,
-                leftTreeTitle: '可选项目',
-                rightTreeTitle: '已选项目',
-                onLeftTreeNodeExpandClicked: _.noop,
-                onLeftTreeNodeOperationClicked: _.noop
+                // base
+                skin: '',
+                className: '',
+                style: {},
+                disabled: false,
+                // self
+                datasource: [],
+                onAction: cTools.noop,
+                leafRenderer: Renderer,
+                selectorEngine: tools.dualTreeSelectorEngine,
+                // mixin
+                valueTemplate: JSON.stringify({selected: {}})
             };
         },
-
-        componentDidMount() {
-            console.warn('Warning: Please use DualTreeSelector-test.jsx instead.');
+        // @override
+        getInitialState: function () {
+            return {
+                expand: {}
+            }
         },
-
+        // @override
+        componentDidUpdate: function () {
+            // 检查selected中标记为1的item的children是否加载完毕了。
+            var selected = JSON.parse(this.___getValue___()).selected || {};
+            var me = this;
+            targetAsyncLeaf(this.props.datasource);
+            function targetAsyncLeaf(arr) {
+                if (!(arr instanceof Array) || !arr.length) return;
+                for (var i = 0; i < arr.length; i++) {
+                    var item = arr[i];
+                    // 叶子节点
+                    if (!(item.children instanceof Array)) {
+                        // 空的children属性被删掉了
+                        if (selected[item.value] === 1) {
+                            selected[item.value] = true;
+                        }
+                        continue;
+                    }
+                    // 无孩子节点
+                    if (!item.children.length) continue;
+                    // 有孩子节点，但不是新加载的
+                    if (selected[item.value] !== 1) {
+                        targetAsyncLeaf(item.children);
+                        continue;
+                    }
+                    delete selected[item.value];
+                    me.props.selectorEngine.select(selected, item);
+                    var e = {target: me.refs.container};
+                    e.target.value = JSON.stringify({selected: selected});
+                    // 刷一遍UI
+                    me.___dispatchChange___(e);
+                }
+            }
+        },
+        onTreeChange: function (e) {
+            var expand = (JSON.parse(e.target.value)).expand || {};
+            this.setState({expand: expand});
+        },
         /**
-         * 左树“操作”按钮点击时的回调
-         *
-         * @param {SyntheticEvent} e 点击事件对象
-         * @param {treeNodeType} treeNode 被操作的树节点数据
-         * @param {Array<treeNodeType>} parentTreeNodes 当前节点的父节点列表
+         * @fire DualTreeSelector onAction
+         * @param {String} type 回调类型
+         * TreeLoadChildren：加载子树数据源
+         * @param {Object} param 回调参数
+         * @param {Array.<String>} param.index 子树序列
          */
-        onLeftTreeNodeOperationClicked(e, treeNode, parentTreeNodes) {
-            this.props.onLeftTreeNodeOperationClicked(e, treeNode, parentTreeNodes);
-            if (e.isDefaultPrevented()) {
+        onTreeAction: function (type, param) {
+            // 更新数据源
+            if (type === 'TreeLoadChildren' && typeof this.props.onAction === 'function') {
+                this.props.onAction(type, param);
                 return;
             }
-            this.___dispatchChange___(e, treeTools.selectTreeNode(treeNode, parentTreeNodes, this.___getValue___()));
+            // 数据源为空，通知外部
+            if (param.item.children instanceof Array && !param.item.children.length) {
+                this.props.onAction('TreeLoadChildren', {index: param.index});
+            }
+            // 选择和反选
+            var selected = (JSON.parse(this.___getValue___())).selected || {};
+            this.props.selectorEngine[type === 'TreeSelectLeaf' ? 'select' : 'unselect'](selected, param.item);
+            param.e.target = this.refs.container;
+            param.e.target.value = JSON.stringify({selected: selected});
+            this.___dispatchChange___(param.e);
         },
-
-        /**
-         * 左树“展开”按钮点击时的回调
-         *
-         * @param {SyntheticEvent} e 点击事件对象
-         * @param {treeNodeType} treeNode 被操作的树节点数据
-         * @param {Array<treeNodeType>} parentTreeNodes 当前节点的父节点列表
-         */
-        onLeftTreeNodeExpandClicked(e, treeNode, parentTreeNodes) {
-            this.props.onLeftTreeNodeExpandClicked(e, treeNode, parentTreeNodes);
-        },
-
-        /**
-         * 右树“操作”按钮点击时的回调
-         *
-         * @param {SyntheticEvent} e 点击事件对象
-         * @param {treeNodeType} treeNode 被操作的树节点数据
-         * @param {Array<treeNodeType>} parentTreeNodes 当前节点的父节点列表
-         */
-        onRightTreeNodeOperationClicked(e, treeNode, parentTreeNodes) {
-            this.___dispatchChange___(e, treeTools.unselectTreeNode(treeNode, parentTreeNodes, this.___getValue___()));
-        },
-
-        /**
-         * 全部删除时的回调
-         *
-         * @param {SyntheticEvent} e 点击事件对象
-         */
-        onRemoveAll(e) {
-            this.___dispatchChange___(e, {});
-        },
-
-        setLeftTreeExpandedTreeNodeId(expandedTreeNodeId) {
-            this.refs.leftTree.setState({expandedTreeNodeId});
-        },
-
-        setRightTreeExpandedTreeNodeId(expandedTreeNodeId) {
-            this.refs.rightTree.setState({expandedTreeNodeId});
-        },
-
-        render() {
+        render: function () {
+            var selected = (JSON.parse(this.___getValue___())).selected || {};
+            var value = {
+                expand: this.state.expand,
+                display: 'all',
+                selected: selected
+            };
+            var treeProp1 = {
+                datasource: this.props.datasource,
+                value: JSON.stringify(value),
+                leafRenderer: this.props.leafRenderer,
+                onAction: this.onTreeAction,
+                onChange: this.onTreeChange
+            };
+            value.display = 'selected';
+            var treeProp2 = {
+                datasource: this.props.datasource,
+                value: JSON.stringify(value),
+                leafRenderer: this.props.leafRenderer,
+                onAction: this.onTreeAction,
+                onChange: this.onTreeChange
+            };
             return (
-                <div className='fcui2-dual-tree-selector'>
-                    <div className='fcui2-dual-tree-selector-left-tree-wrapper'>
-                        <div className="fcui2-dual-tree-selector-tree-title">{this.props.leftTreeTitle}</div>
-                        <Tree
-                            style={{width: this.props.leftTreeWidth, height: this.props.height}}
-                            nameFilter={this.props.leftTreeFilter}
-                            treeNodes={this.props.treeNodes}
-                            markedTreeNodeId={this.___getValue___()}
-                            onTreeNodeOperationClicked={this.onLeftTreeNodeOperationClicked}
-                            onTreeNodeExpandClicked={this.onLeftTreeNodeExpandClicked}
-                            ref='leftTree'
-                        />
-                        <div className='fcui2-dual-tree-selector-tree-footer'>
-                            <span className='fcui2-dual-tree-selector-tree-footer-summary'>
-                                {this.props.leftTreeSummary}
-                            </span>
-                        </div>
+                <div {...cTools.containerBaseProps('dualtreeselector', this)}>
+                    <div className="tree-container">
+                        <Tree {...treeProp1}/>
+                        <span className="cut-rule font-icon font-icon-caret-right"></span>
+                        <Tree {...treeProp2}/>
                     </div>
-                    <div
-                        className='fcui2-dual-tree-selector-separator'
-                        style={{lineHeight: this.props.height + 'px'}}
-                    />
-                    <div className='fcui2-dual-tree-selector-right-tree-wrapper'>
-                        <div className='fcui2-dual-tree-selector-tree-title'>
-                            {this.props.rightTreeTitle}
-                        </div>
-                        <Tree
-                            style={{width: this.props.rightTreeWidth, height: this.props.height}}
-                            treeNodes={treeTools.getSelectedTree(this.props.treeNodes, this.___getValue___())}
-                            onTreeNodeOperationClicked={this.onRightTreeNodeOperationClicked}
-                            ref='rightTree'
-                        />
-                        <div className='fcui2-dual-tree-selector-tree-footer'>
-                            <span className='fcui2-dual-tree-selector-tree-footer-summary'>
-                                {this.props.rightTreeSummary}
-                            </span>
-                            <span className='fcui2-dual-tree-selector-tree-footer-remove-all'>
-                                <a href='javascript:;' onClick={this.onRemoveAll}>全部删除</a>
-                            </span>
-                        </div>
-                    </div>
-                    <div style={{clear: 'both'}} />
                 </div>
             );
         }
     });
 
-    return DualTreeSelector;
+
 });

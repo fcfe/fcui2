@@ -1,238 +1,116 @@
-/**
- * @file Tree Demo
- * @author Han Bing Feng (hanbingfeng@)
- */
-
 define(function (require) {
-    let React = require('react');
-    let _ = require('underscore');
-    let DualTreeSelector = require('fcui/DualTreeSelector.jsx');
-    let treeTools = require('fcui/core/treeTools.es6');
 
-    let items = [
+
+    var Creater = require('../Main.jsx');
+    var DualTreeSelector = require('fcui/DualTreeSelector.jsx');
+    var Information = require('../Information.jsx');
+    var treeTools = require('fcui/core/treeTools');
+    var React = require('react');
+
+
+    var datasource = [
         {
-            title: 'Normal Tree',
-            props: {
-                treeNodes: [{
-                    id: '1',
-                    name: 'Node 1',
-                    isChildrenLoaded: true
-                }, {
-                    id: '2',
-                    name: 'Node 2',
-                    isChildrenLoaded: true
-                }],
-                value: {}
-            }
+            label: 'option1',
+            value: 'option1',
+            children: [
+                {label: 'option1-1', value: 'option1-1'},
+                {
+                    label: 'option1-2', value: 'option1-2', children: [
+                        {label: 'option1-2-1', value: 'option1-2-1'},
+                        {label: 'option1-2-2', value: 'option1-2-2'},
+                        {label: 'option1-2-3', value: 'option1-2-3'}
+                    ]
+                },
+            ]
         },
+        {label: 'option2', value: 'option2'},
+        {label: 'option3', value: 'option3'},
+        {label: 'option4', value: 'option4'},
+        {label: 'option5', value: 'option5'}
+    ];
+    var items1 = [
         {
-            title: 'Normal Tree with preset values',
+            title: 'Normal DualTreeSelector',
             props: {
-                treeNodes: [{
-                    id: '1',
-                    name: 'Node 1',
-                    isChildrenLoaded: true
-                }, {
-                    id: '2',
-                    name: 'Node 2',
-                    isChildrenLoaded: true
-                }],
-                value: {
-                    '1': true
-                }
-            }
-        },
-        {
-            title: 'Tree with children',
-            props: {
-                treeNodes: [{
-                    id: '1',
-                    name: 'Node 1 with children',
-                    isChildrenLoaded: true,
-                    children: [{
-                        id: '1.1',
-                        name: 'Node 1.1',
-                        isChildrenLoaded: true
-                    }, {
-                        id: '1.2',
-                        name: 'Node 1.2',
-                        isChildrenLoaded: true
-                    }]
-                }, {
-                    id: '2',
-                    name: 'Node 2',
-                    isChildrenLoaded: true
-                }],
-                value: {}
-            }
-        },
-        {
-            title: '3-level Tree with children',
-            props: {
-                treeNodes: [{
-                    id: '1',
-                    name: 'Node 1 with children',
-                    isChildrenLoaded: true,
-                    children: [{
-                        id: '1.1',
-                        name: 'Node 1.1 with children',
-                        isChildrenLoaded: true,
-                        children: [{
-                            id: '1.1.1',
-                            name: 'Node 1.1.1',
-                            isChildrenLoaded: true                                
-                        }]
-                    }, {
-                        id: '1.2',
-                        name: 'Node 1.2',
-                        isChildrenLoaded: true
-                    }]
-                }, {
-                    id: '2',
-                    name: 'Node 2',
-                    isChildrenLoaded: true
-                }],
-                value: {}
-            }
-        },
-        {
-            title: 'Normal tree with async loading',
-            props: {
-                treeNodes: [{
-                    id: '1',
-                    name: 'Node 1 with async loading',
-                    isChildrenLoaded: false
-                }, {
-                    id: '2',
-                    name: 'Node 2',
-                    isChildrenLoaded: true
-                }],
-                value: {}
+                datasource: datasource
             }
         }
     ];
+    var Example1 = Creater(DualTreeSelector, items1, ['onChange']);
 
-    function factory(me, items) {
-        let widgets = [];
-        let omitChildren = _.partial(
-            _.omit, _, 'children'
-        );
-        function alertEvents(eventType, e, treeNode, parentTreeNodes) {
-            me.props.alert(
-                eventType
-                + ' | '
-                + JSON.stringify(omitChildren(treeNode))
-                + ' | '
-                + JSON.stringify(parentTreeNodes.map(omitChildren))
-            );
-        }
 
-        function asyncLoad(cb) {
-            let node = items[3].props.treeNodes[0];
-            node.isChildrenLoading = true;
-
-            me.forceUpdate();
-
-            setTimeout(() => {
-                node.isChildrenLoaded = true;
-                node.isChildrenLoading = false;
-                node.children = [{
-                    id: '1.1',
-                    name: 'Node 1.1',
-                    isChildrenLoaded: true
-                }, {
-                    id: '1.2',
-                    name: 'Node 1.2',
-                    isChildrenLoaded: true
-                }];
-                let theComponent = me.refs['dualTree_3'];
-                theComponent.setLeftTreeExpandedTreeNodeId(
-                    _.extend({1: true}, theComponent.refs.leftTree.state.expandedTreeId)
-                );
-                cb && cb(node);
-                me.forceUpdate();
-            }, 1000);
-
-            return node;
-        }
-
-        // the async one
-        function asyncOnTreeNodeExpandClicked(e, treeNode, parentTreeNodes) {
-            if (treeNode.isChildrenLoaded) {
-                alertEvents('expand', e, treeNode, parentTreeNodes);
-                return;
+    function getDisplayProps(props) {
+        var result = JSON.parse(JSON.stringify(props));
+        for (var key in props) {
+            if (!props.hasOwnProperty(key)) continue;
+            if (typeof props[key] === 'function') {
+                result[key] = '[Function]';
             }
-
-            e.preventDefault();
-
-            asyncLoad();
         }
-
-        function asyncOnTreeNodeOperationClicked(e, treeNode, parentTreeNodes) {
-            if (treeNode.isChildrenLoaded) {
-                alertEvents('expand', e, treeNode, parentTreeNodes);
-                return;
-            }
-
-            e.preventDefault();
-
-            asyncLoad(node => {
-                onChange(null, treeTools.selectTreeNode(node, parentTreeNodes, items[3].props.value), 3);
-            });
-
-            me.forceUpdate();
-        }
-
-        function onChange(e, value, index) {
-            let props = items[index].props;
-            let theComponent = me.refs['dualTree_' + index];
-            let expandedTreeNodeId = treeTools.getExpandedTreeNodeIdAfterSelect(theComponent, props.value, value);
-            theComponent.setRightTreeExpandedTreeNodeId(expandedTreeNodeId);
-            props.rightTreeSummary = treeTools.countSelectedLeaf(props.treeNodes, value) + '';
-            props.value = value;
-            me.props.alert('onChange' + ' | ' + JSON.stringify(value));
-            me.forceUpdate();
-        }
-
-        for (let i = 0; i < items.length; i++) {
-            let item = items[i];
-            let prop = item.props;
-            if (i === 3) {
-                // async
-                prop.onLeftTreeNodeExpandClicked = asyncOnTreeNodeExpandClicked;
-                prop.onLeftTreeNodeOperationClicked = asyncOnTreeNodeOperationClicked;
-                prop.onChange = _.partial(onChange, _, _, i);
-            }
-            else {
-                prop = _.extend({
-                    onLeftTreeNodeExpandClicked: _.partial(alertEvents, 'left-expand'),
-                    onLeftTreeNodeOperationClicked: _.partial(alertEvents, 'left-oper')
-                }, prop);
-                prop.onChange = _.partial(onChange, _, _, i);
-            }
-            prop.ref = 'dualTree_' + i;
-            prop.height = 150;
-            let conf = JSON.stringify(prop);
-            widgets.push(
-                <div className="demo-item" key={i}>
-                    <h3>{item.title}</h3>
-                    <div className="props">{conf}</div>
-                    <DualTreeSelector {...prop}/>
-                </div>
-            );
-        }
-        return widgets;
+        return JSON.stringify(result);
     }
+
 
     return React.createClass({
         // @override
-        getDefaultProps() {
+        getDefaultProps: function () {
+            return {};
+        },
+        // @override
+        getInitialState: function () {
+            var data = JSON.parse(JSON.stringify(datasource));
+            data[0].children[1].children[1].children = [];
+            data[2].children = [];
+            data[3].children = [];
             return {
-                alert() {}
+                asyncDatasource: data,
+                asyncValue: '{}'
             };
         },
-        render() {
-            return (<div>{factory(this, items)}</div>);
+        onAsyncTreeChange: function (e) {
+            this.setState({asyncValue: e.target.value});
+        },
+        onAsyncTreeAction: function (type, param) {
+            if (type !== 'TreeLoadChildren' || !param.index instanceof Array || !param.index.length) return;
+            if (this.refs.asyncTree.___loading___) return;
+            var me = this;
+            var data = JSON.parse(JSON.stringify(this.refs.asyncTree.props.datasource));
+            var item = treeTools.getLeafItem(data, param.index);
+            item.label = item.label + ' 加载2s';
+            this.refs.asyncTree.___loading___ = true;
+            this.setState({asyncDatasource: data});
+            setTimeout(function () {
+                var data = JSON.parse(JSON.stringify(me.refs.asyncTree.props.datasource));
+                var item = treeTools.getLeafItem(data, param.index);
+                item.label = item.label.replace(' 加载2s', '');
+                item.children = [
+                    {label: 'new option1', value: 'new option1'},
+                    {label: 'new option2', value: 'new option2'},
+                    {label: 'new option3', value: 'new option3'},
+                ];
+                me.refs.asyncTree.___loading___ = false;
+                me.setState({asyncDatasource: data});
+            }, 1000);
+        },
+        render: function () {
+            var asyncTreeProp = {
+                ref: 'asyncTree',
+                datasource: this.state.asyncDatasource,
+                value: this.state.asyncValue,
+                onChange: this.onAsyncTreeChange,
+                onAction: this.onAsyncTreeAction
+            };
+            return (
+                <div>
+                    <Example1 alert={this.props.alert}/>
+                    <div className="demo-item">
+                        <Information title="DualTreeSelector with async datasource" props={asyncTreeProp}/>
+                        <DualTreeSelector {...asyncTreeProp}/>
+                    </div>
+                </div>
+            );
         }
     });
+
+
 });
