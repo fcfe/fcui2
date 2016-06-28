@@ -28,6 +28,12 @@ define(function (require) {
          * @param {Number} workspaceWidth ShojiScreen工作区宽度
          * @param {Boolean} isOpen ShojiScreen是否显示，如果为true，layer容器将被添加到body中
          * @param {String} footBarInnerHtml 写入Shoji下部按钮后面的html
+         * @param {Boolean} showFootBar 是否显示底部按钮栏
+         * @param {Object} buttonLabels 按钮话术
+         * @param {String} buttonLabels.enter 确定按钮
+         * @param {String} buttonLabels.cancel 取消按钮
+         * @param {String} buttonLabels.expand 展开按钮
+         * @param {String} buttonLabels.hide 隐藏按钮
          * @param {Function} onAction 功能回调接口
          * @param {Function} onRender ShojiScreen渲染完成后的回调
          * @param {Function} onBeforeClose ShojiScreen关闭前触发的回调，可以在这个回调中阻止窗体关闭
@@ -51,7 +57,14 @@ define(function (require) {
                 skin: '',
                 workspaceWidth: 1000,
                 isOpen: false,
+                showFootBar: false,
                 footBarInnerHtml: '',
+                buttonLabels: {
+                    enter: language.enter,
+                    cancel: language.cancel,
+                    hide: language.hide,
+                    expand: language.expand
+                },
                 onRender: noop,
                 onAction: noop, 
                 onBeforeClose: noop,
@@ -77,26 +90,26 @@ define(function (require) {
             container.appendChild(background);
             container.appendChild(workspace);
 
-            expandButton.innerHTML = language.expand;
             workspace.innerHTML = [
                 '<div class="content">',
                 '</div>',
                 '<div class="button-bar">',
-                    '<div data-ui-cmd="EnterButtonClick" class="metro-button highlight-button">',
-                        language.enter,
-                    '</div>',
-                    '<div data-ui-cmd="CancelButtonClick" class="metro-button normal-button">',
-                        language.cancel,
-                    '</div>',
+                    '<div data-ui-cmd="EnterButtonClick" class="metro-button highlight-button"></div>',
+                    '<div data-ui-cmd="CancelButtonClick" class="metro-button normal-button"></div>',
                     '<div class="button-bar-right-container"></div>',
                 '</div>',
-                '<div class="hide-button metro-button highlight-button">' + language.hide + '</div>'
+                '<div class="hide-button metro-button highlight-button"></div>'
             ].join('');
 
             this.___container___ = container;
             this.___workspace___ = workspace;
-            this.___expandButton___ = expandButton;
             this.___content___ = workspace.childNodes[0];
+            this.___expandButton___ = expandButton;
+            this.___enterButton___ = workspace.childNodes[1].childNodes[0];
+            this.___cancelButton___ = workspace.childNodes[1].childNodes[1];
+            this.___hideButton___ = workspace.childNodes[2];
+            this.___footBarContent___ = workspace.childNodes[1].childNodes[2];
+            
             this.___appended___ = false;
 
             workspace.childNodes[1].addEventListener('click', this.onButtonBarClick);
@@ -169,12 +182,18 @@ define(function (require) {
                 var width = this.props.workspaceWidth;
                 var className = props.className;
                 var skin = props.skin;
+                var buttonLabels = props.buttonLables || {};
+                this.___expandButton___.innerHTML = buttonLabels.expand ? buttonLabels.expand : language.expand;
+                this.___enterButton___.innerHTML = buttonLabels.enter ? buttonLabels.enter : language.enter;
+                this.___cancelButton___.innerHTML = buttonLabels.cancel ? buttonLabels.cancel : language.cancel;
+                this.___hideButton___.innerHTML = buttonLabels.hide ? buttonLabels.hide : language.hide;
                 this.___container___.className = 'fcui2-shojiscreen'
                     + (typeof className === 'string' && className ? (' ' + className) : '')
-                    + ' fcui2-shojiscreen-' + (typeof skin === 'string' && skin ? skin : 'normal');
+                    + ' fcui2-shojiscreen-' + (typeof skin === 'string' && skin ? skin : 'normal')
+                    + (props.showFootBar ? '' : ' fcui2-shojiscreen-hide-foot-bar');
                 this.___workspace___.style.width = (isNaN(width) ? 1000 : width) + 'px';
-                this.___workspace___.childNodes[1].childNodes[2].innerHTML = 
-                    typeof props.footBarInnerHtml === 'string' ? props.footBarInnerHtml : '';
+                this.___footBarContent___.innerHTML = typeof props.footBarInnerHtml === 'string'
+                    ? props.footBarInnerHtml : '';
                 if (!this.___appended___) {
                     this.___oldOverflow___ = util.getStyle(document.body, 'overflow');
                     document.body.appendChild(this.___container___);

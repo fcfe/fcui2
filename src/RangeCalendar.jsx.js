@@ -241,9 +241,14 @@ define(function (require) {
         if (!(shortCut instanceof Array) || shortCut.length === 0) return '';
         var doms = [];
         for (var i = 0; i < shortCut.length; i++) {
+            var dataRange = shortCut[i].getValues();
             var props = {
                 key: 'shortcut-' + i,
                 'data-ui-cmd': i,
+                style: {
+                    fontWeight: util.dateFormat(dataRange.value1, 'YYYY-MM-DD') === me.state.value1
+                        && util.dateFormat(dataRange.value2, 'YYYY-MM-DD') === me.state.value2 ? 700 : 200
+                },
                 onClick: me.onShortCutClick
             };
             doms.push(<div {...props}>{shortCut[i].label}</div>);

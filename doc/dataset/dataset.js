@@ -5358,6 +5358,38 @@ define(function(require){return {
                     "type": "String"
                 },
                 {
+                    "name": "showFootBar",
+                    "description": "是否显示底部按钮栏",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "buttonLabels",
+                    "description": "按钮话术",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "enter",
+                            "description": "确定按钮",
+                            "type": "String"
+                        },
+                        {
+                            "name": "cancel",
+                            "description": "取消按钮",
+                            "type": "String"
+                        },
+                        {
+                            "name": "expand",
+                            "description": "展开按钮",
+                            "type": "String"
+                        },
+                        {
+                            "name": "hide",
+                            "description": "隐藏按钮",
+                            "type": "String"
+                        }
+                    ]
+                },
+                {
                     "name": "onAction",
                     "description": "功能回调接口",
                     "type": "Function"
@@ -5382,13 +5414,13 @@ define(function(require){return {
         },
         {
             "file": "src\\ShojiScreen.jsx.js",
-            "line": 36,
+            "line": 42,
             "fire": "Import src\\TitleWindow.jsx.js TitleWindow onBeforeClose",
             "class": ""
         },
         {
             "file": "src\\ShojiScreen.jsx.js",
-            "line": 39,
+            "line": 45,
             "fire": "ShojiScreen onAction",
             "params": [
                 {
@@ -7349,11 +7381,11 @@ define(function(require){return {
         },
         {
             "message": "unknown tag: fire",
-            "line": " src\\ShojiScreen.jsx.js:36"
+            "line": " src\\ShojiScreen.jsx.js:42"
         },
         {
             "message": "unknown tag: fire",
-            "line": " src\\ShojiScreen.jsx.js:39"
+            "line": " src\\ShojiScreen.jsx.js:45"
         },
         {
             "message": "unknown tag: email",
@@ -8577,11 +8609,11 @@ define(function(require){return {
         },
         {
             "message": "Missing item type",
-            "line": " src\\ShojiScreen.jsx.js:36"
+            "line": " src\\ShojiScreen.jsx.js:42"
         },
         {
             "message": "Missing item type",
-            "line": " src\\ShojiScreen.jsx.js:39"
+            "line": " src\\ShojiScreen.jsx.js:45"
         },
         {
             "message": "Missing item type\n数值滑竿",
