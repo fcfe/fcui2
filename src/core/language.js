@@ -3,6 +3,15 @@ define(function (require) {
     var language = 'ch';
     var data = {
         ch: {
+            dualTreeSelectorEnterprise: {
+                selectItems: '请在树中选择条目',
+                allItems: '所有条目',
+                selectedItems: '已选择条目',
+                selectedItemsNumber: '已选择条目：&selected/&total',
+                deleteAll: '全部删除',
+                enter: '确定',
+                cancel: '取消'
+            },
             shojiScreen: {
                 enter: '确定',
                 cancel: '取消',

@@ -65,48 +65,34 @@ define(function (require) {
         },
         // @override
         componentDidUpdate: function () {
-            // 检查selected中标记为1的item的children是否加载完毕了。
             var selected = JSON.parse(this.___getValue___()).selected || {};
-            var me = this;
-            targetAsyncLeaf(this.props.datasource);
-            function targetAsyncLeaf(arr) {
-                if (!(arr instanceof Array) || !arr.length) return;
-                for (var i = 0; i < arr.length; i++) {
-                    var item = arr[i];
-                    // 叶子节点
-                    if (!(item.children instanceof Array)) {
-                        // 空的children属性被删掉了
-                        if (selected[item.value] === 1) {
-                            selected[item.value] = true;
-                        }
-                        continue;
-                    }
-                    // 无孩子节点
-                    if (!item.children.length) continue;
-                    // 有孩子节点，但不是新加载的
-                    if (selected[item.value] !== 1) {
-                        targetAsyncLeaf(item.children);
-                        continue;
-                    }
-                    delete selected[item.value];
-                    me.props.selectorEngine.select(selected, item);
-                    var e = {target: me.refs.container};
-                    e.target.value = JSON.stringify({selected: selected});
-                    // 刷一遍UI
-                    me.___dispatchChange___(e);
-                }
+            var selectorEngine = this.props.selectorEngine;
+            var datasource = this.props.datasource;
+            // 检查selected中标记为1的item的children是否加载完毕了。
+            if (tools.targetAsyncLeaf(selected, selectorEngine, datasource)) {
+                var e = {target: this.refs.container};
+                e.target.value = JSON.stringify({selected: selected});
+                this.___dispatchChange___(e); 
             }
         },
+        /**
+         * @fire DualTreeSelector onAction
+         * @param {String} type 回调类型
+         * TreeExpandNode：树节点展开
+         * @param {Object} param 回调参数
+         * @param {Object} param.expand 树展开节点hash; type='TreeExpandNode'
+         */
         onTreeChange: function (e) {
             var expand = (JSON.parse(e.target.value)).expand || {};
             this.setState({expand: expand});
+            typeof this.props.onAction === 'function' && this.props.onAction('TreeExpandNode', {expand: expand});
         },
         /**
          * @fire DualTreeSelector onAction
          * @param {String} type 回调类型
          * TreeLoadChildren：加载子树数据源
          * @param {Object} param 回调参数
-         * @param {Array.<String>} param.index 子树序列
+         * @param {Array.<String>} param.index 子树序列; type='TreeLoadChildren'
          */
         onTreeAction: function (type, param) {
             // 更新数据源

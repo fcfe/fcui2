@@ -69,6 +69,7 @@ define(function (require) {
         },
         onAsyncTreeChange: function (e) {
             this.setState({asyncValue: e.target.value});
+            this.props.alert('onChange:' + e.target.value);
         },
         onAsyncTreeAction: function (type, param) {
             if (type !== 'TreeLoadChildren' || !param.index instanceof Array || !param.index.length) return;
@@ -95,6 +96,7 @@ define(function (require) {
         render: function () {
             var asyncTreeProp = {
                 ref: 'asyncTree',
+                isDropDown: true,
                 datasource: this.state.asyncDatasource,
                 value: this.state.asyncValue,
                 onChange: this.onAsyncTreeChange,

@@ -70,7 +70,63 @@ define(function (require) {
             loadCache[index] = JSON.parse(JSON.stringify(result));
             return result;
         },
-
+        /**
+         * 获取Tree叶子个数
+         * @interface getLeafCount
+         * @param {Array} datasource 树数据源
+         * @return {Number} 叶子节点个数
+         */
+        getLeafCount: function (datasource) {
+            var result = 0;
+            getCount(datasource);
+            function getCount(arr) {
+                for (var i = 0; i < arr.length; i++) {
+                    if (!arr[i].children || !arr[i].children.length) {
+                        result++;
+                        continue;
+                    }
+                    getCount(arr[i].children);
+                }
+            }
+            return result;
+        },
+        /**
+         * 修改异步数据源叶子选中状态
+         * @interface targetAsyncLeaf
+         * @param {Object} selected 选中状态hash
+         * @param {Object} selectorEngine 选择器引擎
+         * @param {Array} datasource tree新的数据源
+         * @return {Boolean} selected是否被修改
+         */
+        targetAsyncLeaf: function (selected, selectorEngine, datasource) {
+            var result = false;
+            doing(datasource);
+            return result;
+            function doing(arr) {
+                if (!(arr instanceof Array) || !arr.length) return;
+                for (var i = 0; i < arr.length; i++) {
+                    var item = arr[i];
+                    // 叶子节点
+                    if (!(item.children instanceof Array)) {
+                        // 空的children属性被删掉了
+                        if (selected[item.value] === 1) {
+                            selected[item.value] = true;
+                        }
+                        continue;
+                    }
+                    // 无孩子节点
+                    if (!item.children.length) continue;
+                    // 有孩子节点，但不是新加载的
+                    if (selected[item.value] !== 1) {
+                        doing(item.children);
+                        continue;
+                    }
+                    delete selected[item.value];
+                    selectorEngine.select(selected, item);
+                    result = true;
+                }
+            }
+        },
         dualTreeSelectorEngine: {
             /**
              * 指针方法，选中子树
