@@ -21,7 +21,7 @@ define(function (require) {
          * @param {Function} onAction 树回调总线
          * @param {ReactClass} leafRenderer 树叶子渲染器
          * @param {Import|Properties} src\mixins\InputWidget.js
-         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         *      value onChange name validations customErrorTemplates valueTemplate
          */
         /**
          * @fire Import src\mixins\InputWidget.js XXX onChange

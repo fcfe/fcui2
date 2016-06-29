@@ -20,7 +20,7 @@ define(function (require) {
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {Array.<String>} datasource 向导标签文字列表
          * @param {Import|Properties} src\mixins\InputWidget.js
-         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         *      value onChange name validations customErrorTemplates valueTemplate
          */
         /**
          * @fire Import src\mixins\InputWidget.js XXX onChange

@@ -52,7 +52,7 @@ define(function (require) {
          * @param {Function} onAction 表格控制回调总线
          *
          * @param {Import|Properties} src\mixins\InputWidget.js
-         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         *      value onChange name validations customErrorTemplates valueTemplate
          */
         /**
          * @structure TableFieldObject

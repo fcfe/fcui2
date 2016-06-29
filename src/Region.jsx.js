@@ -34,7 +34,7 @@ define(function (require) {
          * @param {ReactClass} regionRenderer 地区渲染器
          * @param {ReactClass} countryRenderer 国家渲染器
          * @param {Import|Properties} src\mixins\InputWidget.js
-         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         *      value onChange name validations customErrorTemplates valueTemplate
          */
         /**
          * @fire Import src\mixins\InputWidget.js XXX onChange

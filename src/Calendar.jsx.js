@@ -27,7 +27,7 @@ define(function (require) {
          * @param {String} min 日历最小值，在这一天之前的日期不能被选定，格式：YYYY-MM-DD
          * @param {String} max 日历最大值，在这一天之后的日期不能被选定，格式：YYYY-MM-DD
          * @param {Import|Properties} src\mixins\InputWidget.js
-         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         *      value onChange name validations customErrorTemplates valueTemplate
          */
         /**
          * @fire Import src\mixins\InputWidget.js XXX onChange

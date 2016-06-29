@@ -34,7 +34,7 @@ define(function (require) {
          * @param {Array.<CalendarShortCut>} shortCut 快捷选择按钮配置
          * @param {Function} rangeValidator 日期区间校验机
          * @param {Import|Properties} src\mixins\InputWidget.js
-         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         *      value onChange name validations customErrorTemplates valueTemplate
          */
         /**
          * @fire Import src\mixins\InputWidget.js XXX onChange
