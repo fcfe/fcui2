@@ -61,12 +61,18 @@ define(function (require) {
             this.___lastCursorPos___ = -1;
             this.___imeStart___ = false;
             this.___isPressing___ = false;
+            this.___workerTimer___ = null;
         },
         // @override
         componentWillReceiveProps: function (nextProps) {
-            var value = nextProps.value
-            if (value === undefined || value == null || nextProps.value + '' === this.refs.inputbox.value + '') return;
-            value = value + '';
+            this.___syncValue___(nextProps);  
+        },
+        ___syncValue___: function (props) {
+            // 键盘keyup过了一段时间，但是外部还没有刷新组件，手动同步一下value
+            props = props || this.props;
+            var value = props.value;
+            // 外部没有导入value或导入的value和输入框的相同
+            if (typeof value !== 'string' || value === this.refs.inputbox.value) return;
             this.___lastFiredValue___ = value;
             this.setState({___value___: value});
             this.refs.inputbox.value = value;
@@ -86,24 +92,20 @@ define(function (require) {
         ___onKeyUp___: function (e) {
             this.___isPressing___ = false;
             this.___lastCursorPos___ = util.getCursorPosition(e.target);
+            clearInterval(this.___workerTimer___);
             if (this.___imeStart___ || this.___lastFiredValue___ === this.refs.inputbox.value) return;
+            var me = this;
             var lastValue = this.___lastFiredValue___;
             e.target = this.refs.container;
             e.target.value = this.___lastFiredValue___ = this.refs.inputbox.value;
             this.___dispatchChange___(e, this.___lastFiredValue___, lastValue);
+            this.___workerTimer___ = setInterval(function () {
+                clearInterval(me.___workerTimer___);
+                me.___syncValue___();
+            }, 10);
         },
         ___onPaste___: function (e) {
-            // ctrl + v 引起的，直接返回，有keyup处理
-            if (this.___isPressing___) return;
-            // 鼠标右键粘贴引起的，但是：同步拿到的值是旧的，所以必须加个timer才能拿到新值，但这个方法在Form里卡，奇怪
-            // var me = this;
-            // setTimeout(function () {
-            //     if (me.refs.inputbox.value === me.___lastFiredValue___) return;
-            //     var evt = {target: me.refs.container};
-            //     var lastValue = me.___lastFiredValue___;
-            //     evt.target.value = me.___lastFiredValue___ = me.refs.inputbox.value;
-            //     me.___dispatchChange___(evt, me.___lastFiredValue___, lastValue);
-            // }, 10);
+            // DO NOTHING
         }
     };
 });

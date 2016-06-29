@@ -38,7 +38,7 @@ define(function (require) {
                         <Button/>
                         <CheckBox label="复选框" checked={true}/>
                         <Radio label="主说要有光，于是有了光"/>
-                        <TextBox value="abd"/>
+                        <TextBox value="abd" onChange={new Function()}/>
                         <SearchBox/>
                     </div>
                     <div style={{border: '1px solid #E8E8E8', lineHeight: '80px', marginTop: '30px'}}>
