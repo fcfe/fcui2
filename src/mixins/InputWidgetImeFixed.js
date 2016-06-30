@@ -74,6 +74,7 @@ define(function (require) {
                 util.setCursorPosition(this.refs.inputbox, this.___lastCursorPos___);
             }
         },
+        
         ___onCompositionStart___: function (e) {
             this.___imeStart___ = true;
         },
@@ -93,17 +94,7 @@ define(function (require) {
             this.___dispatchChange___(e, this.___lastFiredValue___, lastValue);
         },
         ___onPaste___: function (e) {
-            // ctrl + v 引起的，直接返回，有keyup处理
-            if (this.___isPressing___) return;
-            // 鼠标右键粘贴引起的，但是：同步拿到的值是旧的，所以必须加个timer才能拿到新值，但这个方法在Form里卡，奇怪
-            // var me = this;
-            // setTimeout(function () {
-            //     if (me.refs.inputbox.value === me.___lastFiredValue___) return;
-            //     var evt = {target: me.refs.container};
-            //     var lastValue = me.___lastFiredValue___;
-            //     evt.target.value = me.___lastFiredValue___ = me.refs.inputbox.value;
-            //     me.___dispatchChange___(evt, me.___lastFiredValue___, lastValue);
-            // }, 10);
+            // Do Nothing
         }
     };
 });

@@ -26,6 +26,8 @@ define(function (require) {
          * @properties
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {Import|Properties} src\core\DualTreeSelector.jsx.js datasource onAction leafRenderer selectorEngine
+         * @param {Boolean} isDropDown 是否工作在下拉模式下
+         * @param {Boolean} clearTemporaryAfterLayerClose 如果工作在DropDown模式下，layer关闭后是否清理临时操作值
          * @param {Object} labels 话术配置
          * @param {String} labels.dropdownLabel 以DropDown模式工作时外层按钮的话术
          * @param {String} labels.title 选择器上方标题
@@ -63,6 +65,7 @@ define(function (require) {
                 leafRenderer: Renderer,
                 selectorEngine: treeTools.dualTreeSelectorEngine,
                 // self
+                clearTemporaryAfterLayerClose: true,
                 isDropDown: false,
                 labels: {
                     dropdownLabel: 'DualTreeSelector',
@@ -113,7 +116,6 @@ define(function (require) {
             typeof this.props.onAction === 'function' && this.props.onAction(type, args);
         },
         onLayerEnter: function (e) {
-            e.target = this.refs.container;
             e.target.value = this.state.dropdownValue;
             this.___dispatchChange___(e);
             this.setState({
@@ -125,11 +127,17 @@ define(function (require) {
                 expand: this.state.expand
             });
         },
+        onLayerClose: function () {
+            this.setState({
+                layerOpen: false,
+                dropdownValue: this.props.value && this.props.clearTemporaryAfterLayerClose
+                    ? this.props.value : this.state.dropdownValue
+            });
+        },
         deleteAll: function (e) {
             var value = this.props.isDropDown ? this.state.dropdownValue : this.___getValue___();
             value = JSON.parse(value);
             value.selected = {};
-            e.target = this.refs.container;
             e.target.value = JSON.stringify(value);
             if (this.props.isDropDown) {
                 this.setState({
@@ -142,7 +150,6 @@ define(function (require) {
         },
         render: function () {
             if (!this.props.isDropDown) return mainContentFactory(this);
-            var closeLayerHandler = cTools.closeLayerHandlerFactory(this, 'layerOpen');
             var containerProp = cTools.containerBaseProps('dropdownlist', this, {
                 merge: {
                     onClick: cTools.openLayerHandlerFactory(this, 'layerOpen')
@@ -155,7 +162,7 @@ define(function (require) {
                 anchor: this.refs.dropdownContainer,
                 location: 'bottom right left',
                 closeWithBodyClick: true,
-                onCloseByWindow: closeLayerHandler,
+                onCloseByWindow: this.onLayerClose,
                 onRender: this.onLayerRender
             };
             containerProp.ref = 'dropdownContainer';
@@ -167,7 +174,7 @@ define(function (require) {
                         <div style={{padding: 10}}>
                             {mainContentFactory(this)}
                             <Button label={language.enter} skin="important" onClick={this.onLayerEnter}/>
-                            <Button label={language.cancel} onClick={closeLayerHandler} style={{marginLeft: 10}}/>
+                            <Button label={language.cancel} onClick={this.onLayerClose} style={{marginLeft: 10}}/>
                         </div>
                     </Layer>
                 </div>
@@ -197,10 +204,14 @@ define(function (require) {
             // DO NOTHING
         }
         var selectedInfo = labels.footSelectCountTpl
-            ? labels.footSelectCountTpl.replace(/&selected/g, selected).replace(/&total/g, count) : null
+            ? labels.footSelectCountTpl.replace(/&selected/g, selected).replace(/&total/g, count) : null;
+        var containerProp = me.props.isDropDown ? {
+                className: 'fcui2-dualtreeselector-enterprise fcui2-dualtreeselector-enterprise-'
+                    + (me.props.skin ? me.props.skin : 'normal')
+            } : cTools.containerBaseProps('dualtreeselector-enterprise', me);
         return (
-            <div {...cTools.containerBaseProps('dualtreeselector-enterprise', me)}>
-                {labels.title ? <div className="title-bar">{labels.title}</div> : null} 
+            <div {...containerProp}>
+                {labels.title ? <div className="selector-title-bar">{labels.title}</div> : null} 
                 <div className="tree-title-bar">
                     <div>{labels.leftTreeTitle ? labels.leftTreeTitle : null}</div>
                     <div>{labels.rightTreeTitle ? labels.rightTreeTitle : null}</div>
