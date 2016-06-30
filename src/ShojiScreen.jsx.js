@@ -57,7 +57,7 @@ define(function (require) {
                 skin: '',
                 workspaceWidth: 1000,
                 isOpen: false,
-                showFootBar: false,
+                showFootBar: true,
                 footBarInnerHtml: '',
                 buttonLabels: {
                     enter: language.enter,
@@ -182,7 +182,7 @@ define(function (require) {
                 var width = this.props.workspaceWidth;
                 var className = props.className;
                 var skin = props.skin;
-                var buttonLabels = props.buttonLables || {};
+                var buttonLabels = props.buttonLabels || {};
                 this.___expandButton___.innerHTML = buttonLabels.expand ? buttonLabels.expand : language.expand;
                 this.___enterButton___.innerHTML = buttonLabels.enter ? buttonLabels.enter : language.enter;
                 this.___cancelButton___.innerHTML = buttonLabels.cancel ? buttonLabels.cancel : language.cancel;

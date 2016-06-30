@@ -30,6 +30,7 @@ define(function (require) {
          * @param {Function} onMouseLeave 鼠标滑出layer时的回调
          * @param {Function} onRender layer渲染完成后的回调
          * @param {Function} onClose layer关闭后的回调
+         * @param {Function} onBeforeCloseByWindow 屏幕其他位置关闭前的回调
          * @param {Function} onCloseByWindow 屏幕其他位置被点击导致layer关闭后触发的回调，只有closeWithBodyClick为true时有效
          */
         /**
@@ -59,6 +60,7 @@ define(function (require) {
                 onMouseLeave: noop,
                 onRender: noop,
                 onClose: noop,
+                onBeforeCloseByWindow: noop,
                 onCloseByWindow: noop
             };
         },
@@ -87,7 +89,6 @@ define(function (require) {
             // 挂接容器事件和全局事件
             layer.addEventListener('mouseenter', this.onLayerMouseEnter);
             layer.addEventListener('mouseleave', this.onLayerMouseLeave);
-            window.addEventListener('click', this.onBodyClick);
             // 记录实例变量
             this.___layerContainer___ = layer;
             this.___layerAppended___ = false;
@@ -104,7 +105,6 @@ define(function (require) {
             var layer = this.___layerContainer___;
             layer.removeEventListener('mouseenter', this.onLayerMouseEnter);
             layer.removeEventListener('mouseleave', this.onLayerMouseLeave);
-            window.removeEventListener('click', this.onBodyClick);
             this.___renderCount___ = 0;
             this.removeSubTree();
         },
@@ -122,8 +122,12 @@ define(function (require) {
                 this.___renderCount___++;
                 return;
             }
-            this.removeSubTree();
-            typeof this.props.onCloseByWindow === 'function' && this.props.onCloseByWindow();
+            e.returnValue = true;
+            typeof this.props.onBeforeCloseByWindow === 'function' && this.props.onBeforeCloseByWindow(e);
+            if (e.returnValue) {
+                this.removeSubTree();
+                typeof this.props.onCloseByWindow === 'function' && this.props.onCloseByWindow();
+            }
         },
         renderSubTree: function (props) {
             if (!this.___layerContainer___ || !props.anchor) return;
@@ -134,6 +138,7 @@ define(function (require) {
                 if (!this.___layerAppended___) {
                     this.___layerAppended___ = true;
                     document.body.appendChild(this.___layerContainer___);
+                    window.addEventListener('click', this.onBodyClick);
                 }
                 renderSubtreeIntoContainer(this, props.children, this.___layerContainer___, function () {
                     me.fixedPosition(props);
@@ -152,6 +157,7 @@ define(function (require) {
             this.___layerContainer___.style.left = '-9999px';
             this.___layerContainer___.style.top = '-9999px';
             document.body.removeChild(this.___layerContainer___);
+            window.removeEventListener('click', this.onBodyClick);
             this.___layerAppended___ = false;
             this.___renderCount___ = 0;
             this.setState({mouseenter: false});

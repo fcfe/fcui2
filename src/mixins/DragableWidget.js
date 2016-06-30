@@ -35,14 +35,14 @@ define(function (require) {
             window.removeEventListener('mouseup', this.___dragEnd___);
             var dx = e.clientX - this.___initX___;
             var dy = e.clientY - this.___initY___;
-            typeof this.onDrop === 'function' && this.onDrop(dx, dy);
+            typeof this.onDrop === 'function' && this.onDrop(dx, dy, e);
         },
         ___dragHandler___: function (e) {
             var dx = e.clientX - this.___curX___;
             var dy = e.clientY - this.___curY___;
             this.___curX___ = e.clientX;
             this.___curY___ = e.clientY;
-            typeof this.onDrag === 'function' && this.onDrag(dx, dy);
+            typeof this.onDrag === 'function' && this.onDrag(dx, dy, e);
         }
     };
 

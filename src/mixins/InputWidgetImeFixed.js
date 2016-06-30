@@ -72,7 +72,8 @@ define(function (require) {
             props = props || this.props;
             var value = props.value;
             // 外部没有导入value或导入的value和输入框的相同
-            if (typeof value !== 'string' || value === this.refs.inputbox.value) return;
+            if (typeof value == null || value === undefined || value + '' === this.refs.inputbox.value + '') return;
+            value = value + '';
             this.___lastFiredValue___ = value;
             this.setState({___value___: value});
             this.refs.inputbox.value = value;
