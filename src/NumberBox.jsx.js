@@ -29,7 +29,7 @@ define(function (require) {
          * @param {Number} fixed 保留的小数位数，只有当type为float时有效
          * @param {Boolean} showSpinButton 是否显示调节按钮
          * @param {Import|Properties} src\mixins\InputWidget.js
-         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         *      value onChange name validations customErrorTemplates valueTemplate
          */
         /**
          * @fire Import src\mixins\InputWidget.js XXX onChange

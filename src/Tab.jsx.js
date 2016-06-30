@@ -21,7 +21,7 @@ define(function (require) {
          * @param {Array.<ListItemObject>} datasource 标签导航数据源
          * @param {ReactClass} renderer 标签渲染器
          * @param {Import|Properties} src\mixins\InputWidget.js
-         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         *      value onChange name validations customErrorTemplates valueTemplate
          */
         /**
          * @structure Import src\List.jsx.js ListItemObject

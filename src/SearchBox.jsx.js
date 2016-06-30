@@ -20,7 +20,7 @@ define(function (require) {
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {String} placeholder 文本框中无内容时显示的提示文字
          * @param {Import|Properties} src\mixins\InputWidget.js
-         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         *      value onChange name validations customErrorTemplates valueTemplate
          * @param {Function} onClick 搜索按钮点击时的回调
          */
         /**

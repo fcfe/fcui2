@@ -24,7 +24,7 @@ define(function (require) {
          * @param {String} openLayerType 控制浮层打开的动作，onMouseEnter或onClick
          * @param {Array.<ListItemObject>} datasource 列表数据源
          * @param {Import|Properties} src\mixins\InputWidget.js
-         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         *      value onChange name validations customErrorTemplates valueTemplate
          */
         /**
          * @structure Import src\List.jsx.js ListItemObject

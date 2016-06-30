@@ -38,7 +38,7 @@ define(function (require) {
          * '&selected'将被替换成已选择的叶子个数
          * '&total'将被替换成数据源中所有叶子个数
          * @param {String} labels.deleteAll 右侧删除按钮话术
-         * @param {Import|Properties} src\mixins\InputWidget.js value onChange name validations customErrorTemplates valueLink valueTemplate
+         * @param {Import|Properties} src\mixins\InputWidget.js value onChange name validations customErrorTemplates valueTemplate
          */
         /**
          * @fire Import src\mixins\InputWidget.js XXX onChange

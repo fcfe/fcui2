@@ -21,7 +21,7 @@ define(function (require) {
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {Import|Properties} src\Tree.jsx.js datasource onAction leafRenderer
          * @param {Object} selectorEngine 选择逻辑引擎，见src\core\treeTools.js dualTreeSelectorEngine
-         * @param {Import|Properties} src\mixins\InputWidget.js value onChange name validations customErrorTemplates valueLink valueTemplate
+         * @param {Import|Properties} src\mixins\InputWidget.js value onChange name validations customErrorTemplates valueTemplate
          */
         /**
          * @fire Import src\mixins\InputWidget.js XXX onChange

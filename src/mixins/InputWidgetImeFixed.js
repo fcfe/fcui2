@@ -61,12 +61,18 @@ define(function (require) {
             this.___lastCursorPos___ = -1;
             this.___imeStart___ = false;
             this.___isPressing___ = false;
+            this.___workerTimer___ = null;
         },
         // @override
         componentWillReceiveProps: function (nextProps) {
-            var value = nextProps.value
-            if (value === undefined || value == null || nextProps.value + '' === this.refs.inputbox.value + '') return;
-            value = value + '';
+            this.___syncValue___(nexProps);  
+        },
+        ___syncValue___: function (props) {
+            // 键盘keyup过了一段时间，但是外部还没有刷新组件，手动同步一下value
+            props = props || this.props;
+            var value = props.value;
+            // 外部没有导入value或导入的value和输入框的相同
+            if (typeof value !== 'string' || value === this.refs.inputbox.value) return;
             this.___lastFiredValue___ = value;
             this.setState({___value___: value});
             this.refs.inputbox.value = value;
@@ -87,14 +93,20 @@ define(function (require) {
         ___onKeyUp___: function (e) {
             this.___isPressing___ = false;
             this.___lastCursorPos___ = util.getCursorPosition(e.target);
+            clearInterval(this.___workerTimer___);
             if (this.___imeStart___ || this.___lastFiredValue___ === this.refs.inputbox.value) return;
+            var me = this;
             var lastValue = this.___lastFiredValue___;
             e.target = this.refs.container;
             e.target.value = this.___lastFiredValue___ = this.refs.inputbox.value;
             this.___dispatchChange___(e, this.___lastFiredValue___, lastValue);
+            this.___workerTimer___ = setInterval(function () {
+                clearInterval(me.___workerTimer___);
+                me.___syncValue___();
+            }, 10);
         },
         ___onPaste___: function (e) {
-            // Do Nothing
+            // DO NOTHING
         }
     };
 });

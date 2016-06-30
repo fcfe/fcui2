@@ -22,7 +22,7 @@ define(function (require) {
          * @param {Boolean} checked 单选框是否被选中，触发onChange时随事件对象返回，用于表明单选框时候被选中
          * @param {String} labelPosition 文本标签显示的位置，'right'为单选框右侧，否则在左侧
          * @param {Import|Properties} src\mixins\InputWidget.js
-         *      onChange name validations customErrorTemplates valueLink valueTemplate
+         *      onChange name validations customErrorTemplates valueTemplate
          */
         /**
          * @fire Radio onChange

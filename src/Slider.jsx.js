@@ -30,7 +30,7 @@ define(function (require) {
          * @param {String} measure 说明框上显示的单位
          * @param {Boolean} showLabel 是否显示说明框
          * @param {Import|Properties} src\mixins\InputWidget.js
-         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         *      value onChange name validations customErrorTemplates valueTemplate
          */
         /**
          * @fire Import src\mixins\InputWidget.js XXX onChange

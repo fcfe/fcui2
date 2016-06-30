@@ -23,7 +23,7 @@ define(function (require) {
          * @param {Number} max 翻页器最大页数
          * @param {Number} threshold 翻页器阈值，显示时，距离value距离超过此值的按钮将被隐藏
          * @param {Import|Properties} src\mixins\InputWidget.js
-         *      value onChange name validations customErrorTemplates valueLink valueTemplate
+         *      value onChange name validations customErrorTemplates valueTemplate
          */
         /**
          * @fire Import src\mixins\InputWidget.js XXX onChange
