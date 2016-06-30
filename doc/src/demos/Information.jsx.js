@@ -26,10 +26,6 @@ define(function (require) {
         render: function () {
             var props = tools.trans2html(tools.formatter(tools.getDisplayProps(this.props.props)));
             var contents = tools.trans2html(this.props.content);
-            var titleProp = {
-                className: 'font-icon font-icon-caret-' + (this.state.isOpen ? 'down' : 'right'),
-                onClick: this.togglePropsBoxFactory
-            };
             var propboxProp = {
                 className: 'props',
                 dangerouslySetInnerHTML: {__html: this.props.props === '' ? contents : props},
@@ -37,7 +33,10 @@ define(function (require) {
             };
             return (
                 <div>
-                    <h4 {...titleProp}>{this.props.title}</h4>
+                    <h4 onClick={this.togglePropsBoxFactory}>
+                        <span className={'font-icon font-icon-caret-' + (this.state.isOpen ? 'down' : 'right')}></span>
+                        {this.props.title}
+                    </h4>
                     <div {...propboxProp}></div>
                 </div>
             );

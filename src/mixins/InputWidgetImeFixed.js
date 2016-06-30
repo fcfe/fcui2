@@ -65,7 +65,7 @@ define(function (require) {
         },
         // @override
         componentWillReceiveProps: function (nextProps) {
-            this.___syncValue___(nexProps);  
+            this.___syncValue___(nextProps);  
         },
         ___syncValue___: function (props) {
             // 键盘keyup过了一段时间，但是外部还没有刷新组件，手动同步一下value

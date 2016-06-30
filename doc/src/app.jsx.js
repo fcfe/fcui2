@@ -11,12 +11,21 @@ define(function (require) {
         for (var i = 0; i < config.menu.length; i++) {
             var prop = {
                 key: i + '',
+                className: 'menu-item',
                 'data-level': config.menu[i].level,
-                className: 'font-icon menu-item font-icon-largeable-caret-'
-                    + (me.props.level !== config.menu[i].level ? 'right' : 'down'),
                 onClick: me.onLevelChange
             };
-            doms.push(<div {...prop}>{config.menu[i].label}</div>);
+            doms.push(
+                <div {...prop}>
+                    <span data-level={config.menu[i].level}
+                        className={
+                            'font-icon  font-icon-largeable-caret-'
+                                + (me.props.level !== config.menu[i].level ? 'right' : 'down')
+                        }>
+                    </span>
+                    <span data-level={config.menu[i].level}>{config.menu[i].label}</span>
+                </div>
+            );
             if (me.props.level !== config.menu[i].level) {
                 doms.push(<hr key={i + '-begin'}/>);
                 continue;
