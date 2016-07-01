@@ -1,122 +1,52 @@
-
-
+// version 0.0.2
 .fcui2-schedule {
-    font-family: @font-normal;
-
     width: 665px;
-    cursor: default;
-    moz-user-select: -moz-none;
-    -moz-user-select: none;
-    -o-user-select:none;
-    -khtml-user-select:none;
-    -webkit-user-select:none;
-    -ms-user-select:none;
-    user-select:none;
-
-    &-info {
-        &-text {
-            float: left;
-            margin-left: 24px;
-        }
-
-        &-legend {
-            float: right;
-            margin-right: 13px;
-            .font-icon {
-                margin-left: 16px;
-                margin-right: 8px;
-                position: relative;
-                top: 2px;
-            }
-
-            .font-icon-bg-square-empty {
-                color: @color-inner-border;
-            }
-
-            &-icon-selected {
-                color: @color-blue-2;
-            }
-        }
-
-        margin-bottom: 8px;
-        height: 18px;
-        line-height: 18px;
-    }
-
-    .fast-operation-bar {
-        margin-left: 10px;
-        font-size: 12px;
-        >div:last-child {
-            border-right: 0px;
-        }
-        >div {
-            display: inline-block;
-            min-width: 30px;
-            padding: 0 5px;
-            color: @color-text-3;
-            text-align: center;
-            border-right: 1px solid #C8C8C8;
-            cursor: pointer;
-            moz-user-select: -moz-none;
-            -moz-user-select: none;
-            -o-user-select:none;
-            -khtml-user-select:none;
-            -webkit-user-select:none;
-            -ms-user-select:none;
-            user-select:none;
-        }
-        div:hover {
-            color: #2F82F5;
-        }
-    }
-
-    .column-area {
-        width: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        >div:first-child {
-            margin-left: 78px;
-        }
-        >div {
-            display: inline-block;
-            width: 24px;
-            color: @color-text-3;
-            cursor: pointer;
-        }
-        >div:hover {
-            color: @color-btn-hover;
-        }
-    }
-    .row-area {
-        position: relative;
-        width: 70px;
-        height: 170px;
-        .fcui2-checkbox {
-            position: absolute !important;
-            left: 5px;
-            height: 24px;
-        }
-    }
-    .fcui2-schedule-row-selector-disabled {
-        width: 60px;
-        div {
-            font-size: 12px;
-            text-align: right;
-            line-height: 24px;
-        }
-    }
-
+    min-height: 170px;
     .opt-area {
         float: right;
         position: relative;
         overflow: hidden;
         width: 582px;
         height: 170px;
+        .cursor-layer {
+            position: absolute;
+            border: 1px solid;
+        }
+        .drag-layer {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 576px;
+            height: 168px;
+        }
+        .grid-layer {
+            position: absolute;
+            width: 577px;
+            height: 169px;
+            border-left: 1px solid;
+            border-top: 1px solid;
+            >div {
+                position: absolute;
+                width: 24px;
+                height: 24px;
+                border-right: 1px solid;
+                border-bottom: 1px solid;
+            }
+        }
+        .value-layer {
+            >div {
+                position: absolute;
+                font-size: 12px;
+                text-align: center;
+                line-height: 23px;
+                border: 1px solid;
+            }
+        }
     }
-    .axis-area {
+    .axis-x-area {
         font-size: 12px;
         >div:first-child {
-            margin-left: 64px;
+            margin-left: 65px;
         }
         >div {
             display: inline-block;
@@ -124,61 +54,62 @@
             text-align: right;
         }
     }
-
-    .axis-area-top {
-        >div:first-child {
-            margin-left: 72px;
-        }
-    }
-
-    .grid-layer {
-        position: absolute;
-        width: 577px;
-        height: 169px;
-        background-color: @color-bg;
-        border-left: 1px solid @color-inner-border;
-        border-top: 1px solid @color-inner-border;
-        >div {
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            border-right: 1px solid @color-inner-border;
-            border-bottom: 1px solid @color-inner-border;
-        }
-    }
-    .drag-layer,.label-layer {
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        width: 576px;
-        height: 168px;
-    }
-    .label-layer {
-        >div {
-            position: absolute;
-            background-color: @color-blue-2;
-            font-size: 12px;
+    .axis-y-area {
+        position: relative;
+        overflow: hidden;
+        width: 80px;
+        height: 170px;
+        .disabled-selected {
+            width: 80px;
             text-align: center;
-            color: #fff;
-            line-height: 23px;
-            border: 1px solid #dbdbdb;
+        }
+        .fcui2-checkbox {
+            position: absolute;
+            left: 5px;
+            height: 24px;
         }
     }
-    .cursor-layer {
-        position: absolute;
-        border: 1px solid @color-btn-hover;
+    .column-selector-area {
+        padding-left: 86px;
+        .fcui2-checkbox {
+            width: 24px;
+        } 
     }
-    .title-layer {
-        position: absolute;
-        font-size: 12px;
-        text-align: center;
-        background-color: #FFF;
-        border: 1px solid #C8C8C8;
-        -webkit-box-shadow: 0 1px 3px #C8C8C8;
-        -moz-box-shadow: 0 1px 3px #C8C8C8;
-        box-shadow: 0 1px 3px #C8C8C8;
-        >div {
-            line-height: 30px;
+}
+.fcui2-schedule-normal {
+    font-family: @font-normal;
+    cursor: default;
+    .opt-area {
+        .cursor-layer {
+            border-color: @color-btn-hover;
+        }
+        .cursor-layer-active {
+            background-color: @color-blue-2;
+            opacity: 0.5;
+        }
+        .grid-layer {
+            background-color: @color-bg;
+            border-left-color: @color-inner-border;
+            border-top-color: @color-inner-border;
+            >div {
+                border-right-color: @color-inner-border;
+                border-bottom-color: @color-inner-border;
+            }
+        }
+        .value-layer {
+            >div {
+                background-color: @color-blue-2;
+                color: @color-gray-1;
+                border-color: #dbdbdb;
+            }
         }
     }
+}
+.fcui2-schedule-normal-legend-layer {
+    white-space: nowrap;
+    width:80px;
+    text-align: center;
+    line-height: 28px;
+    font-size: 12px;
+    padding: 3px 10px;
 }

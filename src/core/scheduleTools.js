@@ -1,24 +1,25 @@
+/**
+ * Schedule 工具集
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @author 0.0.2.1
+ */
 define(function (require) {
 
-    // 168 = 7 x 24;
     var _ = require('underscore');
-    var langTool = require('./language');
-
-    // schedule一个格子的边长
+    var language = require('./language');
     var CELL_LENGTH = 24;
 
     return {
-
-        /*
-         * 将string类型的value转换成日优先的二维数组，第一维是天，第二维是小时
+        /**
+         * 输入值转内部结构
+         * @interface parseValue
+         * @param {String} value schedule值
+         * @return {Array.<Array.<null|String>>} 内部值结构
+         * @note
+         * 内部值结构是一个二位数组，第一维表示星期，第二维表示小时，共 7x24 = 168个元素。
          *
-         * 数组元素为null或string：
-         * （1）null表示该时段没有被选择；
-         * （2）string表示该时段被选择，string的内容为当前时段的label标签内容，相邻时段相同值的label会被合并
-         * 若label为''，则显示时段跨度如1:00-2:00
-         *
-         * @param {string} value 选定的时段值
-         * @return {Array}
+         * 每个元素要么为null，要么为字符串。为null时表示该小时未被选中；为字符串时表示选中。
          */
         parseValue: function (value) {
             var arrValue = [];
@@ -42,152 +43,104 @@ define(function (require) {
             }
             return result;
         },
-
-        /*
-         * 将value从原始格式转换成string
-         *
-         * @override
-         *
-         * @param {Array} rawValue 原始值
-         * @return {string}
+        /**
+         * 内部结构转字符串
+         * @interface stringifyValue
+         * @return {String} schedule值
+         * @param {Array.<Array.<null|String>>} 内部值结构
+         * @note
+         * 将内部结构的二维数组以行优先形式合并成一个数组，并转成JSON返回
          */
         stringifyValue: function (rawValue) {
-            if (!rawValue) {
-                return '';
-            }
+            if (!rawValue) return '';
             return JSON.stringify(_.flatten(rawValue));
         },
-
-        selectedCount: function (value, axis1, axis2) {
-            value = this.parseValue(value);
-            var result = 0;
-            for (var y = axis1.y; y < axis2.y + 1; y++) {
-                if (y > value.length - 1) {
-                    continue;
-                }
-                for (var x = axis1.x; x < axis2.x + 1; x++) {
-                    if (x > value[y].length - 1) {
-                        continue;
-                    }
-                    if (value[y][x] != null) {
-                        result++;
-                    }
-                }
-            }
-
-            return result;
-        },
-
-        updateValueByAxis: function (value, axis1, axis2, v) {
-            value = this.parseValue(value);
-            for (var y = axis1.y; y < axis2.y + 1; y++) {
-                if (y > value.length - 1) {
-                    continue;
-                }
-                for (var x = axis1.x; x < axis2.x + 1; x++) {
-                    if (x > value[y].length - 1) {
-                        continue;
-                    }
-                    value[y][x] = (v == null) ? (value[y][x] == null ? '' : null) : v;
-                }
-            }
-            return this.stringifyValue(value);
-        },
-
-        updateValueByMouse: function (value, state) {
-            var scheduleRange = this.getScheduleRangeByMouse(state);
-            return this.updateValueByAxis(value, {
-                x: scheduleRange.startHour,
-                y: scheduleRange.startWeekday
-            }, {
-                x: scheduleRange.endHour,
-                y: scheduleRange.endWeekday
-            });
-        },
-
-        /*
-         * 根据schedule mouse state，计算所选的schedule区域
-         *
-         * @param  {Object} state mouse state
-         * @return {Object} schedule区域
-         * @param {number} return.startHour 起始小时
-         * @param {number} return.endHour 终止小时，包含
-         * @param {number} return.startWeekday 起始星期
-         * @param {number} return.endWeekday 终止星期，包含
+        /**
+         * 获取虚拟鼠标尺寸
+         * @interface getCursorSize
+         * @param {Object} param 输入数据对象
+         * @param {Number} param.mouseDownX 鼠标按下时的x坐标
+         * @param {Number} param.mouseDownY 鼠标按下时的y坐标
+         * @param {Number} param.mouseCurrentX 鼠标当前x坐标
+         * @param {Number} param.mouseCurrentY 鼠标当前y坐标
+         * @return {ScheduleCursorSize} 虚拟鼠标的样式
          */
-        getScheduleRangeByMouse: function (state) {
-            var axis1 = this.gridAxis(
+        /**
+         * @structure ScheduleCursorSize
+         * @param {Number} left 虚拟鼠标left值
+         * @param {Number} top 虚拟鼠标top值
+         * @param {Number} width 虚拟鼠标width值
+         * @param {Number} height 虚拟鼠标height值
+         */
+        getCursorSize: function (state) {
+            var pos = {
+                left: -2,
+                top: -2,
+                width: 0,
+                height: 0
+            };
+            if (state.mouseCurrentX < 0 && (state.mouseDownX < 0 && state.mouseDownY < 0)) {
+                return pos;
+            }
+            if (state.mouseDownX < 0) {
+                var axis = this.getGridAxis(state.mouseCurrentX, state.mouseCurrentY);
+                pos.left = axis.x * CELL_LENGTH + 1;
+                pos.top = axis.y * CELL_LENGTH + 1;
+                pos.width = CELL_LENGTH - 1;
+                pos.height = CELL_LENGTH - 1;
+                return pos;
+            }
+            var axis1 = this.getGridAxis(
                 Math.min(state.mouseDownX, state.mouseCurrentX),
                 Math.min(state.mouseDownY, state.mouseCurrentY)
             );
-            var axis2 = this.gridAxis(
+            var axis2 = this.getGridAxis(
                 Math.max(state.mouseDownX, state.mouseCurrentX),
                 Math.max(state.mouseDownY, state.mouseCurrentY)
             );
+            pos.left = axis1.x * CELL_LENGTH + 1;
+            pos.top = axis1.y * CELL_LENGTH + 1;
+            pos.width = (axis2.x - axis1.x + 1) * CELL_LENGTH - 1;
+            pos.height = (axis2.y - axis1.y + 1) * CELL_LENGTH - 1;
+            return pos;
+        },
+        /**
+         * 获取格子坐标
+         * @interface getGridAxis
+         * @param {Number} x 相对操作区左上角x坐标
+         * @param {Number} y 相对操作区左上角y坐标
+         * @return {ScheduleAxis} 格子坐标 
+         */
+        /**
+         * @structure ScheduleAxis
+         * @param {Number} x 格子横坐标，有效区间[0, 23]
+         * @param {Number} y 格子纵坐标，有效区间[0, 6]
+         */
+        getGridAxis: function (x, y) {
+            var x = (x - x % CELL_LENGTH) / CELL_LENGTH;
+            var y = (y - y % CELL_LENGTH) / CELL_LENGTH;
+            x = x < 0 ? 0 : x;
+            x = x > 23 ? 23 : x;
+            y = y < 0 ? 0 : y;
+            y = y > 6 ? 6 : y;
             return {
-                startHour: axis1.x,
-                endHour: axis2.x,
-                startWeekday: axis1.y,
-                endWeekday: axis2.y
+                x: x,
+                y: y
             };
         },
-
-        /*
-         * 返回一个时间段的文字表示
-         * 若提供startHour，返回 startHour:00
-         * 若提供startHour, endHour，返回startHour:00-(endHour+1):00
-         * 若提供startHour, endHour, startWeekday，返回 星期x startHour:00-(endHour+1):00
-         * 若提供startHour, endHour, startWeekday， endWeekday，返回 星期x-星期x，startHour:00-(endHour+1):00
-         * 若startHour=0，endHour=23，返回 全天
-         *
-         * @param  {number} startHour 开始小时数
-         * @param  {number} endHour 结束小时数
-         * @param  {number} startWeekday 起始星期数
-         * @param  {number} endWeekday 终止星期数
-         * @return {string} 文字表示
+        /**
+         * 合并同值value
+         * @interface getMergedValues
+         * @param {Arrray.<null|String>} arr 单行value数据
+         * @return {Array.<ScheduleMergedValue>} 同值合并后的对象数组
          */
-        value2text: function (startHour, endHour, startWeekday, endWeekday) {
-            var res = '';
-            if (startHour == null) {
-                return '';
-            }
-
-            if (startWeekday != null) {
-                res = langTool.schedule.day[startWeekday] + ' ';
-            }
-
-            if (endWeekday != null) {
-                res = res.replace(' ', '');
-                res = res + ' - ' + langTool.schedule.day[endWeekday] + '，';
-            }
-
-            if (startHour === 0 && endHour === 23) {
-                res = res + '全天';
-                if (endWeekday == null) {
-                    res = res.replace(' ', '');
-                }
-
-                return res;
-            }
-
-            res += startHour + ':00';
-            if (endHour != null) {
-                res += '-' + (endHour + 1) + ':00';
-            }
-            return res;
-        },
-
-        /*
-         * 将数组形式的24小时值转换为一组label数组每一位值表示当前小时的状态，
-         * 相同状态的值将合并为一个label元素返回每一个label元素为一个object
-         *
-         * @param  {Array<string>} arr 数组形式的24小时值
-         * @return {Object} label元素数组
-         * @param {number} return.begin label的开始小时
-         * @param {number} return.end label的结束小时
-         * @param {string} return.value label上显示的值，默认为当前小时范围
+        /**
+         * @structure ScheduleMergedValue
+         * @param {Number} begin 起始小时
+         * @param {Number} end 结束小时
+         * @param {String} value 区间内的value值
          */
-        value2label: function (arr) {
+        getMergedValues: function (arr) {
             var result = [];
             var beginIndex = 0;
             var prevValue = null;
@@ -203,7 +156,7 @@ define(function (require) {
                     }
                 }
                 else {
-                    if (arr[i] == prevValue) {
+                    if (arr[i] === prevValue) {
                         continue;
                     }
                     else {
@@ -221,108 +174,135 @@ define(function (require) {
             return result;
         },
 
-        /*
-         * 给定一组labels， 返回一个label，其中包含给定的index或返回null，如果任
-         * 一个label都不包含index
-         * label格式参见value2label
-         *
-         * @param  {number} index  要查找的被label包含的index
-         * @param  {Array<Object>} labels 所有labels
-         * @return {Object}        包含index的label， 或null
+        /**
+         * 获取选中区域
+         * @interface getSelectedRange
+         * @param {Object} param 输入数据对象
+         * @param {Number} param.mouseDownX 鼠标按下时的x坐标
+         * @param {Number} param.mouseDownY 鼠标按下时的y坐标
+         * @param {Number} param.mouseCurrentX 鼠标当前x坐标
+         * @param {Number} param.mouseCurrentY 鼠标当前y坐标
+         * @return {ScheduleRange} 选中区域对象
          */
-        getLabelByIndex: function (index, labels) {
-            return _.find(labels, function (label) {
-                return label.begin <= index && label.end >= index;
-            });
-        },
-
-        titleLayerSize: function (axis, hide, pos) {
-            pos = pos || {
-                width: 100,
-                height: 60,
-                left: -200,
-                top: -200
-            };
-            var padding = 10;
-            var tWidth = 577;
-            var tHeight = 170;
-            if (hide) {
-                return pos;
-            }
-            pos.top = ((axis.y + 1) * CELL_LENGTH + padding + pos.height < tHeight)
-                ? ((axis.y + 1) * CELL_LENGTH + padding) : (axis.y * CELL_LENGTH - padding - pos.height);
-            pos.left = (axis.x * CELL_LENGTH + pos.width < tWidth)
-                ? (axis.x * CELL_LENGTH) : ((axis.x + 1) * CELL_LENGTH - pos.width);
-            return pos;
-        },
-
-        /*
-         * 根据相对左上角坐标的x, y坐标, 返回其在控件天小时格子里的位置
-         *
-         * @param {number} x x坐标
-         * @param {number} y y坐标
-         * @returns {{x: number, y: number}} x为小时位置, [0, 23], y为天位置, [0, 6]
+        /**
+         * @structure ScheduleRange
+         * @param {Number} startHour 起始小时
+         * @param {Number} endHour 结束小时
+         * @param {Number} startWeekday 起始星期
+         * @param {Number} endWeekday 结束星期
          */
-        gridAxis: function (x, y) {
-            var x = (x - x % CELL_LENGTH) / CELL_LENGTH;
-            if (x < 0) {
-                x = 0;
-            }
-            if (x > 23) {
-                x = 23;
-            }
-
-            var y = (y - y % CELL_LENGTH) / CELL_LENGTH;
-            if (y < 0) {
-                y = 0;
-            }
-            if (y > 6) {
-                y = 6;
-            }
-            return {x: x, y: y};
-        },
-
-        /*
-         * 根据鼠标状态, 返回cursor层的大小和位置
-         * @param {Object} state 当前控件状态, 含有鼠标位置
-         * @returns {{left: number, top: number, width: number, height: number}} cursor层大小和位置
-         */
-        cursorSize: function (state) {
-            var pos = {
-                left: -2,
-                top: -2,
-                width: 0,
-                height: 0
-            };
-            if (state.mouseCurrentX < 0 && (state.mouseDownX < 0 && state.mouseDownY < 0)) {
-                return pos;
-            }
-
-            if (state.mouseDownX < 0) {
-                var axis = this.gridAxis(state.mouseCurrentX, state.mouseCurrentY);
-                pos.left = axis.x * CELL_LENGTH + 1;
-                pos.top = axis.y * CELL_LENGTH + 1;
-                pos.width = CELL_LENGTH - 1;
-                pos.height = CELL_LENGTH - 1;
-                return pos;
-            }
-
-            var axis1 = this.gridAxis(
+        getSelectedRange: function (state) {
+            var axis1 = this.getGridAxis(
                 Math.min(state.mouseDownX, state.mouseCurrentX),
                 Math.min(state.mouseDownY, state.mouseCurrentY)
             );
-            var axis2 = this.gridAxis(
+            var axis2 = this.getGridAxis(
                 Math.max(state.mouseDownX, state.mouseCurrentX),
                 Math.max(state.mouseDownY, state.mouseCurrentY)
             );
-            pos.left = axis1.x * CELL_LENGTH + 1;
-            pos.top = axis1.y * CELL_LENGTH + 1;
-            pos.width = (axis2.x - axis1.x + 1) * CELL_LENGTH - 1;
-            pos.height = (axis2.y - axis1.y + 1) * CELL_LENGTH - 1;
-            // color-blue-2
-            pos.backgroundColor = 'rgba(47, 130, 245, 0.5)';
-            return pos;
+            return {
+                startHour: axis1.x,
+                endHour: axis2.x,
+                startWeekday: axis1.y,
+                endWeekday: axis2.y
+            };
+        },
+        /**
+         * 获取区域内选中小时个数
+         * @interface getRangeSelectedCount
+         * @param {String} value schedule的value
+         * @param {ScheduleAxis} axis1 区域左上角坐标
+         * @param {ScheduleAxis} axis2 区域右下角坐标
+         * @return {Number} 区域内被选中的小时个数
+         */
+        getRangeSelectedCount: function (value, axis1, axis2) {
+            value = this.parseValue(value);
+            var result = 0;
+            for (var y = axis1.y; y < axis2.y + 1; y++) {
+                if (y > value.length - 1) {
+                    continue;
+                }
+                for (var x = axis1.x; x < axis2.x + 1; x++) {
+                    if (x > value[y].length - 1) {
+                        continue;
+                    }
+                    if (value[y][x] != null) {
+                        result++;
+                    }
+                }
+            }
+            return result;
+        },
+        /**
+         * 获取区域说明
+         * @interface getRangeIntro
+         * @param {Number} startHour 起始小时
+         * @param {Number} endHour 结束小时
+         * @param {Number} startWeekday 起始星期
+         * @param {Number} endWeekday 结束星期
+         * @return {String} 区域说明文本
+         */
+        getRangeIntro: function (startHour, endHour, startWeekday, endWeekday) {
+            if (isEmpty(startHour)) return '';
+            var res = '';
+            res += isEmpty(startWeekday) ? '' : language.day[startWeekday];
+            res += isEmpty(endWeekday) ? '' : ((res.length ? '-' : '') + language.day[endWeekday]);
+            res += res.length ? ' ' : '';
+            if (+startHour === 0 && +endHour === 23) {
+                res += language.allDay;
+            }
+            else {
+                res += startHour + ':00' + (isEmpty(endHour) ? '' : ('-' + endHour + ':59'));
+            }
+            return res;
+            function isEmpty(v) {
+                return v == null || v === undefined;
+            }
+        },
+        /**
+         * 反选鼠标拖拽区域内的值
+         * @interface updateValueByMouse
+         * @param {String} value schedule的值
+         * @param {Object} param 输入数据对象
+         * @param {Number} param.mouseDownX 鼠标按下时的x坐标
+         * @param {Number} param.mouseDownY 鼠标按下时的y坐标
+         * @param {Number} param.mouseCurrentX 鼠标当前x坐标
+         * @param {Number} param.mouseCurrentY 鼠标当前y坐标
+         */
+        updateValueByMouse: function (value, state) {
+            var scheduleRange = this.getSelectedRange(state);
+            return this.updateValueByAxis(value, {
+                x: scheduleRange.startHour,
+                y: scheduleRange.startWeekday
+            }, {
+                x: scheduleRange.endHour,
+                y: scheduleRange.endWeekday
+            });
+        },
+        /**
+         * 设置坐标区域内的值
+         * @interface updateValueByMouse
+         * @param {String} value schedule的值
+         * @param {ScheduleAxis} axis1 区域左上角坐标
+         * @param {ScheduleAxis} axis2 区域右下角坐标
+         * @param {?String} v 选中值，如果不制定，则反选
+         */
+        updateValueByAxis: function (value, axis1, axis2, v) {
+            value = this.parseValue(value);
+            for (var y = axis1.y; y < axis2.y + 1; y++) {
+                if (y > value.length - 1) {
+                    continue;
+                }
+                for (var x = axis1.x; x < axis2.x + 1; x++) {
+                    if (x > value[y].length - 1) {
+                        continue;
+                    }
+                    value[y][x] = (v == null || v === undefined) ? (value[y][x] == null ? '' : null) : v;
+                }
+            }
+            return this.stringifyValue(value);
         }
+
     };
 
 });

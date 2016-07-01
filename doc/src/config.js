@@ -72,6 +72,7 @@ define(function (require) {
                 {id: 'src\\RangeCalendar.jsx.js', label: 'RangeCalendar'},
                 {id: 'src\\DropDownCalendar.jsx.js', label: 'DropDownCalendar'},
                 '',
+                {id: 'src\\Schedule.jsx.js', label: 'Schedule'},
                 {id: 'src\\Form.jsx.js', label: 'Form'},
                 {id: 'src\\Table.jsx.js', label: 'Table'}
             ]
@@ -127,6 +128,7 @@ define(function (require) {
         'src\\AlphabetRegion.jsx.js': require('./demos/components/AlphabetRegion.jsx'),
         'src\\Tree.jsx.js': require('./demos/components/Tree.jsx'),
         'src\\DualTreeSelector.jsx.js': require('./demos/components/DualTreeSelector.jsx'),
+        'src\\Schedule.jsx.js': require('./demos/components/Schedule.jsx'),
         'BaseLineTesting.jsx.js': require('./demos/components/BaseLineTesting.jsx'),
         'FormFieldTesting.jsx.js': require('./demos/components/FormFieldTesting.jsx'),
         'src\\enterprise\\DualTreeSelector.jsx.js': require('./demos/components/DualTreeSelectorEnterprise.jsx'),

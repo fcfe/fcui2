@@ -92,7 +92,6 @@ define(function (require) {
             // 记录实例变量
             this.___layerContainer___ = layer;
             this.___layerAppended___ = false;
-            this.___renderCount___ = 0;
             // 渲染子树
             this.renderSubTree(this.props);
         },
@@ -105,7 +104,6 @@ define(function (require) {
             var layer = this.___layerContainer___;
             layer.removeEventListener('mouseenter', this.onLayerMouseEnter);
             layer.removeEventListener('mouseleave', this.onLayerMouseLeave);
-            this.___renderCount___ = 0;
             this.removeSubTree();
         },
         onLayerMouseEnter: function () {
@@ -118,10 +116,6 @@ define(function (require) {
         },
         onBodyClick: function (e) {
             if (this.state.mouseenter || !this.props.closeWithBodyClick) return;
-            if (this.___renderCount___ === 1) {
-                this.___renderCount___++;
-                return;
-            }
             e.returnValue = true;
             typeof this.props.onBeforeCloseByWindow === 'function' && this.props.onBeforeCloseByWindow(e);
             if (e.returnValue) {
@@ -136,14 +130,17 @@ define(function (require) {
             var me = this;
             if (props.isOpen) {
                 if (!this.___layerAppended___) {
-                    this.___layerAppended___ = true;
                     document.body.appendChild(this.___layerContainer___);
-                    window.addEventListener('click', this.onBodyClick);
                 }
                 renderSubtreeIntoContainer(this, props.children, this.___layerContainer___, function () {
                     me.fixedPosition(props);
-                    typeof props.onRender === 'function' && me.___renderCount___ === 0 && props.onRender();
-                    me.___renderCount___ ++;
+                    if (!me.___layerAppended___) {
+                        me.___layerAppended___ = true;
+                        typeof props.onRender === 'function' && props.onRender();
+                        setTimeout(function () {
+                            window.addEventListener('click', this.onBodyClick);
+                        }, 100); 
+                    }
                 });
                 return;
             }
@@ -159,7 +156,6 @@ define(function (require) {
             document.body.removeChild(this.___layerContainer___);
             window.removeEventListener('click', this.onBodyClick);
             this.___layerAppended___ = false;
-            this.___renderCount___ = 0;
             this.setState({mouseenter: false});
         },
         fixedPosition: function (props) {
