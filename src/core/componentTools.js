@@ -17,27 +17,6 @@ define(function (require) {
         'maxHeight'
     ];
 
-    function SyntheticEvent(nativeEvent) {
-        if (!(this instanceof SyntheticEvent)) {
-            return new SyntheticEvent(nativeEvent)();
-        }
-        _.extend(this, _.pick(nativeEvent, function (prop) {
-            if (typeof prop === 'function') {
-                return false;
-            }
-
-            return true;
-        }));
-        this._nativeEvent = nativeEvent;
-    }
-
-    SyntheticEvent.prototype.preventDefault = function () {
-        this._nativeEvent.preventDefault();
-    };
-
-    SyntheticEvent.prototype.isDefaultPrevented = function () {
-        return this._nativeEvent.defaultPrevented;
-    };
 
     return {
 
@@ -185,14 +164,6 @@ define(function (require) {
                 }
             }
             return result;
-        },
-
-        /**
-         * React事件对象封装器
-         * @param {UIEvents} evt 原生UI对象
-         * @return {SyntheticEvent} React事件对象
-         * @interface SyntheticEvent
-         */
-        SyntheticEvent: SyntheticEvent
+        }
     };
 });

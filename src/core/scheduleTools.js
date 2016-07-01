@@ -7,7 +7,7 @@
 define(function (require) {
 
     var _ = require('underscore');
-    var language = require('./language');
+    var language = require('./language').schedule;
     var CELL_LENGTH = 24;
 
     return {
@@ -246,13 +246,14 @@ define(function (require) {
             if (isEmpty(startHour)) return '';
             var res = '';
             res += isEmpty(startWeekday) ? '' : language.day[startWeekday];
-            res += isEmpty(endWeekday) ? '' : ((res.length ? '-' : '') + language.day[endWeekday]);
+            res += isEmpty(endWeekday) || startWeekday === endWeekday
+                ? '' : ((res.length ? ' - ' : '') + language.day[endWeekday]);
             res += res.length ? ' ' : '';
             if (+startHour === 0 && +endHour === 23) {
                 res += language.allDay;
             }
             else {
-                res += startHour + ':00' + (isEmpty(endHour) ? '' : ('-' + endHour + ':59'));
+                res += startHour + ':00' + (isEmpty(endHour) ? '' : (' - ' + (endHour + 1) + ':00'));
             }
             return res;
             function isEmpty(v) {

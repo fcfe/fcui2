@@ -30,7 +30,7 @@ define(function (require) {
          * @properties
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {ReactClass} valueRenderer 值渲染器
-         * @param {Function} valuePrepare 值渲染器渲染前的属性指针回调
+         * @param {Function} prepare grid渲染器和值渲染器渲染前的属性指针回调
          * @param {ReactClass} legendRenderer 悬浮简介框渲染器
          * @param {Object} flags 开关对象
          * @param {Boolean} enableRowSelector 是否开启行选择器
@@ -51,7 +51,7 @@ define(function (require) {
                 disabled: false,
                 // self
                 valueRenderer: NormalValueRenderer,
-                valuePrepare: cTools.noop,
+                prepare: cTools.noop,
                 legendRenderer: NormalLegendRenderer,
                 flags: {
                     enableRowSelector: false,
@@ -184,7 +184,7 @@ define(function (require) {
             };
             var valueRenderProp = {
                 value: this.___getValue___(),
-                prepare: this.props.valuePrepare,
+                prepare: this.props.prepare,
                 parentComponent: this
             };
             var ValueRenderer = typeof this.props.valueRenderer === 'function'
@@ -195,7 +195,7 @@ define(function (require) {
                 <div {...containerProp}>
                     {columnSelectorFactory(this)}
                     <div className="opt-area" ref="optArea">
-                        <div className="grid-layer">{gridFactory()}</div>
+                        <div className="grid-layer">{gridFactory(this)}</div>
                         <ValueRenderer {...valueRenderProp}/>
                         <div {...cursorProp}></div>
                         <div className="drag-layer" {...dragLayerProp}></div>
@@ -211,14 +211,20 @@ define(function (require) {
     });
 
 
-    function gridFactory() {
+    function gridFactory(me) {
         var grid = [];
         for (var i = 0; i < 7; i++) {
             for (var j = 0; j < 24; j++) {
                 var props = {
+                    type: 'grid',
+                    axis: {
+                        x: (j + '') * 1,
+                        y: (i + '') * 1
+                    },
                     key: j + '-' + i,
                     style: {left: j * 24, top: i * 24}
                 };
+                typeof me.props.prepare === 'function' && me.props.prepare(props);
                 grid.push(<div {...props}></div>);
             }
         }

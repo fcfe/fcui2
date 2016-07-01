@@ -41,7 +41,7 @@ define(function (require) {
             title: 'Schedule with valuePrepare',
             props: {
                 value: strToArray('111000000aaaaa0006666010000077777770011110001111111111001111'),
-                valuePrepare: function (param) {
+                prepare: function (param) {
                     if (param.text + '' === '7') {
                         param.style.backgroundColor = 'red';
                     }
