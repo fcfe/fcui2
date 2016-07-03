@@ -1,6 +1,6 @@
 /**
-* @file Specs for List
-* @author Wang Yi(wangyispaceman@gmail.com)
+ * @file Specs for List
+ * @author Wang Yi(wangyispaceman@gmail.com)
  * @date Tue May 17 2016
  */
 
