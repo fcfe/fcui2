@@ -24,8 +24,8 @@ define(function (require) {
     describe('CheckBox', () => {
 
         describe('Base Testing', () => {
+
             let checkboxProp = {};
-            let value = '';
             beforeEach(() => {
                 checkboxProp = {
                     skin: 'test-skin',
@@ -34,9 +34,7 @@ define(function (require) {
                     label: 'checkbox label',
                     disabled: false,
                     value: 'test-checkbox',
-                    onChange(e) {
-                        value = e.target.value;
-                    }
+                    onChange(e) {}
                 };
             });
 
@@ -68,7 +66,6 @@ define(function (require) {
                     disabled: true,
                     onChange: _.noop
                 });
-                spyOn(checkboxProp, 'onChange').and.callThrough();
                 TestUtils.Simulate.click(dom.refs.container.childNodes[1]);
                 TestUtils.Simulate.change(dom.refs.inputbox, {target: {checked: true}});
                 let event2 = dom.props.onChange.calls;

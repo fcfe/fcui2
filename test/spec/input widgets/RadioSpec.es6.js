@@ -25,8 +25,8 @@ define(function (require) {
     describe('Radio', () => {
         // Testing structure
         describe('Base Testing', () => {
+
             let radioProp = {};
-            let value = '';
             beforeEach(() => {
                 radioProp = {
                     skin: 'test-skin',
@@ -35,9 +35,7 @@ define(function (require) {
                     label: 'Radio label',
                     disabled: false,
                     value: 'test-Radio',
-                    onChange(e) {
-                        value = e.target.value;
-                    }
+                    onChange(e) {}
                 };
             });
 

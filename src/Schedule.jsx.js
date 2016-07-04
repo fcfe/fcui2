@@ -33,8 +33,8 @@ define(function (require) {
          * @param {Function} prepare grid渲染器和值渲染器渲染前的属性指针回调
          * @param {ReactClass} legendRenderer 悬浮简介框渲染器
          * @param {Object} flags 开关对象
-         * @param {Boolean} enableRowSelector 是否开启行选择器
-         * @param {Boolean} enableColumnSelector 是否开启列选择器
+         * @param {Boolean} flags.enableRowSelector 是否开启行选择器
+         * @param {Boolean} flags.enableColumnSelector 是否开启列选择器
          * @param {Function} onScheduleSelected 鼠标选中某片区域后的回调
          * @param {Import|Properties} src\mixins\InputWidget.js
          *      value onChange name validations customErrorTemplates valueTemplate
