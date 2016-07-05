@@ -75,6 +75,7 @@ define(function (require) {
             prop.key = prop.hasOwnProperty('key') ? prop.key : i;
             prop.onClick = typeof me.props.onClick === 'function' ? me.props.onClick : cTools.noop;
             prop.disabled = prop.disabled || me.props.disabled;
+            prop.parentComponent = me;
 
             Renderer = typeof Renderer === 'function' ? Renderer : me.props.itemRenderer;
             Renderer = typeof Renderer === 'function' ? Renderer : NormalRenderer;

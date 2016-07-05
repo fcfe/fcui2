@@ -1,5 +1,5 @@
 /**
- * @file Specs for Select
+ * @file Specs for Layer
  * @author Brian Li (lbxxlht@163.com)
  * @date  07/03/2016
  */
@@ -13,7 +13,7 @@ define(function (require) {
     const Layer = require('Layer.jsx');
 
     function realRender(Component, props) {
-        props = props || {};
+        props = props;
         return TestUtils.renderIntoDocument(<Component {...props} />);
     }
 

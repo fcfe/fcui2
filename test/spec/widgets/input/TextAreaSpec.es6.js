@@ -1,5 +1,5 @@
 /**
- * @file Specs for TextBox
+ * @file Specs for TextArea
  * @author Brian Li (lbxxlht@163.com)
  * @date  07/03/2016
  */
@@ -9,7 +9,7 @@ define(function (require) {
     const _ = require('underscore');
     const React = require('react');
     const TestUtils = React.addons.TestUtils;
-    const TextBox = require('TextBox.jsx');
+    const TextArea = require('TextArea.jsx');
 
     function shallowRender(Component, props) {
         props = props || {};
@@ -18,30 +18,41 @@ define(function (require) {
         return renderer.getRenderOutput();
     }
 
-    describe('TextBox', () => {
+    function realRender(Component, props) {
+        props = props || {};
+        return TestUtils.renderIntoDocument(<Component {...props} />);
+    }
+
+    describe('TextArea', () => {
         // Testing structure
         describe('Base Testing', () => {
 
-            it('Readers a TextBox with default props', () => {
-                let dom = shallowRender(TextBox);
+            it('Readers a TextArea with default props', () => {
+                let dom = shallowRender(TextArea);
                 expect(dom.type).toBe('div');
                 expect(dom.props.children[0]).toEqual(
                     <div style={{visibility: 'visible'}}>{''}</div>
                 );
                 let child1 = dom.props.children[1];
                 expect(child1).toEqual(
-                    <input
-                        type="text" ref="inputbox" disabled={false} style={{width: 178}}
+                    <textarea
+                        ref="inputbox" disabled={false} spellCheck={false}
+                        style={{
+                            width: 378,
+                            height: 278
+                        }}
                         onCompositionStart={child1.props.onCompositionStart}
                         onCompositionEnd={child1.props.onCompositionEnd}
                         onKeyUp={child1.props.onKeyUp}
                         onPaste={child1.props.onPaste}
-                    />
+                    ></textarea>
                 );
+                let realDom = realRender(TextArea);
+                realDom.focus();
             });
 
-            it('Readers a TextBox with value', () => {
-                let dom = shallowRender(TextBox, {
+            it('Readers a TextArea with value', () => {
+                let dom = shallowRender(TextArea, {
                     value: 'abc'
                 });
                 let child1 = dom.props.children[1];
@@ -49,34 +60,43 @@ define(function (require) {
                     <div style={{visibility: 'hidden'}}>{''}</div>
                 );
                 expect(child1).toEqual(
-                    <input
-                        type="text" ref="inputbox" disabled={false} style={{width: 178}}
+                    <textarea
+                        ref="inputbox" disabled={false} spellCheck={false}
+                        style={{
+                            width: 378,
+                            height: 278
+                        }}
                         onCompositionStart={child1.props.onCompositionStart}
                         onCompositionEnd={child1.props.onCompositionEnd}
                         onKeyUp={child1.props.onKeyUp}
                         onPaste={child1.props.onPaste}
-                    />
+                    ></textarea>
                 );
             });
 
-            it('Readers a TextBox with incorrect property width', () => {
-                let dom = shallowRender(TextBox, {
-                    width: 'abc'
+            it('Readers a TextArea with incorrect property width', () => {
+                let dom = shallowRender(TextArea, {
+                    width: 'abc',
+                    height: 'abc'
                 });
                 let child1 = dom.props.children[1];
                 expect(child1).toEqual(
-                    <input
-                        type="text" ref="inputbox" disabled={false} style={{width: 178}}
+                    <textarea
+                        ref="inputbox" disabled={false} spellCheck={false}
+                        style={{
+                            width: 378,
+                            height: 278
+                        }}
                         onCompositionStart={child1.props.onCompositionStart}
                         onCompositionEnd={child1.props.onCompositionEnd}
                         onKeyUp={child1.props.onKeyUp}
                         onPaste={child1.props.onPaste}
-                    />
+                    ></textarea>
                 );
             });
 
-            it('Readers a TextBox with incorrect property value', () => {
-                let dom = shallowRender(TextBox, {
+            it('Readers a TextArea with incorrect property value', () => {
+                let dom = shallowRender(TextArea, {
                     value: null,
                     valueTemplate: null
                 });

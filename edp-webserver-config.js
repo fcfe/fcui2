@@ -8,7 +8,7 @@ exports.getLocations = function () {
         // babel 同时对付es6和react
         {
             key: 'source',
-            location: /\.es6|\.jsx\.js/,
+            location: /.(es6|jsx).js/,
             // babelOptions, forceTransform 无论是否有`define`都强制转成UMD/AMD模块
             handler: [
                 babel({
@@ -21,22 +21,6 @@ exports.getLocations = function () {
         {
             location: /\/$/,
             handler: home( 'index.html' )
-        },
-        {
-            location: /^\/redirect-local/,
-            handler: redirect('redirect-target', false)
-        },
-        {
-            location: /^\/redirect-remote/,
-            handler: redirect('http://www.baidu.com', false)
-        },
-        {
-            location: /^\/redirect-target/,
-            handler: content('redirectd!')
-        },
-        {
-            location: '/empty',
-            handler: empty()
         },
         {
             location: /\.css($|\?)/,

@@ -91,6 +91,10 @@ define(function (require) {
         // @override
         componentWillReceiveProps: function (nextProps) {
             if (nextProps.isDropDown) {
+                var value = this.state && this.state.dropdownValue ? this.state.dropdownValue : '';
+                if (nextProps.clearTemporaryAfterLayerClose) {
+                    value = nextProps.value ? nextProps.value : '';
+                }
                 var value = nextProps.value || this.state.dropdownValue;
                 var selected = JSON.parse(value).selected || {};
                 var selectorEngine = nextProps.selectorEngine;
@@ -118,8 +122,13 @@ define(function (require) {
         onLayerEnter: function (e) {
             e.target.value = this.state.dropdownValue;
             this.___dispatchChange___(e);
+            var tmpValue = this.state.dropdownValue;
+            if (this.props.clearTemporaryAfterLayerClose) {
+                tmpValue = this.props.value ? this.props.value : '';
+            }
             this.setState({
-                layerOpen: false
+                layerOpen: false,
+                dropdownValue: tmpValue
             });
         },
         onLayerRender: function () {
@@ -128,10 +137,13 @@ define(function (require) {
             });
         },
         onLayerClose: function () {
+            var tmpValue = this.state.dropdownValue;
+            if (this.props.clearTemporaryAfterLayerClose) {
+                tmpValue = this.props.value ? this.props.value : '';
+            }
             this.setState({
                 layerOpen: false,
-                dropdownValue: this.props.value && this.props.clearTemporaryAfterLayerClose
-                    ? this.props.value : this.state.dropdownValue
+                dropdownValue: tmpValue
             });
         },
         deleteAll: function (e) {

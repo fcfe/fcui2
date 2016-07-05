@@ -70,8 +70,10 @@ define(function (require) {
             };
             var thProp = {
                 className: 'th-header',
-                textAlign: fieldConfig.align || 'left',
-                verticalAlign: fieldConfig.verticalAlign || 'top'
+                style: {
+                    textAlign: fieldConfig.align || 'left',
+                    verticalAlign: fieldConfig.verticalAlign || 'top' 
+                }
             };
             return (
                 <th {...thProp}>
