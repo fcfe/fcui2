@@ -67,7 +67,7 @@ define(function (require) {
         for (var i = 0; i < me.props.datasource.length; i++) {
             var item = me.props.datasource[i];
             if (item.hr) {
-                result.push(<hr key={i}/>);
+                result.push(<hr ref={'list-item-' + i} key={i}/>);
                 continue;
             }
             var prop = JSON.parse(JSON.stringify(item)); //深度克隆
@@ -76,6 +76,7 @@ define(function (require) {
             prop.onClick = typeof me.props.onClick === 'function' ? me.props.onClick : cTools.noop;
             prop.disabled = prop.disabled || me.props.disabled;
             prop.parentComponent = me;
+            prop.ref = 'list-item-' + i;
 
             Renderer = typeof Renderer === 'function' ? Renderer : me.props.itemRenderer;
             Renderer = typeof Renderer === 'function' ? Renderer : NormalRenderer;

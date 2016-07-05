@@ -21,10 +21,10 @@ define(function (require) {
 
 
     var cTools = require('./core/componentTools');
-    var tools = require('./core/tableTools');    
+    var tools = require('./core/tableTools');
     var util = require('./core/util');
     var language = require('./core/language');
-    
+
 
     return React.createClass({
         /**
@@ -59,7 +59,7 @@ define(function (require) {
          * @example
          *  {
          *      isSelector: <optional>
-         *      label: <optional>  
+         *      label: <optional>
          *      field: <optional>
          *      content: function (dataItem, rowIndex, columnIndex, tableComponent)) <optional>
          *      renderer: <optional>
@@ -236,8 +236,8 @@ define(function (require) {
             );
         }
     });
-    
-    
+
+
     // 生成列宽度
     function colgroupFactory(me) {
         var td = [];

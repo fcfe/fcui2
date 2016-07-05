@@ -72,7 +72,7 @@ define(function (require) {
                 className: 'th-header',
                 style: {
                     textAlign: fieldConfig.align || 'left',
-                    verticalAlign: fieldConfig.verticalAlign || 'top' 
+                    verticalAlign: fieldConfig.verticalAlign || 'top'
                 }
             };
             return (

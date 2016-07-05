@@ -65,14 +65,14 @@ define(function (require) {
         },
         // @override
         componentDidUpdate: function () {
-            var selected = JSON.parse(this.___getValue___()).selected || {};
+            var selected = JSON.parse(this.___getValue___() || '{}').selected || {};
             var selectorEngine = this.props.selectorEngine;
             var datasource = this.props.datasource;
             // 检查selected中标记为1的item的children是否加载完毕了。
             if (tools.targetAsyncLeaf(selected, selectorEngine, datasource)) {
                 var e = {target: this.refs.container};
                 e.target.value = JSON.stringify({selected: selected});
-                this.___dispatchChange___(e); 
+                this.___dispatchChange___(e);
             }
         },
         /**
@@ -83,7 +83,7 @@ define(function (require) {
          * @param {Object} param.expand 树展开节点hash; type='TreeExpandNode'
          */
         onTreeChange: function (e) {
-            var expand = (JSON.parse(e.target.value)).expand || {};
+            var expand = (JSON.parse(e.target.value  || '{}')).expand || {};
             this.setState({expand: expand});
             typeof this.props.onAction === 'function' && this.props.onAction('TreeExpandNode', {expand: expand});
         },
@@ -105,14 +105,14 @@ define(function (require) {
                 this.props.onAction('TreeLoadChildren', {index: param.index});
             }
             // 选择和反选
-            var selected = (JSON.parse(this.___getValue___())).selected || {};
+            var selected = (JSON.parse(this.___getValue___()  || '{}')).selected || {};
             this.props.selectorEngine[type === 'TreeSelectLeaf' ? 'select' : 'unselect'](selected, param.item);
             param.e.target = this.refs.container;
             param.e.target.value = JSON.stringify({selected: selected});
             this.___dispatchChange___(param.e);
         },
         render: function () {
-            var selected = (JSON.parse(this.___getValue___())).selected || {};
+            var selected = (JSON.parse(this.___getValue___() || '{}')).selected || {};
             var value = {
                 expand: this.state.expand,
                 display: 'all',

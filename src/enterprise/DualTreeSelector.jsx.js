@@ -33,7 +33,7 @@ define(function (require) {
          * @param {String} labels.title 选择器上方标题
          * @param {String} labels.leftTreeTitle 左树标题
          * @param {String} labels.rightTreeTitle 右树标题
-         * @param {String} labels.footLeftInformation 选择器下方左侧提示话术 
+         * @param {String} labels.footLeftInformation 选择器下方左侧提示话术
          * @param {String} labels.footSelectCountTpl 选择器右侧中部已选择项模板，其中：
          * '&selected'将被替换成已选择的叶子个数
          * '&total'将被替换成数据源中所有叶子个数
@@ -223,7 +223,7 @@ define(function (require) {
             } : cTools.containerBaseProps('dualtreeselector-enterprise', me);
         return (
             <div {...containerProp}>
-                {labels.title ? <div className="selector-title-bar">{labels.title}</div> : null} 
+                {labels.title ? <div className="selector-title-bar">{labels.title}</div> : null}
                 <div className="tree-title-bar">
                     <div>{labels.leftTreeTitle ? labels.leftTreeTitle : null}</div>
                     <div>{labels.rightTreeTitle ? labels.rightTreeTitle : null}</div>
