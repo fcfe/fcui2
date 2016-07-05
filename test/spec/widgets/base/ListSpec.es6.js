@@ -63,12 +63,14 @@ define(function (require) {
                 let onClick = List.defaultProps.onClick;
                 expect(listChildren[0]).toEqual(
                     <Renderer key="0" label="label 1" value="item 1" disabled={false} onClick={onClick}
+                        ref="list-item-0"
                         parentComponent={listChildren[0].props.parentComponent}
                     />
                 );
-                expect(listChildren[1]).toEqual(<hr key='1' />);
+                expect(listChildren[1]).toEqual(<hr key='1' ref="list-item-1" />);
                 expect(listChildren[2]).toEqual(
                     <Renderer key="2" label="label 3" value="item 3" disabled={true} onClick={onClick}
+                        ref="list-item-2"
                         parentComponent={listChildren[2].props.parentComponent}
                     />
                 );
