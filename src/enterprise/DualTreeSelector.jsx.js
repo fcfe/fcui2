@@ -96,7 +96,7 @@ define(function (require) {
                     value = nextProps.value ? nextProps.value : '';
                 }
                 var value = nextProps.value || this.state.dropdownValue;
-                var selected = JSON.parse(value).selected || {};
+                var selected = JSON.parse(value || '{}').selected || {};
                 var selectorEngine = nextProps.selectorEngine;
                 var datasource = nextProps.datasource;
                 // 检查selected中标记为1的item的children是否加载完毕了。
@@ -148,7 +148,7 @@ define(function (require) {
         },
         deleteAll: function (e) {
             var value = this.props.isDropDown ? this.state.dropdownValue : this.___getValue___();
-            value = JSON.parse(value);
+            value = JSON.parse(value || '{}');
             value.selected = {};
             e.target.value = JSON.stringify(value);
             if (this.props.isDropDown) {
@@ -210,7 +210,7 @@ define(function (require) {
         var count = treeTools.getLeafCount(me.props.datasource);
         var selected = 0;
         try {
-            selected = tableTools.getSelectedCount(JSON.parse(value).selected);
+            selected = tableTools.getSelectedCount(JSON.parse(value || '{}').selected);
         }
         catch (e) {
             // DO NOTHING

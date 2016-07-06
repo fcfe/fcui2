@@ -119,6 +119,7 @@ define(function (require) {
                 selected: selected
             };
             var treeProp1 = {
+                disabled: this.props.disabled,
                 datasource: this.props.datasource,
                 value: JSON.stringify(value),
                 leafRenderer: this.props.leafRenderer,
@@ -127,6 +128,7 @@ define(function (require) {
             };
             value.display = 'selected';
             var treeProp2 = {
+                disabled: this.props.disabled,
                 datasource: this.props.datasource,
                 value: JSON.stringify(value),
                 leafRenderer: this.props.leafRenderer,

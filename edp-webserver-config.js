@@ -5,11 +5,30 @@ exports.documentRoot = __dirname;
 // 导入配置
 exports.getLocations = function () {
     return [
-        // babel 同时对付es6和react
         {
             key: 'source',
-            location: /.(es6|jsx).js/,
-            // babelOptions, forceTransform 无论是否有`define`都强制转成UMD/AMD模块
+            location: /src\/.*\.(jsx|es6)\.js/,
+            handler: [
+                babel({
+                    sourceMaps: 'both'
+                }, {
+                    forceTransform: true
+                })
+            ]
+        },
+        {
+            key: 'source',
+            location: /src\/.*\/.*\.js/,
+            handler: [
+                babel({
+                    sourceMaps: 'both'
+                }, {
+                    forceTransform: true
+                })
+            ]
+        },
+        {
+            location: /\.(es6|jsx)\.js/,
             handler: [
                 babel({
                     sourceMaps: 'both'

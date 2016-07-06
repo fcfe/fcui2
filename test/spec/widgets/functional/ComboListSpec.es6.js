@@ -15,7 +15,6 @@ define(function (require) {
 
 
     function realRender(Component, props) {
-        props = props || {};
         return TestUtils.renderIntoDocument(<Component {...props} />);
     }
 
