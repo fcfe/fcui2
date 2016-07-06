@@ -25,7 +25,7 @@ define(function (require) {
             it('Normal Slider', () => {
                 let dom = realRender(Slider, {
                     width: 200,
-                    value: 100,
+                    value: 100
                 });
                 expect(dom.refs.container.childNodes.length).toBe(7);
                 TestUtils.Simulate.mouseDown(dom.refs.container.childNodes[6]);
@@ -61,6 +61,12 @@ define(function (require) {
                     }
                 });
                 TestUtils.Simulate.mouseDown(dom.refs.container.childNodes[6]);
+                let moveEvent = document.createEvent('MouseEvents');
+                moveEvent.initEvent('mousemove', true, false);
+                window.dispatchEvent(moveEvent);
+                let upEvent = document.createEvent('MouseEvents');
+                upEvent.initEvent('mouseup', true, false);
+                window.dispatchEvent(upEvent);
                 dom.onDrag(-100, 2);
                 dom.onDrop(0, 2);
                 expect(dom.state.valuePosition).toBe(-1);

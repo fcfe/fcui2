@@ -176,6 +176,7 @@ define(function (require) {
             this.onRendered();
         },
         onRendered: function () {
+            if (!this.refs || !this.refs.container) return;
             var width = this.refs.container.offsetWidth;
             var table = this.refs.table;
             var shadow = this.refs.shadow;
