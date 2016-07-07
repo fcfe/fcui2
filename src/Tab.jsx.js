@@ -11,6 +11,7 @@ define(function (require) {
     var InputWidget = require('./mixins/InputWidget');
     var NormalRenderer = require('./components/tab/NormalRenderer.jsx');
     var cTools = require('./core/componentTools');
+    var factory = require('./factories/tabFactory.jsx');
 
 
     return React.createClass({
@@ -60,32 +61,10 @@ define(function (require) {
         render: function () {
             return (
                 <div {...cTools.containerBaseProps('tab', this)}>
-                    {produceTabs(this)}
+                    {factory.produceTabs(this)}
                 </div>
             );
         }
     });
-
-
-    function produceTabs(me) {
-        if (!(me.props.datasource instanceof Array) || !me.props.datasource.length) return null;
-        var doms = [];
-        var value = me.___getValue___();
-        for (var i = 0; i < me.props.datasource.length; i++) {
-            var Renderer = typeof me.props.renderer === 'function' ? me.props.renderer : NormalRenderer;
-            var props = JSON.parse(JSON.stringify(me.props.datasource[i]));
-            props.key = i;
-            props.onClick = props.disabled ? cTools.noop : me.onClick;
-            if (me.props.disabled || props.disabled) {
-                props.className = 'fcui2-tab-item-disabled';
-            }
-            else {
-                props.className = 'fcui2-tab-item' + (props.value === value ? '-active' : '');
-            }
-            doms.push(<Renderer {...props} />);
-        }
-        return doms;
-    }
-
 
 });

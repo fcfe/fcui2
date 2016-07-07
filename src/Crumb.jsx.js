@@ -6,10 +6,9 @@
  */
 define(function (require) {
 
-
     var React = require('react');
     var cTools = require('./core/componentTools');
-
+    var factory = require('./factories/crumbFactory.jsx');
 
     return React.createClass({
         /**
@@ -50,32 +49,8 @@ define(function (require) {
         },
         render: function () {
             var containerProp = cTools.containerBaseProps('crumb', this);
-            return (<div {...containerProp}>{linkFactory(this)}</div>);
+            return (<div {...containerProp}>{factory.linkFactory(this)}</div>);
         }
     });
-
-
-    /*
-     * 链接工厂，负责生成所有链接和分隔符
-     * @param {Object} me 面包屑实例
-     * @return {Array.<ReactComponent>}
-     */
-    function linkFactory(me) {
-        var doms = [];
-        for (var i = 0; i < me.props.datasource.length; i++) {
-            var item = me.props.datasource[i];
-            if (!item.hasOwnProperty('href') || me.props.disabled || item.disabled) {
-                doms.push(<span key={'n' + i} className="fcui2-crumb-label">{item.label}</span>);
-            }
-            else {
-                doms.push(<a key={'l' + i} href={item.href} target={item.target}>{item.label}</a>);
-            }
-            if (i < me.props.datasource.length - 1) {
-                doms.push(<div key={'s' + i} className="fcui2-crumb-separator">{me.props.separator}</div>);
-            }
-        }
-        return doms;
-    }
-
 
 });

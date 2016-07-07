@@ -10,20 +10,13 @@ define(function (require) {
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
     var WidgetWithFixedDom = require('./mixins/WidgetWithFixedDom');
-    var TableMessage = require('./components/table/MessageBar.jsx');
-    var TableHeader = require('./components/table/NormalHeader.jsx');
-    var NormalRenderer = require('./components/table/NormalRenderer.jsx');
     var NoDataRenderer = require('./components/table/NoDataRenderer.jsx');
-    var Others = {
-        selectorHeader: require('./components/table/SelectorInHeader.jsx'),
-        selectorItem: require('./components/table/SelectorInTBody.jsx')
-    };
-
 
     var cTools = require('./core/componentTools');
     var tools = require('./core/tableTools');
     var util = require('./core/util');
     var language = require('./core/language');
+    var factory = require('./factories/tableFactory.jsx');
 
 
     return React.createClass({
@@ -213,23 +206,23 @@ define(function (require) {
                 <div {...cTools.containerBaseProps('table', this)}>
                     <div ref="realTableContainer" className="table-container">
                         <table ref="table" cellSpacing="0" cellPadding="0">
-                            {colgroupFactory(this)}
+                            {factory.colgroupFactory(this)}
                             <tbody ref="tbody">
-                                {headerFactory(this)}
-                                {messageFactory(this)}
-                                {summaryFactory(this)}
-                                {lineFactory(this)}
+                                {factory.headerFactory(this)}
+                                {factory.messageFactory(this)}
+                                {factory.summaryFactory(this)}
+                                {factory.lineFactory(this)}
                             </tbody>
                         </table>
                     </div>
                     <div ref="shadowTableContainer" className="shadow-container">
                         <table ref="shadow" cellSpacing="0" cellPadding="0">
-                            {colgroupFactory(this)}
+                            {factory.colgroupFactory(this)}
                             <tbody>
-                                {summaryFactory(this)}
-                                {lineFactory(this)}
-                                {headerFactory(this)}
-                                {messageFactory(this)}
+                                {factory.summaryFactory(this)}
+                                {factory.lineFactory(this)}
+                                {factory.headerFactory(this)}
+                                {factory.messageFactory(this)}
                             </tbody>
                         </table>
                     </div>
@@ -237,114 +230,5 @@ define(function (require) {
             );
         }
     });
-
-
-    // 生成列宽度
-    function colgroupFactory(me) {
-        var td = [];
-        var fields = tools.fieldConfigFactory(me, Others);
-        for (var i = 0; i < fields.length; i++) {
-            var width = cTools.getValueFromPropsAndStyle(fields[i], 'width', 0);
-            td.push(<col style={{width: width + 'px'}} key={'colgroup-' + i} />);
-        }
-        return <colgroup>{td}</colgroup>
-    }
-
-
-    // 生成表头
-    function headerFactory(me) {
-        if (!me.props.flags || !me.props.flags.showHeader) return null;
-        var td = [];
-        var fields = tools.fieldConfigFactory(me, Others);
-        for (var i = 0; i < fields.length; i++) {
-            if (fields[i].isEmptyHeader) {
-                td.push(<th className="th-header" key={'header-' + i}></th>);
-                continue;
-            }
-            var Renderer = typeof fields[i].thRenderer === 'function' ? fields[i].thRenderer : TableHeader;
-            var props = {
-                fieldConfig: fields[i],
-                tableComponent: me,
-                key: 'header-' + i
-            };
-            td.push(<Renderer {...props} />);
-        }
-        return <tr className="tr-header" key="tr-header">{td}</tr>;
-    }
-
-
-    // 生成统计栏
-    function summaryFactory(me) {
-        if (!me.props.flags || !me.props.flags.showSummary || !tools.haveDate(me)) {
-            return null;
-        }
-        var td = [];
-        var fields = tools.fieldConfigFactory(me, Others);
-        var summary = me.props.summary;
-        for (var i = 0; i < fields.length; i++) {
-            var item = fields[i];
-            var tdStyle = {};
-            var text = !item.hasOwnProperty('field')
-                ? '' : (summary.hasOwnProperty(item.field) ? summary[item.field] : '-');
-            text = fields[i].isSelector ? '' : text;
-            tdStyle.textAlign = item.align || 'left';
-            td.push(<td style={tdStyle} key={'summary-' + i}>{text}</td>);
-        }
-        return <tr className="tr-summary" key="tr-summray">{td}</tr>;
-    }
-
-
-    // 生成message栏
-    function messageFactory(me) {
-        if (!me.props.flags || !me.props.flags.showMessage || !tools.haveDate(me)) {
-            return null;
-        }
-        var fields = tools.fieldConfigFactory(me, Others);
-        var prop = {
-            message: me.props.message && me.props.message.content ? me.props.message.content : '',
-            buttonLabel: me.props.message && me.props.message.buttonLabel ? me.props.message.buttonLabel : '',
-            onClick: me.props.onAction,
-            colSpan: fields.length
-        };
-        return (<TableMessage {...prop}/>);
-    }
-
-
-    // 生成行
-    function lineFactory(me) {
-        var lines = [];
-        var config = tools.fieldConfigFactory(me, Others);;
-        var datasource = me.props.datasource instanceof Array ? me.props.datasource : [];
-        // 没有数据源
-        if (!tools.haveDate(me)) {
-            var NoData = typeof me.props.noDataRenderer === 'function' ? me.props.noDataRenderer : NoDataRenderer;
-            return (
-                <tr className="tr-data tr-nodata">
-                    <td colSpan={config.length} style={{textAlign: 'center'}}>
-                        <NoData tableComponent={me}/>
-                    </td>
-                </tr>
-            );
-        }
-        // 渲染行
-        for (var index = 0; index < datasource.length; index++) {
-            var td = [];
-            var item = datasource[index];
-            var selectState = tools.getRowSelectedState(index, me.___getValue___());
-            var trProp = {
-                key: 'row-' + index,
-                className: selectState === 0 ? 'tr-data tr-selected' : 'tr-data'
-            };
-            for (var j = 0; j < config.length; j++) {
-                var props = tools.tdPropsFactory(config[j], item, me, index, j);
-                var Renderer = typeof config[j].renderer === 'function' ? config[j].renderer : NormalRenderer;
-                props.___isRowSelected___ = selectState;
-                td.push(<Renderer {...props} />);
-            }
-            lines.push(<tr {...trProp}>{td}</tr>);
-        }
-        return lines;
-    }
-
 
 });

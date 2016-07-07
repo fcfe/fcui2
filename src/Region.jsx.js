@@ -9,18 +9,12 @@ define(function (require) {
 
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
-
-
-    var CheckBox = require('./CheckBox.jsx');
-    var Radio = require('./Radio.jsx');
     var ProvinceRenderer = require('./components/region/NormalProvince.jsx');
     var RegionRenderer = require('./components/region/NormalRegion.jsx')
 
-
-    var util = require('./core/util');
     var tools = require('./core/regionTools');
     var cTools = require('./core/componentTools');
-    var language = require('./core/language').region;
+    var factory = require('./factories/regionFactory.jsx');
 
 
     return React.createClass({
@@ -89,113 +83,11 @@ define(function (require) {
         render: function () {
             return (
                 <div {...cTools.containerBaseProps('region', this)}>
-                    {countryFactory([998, 999], this.___getValue___(), this)}
+                    {factory.countryFactory([998, 999], this.___getValue___(), this)}
                 </div>
             );
         }
     });
-
-
-    /*
-     * 子渲染器属性制作工厂
-     * @param {String} id 地域编号
-     * @param {Object} value 地域选择器的value hash
-     * @param {ReactComponent} me 地域选择器实例
-     * @param {Object} 渲染器属性集合
-     */
-    function rendererPropsFactory(id, value, me) {
-        return {
-            key: id,
-            id: id,
-            value: value,
-            parent: me,
-            disabled: me.props.disabled,
-            onChange: me.onRegionChange,
-            type: me.props.type
-        };
-    }
-
-
-    /*
-     * 创建国家区域
-     * @param {Array.<String>} arr 国家编号列表
-     * @param {Object} value 地域选择器的value hash
-     * @param {ReactComponent} me 地域选择器实例
-     * @return {ReactComponent} 国家区域虚拟DOM
-     */
-    function countryFactory(arr, value, me) {
-        value = tools.parseValue(value);
-        var doms = [];
-        var Renderer = typeof me.props.countryRenderer === 'function' ? me.props.countryRenderer : RegionRenderer;
-        for (var i = 0; i < arr.length; i++) {
-            doms.push(
-                <div className="country-area" key={arr[i]}>
-                    <Renderer {...rendererPropsFactory(arr[i], value, me)} />
-                </div>
-            );
-            doms = doms.concat(regionFactory(tools.filiation[arr[i]], value, me));
-        }
-        return doms;
-    }
-
-
-    /*
-     * 创建地区区域
-     * @param {Array.<String>} arr 地区编号列表
-     * @param {Object} value 地域选择器的value hash
-     * @param {ReactComponent} me 地域选择器实例
-     * @return {ReactComponent} 地区区域虚拟DOM
-     */
-    function regionFactory(arr, value, me) {
-        if (!arr) return '';
-        var doms = [];
-        var Renderer = typeof me.props.regionRenderer === 'function' ? me.props.regionRenderer : RegionRenderer;
-        var tmpProvince = [];
-        for (var i = 0; i < arr.length; i++) {
-            var id = arr[i];
-            if (tools.filiation.hasOwnProperty(id) && tools.filiation[id] instanceof Array) {
-                doms.push(
-                    <div key={arr[i]} className="region-area">
-                        <div className="region-left-container">
-                            <Renderer {...rendererPropsFactory(id, value, me)}/>
-                        </div>
-                        <div className="region-right-container">
-                           {provinceFactory(tools.filiation[id], value, me)}
-                        </div>
-                    </div>
-                );
-            }
-            else {
-                tmpProvince.push(provinceFactory([id], value, me));
-            }
-        }
-        if (tmpProvince.length) {
-            doms.push(
-                <div key={arr.join('-')} className="region-area">
-                    {tmpProvince}
-                </div>
-            );
-        }
-        return doms;
-    }
-
-
-    /*
-     * 创建省区域
-     * @param {Array.<String>} arr 省编号列表
-     * @param {Object} value 地域选择器的value hash
-     * @param {ReactComponent} me 地域选择器实例
-     * @return {ReactComponent} 省区域虚拟DOM
-     */
-    function provinceFactory(arr, value, me) {
-        if (!arr) return '';
-        var doms = [];
-        var Renderer = typeof me.props.provinceRenderer === 'function' ? me.props.provinceRenderer : ProvinceRenderer;
-        for (var i = 0; i < arr.length; i++) {
-            doms.push(<Renderer {...rendererPropsFactory(arr[i], value, me)} />);
-        }
-        return doms;
-    }
 
 
 });

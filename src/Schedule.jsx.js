@@ -10,7 +10,6 @@ define(function (require) {
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
     var DragableWidget = require('./mixins/DragableWidget');
-    var CheckBox = require('./CheckBox.jsx');
     var NormalValueRenderer = require('./components/schedule/NormalValueRenderer.jsx');
     var NormalLegendRenderer = require('./components/schedule/NormalLegendRenderer.jsx');
     var Layer = require('./Layer.jsx');
@@ -19,7 +18,7 @@ define(function (require) {
     var util = require('./core/util');
     var tools = require('./core/scheduleTools');
     var cTools = require('./core/componentTools');
-    var language = require('./core/language').schedule;
+    var factory = require('./factories/scheduleFactory.jsx');
 
 
     return React.createClass({
@@ -193,15 +192,15 @@ define(function (require) {
                 ? this.props.legendRenderer : NormalLegendRenderer;
             return (
                 <div {...containerProp}>
-                    {columnSelectorFactory(this)}
+                    {factory.columnSelectorFactory(this)}
                     <div className="opt-area" ref="optArea">
-                        <div className="grid-layer">{gridFactory(this)}</div>
+                        <div className="grid-layer">{factory.gridFactory(this)}</div>
                         <ValueRenderer {...valueRenderProp}/>
                         <div {...cursorProp}></div>
                         <div className="drag-layer" {...dragLayerProp}></div>
                     </div>
-                    <div className="axis-y-area">{axisYFactory(this)}</div>
-                    <div className="axis-x-area">{axisXFactory()}</div>
+                    <div className="axis-y-area">{factory.axisYFactory(this)}</div>
+                    <div className="axis-x-area">{factory.axisXFactory()}</div>
                     <Layer {...layerProp}>
                         <LegendRenderer {...legendProp}/>
                     </Layer>
@@ -209,89 +208,5 @@ define(function (require) {
             );
         }
     });
-
-
-    function gridFactory(me) {
-        var grid = [];
-        for (var i = 0; i < 7; i++) {
-            for (var j = 0; j < 24; j++) {
-                var props = {
-                    type: 'grid',
-                    axis: {
-                        x: (j + '') * 1,
-                        y: (i + '') * 1
-                    },
-                    key: j + '-' + i,
-                    style: {left: j * 24, top: i * 24}
-                };
-                typeof me.props.prepare === 'function' && me.props.prepare(props);
-                grid.push(<div {...props}></div>);
-            }
-        }
-        return grid;
-    }
-
-    function axisXFactory() {
-        var doms = [];
-        for (var i = 0; i <= 24; i++) {
-            doms.push(<div key={i}>{i}</div>);
-        }
-        return doms;
-    }
-
-    function axisYFactory(me) {
-        var doms = [];
-        var flag = me.props.flags && me.props.flags.hasOwnProperty('enableRowSelector')
-            ? me.props.flags.enableRowSelector : true;
-        var value = me.___getValue___();
-        if (flag) {
-            for (var i = 0; i < 7; i++) {
-                var selected = tools.getRangeSelectedCount(value, {x: 0, y: i}, {x: 24, y: i});
-                var prop = {
-                    disabled: me.props.disabled,
-                    label: language.day[i],
-                    labelPosition: 'right',
-                    key: i,
-                    value: i,
-                    indeterminate: selected > 0,
-                    checked: selected === 24,
-                    style: {top: i * 24},
-                    onChange: me.onSelectRow
-                };
-                doms.push(<CheckBox {...prop}/>);
-            }
-            return doms;
-        }
-        for (var i = 0; i < 7; i++) {
-            doms.push(
-                <div key={i} className="fcui2-checkbox disabled-selected" style={{top: i * 24}}>
-                    {language.day[i]}
-                </div>
-            );
-        }
-        return doms;
-    }
-
-    function columnSelectorFactory(me) {
-        var flag = me.props.flags && me.props.flags.hasOwnProperty('enableColumnSelector')
-            ? me.props.flags.enableColumnSelector : true;
-        if (!flag) return null;
-        var doms = [];
-        var value = me.___getValue___();
-        for (var i = 0; i < 24; i++) {
-            var selected = tools.getRangeSelectedCount(value, {x: i, y: 0}, {x: i, y: 6});
-            var prop = {
-                disabled: me.props.disabled,
-                label: '',
-                key: i,
-                value: i,
-                indeterminate: selected > 0,
-                checked: selected === 7,
-                onChange: me.onSelectColumn
-            };
-            doms.push(<CheckBox {...prop}/>);
-        }
-        return (<div className="column-selector-area">{doms}</div>);
-    }
 
 });

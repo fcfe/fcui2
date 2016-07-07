@@ -12,6 +12,7 @@ define(function (require) {
     var util = require('./core/util');
     var tool = require('./core/calendarTools');
     var cTools = require('./core/componentTools');
+    var factory = require('./factories/calendarFactory.jsx');
 
 
     var InputWidget = require('./mixins/InputWidget');
@@ -175,102 +176,13 @@ define(function (require) {
                     </div>
                     <div className="calendar-day-label">{
                         this.state.inRange
-                            ? language.calendar.day.map(dayLabelFactory)
+                            ? language.calendar.day.map(factory.dayLabelFactory)
                             : (this.props.min.replace(/-/g, '.') + ' - ' + this.props.max.replace(/-/g, '.'))
                     }</div>
-                    <div className="calendar-buttons">{buttonFactory(this)}</div>
+                    <div className="calendar-buttons">{factory.buttonFactory(this)}</div>
                 </div>
             );
         }
     });
-
-
-
-    // 注意如下函数注释的写法/* */这样写不会被yuidocjs解析，因为这个函数的注释没必要出现在帮助文档中
-    /*
-     * 生成日历的星期栏
-     * @param {string} v 星期几
-     * @return {ReactComponent} 星期标签
-     */
-    function dayLabelFactory(v) {
-        return <div key={'day-' + v}>{v}</div>;
-    }
-
-
-    /*
-     * 生成按钮属性
-     * 
-     * @param {Date} timer 当前按钮代表的时间
-     * @param {boolean} disabled 按钮是否可用
-     * @param {string} key 按钮键值
-     * @param {string} skin 按钮皮肤
-     * @return {Object} 用于初始化按钮的属性集合
-     */
-    function buttonPropsFactory(timer, disabled, key, skin) {
-        skin = skin || 'calendar';
-        return {
-            style: {
-                left: (key % 7) * 32,
-                top: parseInt(key / 7, 10) * 32
-            },
-            skin: skin,
-            label: timer.getDate() + '',
-            disabled: disabled,
-            key: 'btns-' + key
-        };
-    }
-
-
-    /*
-     * 生成主区域每天的按钮
-     *
-     * @param {Object} me 日历组件实例
-     * @return {Array.<ReactComponent>} 按钮集合
-     */
-    function buttonFactory(me) {
-
-        var value = tool.str2date(me.___getValue___()) || new Date();
-        var min = tool.str2date(me.props.min) || tool.str2date('0-0-0');
-        var max = tool.str2date(me.props.max) || tool.str2date('9999-99-99');
-        if (min.getTime() > max.getTime()) {
-            var tmp = min;
-            min = max;
-            max = min;
-        }
-        var buttons = [];
-        var timer = tool.str2date(me.state.displayYear + '-' + (me.state.displayMonth + 1) + '-1');
-        var tmpTimer = new Date();
-
-        // 导入本月之前日期
-        for (var i = (timer.getDay() || 7) - 1; i > 0; i--) {
-            tmpTimer.setTime(timer.getTime());
-            tmpTimer.setDate(timer.getDate() - i);
-            buttons.push(<Button {...buttonPropsFactory(tmpTimer, true, buttons.length)}/>);
-        }
-
-        // 导入本月日期
-        tmpTimer.setTime(timer.getTime());
-        while (tmpTimer.getMonth() === timer.getMonth()) {
-            var disabled = tool.compareDate(tmpTimer, min) === -1
-                || tool.compareDate(tmpTimer, max) === 1
-                || me.props.disabled;
-            var skin = tool.compareDate(tmpTimer, value) === 0 ? 'active' : null;
-            var props = {
-                onClick: me.onDayClick,
-                value: tmpTimer.getDate()
-            };
-            buttons.push(<Button {...buttonPropsFactory(tmpTimer, disabled, buttons.length, skin)} {...props}/>);
-            tmpTimer.setDate(tmpTimer.getDate() + 1);
-        }
-
-        // 导入本月后的日期
-        while(buttons.length < 42) {
-            buttons.push(<Button {...buttonPropsFactory(tmpTimer, true, buttons.length)}/>);
-            tmpTimer.setDate(tmpTimer.getDate() + 1);
-        }
-   
-        return buttons;
-    }
-
 
 });
