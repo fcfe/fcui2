@@ -8,6 +8,7 @@ define(function (require) {
 
     const _ = require('underscore');
     const React = require('react');
+    const ReactDOM = require('react-dom');
     const TestUtils = React.addons.TestUtils;
     const NumberBox = require('NumberBox.jsx');
 
@@ -109,6 +110,11 @@ define(function (require) {
                 expect(value).toBe(0);
                 dom.focus();
                 expect(dom.___cursorPosition___ ).toBe(-1);
+                dom.___cursorPosition___ = 1;
+                ReactDOM.render(
+                    React.createElement(NumberBox, {}),
+                    dom.refs.container.parentNode
+                );
             });
 
         });

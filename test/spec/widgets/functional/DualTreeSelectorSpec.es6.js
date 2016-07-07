@@ -94,6 +94,7 @@ define(function (require) {
 
             it('Load Datasource', () => {
                 let actionType = '';
+                let value = '{"selected": {"4":1}}';
                 let dom = realRender(DualTreeSelector, {
                     value: '',
                     datasource: datasource.concat([
@@ -110,6 +111,29 @@ define(function (require) {
                 expect(actionType).toBe('TreeLoadChildren:["3"]');
                 TestUtils.Simulate.click(leftTree.childNodes[4].childNodes[0]);
                 expect(actionType).toBe('TreeLoadChildren:["4"]');
+                // load data
+                let element2 = React.createElement(DualTreeSelector, {
+                    value: '',
+                    datasource: datasource.concat([
+                        {label: '4', value: '4', children: [
+                            {label: '4-1', value: '4-1'}
+                        ]},
+                        {label: '5', value: '5', children: []},
+                    ])
+                });
+                let element1 = React.createElement(DualTreeSelector, {
+                    value: value,
+                    datasource: datasource.concat([
+                        {label: '4', value: '4', children: [
+                            {label: '4-1', value: '4-1'}
+                        ]},
+                        {label: '5', value: '5', children: []},
+                    ]),
+                    onChange: function (e) {
+                        ReactDOM.render(element2, dom.refs.container.parentNode);
+                    }
+                });
+                ReactDOM.render(element1, dom.refs.container.parentNode);
             });
 
         });

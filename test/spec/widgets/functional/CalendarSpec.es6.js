@@ -23,12 +23,78 @@ define(function (require) {
         describe('Base Testing', () => {
 
             it('Normal Calendar', () => {
-                let dom = realRender(Calendar, {});
-                // expect(dom.refs.container.childNodes.length).toBe(7);
-                // TestUtils.Simulate.mouseDown(dom.refs.container.childNodes[6]);
-                // TestUtils.Simulate.click(dom.refs.container, {clientX: 9});
-                // dom.onDrop(0, 2);
+                let dom = realRender(Calendar, {
+                    value: '1999-01-31'
+                });
+                expect(dom.refs.inputYear.props.value + '').toBe('1999');
             });
+
+            it('Incorrect value', () => {
+                let dom = realRender(Calendar, {
+                    value: 'abcdefg'
+                });
+                expect(dom.refs.inputYear.props.value + '').toBe((new Date()).getFullYear() + '');
+            });
+
+            it('Events', () => {
+                let value = '';
+                let dom = realRender(Calendar, {
+                    value: '1999-01-31',
+                    onChange(e) {
+                        value = e.target.value;
+                    }
+                });
+                expect(dom.refs.inputYear.props.value + '').toBe('1999');
+                TestUtils.Simulate.click(dom.refs.inputYear.refs.container.childNodes[2].childNodes[0]);
+                expect(dom.refs.inputYear.props.value + '').toBe('2000');
+                TestUtils.Simulate.click(dom.refs.inputMonth.refs.container.childNodes[2].childNodes[0]);
+                expect(dom.refs.inputMonth.props.value + '').toBe('2');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[0].childNodes[0]);
+                expect(dom.refs.inputMonth.props.value + '').toBe('1');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[0].childNodes[0]);
+                expect(dom.refs.inputMonth.props.value + '').toBe('12');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[0].childNodes[3]);
+                expect(dom.refs.inputMonth.props.value + '').toBe('1');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[0].childNodes[3]);
+                expect(dom.refs.inputMonth.props.value + '').toBe('2');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[0].childNodes[3]);
+                expect(dom.refs.inputMonth.props.value + '').toBe('3');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[0].childNodes[3]);
+                expect(dom.refs.inputMonth.props.value + '').toBe('4');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[2].childNodes[10]);
+                expect(value).toBe('2000-04-06');
+            });
+
+            it('Disabled', () => {
+                let value = '';
+                let dom = realRender(Calendar, {
+                    value: '1999-01-31',
+                    disabled: true,
+                    onChange(e) {
+                        value = e.target.value;
+                    }
+                });
+                expect(dom.refs.inputYear.props.value + '').toBe('1999');
+                TestUtils.Simulate.click(dom.refs.inputYear.refs.container.childNodes[2].childNodes[0]);
+                expect(dom.refs.inputYear.props.value + '').toBe('1999');
+                TestUtils.Simulate.click(dom.refs.inputMonth.refs.container.childNodes[2].childNodes[0]);
+                expect(dom.refs.inputMonth.props.value + '').toBe('1');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[0].childNodes[0]);
+                expect(dom.refs.inputMonth.props.value + '').toBe('1');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[0].childNodes[0]);
+                expect(dom.refs.inputMonth.props.value + '').toBe('1');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[0].childNodes[3]);
+                expect(dom.refs.inputMonth.props.value + '').toBe('1');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[0].childNodes[3]);
+                expect(dom.refs.inputMonth.props.value + '').toBe('1');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[0].childNodes[3]);
+                expect(dom.refs.inputMonth.props.value + '').toBe('1');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[0].childNodes[3]);
+                expect(dom.refs.inputMonth.props.value + '').toBe('1');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[2].childNodes[10]);
+                expect(value).toBe('');
+            });
+
 
         });
 

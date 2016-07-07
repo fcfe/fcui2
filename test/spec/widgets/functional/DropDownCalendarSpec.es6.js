@@ -24,10 +24,27 @@ define(function (require) {
 
             it('Normal DropDownCalendar', () => {
                 let dom = realRender(DropDownCalendar, {});
-                // expect(dom.refs.container.childNodes.length).toBe(7);
-                // TestUtils.Simulate.mouseDown(dom.refs.container.childNodes[6]);
-                // TestUtils.Simulate.click(dom.refs.container, {clientX: 9});
-                // dom.onDrop(0, 2);
+                expect(dom.refs.container.childNodes.length).toBe(3);
+            });
+
+            it('Events', () => {
+                let value = '';
+                let dom = realRender(DropDownCalendar, {
+                    value: '1999-01-31',
+                    onChange(e) {
+                        value = e.target.value;
+                    }
+                });
+                TestUtils.Simulate.mouseEnter(dom.refs.container);
+                expect(dom.state.layerOpen).toBe(true);
+                let layer = dom.refs.layer.___layerContainer___.childNodes[0];
+                expect(layer.childNodes.length).toBe(3);
+                TestUtils.Simulate.click(layer.childNodes[2].childNodes[34]);
+                expect(value).toBe('');
+                TestUtils.Simulate.click(layer.childNodes[2].childNodes[10]);
+                expect(value).toBe('1999-01-07');
+                TestUtils.Simulate.mouseLeave(dom.refs.container);
+                expect(dom.state.mouseenter).toBe(false);
             });
 
         });
