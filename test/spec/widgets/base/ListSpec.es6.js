@@ -44,7 +44,7 @@ define(function (require) {
                 };
             });
 
-            it('Readers a list with default props', () => {
+            it('Renders a list with default props', () => {
                 let list = shallowRender(List);
                 expect(list.type).toBe('div');
                 expect(list.props.className).toBe('fcui2-list fcui2-list-normal');
