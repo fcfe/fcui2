@@ -44,7 +44,7 @@ define(function (require) {
                 renderProps: {},
                 layerLocation: 'right left top bottom',
                 onOffset: null
-            }
+            };
         },
         getInitialState: function () {
             return {
@@ -58,7 +58,7 @@ define(function (require) {
             }
             if (typeof this.props.renderer === 'function') return;
             result.left += '1_6_'.indexOf(result.clockPosition + '_') > -1 ? 10 : -15;
-            result.top += '12_1_'.indexOf(result.clockPosition + '_') > -1  ? -5 : 10; 
+            result.top += '12_1_'.indexOf(result.clockPosition + '_') > -1  ? -5 : 10;
         },
         render: function () {
             var containerProp = cTools.containerBaseProps('tip', this, {
