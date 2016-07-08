@@ -24,22 +24,8 @@ define(function (require) {
          */
         cutValues: function (values) {
             var valueArr = (values + '').split(';');
-            var value1 = null;
-            var value2 = null;
-            switch (valueArr.length) {
-                case 1:
-                    value1 = this.str2date(valueArr[0]) || new Date();
-                    value2 = value1;
-                    break;
-                case 2:
-                    value1 = this.str2date(valueArr[0]) || new Date();
-                    value2 = this.str2date(valueArr[1]) || new Date();
-                    break;
-                default:
-                    value1 = new Date();
-                    value2 = new Date();
-                    break;
-            }
+            var value1 = this.str2date(valueArr.shift()) || new Date();
+            var value2 = this.str2date(valueArr.shift()) || new Date();
             if (this.compareDate(value1, value2) === 1) { // value1 > value2
                 var tmp = value1;
                 value1 = value2;
@@ -59,6 +45,7 @@ define(function (require) {
          * @return {Date} 对应日期
          */
         str2date: function (str) {
+            if (typeof str !== 'string' || !str.length || str.indexOf('-') < 0) return null;
             var arr = (str + '').split('-');
             if (arr.length !== 3 || isNaN(arr[0]) || isNaN(arr[1]) || isNaN(arr[2])) {
                 return null;

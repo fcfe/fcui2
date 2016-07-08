@@ -104,7 +104,7 @@ define(function (require) {
         onShortCutClick: function (e) {
             var i = util.getDataset(e.target).uiCmd * 1;
             var values = this.props.shortCut[i].getValues();
-            if (!values) return;
+            if (!values || !values.value1 || !values.value2) return;
             var min = tools.str2date(this.props.min) || tools.str2date('0-1-1');
             var max = tools.str2date(this.props.max) || tools.str2date('9999-12-31');
             if (tools.compareDate(min, max) === 1) { // min > max
@@ -166,6 +166,7 @@ define(function (require) {
             var label = this.___getValue___() || this.props.placeholder;
             label = label.replace(/-/g, '.').replace(/;/g, ' - ');
             var layerProp = {
+                ref: 'layer',
                 isOpen: this.state.layerOpen && !this.props.disabled,
                 anchor: this.refs.container,
                 closeWithBodyClick: true,

@@ -63,13 +63,15 @@ define(function (require) {
          * 关闭Layer方法工厂
          * @param {ReactComponent} me 包含Layer组件的组件实例
          * @param {String} flag 控制Layer显示隐藏的开关名称，此开关必须在me的state中
+         * @param {String} layerRef layer的ref属性值
          * @return {Function} 关闭Layer的方法
          * @interface closeLayerHandlerFactory
          */
-        closeLayerHandlerFactory: function (me, flag) {
+        closeLayerHandlerFactory: function (me, flag, layerRef) {
+            layerRef = layerRef || 'layer';
             return function () {
                 setTimeout(function () {
-                    if (me.state.mouseenter || (me.refs.layer && me.refs.layer.state.mouseenter)) return;
+                    if (me.state.mouseenter || (me.refs[layerRef] && me.refs[layerRef].state.mouseenter)) return;
                     var obj = {};
                     obj[flag] = false;
                     me.setState(obj);

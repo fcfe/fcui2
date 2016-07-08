@@ -12,7 +12,7 @@ define(function (require) {
     const ReactDOM = require('react-dom');
     const TestUtils = React.addons.TestUtils;
     const Dialog = require('Dialog.jsx');
-
+    const Button = require('Button.jsx');
 
     describe('Dialog', () => {
 
@@ -28,6 +28,18 @@ define(function (require) {
                 dialog.___ui___.resize();
                 dialog.___ui___.close();
                 expect(dialog.___ui___).toBe(null);
+                dialog.pop({
+                    content: Button,
+                    contentProps: null
+                });
+                expect(dialog.___ui___ != null).toBe(true);
+                dialog.___ui___.close();
+                expect(dialog.___ui___).toBe(null);
+                dialog.pop({
+                    showCloseButton: true,
+                    onBeforeClose: new Function()
+                });
+                expect(dialog.___ui___ != null).toBe(true);
             });
 
             it('Update Dialog Content', () => {
@@ -41,13 +53,14 @@ define(function (require) {
                     message: 'new message'
                 });
                 expect(dialog.___ui___.state.contentProps.message).toBe('new message');
-                dialog.___ui___.close();
-                expect(dialog.___ui___).toBe(null);
-                dialog.updatePopContentProps();
+                dialog.updatePopContentProps(false);
                 dialog.updatePopContentProps({
-                    message: 'new message',
+                    message: 'new message2',
                     newProp: 'newProp'
                 });
+                expect(dialog.___ui___.state.contentProps.message).toBe('new message2');
+                dialog.___ui___.close();
+                dialog.updatePopContentProps(false);
                 expect(dialog.___ui___).toBe(null);
             });
 
@@ -93,8 +106,34 @@ define(function (require) {
                         closed = true;
                     }
                 });
-                dialog.___ui___.close();
-                expect(closed).toBe(false);
+                expect(dialog.___ui___.refs.window.___content___.childNodes[0].childNodes[1].className).toBe('button-bar');
+                let buttonBar = dialog.___ui___.refs.window.___content___.childNodes[0].childNodes[1];
+                TestUtils.Simulate.click(buttonBar.childNodes[0]);
+                expect(enter).toBe(true);
+                dialog.confirm({
+                    title: 'test alert',
+                    message : 'test message',
+                    onEnter() {
+                        enter = true;
+                    },
+                    onCancel() {
+                        cancel = true;
+                    },
+                    onClose() {
+                        closed = true;
+                    }
+                });
+                buttonBar = dialog.___ui___.refs.window.___content___.childNodes[0].childNodes[1];
+                TestUtils.Simulate.click(buttonBar.childNodes[1]);
+                expect(cancel).toBe(true);
+                dialog.confirm();
+                expect(dialog.___ui___ != null).toBe(true);
+                dialog.alert();
+                expect(dialog.___ui___ != null).toBe(true);
+                dialog.alert();
+                buttonBar = dialog.___ui___.refs.window.___content___.childNodes[0].childNodes[1];
+                TestUtils.Simulate.click(buttonBar.childNodes[0]);
+                expect(dialog.___ui___).toBe(null);
             });
         });
 

@@ -36,6 +36,7 @@ define(function (require) {
                 onChange: me.onCalendarChange2
             };
             var enterButtonProp = {
+                ref: 'enterButton',
                 disabled: typeof me.state.rangeValidationResult === 'string'
                     && me.state.rangeValidationResult.length > 0,
                 label: language.enter,
@@ -53,7 +54,7 @@ define(function (require) {
                     <Calendar {...c2Prop}/>
                     <div className="button-bar">
                         <Button {...enterButtonProp}/>
-                        <Button label={language.cancel} onClick={me.onCancelButtonClick}/>
+                        <Button ref="cancelButton" label={language.cancel} onClick={me.onCancelButtonClick}/>
                         <span style={{position: 'relative', top: 0}}>{me.state.rangeValidationResult}</span>
                     </div>
                 </div>

@@ -202,7 +202,7 @@ define(function (require) {
             };
             typeof this.props.onFieldChange === 'function' && this.props.onFieldChange(callbackParam);
             if (callbackParam.isValid) {
-                typeof this.props.onFieldChange === 'function' && this.props.onSubmit(validationResults.dataset);
+                typeof this.props.onSubmit === 'function' && this.props.onSubmit(validationResults.dataset);
             }
         }
     });
