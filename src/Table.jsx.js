@@ -29,6 +29,7 @@ define(function (require) {
          * @param {Object} flags 表格附属功能开关集合
          * @param {Boolean} flags.sortEnable 是否显示排序按钮，默认false
          * @param {Boolean} flags.showHeader 是否显示表头，默认false
+         * @param {Boolean} flags.showMessage 是否显示通知栏
          * @param {Boolean} flags.showSummary 是否在表头下方显示汇总栏，默认false
          * @param {Boolean} flags.showSelector 是否在第一列显示行选择器，默认false，不建议使用，改在fieldConfig中添加。此属性改为配置选择器工作模式：
          *   false|0: 关闭
@@ -131,7 +132,8 @@ define(function (require) {
                     sortEnable: false,
                     showHeader: false,
                     showSummary: false,
-                    showSelector: false
+                    showSelector: false,
+                    showMessage: false
                 },
                 datasource: [],
                 summary: {},
