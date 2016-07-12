@@ -49,7 +49,6 @@ define(function (require) {
         onClick: function (e) {
             if (this.props.disabled) return;
             var value = util.getDataset(e.target).uiCmd;
-            if (isNaN(value)) return;
             e.target = this.refs.container;
             e.target.value = value;
             this.___dispatchChange___(e);
