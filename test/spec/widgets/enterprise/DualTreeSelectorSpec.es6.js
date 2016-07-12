@@ -37,11 +37,44 @@ define(function (require) {
                 let dom = realRender(DualTreeSelector, {
                     datasource: datasource
                 });
-                // let leftTree = dom.refs.container.childNodes[0].childNodes[0];
-                // let rightTree = dom.refs.container.childNodes[0].childNodes[2];
-                // expect(dom.refs.container.childNodes[0].childNodes.length).toBe(3);
-                // expect(leftTree.childNodes.length).toBe(3);
-                // expect(rightTree.childNodes.length).toBe(3);
+                expect(dom.refs.container.className).toBe(
+                    'fcui2-dualtreeselector-enterprise fcui2-dualtreeselector-enterprise-normal'
+                );
+                expect(dom.refs.container.childNodes.length).toBe(4);
+                let element1 = React.createElement(DualTreeSelector, {
+                    datasource: datasource,
+                    isDropDown: true
+                });
+                ReactDOM.render(element1, dom.refs.container.parentNode);
+                expect(dom.refs.dropdownContainer.className).toBe('fcui2-dropdownlist fcui2-dropdownlist-normal');
+                expect(dom.refs.dropdownContainer.childNodes.length).toBe(3);
+            });
+
+            it('dropdown', () => {
+                let value = '';
+                let dom = realRender(DualTreeSelector, {
+                    datasource: datasource,
+                    isDropDown: true,
+                    onChange(e) {
+                        value = e.target.value;
+                    }
+                });
+                expect(dom.refs.container).toBe();
+                TestUtils.Simulate.click(dom.refs.dropdownContainer);
+                expect(dom.state.layerOpen).toBe(true);
+                expect(dom.refs.container.className).toBe(
+                    'fcui2-dualtreeselector-enterprise fcui2-dualtreeselector-enterprise-normal'
+                );
+                let selector = dom.refs.dualTreeSelector;
+                expect(selector.refs.container.className).toBe('fcui2-dualtreeselector fcui2-dualtreeselector-normal');
+                selector.___dispatchChange___({
+                    target: {
+                        value: JSON.stringify({
+                            selected: {'1': true}
+                        })
+                    }
+                });
+                expect(dom.state.dropdownValue).toBe('{"selected":{"1":true}}');
             });
 
         });

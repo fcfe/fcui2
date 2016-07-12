@@ -170,6 +170,7 @@ define(function (require) {
             var label = this.props.labels && this.props.labels.dropdownLabel
                     ? this.props.labels.dropdownLabel : '';
             var layerProp = {
+                ref: 'layer',
                 isOpen: this.state.layerOpen,
                 anchor: this.refs.dropdownContainer,
                 location: 'bottom right left',
@@ -218,6 +219,7 @@ define(function (require) {
         var selectedInfo = labels.footSelectCountTpl
             ? labels.footSelectCountTpl.replace(/&selected/g, selected).replace(/&total/g, count) : null;
         var containerProp = me.props.isDropDown ? {
+                ref: 'container',
                 className: 'fcui2-dualtreeselector-enterprise fcui2-dualtreeselector-enterprise-'
                     + (me.props.skin ? me.props.skin : 'normal')
             } : cTools.containerBaseProps('dualtreeselector-enterprise', me);

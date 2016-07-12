@@ -345,8 +345,8 @@ define(function (require) {
                 header = dom.refs.container.childNodes[0].childNodes[0].childNodes[1].childNodes[0];
                 expect(header.childNodes[0].childNodes[2].style.display).toBe('none');
                 expect(header.childNodes[1].childNodes[2].style.display).toBe('inline-block');
-                expect(header.childNodes[1].childNodes[2].className.indexOf('arrow-down') > -1).toBe(false);
-                expect(header.childNodes[1].childNodes[2].className.indexOf('arrow-up') > -1).toBe(true);
+                expect(header.childNodes[1].childNodes[2].className.indexOf('arrow-down') > -1).toBe(true);
+                expect(header.childNodes[1].childNodes[2].className.indexOf('arrow-up') > -1).toBe(false);
                 expect(header.childNodes[2].childNodes[2].className.indexOf('arrow-down') > -1).toBe(true);              
                 TestUtils.Simulate.click(header.childNodes[1].childNodes[2]);
                 expect(value).toBe('age;asc');

@@ -25,10 +25,6 @@ define(function (require) {
             it('Normal Region', () => {
                 let dom = realRender(Region, {});
                 expect(dom.refs.container.childNodes.length).toBe(11);
-                // expect(dom.refs.container.childNodes.length).toBe(7);
-                // TestUtils.Simulate.mouseDown(dom.refs.container.childNodes[6]);
-                // TestUtils.Simulate.click(dom.refs.container, {clientX: 9});
-                // dom.onDrop(0, 2);
             });
 
             it('events', () => {
@@ -48,6 +44,23 @@ define(function (require) {
                         .childNodes[0].childNodes[1]
                 );
                 expect(value).toBe('');
+                let checkbox = dom.refs.container.childNodes[0].childNodes[0].childNodes[0];
+                expect(checkbox.type).toBe('checkbox');
+                checkbox.checked = true;
+                TestUtils.Simulate.change(checkbox, {target: checkbox});
+                expect(value.split(',').length).toBe(401);
+
+                let province = dom.refs.container.childNodes[1].childNodes[1].childNodes[2];
+                expect(province.className).toBe('fcui2-region-province');
+                TestUtils.Simulate.mouseEnter(province);
+                expect(dom.___currentLayer___.props.id).toBe(13);
+                expect(dom.___currentLayer___.state.layerShow).toBe(true);
+
+                province = dom.refs.container.childNodes[1].childNodes[1].childNodes[3];
+                TestUtils.Simulate.mouseEnter(province);
+                expect(dom.___currentLayer___.props.id).toBe(26);
+
+                TestUtils.Simulate.mouseLeave(province);
             });
 
             it('disabled', () => {
@@ -64,6 +77,17 @@ define(function (require) {
                 );
                 expect(value).toBe('');
                 dom.onRegionChange();
+                let checkbox = dom.refs.container.childNodes[0].childNodes[0].childNodes[0];
+                expect(checkbox.type).toBe('checkbox');
+                checkbox.checked = true;
+                TestUtils.Simulate.change(checkbox, {target: checkbox});
+                expect(value).toBe('');
+
+                let province = dom.refs.container.childNodes[1].childNodes[1].childNodes[2];
+                expect(province.className).toBe('fcui2-region-province');
+                TestUtils.Simulate.mouseEnter(province);
+                expect(dom.___currentLayer___).toBe();
+                TestUtils.Simulate.mouseLeave(province);
             });
 
             it('type = single', () => {
