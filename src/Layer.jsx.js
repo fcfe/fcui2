@@ -9,7 +9,7 @@ define(function (require) {
 
     var React = require('react');
     var ReactDOM = require('react-dom');
-    var renderSubtreeIntoContainer = require("react-dom").unstable_renderSubtreeIntoContainer;
+    var renderSubtreeIntoContainer = require('react-dom').unstable_renderSubtreeIntoContainer;
     var tools = require('./core/layerTools');
     var noop = function () {};
 
