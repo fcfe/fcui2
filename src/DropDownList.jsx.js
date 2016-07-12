@@ -61,7 +61,6 @@ define(function (require) {
             cTools.closeLayerHandlerFactory(this, 'layerOpen')();
         },
         onListClick: function (e) {
-            if (this.props.disabled) return;
             this.props.onClick(e);
             this.setState({layerOpen: false});
         },
@@ -71,7 +70,7 @@ define(function (require) {
             var layerProp = {
                 ref: 'layer',
                 onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
-                isOpen: this.state.layerOpen && !this.props.disabled && this.props.datasource.length,
+                isOpen: this.state.layerOpen && !this.props.disabled && !!this.props.datasource.length,
                 anchor: this.refs.container,
                 style: {
                     maxHeight: '240px',
