@@ -36,6 +36,21 @@ define(function (require) {
                 expect(dom.refs.inputYear.props.value + '').toBe((new Date()).getFullYear() + '');
             });
 
+            it('Incorrect Properties', () => {
+                let dom = realRender(Calendar, {
+                    value: '1999-01-31',
+                    min: '',
+                    max: ''
+                });
+                dom = realRender(Calendar, {
+                    value: '1999-01-31',
+                    min: '1999-02-01',
+                    max: '1999-01-20'
+                });
+                expect(dom.refs.container.childNodes[2].childNodes[10].className.indexOf('fcui2-button-disabled') > -1)
+                    .toBe(true);
+            });
+
             it('Events', () => {
                 let value = '';
                 let dom = realRender(Calendar, {

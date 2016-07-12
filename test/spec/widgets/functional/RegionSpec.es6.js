@@ -94,6 +94,9 @@ define(function (require) {
                 let value = '';
                 let dom = realRender(Region, {
                     type: 'single',
+                    countryRenderer: null,
+                    regionRenderer: null,
+                    provinceRenderer: null,
                     onChange(e) {
                         value = e.target.value;
                     }

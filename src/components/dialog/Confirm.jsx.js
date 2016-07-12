@@ -21,16 +21,16 @@ define(function (require) {
         getDefaultProps : function () {
             return {
                 message: 'Message',
-                onEnter: function () {},
-                onCancel: function () {}
+                onEnter: null,
+                onCancel: null
             };
         },
         onEnterClick: function () {
-            this.props.onEnter();
+            typeof this.props.onEnter === 'function' && this.props.onEnter();
             this.props.close();
         },
         onCancelClick: function () {
-            this.props.onCancel();
+            typeof this.props.onCancel === 'function' && this.props.onCancel();
             this.props.close();
         },
         render: function () {
