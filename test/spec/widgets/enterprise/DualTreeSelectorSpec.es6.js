@@ -35,12 +35,13 @@ define(function (require) {
 
             it('Normal', () => {
                 let dom = realRender(DualTreeSelector, {
-                    datasource: datasource
+                    datasource: datasource,
+                    labels: ''
                 });
                 expect(dom.refs.container.className).toBe(
                     'fcui2-dualtreeselector-enterprise fcui2-dualtreeselector-enterprise-normal'
                 );
-                expect(dom.refs.container.childNodes.length).toBe(4);
+                expect(dom.refs.container.childNodes.length).toBe(3);
                 let element1 = React.createElement(DualTreeSelector, {
                     datasource: datasource,
                     isDropDown: true
@@ -75,8 +76,107 @@ define(function (require) {
                     }
                 });
                 expect(dom.state.dropdownValue).toBe('{"selected":{"1":true}}');
+                let enterButton = dom.refs.layer.___layerContainer___.childNodes[0].childNodes[1];
+                TestUtils.Simulate.click(enterButton);
+                expect(value).toBe('{"selected":{"1":true}}');
+
+                value = '';
+                TestUtils.Simulate.click(dom.refs.dropdownContainer);
+                selector = dom.refs.dualTreeSelector;
+                selector.___dispatchChange___({
+                    target: {
+                        value: JSON.stringify({
+                            selected: {'1': true}
+                        })
+                    }
+                });
+                let cancelButton = dom.refs.layer.___layerContainer___.childNodes[0].childNodes[2];
+                TestUtils.Simulate.click(cancelButton);
+                expect(value).toBe('');
+                expect(dom.state.layerOpen).toBe(false);
+
+                TestUtils.Simulate.click(dom.refs.dropdownContainer);
+                selector = dom.refs.dualTreeSelector;
+                selector.___dispatchChange___({
+                    target: {
+                        value: JSON.stringify({
+                            selected: {'1': true}
+                        })
+                    }
+                });
+                expect(dom.state.dropdownValue).toBe('{"selected":{"1":true}}');
+                expect(dom.refs.container.childNodes[3].childNodes[1].childNodes[0].innerHTML).toBe('全部删除');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[3].childNodes[1].childNodes[0]);
+                expect(dom.state.dropdownValue).toBe('{"selected":{}}');
             });
 
+            it('not dropdown', () => {
+                let value = '';
+                let dom = realRender(DualTreeSelector, {
+                    datasource: datasource,
+                    onChange(e) {
+                        value = e.target.value;
+                    }
+                });
+                let selector = dom.refs.dualTreeSelector;
+                selector.___dispatchChange___({
+                    target: {
+                        value: JSON.stringify({
+                            selected: {'1': true}
+                        })
+                    }
+                });
+                expect(dom.state.dropdownValue).toBe('{"selected":{}}');
+                expect(value).toBe('{"selected":{"1":true}}');
+                let leftTree = dom.refs.dualTreeSelector.refs.container.childNodes[0].childNodes[0];
+                TestUtils.Simulate.click(leftTree.childNodes[2].childNodes[1]);
+                expect(JSON.stringify(dom.state.expand)).toBe('{"3":true}');
+
+                expect(dom.refs.container.childNodes[3].childNodes[1].childNodes[0].innerHTML).toBe('全部删除');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[3].childNodes[1].childNodes[0]);
+                expect(value).toBe('{"selected":{}}');
+            });
+
+            it('with value', () => {
+                let value = '';
+                let dom = realRender(DualTreeSelector, {
+                    datasource: datasource,
+                    value: '{"selected":{"1":true}}',
+                    onChange(e) {
+                        value = e.target.value;
+                    }
+                });
+                let selector = dom.refs.dualTreeSelector;
+                expect(selector.props.value).toBe('{"selected":{"1":true}}');
+
+                dom = realRender(DualTreeSelector, {
+                    datasource: datasource,
+                    isDropDown: true,
+                    clearTemporaryAfterLayerClose: true,
+                    value: '{"selected":{"1":true}}',
+                    onChange(e) {
+                        value = e.target.value;
+                    }
+                });
+                TestUtils.Simulate.click(dom.refs.dropdownContainer);
+                selector = dom.refs.dualTreeSelector;
+                expect(selector.refs.container.className).toBe('fcui2-dualtreeselector fcui2-dualtreeselector-normal');
+                selector.___dispatchChange___({
+                    target: {
+                        value: JSON.stringify({
+                            selected: {'2': true}
+                        })
+                    }
+                });
+                expect(dom.state.dropdownValue).toBe('{"selected":{"2":true}}');
+                let cancelButton = dom.refs.layer.___layerContainer___.childNodes[0].childNodes[2];
+                TestUtils.Simulate.click(cancelButton);
+                expect(dom.state.dropdownValue).toBe('{"selected":{"1":true}}');
+                TestUtils.Simulate.click(dom.refs.dropdownContainer);
+                selector = dom.refs.dualTreeSelector;
+                let enterButton = dom.refs.layer.___layerContainer___.childNodes[0].childNodes[1];
+                TestUtils.Simulate.click(enterButton);
+            });
         });
 
     });
