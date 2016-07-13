@@ -92,7 +92,14 @@ define(function (require) {
             var selectBtnProp = {
                 className: 'select-button font-icon'
                     + (selectDisabled ? ' select-button-disabled' : '')
-                    + (display === 'all' ? ' font-icon-plus' : ' font-icon-times'),
+                    + (
+                        display === 'all'
+                        ? (
+                            (select.selected === select.total && select.total > 0)
+                            ? ' font-icon-largeable-check' : ' font-icon-plus'
+                        )
+                        : ' font-icon-times'
+                    ),
                 onClick: selectDisabled ? undefined : me.onOperate
             };
 

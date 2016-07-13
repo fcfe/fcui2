@@ -172,6 +172,7 @@ define(function (require) {
                 closeWithBodyClick: true,
                 onCloseByWindow: this.onCancelButtonClick
             };
+            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-calendar"></div>

@@ -108,6 +108,10 @@ define(function (require) {
                 expect(dom.refs.container.childNodes[3].childNodes[1].childNodes[0].innerHTML).toBe('全部删除');
                 TestUtils.Simulate.click(dom.refs.container.childNodes[3].childNodes[1].childNodes[0]);
                 expect(dom.state.dropdownValue).toBe('{"selected":{}}');
+
+                expect(dom.refs.container.childNodes[3].childNodes[0].childNodes[0].innerHTML).toBe('全部添加');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[3].childNodes[0].childNodes[0]);
+                expect(dom.state.dropdownValue).toBe('{"selected":{"1":true,"2":true,"3-1":true,"3-2":true}}');
             });
 
             it('not dropdown', () => {
@@ -135,6 +139,10 @@ define(function (require) {
                 expect(dom.refs.container.childNodes[3].childNodes[1].childNodes[0].innerHTML).toBe('全部删除');
                 TestUtils.Simulate.click(dom.refs.container.childNodes[3].childNodes[1].childNodes[0]);
                 expect(value).toBe('{"selected":{}}');
+
+                expect(dom.refs.container.childNodes[3].childNodes[0].childNodes[0].innerHTML).toBe('全部添加');
+                TestUtils.Simulate.click(dom.refs.container.childNodes[3].childNodes[0].childNodes[0]);
+                expect(value).toBe('{"selected":{"1":true,"2":true,"3-1":true,"3-2":true}}');
             });
 
             it('with value', () => {

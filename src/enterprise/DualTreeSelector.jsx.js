@@ -38,6 +38,7 @@ define(function (require) {
          * '&selected'将被替换成已选择的叶子个数
          * '&total'将被替换成数据源中所有叶子个数
          * @param {String} labels.deleteAll 右侧删除按钮话术
+         * @param {String} labels.appendAll 左侧添加按钮话术
          * @param {Import|Properties} src\mixins\InputWidget.js value onChange name validations customErrorTemplates valueTemplate
          */
         /**
@@ -74,7 +75,8 @@ define(function (require) {
                     rightTreeTitle: language.selectedItems,
                     footLeftInformation: '注意：只有叶子节点才能被选中',
                     footSelectCountTpl: language.selectedItemsNumber,
-                    deleteAll: language.deleteAll
+                    deleteAll: language.deleteAll,
+                    appendAll: language.appendAll
                 },
                 // mixin
                 valueTemplate: JSON.stringify({selected: {}})
@@ -146,6 +148,33 @@ define(function (require) {
                 dropdownValue: tmpValue
             });
         },
+        appendAll: function (e) {
+            // 只添加叶子，children为空数组不是叶子，不可用的叶子不添加
+            var value = {};
+            appendLeaf(this.props.datasource);
+            e.target.value = JSON.stringify({selected: value});
+            if (this.props.isDropDown) {
+                this.setState({
+                    dropdownValue: e.target.value
+                });
+            }
+            else {
+                this.___dispatchChange___(e);
+            }
+            function appendLeaf(arr) {
+                for (var i = 0; i < arr.length; i++) {
+                    var item = arr[i];
+                    if (item.disabled) continue;
+                    if (!item.hasOwnProperty('children')) {
+                        value[item.value] = true;
+                        continue;
+                    }
+                    if (item.children instanceof Array && item.children.length) {
+                        appendLeaf(item.children);
+                    }
+                }
+            }
+        },
         deleteAll: function (e) {
             var value = this.props.isDropDown ? this.state.dropdownValue : this.___getValue___();
             value = JSON.parse(value || '{}');
@@ -179,6 +208,7 @@ define(function (require) {
                 onRender: this.onLayerRender
             };
             containerProp.ref = 'dropdownContainer';
+            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
@@ -232,7 +262,12 @@ define(function (require) {
                 </div>
                 <DualTreeSelector {...treeProp}/>
                 <div className="tree-foot-bar">
-                    <div>{labels.footLeftInformation ? labels.footLeftInformation : null}</div>
+                    <div>
+                        <span className="remove-all-button" onClick={me.appendAll}>
+                            {labels.appendAll ? labels.appendAll : null}
+                        </span>
+                        {labels.footLeftInformation ? labels.footLeftInformation : null}
+                    </div>
                     <div>
                         <span className="remove-all-button" onClick={me.deleteAll}>
                             {labels.deleteAll ? labels.deleteAll : null}

@@ -30,7 +30,8 @@ define(function (require) {
                 {id: 'src\\Crumb.jsx.js', label: 'Crumb'},
                 {id: 'src\\Pager.jsx.js', label: 'Pager'},
                 {id: 'src\\Tab.jsx.js', label: 'Tab'},
-                {id: 'src\\Wizard.jsx.js', label: 'Wizard'}
+                {id: 'src\\Wizard.jsx.js', label: 'Wizard'},
+                {id: 'src\\Switch.jsx.js', label: 'Switch'}
             ]
         },
         {
@@ -132,6 +133,7 @@ define(function (require) {
         'BaseLineTesting.jsx.js': require('./demos/components/BaseLineTesting.jsx'),
         'FormFieldTesting.jsx.js': require('./demos/components/FormFieldTesting.jsx'),
         'src\\enterprise\\DualTreeSelector.jsx.js': require('./demos/components/DualTreeSelectorEnterprise.jsx'),
+        'src\\Switch.jsx.js': require('./demos/components/Switch.jsx')
     };
 
     for (var key in dataset.files) {

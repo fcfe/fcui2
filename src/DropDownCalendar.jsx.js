@@ -89,6 +89,7 @@ define(function (require) {
             };
             containerProp[this.props.openLayerType] = this.onMouseEnter;
             containerProp['onMouseLeave'] = this.onMouseLeave;
+            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-calendar"></div>

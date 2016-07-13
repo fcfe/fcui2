@@ -25,12 +25,18 @@
 
 .fcui2-combolist-normal {
     cursor: pointer;
-    background-color: @color-btn;
     border-color: @color-btn; 
     >span {
+        display: inline-block;
         font-size: 12px;
         padding: 0 10px;
         color: @color-gray-1;
+        background-color: @color-btn;
+        line-height: 30px;
+        margin-top: 2px;
+        &:hover {
+            background-color: @color-btn-hover;
+        }
     }
     .icon-right {
         color: @color-gray-1;
@@ -40,18 +46,19 @@
             background-color: @color-btn-hover;
         }
     }
-    &:hover {
-        background-color: @color-btn-hover;
-    }
 }
 
 .fcui2-combolist-disabled {
     border-color: @color-outer-border !important;
-    background-color: @color-bg-btn !important;
-    >span, .icon-right {
+    >span {
         color: @color-disabled-text !important;
+        line-height: 28px;
+        background-color: @color-bg-btn !important;
+        border-top: 1px solid @color-outer-border;
+        border-bottom: 1px solid @color-outer-border;
     }
     .icon-right {
+        color: @color-disabled-text !important;
         background-color: @color-bg-btn !important;
         border-left-color: @color-outer-border !important;
     }

@@ -122,6 +122,7 @@ define(function (require) {
                  onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
                  ref: 'layer'
             };
+            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
             return (
                 <th className="th-header">
                     <div {...containerProp}>

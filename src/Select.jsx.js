@@ -101,6 +101,7 @@ define(function (require) {
                     break;
                 }
             }
+            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>

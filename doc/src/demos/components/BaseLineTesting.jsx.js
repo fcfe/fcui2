@@ -17,7 +17,7 @@ define(function (require) {
     var ComboList = require('fcui/ComboList.jsx');
     var SearchBox = require('fcui/SearchBox.jsx');
     var Tip = require('fcui/Tip.jsx');
-
+    var Switch = require('fcui/Switch.jsx');
 
     return React.createClass({
         render: function () {
@@ -32,6 +32,7 @@ define(function (require) {
                         <DropDownList/>
                         <ComboList/>
                         <SearchBox/>
+                        <Switch/>
                     </div>
                     <div style={{border: '1px solid #E8E8E8', lineHeight: '50px', marginTop: '30px'}}>
                         <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
@@ -40,6 +41,7 @@ define(function (require) {
                         <Radio label="主说要有光，于是有了光"/>
                         <TextBox value="abd" onChange={new Function()}/>
                         <SearchBox/>
+                        <Switch/>
                     </div>
                     <div style={{border: '1px solid #E8E8E8', lineHeight: '80px', marginTop: '30px'}}>
                         <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>

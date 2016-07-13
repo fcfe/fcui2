@@ -52,7 +52,8 @@ define(function (require) {
             };
             // 叶子
             if (!(item.children instanceof Array)) {
-                result.total = result.selected = selectedHash[item.value] === true ? 1 : 0;
+                result.total += 1;
+                result.selected = selectedHash[item.value] === true ? 1 : 0;
                 loadCache[index] = JSON.parse(JSON.stringify(result));
                 return result;
             }

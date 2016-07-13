@@ -209,6 +209,7 @@ define(function (require) {
             else if (this.props.openLayerType !== 'onMouseEnter') {
                 containerProp[this.props.openLayerType] = this.open;
             }
+            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
