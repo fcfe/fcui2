@@ -20,6 +20,17 @@ define(function (require) {
     var tableTools = require('../core/tableTools');
     var language = require('../core/language').dualTreeSelectorEnterprise;
 
+    var defaultLabels = {
+        dropdownLabel: 'DualTreeSelector',
+        title: language.selectItems,
+        leftTreeTitle: language.allItems,
+        rightTreeTitle: language.selectedItems,
+        footLeftInformation: '注意：只有叶子节点才能被选中',
+        footSelectCountTpl: language.selectedItemsNumber,
+        deleteAll: language.deleteAll,
+        appendAll: language.appendAll,
+        errorMessage: ''
+    };
 
     return React.createClass({
         /**
@@ -41,6 +52,7 @@ define(function (require) {
          * @param {String} labels.appendAll 左侧添加按钮话术
          * @param {String} labels.errorMessage 错误信息话术
          * @param {Function} onBeforeClose layer关闭前的回调，只在isDropDown=true时有效
+         * @param {Function} onLayerClose layer关闭后回调，只在isDropDown=true时有效
          * @param {Import|Properties} src\mixins\InputWidget.js value onChange name validations customErrorTemplates valueTemplate
          */
         /**
@@ -70,18 +82,9 @@ define(function (require) {
                 // self
                 clearTemporaryAfterLayerClose: true,
                 isDropDown: false,
-                labels: {
-                    dropdownLabel: 'DualTreeSelector',
-                    title: language.selectItems,
-                    leftTreeTitle: language.allItems,
-                    rightTreeTitle: language.selectedItems,
-                    footLeftInformation: '注意：只有叶子节点才能被选中',
-                    footSelectCountTpl: language.selectedItemsNumber,
-                    deleteAll: language.deleteAll,
-                    appendAll: language.appendAll,
-                    errorMessage: ''
-                },
+                labels: defaultLabels,
                 onBeforeLayerClose: cTools.noop,
+                onLayerClose: cTools.noop,
                 // mixin
                 valueTemplate: JSON.stringify({selected: {}})
             };
@@ -139,6 +142,7 @@ define(function (require) {
             e = {};
             this.onBeforeLayerClose(e);
             if (e.returnValue) {
+                typeof this.props.onLayerClose === 'function' && this.props.onLayerClose();
                 this.setState({
                     layerOpen: false,
                     dropdownValue: tmpValue
@@ -152,6 +156,7 @@ define(function (require) {
                 tmpValue = this.props.value ? this.props.value : '';
                 beOperated = false;
             }
+            typeof this.props.onLayerClose === 'function' && this.props.onLayerClose();
             this.setState({
                 layerOpen: false,
                 dropdownValue: tmpValue,
@@ -210,8 +215,7 @@ define(function (require) {
                     onClick: cTools.openLayerHandlerFactory(this, 'layerOpen')
                 }
             });
-            var label = this.props.labels && this.props.labels.dropdownLabel
-                    ? this.props.labels.dropdownLabel : '';
+            var labels = _.extend({}, defaultLabels, this.props.labels);
             var layerProp = {
                 ref: 'layer',
                 isOpen: this.state.layerOpen,
@@ -219,7 +223,6 @@ define(function (require) {
                 location: 'bottom right left',
                 closeWithBodyClick: true,
                 onCloseByWindow: this.onLayerClose,
-                onBeforeCloseByWindow: this.onBeforeLayerClose,
                 onRender: this.onLayerRender
             };
             var enterButtonProp = {
@@ -233,16 +236,15 @@ define(function (require) {
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
-                    <span>{label}</span>
+                    <span>{labels.dropdownLabel ? labels.dropdownLabel : ''}</span>
                     <Layer {...layerProp}>
                         <div style={{padding: 10}}>
                             {mainContentFactory(this)}
                             <Button {...enterButtonProp}/>
                             <Button label={language.cancel} onClick={this.onLayerClose} style={{marginLeft: 10}}/>
-                            <span className="fcui2-error-msg">{
-                                this.props.labels && this.props.labels.errorMessage
-                                    ? this.props.labels.errorMessage : ''
-                            }</span>
+                            <span className="fcui2-error-msg">
+                                {labels.errorMessage && !this.state.___beOperated___ ? labels.errorMessage : ''}
+                            </span>
                         </div>
                     </Layer>
                 </div>
@@ -262,7 +264,7 @@ define(function (require) {
             onChange: me.props.isDropDown ? me.onDropDownTreeChange : me.onTreeChange,
             onAction: me.onTreeAction
         };
-        var labels = me.props.labels || {};
+        var labels = _.extend({}, defaultLabels, me.props.labels);
         var count = treeTools.getLeafCount(me.props.datasource);
         var selected = 0;
         try {

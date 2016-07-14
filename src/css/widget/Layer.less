@@ -14,3 +14,79 @@
     border-color: @color-outer-border;
     font-family: @font-normal;
 }
+
+.fcui2-layer-warning {
+    overflow: visible;
+    background-color: @color-bg;
+    border-color: @color-error;
+    color: @color-error;
+    font-size: 12px;
+    font-family: @font-normal;
+    .fcui2-layer-warning-content {
+        position: relative;
+        line-height: 30px;
+        padding: 0 10px;
+    }
+    .arrow-bg,.up-arrow,.down-arrow,.left-arrow,.right-arrow {
+        position: absolute;
+        width: 0;
+        height: 0;
+    }
+    .up-arrow {
+        top: -6px;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 6px solid @color-error;
+        .arrow-bg {
+            top: 1px;
+            left: -5px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid @color-bg;
+        }
+    }
+
+    .down-arrow {
+        top: 30px;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid @color-error;
+        .arrow-bg {
+            top: -6px;
+            left: -5px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid @color-bg;
+        }
+    }
+
+    .left-arrow {
+        top: 9px;
+        left: -6px;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-right: 6px solid @color-error;
+        .arrow-bg {
+            top: -5px;
+            left: 1px;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-right: 5px solid @color-bg;
+        }
+    }
+
+    .right-arrow {
+        top: 9px;
+        right: -6px;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-left: 6px solid @color-error;
+        .arrow-bg {
+            top: -5px;
+            left: -6px;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 5px solid @color-bg;
+        }
+    }
+}

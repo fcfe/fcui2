@@ -64,7 +64,8 @@ define(function (require) {
             data[3].children = [];
             return {
                 asyncDatasource: data,
-                asyncValue: '{}'
+                asyncValue: '{}',
+                errorMessage: ''
             };
         },
         onAsyncTreeChange: function (e) {
@@ -94,13 +95,30 @@ define(function (require) {
             }, 1000);
         },
         render: function () {
+            var me = this;
             var asyncTreeProp = {
                 ref: 'asyncTree',
                 isDropDown: true,
                 datasource: this.state.asyncDatasource,
                 value: this.state.asyncValue,
                 onChange: this.onAsyncTreeChange,
-                onAction: this.onAsyncTreeAction
+                onAction: this.onAsyncTreeAction,
+                labels: {
+                    errorMessage: this.state.errorMessage
+                },
+                onBeforeLayerClose: function (e) {
+                    e.returnValue = false;
+                    me.setState({
+                        errorMessage: '成功'
+                    });
+                },
+                onLayerClose: function (e) {
+                    setTimeout(function () {
+                        me.setState({
+                            errorMessage: ''
+                        });
+                    }, 100);
+                }
             };
             return (
                 <div>
