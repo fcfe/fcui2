@@ -19,6 +19,8 @@ define(function (require) {
          *
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {String} placeholder 文本域中无内容时显示的提示文字
+         * @param {Function} onFocus 输入框获取焦点后的回调
+         * @param {Function} onBlur 输入框失去焦点后的回调
          * @param {Import|Properties} src\mixins\InputWidget.js
          *      value onChange name validations customErrorTemplates valueTemplate
          */
@@ -43,7 +45,9 @@ define(function (require) {
         },
         // @override
         getInitialState: function () {
-            return {};
+            return {
+                hasFocus: false
+            };
         },
         /**
          * 让文本域获得焦点
@@ -51,6 +55,7 @@ define(function (require) {
          */
         focus: function () {
             this.refs.inputbox.focus();
+            this.setState({hasFocus: true});
         },
         render: function () {
             var value = this.___getValue___();
@@ -77,12 +82,14 @@ define(function (require) {
                 onCompositionStart: this.___onCompositionStart___,
                 onCompositionEnd: this.___onCompositionEnd___,
                 onKeyUp: this.___onKeyUp___,
-                onPaste: this.___onPaste___
+                onPaste: this.___onPaste___,
+                onFocus: this.___onFocus___,
+                onBlur: this.___onBlur___
             };
             // 由于IE和Chrome下placeholder表现不一致，所以自己做IE下得到焦点后，placeholder会消失，chrome不会
             var labelProp = {
                 style: {
-                    visibility: value && value.length ? 'hidden' : 'visible'
+                    visibility: ((value && value.length) || this.state.hasFocus) ? 'hidden' : 'visible'
                 }
             };
             return (

@@ -13,7 +13,7 @@ define(function (require) {
     var Button = require('../Button.jsx');
     var Layer = require('../Layer.jsx');
     var InputWidget = require('../mixins/InputWidget');
-
+    var _ = require('underscore');
 
     var cTools = require('../core/componentTools');
     var treeTools = require('../core/treeTools');
@@ -39,6 +39,8 @@ define(function (require) {
          * '&total'将被替换成数据源中所有叶子个数
          * @param {String} labels.deleteAll 右侧删除按钮话术
          * @param {String} labels.appendAll 左侧添加按钮话术
+         * @param {String} labels.errorMessage 错误信息话术
+         * @param {Function} onBeforeClose layer关闭前的回调，只在isDropDown=true时有效
          * @param {Import|Properties} src\mixins\InputWidget.js value onChange name validations customErrorTemplates valueTemplate
          */
         /**
@@ -76,8 +78,10 @@ define(function (require) {
                     footLeftInformation: '注意：只有叶子节点才能被选中',
                     footSelectCountTpl: language.selectedItemsNumber,
                     deleteAll: language.deleteAll,
-                    appendAll: language.appendAll
+                    appendAll: language.appendAll,
+                    errorMessage: ''
                 },
+                onBeforeLayerClose: cTools.noop,
                 // mixin
                 valueTemplate: JSON.stringify({selected: {}})
             };
@@ -92,25 +96,17 @@ define(function (require) {
         },
         // @override
         componentWillReceiveProps: function (nextProps) {
-            if (nextProps.isDropDown) {
-                var value = this.state && this.state.dropdownValue ? this.state.dropdownValue : '';
-                if (nextProps.clearTemporaryAfterLayerClose) {
-                    value = nextProps.value ? nextProps.value : '';
-                }
-                var value = nextProps.value || this.state.dropdownValue;
-                var selected = JSON.parse(value || '{}').selected || {};
-                var selectorEngine = nextProps.selectorEngine;
-                var datasource = nextProps.datasource;
-                // 检查selected中标记为1的item的children是否加载完毕了。
-                if (treeTools.targetAsyncLeaf(selected, selectorEngine, datasource)) {
-                    this.setState({
-                        dropdownValue: JSON.stringify({selected: selected})
-                    });
-                }
+            if (
+                nextProps.isDropDown
+                && !_.isEqual(
+                    JSON.parse(nextProps.value || '{}'),
+                    JSON.parse(this.state && this.state.dropdownValue ? this.state.dropdownValue : '{}')
+                )
+                && this.state 
+                && !this.state.___beOperated___
+            ) {
+                this.setState({dropdownValue: nextProps.value});
             }
-        },
-        onDropDownTreeChange: function (e) {
-            this.setState({dropdownValue: e.target.value});
         },
         onTreeChange: function (e) {
             this.___dispatchChange___(e);
@@ -121,16 +117,10 @@ define(function (require) {
             }
             typeof this.props.onAction === 'function' && this.props.onAction(type, args);
         },
-        onLayerEnter: function (e) {
-            e.target.value = this.state.dropdownValue;
-            this.___dispatchChange___(e);
-            var tmpValue = this.state.dropdownValue;
-            if (this.props.clearTemporaryAfterLayerClose) {
-                tmpValue = this.props.value ? this.props.value : '';
-            }
+        onDropDownTreeChange: function (e) {
             this.setState({
-                layerOpen: false,
-                dropdownValue: tmpValue
+                dropdownValue: e.target.value,
+                ___beOperated___: true
             });
         },
         onLayerRender: function () {
@@ -138,15 +128,39 @@ define(function (require) {
                 expand: this.state.expand
             });
         },
-        onLayerClose: function () {
+        onLayerEnter: function (e) {
+            e.target.value = this.state.dropdownValue;
+            this.___dispatchChange___(e);
             var tmpValue = this.state.dropdownValue;
             if (this.props.clearTemporaryAfterLayerClose) {
                 tmpValue = this.props.value ? this.props.value : '';
             }
+            this.setState({___beOperated___: false});
+            e = {};
+            this.onBeforeLayerClose(e);
+            if (e.returnValue) {
+                this.setState({
+                    layerOpen: false,
+                    dropdownValue: tmpValue
+                });
+            }
+        },
+        onLayerClose: function (e) {
+            var tmpValue = this.state.dropdownValue;
+            var beOperated = this.state.___beOperated___;
+            if (this.props.clearTemporaryAfterLayerClose) {
+                tmpValue = this.props.value ? this.props.value : '';
+                beOperated = false;
+            }
             this.setState({
                 layerOpen: false,
-                dropdownValue: tmpValue
+                dropdownValue: tmpValue,
+                ___beOperated___: beOperated
             });
+        },
+        onBeforeLayerClose: function (e) {
+            e.returnValue = true;
+            typeof this.props.onBeforeLayerClose === 'function' && this.props.onBeforeLayerClose(e);
         },
         appendAll: function (e) {
             // 只添加叶子，children为空数组不是叶子，不可用的叶子不添加
@@ -205,7 +219,14 @@ define(function (require) {
                 location: 'bottom right left',
                 closeWithBodyClick: true,
                 onCloseByWindow: this.onLayerClose,
+                onBeforeCloseByWindow: this.onBeforeLayerClose,
                 onRender: this.onLayerRender
+            };
+            var enterButtonProp = {
+                disabled: !this.state.___beOperated___,
+                label: language.enter,
+                skin: 'important',
+                onClick: this.onLayerEnter
             };
             containerProp.ref = 'dropdownContainer';
             containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
@@ -216,8 +237,12 @@ define(function (require) {
                     <Layer {...layerProp}>
                         <div style={{padding: 10}}>
                             {mainContentFactory(this)}
-                            <Button label={language.enter} skin="important" onClick={this.onLayerEnter}/>
+                            <Button {...enterButtonProp}/>
                             <Button label={language.cancel} onClick={this.onLayerClose} style={{marginLeft: 10}}/>
+                            <span className="fcui2-error-msg">{
+                                this.props.labels && this.props.labels.errorMessage
+                                    ? this.props.labels.errorMessage : ''
+                            }</span>
                         </div>
                     </Layer>
                 </div>

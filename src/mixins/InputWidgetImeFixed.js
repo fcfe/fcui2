@@ -108,6 +108,14 @@ define(function (require) {
         },
         ___onPaste___: function (e) {
             // DO NOTHING
+        },
+        ___onFocus___: function (e) {
+            this.setState({hasFocus: true});
+            typeof this.props.onFocus === 'function' && this.props.onFocus(e);
+        },
+        ___onBlur___: function (e) {
+            this.setState({hasFocus: false});
+            typeof this.props.onBlur === 'function' && this.props.onBlur(e);
         }
     };
 });
