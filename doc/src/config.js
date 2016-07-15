@@ -31,7 +31,8 @@ define(function (require) {
                 {id: 'src\\Pager.jsx.js', label: 'Pager'},
                 {id: 'src\\Tab.jsx.js', label: 'Tab'},
                 {id: 'src\\Wizard.jsx.js', label: 'Wizard'},
-                {id: 'src\\Switch.jsx.js', label: 'Switch'}
+                {id: 'src\\Switch.jsx.js', label: 'Switch'},
+                {id: 'src\\WarningLayer.jsx.js', label: 'WarningLayer'}
             ]
         },
         {
@@ -53,7 +54,8 @@ define(function (require) {
                 {id: 'src\\Layer.jsx.js', label: 'Layer'},
                 {id: 'src\\TitleWindow.jsx.js', label: 'TitleWindow'},
                 {id: 'src\\ShojiScreen.jsx.js', label: 'ShojiScreen'},
-                {id: 'src\\Dialog.jsx.js', label: 'Dialog'}
+                {id: 'src\\Dialog.jsx.js', label: 'Dialog'},
+                {id: 'src\\DeployablePanel.jsx.js', label: 'DeployablePanel'}
             ]
         },
         {
@@ -133,7 +135,9 @@ define(function (require) {
         'BaseLineTesting.jsx.js': require('./demos/components/BaseLineTesting.jsx'),
         'FormFieldTesting.jsx.js': require('./demos/components/FormFieldTesting.jsx'),
         'src\\enterprise\\DualTreeSelector.jsx.js': require('./demos/components/DualTreeSelectorEnterprise.jsx'),
-        'src\\Switch.jsx.js': require('./demos/components/Switch.jsx')
+        'src\\Switch.jsx.js': require('./demos/components/Switch.jsx'),
+        'src\\WarningLayer.jsx.js': require('./demos/components/WarningLayer.jsx'),
+        'src\\DeployablePanel.jsx.js': require('./demos/components/DeployablePanel.jsx')
     };
 
     for (var key in dataset.files) {

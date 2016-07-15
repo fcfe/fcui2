@@ -7,6 +7,10 @@ define(function (require) {
                 on: '开',
                 off: '关'
             },
+            deployablePanel: {
+                expand: '展开面板',
+                hide: '收起面板'
+            },
             dualTreeSelectorEnterprise: {
                 selectItems: '请在树中选择条目',
                 allItems: '所有条目',

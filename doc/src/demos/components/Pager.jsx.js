@@ -14,7 +14,10 @@ define(function (require) {
         },
         {
             title: 'Readonly Pager',
-            props: {value: '4'}
+            props: {
+                value: '4',
+                skin: 'simple'
+            }
         },
         {
             title: 'Disabled Pager',

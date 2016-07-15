@@ -2,9 +2,6 @@ define(function (require) {
 
     var Creater = require('../Main.jsx');
     var TextBox = require('fcui/TextBox.jsx');
-    var React = require('react');
-    var Information = require('../Information.jsx');
-    var WarningLayer = require('fcui/WarningLayer.jsx');
 
     var items = [
         {
@@ -41,36 +38,6 @@ define(function (require) {
         }
     ];
 
-    var Example1 = Creater(TextBox, items, 'onChange');
+    return Creater(TextBox, items, 'onChange');
 
-    return React.createClass({
-        // @override
-        getDefaultProps: function () {
-            return {};
-        },
-        // @override
-        getInitialState: function () {
-            return {
-                warningAnchor: null
-            };
-        },
-        // @override
-        componentDidMount: function () {
-            this.setState({
-                warningAnchor: this.refs.tb1.refs.container
-            });
-        },
-        render: function () {
-            return (
-                <div>
-                    <Example1 alert={this.props.alert}/>
-                    <div className="demo-item">
-                        <Information title="TextBox with warning layer"/>
-                        <TextBox ref="tb1"/>
-                        <WarningLayer message="hahaa" location="bottom" anchor={this.state.warningAnchor}/>
-                    </div>
-                </div>
-            );
-        }
-    });
 });

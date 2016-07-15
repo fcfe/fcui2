@@ -9,3 +9,27 @@
         }
     }
 }
+
+.fcui2-pager-simple {
+    .fcui2-button {
+        background-color: transparent;
+        border: 0;
+        width: auto;
+        input {
+            color: @color-link; 
+            &:hover {
+                color: @color-text-3;
+            }
+        }
+        &:hover {
+            -webkit-box-shadow: 0 0 0;
+            -moz-box-shadow: 0 0 0;
+            box-shadow: 0 0 0;
+        }
+    }
+    .fcui2-button-active {
+        input {
+            color: @color-text-3;
+        }
+    }
+}

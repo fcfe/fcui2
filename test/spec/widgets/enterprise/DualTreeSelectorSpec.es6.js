@@ -41,7 +41,7 @@ define(function (require) {
                 expect(dom.refs.container.className).toBe(
                     'fcui2-dualtreeselector-enterprise fcui2-dualtreeselector-enterprise-normal'
                 );
-                expect(dom.refs.container.childNodes.length).toBe(3);
+                expect(dom.refs.container.childNodes.length).toBe(4);
                 let element1 = React.createElement(DualTreeSelector, {
                     datasource: datasource,
                     isDropDown: true

@@ -174,6 +174,7 @@ define(function (require) {
             e.target.value = JSON.stringify({selected: value});
             if (this.props.isDropDown) {
                 this.setState({
+                    ___beOperated___: true,
                     dropdownValue: e.target.value
                 });
             }
@@ -201,6 +202,7 @@ define(function (require) {
             e.target.value = JSON.stringify(value);
             if (this.props.isDropDown) {
                 this.setState({
+                    ___beOperated___: true,
                     dropdownValue: e.target.value
                 });
             }

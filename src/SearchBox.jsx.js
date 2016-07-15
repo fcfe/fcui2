@@ -59,6 +59,9 @@ define(function (require) {
             e.target.value = this.___getValue___();
             this.props.onClick(e);
         },
+        onEnterPress: function () {
+            this.onButtonClick({});
+        },
         focus: function () {
             this.refs.inputbox.focus();
             this.setState({hasFocus: true});

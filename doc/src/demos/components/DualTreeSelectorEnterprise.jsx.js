@@ -32,6 +32,7 @@ define(function (require) {
         {
             title: 'Normal DualTreeSelector',
             props: {
+                value: '{"selected":{"option3":true}}',
                 datasource: datasource
             }
         }
@@ -64,7 +65,7 @@ define(function (require) {
             data[3].children = [];
             return {
                 asyncDatasource: data,
-                asyncValue: '{}',
+                asyncValue: '{"selected":{"option2":true}}',
                 errorMessage: ''
             };
         },

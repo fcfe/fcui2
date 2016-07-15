@@ -94,6 +94,7 @@ define(function (require) {
         ___onKeyUp___: function (e) {
             this.___isPressing___ = false;
             this.___lastCursorPos___ = util.getCursorPosition(e.target);
+            e.keyCode === 13 && typeof this.onEnterPress === 'function' && this.onEnterPress();
             clearInterval(this.___workerTimer___);
             if (this.___imeStart___ || this.___lastFiredValue___ === this.refs.inputbox.value) return;
             var me = this;

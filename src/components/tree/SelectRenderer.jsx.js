@@ -85,24 +85,23 @@ define(function (require) {
                 style: {visibility: !(item.children instanceof Array) ? 'hidden' : 'auto'},
                 onClick: me.onExpand // from TreeNodeBase Mixin
             };
-            var selectDisabled = me.props.disabled;
+            var selectBtnProp = {};
             if (display === 'all') {
-                selectDisabled = selectDisabled || (select.selected === select.total && select.total > 0);
+                var disabled = me.props.disabled || (select.selected === select.total && select.total > 0);
+                selectBtnProp = {
+                    className: 'select-button font-icon '
+                        + (disabled ? ' select-button-disabled' : '')
+                        + ((select.selected === select.total && select.total > 0)
+                            ? ' font-icon-largeable-check' : ' font-icon-plus'),
+                    onClick: disabled ? undefined : me.onOperate
+                };
             }
-            var selectBtnProp = {
-                className: 'select-button font-icon'
-                    + (selectDisabled ? ' select-button-disabled' : '')
-                    + (
-                        display === 'all'
-                        ? (
-                            (select.selected === select.total && select.total > 0)
-                            ? ' font-icon-largeable-check' : ' font-icon-plus'
-                        )
-                        : ' font-icon-times'
-                    ),
-                onClick: selectDisabled ? undefined : me.onOperate
-            };
-
+            else {
+                selectBtnProp = {
+                    className: 'select-button font-icon font-icon-times',
+                    onClick: me.onOperate
+                };
+            }
             return (
                 <div {...containerProp}>
                     <div {...selectBtnProp}></div>
