@@ -48,8 +48,19 @@ define(function (require) {
         },
         getInitialState: function () {
             return {
-                layerOpen: false
+                layerOpen: false,
+                mouseenter: false
             };
+        },
+        onMouseEnter: function () {
+            this.setState({
+                mouseenter: true,
+                layerOpen: true
+            });
+        },
+        onMouseLeave: function () {
+            this.setState({mouseenter: false});
+            cTools.closeLayerHandlerFactory(this, 'layerOpen')();
         },
         offsetLayerPosition: function (result) {
             if (typeof this.props.onOffset === 'function') {
@@ -63,16 +74,18 @@ define(function (require) {
         render: function () {
             var containerProp = cTools.containerBaseProps('tip', this, {
                 merge: {
-                    onMouseEnter: cTools.openLayerHandlerFactory(this, 'layerOpen'),
-                    onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
+                    onMouseEnter: this.onMouseEnter,
+                    onMouseLeave: this.onMouseLeave
                 },
                 style: (this.props.title || this.props.content) ? undefined : {display: 'none'}
             });
             var layerProp = {
+                ref: 'layer',
                 isOpen: this.state.layerOpen && (this.props.title || this.props.content) && !this.props.disabled,
                 anchor: this.refs.container,
                 location: this.props.layerLocation,
-                onOffset: this.offsetLayerPosition
+                onOffset: this.offsetLayerPosition,
+                onMouseLeave: this.onMouseLeave
             };
             var Renderer = this.props.renderer;
             containerProp.className += typeof Renderer === 'function' ? '' : ' font-icon ' + this.props.icon;
