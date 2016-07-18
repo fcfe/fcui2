@@ -84,6 +84,31 @@ define(function (require) {
                 expect(tip.state.layerOpen).not.toBe(true);
                 jasmine.clock().uninstall();
             });
+
+            it('test position', () => {
+                let e = {
+                    left: 30,
+                    top: 50,
+                    clockPosition: '1'
+                };
+                let dom = realRender(Tip, {});
+                dom.offsetLayerPosition(e);
+                expect(e.left).toBe(40);
+                expect(e.top).toBe(45);
+                e.clockPosition = '7';
+                dom.offsetLayerPosition(e);
+                expect(e.left).toBe(25);
+                expect(e.top).toBe(55);
+                dom = realRender(Tip, {
+                    onOffset(e) {
+                        e.left = 0;
+                        e.top = 0;
+                    }
+                });
+                dom.offsetLayerPosition(e);
+                expect(e.left).toBe(0);
+                expect(e.top).toBe(0);
+            });
         });
     });
 });

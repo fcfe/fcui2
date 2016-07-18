@@ -137,6 +137,37 @@ define(function (require) {
                 TestUtils.Simulate.mouseUp(containerDom);
                 expect(button.state.mousedown).toBe(false);
             });
+
+            it('disabled', () => {
+                let value = '';
+                let dom = realRender(Button, {
+                    disabled: true,
+                    value: 'abc',
+                    onClick(e) {
+                        value = e.target.value;
+                    }
+                });
+                TestUtils.Simulate.click(dom.refs.container);
+                expect(value).toBe('');
+                TestUtils.Simulate.mouseDown(dom.refs.container);
+                expect(dom.state.mousedown).toBe(false);
+                TestUtils.Simulate.mouseUp(dom.refs.container);
+                expect(dom.state.mousedown).toBe(false);
+            });
+
+            it('width', () => {
+                let dom = realRender(Button, {
+                    width: 500
+                });
+                expect(dom.refs.container.style.width).toBe('498px');
+            });
+
+            it('incorrect type', () => {
+                let dom = realRender(Button, {
+                    type: 'hahaha'
+                });
+                expect(dom.refs.container.childNodes[0].type).toBe('button');
+            });
         });
     });
 });
