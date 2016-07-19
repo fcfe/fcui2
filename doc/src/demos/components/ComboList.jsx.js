@@ -71,6 +71,7 @@ define(function (require) {
             props: {
                 value: 'Main Command6',
                 label: ' 星星',
+                width: 200,
                 icon: 'font-icon-star-half',
                 datasource: [
                     {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},

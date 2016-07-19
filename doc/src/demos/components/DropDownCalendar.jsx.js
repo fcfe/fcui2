@@ -28,7 +28,7 @@ define(function (require) {
         },
         {
             title: 'Disabled DropDownCalendar',
-            props: {disabled: true}
+            props: {disabled: true, width: 200}
         }
     ];
 

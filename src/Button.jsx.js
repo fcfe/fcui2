@@ -97,12 +97,10 @@ define(function (require) {
                     onMouseUp: this.onMouseUp,
                     onClick: this.onClick
                 },
-                mergeFromProps: ['onMouseEnter', 'onMouseLeave', 'value', 'title']
+                mergeFromProps: ['onMouseEnter', 'onMouseLeave', 'value', 'title'],
+                widthCorrect: -2
             });
             containerProp.className += this.state.mousedown ? ' fcui2-button-active' : '';
-            if (containerProp.style.hasOwnProperty('width') && !isNaN(containerProp.style.width)) {
-                containerProp.style.width = containerProp.style.width - 2;
-            }
             return (
                 <div {...containerProp}>
                     {this.props.icon.length > 0 ? <div className={'font-icon ' + this.props.icon}></div> : null}

@@ -100,6 +100,7 @@ define(function (require) {
             var asyncTreeProp = {
                 ref: 'asyncTree',
                 isDropDown: true,
+                width: 200,
                 datasource: this.state.asyncDatasource,
                 value: this.state.asyncValue,
                 onChange: this.onAsyncTreeChange,

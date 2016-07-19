@@ -169,7 +169,7 @@ define(function (require) {
             var me = this;
             var value = this.___getValue___();
             var label = (this.props.type === 'single' && language[value]) ? language[value] : this.props.label;
-            var containerProp = cTools.containerBaseProps('dropdownlist', this);
+            var containerProp = cTools.containerBaseProps('dropdownlist', this, {widthCorrect: -12});
             var layerProp = {
                 ref: 'layer',
                 isOpen: this.state.layerOpen && !this.props.disabled,

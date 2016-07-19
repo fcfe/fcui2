@@ -9,6 +9,7 @@ define(function (require) {
     let Button = require('fcui/Button.jsx');
     let ShojiScreen = require('fcui/ShojiScreen.jsx');
     let Information = require('../Information.jsx');  
+    let DropDownRegion = require('fcui/DropDownRegion.jsx');
 
     return React.createClass({
         // @override
@@ -58,29 +59,6 @@ define(function (require) {
                 }
             ];
             return (<div>{itemFactory(config, this)}</div>);
-            return (
-                <div>
-                    <div className="demo-item">
-                        <h3>Normal ShojiScreen</h3>
-                        <Button label="Open" onClick={this.openWindow} value="window1"/>
-                        <ShojiScreen isOpen={this.state.window1} onAction={this.onAction1}>
-                            <div style={{width: 400, height: 2000}}>
-                                <h1>Normal ShojiScreen</h1>
-                            </div>
-                        </ShojiScreen>
-                    </div>
-                    <div className="demo-item">
-                        <h3>ShojiScreen with closing confirm.</h3>
-                        <Button label="Open" onClick={this.openWindow} value="window2"/>
-                        <ShojiScreen {...sjc2Prop}>
-                            <div style={{width: 400, height: 2000}}>
-                                <h1>ShojiScreen with closing confirm</h1>
-                            </div>
-                        </ShojiScreen>
-                    </div>
-                    <div style={{width: 30, height: 2000}}></div>
-                </div>
-            );
         }
     });
 
@@ -96,6 +74,8 @@ define(function (require) {
                     <ShojiScreen {...item.props}>
                         <div style={{width: 400, height: 2000}}>
                             <h1>{item.title}</h1>
+                            <div style={{height:300}}></div>
+                            <DropDownRegion/>
                         </div>
                     </ShojiScreen>
                 </div>

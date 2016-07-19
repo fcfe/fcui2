@@ -83,13 +83,15 @@ define(function (require) {
                 merge: {
                     onMouseLeave: this.onMouseLeave,
                     onClick: this.onMainButtonClick
-                }
+                },
+                widthCorrect: -2
             });
+            var width = containerProp.style.width;
             var dropdownButtonProp = {
                 className: 'icon-right font-icon font-icon-largeable-caret-down',
                 style: {
                     backgroundColor: this.state.layerOpen ? '#FFF' : undefined,
-                    color: this.state.layerOpen ? '#4593FF' : undefined,
+                    color: this.state.layerOpen ? '#4593FF' : undefined
                 },
                 onClick: this.onDropDownButtonClick
             };
@@ -111,7 +113,11 @@ define(function (require) {
             return (
                 <div {...containerProp}>
                     <div {...dropdownButtonProp}></div>
-                    <span className={'font-icon ' + this.props.icon}>{this.props.label}</span>
+                    <span className={'font-icon ' + this.props.icon} style={{
+                        width: !isNaN(width) ? (width - 41) : undefined
+                    }}>
+                        {this.props.label}
+                    </span>
                     <Layer {...layerProp}>
                         <List {...listProp}/>
                     </Layer>

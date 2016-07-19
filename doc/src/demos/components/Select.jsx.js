@@ -43,6 +43,7 @@ define(function (require) {
             props: {
                 placeholder: 'select',
                 value: 'option3',
+                width: 200,
                 datasource: [
                     {label: 'option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disabled: true},

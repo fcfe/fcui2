@@ -66,7 +66,7 @@ define(function (require) {
         },
         render: function () {
             var me = this;
-            var containerProp = cTools.containerBaseProps('dropdownlist', this);
+            var containerProp = cTools.containerBaseProps('dropdownlist', this, {widthCorrect: -12});
             var layerProp = {
                 ref: 'layer',
                 onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),

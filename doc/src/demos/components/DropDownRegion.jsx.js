@@ -16,7 +16,7 @@ define(function (require) {
         },
         {
             title: 'Disabled DropDownRegion',
-            props: {disabled: true}
+            props: {disabled: true, width: 200}
         },
         {
             title: 'DropDownRegion with ClassName',

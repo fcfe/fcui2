@@ -159,9 +159,8 @@ define(function (require) {
         render: function () {
             var me = this;
             var containerProp = cTools.containerBaseProps('dropdownlist', this, {
-                merge: {
-                    onClick: this.onMainButtonClick
-                }
+                merge: {onClick: this.onMainButtonClick},
+                widthCorrect: -12
             });
             var label = this.___getValue___() || this.props.placeholder;
             label = label.replace(/-/g, '.').replace(/;/g, ' - ');

@@ -73,7 +73,7 @@ define(function (require) {
         },
         render: function () {
             var me = this;
-            var containerProp = cTools.containerBaseProps('dropdownlist', this);
+            var containerProp = cTools.containerBaseProps('dropdownlist', this, {widthCorrect: -12});
             var label = this.___getValue___() || this.props.placeholder;
             var layerProp = {
                 isOpen: this.state.layerOpen && !this.props.disabled,

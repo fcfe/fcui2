@@ -77,7 +77,9 @@ define(function (require) {
             var me = this;
             var label = this.props.placeholder;
             var value = this.___getValue___();
-            var containerProp = cTools.containerBaseProps('dropdownlist', this);
+            var containerProp = cTools.containerBaseProps('dropdownlist', this, {
+                widthCorrect: -12
+            });
             var layerProp = {
                 ref: 'layer',
                 isOpen: this.state.layerOpen && this.props.datasource.length && !this.props.disabled,
@@ -102,6 +104,7 @@ define(function (require) {
                 }
             }
             containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
+
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>

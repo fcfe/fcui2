@@ -53,7 +53,7 @@ define(function (require) {
         },
         render: function () {
             return (
-                <div {...cTools.containerBaseProps('list', this)}>
+                <div {...cTools.containerBaseProps('list', this, {widthCorrect: -2})}>
                     {factory.listFactory(this)}
                 </div>
             );

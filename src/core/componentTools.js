@@ -88,6 +88,8 @@ define(function (require) {
          * 此配置中的字符串代表me.props的key，所有me.props[key]将被复制到result中。若result中已经存在key，则跳过。
          * @param {Object} options.merge 合并配置。
          * options.merge最终将与result合并，冲突的键不合并。此配置优先级低于options.mergeFromProps。
+         * @param {Number} options.widthCorrect 宽度校准，当组件设置宽度时，由于存在padding，可能导致实际尺寸比设置的
+         * 大，通过这一个修正值，把宽度减少回去
          * @return {Object} 根容器通用属性集
          * @interface containerBaseProps
          */
@@ -165,6 +167,15 @@ define(function (require) {
                     result.style[key] = me.props[key];
                 }
             }
+
+            if (
+                !isNaN(options.widthCorrect)
+                && (!isNaN(result.style.width) || (result.style.width + '').indexOf('px') > -1)
+            ) {
+                result.style.width = 1* ((result.style.width + 'px').replace(/px/g, ''));
+                result.style.width = result.style.width + options.widthCorrect;
+            }
+
             return result;
         }
     };

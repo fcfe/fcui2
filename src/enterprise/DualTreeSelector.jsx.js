@@ -215,7 +215,8 @@ define(function (require) {
             var containerProp = cTools.containerBaseProps('dropdownlist', this, {
                 merge: {
                     onClick: cTools.openLayerHandlerFactory(this, 'layerOpen')
-                }
+                },
+                widthCorrect: -12
             });
             var labels = _.extend({}, defaultLabels, this.props.labels);
             var layerProp = {
