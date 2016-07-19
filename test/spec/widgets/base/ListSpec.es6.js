@@ -56,7 +56,7 @@ define(function (require) {
                 let list = shallowRender(List, listProps);
                 expect(list.type).toBe('div');
                 expect(list.props.className).toBe('fcui2-list fcui2-list-test fcui2-list-test-skin');
-                expect(list.props.style).toEqual({color: '#FFF', width: 100});
+                expect(list.props.style).toEqual({color: '#FFF', width: 98});
 
                 let listChildren = list.props.children;
                 let Renderer = List.defaultProps.itemRenderer;

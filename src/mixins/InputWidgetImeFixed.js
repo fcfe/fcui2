@@ -46,7 +46,6 @@
  * * this.___onCompositionEnd___，对应onCompositionEnd事件
  * * this.___onKeyDown___，对应onKeyDown事件
  * * this.___onKeyUp___，对应onKeyUp事件
- * * this.___onPaste___，对应onPaste事件
  */
 define(function (require) {
 
@@ -99,16 +98,13 @@ define(function (require) {
             if (this.___imeStart___ || this.___lastFiredValue___ === this.refs.inputbox.value) return;
             this.______callDispatch______(e);
         },
-        ___onInput___: util.isIE() ? undefined : function (e) {
+        ___onInput___: function (e) {
             // 在window的chrome中：
             // 输入法开启，输入英文，回车，上屏英文，不会触发keyup，也不会触发compositionend，你敢信？
             // 但是会触发input事件，所以这个事件就是为了修复这种非常特殊的情况
             // 这个问题在IE11、mac的chrome、firefox中，完全没有！！！
             if (this.___imeStart___ || this.___lastFiredValue___ === e.target.value) return;
             this.______callDispatch______(e);
-        },
-        ___onPaste___: function (e) {
-            // DO NOTHING
         },
         ___onFocus___: function (e) {
             this.setState({hasFocus: true});

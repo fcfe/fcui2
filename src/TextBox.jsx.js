@@ -80,7 +80,6 @@ define(function (require) {
                 onFocus: this.___onFocus___,
                 onBlur: this.___onBlur___,
                 onKeyUp: this.___onKeyUp___,
-                onPaste: this.___onPaste___,
                 onInput: this.___onInput___
             };
             return (

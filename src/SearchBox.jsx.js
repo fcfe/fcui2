@@ -88,7 +88,6 @@ define(function (require) {
                 onCompositionStart: this.___onCompositionStart___,
                 onCompositionEnd: this.___onCompositionEnd___,
                 onKeyUp: this.___onKeyUp___,
-                onPaste: this.___onPaste___,
                 onFocus: this.___onFocus___,
                 onBlur: this.___onBlur___,
                 onInput: this.___onInput___

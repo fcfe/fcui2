@@ -40,7 +40,7 @@ define(function (require) {
                         onCompositionStart={child1.props.onCompositionStart}
                         onCompositionEnd={child1.props.onCompositionEnd}
                         onKeyUp={child1.props.onKeyUp}
-                        onPaste={child1.props.onPaste}
+                        onInput={child1.props.onInput}
                         onBlur={child1.props.onBlur}
                         onFocus={child1.props.onFocus}
                     />
@@ -63,7 +63,7 @@ define(function (require) {
                         onCompositionStart={child1.props.onCompositionStart}
                         onCompositionEnd={child1.props.onCompositionEnd}
                         onKeyUp={child1.props.onKeyUp}
-                        onPaste={child1.props.onPaste}
+                        onInput={child1.props.onInput}
                         onBlur={child1.props.onBlur}
                         onFocus={child1.props.onFocus}
                     />
@@ -81,7 +81,7 @@ define(function (require) {
                         onCompositionStart={child1.props.onCompositionStart}
                         onCompositionEnd={child1.props.onCompositionEnd}
                         onKeyUp={child1.props.onKeyUp}
-                        onPaste={child1.props.onPaste}
+                        onInput={child1.props.onInput}
                         onBlur={child1.props.onBlur}
                         onFocus={child1.props.onFocus}
                     />
