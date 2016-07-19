@@ -6,7 +6,7 @@ define(function (require) {
     var Information = require('../Information.jsx');
     var Dialog = require('fcui/Dialog.jsx');
     var dialog = new Dialog();
-
+    var DropDownRegion = require('fcui/DropDownRegion.jsx');
 
 
     var SubApp = React.createClass({
@@ -17,7 +17,12 @@ define(function (require) {
         },
         render: function () {
             return (
-                <div><span>{this.props.message}</span></div>
+                <div>
+                    <span>{this.props.message}</span>
+                    <div style={{height: 300}}></div>
+                    <DropDownRegion/>
+                    <div style={{height: 300}}></div>
+                </div>
             );
         }
     });
@@ -120,6 +125,10 @@ define(function (require) {
             dialog.pop({
                 title: 'SubApp Demo',
                 content: SubApp,
+                size: {
+                    height: 200,
+                    width: 300
+                },
                 contentProps: {
                     message: 'it is subapp\'s content, imported from outside.'
                 },

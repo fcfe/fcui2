@@ -11,6 +11,7 @@ define(function (require) {
     var ReactDOM = require('react-dom');
     var renderSubtreeIntoContainer = require('react-dom').unstable_renderSubtreeIntoContainer;
     var tools = require('./core/layerTools');
+    var util = require('./core/util');
     var noop = function () {};
 
 
@@ -92,6 +93,8 @@ define(function (require) {
             // 记录实例变量
             this.___layerContainer___ = layer;
             this.___layerAppended___ = false;
+            this.___workerTimer___ = null;
+            this.___anchorPosition___ = '';
             // 渲染子树
             this.renderSubTree(this.props);
         },
@@ -123,6 +126,17 @@ define(function (require) {
                 typeof this.props.onCloseByWindow === 'function' && this.props.onCloseByWindow();
             }
         },
+        onWorkerRunning: function () {
+            if (!this.props.isOpen) {
+                clearInterval(this.___workerTimer___);
+                return;
+            }
+            var pos = util.getDOMPosition(this.props.anchor);
+            pos = pos.x + ';' + pos.y + ';' + pos.left + ';' + pos.top;
+            if (this.___anchorPosition___ !== pos) {
+                this.fixedPosition(this.props);
+            }
+        },
         renderSubTree: function (props) {
             if (!this.___layerContainer___ || !props.anchor) return;
             if (!props.isOpen && !this.___layerAppended___) return;
@@ -140,6 +154,12 @@ define(function (require) {
                         setTimeout(function () {
                             window.addEventListener('click', me.onBodyClick);
                         }, 100);
+                        // 滚动条太恶心了，挂scroll永远解决不了layer和anchor脱离的问题
+                        // 因为我根本就不知道sroll到底是哪里引起的
+                        // 所以我他喵的准备用轮询，不要怪我。
+                        me.___workerTimer___ = setInterval(function () {
+                            me.onWorkerRunning();
+                        }, 10);
                     }
                 });
                 return;
@@ -155,6 +175,7 @@ define(function (require) {
             this.___layerContainer___.style.top = '-9999px';
             document.body.removeChild(this.___layerContainer___);
             window.removeEventListener('click', this.onBodyClick);
+            clearInterval(this.___workerTimer___);
             this.___layerAppended___ = false;
             this.setState({mouseenter: false});
         },
@@ -171,6 +192,8 @@ define(function (require) {
             typeof props.onOffset === 'function' && props.onOffset(pos);
             layer.style.left = pos.left + 'px';
             layer.style.top = pos.top + 'px';
+            var anchorPos = util.getDOMPosition(props.anchor);
+            this.___anchorPosition___ = anchorPos.x + ';' + anchorPos.y + ';' + anchorPos.left + ';' + anchorPos.top;
         },
         render: function () {
             return React.DOM.noscript();
