@@ -97,15 +97,15 @@ define(function (require) {
             e.keyCode === 13 && typeof this.onEnterPress === 'function' && this.onEnterPress();
             clearInterval(this.___workerTimer___);
             if (this.___imeStart___ || this.___lastFiredValue___ === this.refs.inputbox.value) return;
-            var me = this;
-            var lastValue = this.___lastFiredValue___;
-            e.target = this.refs.container;
-            e.target.value = this.___lastFiredValue___ = this.refs.inputbox.value;
-            this.___dispatchChange___(e, this.___lastFiredValue___, lastValue);
-            this.___workerTimer___ = setInterval(function () {
-                clearInterval(me.___workerTimer___);
-                me.___syncValue___();
-            }, 10);
+            this.______callDispatch______(e);
+        },
+        ___onInput___: util.isIE() ? undefined : function (e) {
+            // 在window的chrome中：
+            // 输入法开启，输入英文，回车，上屏英文，不会触发keyup，也不会触发compositionend，你敢信？
+            // 但是会触发input事件，所以这个事件就是为了修复这种非常特殊的情况
+            // 这个问题在IE11、mac的chrome、firefox中，完全没有！！！
+            if (this.___imeStart___ || this.___lastFiredValue___ === e.target.value) return;
+            this.______callDispatch______(e);
         },
         ___onPaste___: function (e) {
             // DO NOTHING
@@ -117,6 +117,17 @@ define(function (require) {
         ___onBlur___: function (e) {
             this.setState({hasFocus: false});
             typeof this.props.onBlur === 'function' && this.props.onBlur(e);
+        },
+        ______callDispatch______: function (e) {
+            var me = this;
+            var lastValue = this.___lastFiredValue___;
+            e.target = this.refs.container;
+            e.target.value = this.___lastFiredValue___ = this.refs.inputbox.value;
+            this.___dispatchChange___(e, this.___lastFiredValue___, lastValue);
+            this.___workerTimer___ = setInterval(function () {
+                clearInterval(me.___workerTimer___);
+                me.___syncValue___();
+            }, 10);
         }
     };
 });

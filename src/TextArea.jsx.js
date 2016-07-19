@@ -84,7 +84,8 @@ define(function (require) {
                 onKeyUp: this.___onKeyUp___,
                 onPaste: this.___onPaste___,
                 onFocus: this.___onFocus___,
-                onBlur: this.___onBlur___
+                onBlur: this.___onBlur___,
+                onInput: this.___onInput___
             };
             // 由于IE和Chrome下placeholder表现不一致，所以自己做IE下得到焦点后，placeholder会消失，chrome不会
             var labelProp = {
