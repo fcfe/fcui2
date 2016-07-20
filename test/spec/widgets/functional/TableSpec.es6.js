@@ -252,7 +252,7 @@ define(function (require) {
                 expect(dom.refs.container.childNodes[1].childNodes[0].childNodes[1].childNodes.length).toBe(4);
                 let tr1 = dom.refs.container.childNodes[0].childNodes[0].childNodes[1].childNodes[1];
                 expect(tr1.childNodes.length).toBe(4);
-                expect(tr1.childNodes[0].childNodes[0].className).toBe('fcui2-checkbox fcui2-checkbox-normal');
+                expect(tr1.childNodes[0].childNodes[0].className).toBe('fcui2-checkbox fcui2-checkbox-normal browser-chrome');
                 expect(tr1.childNodes[0].childNodes[0].childNodes[0].type).toBe('checkbox');
                 let target = tr1.childNodes[0].childNodes[0].childNodes[0];
                 target.checked = true;

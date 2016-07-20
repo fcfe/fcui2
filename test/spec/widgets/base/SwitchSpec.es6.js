@@ -22,7 +22,7 @@ define(function (require) {
 
             it('Readers a Switch with default props', () => {
                 let dom = realRender(Switch);
-                expect(dom.refs.container.className).toBe('fcui2-switch fcui2-switch-normal fcui2-switch-off');
+                expect(dom.refs.container.className).toBe('fcui2-switch fcui2-switch-normal browser-chrome fcui2-switch-off');
             });
 
             it('checked', () => {

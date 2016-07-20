@@ -7,7 +7,7 @@
 define(function (require) {
 
     var _ = require('underscore');
-
+    var util = require('./util');
     var MERGE_FROM_PROPS_TO_STYLE = [
         'width',
         'minWidth',
@@ -133,7 +133,8 @@ define(function (require) {
             else if (me.props.disabled) {
                 result.className += ' fcui2-' + type + '-disabled';
             }
-
+            // browser
+            result.className += ' browser-' + util.getBrowserType();
             // 处理options.mergeFromProps
             options = options || {};
             if (options.mergeFromProps instanceof Array) {

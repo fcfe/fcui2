@@ -4,6 +4,32 @@
 
 body {
 
+    // 浏览器display base line兼容
+    .fcui2-button.browser-firefox {
+        top: 3px;
+        margin-bottom: -3px;
+    }
+    .fcui2-dropdownlist.browser-firefox {
+        position: relative;
+        top: -1px;
+        margin-top: 1px;
+    }
+    .fcui2-combolist.browser-firefox {
+        top: 2px;
+        margin-top: -2px;
+        height: 26px;
+        .icon-right {
+            line-height: 26px;
+        }
+        >span {
+            line-height: 28px;
+        }
+    }
+    .fcui2-combolist.browser-ie {
+        top: 3px;
+        margin-top: -3px;
+    }
+
     // 行内错误提示
     .fcui2-error-msg {
         color: @color-error;

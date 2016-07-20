@@ -175,7 +175,7 @@ define(function (require) {
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-calendar"></div>
-                    <div className="label-container">{label}</div>
+                    <span className="label-container">{label}</span>
                     <Layer {...layerProp}>{factory.layerContentFactory(me)}</Layer>
                 </div>
             );

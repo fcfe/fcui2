@@ -43,7 +43,7 @@ define(function (require) {
                 let vDom = shallowRender(Radio);
                 let onChange = require('core/componentTools').noop;
                 expect(vDom.type).toBe('div');
-                expect(vDom.props.className).toBe('fcui2-checkbox fcui2-checkbox-normal');
+                expect(vDom.props.className).toBe('fcui2-checkbox fcui2-checkbox-normal browser-chrome');
                 expect(vDom.props.children[0].type).toEqual('input');
             });
 

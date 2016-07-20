@@ -99,7 +99,7 @@ define(function (require) {
                 expect(dom.state.layerOpen).toBe(true);
                 let layer = dom.refs.layer.___layerContainer___.childNodes[0];
                 expect(layer.childNodes.length).toBe(3);
-                expect(layer.childNodes[2].className).toBe('fcui2-button fcui2-button-normal');
+                expect(layer.childNodes[2].className).toBe('fcui2-button fcui2-button-normal browser-chrome');
                 TestUtils.Simulate.click(layer.childNodes[2]);
                 expect(dom.state.layerOpen).toBe(false);
                 dom.close();

@@ -28,6 +28,30 @@ define(function (require) {
         },
 
         /**
+         * 获取浏览器类型
+         * @interface getBrowserInfo
+         * @return {String} 浏览器类型
+         */
+        getBrowserType: function () {
+            // in NodeJS
+            if (!window) {
+                return 'chrome';
+            }
+            // 按浏览器份额排序
+            var ua = navigator.userAgent.toLowerCase();
+            if (!!window.ActiveXObject || 'ActiveXObject' in window) {
+                return 'ie';
+            }
+            if (ua.indexOf("chrome") > -1) {
+                return 'chrome';
+            }
+            if (ua.indexOf("firefox") > -1) {
+                return 'firefox';
+            }
+            return 'other';
+        },
+
+        /**
          * 获取window下的某个namespace，如果不存在，则创建一个空对象
          * @interface getNamespace
          * @param {String} namespace 命名空间名称

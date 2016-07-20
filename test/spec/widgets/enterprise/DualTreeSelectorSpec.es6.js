@@ -39,7 +39,7 @@ define(function (require) {
                     labels: ''
                 });
                 expect(dom.refs.container.className).toBe(
-                    'fcui2-dualtreeselector-enterprise fcui2-dualtreeselector-enterprise-normal'
+                    'fcui2-dualtreeselector-enterprise fcui2-dualtreeselector-enterprise-normal browser-chrome'
                 );
                 expect(dom.refs.container.childNodes.length).toBe(4);
                 let element1 = React.createElement(DualTreeSelector, {
@@ -47,7 +47,7 @@ define(function (require) {
                     isDropDown: true
                 });
                 ReactDOM.render(element1, dom.refs.container.parentNode);
-                expect(dom.refs.dropdownContainer.className).toBe('fcui2-dropdownlist fcui2-dropdownlist-normal');
+                expect(dom.refs.dropdownContainer.className).toBe('fcui2-dropdownlist fcui2-dropdownlist-normal browser-chrome');
                 expect(dom.refs.dropdownContainer.childNodes.length).toBe(3);
             });
 
@@ -67,7 +67,7 @@ define(function (require) {
                     'fcui2-dualtreeselector-enterprise fcui2-dualtreeselector-enterprise-normal'
                 );
                 let selector = dom.refs.dualTreeSelector;
-                expect(selector.refs.container.className).toBe('fcui2-dualtreeselector fcui2-dualtreeselector-normal');
+                expect(selector.refs.container.className).toBe('fcui2-dualtreeselector fcui2-dualtreeselector-normal browser-chrome');
                 selector.___dispatchChange___({
                     target: {
                         value: JSON.stringify({
@@ -168,7 +168,7 @@ define(function (require) {
                 });
                 TestUtils.Simulate.click(dom.refs.dropdownContainer);
                 selector = dom.refs.dualTreeSelector;
-                expect(selector.refs.container.className).toBe('fcui2-dualtreeselector fcui2-dualtreeselector-normal');
+                expect(selector.refs.container.className).toBe('fcui2-dualtreeselector fcui2-dualtreeselector-normal browser-chrome');
                 selector.___dispatchChange___({
                     target: {
                         value: JSON.stringify({

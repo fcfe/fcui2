@@ -77,7 +77,7 @@ define(function (require) {
                 });
                 expect(dom.refs.c1).toBe(undefined);
                 TestUtils.Simulate.click(dom.refs.container);
-                expect(dom.refs.c1.refs.container.className).toBe('fcui2-calendar fcui2-calendar-normal');
+                expect(dom.refs.c1.refs.container.className).toBe('fcui2-calendar fcui2-calendar-normal browser-chrome');
                 let c1 = dom.refs.c1;
                 TestUtils.Simulate.click(c1.refs.container.childNodes[2].childNodes[5]);
                 TestUtils.Simulate.click(dom.refs.enterButton.refs.container);

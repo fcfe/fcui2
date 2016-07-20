@@ -24,7 +24,7 @@ define(function (require) {
 
             it('Normal Pager', () => {
                 let dom = realRender(Pager, {});
-                expect(dom.refs.container.className).toBe('fcui2-pager fcui2-pager-normal');
+                expect(dom.refs.container.className).toBe('fcui2-pager fcui2-pager-normal browser-chrome');
                 expect(dom.refs.container.childNodes.length).toBe(12);
             });
 
@@ -36,7 +36,7 @@ define(function (require) {
                         value = e.target.value;
                     }
                 });
-                expect(dom.refs.container.childNodes[3].className).toBe('fcui2-button fcui2-button-active');
+                expect(dom.refs.container.childNodes[3].className).toBe('fcui2-button fcui2-button-active browser-chrome');
                 TestUtils.Simulate.click(dom.refs.container.childNodes[4]);
                 expect(value).toBe(4);
                 TestUtils.Simulate.click(dom.refs.container.childNodes[0]);

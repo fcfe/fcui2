@@ -42,7 +42,7 @@ define(function (require) {
                 let vDom = shallowRender(CheckBox);
                 let onChange = vDom.props.children[0].props.onChange
                 expect(vDom.type).toBe('div');
-                expect(vDom.props.className).toBe('fcui2-checkbox fcui2-checkbox-normal');
+                expect(vDom.props.className).toBe('fcui2-checkbox fcui2-checkbox-normal browser-chrome');
                 expect(vDom.props.children[0]).toEqual(
                     <input type="checkbox" key="input"
                         ref="inputbox" disabled={false} value="" checked={false}
