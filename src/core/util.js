@@ -35,7 +35,7 @@ define(function (require) {
             if (ua.indexOf("firefox") > -1) {
                 return 'firefox';
             }
-            return 'other';
+            return 'chrome';
         },
 
         /**
