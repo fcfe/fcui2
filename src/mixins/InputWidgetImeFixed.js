@@ -104,6 +104,8 @@ define(function (require) {
             // 但是会触发input事件，所以这个事件就是为了修复这种非常特殊的情况
             // 这个问题在IE11、mac的chrome、firefox中，完全没有！！！
             if (this.___imeStart___ || this.___lastFiredValue___ === e.target.value) return;
+            this.___isPressing___ = false;
+            this.___lastCursorPos___ = util.getCursorPosition(e.target);
             this.______callDispatch______(e);
         },
         ___onFocus___: function (e) {
