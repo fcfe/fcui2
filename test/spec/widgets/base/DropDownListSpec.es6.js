@@ -46,7 +46,7 @@ define(function (require) {
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
                 );
                 expect(dropdownlist.props.children[1]).toEqual(
-                    <span>DropDownList</span>
+                    <span className="label-container">DropDownList</span>
                 );
 
                 let layer = dropdownlist.props.children[2];
@@ -63,7 +63,7 @@ define(function (require) {
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
                 );
                 expect(dropdownlist.props.children[1]).toEqual(
-                    <span>TestDropDownList</span>
+                    <span className="label-container">TestDropDownList</span>
                 );
             });
         });
@@ -138,6 +138,9 @@ define(function (require) {
                 expect(dropdownlist.props.onClick.calls.count()).toBe(1);
                 expect(currentValue).toBe('1');
                 expect(dropdownlist.state.layerOpen).toBe(false);
+
+
+                
 
             });
         });

@@ -213,7 +213,7 @@ define(function (require) {
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
-                    <span>{label}</span>
+                    <span className="label-container">{label}</span>
                     <Layer {...layerProp}>
                         <div style={{maxWidth: 600}}>
                             <Region {...regionProp}/>

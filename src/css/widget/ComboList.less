@@ -3,8 +3,8 @@
 .fcui2-combolist {
     display: inline-block;
     position: relative;
-    top: 4px;
-    margin-top: -4px;
+    top: 10px;
+    margin-top: -10px;
     height: 28px;
     border: 1px solid;
     .icon-right {
@@ -15,25 +15,29 @@
         border-left: 1px solid;
         text-align: center;
     }
-    >span {
-        position: relative;
-        top: -3px;
+    .label-container {
+        display: block;
+        height: 28px;
         line-height: 28px;
-        padding: 0 10px;
+        margin-right: 21px;
+        line-height: 28px;
+        word-break: break-all;
+　　    word-wrap: break-word;
+        overflow: hidden;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap
     }
 }
 
 .fcui2-combolist-normal {
     cursor: pointer;
     border-color: @color-btn; 
-    >span {
-        display: inline-block;
+    .label-container {
         font-size: 12px;
         padding: 0 10px;
         color: @color-gray-1;
         background-color: @color-btn;
-        line-height: 30px;
-        margin-top: 2px;
         &:hover {
             background-color: @color-btn-hover;
         }
@@ -50,7 +54,7 @@
 
 .fcui2-combolist-disabled {
     border-color: @color-outer-border !important;
-    >span {
+    .label-container {
         color: @color-disabled-text !important;
         line-height: 28px;
         background-color: @color-bg-btn !important;

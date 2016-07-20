@@ -87,7 +87,7 @@ define(function (require) {
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
-                    <span>{this.props.label}</span>
+                    <span className="label-container">{this.props.label}</span>
                     <Layer {...layerProp}>
                         <List {...listProp} />
                     </Layer>

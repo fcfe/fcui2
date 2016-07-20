@@ -31,6 +31,7 @@ define(function (require) {
                         <Button/>
                         <DropDownList/>
                         <ComboList/>
+                        <TextBox/>
                         <SearchBox/>
                         <Switch/>
                     </div>

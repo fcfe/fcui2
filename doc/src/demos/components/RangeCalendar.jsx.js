@@ -71,7 +71,7 @@ define(function (require) {
         {
             title: 'RangeCalendar with RangeValidator',
             props: {
-                width: 200,
+                width: 100,
                 rangeValidator: function (v1, v2) {
                     var d = v2.getTime() - v1.getTime();
                     d = parseInt(d / (1000 * 60 * 60 * 24), 10); 

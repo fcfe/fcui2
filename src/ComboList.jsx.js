@@ -113,9 +113,7 @@ define(function (require) {
             return (
                 <div {...containerProp}>
                     <div {...dropdownButtonProp}></div>
-                    <span className={'font-icon ' + this.props.icon} style={{
-                        width: !isNaN(width) ? (width - 41) : undefined
-                    }}>
+                    <span className={'label-container font-icon ' + this.props.icon}>
                         {this.props.label}
                     </span>
                     <Layer {...layerProp}>

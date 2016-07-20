@@ -67,7 +67,7 @@ define(function (require) {
             title: 'DropDownList with ClassName',
             props: {
                 placeholder: 'select',
-                width: 150,
+                width: 50,
                 className: 'floatRight',
                 datasource: [
                     {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},

@@ -239,7 +239,7 @@ define(function (require) {
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
-                    <span>{labels.dropdownLabel ? labels.dropdownLabel : ''}</span>
+                    <span className="label-container">{labels.dropdownLabel ? labels.dropdownLabel : ''}</span>
                     <Layer {...layerProp}>
                         <div style={{padding: 10}}>
                             {mainContentFactory(this)}
