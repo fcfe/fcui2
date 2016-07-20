@@ -11,21 +11,8 @@
  * 5. 目前符合AMD规范，将来会支持CMD和直接引入
  */
 define(function (require) {
-    var exports = {
 
-        /**
-         * 浏览器是否是IE
-         * @interface isIE
-         * @return {Boolean} 检查结果
-         */
-        isIE: function () {
-            if (!!window.ActiveXObject || 'ActiveXObject' in window) {
-                return true;
-            }  
-            else {
-                return false;
-            }    
-        },
+    var exports = {
 
         /**
          * 获取浏览器类型
@@ -34,7 +21,7 @@ define(function (require) {
          */
         getBrowserType: function () {
             // in NodeJS
-            if (!window) {
+            if (!(typeof window !== 'undefined' && window.document && window.document.createElement)) {
                 return 'chrome';
             }
             // 按浏览器份额排序
