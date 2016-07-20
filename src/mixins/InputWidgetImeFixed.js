@@ -71,7 +71,16 @@ define(function (require) {
             props = props || this.props;
             var value = props.value;
             // 外部没有导入value或导入的value和输入框的相同
-            if (typeof value == null || value === undefined || value + '' === this.refs.inputbox.value + '') return;
+            if (
+                typeof value == null
+                || value === undefined
+                || !this.refs
+                || !this.refs.inputbox
+                || value + '' === this.refs.inputbox.value + ''
+            ) {
+                clearInterval(this.___workerTimer___);
+                return;
+            }
             value = value + '';
             this.___lastFiredValue___ = value;
             this.setState({___value___: value});
@@ -94,7 +103,6 @@ define(function (require) {
             this.___isPressing___ = false;
             this.___lastCursorPos___ = util.getCursorPosition(e.target);
             e.keyCode === 13 && typeof this.onEnterPress === 'function' && this.onEnterPress();
-            clearInterval(this.___workerTimer___);
             if (this.___imeStart___ || this.___lastFiredValue___ === this.refs.inputbox.value) return;
             this.______callDispatch______(e);
         },
@@ -122,6 +130,7 @@ define(function (require) {
             e.target = this.refs.container;
             e.target.value = this.___lastFiredValue___ = this.refs.inputbox.value;
             this.___dispatchChange___(e, this.___lastFiredValue___, lastValue);
+            clearInterval(me.___workerTimer___);
             this.___workerTimer___ = setInterval(function () {
                 clearInterval(me.___workerTimer___);
                 me.___syncValue___();
