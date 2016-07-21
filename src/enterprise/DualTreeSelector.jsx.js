@@ -19,6 +19,7 @@ define(function (require) {
     var treeTools = require('../core/treeTools');
     var tableTools = require('../core/tableTools');
     var language = require('../core/language').dualTreeSelectorEnterprise;
+    var util = require('../core/util');
 
     var defaultLabels = {
         dropdownLabel: 'DualTreeSelector',
@@ -259,6 +260,7 @@ define(function (require) {
     function mainContentFactory(me) {
         var value = me.props.isDropDown ? me.state.dropdownValue : me.___getValue___();
         var treeProp = {
+            width: util.getBrowserType() === 'firefox' && me.props.isDropDown ? 545 : undefined,
             ref: 'dualTreeSelector',
             value: value,
             datasource: me.props.datasource,
