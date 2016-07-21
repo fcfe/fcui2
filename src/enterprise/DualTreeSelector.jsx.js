@@ -260,7 +260,7 @@ define(function (require) {
     function mainContentFactory(me) {
         var value = me.props.isDropDown ? me.state.dropdownValue : me.___getValue___();
         var treeProp = {
-            width: util.getBrowserType() === 'firefox' && me.props.isDropDown ? 545 : undefined,
+            width: util.getBrowserType() === 'firefox' && me.props.isDropDown ? 525 : undefined,
             ref: 'dualTreeSelector',
             value: value,
             datasource: me.props.datasource,

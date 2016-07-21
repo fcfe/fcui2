@@ -147,6 +147,7 @@ define(function (require) {
                     document.body.appendChild(this.___layerContainer___);
                 }
                 renderSubtreeIntoContainer(this, props.children, this.___layerContainer___, function () {
+                    me.fixedSize(props);
                     me.fixedPosition(props);
                     if (!me.___layerAppended___) {
                         me.___layerAppended___ = true;
@@ -179,15 +180,23 @@ define(function (require) {
             this.___layerAppended___ = false;
             this.setState({mouseenter: false});
         },
+        fixedSize: function (props) {
+            var layer = this.___layerContainer___;
+            var width = layer.offsetWidth;
+            var height = layer.offsetHeight;
+            if (layer.scrollHeight > layer.offsetHeight && !layer.___expandWidth___) {
+                layer.___expandWidth___ = true;
+                width += 20;
+                //height += 2;
+            }
+            if (props.fixedWidthToAnchor && width < props.anchor.offsetWidth) {
+                width = props.anchor.offsetWidth - 2;
+            }
+            layer.style.width = width + 'px';
+            layer.style.height = height + 'px';
+        },
         fixedPosition: function (props) {
             var layer = this.___layerContainer___;
-            if (layer.scrollHeight > layer.offsetHeight && !layer.__expandWidth___) {
-                layer.__expandWidth___ = true;
-                layer.style.width = layer.offsetWidth + 20 + 'px';
-            }
-            if (props.fixedWidthToAnchor && layer.offsetWidth < props.anchor.offsetWidth) {
-                layer.style.width = props.anchor.offsetWidth - 2 + 'px';
-            }
             var pos = tools.getLayerPosition(layer, props.anchor, props.location + '');
             typeof props.onOffset === 'function' && props.onOffset(pos);
             layer.style.left = pos.left + 'px';
