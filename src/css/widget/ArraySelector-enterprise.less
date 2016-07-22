@@ -1,0 +1,64 @@
+
+.fcui2-arrayselector-enterprise {
+    font-size: 12px;
+    .selector-title-bar {
+        line-height: 28px;
+    }
+    .tree-title-bar {
+        >div {
+            line-height: 28px;
+            width: 233px;
+            border: 1px solid;
+            border-bottom: 0;
+            display: inline-block;
+            padding-left: 17px;
+            &:last-child {
+                margin-left: 20px;
+            }
+        }
+    }
+    .tree-foot-bar {
+        height: 28px;
+        position: relative;
+        >div {
+            position: absolute;
+            width: 250px;
+            line-height: 28px;
+            top: 0px;
+            left: 0px;
+            &:last-child {
+                left: 270px;
+            }
+        }
+        .remove-all-button {
+            float: right;
+            cursor: pointer;
+        }
+    }
+    .fcui2-tree {
+        .list-normal-item {
+            white-space: nowrap;
+            word-break: keep-all;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+.fcui2-arrayselector-enterprise-normal {
+    .tree-title-bar {
+        >div {
+            background-color: @color-bg-btn;
+            border-color: @color-outer-border;
+            border-bottom-color: @color-bg;
+        }
+    }
+    .tree-foot-bar {
+        .remove-all-button {
+            color: @color-link;
+        }
+    }
+    .fcui2-arrayselector-normal .tree-container .fcui2-tree {
+        border-top-color: @color-bg;
+    }
+}

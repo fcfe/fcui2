@@ -105,6 +105,7 @@ define(function (require) {
         // @override
         componentWillUnmount: function() {
             var layer = this.___layerContainer___;
+            layer.___sizeFixed___ = false;
             layer.removeEventListener('mouseenter', this.onLayerMouseEnter);
             layer.removeEventListener('mouseleave', this.onLayerMouseLeave);
             this.removeSubTree();
@@ -180,7 +181,8 @@ define(function (require) {
             this.___layerAppended___ = false;
             this.setState({mouseenter: false});
         },
-        fixedSize: function (props) {
+        fixedSize: function (props) { 
+            // layer默认宽度会固定，高度自适应；如果修改宽度，可在props.style里修改
             var layer = this.___layerContainer___;
             var width = layer.offsetWidth;
             var height = layer.offsetHeight;
@@ -192,8 +194,12 @@ define(function (require) {
             }
             if (!layer.___sizeFixed___) {
                 layer.___sizeFixed___ = true;
-                layer.style.width = width + 'px';
-                layer.style.height = height + 'px';
+                if (props.hasOwnProperty('style') && props.style.hasOwnProperty('width')) {
+                    // DO NOTHING
+                }
+                else {
+                    layer.style.width = width + 'px'; 
+                }  
             }
         },
         fixedPosition: function (props) {
