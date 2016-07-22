@@ -11,6 +11,10 @@ define(function (require) {
                 expand: '展开面板',
                 hide: '收起面板'
             },
+            arraySelector: {
+                enter: '确定',
+                cancel: '取消'
+            },
             dualTreeSelectorEnterprise: {
                 selectItems: '请在树中选择条目',
                 allItems: '所有条目',

@@ -85,6 +85,7 @@ define(function (require) {
             label: 'Enterprise Widgets',
             children: [
                 {id: 'src\\enterprise\\DualTreeSelector.jsx.js', label: 'DualTreeSelector'},
+                {id: 'src\\enterprise\\ArraySelector.jsx.js', label: 'ArraySelector'}
             ]
         },
         components,
@@ -137,7 +138,8 @@ define(function (require) {
         'src\\enterprise\\DualTreeSelector.jsx.js': require('./demos/components/DualTreeSelectorEnterprise.jsx'),
         'src\\Switch.jsx.js': require('./demos/components/Switch.jsx'),
         'src\\WarningLayer.jsx.js': require('./demos/components/WarningLayer.jsx'),
-        'src\\DeployablePanel.jsx.js': require('./demos/components/DeployablePanel.jsx')
+        'src\\DeployablePanel.jsx.js': require('./demos/components/DeployablePanel.jsx'),
+        'src\\enterprise\\ArraySelector.jsx.js': require('./demos/components/ArraySelectorEnterprise.jsx')
     };
 
     for (var key in dataset.files) {

@@ -184,16 +184,17 @@ define(function (require) {
             var layer = this.___layerContainer___;
             var width = layer.offsetWidth;
             var height = layer.offsetHeight;
-            if (layer.scrollHeight > layer.offsetHeight && !layer.___expandWidth___) {
-                layer.___expandWidth___ = true;
+            if (layer.scrollHeight > layer.offsetHeight) {
                 width += 20;
-                //height += 2;
             }
             if (props.fixedWidthToAnchor && width < props.anchor.offsetWidth) {
                 width = props.anchor.offsetWidth - 2;
             }
-            layer.style.width = width + 'px';
-            layer.style.height = height + 'px';
+            if (!layer.___sizeFixed___) {
+                layer.___sizeFixed___ = true;
+                layer.style.width = width + 'px';
+                layer.style.height = height + 'px';
+            }
         },
         fixedPosition: function (props) {
             var layer = this.___layerContainer___;
