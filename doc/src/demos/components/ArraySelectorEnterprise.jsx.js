@@ -5,7 +5,7 @@ define(function (require) {
     var defaultValue = {
         selected: [
             {value: 1, label: 'option1'},
-            {value: 2, label: 'option2'},
+            {value: 2, label: 'option2option2option2option2option2option2option2'},
             {value: 3, label: 'option3'},
             {value: 4, label: 'option4'}
         ],

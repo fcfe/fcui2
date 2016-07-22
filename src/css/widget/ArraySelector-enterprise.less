@@ -1,64 +1,144 @@
 
 .fcui2-arrayselector-enterprise {
     font-size: 12px;
-    .selector-title-bar {
-        line-height: 28px;
-    }
-    .tree-title-bar {
-        >div {
-            line-height: 28px;
-            width: 233px;
-            border: 1px solid;
-            border-bottom: 0;
-            display: inline-block;
-            padding-left: 17px;
-            &:last-child {
-                margin-left: 20px;
-            }
-        }
-    }
-    .tree-foot-bar {
-        height: 28px;
-        position: relative;
-        >div {
-            position: absolute;
-            width: 250px;
-            line-height: 28px;
-            top: 0px;
-            left: 0px;
-            &:last-child {
-                left: 270px;
-            }
-        }
-        .remove-all-button {
-            float: right;
+    .shortcut-bar {
+        line-height: 30px;
+        span {
+            font-weight: 700;
             cursor: pointer;
         }
+        .fcui2-tip {
+            float: right;
+        }
     }
-    .fcui2-tree {
-        .list-normal-item {
-            white-space: nowrap;
-            word-break: keep-all;
-            overflow: hidden;
-            text-overflow: ellipsis;
+    .selected-option-title {
+        height: 30px;
+        line-height: 30px;
+        padding-left: 10px;
+        border: 1px solid;
+        border-bottom: 0;
+    }
+    .unselected-option-title {
+        height: 30px;
+        line-height: 30px;
+        padding-left: 10px;
+        margin-top: 10px;
+    }
+    .selected-option-title-info {
+        margin-left: 10px;
+        .font-icon {
+            position: relative;
+            top: 3px;
+        }
+    }
+    .selected-option-container {
+        padding: 5px 0;
+        border: 1px solid;
+        border-top: 0;
+        .option-index-label {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            line-height: 14px;
+            text-align: center;
+            font-size: 12px;
+            margin: 0 3px;
+        }
+    }
+    .unselected-option-container {
+        padding: 5px 0;
+        .option-label {
+            margin-left: 5px;
+        }
+    }
+    .selected-option {
+        position: relative;
+        display: inline-block;
+        height: 22px;
+        line-height: 22px;
+        border: 1px solid;
+        width: 125px;
+        word-break: break-all;
+　　    word-wrap: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: default;
+        margin: 0 5px;
+        .font-icon {
+            position: absolute;
+            top: 4px;
+            display: block;
+            width: 14px;
+            height: 14px;
+            line-height: 14px;
+            cursor: pointer;
+        }
+        .font-icon-disabled {
+            cursor: default;
+        }
+        .font-icon-times,.font-icon-plus {
+            right: 2px;
+        }
+        .font-icon-largeable-arrow-right {
+            right: 16px;
+        }
+        .font-icon-largeable-arrow-left {
+            right: 30px;
         }
     }
 }
 
 .fcui2-arrayselector-enterprise-normal {
-    .tree-title-bar {
-        >div {
+    .selected-option-title {
+        background-color:  @color-bg-btn;
+        border-color: @color-outer-border;
+    }
+    .unselected-option-title {
+        background-color:  @color-bg-btn;
+    }
+    .selected-option-title-info {
+        color: @color-disabled-text;
+    }
+    .selected-option-container {
+        background-color:  @color-bg-btn;
+        border-color: @color-outer-border; 
+        .option-index-label {
+            background-color: @color-blue-2;
+            color: @color-bg;
+        }
+        .selected-option {
+            border-color: @color-bg-btn;
+        }
+    }
+    .unselected-option-container {
+        .selected-option {
+            border-color: @color-bg;
+        }
+        .selected-option .font-icon {
+            background-color: @color-bg;
+        }
+    }
+    .selected-option {
+        .font-icon {
             background-color: @color-bg-btn;
-            border-color: @color-outer-border;
-            border-bottom-color: @color-bg;
+            display: none;
+            color: @color-btn;
+            &:hover {
+                color: @color-btn-hover;
+            }
         }
-    }
-    .tree-foot-bar {
-        .remove-all-button {
-            color: @color-link;
+        .font-icon-disabled {
+            color: @color-disabled-icon;
+            &:hover {
+                color: @color-disabled-icon;   
+            }
         }
-    }
-    .fcui2-arrayselector-normal .tree-container .fcui2-tree {
-        border-top-color: @color-bg;
+        &:hover {
+            border-color: @color-btn-hover;
+            .font-icon {
+                display: block;
+            }
+        }
     }
 }

@@ -13,7 +13,12 @@ define(function (require) {
             },
             arraySelector: {
                 enter: '确定',
-                cancel: '取消'
+                cancel: '取消',
+                click: '点击',
+                delete: '删除',
+                add: '添加',
+                default: '默认',
+                addAll: '添加全部'
             },
             dualTreeSelectorEnterprise: {
                 selectItems: '请在树中选择条目',
