@@ -4,7 +4,8 @@
   "scripts": {
     "start": "node node_modules/edp/bin/edp-cli webserver start",
     "test": "node node_modules/edp/bin/edp-cli build -f && node node_modules/karma/bin/karma start",
-    "spec": "./node_modules/.bin/edp build -f && ./node_modules/.bin/edp test start"
+    "spec": "./node_modules/.bin/edp build -f && ./node_modules/.bin/edp test start",
+    "coverage": "cat ./coverage/lcov/lcov.info | ./node_modules/.bin/coveralls"
   },
   "maintainers": [
     {
@@ -52,14 +53,18 @@
     "babel-plugin-transform-es2015-unicode-regex": "^6.5.0",
     "babel-plugin-transform-object-rest-spread": "^6.6.5",
     "babel-preset-react": "^6.5.0",
-    "coveralls": "^2.11.9",
+    "coveralls": "^2.11.11",
     "edp": "^1.1.1",
     "edp-build": "^1.1.2",
-    "edp-webserver": "^1.2.6",
     "edp-test": "^1.1.1",
+    "edp-webserver": "^1.2.6",
+    "eslint": "^2.11.1",
+    "eslint-plugin-jasmine": "^1.8.1",
+    "eslint-plugin-react": "^5.1.1",
     "istanbul": "^0.4.3",
     "jasmine": "^2.4.1",
     "karma": "^0.13.22",
+    "karma-babel-preprocessor": "^6.0.1",
     "karma-chrome-launcher": "^0.2.3",
     "karma-coverage": "^0.5.5",
     "karma-firefox-launcher": "^0.1.7",
@@ -67,13 +72,9 @@
     "karma-jasmine": "^0.3.8",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-requirejs": "^0.2.6",
-    "karma-babel-preprocessor": "^6.0.1",
     "phantomjs-prebuilt": "^2.1.7",
     "requirejs": "^2.2.0",
-    "yuidocjs": "^0.10.1",
-    "eslint-plugin-react": "^5.1.1",
-    "eslint": "^2.11.1",
-    "eslint-plugin-jasmine": "^1.8.1"
+    "yuidocjs": "^0.10.1"
   },
   "license": "MIT"
 }
