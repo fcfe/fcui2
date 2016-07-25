@@ -52,7 +52,7 @@ define(function (require) {
          * @param {String} labels.deleteAll 右侧删除按钮话术
          * @param {String} labels.appendAll 左侧添加按钮话术
          * @param {String} labels.errorMessage 错误信息话术
-         * @param {Function} onBeforeClose layer关闭前的回调，只在isDropDown=true时有效
+         * @param {Function} onBeforeLayerClose layer关闭前的回调，只在isDropDown=true时有效
          * @param {Function} onLayerClose layer关闭后回调，只在isDropDown=true时有效
          * @param {Import|Properties} src\mixins\InputWidget.js value onChange name validations customErrorTemplates valueTemplate
          */
