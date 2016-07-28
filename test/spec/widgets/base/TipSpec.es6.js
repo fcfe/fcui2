@@ -72,12 +72,20 @@ define(function (require) {
         describe('Testing Tip through simulate events', () => {
             it('Simulating mouse events on a tip', () => {
                 jasmine.clock().install();
-                let tip = realRender(Tip);
+                let tipProps = {
+                    onOffset() {}
+                };
+                spyOn(tipProps, 'onOffset').and.callThrough();
+                let tip = realRender(Tip, tipProps);
                 let containerDom = TestUtils.findRenderedDOMComponentWithTag(tip, 'div');
                 expect(tip.state.layerOpen).not.toBe(true);
 
                 TestUtils.Simulate.mouseEnter(containerDom);
                 expect(tip.state.layerOpen).toBe(true);
+
+                tip.offsetLayerPosition();
+                expect(tip.props.onOffset.calls.any()).toBe(true);
+                expect(tip.props.onOffset.calls.count()).toBe(1);
 
                 TestUtils.Simulate.mouseLeave(containerDom);
                 jasmine.clock().tick(201);
