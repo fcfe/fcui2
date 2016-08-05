@@ -9,6 +9,9 @@
  * 当滚动条滚动到某个位置后，组件内部某些DOM可能会需要固定到屏幕的特定位置，比如表头，本mixin解决了这个问题
  * #####props依赖
  * this.props.fixedPosition {Array.<FixedObject>} 固定配置
+ * #####组件实例回调
+ * this.onDomPositionUnFixed DOM固定被取消后的回调，形参为DOM的ref标记
+ * this.onDomPositionFixed DOM被固定后的回调，形参为DOM的ref标记
  */
 /**
  * @structure Import src\Table.jsx.js FixedObject
@@ -39,12 +42,14 @@ define(function (require) {
                 if (scrollY - dom.__posTop + obj.top < 0) {
                     dom.className = dom.__className;
                     dom.style.zIndex = dom.__zIndex;
-                    dom.style.top = dom.__top
+                    dom.style.top = dom.__top;
+                    typeof this.onDomPositionUnFixed === 'function' && this.onDomPositionUnFixed(obj.ref);
                 }
                 else if (pos.y < obj.top) {
                     dom.className = dom.__className + ' fcui2-fixed-with-scroll';
                     dom.style.top = obj.top + 'px';
                     dom.style.zIndex = obj.zIndex;
+                    typeof this.onDomPositionFixed === 'function' && this.onDomPositionFixed(obj.ref);
                 }
             }
         },
