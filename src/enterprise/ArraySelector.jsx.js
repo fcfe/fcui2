@@ -79,15 +79,7 @@ define(function (require) {
         },
         // @override
         componentWillReceiveProps: function (nextProps) {
-            if (
-                nextProps.isDropDown
-                && !_.isEqual(
-                    JSON.parse(nextProps.value || '{}'),
-                    JSON.parse(this.state && this.state.dropdownValue ? this.state.dropdownValue : '{}')
-                )
-                && this.state 
-                && !this.state.___beOperated___
-            ) {
+            if (nextProps.isDropDown && nextProps.clearTemporaryAfterLayerClose) {
                 this.setState({dropdownValue: nextProps.value});
             }
         },
