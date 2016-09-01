@@ -43,6 +43,7 @@ exports.exclude = [
     '*.conf',
     '*.md',
     '*.md5',
+    '.coveralls.yml',
     'karma-test-main.js'
 ];
 

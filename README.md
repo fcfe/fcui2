@@ -167,6 +167,12 @@ $ npm install
 $ edp test start
 ```
 
+## How to build FCUI2 Doc System
+
+```shell
+$ edp build --config edp-build-doc-config.js
+```
+
 ## Author
 * email: lbxxlht@163.com
 * weibo: http://weibo.com/lbxx1984
