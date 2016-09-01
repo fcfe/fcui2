@@ -9,9 +9,6 @@
  * 当滚动条滚动到某个位置后，组件内部某些DOM可能会需要固定到屏幕的特定位置，比如表头，本mixin解决了这个问题
  * #####props依赖
  * this.props.fixedPosition {Array.<FixedObject>} 固定配置
- * #####组件实例回调
- * this.onDomPositionUnFixed DOM固定被取消后的回调，形参为DOM的ref标记
- * this.onDomPositionFixed DOM被固定后的回调，形参为DOM的ref标记
  */
 /**
  * @structure Import src\Table.jsx.js FixedObject

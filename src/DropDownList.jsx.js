@@ -61,8 +61,8 @@ define(function (require) {
             cTools.closeLayerHandlerFactory(this, 'layerOpen')();
         },
         onListClick: function (e) {
-            this.props.onClick(e);
             this.setState({layerOpen: false});
+            this.props.onClick(e);
         },
         render: function () {
             var me = this;
