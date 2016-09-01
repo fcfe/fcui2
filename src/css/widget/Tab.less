@@ -12,9 +12,13 @@
 .fcui2-tab-normal {
     font-family: @font-normal;
     border-bottom: 1px solid @color-inner-border;
+    background-color: @color-gray-2;
+    border-top: 2px solid @color-outer-border;
+    border-right: 1px solid @color-outer-border;
     .fcui2-tab-item, .fcui2-tab-item-active, .fcui2-tab-item-disabled {
         position: relative;
-        top: 1px;
+        top: -2px;
+        margin-bottom: -3px;
         height: 37px;
         line-height: 37px;
         border-bottom: 1px solid;
@@ -39,6 +43,7 @@
         border-bottom-color: @color-gray-1;
         border-top-color: @color-btn-hover;
         border-right-color: @color-outer-border;
+        background-color: @color-gray-1;
         cursor: pointer;
     }
     .fcui2-tab-item-disabled {
@@ -76,6 +81,7 @@
         cursor: pointer;
     }
 }
+
 
 .fcui2-tab-level-3 {
     font-family: @font-normal;

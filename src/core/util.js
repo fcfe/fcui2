@@ -15,6 +15,23 @@ define(function (require) {
     var exports = {
 
         /**
+         * uuid生成器
+         *
+         * @param {string} tpl uuid的模版串，xy将被替换，其他不替换
+         * @return {string} 符合格式的唯一id
+         */
+        uuid: function (tpl) {
+            var reg = /[xy]/g;
+            var replacer = function (c) {
+                var r = Math.random() * 16 | 0;
+                var v = c === 'x' ? r : (r & 3 | 8);
+                return v.toString(16);
+            };
+            tpl = typeof tpl === 'string' ? tpl : 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';
+            return tpl.replace(reg, replacer).toUpperCase();
+        },
+
+        /**
          * 获取浏览器类型
          * @interface getBrowserInfo
          * @return {String} 浏览器类型
