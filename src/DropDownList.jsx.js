@@ -21,6 +21,7 @@ define(function (require) {
          * @param {String} label 下拉按钮上显示的文字
          * @param {String} openLayerType 控制浮层打开的动作，onMouseEnter或onClick
          * @param {Array.<ListItemObject>} datasource 列表数据源
+         * @param {Boolean} hideLayerScroll 是否隐藏下拉菜单的滚动条
          * @param {Function} onClick 点击列表后的回调
          */
         /**
@@ -38,6 +39,7 @@ define(function (require) {
                 style: {},
                 disabled: false,
                 // self
+                hideLayerScroll: false,
                 label: 'DropDownList',
                 openLayerType: 'onMouseEnter',
                 datasource: [],
@@ -73,7 +75,7 @@ define(function (require) {
                 isOpen: this.state.layerOpen && !this.props.disabled && !!this.props.datasource.length,
                 anchor: this.refs.container,
                 style: {
-                    maxHeight: '240px',
+                    maxHeight: this.props.hideLayerScroll ? undefined : '240px',
                     overflow: 'auto'
                 }
             };

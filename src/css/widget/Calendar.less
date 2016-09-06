@@ -6,15 +6,17 @@
     overflow: hidden;
     .calendar-operation {
         position: relative;
-        height: 40px;
+        height: 36px;
         .fcui2-button {
             position: absolute;
-            top: 8px;
-            min-width: 28px;
+            top: 6px;
+            height: 26px;
+            min-width: 26px;
             -moz-border-radius: 0;
             -webkit-border-radius: 0;
             border-radius: 0;
             .font-icon {
+                line-height: 24px;
                 font-size: 20px;
                 left:4px;
             }
@@ -33,7 +35,19 @@
         }
         .fcui2-numberbox {
             position: absolute;
-            top: 17px;
+            top: 15px;
+            input {
+                height: 24px !important;
+            }
+            .btn-container {
+                height: 26px;
+            }
+            .font-icon-largeable-caret-up {
+                height: 13px;
+            }
+            .font-icon-largeable-caret-down {
+                height: 13px;
+            }
         }
     }
     .calendar-day-label {
@@ -79,6 +93,14 @@
             input {
                 background-color: @color-bg;
             }
+        }
+        .fcui2-button {
+            .font-icon {
+                color: @color-gray-7
+            }
+        }
+        .fcui2-numberbox .font-icon {
+            color: @color-gray-7;
         }
     }
     .calendar-day-label {
