@@ -61,8 +61,6 @@ define(function (require) {
             var iframe = this.refs.iframe;
             var docBody = iframe.contentDocument.body;
             this.props.onUploaded(docBody.textContent || docBody.innerText);
-            // 清空文件选择器的选择状态
-            this.refs.uploadInput.value = '';
         },
         componentWillMount: function () {
             this.iframeName = util.uuid();
@@ -77,6 +75,7 @@ define(function (require) {
             };
             var uploadInputProps = {
                 ref: 'uploadInput',
+                name: 'upfile',
                 type: 'file',
                 onChange: this.onUploadInputChange,
                 accept: this.props.uploadConfig.accept || defaultInputFileProps.accept
@@ -165,7 +164,7 @@ define(function (require) {
             }
             else {
                 this.uploadElement.refs.uploadInput.click();
-            } 
+            }
         },
 
         onUploaded: function (result) {

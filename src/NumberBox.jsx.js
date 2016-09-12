@@ -81,7 +81,7 @@ define(function (require) {
         },
         onInputBoxBlur: function () {
             this.___cursorPosition___ = -1;
-        }, 
+        },
         onSpinButtonClick: function (e) {
             if (this.props.disabled || isNaN(this.refs.inputbox.value) || this.refs.inputbox.value.length === 0) {
                 return;
@@ -90,7 +90,7 @@ define(function (require) {
             var op = dataset.uiCmd === 'add' ? 1 : -1;
             var target = this.refs.inputbox;
             var value = parseFloat(target.value);
-            target.value = value + op * parseFloat(this.props.step);
+            target.value = tools.numberFormater(value + op * parseFloat(this.props.step), this.props);
             e.target = target;
             this.___dispatchChange___(e);
         },

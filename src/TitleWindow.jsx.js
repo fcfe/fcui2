@@ -13,6 +13,9 @@ define(function (require) {
     var util = require('./core/util');
     var noop = function () {};
 
+    var ___oldOverflow___;
+    var windowNum = 0;
+
 
     return React.createClass({
         /**
@@ -128,7 +131,6 @@ define(function (require) {
             // 获取content尺寸并判断是否需要纵向滚动条
             width = content.offsetWidth;
             height = content.offsetHeight + title.offsetHeight;
-            if (height > doc.clientHeight) width += 20;
             // 设置尺寸并移入可视区
             width = width > doc.clientWidth - 10 ? (doc.clientWidth - 10) : width;
             height = height > doc.clientHeight - 10 ? (doc.clientHeight - 10) : height;
@@ -156,7 +158,8 @@ define(function (require) {
             var me = this;
             if (props.isOpen) {
                 if (!this.___appended___) {
-                    this.___oldOverflow___ = util.getStyle(document.body, 'overflow');
+                    ___oldOverflow___ = windowNum === 0 ? util.getStyle(document.body, 'overflow') : ___oldOverflow___;
+                    windowNum++;
                     document.body.appendChild(this.___container___);
                     document.body.style.overflow = 'hidden';
                     if (props.size) {
@@ -191,7 +194,8 @@ define(function (require) {
             this.___content___.style.width = 'auto';
             this.___content___.style.height = 'auto'; 
             document.body.removeChild(this.___container___);
-            document.body.style.overflow = this.___oldOverflow___;
+            document.body.style.overflow = windowNum === 1 ? ___oldOverflow___ : 'hidden';
+            windowNum--;
             this.___appended___ = false;
         },
 
