@@ -19,7 +19,8 @@ define(function (require) {
          * -1: 未选择
          *  0: 选择
          *  1: 半选择 （有倒霉的业务需要半选择状态，这个一般跟有折叠功能的表格一起使用）
-         * @param {Boolean} disabled 是否禁用
+         * @param {Boolean} disabled 是否禁用行选择，可通过fieldConfig的prepare方法灌入
+         * @param {String} className 单元格的样式，可通过fieldConfig的prepare方法灌入
          * @param {Function} onRowSelect 回调函数，一般为table.props.onAction
          */
         getDefaultProps: function () {
@@ -27,7 +28,8 @@ define(function (require) {
                 ___isRowSelected___: -1,
                 row: -1,
                 disabled: false,
-                onRowSelect: function () {}
+                onRowSelect: function () {},
+                className: ''
             };
         },
         // @override
@@ -43,7 +45,7 @@ define(function (require) {
                 onChange: this.props.onRowSelect
             };
             return (
-                <td key="row-select" className="td-selector" style={this.props.style}>
+                <td key="row-select" className={'td-selector ' + this.props.className} style={this.props.style}>
                     <CheckBox {...checkboxProp} />
                 </td>
             );

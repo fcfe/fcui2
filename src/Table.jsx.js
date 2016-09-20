@@ -57,6 +57,7 @@ define(function (require) {
          *      field: <optional>
          *      content: function (dataItem, rowIndex, columnIndex, tableComponent)) <optional>
          *      renderer: <optional>
+         *      disabled: <optional>
          *      isEmptyHeader: <optional>
          *      thRenderer: <optional>
          *      prepare: function (tdRendererProps, dataItem, rowIndex, columnIndex, tableComponent) <optional>
@@ -70,6 +71,7 @@ define(function (require) {
          * @param {String} field 域名称，如果不设置content属性，会根据此属性最终content的值
          * @param {String|Function} content 列显示的数据域或域处理函数；如果为字符串，则此处会被替换为dataItem[content]。如果是函数，此处将被替换函数的返回值。
          * @param {ReactClass} renderer 列单元格渲染器
+         * @param {Boolean} disabled 该列是否禁用 
          * @param {Boolean} isEmptyHeader 表头是否留空，如果为true，则thRenderer无效
          * @param {ReactClass} thRenderer 列表头渲染器
          * @param {Function} prepare 单元格renderer渲染前，生成的props属性集以及一些其他参数会以指针形式调用此回调。

@@ -34,12 +34,7 @@ define(function (require) {
             return {};
         },
         getInitialState: function () {
-            return {width: 400, height: 300};
-        },
-        componentDidUpdate: function () {
-            if (!this.props.resize()) {
-                clearInterval(this.timer);
-            }
+            return {width: 400, height: 350};
         },
         componentWillUnmount: function () {
             clearInterval(this.timer);

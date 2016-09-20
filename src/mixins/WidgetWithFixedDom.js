@@ -27,6 +27,7 @@ define(function (require) {
         },
         ___scrollHandler___: function () {
             var conf = this.props.fixedPosition;
+            typeof this.onWindowScroll === 'function' && this.onWindowScroll();
             if (!(conf instanceof Array)) return;
             for (var i = 0; i < conf.length; i++) {
                 // 获取dom

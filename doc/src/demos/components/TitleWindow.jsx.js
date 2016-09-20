@@ -69,7 +69,6 @@ define(function (require) {
                     title: 'Window with size',
                     props: {
                         size: {width: 600, height: 300},
-
                     }
                 },
                 {

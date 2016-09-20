@@ -28,6 +28,7 @@ define(function (require) {
          * @param {Number} size.width TitleWindow渲染后的宽度
          * @param {Number} size.height TitleWindow渲染后的高度
          * @param {Boolean} isFullScreen TitleWindow弹出后时候直接全屏显示
+         * @param {Boolean} isAutoResize TitleWindow是否根据内容变化自动调整宽度
          * @param {Boolean} showCloseButton 是否显示TitleWindow标题栏中的关闭按钮
          * @param {Function} onRender TitleWindow渲染完成后的回调
          * @param {Function} onBeforeClose TitleWindow关闭前触发的回调，可以在这个回调中阻止窗体关闭
@@ -48,6 +49,7 @@ define(function (require) {
                 title: 'Title Window',
                 size: {},
                 isFullScreen: false,
+                isAutoResize: true,
                 showCloseButton: true,
                 onRender: noop,
                 onBeforeClose: noop,
@@ -87,6 +89,7 @@ define(function (require) {
             this.___workspace___ = workspace;
             this.___content___ = workspace.childNodes[1];
             this.___appended___ = false;
+            this.___workerTimer___ = null;
 
             window.addEventListener('resize', this.resize);
             this.renderSubTree(this.props);
@@ -103,6 +106,21 @@ define(function (require) {
         // @override
         componentWillReceiveProps: function(newProps) {
             this.renderSubTree(newProps);
+        },
+
+
+        onWorkerRunning: function () {
+            if (!this.props.isOpen) {
+                clearInterval(this.___workerTimer___);
+                return;
+            }
+            var width = this.___content___.childNodes[0].offsetWidth;
+            var height = this.___content___.childNodes[0].offsetHeight;
+            if (width !== this.___lastContentWidth___ || height !== this.___lastContentHeight___) {
+                this.___lastContentWidth___ = width;
+                this.___lastContentHeight___ = height;
+                this.resize();
+            }
         },
 
 
@@ -165,8 +183,12 @@ define(function (require) {
                     if (props.size) {
                         var width = (props.size.width + '').replace('px', '');
                         var height = (props.size.height + '').replace('px', '');
-                        this.___content___.style.width = isNaN(width) ? 'auto' : (width + 'px');
-                        this.___content___.style.height = isNaN(height) ? 'auto' : (height + 'px');
+                        if (!isNaN(width)) {
+                            this.___content___.style.width = width + 'px';
+                        }
+                        if (!isNaN(height)) {
+                            this.___content___.style.height = height + 'px';  
+                        }
                     }
                     if (props.isFullScreen) {
                         var doc = document.documentElement;
@@ -177,6 +199,18 @@ define(function (require) {
                 }
                 renderSubtreeIntoContainer(this, props.children, this.___content___, function () {
                     me.resize();
+                    // 有些时候，弹窗的内容往往会变化，导致content尺寸变化
+                    // 如果窗体没有设置默认尺寸，需要根据content重新计算尺寸
+                    // content直接调用resize也可以，但是那样很麻烦
+                    if (
+                        props.isAutoResize
+                        && !props.isFullScreen
+                        && (!props.size || (props.size && !props.size.width && !props.size.height))
+                    ) {
+                        me.___workerTimer___ = setInterval(function () {
+                            me.onWorkerRunning();
+                        }, 100); 
+                    }
                     typeof props.onRender === 'function' && props.onRender();
                 });
                 return;
@@ -196,6 +230,7 @@ define(function (require) {
             document.body.removeChild(this.___container___);
             document.body.style.overflow = windowNum === 1 ? ___oldOverflow___ : 'hidden';
             windowNum--;
+            clearInterval(this.___workerTimer___);
             this.___appended___ = false;
         },
 
