@@ -110,7 +110,7 @@ define(function (require) {
 
 
         onWorkerRunning: function () {
-            if (!this.props.isOpen) {
+            if (!this.props.isOpen || !this.___content___ || !this.___content___.childNodes) {
                 clearInterval(this.___workerTimer___);
                 return;
             }
