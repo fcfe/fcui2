@@ -484,6 +484,13 @@ define(function (require) {
                     '998': '中国',
                     '999': '国外'
                 }
+            },
+            message: {
+                'loading': '正在加载中...',
+                'refresh': '加载失败，点击重新加载',
+                'new-refresh': '数据加载失败',
+                'fail': '加载失败',
+                'success': '加载成功'
             }
         }
     };
