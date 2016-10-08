@@ -32,7 +32,8 @@ define(function (require) {
                 {id: 'src\\Tab.jsx.js', label: 'Tab'},
                 {id: 'src\\Wizard.jsx.js', label: 'Wizard'},
                 {id: 'src\\Switch.jsx.js', label: 'Switch'},
-                {id: 'src\\WarningLayer.jsx.js', label: 'WarningLayer'}
+                {id: 'src\\WarningLayer.jsx.js', label: 'WarningLayer'},
+                {id: 'src\\Message.jsx.js', label: 'Message'}
             ]
         },
         {
@@ -85,7 +86,8 @@ define(function (require) {
             label: 'Enterprise Widgets',
             children: [
                 {id: 'src\\enterprise\\DualTreeSelector.jsx.js', label: 'DualTreeSelector'},
-                {id: 'src\\enterprise\\ArraySelector.jsx.js', label: 'ArraySelector'}
+                {id: 'src\\enterprise\\ArraySelector.jsx.js', label: 'ArraySelector'},
+                {id: 'src\\enterprise\\Uploader.jsx.js', label: 'Uploader'}
             ]
         },
         components,

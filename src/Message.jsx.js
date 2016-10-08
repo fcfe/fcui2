@@ -1,6 +1,7 @@
 /**
- * @file message状态相关
- * @author chenxiao(chenxiao09@baidu.com)
+ * 信息框
+ * @author chenxiao
+ * @email chenxiao09@baidu.com
  * @version 0.0.2.1
  */
 
