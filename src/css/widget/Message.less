@@ -1,0 +1,63 @@
+.fcui2-message {
+    position: relative;
+    text-align: center;
+    height: 30px;
+    span {
+        display: inline-block;
+    }
+    .loading-icon {
+        width: 16px;
+        height: 16px;
+        margin-right: 10px;
+    }
+    .refresh-icon {
+        display: inline-block;
+        height: 29px;
+        width: 29px;
+        vertical-align: middle;
+    }
+    .refresh-text {
+        cursor: pointer;
+        text-decoration: underline;
+        margin-left: 6px;
+    }
+    .new-refresh-text {
+        .fcui2-button {
+            margin-left: 15px;
+        }
+    }
+    &.layer-message {
+        display: inline-block;
+        padding: 0 20px;
+        height: 50px;
+        line-height: 50px;
+        border: 1px solid;
+    }
+}
+.fcui2-message-normal {
+    font-family: @font-normal;
+    .loading-icon {
+        background-image: url(@image-loading);
+    }
+    .refresh-icon {
+        background-image: url(@image-refresh);
+    }
+    .refresh-text {
+        color: @color-blue-4;
+        &:hover {
+            color: @color-blue-3;
+        }
+    }
+    .new-refresh-text {
+        color: @color-gray-10;
+        .fcui2-button-normal {
+            input {
+                color: @color-blue-3;
+            }
+        }
+    }
+    &.layer-message {
+        border-color: @color-gray-6;
+        background-color: @color-gray-1;
+    }
+}

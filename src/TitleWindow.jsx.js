@@ -13,8 +13,10 @@ define(function (require) {
     var util = require('./core/util');
     var noop = function () {};
 
-    var ___oldOverflow___;
+
     var windowNum = 0;
+    var overflowX = null;
+    var overflowY = null;
 
 
     return React.createClass({
@@ -112,7 +114,7 @@ define(function (require) {
         onWorkerRunning: function () {
             if (
                 !this.props.isOpen || !this.___content___ || !this.___content___.childNodes
-                || !this.___content___.childNodes.length
+                || !this.___content___.childNodes.length || !this.___content___.childNodes[0]
             ) {
                 clearInterval(this.___workerTimer___);
                 return;
@@ -179,7 +181,8 @@ define(function (require) {
             var me = this;
             if (props.isOpen) {
                 if (!this.___appended___) {
-                    ___oldOverflow___ = windowNum === 0 ? util.getStyle(document.body, 'overflow') : ___oldOverflow___;
+                    overflowX = windowNum === 0 ? util.getStyle(document.body, 'overflowX') : overflowX;
+                    overflowY = windowNum === 0 ? util.getStyle(document.body, 'overflowY') : overflowY;
                     windowNum++;
                     document.body.appendChild(this.___container___);
                     document.body.style.overflow = 'hidden';
@@ -225,14 +228,17 @@ define(function (require) {
 
         removeSubTree: function () {
             if (!this.___appended___) return;
+            windowNum--;
             ReactDOM.unmountComponentAtNode(this.___content___);
             this.___workspace___.style.left = '-9999px';
             this.___workspace___.style.top = '-9999px'; 
             this.___content___.style.width = 'auto';
             this.___content___.style.height = 'auto'; 
             document.body.removeChild(this.___container___);
-            document.body.style.overflow = windowNum === 1 ? ___oldOverflow___ : 'hidden';
-            windowNum--;
+            if (windowNum === 0) {
+                document.body.style.overflowX = overflowX;
+                document.body.style.overflowY = overflowY;
+            }
             clearInterval(this.___workerTimer___);
             this.___appended___ = false;
         },
