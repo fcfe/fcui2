@@ -22,6 +22,7 @@ define(function (require) {
          * @param {String} openLayerType 控制浮层打开的动作，onMouseEnter或onClick
          * @param {Array.<ListItemObject>} datasource 列表数据源
          * @param {Boolean} hideLayerScroll 是否隐藏下拉菜单的滚动条
+         * @param {ReactClass} itemRenderer 列表项渲染器
          * @param {Function} onClick 点击列表后的回调
          */
         /**
@@ -40,6 +41,7 @@ define(function (require) {
                 disabled: false,
                 // self
                 hideLayerScroll: false,
+                itemRenderer: undefined,
                 label: 'DropDownList',
                 openLayerType: 'onMouseEnter',
                 datasource: [],
@@ -80,6 +82,7 @@ define(function (require) {
                 }
             };
             var listProp = {
+                itemRenderer: this.props.itemRenderer,
                 datasource: this.props.datasource,
                 onClick: this.onListClick
             };
