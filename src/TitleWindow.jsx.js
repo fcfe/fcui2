@@ -29,7 +29,7 @@ define(function (require) {
          * @param {Object} size TitleWindow窗体的尺寸，与isFullScreen互斥
          * @param {Number} size.width TitleWindow渲染后的宽度
          * @param {Number} size.height TitleWindow渲染后的高度
-         * @param {Boolean} isFullScreen TitleWindow弹出后时候直接全屏显示
+         * @param {Boolean} isFullScreen TitleWindow弹出后时候直接全屏显示：true，全屏；'height'，高度全屏宽度自适应；'width'，宽度全屏高度自适应；其他，自适应
          * @param {Boolean} isAutoResize TitleWindow是否根据内容变化自动调整宽度
          * @param {Boolean} showCloseButton 是否显示TitleWindow标题栏中的关闭按钮
          * @param {Function} onRender TitleWindow渲染完成后的回调
@@ -196,9 +196,12 @@ define(function (require) {
                             this.___content___.style.height = height + 'px';  
                         }
                     }
-                    if (props.isFullScreen) {
-                        var doc = document.documentElement;
+                    var doc = document.documentElement;
+                    var isFullScreen = props.isFullScreen + '';
+                    if (isFullScreen === 'true' || isFullScreen === 'width') {
                         this.___content___.style.width = (doc.offsetWidth - 10) + 'px';
+                    }
+                    if (isFullScreen === 'true' || isFullScreen === 'height') {
                         this.___content___.style.height = (doc.offsetHeight - 10 - titleBar.offsetHeight) + 'px';
                     }
                     this.___appended___ = true;
