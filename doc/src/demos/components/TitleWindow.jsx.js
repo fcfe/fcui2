@@ -88,6 +88,8 @@ define(function (require) {
 
     function itemFactory(arr, me) {
         let doms = [];
+        let style = {width: 400, height: 300};
+        let absStyle = {position: 'absolute', left: 10, right: 10, top: 10, bottom: 10, backgroundColor: 'orange'}
         for (let i = 0; i < arr.length; i++) {
             let item = arr[i];
             doms.push(
@@ -95,7 +97,7 @@ define(function (require) {
                     <Information title={item.title} props={item.props}/>
                     <Button label="Open" onClick={me.openWindow} value={'window' + (i + 1)}/>
                     <TitleWindow {...item.props}>
-                        <div style={{width: 400, height: 300}}>
+                        <div style={item.props.isFullScreen ? absStyle : style}>
                             {item.title}
                             {
                                 item.title === 'Window without close button in title bar'

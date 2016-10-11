@@ -199,10 +199,10 @@ define(function (require) {
                     var doc = document.documentElement;
                     var isFullScreen = props.isFullScreen + '';
                     if (isFullScreen === 'true' || isFullScreen === 'width') {
-                        this.___content___.style.width = (doc.offsetWidth - 10) + 'px';
+                        this.___content___.style.width = (doc.clientWidth - 10) + 'px';
                     }
                     if (isFullScreen === 'true' || isFullScreen === 'height') {
-                        this.___content___.style.height = (doc.offsetHeight - 10 - titleBar.offsetHeight) + 'px';
+                        this.___content___.style.height = (doc.clientHeight - 10 - titleBar.offsetHeight) + 'px';
                     }
                     this.___appended___ = true;
                 }
