@@ -1,8 +1,8 @@
 /**
  * 翻页器
- * @author Brian Li
+ * @author Brian Li, hancong05
  * @email lbxxlht@163.com
- * @version 0.0.2.1
+ * @version 0.0.2.2
  */
 define(function (require) {
 
@@ -20,6 +20,7 @@ define(function (require) {
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {Number} min 翻页器最小页数
          * @param {Number} max 翻页器最大页数
+         * @param {Boolean} showPageJumper 是否显示跳转输入框，默认不显示
          * @param {Number} threshold 翻页器阈值，显示时，距离value距离超过此值的按钮将被隐藏
          * @param {Import|Properties} src\mixins\InputWidget.js
          *      value onChange name validations customErrorTemplates valueTemplate
@@ -40,6 +41,7 @@ define(function (require) {
                 // self
                 min: 1,
                 max: 10,
+                showPageJumper: false,
                 threshold: Number.POSITIVE_INFINITY,
                 // mixin
                 valueTemplate: Number.POSITIVE_INFINITY
@@ -69,9 +71,15 @@ define(function (require) {
             e.target.value = v;
             this.___dispatchChange___(e);
         },
+        onPagerChange: function(e) {
+            this.___dispatchChange___(e);
+        },
         render: function () {
             var containerProp = cTools.containerBaseProps('pager', this);
-            return (<div {...containerProp}>{factory.buttonFactory(this)}</div>);
+            return (<div {...containerProp}>
+                    {factory.buttonFactory(this)}
+                    {factory.pageJumperFactory(this)}
+                </div>);
         }
     });
 

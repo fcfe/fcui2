@@ -2,6 +2,7 @@ define(function (require) {
 
     var React = require('react');
     var Button = require('../Button.jsx');
+    var NumberBox = require('../NumberBox.jsx');
     var language = require('../core/language');
 
     return {
@@ -59,8 +60,29 @@ define(function (require) {
             );
 
             return btns;
-        }
+        },
+        pageJumperFactory: function(me) {
+            var showPageJumper = me.props.showPageJumper;
+            if (!showPageJumper) {
+                return null;
+            }
+            // 如果显示跳转输入框
+            var min = parseInt(me.props.min, 10);
+            var max = parseInt(me.props.max, 10);
+            var current = parseInt(me.___getValue___(), 10);
+            var pageJumperProps = {
+                width: 50,
+                height: 28,
+                showSpinButton: false,
+                valueTemplate: current,
+                type: 'int',
+                min: min,
+                max: max,
+                onChange: me.onPagerChange
+            };
 
+            return <span className="page-jumper">去第<NumberBox {...pageJumperProps} />页</span>;
+        }
     };
 
 });

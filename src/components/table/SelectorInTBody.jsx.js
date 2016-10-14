@@ -39,6 +39,7 @@ define(function (require) {
         render: function () {
             var checkboxProp = {
                 value: this.props.row + '',
+                // checked: this.props.___isRowSelected___ === 0 && !this.props.disabled,
                 checked: this.props.___isRowSelected___ === 0,
                 indeterminate: this.props.___isRowSelected___ === 1,
                 disabled: this.props.disabled,
