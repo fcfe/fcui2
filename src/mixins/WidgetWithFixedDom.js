@@ -34,19 +34,25 @@ define(function (require) {
                 // 获取dom
                 var obj = conf[i];
                 var dom = this.refs[obj.ref];
-                var oldData = this.oldDataHash[obj.ref] || {};
+                var oldData = this.oldDataHash[obj.ref];
                 if (!dom || !dom.tagName || isNaN(obj.top) || !util.isDOMVisible(dom)) continue;
+                // 未记录数据则记录数据
+                if (!oldData) {
+                    this.___recordFixedDOMPosition___();
+                    oldData = this.oldDataHash[obj.ref] || {};
+                }
                 // 检查位置并设置fixed
                 var pos = util.getDOMPosition(dom);
                 var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+                var fixedClass = 'fcui2-fixed-with-scroll';
                 if (scrollY - oldData.posTop + obj.top < 0) {
-                    dom.className = oldData.className;
+                    dom.className = dom.className.replace(/ fcui2-fixed-with-scroll/g, '');
                     dom.style.zIndex = oldData.zIndex;
                     dom.style.top = oldData.top;
                     typeof this.onDomPositionUnFixed === 'function' && this.onDomPositionUnFixed(obj.ref);
                 }
                 else if (pos.y < obj.top) {
-                    dom.className = oldData.className + ' fcui2-fixed-with-scroll';
+                    dom.className += dom.className.indexOf(fixedClass) > -1 ? '' : ' ' + fixedClass;
                     dom.style.top = obj.top + 'px';
                     dom.style.zIndex = obj.zIndex;
                     typeof this.onDomPositionFixed === 'function' && this.onDomPositionFixed(obj.ref);
@@ -59,11 +65,12 @@ define(function (require) {
             for (var i = 0; i < conf.length; i++) {
                 var obj = conf[i];
                 var dom = this.refs[obj.ref];
-                if (!dom || !dom.tagName) continue;
+                if (!dom || !dom.tagName) {
+                    continue;
+                }
                 var pos = util.getDOMPosition(dom);
                 this.oldDataHash = this.oldDataHash || {};
                 this.oldDataHash[obj.ref] = {
-                    className: dom.className,
                     posTop: pos.top,
                     zIndex: dom.style.zIndex,
                     top: dom.style.top
