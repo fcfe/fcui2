@@ -16,6 +16,9 @@ define(function (require) {
              * @param {Object} style 加在单元格td上的样式表
              * @param {Number} row 单元格行索引
              * @param {Number} column 单元格列索引
+             * @param {String} buttonIcon 按钮图标
+             * @param {String} buttonLabel 按钮文字
+             * @param {String} command 按钮命令
              * @param {Function} onAction 表格回调总线
              * @attention 对于所有单元格渲染器，传入的props格式是一致的，具体见src\core\tableTools.js
              */
@@ -34,13 +37,15 @@ define(function (require) {
              * @param {String} type ButtonRendererClick: 单元格内的icon被点击；<TableFieldObject>.renderer = ButtonRenderer
              * @param {Object} param
              * @param {Object} param.item 单元格所在行数据源，param1 = 'ButtonRendererClick'
-             * @param {Object} param.row 单元格行号，param1 = 'ButtonRendererClick'
-             * @param {Object} param.column 单元格列号，param1 = 'ButtonRendererClick'
+             * @param {Number} param.row 单元格行号，param1 = 'ButtonRendererClick'
+             * @param {Number} param.column 单元格列号，param1 = 'ButtonRendererClick'
+             * @param {String} param.command 按钮代表的命令
              */
             this.props.onAction('ButtonRendererClick', {
                 item: this.props.item,
                 row: this.props.row,
-                column: this.props.column
+                column: this.props.column,
+                command: this.props.command
             });
         },
         render: function () {
@@ -61,7 +66,7 @@ define(function (require) {
             return (
                 <td {...tdProp}>
                     {value}
-                    <div {...btnProp}></div>
+                    <div {...btnProp}>{this.props.buttonLabel}</div>
                 </td>
             );
         }
