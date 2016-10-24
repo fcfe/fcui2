@@ -55,9 +55,16 @@ define(function (require) {
                 className: 'td-button ' + this.props.className,
                 style: this.props.style
             };
-            var btnProp = {
+            var iconProp = {
                 className: 'font-icon'
                     + (typeof this.props.buttonIcon === 'string' ? ' ' + this.props.buttonIcon : ''),
+                style: {
+                    float: tdProp.style.textAlign === 'right' ? 'left' : 'right'
+                },
+                onClick: this.onIconClick
+            };
+            var labelProp = {
+                className: 'btn-label',
                 style: {
                     float: tdProp.style.textAlign === 'right' ? 'left' : 'right'
                 },
@@ -66,7 +73,8 @@ define(function (require) {
             return (
                 <td {...tdProp}>
                     {value}
-                    <div {...btnProp}>{this.props.buttonLabel}</div>
+                    <div {...iconProp}></div>
+                    {this.props.buttonLabel ? <div {...labelProp}>{this.props.buttonLabel}</div> : null}
                 </td>
             );
         }

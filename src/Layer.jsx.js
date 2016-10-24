@@ -75,16 +75,6 @@ define(function (require) {
         componentDidMount: function () {
             if (!window || !document) return;
             var layer = document.createElement('div');
-            var style = this.props.style || {};
-            var className = typeof this.props.className === 'string' ? (' ' + this.props.className) : '';
-            var skin = ' fcui2-layer-' +
-                (typeof this.props.skin === 'string' && this.props.skin.length ? this.props.skin : 'normal')
-            // 设置容器皮肤及样式
-            layer.className = 'fcui2-layer' + className + skin;
-            for (var key in style) {
-                if (!style.hasOwnProperty(key)) continue;
-                layer.style[key] = style[key];
-            }
             layer.style.left = '-9999px';
             layer.style.top = '-9999px';
             // 挂接容器事件和全局事件
@@ -96,11 +86,13 @@ define(function (require) {
             this.___workerTimer___ = null;
             this.___anchorPosition___ = '';
             // 渲染子树
+            this.fixedContainer(this.props);
             this.renderSubTree(this.props);
         },
         // @override
         componentWillReceiveProps: function(newProps) {
             this.renderSubTree(newProps);
+            this.fixedContainer(newProps);
         },
         // @override
         componentWillUnmount: function() {
@@ -180,6 +172,19 @@ define(function (require) {
             clearInterval(this.___workerTimer___);
             this.___layerAppended___ = false;
             this.setState({mouseenter: false});
+        },
+        fixedContainer: function (props) {
+            if (!this.___layerContainer___) return;
+            var layer = this.___layerContainer___;
+            var style = props.style || {};
+            var className = typeof props.className === 'string' ? (' ' + props.className) : '';
+            var skin = ' fcui2-layer-' +
+                (typeof props.skin === 'string' && props.skin.length ? props.skin : 'normal')
+            layer.className = 'fcui2-layer' + className + skin;
+            for (var key in style) {
+                if (!style.hasOwnProperty(key)) continue;
+                layer.style[key] = style[key];
+            }
         },
         fixedSize: function (props) { 
             // layer默认宽度会固定，高度自适应；如果修改宽度，可在props.style里修改

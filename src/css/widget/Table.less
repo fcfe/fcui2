@@ -145,7 +145,7 @@
     // ButtonRenderer
     .td-button {
         font-size: 12px;
-        .font-icon {
+        .font-icon,.btn-label {
             display: inline-block;
             visibility:hidden;
             font-size: 16px;
@@ -153,10 +153,13 @@
             color: @color-btn-hover;
             cursor: pointer;
         }
+        .btn-label {
+            font-size: 12px;
+        }
     }
     tr:hover {
         .td-button {
-            .font-icon {
+            .font-icon,.btn-label {
                 visibility: visible;
             }
         }
