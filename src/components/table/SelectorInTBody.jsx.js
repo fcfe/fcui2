@@ -37,6 +37,9 @@ define(function (require) {
             return {};
         },
         render: function () {
+            if (this.props.item.hideSelector) {
+                return (<td key="row-select"></td>);
+            }
             var checkboxProp = {
                 value: this.props.row + '',
                 // checked: this.props.___isRowSelected___ === 0 && !this.props.disabled,

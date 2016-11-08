@@ -53,7 +53,8 @@ define(function (require) {
             var value = this.props.content;
             var tdProp = {
                 className: 'td-button ' + this.props.className,
-                style: this.props.style
+                style: this.props.style,
+                title: this.props.title
             };
             var iconProp = {
                 className: 'font-icon'
@@ -70,11 +71,12 @@ define(function (require) {
                 },
                 onClick: this.onIconClick
             };
+            var hideButton = this.props.item['hideButton-' + this.props.field];
             return (
                 <td {...tdProp}>
                     {value}
-                    <div {...iconProp}></div>
-                    {this.props.buttonLabel ? <div {...labelProp}>{this.props.buttonLabel}</div> : null}
+                    {!hideButton ? <div {...iconProp}></div> : null}
+                    {this.props.buttonLabel && !hideButton ? <div {...labelProp}>{this.props.buttonLabel}</div> : null}
                 </td>
             );
         }

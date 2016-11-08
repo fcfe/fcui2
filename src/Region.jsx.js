@@ -16,7 +16,6 @@ define(function (require) {
     var cTools = require('./core/componentTools');
     var factory = require('./factories/regionFactory.jsx');
 
-
     return React.createClass({
         /**
          * @properties
@@ -27,6 +26,7 @@ define(function (require) {
          * @param {ReactClass} provinceRenderer 省渲染器
          * @param {ReactClass} regionRenderer 地区渲染器
          * @param {ReactClass} countryRenderer 国家渲染器
+         * @param {Array} countries 需要显示的国家，默认全部(中国和国外)
          * @param {Import|Properties} src\mixins\InputWidget.js
          *      value onChange name validations customErrorTemplates valueTemplate
          */
@@ -49,6 +49,7 @@ define(function (require) {
                 provinceRenderer: ProvinceRenderer,
                 regionRenderer: RegionRenderer,
                 countryRenderer: RegionRenderer,
+                countries: [998, 999],
                 // mixin
                 valueTemplate: ''
             };
@@ -83,7 +84,7 @@ define(function (require) {
         render: function () {
             return (
                 <div {...cTools.containerBaseProps('region', this)}>
-                    {factory.countryFactory([998, 999], this.___getValue___(), this)}
+                    {factory.countryFactory(this.props.countries, this.___getValue___(), this)}
                 </div>
             );
         }

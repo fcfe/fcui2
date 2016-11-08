@@ -10,7 +10,7 @@ define(function (require) {
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
 
-    
+
     var Layer = require('./Layer.jsx');
     var Region = require('./Region.jsx');
     var Button = require('./Button.jsx');
@@ -29,6 +29,7 @@ define(function (require) {
          * @param {String} label 下拉按钮上显示的文字，如果type为'single'并且value的值合法，将显示地域名称
          * @param {String} openLayerType 控制浮层打开的动作，onMouseEnter或onClick
          * @param {Import|Properties} src\Region.jsx.js type noLinkage provinceRenderer regionRenderer countryRenderer
+         * @param {Import|Properties} src\Region.jsx.js countries
          * @param {Import|Properties} src\mixins\InputWidget.js
          *      value onChange name validations customErrorTemplates valueTemplate
          */
@@ -53,6 +54,7 @@ define(function (require) {
                 provinceRenderer: undefined,
                 regionRenderer: undefined,
                 countryRenderer: undefined,
+                countries: undefined,
                 // mixin
                 valueTemplate: ''
             };
@@ -188,6 +190,7 @@ define(function (require) {
                 provinceRenderer: this.props.provinceRenderer,
                 regionRenderer: this.props.regionRenderer,
                 countryRenderer: this.props.countryRenderer,
+                countries: this.props.countries,
                 onChange: this.onRegionChange
             };
             var enterProp = {
