@@ -181,10 +181,12 @@ define(function (require) {
             var skin = ' fcui2-layer-' +
                 (typeof props.skin === 'string' && props.skin.length ? props.skin : 'normal')
             layer.className = 'fcui2-layer' + className + skin;
+            var cssText = '';
             for (var key in style) {
                 if (!style.hasOwnProperty(key)) continue;
-                layer.style[key] = style[key];
+                cssText += key + ':' + style[key] + ';';
             }
+            layer.cssText = cssText;
         },
         fixedSize: function (props) { 
             // layer默认宽度会固定，高度自适应；如果修改宽度，可在props.style里修改

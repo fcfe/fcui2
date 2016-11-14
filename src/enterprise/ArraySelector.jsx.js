@@ -197,7 +197,7 @@ define(function (require) {
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
                     <span className="label-container">{labels.dropdownLabel ? labels.dropdownLabel : ''}</span>
                     <Layer {...layerProp}>
-                        <div style={{padding: 10}}>
+                        <div style={{padding: 10, width: 555}}>
                             {mainContentFactory(this)}
                             <Button {...enterButtonProp}/>
                             <Button label={language.cancel} onClick={this.onLayerClose} style={{marginLeft: 10}}/>
