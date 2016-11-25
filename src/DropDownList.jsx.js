@@ -40,10 +40,11 @@ define(function (require) {
                 style: {},
                 disabled: false,
                 // self
-                hideLayerScroll: false,
                 itemRenderer: undefined,
                 label: 'DropDownList',
                 openLayerType: 'onMouseEnter',
+                layerLocation: '6',
+                hideLayerScroll: false,
                 datasource: [],
                 onClick: cTools.noop
             };
@@ -76,16 +77,21 @@ define(function (require) {
                 onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
                 isOpen: this.state.layerOpen && !this.props.disabled && !!this.props.datasource.length,
                 anchor: this.refs.container,
-                style: {
-                    maxHeight: this.props.hideLayerScroll ? undefined : '240px',
-                    overflow: 'auto'
-                }
+                location: this.props.layerLocation
             };
             var listProp = {
                 itemRenderer: this.props.itemRenderer,
                 datasource: this.props.datasource,
-                onClick: this.onListClick
+                onClick: this.onListClick,
+                style: {
+                    maxHeight: '242px',
+                    overflowY: 'auto',
+                    overflowX: 'hidden'
+                }
             };
+            if (this.props.hideLayerScroll) {
+                delete listProp.style;
+            }
             containerProp[this.props.openLayerType] = this.onMouseEnter;
             containerProp.onMouseLeave = this.onMouseLeave;
             containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';

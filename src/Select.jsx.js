@@ -45,6 +45,8 @@ define(function (require) {
                 // mixin
                 placeholder: 'please select',
                 openLayerType: 'onMouseEnter',
+                layerLocation: '6',
+                hideLayerScroll: false,
                 datasource: [],
                 // mixin
                 valueTemplate: ''
@@ -85,16 +87,21 @@ define(function (require) {
                 isOpen: this.state.layerOpen && this.props.datasource.length && !this.props.disabled,
                 anchor: this.refs.container,
                 onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
-                style: {
-                    maxHeight: '240px',
-                    overflow: 'auto'
-                }
+                location: this.props.layerLocation
             };
             var listProp = {
                 datasource: this.props.datasource,
                 ref: 'list',
-                onClick: this.onListClick
+                onClick: this.onListClick,
+                style: {
+                    maxHeight: '242px',
+                    overflowY: 'auto',
+                    overflowX: 'hidden'
+                }
             };
+            if (this.props.hideLayerScroll) {
+                delete listProp.style;
+            }
             containerProp[this.props.openLayerType] = this.onMouseEnter;
             containerProp.onMouseLeave = this.onMouseLeave;
             for (var i = 0; i < this.props.datasource.length; i++) {

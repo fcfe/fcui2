@@ -55,6 +55,9 @@ define(function (require) {
             };
         },
         onButtonClick: function (e) {
+            if (this.props.disabled) {
+                return;
+            }
             e.target = this.refs.container;
             e.target.value = this.___getValue___();
             this.props.onClick(e);

@@ -91,8 +91,8 @@ define(function (require) {
         },
         // @override
         componentWillReceiveProps: function(newProps) {
-            this.renderSubTree(newProps);
             this.fixedContainer(newProps);
+            this.renderSubTree(newProps);
         },
         // @override
         componentWillUnmount: function() {
@@ -183,7 +183,7 @@ define(function (require) {
             layer.className = 'fcui2-layer' + className + skin;
             var cssText = '';
             for (var key in style) {
-                if (!style.hasOwnProperty(key)) continue;
+                if (!style.hasOwnProperty(key) || !style[key]) continue;
                 cssText += key + ':' + style[key] + ';';
             }
             layer.cssText = cssText;
