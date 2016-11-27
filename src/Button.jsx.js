@@ -18,6 +18,7 @@ define(function (require) {
          * @param {String} label 显示在按钮上的文字
          * @param {String} title 鼠标悬浮在按钮上时提示的文字
          * @param {String} icon 按钮上显示的图标，具体见src/css/icon/variable.less
+         * @param {Number} iconLeft 按钮icon距按钮左边框的距离
          * @param {String} type 按钮类型，目前支持：button、submit、reset，如果按钮在Form中，会触发相应事件
          * @param {String} name 按钮域名，如果组件在表单中，此属性等同于原生dom的name属性
          * @param {String} value 按钮的值，此属性会通过onClick回调回传
@@ -40,7 +41,10 @@ define(function (require) {
          * @fire button onMouseLeave
          * @param {SyntheticEvent} e React事件对象
          * @param {HtmlElement} e.target Button实例的根容器
-         */ 
+         */
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
         // @override
         getDefaultProps: function () {
             return {
@@ -53,6 +57,7 @@ define(function (require) {
                 label: 'Button',
                 title: '',
                 icon: '',
+                iconLeft: 10,
                 type: 'button',
                 name: '',
                 value: '',
@@ -88,9 +93,6 @@ define(function (require) {
                 value: this.props.label,
                 disabled: this.props.disabled
             };
-            if (this.props.icon.length > 0) {
-                 inputProp.style = {textAlign: 'left'};
-            }
             var containerProp = cTools.containerBaseProps('button', this, {
                 merge: {
                     onMouseDown: this.onMouseDown,
@@ -100,10 +102,19 @@ define(function (require) {
                 mergeFromProps: ['onMouseEnter', 'onMouseLeave', 'value', 'title'],
                 widthCorrect: -2
             });
+            var iconProps = {
+                className: 'font-icon ' + this.props.icon,
+                style: {
+                    left: this.props.iconLeft
+                }
+            };
+            if (this.props.icon.length > 0) {
+                 inputProp.style = {textAlign: 'left'};
+            }
             containerProp.className += this.state.mousedown ? ' fcui2-button-active' : '';
             return (
                 <div {...containerProp}>
-                    {this.props.icon.length > 0 ? <div className={'font-icon ' + this.props.icon}></div> : null}
+                    {this.props.icon.length > 0 ? <div {...iconProps}></div> : null}
                     <input {...inputProp}/>
                 </div>
             );

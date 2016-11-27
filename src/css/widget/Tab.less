@@ -82,7 +82,6 @@
     }
 }
 
-
 .fcui2-tab-level-3 {
     font-family: @font-normal;
     border-bottom: 1px solid @color-inner-border;
@@ -106,6 +105,100 @@
     }
     .fcui2-tab-item-active {
         font-weight: 700;
+        border-bottom-color: @color-btn-hover;
+        cursor: pointer;
+    }
+}
+
+// oneux3
+.fcui2-tab-oneux3-normal {
+    font-family: @font-normal;
+    padding-left: 1px;
+    height: 45px;
+    line-height: 45px;
+    background-color: @oneux3-bgcolor-c4;
+    border: 1px solid @oneux3-bgcolor-c2;
+    .fcui2-tab-item, .fcui2-tab-item-active, .fcui2-tab-item-disabled {
+        font-weight: 700;
+        color: @oneux3-color-c1;
+        position: relative;
+        top: 0px;
+        height: 42px;
+        line-height: 42px;
+        border-bottom: 1px solid;
+        border-top: 3px solid;
+        border-right: 1px solid;
+        padding: 0 34px;
+        text-align: center;
+        font-size: @oneux3-font-size-t2;
+    }
+    .fcui2-tab-item {
+        border-top-color: @oneux3-bgcolor-c4;
+        border-right-color: @oneux3-bgcolor-c2;
+        border-bottom-color: @oneux3-bgcolor-c2;
+        cursor: pointer;
+    }
+    .fcui2-tab-item-active,.fcui2-tab-item:hover {
+        border-top-color: @oneux3-bgcolor-c20;
+        border-right-color: @oneux3-bgcolor-c2;
+        border-bottom-color: @oneux3-bgcolor-c1;
+        background-color: @oneux3-bgcolor-c1;
+        color: @oneux3-color-c4;
+        cursor: pointer;
+    }
+    .fcui2-tab-item-disabled {
+        border-top-color: @oneux3-bgcolor-c4;
+        border-right-color: @oneux3-bgcolor-c2;
+        border-bottom-color: @oneux3-bgcolor-c2;
+        color: @oneux3-color-c3;
+        cursor: default;
+    }
+}
+
+.fcui2-tab-oneux3-level-1 {
+    font-family: @font-normal;
+    background-color: @oneux3-bgcolor-c19;
+    color: @oneux3-color-c8;
+    height: 70px;
+    .fcui2-tab-item, .fcui2-tab-item-active, .fcui2-tab-item-disabled {
+        line-height: 70px;
+        padding: 0 20px;
+        text-align: center;
+        min-width: 60px;
+        font-size: @oneux3-font-size-t1;
+    }
+    .fcui2-tab-item {
+        cursor: pointer;
+    }
+    .fcui2-tab-item-active {
+        background-color: @oneux3-bgcolor-c20;
+        cursor: pointer;
+    }
+}
+
+.fcui2-tab-oneux3-level-3 {
+    font-family: @font-normal;
+    border-bottom: 1px solid @oneux3-bgcolor-c2;
+    .fcui2-tab-item, .fcui2-tab-item-active, .fcui2-tab-item-disabled {
+        font-weight: 700;
+        border-bottom: 2px solid;
+        padding-bottom: 8px;
+        line-height: 33px;
+        padding: 0 0px;
+        margin: 0 10px;
+        text-align: center;
+        color: @color-text-3;
+        font-size: @oneux3-font-size-t3;
+    }
+    .fcui2-tab-item {
+        border-color: @color-gray-1;
+        cursor: pointer;
+    }
+    .fcui2-tab-item:hover {
+        border-bottom-color: @color-btn-hover;
+        cursor: pointer;
+    }
+    .fcui2-tab-item-active {
         border-bottom-color: @color-btn-hover;
         cursor: pointer;
     }

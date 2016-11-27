@@ -31,6 +31,10 @@ define(function (require) {
          * @param {String} e.target.value switch的值，'on'或'off'
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
@@ -44,7 +48,7 @@ define(function (require) {
                 // self
                 labels: {
                     on: language.on,
-                    off: language.off
+                    off: ''
                 },
                 value: '',
                 // mixin

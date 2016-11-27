@@ -12,22 +12,22 @@
     margin-top: -8px;
     .fcui2-switch-cursor {
         position: absolute;
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
         border-radius: 12px;
-        top: 3px;
+        top: 2px;
     }
     .fcui2-switch-label {
         position: absolute;
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
         top: 0px;
     }
 }
 
 .fcui2-switch-on {
-    background-color: @color-btn;
-    color: @color-gray-1;
+    background-color: @oneux3-bgcolor-c16;
+    color: @oneux3-color-c8;
     cursor: pointer;
     .fcui2-switch-cursor {
         right: 3px;
@@ -39,7 +39,7 @@
 }
 
 .fcui2-switch-off {
-    background-color: @color-outer-border;
+    background-color: @oneux3-bgcolor-c21;
     color: @color-text-3;
     cursor: pointer;
     .fcui2-switch-cursor {
@@ -51,6 +51,10 @@
     }
 }
 
-.fcui2-switch-disabled {
+.fcui2-switch-disabled,.fcui2-switch-oneux3-disabled {
     cursor: default;
+    background-color: @oneux3-color-c3 !important;
+    .fcui2-switch-cursor {
+        background-color: @oneux3-bgcolor-c18 !important;
+    }
 }

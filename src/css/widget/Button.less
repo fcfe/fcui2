@@ -1,5 +1,6 @@
 // version 0.0.2
 
+
 // 基础样式只负责定位和尺寸
 .fcui2-button {
     display: inline-block;
@@ -12,7 +13,6 @@
     border: 1px solid;
     .font-icon {
         position: absolute;
-        left: 10px;
         height: 28px;
         line-height: 28px;
     }
@@ -30,6 +30,7 @@
         cursor: pointer;
     }
 }
+
 
 // 皮肤样式负责颜色和字体
 .fcui2-button-normal {
@@ -70,5 +71,122 @@
     input {
         color: @color-disabled-text;
         cursor: default;
+    }
+}
+
+
+// OneUX3
+.fcui2-button-oneux3-normal {
+    background-color: @oneux3-bgcolor-c1;
+    border-color: @oneux3-bgcolor-c11;
+    height: 26px;
+    line-height: 26px;
+    input {
+        font-family: @font-normal;
+        color: @oneux3-color-c1;
+        height: 30px;
+        line-height: 30px;
+    }
+    .font-icon {
+        color: @oneux3-color-c1;
+    }
+    &:hover {
+        background-color: @oneux3-bgcolor-c12;
+        border-color: @oneux3-bgcolor-c13;
+    }
+}
+.fcui2-button-oneux3-grey {
+    background-color: @oneux3-bgcolor-c10;
+    border-color: @oneux3-bgcolor-c10;
+    height: 26px;
+    line-height: 26px;
+    input {
+        font-family: @font-normal;
+        color: @oneux3-color-c1;
+        height: 30px;
+        line-height: 30px;
+    }
+    .font-icon {
+        color: @oneux3-color-c1;
+    }
+    &:hover {
+        background-color: @oneux3-bgcolor-c12;
+        border-color: @oneux3-bgcolor-c12;
+    }
+}
+.fcui2-button-oneux3-grey1 {
+    background-color: @oneux3-bgcolor-c10;
+    border-color: @oneux3-bgcolor-c10;
+    height: 26px;
+    line-height: 26px;
+    input {
+        font-family: @font-normal;
+        color: @oneux3-color-c4;
+        height: 30px;
+        line-height: 30px;
+    }
+    .font-icon {
+        color: @oneux3-color-c4;
+    }
+    &:hover {
+        background-color: @oneux3-bgcolor-c12;
+        border-color: @oneux3-bgcolor-c12;
+    }
+}
+.fcui2-button-oneux3-blue {
+    background-color: @oneux3-bgcolor-c14;
+    border-color: @oneux3-bgcolor-c14;
+    height: 26px;
+    line-height: 26px;
+    input {
+        font-family: @font-normal;
+        color: @oneux3-color-c4;
+        height: 30px;
+        line-height: 30px;
+    }
+    .font-icon {
+        color: @oneux3-color-c4;
+    }
+    &:hover {
+        background-color: @oneux3-bgcolor-c15;
+        border-color: @oneux3-bgcolor-c15;
+    }
+}
+.fcui2-button-oneux3-important {
+    background-color: @oneux3-bgcolor-c16;
+    border-color: @oneux3-bgcolor-c16;
+    height: 26px;
+    line-height: 26px;
+    input {
+        font-family: @font-normal;
+        color: @oneux3-color-c8;
+        height: 30px;
+        line-height: 30px;
+    }
+    .font-icon {
+        color: @oneux3-color-c8;
+    }
+    &:hover {
+        background-color: @oneux3-bgcolor-c17;
+        border-color: @oneux3-bgcolor-c17;
+    }
+}
+.fcui2-button-oneux3-disabled {
+    background-color: @oneux3-bgcolor-c18;
+    border-color: @oneux3-bgcolor-c18;
+    height: 26px;
+    line-height: 26px;
+    input {
+        font-family: @font-normal;
+        color: @oneux3-color-c3;
+        height: 30px;
+        line-height: 30px;
+    }
+    .font-icon {
+        color: @oneux3-color-c3;
+    }
+    &:hover {
+        background-color: @oneux3-bgcolor-c18;
+        border-color: @oneux3-bgcolor-c18;
     }
 }

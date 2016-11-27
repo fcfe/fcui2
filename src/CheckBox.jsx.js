@@ -32,6 +32,10 @@ define(function (require) {
          * @param {String} e.target.value checkbox的值，用于区别身份，等于this.props.value
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
@@ -79,6 +83,7 @@ define(function (require) {
         },
         render: function () {
             var containerProp = cTools.containerBaseProps('checkbox', this);
+            var checked = this.___getValue___();
             var labelProp = {
                 className: 'fcui2-checkbox-label',
                 onClick: this.onClick
@@ -91,12 +96,19 @@ define(function (require) {
                 checked: this.___getValue___(),
                 onChange: this.onChange
             };
-            var doms = [];
-            doms.push(<input {...inputProp} key="input"/>);
-            doms[this.props.labelPosition === 'right' ? 'push' : 'unshift'](
-                <span {...labelProp} key="label">{this.props.label}</span>
+            var virtualCheckboxProp = {
+                className: 'iconfont icon-checkbox'
+                    + (!checked && this.props.indeterminate ? '-minus' : (checked ? '-checked' : '')),
+                onClick: this.onClick
+            };
+            return (
+                <div {...containerProp}>
+                    {this.props.labelPosition !== 'right' ? <span {...labelProp}>{this.props.label}</span> : null}
+                    <input {...inputProp}/>
+                    <span {...virtualCheckboxProp}></span>
+                    {this.props.labelPosition === 'right' ? <span {...labelProp}>{this.props.label}</span> : null}
+                </div>
             );
-            return (<div {...containerProp}>{doms}</div>);
         }
     });
 });

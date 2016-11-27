@@ -5,10 +5,14 @@
     height: 28px;
     line-height: 28px;
     input {
+        display: none;
+    }
+    .iconfont {
+        display: inline-block;
+        cursor: pointer;
+        margin: 0px 3px;
         position: relative;
-        top: 3px;
-        width: 14px;
-        height: 14px;
+        top: 1px;
     }
 }
 
@@ -17,17 +21,37 @@
         cursor: pointer;
         font-size: 12px;
     }
-    input {
-        cursor: pointer;
+    .icon-checkbox {
+        color: @color-gray-5;
+    }
+    .icon-checkbox-checked,.icon-checkbox-minus {
+        color: @color-blue-3;
     }
 }
 
-.fcui2-checkbox-disabled {
+.fcui2-checkbox-disabled,.fcui2-checkbox-oneux3-disabled {
     .fcui2-checkbox-label {
         cursor: default;
-        color: @color-disabled-text;
+        color: @color-disabled-text !important;
     }
-    input {
-        cursor: default;
+    .iconfont {
+        color: @color-disabled-text !important;
+    }
+    .icon-checkbox:before {
+        background-color: @color-disabled-icon;
+    }
+}
+
+.fcui2-checkbox-oneux3-normal {
+    .fcui2-checkbox-label {
+        cursor: pointer;
+        font-size: 12px;
+        color: @oneux3-color-c1;
+    }
+    .icon-checkbox {
+        color: @oneux3-bgcolor-c22;
+    }
+    .icon-checkbox-checked,.icon-checkbox-minus {
+        color: @oneux3-bgcolor-c16;
     }
 }

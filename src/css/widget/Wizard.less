@@ -104,3 +104,62 @@
         }
     }
 }
+
+.fcui2-wizard-oneux3-normal {
+    font-family: @font-normal;
+    border: 1px solid @oneux3-bgcolor-c2;
+    .fcui2-wizard-item {
+        font-size: @oneux3-font-size-t3;
+        .fcui2-wizard-arrow {
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+        }
+        .fcui2-wizard-arrow-bg {
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+        }
+    }
+    .fcui2-wizard-item-normal {
+        cursor: pointer;
+        color: @oneux3-color-c4;
+        background-color: @oneux3-bgcolor-c4;
+        .fcui2-wizard-arrow {
+            border-left-color: @oneux3-bgcolor-c4;
+        }
+        .fcui2-wizard-arrow-bg {
+            border-left-color: @oneux3-bgcolor-c2; 
+        }
+        &:hover {
+            color: @oneux3-color-c8;
+            background-color: @oneux3-bgcolor-c17;
+            .fcui2-wizard-arrow {
+                border-left-color: @oneux3-bgcolor-c17;
+            }
+        }
+    }
+    .fcui2-wizard-item-disabled {
+        cursor: default;
+        color: @oneux3-color-c3;
+        background-color: @oneux3-bgcolor-c18;
+        .fcui2-wizard-arrow {
+            border-left-color: @oneux3-bgcolor-c18;
+        }
+        .fcui2-wizard-arrow-bg {
+            border-left-color: @color-bg; 
+        }
+    }
+    .fcui2-wizard-item-active {
+        cursor: pointer;
+        background-color: @oneux3-bgcolor-c20;
+        color: @color-bg;
+        .fcui2-wizard-arrow {
+            border-left-color: @oneux3-bgcolor-c20;
+        }
+        &:hover {
+            background-color: @oneux3-bgcolor-c17;
+            .fcui2-wizard-arrow {
+                border-left-color: @oneux3-bgcolor-c17;
+            }
+        }
+    }
+}

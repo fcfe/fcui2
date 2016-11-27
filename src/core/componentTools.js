@@ -6,6 +6,7 @@
  */
 define(function (require) {
 
+
     var _ = require('underscore');
     var util = require('./util');
     var MERGE_FROM_PROPS_TO_STYLE = [
@@ -109,29 +110,23 @@ define(function (require) {
                 className: 'fcui2-' + type
             };
             var key = '';
-            // 处理style，潜克隆一份，防止直接修改me.props.style导致报错
-            if (me.props.hasOwnProperty('style')) {
-                for (key in me.props.style) {
-                    if (!me.props.style.hasOwnProperty(key)) continue;
-                    result.style[key] = me.props.style[key];
-                }
-            }
-            // class
+            var appSkin = me.context.appSkin ? ('-' + me.context.appSkin) : '';
+            // style
+            result.style = _.extend({}, result.style, me.props.style);
+            // skin
+            result.className += ' fcui2-' + type + appSkin + '-' + (
+                typeof me.props.skin === 'string' && me.props.skin.length ? me.props.skin : 'normal'
+            );
+            // className
             result.className += typeof me.props.className === 'string' && me.props.className.length
                 ? (' ' + me.props.className) : '';
-            // skin
-            if (typeof me.props.skin === 'string' && me.props.skin.length) {
-                result.className += ' fcui2-' + type + '-' + me.props.skin;
-            }
-            else {
-                result.className += ' fcui2-' + type + '-normal';
-            }
-            // reject and disable
+            // reject
             if (me.state.isValid === false) {
-                result.className += ' fcui2-' + type + '-reject';
+                result.className += ' fcui2-' + type + appSkin + '-reject';
             }
+            // disabled
             else if (me.props.disabled) {
-                result.className += ' fcui2-' + type + '-disabled';
+                result.className += ' fcui2-' + type + appSkin + '-disabled';
             }
             // browser
             result.className += ' browser-' + util.getBrowserType();
