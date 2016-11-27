@@ -10,7 +10,7 @@ define(function (require) {
         },
         {
             title: 'Button with Title',
-            props: {label: 'Button', value: 'title button', title: 'Button With Title'}
+            props: {label: 'Button', value: 'title button', title: 'Button With Title', skin: 'grey'}
         },
         {
             title: 'Button with ClassName',
@@ -18,7 +18,7 @@ define(function (require) {
         },
         {
             title: 'Submit Button',
-            props: {label: 'Submit', type:'submit', name: 'submit1', skin: 'important', value: 'submit button'}
+            props: {label: 'Submit', type:'submit', name: 'submit1', skin: 'blue', value: 'submit button'}
         },
         {
             title: 'Active Button',
@@ -30,11 +30,11 @@ define(function (require) {
         },
         {
             title: 'Button with Icon',
-            props: {label: 'Find', icon: 'font-icon-enlarge', value: 'button width icon', width: 80}
+            props: {label: 'Find', icon: 'font-icon-enlarge', skin: 'grey1', value: 'button width icon', width: 80}
         },
         {
             title: 'Button with Style',
-            props: {skin: 'important', label: 'Width', icon: 'font-icon-enlarge', style: {width: 300}, value: 'button with Width'}
+            props: {skin: 'important', label: 'Width', icon: 'font-icon-enlarge', iconLeft: 110, style: {width: 300}, value: 'button with Width'}
         }
     ];
 

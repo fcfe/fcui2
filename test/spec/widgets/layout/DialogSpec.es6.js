@@ -92,7 +92,7 @@ define(function (require) {
                 let dialog = new Dialog();
                 let enter = false;
                 let cancel = false;
-                let close = false;
+                let closed = false;
                 dialog.confirm({
                     title: 'test alert',
                     message : 'test message',

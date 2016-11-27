@@ -54,7 +54,7 @@ define(function (require) {
             it('Renders a wizard with given props', () => {
                 let wizard = shallowRender(Wizard, wizardProps);
                 expect(wizard.type).toBe('div');
-                expect(wizard.props.className).toBe('fcui2-wizard fcui2-wizard-test fcui2-wizard-test-skin browser-chrome');
+                expect(wizard.props.className).toBe('fcui2-wizard fcui2-wizard-test-skin fcui2-wizard-test browser-chrome');
                 expect(wizard.props.style).toEqual({color: '#FFF'});
 
                 let onClick = wizard.props.children[0].props.onClick;

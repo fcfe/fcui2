@@ -53,7 +53,7 @@ define(function (require) {
                 let tip = shallowRender(Tip, tipProps);
                 expect(tip.type).toBe('div');
                 expect(tip.props.className).toBe(
-                    'fcui2-tip fcui2-tip-test fcui2-tip-test-skin fcui2-tip-disabled browser-chrome'
+                    'fcui2-tip fcui2-tip-test-skin fcui2-tip-test fcui2-tip-disabled browser-chrome'
                         + ' font-icon font-icon-hint-question-s'
                 );
                 expect(tip.props.style).toEqual({color: '#FFF'});

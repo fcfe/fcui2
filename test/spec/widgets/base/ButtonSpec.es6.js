@@ -53,11 +53,11 @@ define(function (require) {
             it('Renders a button with given props', () => {
                 let button = shallowRender(Button, buttonProps);
                 expect(button.type).toBe('div');
-                expect(button.props.className).toBe('fcui2-button fcui2-button-test fcui2-button-test-skin browser-chrome');
+                expect(button.props.className).toBe('fcui2-button fcui2-button-test-skin fcui2-button-test browser-chrome');
                 expect(button.props.title).toBe('testing title');
                 expect(button.props.style).toEqual({color: '#FFF'});
                 expect(button.props.children).toEqual([
-                    <div className="font-icon icon-test"/>,
+                    <div className="font-icon icon-test" style={{left: 10}}/>,
                     <input type="button" name="test" value="testing label" style={{textAlign: 'left'}} disabled={false}/>
                 ]);
             });
@@ -66,7 +66,7 @@ define(function (require) {
                 let disabledProps = _.extend(buttonProps, {disabled: true});
                 let button = shallowRender(Button, disabledProps);
                 expect(button.type).toBe('div');
-                expect(button.props.className).toBe('fcui2-button fcui2-button-test fcui2-button-test-skin fcui2-button-disabled browser-chrome');
+                expect(button.props.className).toBe('fcui2-button fcui2-button-test-skin fcui2-button-test fcui2-button-disabled browser-chrome');
             });
         });
 

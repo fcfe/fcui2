@@ -59,7 +59,7 @@ define(function (require) {
             it('Renders a crumb with given props', () => {
                 let crumb = shallowRender(Crumb, crumbProps);
                 expect(crumb.type).toBe('div');
-                expect(crumb.props.className).toBe('fcui2-crumb fcui2-crumb-test fcui2-crumb-test-skin browser-chrome');
+                expect(crumb.props.className).toBe('fcui2-crumb fcui2-crumb-test-skin fcui2-crumb-test browser-chrome');
                 expect(crumb.props.style).toEqual({color: '#FFF'});
                 expect(crumb.props.children).toEqual([
                     <a key="l0" href="http://www.baidu.com/1" target="_blank">账户</a>,
@@ -76,7 +76,7 @@ define(function (require) {
                 crumbProps.datasource = datasource;
                 let crumb = shallowRender(Crumb, crumbProps);
                 expect(crumb.type).toBe('div');
-                expect(crumb.props.className).toBe('fcui2-crumb fcui2-crumb-test fcui2-crumb-test-skin browser-chrome');
+                expect(crumb.props.className).toBe('fcui2-crumb fcui2-crumb-test-skin fcui2-crumb-test browser-chrome');
                 expect(crumb.props.style).toEqual({color: '#FFF'});
                 expect(crumb.props.children).toEqual([
                     <a key="l0" href="http://www.baidu.com/1" target="_blank">账户</a>,

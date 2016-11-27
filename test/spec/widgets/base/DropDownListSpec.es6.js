@@ -57,7 +57,7 @@ define(function (require) {
             it('Renders a dropdownlist with given props', () => {
                 let dropdownlist = shallowRender(DropDownList, listProps);
                 expect(dropdownlist.type).toBe('div');
-                expect(dropdownlist.props.className).toBe('fcui2-dropdownlist fcui2-dropdownlist-test fcui2-dropdownlist-test-skin browser-chrome');
+                expect(dropdownlist.props.className).toBe('fcui2-dropdownlist fcui2-dropdownlist-test-skin fcui2-dropdownlist-test browser-chrome');
                 expect(dropdownlist.props.style).toEqual({color: '#FFF'});
                 expect(dropdownlist.props.children[0]).toEqual(
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>

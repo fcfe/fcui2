@@ -22,7 +22,7 @@ define(function (require) {
         },
         {
             title: 'CheckBox with Indeterminate',
-            props: {indeterminate: true}
+            props: {indeterminate: true, label: '半选择状态复选框'}
         },
         {
             title: 'CheckBox with right Label',
@@ -34,7 +34,7 @@ define(function (require) {
         },
         {
             title: 'Readonly CheckBox',
-            props: {checked: true, label: '请选择'}
+            props: {checked: true, label: '请选择', disabled: true}
         }
     ];
 

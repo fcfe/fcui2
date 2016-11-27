@@ -55,7 +55,7 @@ define(function (require) {
             it('Renders a tab with given props', () => {
                 let tab = shallowRender(Tab, tabProps);
                 expect(tab.type).toBe('div');
-                expect(tab.props.className).toBe('fcui2-tab fcui2-tab-test fcui2-tab-test-skin browser-chrome');
+                expect(tab.props.className).toBe('fcui2-tab fcui2-tab-test-skin fcui2-tab-test browser-chrome');
                 expect(tab.props.style).toEqual({color: '#FFF'});
 
                 let TabItem = Tab.defaultProps.renderer;

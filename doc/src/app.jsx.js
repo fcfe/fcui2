@@ -53,6 +53,16 @@ define(function (require) {
 
     return React.createClass({
         // @override
+        childContextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
+        getChildContext: function () {
+            return {
+                appSkin: 'oneux3'
+            };
+        },
+        // @override
         getDefaultProps: function () {
             return {
                 file: 'src\\Button.jsx.js',

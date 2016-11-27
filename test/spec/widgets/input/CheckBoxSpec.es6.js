@@ -38,17 +38,6 @@ define(function (require) {
                 };
             });
 
-            it('Readers a CheckBox with default props', () => {
-                let vDom = shallowRender(CheckBox);
-                let onChange = vDom.props.children[0].props.onChange
-                expect(vDom.type).toBe('div');
-                expect(vDom.props.className).toBe('fcui2-checkbox fcui2-checkbox-normal browser-chrome');
-                expect(vDom.props.children[0]).toEqual(
-                    <input type="checkbox" key="input"
-                        ref="inputbox" disabled={false} value="" checked={false}
-                        onChange={onChange}/>
-                );
-            });
 
             it('Readers a CheckBox with custom props in real renderer', () => {
                 spyOn(checkboxProp, 'onChange').and.callThrough();
@@ -70,17 +59,6 @@ define(function (require) {
                 TestUtils.Simulate.change(dom.refs.inputbox, {target: {checked: true}});
                 let event2 = dom.props.onChange.calls;
                 expect(event2).toEqual(undefined);
-            });
-
-            it('CheckBox with left label', () => {
-                let dom = shallowRender(CheckBox, {
-                    label: 'left label',
-                    labelPosition: 'left'
-                });
-                let onClick = dom.props.children[0].props.onClick
-                expect(dom.props.children[0]).toEqual(
-                    <span key="label" ref={null} className="fcui2-checkbox-label" onClick={onClick}>left label</span>
-                );
             });
 
         });
