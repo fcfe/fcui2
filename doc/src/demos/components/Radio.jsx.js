@@ -15,11 +15,11 @@ define(function (require) {
         },
         {
             title: 'Radio with Label',
-            props: {name: name, label: '请选择：', value: 'radio3'}
+            props: {name: name, label: '主说要有光，于是有了光', value: 'radio3'}
         },
         {
-            title: 'Radio with right Label',
-            props: {name: name, label: '主说要有光，于是有了光', labelPosition: 'right', value: 'radio4'}
+            title: 'Radio with left Label',
+            props: {name: name, label: '请选择：', labelPosition: 'left', value: 'radio4'}
         },
         {
             title: 'Disabled Radio',

@@ -32,6 +32,10 @@ define(function (require) {
          * @param {String} e.target.value Radio的值，用于区别身份，等于this.props.value。
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
@@ -54,47 +58,43 @@ define(function (require) {
         getInitialState: function () {
             return {};
         },
-        onLayerClick: function (e) {
+        onClick: function (e) {
             if (this.props.disabled) return;
             e.target = this.refs.inputbox;
-            if (!e.target.checked) {
-                e.target.checked = !e.target.checked;
-                this.___dispatchChange___(e);
-            }
+            if (e.target.checked) return;
+            e.target.checked = true;
+            this.___dispatchChange___(e);
         },
         render: function () {
             var containerProp = cTools.containerBaseProps('checkbox', this, {
                 style: {position: 'relative'}
             });
+            var checked = this.___getValue___();
+            var labelProp = {
+                className: 'fcui2-checkbox-label',
+                onClick: this.onClick
+            };
             var inputProp = {
-                key: 'inputbox',
                 ref: 'inputbox',
                 type: 'radio',
                 name: this.props.name,
                 value: this.props.value,
-                checked: this.___getValue___(),
+                checked: checked,
                 onChange: cTools.noop,
                 disabled: this.props.disabled
             };
-            var actionLayerProp = {
-                key: 'action-layer',
-                style: {
-                    position: 'absolute',
-                    left: 0,
-                    top: 0,
-                    width: '100%',
-                    height: '100%',
-                    cursor: 'pointer'
-                },
-                onClick: this.onLayerClick
+            var virtualCheckboxProp = {
+                className: 'iconfont icon-radio' + (checked ? '-checked' : ''),
+                onClick: this.onClick
             };
-            var doms = [];
-            doms.push(<input {...inputProp}/>);
-            doms[this.props.labelPosition === 'right' ? 'push' : 'unshift'](
-                <span className="fcui2-checkbox-label" key="label">{this.props.label}</span>
+            return (
+                <div {...containerProp}>
+                    {this.props.labelPosition !== 'right' ? <span {...labelProp}>{this.props.label}</span> : null}
+                    <input {...inputProp}/>
+                    <span {...virtualCheckboxProp}></span>
+                    {this.props.labelPosition === 'right' ? <span {...labelProp}>{this.props.label}</span> : null}
+                </div>
             );
-            doms.push(<div {...actionLayerProp}></div>);
-            return (<div {...containerProp}>{doms}</div>);
         }
     });
 });

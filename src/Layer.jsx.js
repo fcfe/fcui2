@@ -194,7 +194,12 @@ define(function (require) {
             var width = layer.offsetWidth;
             var height = layer.offsetHeight;
             if (layer.scrollHeight > layer.offsetHeight) {
-                width += 20;
+                if (layer.scrollHeight - layer.offsetHeight > 2) {
+                    width += 20;
+                }
+                else {
+                    height += 2;
+                }
             }
             if (props.fixedWidthToAnchor && width < props.anchor.offsetWidth) {
                 width = props.anchor.offsetWidth - 2;
@@ -206,6 +211,12 @@ define(function (require) {
                 }
                 else {
                     layer.style.width = width + 'px'; 
+                }  
+                if (props.hasOwnProperty('style') && props.style.hasOwnProperty('height')) {
+                    // DO NOTHING
+                }
+                else {
+                    layer.style.height = height + 'px'; 
                 }  
             }
         },

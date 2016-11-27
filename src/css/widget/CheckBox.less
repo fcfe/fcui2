@@ -21,15 +21,15 @@
         cursor: pointer;
         font-size: 12px;
     }
-    .icon-checkbox {
+    .icon-checkbox,.icon-radio {
         color: @color-gray-5;
     }
-    .icon-checkbox-checked,.icon-checkbox-minus {
+    .icon-checkbox-checked,.icon-checkbox-minus,.icon-radio-checked {
         color: @color-blue-3;
     }
 }
 
-.fcui2-checkbox-disabled,.fcui2-checkbox-oneux3-disabled {
+.fcui2-checkbox-disabled {
     .fcui2-checkbox-label {
         cursor: default;
         color: @color-disabled-text !important;
@@ -37,7 +37,9 @@
     .iconfont {
         color: @color-disabled-text !important;
     }
-    .icon-checkbox:before {
+    .icon-checkbox:before,
+    .icon-checkbox-checked:before,
+    .icon-checkbox-minus:before {
         background-color: @color-disabled-icon;
     }
 }
@@ -48,10 +50,24 @@
         font-size: 12px;
         color: @oneux3-color-c1;
     }
-    .icon-checkbox {
+    .icon-checkbox,.icon-radio {
         color: @oneux3-bgcolor-c22;
     }
-    .icon-checkbox-checked,.icon-checkbox-minus {
+    .icon-checkbox-checked,.icon-checkbox-minus,.icon-radio-checked {
         color: @oneux3-bgcolor-c16;
+    }
+}
+.fcui2-checkbox-oneux3-disabled {
+    .fcui2-checkbox-label {
+        cursor: default;
+        color: @oneux3-color-c3 !important;
+    }
+    .iconfont {
+        color: @oneux3-bgcolor-c2 !important;
+    }
+    .icon-checkbox:before,
+    .icon-checkbox-checked:before,
+    .icon-checkbox-minus:before {
+        background-color: @oneux3-bgcolor-c10;
     }
 }

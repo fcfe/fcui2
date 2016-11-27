@@ -39,13 +39,6 @@ define(function (require) {
                 };
             });
 
-            it('Readers a Radio with default props', () => {
-                let vDom = shallowRender(Radio);
-                let onChange = require('core/componentTools').noop;
-                expect(vDom.type).toBe('div');
-                expect(vDom.props.className).toBe('fcui2-checkbox fcui2-checkbox-normal browser-chrome');
-                expect(vDom.props.children[0].type).toEqual('input');
-            });
 
             it('Readers a Radio with custom props in real renderer', () => {
                 spyOn(radioProp, 'onChange').and.callThrough();
@@ -68,16 +61,6 @@ define(function (require) {
                 TestUtils.Simulate.change(dom.refs.inputbox, {target: {checked: true}});
                 let event2 = dom.props.onChange.calls;
                 expect(event2).toEqual(undefined);
-            });
-
-            it('Radio with left label', () => {
-                let dom = shallowRender(Radio, {
-                    label: 'left label',
-                    labelPosition: 'left'
-                });
-                expect(dom.props.children[0]).toEqual(
-                    <span key="label" ref={null} className="fcui2-checkbox-label">left label</span>
-                );
             });
 
         });
