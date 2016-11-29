@@ -34,6 +34,10 @@ define(function (require) {
          * @param {Boolean} disabled 列表项是否可用
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         getDefaultProps: function () {
             return {
                 // base

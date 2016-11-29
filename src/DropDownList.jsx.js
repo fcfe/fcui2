@@ -19,10 +19,11 @@ define(function (require) {
          *
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {String} label 下拉按钮上显示的文字
-         * @param {String} openLayerType 控制浮层打开的动作，onMouseEnter或onClick
-         * @param {Array.<ListItemObject>} datasource 列表数据源
-         * @param {Boolean} hideLayerScroll 是否隐藏下拉菜单的滚动条
          * @param {ReactClass} itemRenderer 列表项渲染器
+         * @param {Array.<ListItemObject>} datasource 列表数据源
+         * @param {String} openLayerType 控制浮层打开的动作，onMouseEnter或onClick
+         * @param {Boolean} hideLayerScroll 是否隐藏下拉菜单的滚动条
+         * @param {String} layerLocation 下拉框的展开方式，见layer.props.location
          * @param {Function} onClick 点击列表后的回调
          */
         /**
@@ -31,6 +32,10 @@ define(function (require) {
         /**
          * @fire Import src\components\list\NormalRenderer.jsx.js List onClick
          */
+        // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
         // @override
         getDefaultProps: function () {
             return {
@@ -43,7 +48,7 @@ define(function (require) {
                 itemRenderer: undefined,
                 label: 'DropDownList',
                 openLayerType: 'onMouseEnter',
-                layerLocation: '6',
+                layerLocation: '',
                 hideLayerScroll: false,
                 datasource: [],
                 onClick: cTools.noop
@@ -77,7 +82,8 @@ define(function (require) {
                 onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
                 isOpen: this.state.layerOpen && !this.props.disabled && !!this.props.datasource.length,
                 anchor: this.refs.container,
-                location: this.props.layerLocation
+                location: this.props.layerLocation,
+                skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };
             var listProp = {
                 itemRenderer: this.props.itemRenderer,
@@ -94,7 +100,9 @@ define(function (require) {
             }
             containerProp[this.props.openLayerType] = this.onMouseEnter;
             containerProp.onMouseLeave = this.onMouseLeave;
-            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
+            var skin = this.props.skin ? this.props.skin : 'normal';
+            skin = this.context.appSkin ? (this.context.appSkin + '-' + skin) : skin;
+            containerProp.className += layerProp.isOpen ? (' fcui2-dropdownlist-' + skin + '-hover') : '';
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>

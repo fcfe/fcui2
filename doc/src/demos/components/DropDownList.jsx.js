@@ -10,6 +10,29 @@ define(function (require) {
             title: 'Normal DropDownList',
             props: {
                 label: 'Command List',
+                skin: 'grey',
+                datasource: [
+                    {label: 'option1', value: 'option1', disabled: true},
+                    {label: 'option2', value: 'option2'},
+                    {label: 'option3', value: 'option3'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'}
+                ]
+            }
+        },
+        {
+            title: 'Skin Blue DropDownList',
+            props: {
+                label: 'Command List',
+                skin: 'blue',
                 datasource: [
                     {label: 'option1', value: 'option1', disabled: true},
                     {label: 'option2', value: 'option2'},

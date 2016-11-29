@@ -6,8 +6,12 @@
     top: -9999px;
     border: 1px solid;
     z-index: 10000;
-    overflow: auto;
-    overflow-x: hidden;
+    overflow: show;
+    .fcui2-layer-virtual-border {
+        display: none;
+        position: absolute;
+        background-color: #FFF;
+    }
 }
 
 .fcui2-layer-normal {
@@ -23,4 +27,12 @@
     color: @color-error;
     font-size: 12px;
     font-family: @font-normal;
+}
+
+.fcui2-layer-oneux3-normal {
+    .fcui2-layer-virtual-border {
+        display: block;
+    }
+    font-family: @font-normal;
+    border-color: @oneux3-bgcolor-c20;
 }

@@ -75,6 +75,8 @@ define(function (require) {
         componentDidMount: function () {
             if (!window || !document) return;
             var layer = document.createElement('div');
+            var virtualBorder = document.createElement('div');
+            virtualBorder.className = 'fcui2-layer-virtual-border';
             layer.style.left = '-9999px';
             layer.style.top = '-9999px';
             // 挂接容器事件和全局事件
@@ -82,6 +84,7 @@ define(function (require) {
             layer.addEventListener('mouseleave', this.onLayerMouseLeave);
             // 记录实例变量
             this.___layerContainer___ = layer;
+            this.___virtualBorder___ = virtualBorder;
             this.___layerAppended___ = false;
             this.___workerTimer___ = null;
             this.___anchorPosition___ = '';
@@ -143,6 +146,7 @@ define(function (require) {
                     me.fixedPosition(props);
                     if (!me.___layerAppended___) {
                         me.___layerAppended___ = true;
+                        me.___layerContainer___.appendChild(me.___virtualBorder___);
                         typeof props.onRender === 'function' && props.onRender();
                         setTimeout(function () {
                             window.addEventListener('click', me.onBodyClick);
@@ -212,14 +216,40 @@ define(function (require) {
                 this.___contentSize___ = content.offsetWidth + ';' + content.offsetHeight;
             }
         },
+        fixedVirtualBorder: function (layerPos, anchor) {
+            var config = {
+                1: [0, 1, anchor.offsetWidth - 2, 2, 0, null, null, -2],
+                3: [-1, -1, 2, anchor.offsetHeight - 2, -2, null, null, 0],
+                4: [-1, 0, 2, anchor.offsetHeight - 2, -2, null, 0, null],
+                6: [0, -1, anchor.offsetWidth - 2, 2, 0, null, -2, null],
+                7: [0, -1, anchor.offsetWidth - 2, 2, null, 0, -2, null],
+                9: [1, 0, 2, anchor.offsetHeight - 2, null, -2, 0, null],
+                10: [1, -1, 2, anchor.offsetHeight - 2, null, -2, null, 0],
+                12: [0, 1, anchor.offsetWidth - 2, 2, null, 0, null, -2]
+            };
+            if (!config[layerPos.clockPosition]) return;
+            var arr = config[layerPos.clockPosition];
+            layerPos.left += arr[0];
+            layerPos.top += arr[1];
+            this.___virtualBorder___.style.cssText = 'width:' + arr[2] + 'px'
+                + ';height:' + arr[3] + 'px'
+                + (arr[4] != null ? ';left:' + arr[4] + 'px' : '')
+                + (arr[5] != null ? ';right:' + arr[5] + 'px' : '')
+                + (arr[6] != null ? ';top:' + arr[6] + 'px' : '')
+                + (arr[7] != null ? ';bottom:' + arr[7] + 'px' : ''); 
+        },
         fixedPosition: function (props) {
             this.fixedSize(props);
             var layer = this.___layerContainer___;
-            var pos = tools.getLayerPosition(layer, props.anchor, props.location + '');
-            typeof props.onOffset === 'function' && props.onOffset(pos);
-            layer.style.left = pos.left + 'px';
-            layer.style.top = pos.top + 'px';
             var anchorPos = util.getDOMPosition(props.anchor);
+            var pos = tools.getLayerPosition(layer, props.anchor, props.location + '');
+            var newPos = JSON.parse(JSON.stringify(pos));
+            typeof props.onOffset === 'function' && props.onOffset(newPos);
+            if (newPos.left === pos.left && newPos.top === pos.top && newPos.clockPosition === pos.clockPosition) {
+                this.fixedVirtualBorder(newPos, props.anchor);
+            }
+            layer.style.left = newPos.left + 'px';
+            layer.style.top = newPos.top + 'px';
             this.___anchorPosition___ = anchorPos.x + ';' + anchorPos.y + ';' + anchorPos.left + ';' + anchorPos.top;
         },
         render: function () {

@@ -17,7 +17,7 @@
 }
 
 // Renderer样式
-.fcui2-list {
+.fcui2-list-normal {
     .list-normal-item {
         font-family: @font-normal;
         font-size: 12px;
@@ -37,6 +37,38 @@
         color: @color-disabled-text;
         &:hover {
             background-color: @color-gray-1;
+        }
+    }
+    .list-normal-item-selected {
+        background-color: @color-blue-7;
+        cursor: default;
+        &:hover {
+            background-color: @color-blue-7;
+        }
+    }
+}
+
+.fcui2-list-oneux3-normal {
+    .list-normal-item {
+        font-family: @font-normal;
+        font-size: 12px;
+        line-height: 28px;
+        white-space: nowrap;
+        text-align: left;
+        cursor: default;
+        color: @oneux3-color-c1;
+        background-color: @oneux3-bgcolor-c1;
+        span {
+            margin: 0 10px;
+        }
+        &:hover {
+            background-color: @oneux3-bgcolor-c23;
+        }
+    }
+    .list-normal-item-disabled {
+        color: @oneux3-color-c3;
+        &:hover {
+            background-color: @oneux3-bgcolor-c1;
         }
     }
     .list-normal-item-selected {
