@@ -85,6 +85,7 @@ define(function (require) {
             this.___layerAppended___ = false;
             this.___workerTimer___ = null;
             this.___anchorPosition___ = '';
+            this.___contentSize___ = '';
             // 渲染子树
             this.fixedContainer(this.props);
             this.renderSubTree(this.props);
@@ -97,7 +98,6 @@ define(function (require) {
         // @override
         componentWillUnmount: function() {
             var layer = this.___layerContainer___;
-            layer.___sizeFixed___ = false;
             layer.removeEventListener('mouseenter', this.onLayerMouseEnter);
             layer.removeEventListener('mouseleave', this.onLayerMouseLeave);
             this.removeSubTree();
@@ -140,7 +140,6 @@ define(function (require) {
                     document.body.appendChild(this.___layerContainer___);
                 }
                 renderSubtreeIntoContainer(this, props.children, this.___layerContainer___, function () {
-                    me.fixedSize(props);
                     me.fixedPosition(props);
                     if (!me.___layerAppended___) {
                         me.___layerAppended___ = true;
@@ -188,39 +187,33 @@ define(function (require) {
             }
             layer.cssText = cssText;
         },
-        fixedSize: function (props) { 
-            // layer默认宽度会固定，高度自适应；如果修改宽度，可在props.style里修改
+        fixedSize: function (props) {
             var layer = this.___layerContainer___;
-            var width = layer.offsetWidth;
-            var height = layer.offsetHeight;
-            if (layer.scrollHeight > layer.offsetHeight) {
-                if (layer.scrollHeight - layer.offsetHeight > 2) {
-                    width += 20;
-                }
-                else {
-                    height += 2;
-                }
+            var content = layer.childNodes[0];
+            if (!content) return;
+            var width = content.offsetWidth;
+            var height = content.offsetHeight;
+            if (this.___contentSize___ === width + ';' + height) return;
+            if (content.scrollHeight > height) {
+                width += content.scrollHeight - height > 2 ? 20 : 0;
+                height += content.scrollHeight - height > 2 ? 0 : 2;
             }
-            if (props.fixedWidthToAnchor && width < props.anchor.offsetWidth) {
-                width = props.anchor.offsetWidth - 2;
+            width = props.fixedWidthToAnchor && width < props.anchor.offsetWidth
+                ? props.anchor.offsetWidth - 2 : width;
+            width = layer.offsetWidth > width ? layer.offsetWidth : width;
+            height = layer.offsetHeight > height ? layer.offsetHeight : height;
+            if (!(props.hasOwnProperty('style') && props.style.hasOwnProperty('width'))) {
+                layer.style.width = width + 'px'; 
             }
-            if (!layer.___sizeFixed___) {
-                layer.___sizeFixed___ = true;
-                if (props.hasOwnProperty('style') && props.style.hasOwnProperty('width')) {
-                    // DO NOTHING
-                }
-                else {
-                    layer.style.width = width + 'px'; 
-                }  
-                if (props.hasOwnProperty('style') && props.style.hasOwnProperty('height')) {
-                    // DO NOTHING
-                }
-                else {
-                    layer.style.height = height + 'px'; 
-                }  
+            if (!(props.hasOwnProperty('style') && props.style.hasOwnProperty('height'))) {
+                layer.style.height = height + 'px'; 
+            }
+            if (!this.___contentSize___) {
+                this.___contentSize___ = content.offsetWidth + ';' + content.offsetHeight;
             }
         },
         fixedPosition: function (props) {
+            this.fixedSize(props);
             var layer = this.___layerContainer___;
             var pos = tools.getLayerPosition(layer, props.anchor, props.location + '');
             typeof props.onOffset === 'function' && props.onOffset(pos);
