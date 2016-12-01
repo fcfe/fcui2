@@ -35,6 +35,9 @@ define(function (require) {
 
 
     return React.createClass({
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
         // @override
         getDefaultProps: function () {
             /**
@@ -58,18 +61,6 @@ define(function (require) {
                 layerOpen: false
             };
         },
-        // @override
-        componentDidUpdate: function () {
-            var table = this.props.tableComponent;
-            var info = getInformationFromTable(table);
-            var mainCheckbox = this.refs.mainCheckbox;
-            if (info.workMode === SELECT_MODE.CURRENT_PAGE) {
-                mainCheckbox.indeterminate = info.i > 0 && info.i < table.props.datasource.length;
-            }
-            else {
-                mainCheckbox.indeterminate = info.i !== -1 && info.i > 0;
-            }
-        },
         onListClick: function (e) {
             this.setState({layerOpen: false});
             this.props.tableComponent.onRowSelect(e);
@@ -92,42 +83,47 @@ define(function (require) {
         render: function () {
             var table = this.props.tableComponent;
             var info = getInformationFromTable(table);
-            var containerProp = {
-                className: 'table-selector fcui2-dropdownlist fcui2-dropdownlist-'
-                    + (typeof table.props.skin === 'string' && table.props.skin.length ? table.props.skin : 'normal'),
-                onMouseEnter: cTools.openLayerHandlerFactory(this, 'layerOpen'),
-                onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
-                ref: 'container'
-            };
-            var mainCheckboxProp = {
-                type: 'checkbox',
-                checked: info.i === -1
-                    || (info.workMode === SELECT_MODE.CURRENT_PAGE && info.i === table.props.datasource.length),
-                className: 'td-selector',
-                disabled: table.props.disabled,
-                ref: 'mainCheckbox',
-                onClick: this.onMainSelectorChange
+            var disabled = table.props.disabled;
+            var checked = info.i === -1
+                || (info.workMode === SELECT_MODE.CURRENT_PAGE && info.i === table.props.datasource.length);
+            var indeterminate = info.workMode === SELECT_MODE.CURRENT_PAGE
+                ? (info.i > 0 && info.i < table.props.datasource.length)
+                : (info.i !== -1 && info.i > 0);
+            var virtualCheckboxProps = {
+                onClick: this.onMainSelectorChange,
+                className: 'iconfont icon-checkbox'
+                    + (!checked && indeterminate ? '-minus' : (checked ? '-checked' : ''))
+                    + (disabled ? ' iconfont-disabled ' : '')
             };
             if (info.workMode === SELECT_MODE.CURRENT_PAGE || info.workMode === SELECT_MODE.ALL) {  
                 return (
                     <th className="th-header table-selector" ref="container">
-                        <input {...mainCheckboxProp}/>
+                        <span {...virtualCheckboxProps}/>
                     </th>
                 );
             }
+            var skin = this.context.appSkin ? this.context.appSkin + '-' : '';
+            var containerProp = {
+                className: 'fcui2-dropdownlist fcui2-dropdownlist-' + skin +'normal'
+                    + (disabled ? ' fcui2-dropdownlist-' + skin +'disabled' : '')
+                    + (this.state.layerOpen && !disabled ? ' fcui2-dropdownlist-' + skin +'normal-hover' : ''),
+                onMouseEnter: cTools.openLayerHandlerFactory(this, 'layerOpen'),
+                onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
+                ref: 'container'
+            };
             var layerProp = {
-                 isOpen: this.state.layerOpen && !table.props.disabled,
+                 isOpen: this.state.layerOpen && !disabled,
                  anchor: this.refs.container,
                  location: 'bottom top right',
                  onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
-                 ref: 'layer'
+                 ref: 'layer',
+                 skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };
-            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
             return (
-                <th className="th-header">
+                <th className="th-header table-selector">
                     <div {...containerProp}>
                         <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
-                        <input {...mainCheckboxProp}/>
+                        <span {...virtualCheckboxProps}/>
                         <Layer {...layerProp}>
                             <List datasource={this.props.datasource} onClick={this.onListClick}/>
                         </Layer>

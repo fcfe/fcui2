@@ -60,6 +60,7 @@ define(function (require) {
         getChildContext: function () {
             return {
                 appSkin: 'oneux3'
+                //appSkin: ''
             };
         },
         // @override

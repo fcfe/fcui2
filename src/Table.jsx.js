@@ -119,6 +119,10 @@ define(function (require) {
          * @param {Object} param 回调参数
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         mixins: [InputWidget, WidgetWithFixedDom],
         // @override
         getDefaultProps: function () {
