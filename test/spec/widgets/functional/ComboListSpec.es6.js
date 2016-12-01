@@ -35,7 +35,7 @@ define(function (require) {
                         value = e.target.value;
                     }
                 });
-                expect(dom.refs.container.childNodes.length).toBe(3);
+                expect(dom.refs.container.childNodes.length).toBe(4);
                 TestUtils.Simulate.click(dom.refs.container);
                 expect(value).toBe('value main');
                 expect(dom.refs.list).toBe(undefined);

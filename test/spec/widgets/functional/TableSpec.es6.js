@@ -284,8 +284,7 @@ define(function (require) {
                 ReactDOM.render(element1, dom.refs.container.parentNode);
                 selector = dom.refs.container.childNodes[0].childNodes[0].childNodes[1]
                     .childNodes[0].childNodes[0].childNodes[0];
-                expect(selector.className).toBe('td-selector');
-                expect(selector.type).toBe('checkbox');
+                expect(selector.className).toBe('iconfont icon-checkbox-checked');
                 TestUtils.Simulate.click(selector);
                 expect(value.join(',')).toBe('');
                 TestUtils.Simulate.click(selector);
