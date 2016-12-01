@@ -55,6 +55,10 @@ define(function (require) {
          * @param {Object} expand 树的展开状态，以TreeItemObject.value为key，存在的key表示该子树的根层级为展开状态
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {

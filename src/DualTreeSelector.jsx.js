@@ -39,6 +39,10 @@ define(function (require) {
          * @param {Object} selected 树的选中状态，以TreeItemObject.value为key，存在的key表示该叶子被选中
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {

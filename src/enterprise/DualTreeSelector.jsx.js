@@ -66,6 +66,10 @@ define(function (require) {
          * @structure Import src\DualTreeSelector.jsx.js DualTreeSelectorValueTemplate
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
@@ -231,7 +235,8 @@ define(function (require) {
                 location: 'bottom right left',
                 closeWithBodyClick: true,
                 onCloseByWindow: this.onLayerClose,
-                onRender: this.onLayerRender
+                onRender: this.onLayerRender,
+                skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };
             var enterButtonProp = {
                 disabled: !this.state.___beOperated___,
@@ -239,8 +244,10 @@ define(function (require) {
                 skin: 'important',
                 onClick: this.onLayerEnter
             };
+            var skin = (this.context.appSkin ? this.context.appSkin + '-' : '')
+                + (this.props.skin ? this.props.skin : 'normal');
             containerProp.ref = 'dropdownContainer';
-            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
+            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-' + skin + '-hover' : '';
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
@@ -283,10 +290,11 @@ define(function (require) {
         }
         var selectedInfo = labels.footSelectCountTpl
             ? labels.footSelectCountTpl.replace(/&selected/g, selected).replace(/&total/g, count) : null;
+        var skin = (me.context.appSkin ? me.context.appSkin + '-' : '')
+            + (me.props.skin ? me.props.skin : 'normal');
         var containerProp = me.props.isDropDown ? {
                 ref: 'container',
-                className: 'fcui2-dualtreeselector-enterprise fcui2-dualtreeselector-enterprise-'
-                    + (me.props.skin ? me.props.skin : 'normal')
+                className: 'fcui2-dualtreeselector-enterprise fcui2-dualtreeselector-enterprise-' + skin
             } : cTools.containerBaseProps('dualtreeselector-enterprise', me);
         return (
             <div {...containerProp}>
