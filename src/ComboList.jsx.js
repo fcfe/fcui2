@@ -31,6 +31,10 @@ define(function (require) {
          * @fire Import src\components\list\NormalRenderer.jsx.js List onClick
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         getDefaultProps: function () {
             return {
                 // base
@@ -86,34 +90,40 @@ define(function (require) {
                 },
                 widthCorrect: -2
             });
-            var width = containerProp.style.width;
+            var hasDatasource = this.props.datasource instanceof Array && this.props.datasource.length > 0;
             var dropdownButtonProp = {
-                className: 'icon-right font-icon font-icon-largeable-caret-down',
-                style: {
-                    backgroundColor: this.state.layerOpen ? '#FFF' : undefined,
-                    color: this.state.layerOpen ? '#4593FF' : undefined
-                },
+                className: 'icon-right font-icon font-icon-largeable-caret-down'
+                    + (this.state.layerOpen && hasDatasource && !this.props.disabled ? ' layerOpen' : ''),
                 onClick: this.onDropDownButtonClick
+            };
+            var labelProp = {
+                className: 'label-container'
+                    + (hasDatasource ? ' marginRight' : '')
+                    + (this.props.icon ? (' font-icon ' + this.props.icon) : '')
             };
             var layerProp = {
                 ref: 'layer',
-                isOpen: this.state.layerOpen && this.props.datasource.length && !this.props.disabled,
+                isOpen: this.state.layerOpen && hasDatasource && !this.props.disabled,
                 anchor: this.refs.container,
                 onMouseLeave: this.onMouseLeave,
-                style: {
-                    maxHeight: '240px',
-                    overflow: 'auto'
-                }
+                skin: this.context.appSkin ? (this.context.appSkin + '-blue') : 'normal'
             };
             var listProp = {
                 datasource: this.props.datasource,
                 ref: 'list',
-                onClick: this.onListClick
+                skin: 'blue',
+                onClick: this.onListClick,
+                style: {
+                    maxHeight: '242px',
+                    overflowY: 'auto',
+                    overflowX: 'hidden'
+                }
             };
             return (
                 <div {...containerProp}>
-                    <div {...dropdownButtonProp}></div>
-                    <span className={'label-container font-icon ' + this.props.icon}>
+                    {hasDatasource ? <div {...dropdownButtonProp}></div> : null}
+                    {hasDatasource ? <div className="spliter"></div> : null}
+                    <span {...labelProp}>
                         {this.props.label}
                     </span>
                     <Layer {...layerProp}>

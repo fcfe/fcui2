@@ -12,30 +12,38 @@
         width: 20px;
         display: inline-block;
         line-height: 28px;
-        border-left: 1px solid;
         text-align: center;
     }
     .label-container {
         display: block;
         height: 28px;
         line-height: 28px;
-        margin-right: 21px;
-        line-height: 28px;
+        font-size: 12px;
+        padding: 0 14px;
         word-break: break-all;
 　　    word-wrap: break-word;
         overflow: hidden;
         text-align: center;
         text-overflow: ellipsis;
-        white-space: nowrap
+        white-space: nowrap;
+    }
+    .marginRight {
+        margin-right: 20px;
+    }
+    .spliter {
+        float: right;
+        width: 1px;
+        height: 16px;
+        position: relative;
+        top: 6px;
     }
 }
 
 .fcui2-combolist-normal {
     cursor: pointer;
+    background-color: @color-btn; 
     border-color: @color-btn; 
     .label-container {
-        font-size: 12px;
-        padding: 0 10px;
         color: @color-gray-1;
         background-color: @color-btn;
         &:hover {
@@ -44,26 +52,65 @@
     }
     .icon-right {
         color: @color-gray-1;
-        border-left-color: @color-blue-7;
         background-color: @color-btn;
         &:hover {
             background-color: @color-btn-hover;
         }
+    }
+    .layerOpen {
+        background-color: @color-btn-hover;
+    }
+    .spliter {
+        background-color: @color-blue-1;
     }
 }
 
-.fcui2-combolist-disabled {
-    border-color: @color-outer-border !important;
+.fcui2-combolist-oneux3-normal {
+    cursor: pointer;
+    background-color: @oneux3-bgcolor-c20; 
+    border-color: @oneux3-bgcolor-c20; 
     .label-container {
-        color: @color-disabled-text !important;
-        line-height: 28px;
-        background-color: @color-bg-btn !important;
-        border-top: 1px solid @color-outer-border;
-        border-bottom: 1px solid @color-outer-border;
+        color: @color-gray-1;
+        background-color: @oneux3-bgcolor-c20;
+        &:hover {
+            background-color: @oneux3-bgcolor-c17;
+        }
     }
     .icon-right {
-        color: @color-disabled-text !important;
-        background-color: @color-bg-btn !important;
-        border-left-color: @color-outer-border !important;
+        color: @color-gray-1;
+        background-color: @oneux3-bgcolor-c20;
+        &:hover {
+            background-color: @oneux3-bgcolor-c17;
+        }
+    }
+    .layerOpen {
+        background-color: @oneux3-bgcolor-c20;
+    }
+    .spliter {
+        background-color: @oneux3-bgcolor-c24;
+    }
+}
+
+.fcui2-combolist-oneux3-disabled,
+.fcui2-combolist-disabled {
+    cursor: default;
+    background-color: @color-bg-btn;
+    border-color: @color-outer-border; 
+    .label-container {
+        color: @color-disabled-text;
+        background-color: @color-bg-btn;
+        &:hover {
+            background-color: @color-bg-btn;
+        }
+    }
+    .icon-right {
+        color: @color-disabled-text;
+        background-color: @color-bg-btn;
+        &:hover {
+            background-color: @color-bg-btn;
+        }
+    }
+    .spliter {
+        background-color: @color-outer-border;
     }
 }
