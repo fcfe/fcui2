@@ -12,7 +12,7 @@
         left: 0px;
         top: 0px;
         outline: none;
-        height: 28px;
+        height: 26px;
         border: 1px solid;
         padding: 0 10px;
     }
@@ -20,7 +20,7 @@
         position: absolute;
         left: 0px;
         top: 0px;
-        line-height: 28px;
+        line-height: 26px;
         padding: 0 10px;
     }
 }
@@ -39,12 +39,34 @@
     }
 }
 
+.fcui2-textbox-oneux3-normal {
+    input {
+        background-color: transparent;
+        border-color: @oneux3-bgcolor-c2;
+        color: @oneux3-color-c1;
+        &:hover,&:focus {
+            border-color: @oneux3-bgcolor-c20;
+        }
+    }
+    div {
+        color: @oneux3-color-c3;
+        font-size: 12px;
+        padding-left: 14px;
+    }
+}
+
 .fcui2-textbox-reject {
     input {
         border-color: @color-error !important;
     }
 }
+.fcui2-textbox-oneux3-reject {
+    input {
+        border-color: @oneux3-bgcolor-c27 !important;
+    }
+}
 
+.fcui2-textbox-oneux3-disabled,
 .fcui2-textbox-disabled {
     background-color: @color-bg-btn !important;
     input {

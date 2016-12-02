@@ -28,6 +28,10 @@ define(function (require) {
          * @fire Import src\mixins\InputWidget.js XXX onChange
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         mixins: [InputWidget, InputWidgetImeFixed],
         // @override
         getDefaultProps: function () {

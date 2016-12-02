@@ -45,6 +45,7 @@ define(function (require) {
                 {id: 'src\\TextBox.jsx.js', label: 'TextBox'},
                 {id: 'src\\NumberBox.jsx.js', label: 'NumberBox'},
                 {id: 'src\\TextArea.jsx.js', label: 'TextArea'},
+                {id: 'src\\TextLine.jsx.js', label: 'TextLine'},
                 {id: 'src\\Select.jsx.js', label: 'Select'}
             ]
         },
@@ -141,7 +142,8 @@ define(function (require) {
         'src\\Switch.jsx.js': require('./demos/components/Switch.jsx'),
         'src\\WarningLayer.jsx.js': require('./demos/components/WarningLayer.jsx'),
         'src\\DeployablePanel.jsx.js': require('./demos/components/DeployablePanel.jsx'),
-        'src\\enterprise\\ArraySelector.jsx.js': require('./demos/components/ArraySelectorEnterprise.jsx')
+        'src\\enterprise\\ArraySelector.jsx.js': require('./demos/components/ArraySelectorEnterprise.jsx'),
+        'src\\TextLine.jsx.js': require('./demos/components/TextLine.jsx')
     };
 
     for (var key in dataset.files) {
