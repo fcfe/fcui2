@@ -6,14 +6,13 @@
  */
 
 define(function (require) {
-    const React = require('react');
-    const Button = require('./Button.jsx');
-    const cTools = require('./core/componentTools');
-    const language = require('./core/language').message;
-    const messageType = {
+    var React = require('react');
+    var Button = require('./Button.jsx');
+    var cTools = require('./core/componentTools');
+    var language = require('./core/language').message;
+    var messageType = {
         LOADING: 'loading',
         REFRESH: 'refresh',
-        // TODO chenxiao09 UE设计的新的刷新样式，后续待统一成一种
         NEW_REFRESH: 'new-refresh',
         SUCCESS: 'success',
         FAIL: 'fail'
@@ -24,7 +23,7 @@ define(function (require) {
          * @properties
          *
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
-         * @param {string} status 当前的状态,默认有5种状态值,可额外定义
+         * @param {string} status 当前的状态,默认有5种状态值:loading, refresh, new-refresh, success, fail
          * @param {string} icon 展示的icon,可自定义图标样式
          * @param {String} message 展示的信息文本
          * @param {boolean} autoHide 是否自动消失，默认false
@@ -54,8 +53,8 @@ define(function (require) {
         },
 
         componentDidMount: function () {
-            let autoHideTime = this.props.autoHideTime;
-            let me = this;
+            var autoHideTime = this.props.autoHideTime;
+            var me = this;
             if (autoHideTime) {
                 setTimeout(function () {
                     me.refs.container.remove();
@@ -64,15 +63,15 @@ define(function (require) {
         },
 
         render: function () {
-            const props = this.props;
-            const {status, autoHide, autoHideTime} = props;
+            var props = this.props;
+            var {status, autoHide, autoHideTime} = props;
             if (autoHide && !autoHideTime) {
                 return null;
             }
-            let containerProp = cTools.containerBaseProps('message', this, {
+            var containerProp = cTools.containerBaseProps('message', this, {
                 onClick: status === messageType.REFRESH ? this.onRefreshClick : undefined
             });
-            let refreshButtonProp = {
+            var refreshButtonProp = {
                 label: '重新加载',
                 onClick: status === messageType.NEW_REFRESH ? this.onRefreshClick : undefined
             };

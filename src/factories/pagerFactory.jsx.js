@@ -20,7 +20,7 @@ define(function (require) {
             threshold = isNaN(threshold) || threshold < 1 ? Number.POSITIVE_INFINITY : threshold;
 
             btns.push(
-                <Button label={language.pager.previousPage} value="prev"
+                <Button label={language.pager.previousPage} value="prev" className="pager-btn"
                     onClick={me.onButtonClick} disabled={me.props.disabled || value <= min} key="prev"/>
             );
 
@@ -55,7 +55,7 @@ define(function (require) {
             }
 
             btns.push(
-                <Button label={language.pager.nextPage} value="next"
+                <Button label={language.pager.nextPage} value="next" className="pager-btn"
                     onClick={me.onButtonClick} disabled={me.props.disabled || value >= max} key="next"/>
             );
 

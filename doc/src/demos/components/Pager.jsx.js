@@ -10,7 +10,7 @@ define(function (require) {
         },
         {
             title: 'Pager with ClassName',
-            props: {className: 'floatRight'}
+            props: {className: 'floatRight', showPageJumper: true}
         },
         {
             title: 'Readonly Pager',

@@ -76,10 +76,12 @@ define(function (require) {
         },
         render: function () {
             var containerProp = cTools.containerBaseProps('pager', this);
-            return (<div {...containerProp}>
+            return (
+                <div {...containerProp}>
                     {factory.buttonFactory(this)}
                     {factory.pageJumperFactory(this)}
-                </div>);
+                </div>
+            );
         }
     });
 

@@ -28,51 +28,6 @@ define(function (require) {
         // Testing structure
         describe('Base Testing', () => {
 
-            it('Readers a NumberBox with default props', () => {
-                let dom = shallowRender(NumberBox);
-                let child1 = dom.props.children[1];
-                expect(dom.type).toBe('div');
-                expect(dom.props.children[0]).toEqual(
-                    <div className="fcui2-numberbox-placeholder" style={{visibility: 'visible'}}>{''}</div>
-                );
-                expect(child1).toEqual(
-                    <input
-                        type="text" ref="inputbox" disabled={false} value=""
-                        style={{
-                            height: 26,
-                            width: 158,
-                            paddingLeft: 10,
-                            paddingRight: 30
-                        }}
-                        onChange={child1.props.onChange}
-                        onKeyDown={child1.props.onKeyDown}
-                        onBlur={child1.props.onBlur}
-                    />
-                );
-            });
-
-            it('Readers a NumberBox with props', () => {
-                let dom = shallowRender(NumberBox, {
-                    showSpinButton: false,
-                    width: 'abc'
-                });
-                let child1 = dom.props.children[1];
-                expect(child1).toEqual(
-                    <input
-                        type="text" ref="inputbox" disabled={false} value=""
-                        style={{
-                            height: 26,
-                            width: 178,
-                            paddingLeft: 10,
-                            paddingRight: 10
-                        }}
-                        onChange={child1.props.onChange}
-                        onKeyDown={child1.props.onKeyDown}
-                        onBlur={child1.props.onBlur}
-                    />
-                );
-            });
-
             it('Readers a NumberBox with realRenderer', () => {
                 let value = 0;
                 let props =  {

@@ -143,7 +143,8 @@ define(function (require) {
         'src\\WarningLayer.jsx.js': require('./demos/components/WarningLayer.jsx'),
         'src\\DeployablePanel.jsx.js': require('./demos/components/DeployablePanel.jsx'),
         'src\\enterprise\\ArraySelector.jsx.js': require('./demos/components/ArraySelectorEnterprise.jsx'),
-        'src\\TextLine.jsx.js': require('./demos/components/TextLine.jsx')
+        'src\\TextLine.jsx.js': require('./demos/components/TextLine.jsx'),
+        'src\\Message.jsx.js': require('./demos/components/Message.jsx')
     };
 
     for (var key in dataset.files) {

@@ -35,6 +35,10 @@ define(function (require) {
          * @fire Import src\mixins\InputWidget.js XXX onChange
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
@@ -58,7 +62,9 @@ define(function (require) {
         },
         // @override
         getInitialState: function () {
-            return {};
+            return {
+                hasFocus: false
+            };
         },
         // @override
         componentDidMount: function () {
@@ -81,6 +87,7 @@ define(function (require) {
         },
         onInputBoxBlur: function () {
             this.___cursorPosition___ = -1;
+            this.setState({hasFocus: false});
         },
         onSpinButtonClick: function (e) {
             if (this.props.disabled || isNaN(this.refs.inputbox.value) || this.refs.inputbox.value.length === 0) {
@@ -100,6 +107,10 @@ define(function (require) {
          */
         focus: function () {
             this.refs.inputbox.focus();
+            this.setState({hasFocus: true});
+        },
+        onInputBoxFocus: function () {
+            this.setState({hasFocus: true});
         },
         render: function () {
             var value = this.___getValue___();
@@ -120,11 +131,11 @@ define(function (require) {
                 type: 'text',
                 value: value,
                 style: {
-                    height: 26,
                     width: this.props.showSpinButton ? (width - 42) : (width - 22),
                     paddingLeft: 10,
                     paddingRight: this.props.showSpinButton ? 30 : 10
                 },
+                onFocus: this.onInputBoxFocus,
                 onChange: this.onInputBoxChange,
                 onKeyDown: this.onInputBoxKeyDown,
                 onBlur: this.onInputBoxBlur
@@ -135,6 +146,9 @@ define(function (require) {
                     display: this.props.showSpinButton ? 'block' : 'none'
                 }
             };
+            var skin = (this.context.appSkin ? this.context.appSkin + '-' : '')
+                + (this.props.skin ? this.props.skin : 'normal');
+            containerProp.className += this.state.hasFocus ? ' fcui2-numberbox-' + skin + '-hover' : '';
             return (
                 <div {...containerProp}>
                     <div {...placeholderProp}>{this.props.placeholder}</div>
