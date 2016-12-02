@@ -38,15 +38,15 @@ define(function (require) {
         },
         {
             title: 'Tip without Title',
-            props: {content: 'blablablabla'}
+            props: {content: 'blablablabla', skin: 'red'}
         },
         {
             title: 'Tip without Content',
-            props: {title: 'It is tip\'s title'}
+            props: {title: 'It is tip\'s title', skin: 'yellow'}
         },
         {
             title: 'Tip with html in Content',
-            props: {title: 'It is tip\'s title', content: '<img width="300px" src="https://www.baidu.com/img/bd_logo1.png"/>'}
+            props: {skin: 'grey', title: 'It is tip\'s title', content: '<img width="300px" src="https://www.baidu.com/img/bd_logo1.png"/>'}
         },
         {
             title: 'Tip with empty props',

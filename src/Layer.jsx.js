@@ -43,7 +43,6 @@ define(function (require) {
          */
         /**
          * @fire layer onMouseEnter
-         *
          */
         // @override
         getDefaultProps: function () {
@@ -180,10 +179,9 @@ define(function (require) {
             if (!this.___layerContainer___) return;
             var layer = this.___layerContainer___;
             var style = props.style || {};
-            var className = typeof props.className === 'string' ? (' ' + props.className) : '';
-            var skin = ' fcui2-layer-' +
-                (typeof props.skin === 'string' && props.skin.length ? props.skin : 'normal')
-            layer.className = 'fcui2-layer' + className + skin;
+            layer.className = 'fcui2-layer fcui2-layer-'
+                + (typeof props.skin === 'string' && props.skin.length ? props.skin : 'normal')
+                + (typeof props.className === 'string' && props.className.length ? (' ' + props.className) : '');
             var cssText = '';
             for (var key in style) {
                 if (!style.hasOwnProperty(key) || !style[key]) continue;

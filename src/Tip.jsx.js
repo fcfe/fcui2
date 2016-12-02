@@ -29,6 +29,10 @@ define(function (require) {
          * @fire Import src\Layer.jsx.js layer onOffset
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         getDefaultProps: function () {
             return {
                 // base
@@ -79,13 +83,16 @@ define(function (require) {
                 },
                 style: (this.props.title || this.props.content) ? undefined : {display: 'none'}
             });
+            var skin = (this.context.appSkin ? this.context.appSkin + '-' : '')
+                    + (this.props.skin ? this.props.skin : 'normal');
             var layerProp = {
                 ref: 'layer',
                 isOpen: this.state.layerOpen && (this.props.title || this.props.content) && !this.props.disabled,
                 anchor: this.refs.container,
                 location: this.props.layerLocation,
                 onOffset: this.offsetLayerPosition,
-                onMouseLeave: this.onMouseLeave
+                onMouseLeave: this.onMouseLeave,
+                skin: skin === 'oneux3-normal' ? 'normal' : skin
             };
             var Renderer = this.props.renderer;
             containerProp.className += typeof Renderer === 'function' ? '' : ' font-icon ' + this.props.icon;
@@ -93,7 +100,7 @@ define(function (require) {
                 <div {...containerProp}>
                     {typeof Renderer === 'function' ? <Renderer {...this.props.renderProps}/> : null}
                     <Layer {...layerProp}>
-                        <div className="fcui2-tip-layer">
+                        <div className={'fcui2-tip-layer'}>
                             <div className="tip-title">{this.props.title}</div>
                             <div className="tip-content" dangerouslySetInnerHTML={{__html: this.props.content}}></div>
                         </div>
