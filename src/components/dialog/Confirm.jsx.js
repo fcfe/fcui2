@@ -18,6 +18,9 @@ define(function (require) {
          * @param {Function} onEnter 点击确定的回调
          * @param {Function} onCancel 点击取消的回调
          */
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
         getDefaultProps : function () {
             return {
                 message: 'Message',
@@ -34,12 +37,26 @@ define(function (require) {
             this.props.close();
         },
         render: function () {
+            var className = 'fcui2-dialog-'
+                + (this.context.appSkin ? this.context.appSkin + '-alert' : '-alert');
+            var enterProps = {
+                skin: 'important',
+                width: 67,
+                label: '确定',
+                onClick: this.onEnterClick
+            };
+            var cancelProps = {
+                skin: (this.context.appSkin ? 'grey1' : ''),
+                label: '取消',
+                width: 67,
+                onClick: this.onCancelClick
+            };
             return (
-                <div className="fcui2-dialog-alert">
+                <div className={className}>
                     <div className="message">{this.props.message}</div> 
                     <div className="button-bar">
-                        <Button skin="important" label="确定" onClick={this.onEnterClick}/>
-                        <Button label="取消" onClick={this.onCancelClick}/>
+                        <Button {...enterProps}/>
+                        <Button {...cancelProps}/>
                     </div>
                 </div>
             );

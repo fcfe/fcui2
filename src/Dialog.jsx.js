@@ -9,6 +9,7 @@ define(function (require) {
 
     var React = require('react');
     var ReactDOM = require('react-dom');
+    var _ = require('underscore');
 
 
     var AlertContent = require('./components/dialog/Alert.jsx');
@@ -37,6 +38,7 @@ define(function (require) {
      * @param {String} param.className 挂在到Dialog窗体DOM上的class
      * @param {Object} param.style 挂在Dialog窗体DOM上的样式表
      * @param {String} param.skin Dialog皮肤
+     * @param {String} param.appSkin Dialog初始化时，传入的系统级皮肤
      * @param {String} param.title Dialog标题栏中显示的标题
      * @param {Object} param.size Dialog窗体的尺寸，与isFullScreen互斥
      * @param {Number} param.size.width Dialog渲染后的宽度
@@ -115,12 +117,10 @@ define(function (require) {
         var contentProps ={
             message: param.message
         };
-        var dialogProp = {
-            title: param.title,
+        var dialogProp = _.extend({}, param, {
             content: AlertContent,
-            contentProps: contentProps,
-            onClose: param.onClose
-        };
+            contentProps: contentProps
+        });
         this.pop(dialogProp);
     };
 
@@ -145,12 +145,10 @@ define(function (require) {
             onEnter:  typeof param.onEnter === 'function' ? param.onEnter : noop,
             onCancel: typeof param.onCancel === 'function' ? param.onCancel : noop
         };
-        var dialogProp = {
+        var dialogProp = _.extend({}, param, {
             content: ConfirmContent,
-            contentProps: contentProps,
-            title: param.title,
-            onClose: param.onClose
-        };
+            contentProps: contentProps
+        });
         this.pop(dialogProp);
     };
 
@@ -163,6 +161,16 @@ define(function (require) {
      */
     function dialogComponentFactory(param, dialog) {
         return React.createClass({
+            // @override
+            childContextTypes: {
+                appSkin: React.PropTypes.string
+            },
+            // @override
+            getChildContext: function () {
+                return {
+                    appSkin: typeof param.appSkin === 'string' && param.appSkin ? param.appSkin : ''
+                };
+            },
             // @override
             getDefaultProps: function () {
                 return {};

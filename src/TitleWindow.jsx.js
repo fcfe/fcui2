@@ -43,6 +43,10 @@ define(function (require) {
          * @param {ReactComponent}  e.targetComponent 当前组件实例
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         getDefaultProps: function () {
             return {
                 className: '',
@@ -171,11 +175,14 @@ define(function (require) {
             var titleBar = this.___workspace___.childNodes[0];
             var className = props.className;
             var skin = props.skin;
+            var appSkin = this.context.appSkin;
             titleBar.childNodes[0].innerHTML = props.title;
             titleBar.childNodes[1].style.display = props.showCloseButton ? 'block': 'none';
             this.___workspace___.className = 'fcui2-titlewindow'
-                + (typeof className === 'string' && className.length ? (' ' + className) : '')
-                + ' fcui2-titlewindow-' + (typeof skin === 'string' && skin.length ? skin : 'normal');
+                + ' fcui2-titlewindow-'
+                + (typeof appSkin === 'string' && appSkin.length ? appSkin + '-' : '')
+                + (typeof skin === 'string' && skin.length ? skin : 'normal')
+                + (typeof className === 'string' && className.length ? (' ' + className) : '');
             if (!props.isOpen && !this.___appended___) return;
             // open
             var me = this;

@@ -17,6 +17,9 @@ define(function (require) {
          * @param {String} message 显示在主区域的内容
          * @param {Function} onClick 通知外部关闭的回调
          */
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
         getDefaultProps : function () {
             return {
                 message: 'Message',
@@ -27,11 +30,19 @@ define(function (require) {
             this.props.close();
         },
         render: function () {
+            var className = 'fcui2-dialog-'
+                + (this.context.appSkin ? this.context.appSkin + '-alert' : '-alert');
+            var buttonProps = {
+                skin: 'important',
+                width: 67,
+                label: '确定',
+                onClick: this.onClose
+            };
             return (
-                <div className="fcui2-dialog-alert">
+                <div className={className}>
                     <div className="message">{this.props.message}</div>
                     <div className="button-bar">
-                        <Button skin="important" label="确定" onClick={this.onClose}/>
+                        <Button {...buttonProps}/>
                     </div>
                 </div>
             );

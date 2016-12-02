@@ -138,6 +138,7 @@ define(function (require) {
             dialog.alert({
                 title: 'Alert Demo',
                 message: 'Alert message',
+                appSkin: 'oneux3',
                 onClose: function () {
                     me.props.alert('Alert Dialog has been closed!');
                 }
@@ -149,6 +150,7 @@ define(function (require) {
             dialog.confirm({
                 title: 'Confirm Demo',
                 message: 'Confirm message',
+                appSkin: 'oneux3',
                 onEnter: function () {
                     me.props.alert('You press enter!');
                 },
