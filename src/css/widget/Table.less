@@ -27,6 +27,35 @@
             z-index: 1;
         }
     }
+    .shadow-container-with-scroll {
+        position: absolute;
+        top: 0px;
+        height: 0px;
+        overflow: hidden;
+        .fixed-fields-container,.horizontal-scroll-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .fixed-fields-container {
+            overflow: hidden;
+        }
+        .horizontal-scroll-container {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+    }
+    .table-container {
+        .fixed-fields-container {
+            float: left;
+            overflow: hidden;
+        }
+        .horizontal-scroll-container {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+    }
+    
 }
 
 

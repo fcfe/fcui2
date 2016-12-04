@@ -181,7 +181,8 @@ define(function (require) {
                     showSelector: true,
                     sortEnable: true,
                     showMessage: true,
-                    showSummary: true
+                    showSummary: true,
+                    showHorizontalScroll: true
                 },
                 fixedPosition: [
                     {ref: 'shadowTableContainer', top: 60, zIndex: 8}
@@ -197,12 +198,13 @@ define(function (require) {
                 datasource: datasource.concat(datasource, datasource, datasource),
                 fieldConfig: [
                     fieldConfig.styleName, fieldConfig.tipName, fieldConfig.tipAge,
+                    fieldConfig.buttonField, fieldConfig.numberInt, fieldConfig.buttonField, fieldConfig.numberInt,
                     fieldConfig.buttonField, fieldConfig.numberInt
                 ]
             }
         }
     ];
-
+    items2[0].props.fieldConfig[0].fixed = true;
     var Example1 = Creater(Table, items1, 'onChange');
     var Example2 = Creater(Table, items2, 'onChange');
 
@@ -257,4 +259,5 @@ define(function (require) {
             );
         }
     });
+
 });

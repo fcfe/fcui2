@@ -12,6 +12,7 @@ define(function (require) {
     var WidgetWithFixedDom = require('./mixins/WidgetWithFixedDom');
     var NoDataRenderer = require('./components/table/NoDataRenderer.jsx');
 
+
     var cTools = require('./core/componentTools');
     var tools = require('./core/tableTools');
     var util = require('./core/util');
@@ -31,6 +32,8 @@ define(function (require) {
          * @param {Boolean} flags.showHeader 是否显示表头，默认false
          * @param {Boolean} flags.showMessage 是否显示通知栏
          * @param {Boolean} flags.showSummary 是否在表头下方显示汇总栏，默认false
+         * @param {Boolean} flags.showHorizontalScroll 是否显示横向滚动条。
+         * 若开启此功能，表格左侧连续设定为fxied的列，不随横向滚动条滚动，永远固定在左侧。
          * @param {Boolean} flags.showSelector 是否在第一列显示行选择器，默认false，不建议使用，改在fieldConfig中添加。此属性改为配置选择器工作模式：
          *   false|0: 关闭
          *    true|1: 开启
@@ -176,22 +179,68 @@ define(function (require) {
         componentDidUpdate: function () {
             this.onRendered();
         },
+        onHorizontalScroll: function () {
+            if (!this.refs || !this.refs.normalFieldsScrollContainer) return;
+            this.refs.normalFieldsScrollContainer.scrollLeft = this.refs.shadowNormalFieldsScrollContainer.scrollLeft;
+        },
+        onHorizontalScroll1: function () {
+            if (!this.refs || !this.refs.normalFieldsScrollContainer) return;
+            this.refs.shadowNormalFieldsScrollContainer.scrollLeft = this.refs.normalFieldsScrollContainer.scrollLeft;
+        },
         onRendered: function () {
             if (!this.refs || !this.refs.container) return;
-            var width = this.refs.container.offsetWidth;
+
+            var container = this.refs.container;
+            var shadowTableContainer = this.refs.shadowTableContainer;
+            var realTableContainer = this.refs.realTableContainer;
             var table = this.refs.table;
-            var shadow = this.refs.shadow;
-            var tbody = this.refs.tbody;
-            var shadowContainer = this.refs.shadowTableContainer;
-            var height = 0;
-            table.style.maxWidth = shadow.style.maxWidth = width + 'px';
-            table.style.minWidth = shadow.style.minWidth = width + 'px';
-            for (var i = 0; i < tbody.childNodes.length; i++) {
-                var tr = tbody.childNodes[i];
-                if (tr.className.indexOf('tr-data') > -1 || tr.className.indexOf('tr-summary') > -1) continue;
-                height += tr.offsetHeight;
+            var shadowTable = this.refs.shadowTable;
+            var normalFieldsScrollContainer = this.refs.normalFieldsScrollContainer;
+            var normalFieldsContainer = this.refs.normalFieldsContainer;
+            var fixedFieldsContainer = this.refs.fixedFieldsContainer;
+            var fixedTable = this.refs.fixedTable;
+            var shadowNormalFieldsScrollContainer = this.refs.shadowNormalFieldsScrollContainer;
+            var shadowNormalFieldsContainer = this.refs.shadowNormalFieldsContainer;
+            var shadowFixedFieldsContainer = this.refs.shadowFixedFieldsContainer;
+            var shadowFixedTable = this.refs.shadowFixedTable;
+
+            var componentWidth = container.offsetWidth;
+            // 修正table区域各种尺寸
+            if (shadowNormalFieldsScrollContainer) {
+                // 展开table，修正右侧table尺寸
+                normalFieldsContainer.style.width = '9999px';
+                if (table.offsetWidth < componentWidth) {
+                    fixedTable.style.minWidth = table.style.minWidth = componentWidth + 'px';
+                }
+                fixedTable.style.width = table.offsetWidth + 'px';
+                // 修正各容器尺寸和外边距
+                var fixedWidth = getFixedFieldsWidth(this) + 1;
+                normalFieldsScrollContainer.style.marginLeft = fixedFieldsContainer.style.width = fixedWidth + 'px';
+                table.style.marginLeft = (-fixedWidth) + 'px';
+                normalFieldsContainer.style.width = (table.offsetWidth - fixedWidth) + 'px';
+                // 修正表头
+                shadowFixedTable.style.width = table.offsetWidth + 'px';
+                shadowFixedFieldsContainer.style.width = fixedWidth + 'px';
+                shadowTable.style.width = table.offsetWidth + 'px';
+                shadowTable.style.marginLeft = (-fixedWidth) + 'px'; 
+                shadowNormalFieldsScrollContainer.style.left = fixedWidth + 'px';
+                shadowNormalFieldsScrollContainer.style.width = normalFieldsScrollContainer.offsetWidth + 'px';
             }
-            shadowContainer.style.height = height + 'px';
+            else {
+                table.style.maxWidth
+                    = shadowTable.style.maxWidth
+                    = table.style.minWidth
+                    = shadowTable.style.minWidth
+                    = componentWidth + 'px';
+            }
+            var dataAreaHeight = getTableDataAreaHeight(this.refs.tbody);
+            // 修正表头尺寸
+            shadowTableContainer.style.width = componentWidth + 'px';
+            if (shadowNormalFieldsScrollContainer) {
+                shadowFixedFieldsContainer.style.top = -dataAreaHeight + 'px';
+                shadowNormalFieldsScrollContainer.style.top = -dataAreaHeight + 'px';
+            }
+            shadowTableContainer.style.height = (realTableContainer.offsetHeight - dataAreaHeight) + 'px';
         },
         onRowSelect: function (e) {
             if (this.props.disabled) return;
@@ -210,33 +259,139 @@ define(function (require) {
         },
         render: function () {
             if (!(this.props.fieldConfig instanceof Array) || !this.props.fieldConfig.length) return null;
-            return (
-                <div {...cTools.containerBaseProps('table', this)}>
-                    <div ref="realTableContainer" className="table-container">
-                        <table ref="table" cellSpacing="0" cellPadding="0">
-                            {factory.colgroupFactory(this)}
-                            <tbody ref="tbody">
-                                {factory.headerFactory(this)}
-                                {factory.messageFactory(this)}
-                                {factory.summaryFactory(this)}
-                                {factory.lineFactory(this)}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div ref="shadowTableContainer" className="shadow-container">
-                        <table ref="shadow" cellSpacing="0" cellPadding="0">
-                            {factory.colgroupFactory(this)}
-                            <tbody>
-                                {factory.summaryFactory(this)}
-                                {factory.lineFactory(this)}
-                                {factory.headerFactory(this)}
-                                {factory.messageFactory(this)}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            );
+            var flags = this.props.flags || {};
+            return flags.showHorizontalScroll ? hScrollRenderer(this) : normalRenderer(this);
         }
     });
+
+
+    function normalRenderer(me) {
+        return (
+            <div {...cTools.containerBaseProps('table', me)}>
+                <div ref="realTableContainer" className="table-container">
+                    <table ref="table" cellSpacing="0" cellPadding="0">
+                        {factory.colgroupFactory(me)}
+                        <tbody ref="tbody">
+                            {factory.headerFactory(me)}
+                            {factory.messageFactory(me)}
+                            {factory.summaryFactory(me)}
+                            {factory.lineFactory(me)}
+                        </tbody>
+                    </table>
+                </div>
+                <div ref="shadowTableContainer" className="shadow-container">
+                    <table ref="shadowTable" cellSpacing="0" cellPadding="0">
+                        {factory.colgroupFactory(me)}
+                        <tbody>
+                            {factory.summaryFactory(me)}
+                            {factory.lineFactory(me)}
+                            {factory.headerFactory(me)}
+                            {factory.messageFactory(me)}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        );
+    }
+
+
+    function hScrollRenderer(me) {
+        var shadowNormalFieldsScrollContainerProps = {
+            ref: 'shadowNormalFieldsScrollContainer',
+            className: 'horizontal-scroll-container',
+            onScroll: me.onHorizontalScroll
+        };
+        var normalFieldsScrollContainerProps = {
+            ref: 'normalFieldsScrollContainer',
+            className: 'horizontal-scroll-container',
+            onScroll: me.onHorizontalScroll1
+        };
+        return (
+            <div {...cTools.containerBaseProps('table', me)}>
+                <div ref="realTableContainer" className="table-container">
+                    <div ref="fixedFieldsContainer" className="fixed-fields-container">
+                        <table ref="fixedTable" cellSpacing="0" cellPadding="0">
+                            {factory.colgroupFactory(me)}
+                            <tbody>
+                                {factory.headerFactory(me)}
+                                {factory.messageFactory(me)}
+                                {factory.summaryFactory(me)}
+                                {factory.lineFactory(me)}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div {...normalFieldsScrollContainerProps}>
+                        <div ref="normalFieldsContainer">
+                            <table ref="table" cellSpacing="0" cellPadding="0">
+                                {factory.colgroupFactory(me)}
+                                <tbody ref="tbody">
+                                    {factory.headerFactory(me)}
+                                    {factory.messageFactory(me)}
+                                    {factory.summaryFactory(me)}
+                                    {factory.lineFactory(me)}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div ref="shadowTableContainer" className="shadow-container-with-scroll">
+                    <div ref="shadowFixedFieldsContainer" className="fixed-fields-container">
+                        <table ref="shadowFixedTable" cellSpacing="0" cellPadding="0">
+                            {factory.colgroupFactory(me)}
+                            <tbody>
+                                {factory.summaryFactory(me)}
+                                {factory.lineFactory(me)}
+                                {factory.headerFactory(me)}
+                                {factory.messageFactory(me)}
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div {...shadowNormalFieldsScrollContainerProps}>
+                        <div ref="shadowNormalFieldsContainer">
+                            <table ref="shadowTable" cellSpacing="0" cellPadding="0">
+                                {factory.colgroupFactory(me)}
+                                <tbody>
+                                    {factory.summaryFactory(me)}
+                                    {factory.lineFactory(me)}
+                                    {factory.headerFactory(me)}
+                                    {factory.messageFactory(me)}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+
+    function getFixedFieldsWidth(me) {
+        if (!me.refs || !me.refs.tbody) return 0;
+        var fields = tools.fieldConfigFactory(me, {});
+        var tbody = me.refs.tbody;
+        if (!tbody.childNodes.length) return 0;
+        var tr = tbody.childNodes[0];
+        if (tr.childNodes.length !== fields.length) return 0;
+        var result = 0;
+        var breaked = false;
+        fields.map(function (item, index) {
+            result += !breaked && item.fixed ? tr.childNodes[index].offsetWidth : 0;
+            breaked = !item.fixed ? true : breaked;
+        });
+        return result;
+    }
+
+
+    function getTableDataAreaHeight(tbody) {
+        var result = 0;
+        for (var i = 0; i < tbody.childNodes.length; i++) {
+            var tr = tbody.childNodes[i];
+            result += tr.className.indexOf('tr-data') > -1 || tr.className.indexOf('tr-summary') > -1
+                ? tr.offsetHeight : 0;
+        }
+        return result;
+    }
+
 
 });

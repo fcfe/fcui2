@@ -91,6 +91,11 @@ define(function (require) {
                 : (info.i !== -1 && info.i > 0);
             var virtualCheckboxProps = {
                 onClick: this.onMainSelectorChange,
+                style: {
+                    position: 'absolute',
+                    top: 0,
+                    left: 7
+                },
                 className: 'iconfont icon-checkbox'
                     + (!checked && indeterminate ? '-minus' : (checked ? '-checked' : ''))
                     + (disabled ? ' iconfont-disabled ' : '')
@@ -109,6 +114,9 @@ define(function (require) {
                     + (this.state.layerOpen && !disabled ? ' fcui2-dropdownlist-' + skin +'normal-hover' : ''),
                 onMouseEnter: cTools.openLayerHandlerFactory(this, 'layerOpen'),
                 onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
+                style: {
+                    width: 30
+                },
                 ref: 'container'
             };
             var layerProp = {
@@ -123,6 +131,7 @@ define(function (require) {
                 <th className="th-header table-selector">
                     <div {...containerProp}>
                         <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
+                        &nbsp;
                         <span {...virtualCheckboxProps}/>
                         <Layer {...layerProp}>
                             <List datasource={this.props.datasource} onClick={this.onListClick}/>

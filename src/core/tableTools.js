@@ -200,6 +200,7 @@ define(function (require) {
             var hasSelector = false;
             var selectorConfig = {
                 isSelector: true,
+                fixed: true,
                 width: 60,
                 renderer: renderers.selectorItem,
                 thRenderer: renderers.selectorHeader,
@@ -214,6 +215,7 @@ define(function (require) {
                     var newItem = {
                         isSelector: true,
                         maxWidth:60,
+                        fixed: i === 0,
                         renderer: renderers.selectorItem,
                         thRenderer: renderers.selectorHeader,
                         prepare: (function (oldPrepare) {
