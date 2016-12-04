@@ -231,66 +231,6 @@ define(function (require) {
                 expect(dom.refs.container).toBe();
             });
 
-            it('selector', () => {
-                let value = '';
-                let dom = realRender(Table, {
-                    flags: {
-                        showHeader: true,
-                        showSelector: '1'
-                    },
-                    datasource: datasource,
-                    fieldConfig: [
-                        fieldConfig.normalName,
-                        fieldConfig.normalAge,
-                        fieldConfig.normalBirth
-                    ],
-                    onChange(e) {
-                        value = JSON.parse(e.target.value).selected;
-                    }
-                });
-                expect(dom.refs.container.childNodes[0].childNodes[0].childNodes[1].childNodes.length).toBe(4);
-                expect(dom.refs.container.childNodes[1].childNodes[0].childNodes[1].childNodes.length).toBe(4);
-                let tr1 = dom.refs.container.childNodes[0].childNodes[0].childNodes[1].childNodes[1];
-                expect(tr1.childNodes.length).toBe(4);
-                expect(tr1.childNodes[0].childNodes[0].className).toBe('fcui2-checkbox fcui2-checkbox-normal browser-chrome');
-                expect(tr1.childNodes[0].childNodes[0].childNodes[0].type).toBe('checkbox');
-                let target = tr1.childNodes[0].childNodes[0].childNodes[0];
-                target.checked = true;
-                TestUtils.Simulate.change(tr1.childNodes[0].childNodes[0].childNodes[0], {
-                    target: target
-                });
-                expect(value.join(',')).toBe('0');
-
-                let selector = dom.refs.container.childNodes[0].childNodes[0].childNodes[1]
-                    .childNodes[0].childNodes[0].childNodes[0];
-                TestUtils.Simulate.click(selector.childNodes[1]);
-                expect(value.join(',')).toBe('0,1,2');
-
-                let element1 = React.createElement(Table, {
-                    flags: {
-                        showHeader: true,
-                        showSelector: '2'
-                    },
-                    datasource: datasource,
-                    fieldConfig: [
-                        fieldConfig.normalName,
-                        fieldConfig.normalAge,
-                        fieldConfig.normalBirth
-                    ],
-                    onChange(e) {
-                        value = JSON.parse(e.target.value).selected;
-                    }
-                });
-                ReactDOM.render(element1, dom.refs.container.parentNode);
-                selector = dom.refs.container.childNodes[0].childNodes[0].childNodes[1]
-                    .childNodes[0].childNodes[0].childNodes[0];
-                expect(selector.className).toBe('iconfont icon-checkbox-checked');
-                TestUtils.Simulate.click(selector);
-                expect(value.join(',')).toBe('');
-                TestUtils.Simulate.click(selector);
-                expect(value.join(',')).toBe('0,1,2');
-            });
-
             it('sorter', () => {
                 let value = '';
                 let dom = realRender(Table, {

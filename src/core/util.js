@@ -16,9 +16,9 @@ define(function (require) {
 
         /**
          * uuid生成器
-         *
-         * @param {string} tpl uuid的模版串，xy将被替换，其他不替换
-         * @return {string} 符合格式的唯一id
+         * @interface uuid
+         * @param {String} tpl uuid的模版串，xy将被替换，其他不替换
+         * @return {String} 符合格式的唯一id
          */
         uuid: function (tpl) {
             var reg = /[xy]/g;
