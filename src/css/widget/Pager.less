@@ -1,5 +1,4 @@
-// version 0.0.2
-
+// version 0.0.3
 .fcui2-pager {
     .fcui2-button {
         margin-left: 5px;
@@ -7,11 +6,6 @@
         input {
             padding: 0;
         }
-    }
-    .fcui2-button-oneux3-normal, .fcui2-button-oneux3-active {
-        -moz-border-radius: 0px;
-        -webkit-border-radius: 0px;
-        border-radius: 0px;
     }
     .pager-btn{
         width: 60px;
@@ -51,19 +45,24 @@
             color: @color-text-3;
         }
     }
-    .fcui2-button-oneux3-active {
+}
+
+// oneux3
+.fcui2-pager {
+    .fcui2-button-oneux3-normal, .fcui2-button-oneux3-active {
         -moz-border-radius: 0px;
         -webkit-border-radius: 0px;
         border-radius: 0px;
+    }
+}
+.fcui2-pager-simple {
+    .fcui2-button-oneux3-active {
         background-color: @oneux3-bgcolor-c20;
         input {
             color: @oneux3-color-c8;
         }
     }
     .fcui2-button-oneux3-normal {
-        -moz-border-radius: 0px;
-        -webkit-border-radius: 0px;
-        border-radius: 0px;
         input {
             color: @oneux3-color-c1;
         }

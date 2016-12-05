@@ -21,7 +21,7 @@ define(function (require) {
             var fields = tools.fieldConfigFactory(me, Others);
             for (var i = 0; i < fields.length; i++) {
                 var width = cTools.getValueFromPropsAndStyle(fields[i], 'width', 0);
-                td.push(<col style={{width: width + 'px'}} key={'colgroup-' + i} />);
+                td.push(<col style={{width: width + 'px', maxWidth: width + 'px'}} key={'colgroup-' + i} />);
             }
             return <colgroup>{td}</colgroup>
         },

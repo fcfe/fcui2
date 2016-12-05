@@ -1,8 +1,8 @@
 /**
  * 翻页器
- * @author Brian Li, hancong05
- * @email lbxxlht@163.com
- * @version 0.0.2.2
+ * @author Brian Li, Han Cong
+ * @email lbxxlht@163.com hancong05@baidu.com
+ * @version 0.0.2.3
  */
 define(function (require) {
 

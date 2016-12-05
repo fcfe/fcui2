@@ -1,4 +1,4 @@
-// version 0.0.2
+// version 0.0.3
 
 // 基础样式
 .fcui2-list {
@@ -9,15 +9,15 @@
     }
 }
 
-// 皮肤样式
+// 基础皮肤
 .fcui2-list-normal {
     hr {
         border-top-color:  @color-disabled-icon;
     }
 }
 
-// Renderer样式
-.fcui2-list-normal {
+// Renderer样式及皮肤
+.fcui2-list {
     .list-normal-item {
         font-family: @font-normal;
         font-size: 12px;
@@ -25,10 +25,17 @@
         white-space: nowrap;
         text-align: left;
         cursor: default;
-        background-color: @color-gray-1;
         span {
             margin: 0 10px;
         }
+    }
+    .list-normal-item-selected {
+        cursor: default;
+    }
+}
+.fcui2-list-normal {
+    .list-normal-item {
+        background-color: @color-gray-1;
         &:hover {
             background-color: @color-bg-hover-table;
         }
@@ -41,26 +48,17 @@
     }
     .list-normal-item-selected {
         background-color: @color-blue-7;
-        cursor: default;
         &:hover {
             background-color: @color-blue-7;
         }
     }
 }
 
+// oneux3
 .fcui2-list-oneux3-normal {
     .list-normal-item {
-        font-family: @font-normal;
-        font-size: 12px;
-        line-height: 28px;
-        white-space: nowrap;
-        text-align: left;
-        cursor: default;
         color: @oneux3-color-c1;
         background-color: @oneux3-bgcolor-c1;
-        span {
-            margin: 0 10px;
-        }
         &:hover {
             background-color: @oneux3-bgcolor-c23;
         }
@@ -73,7 +71,6 @@
     }
     .list-normal-item-selected {
         background-color: @color-blue-7;
-        cursor: default;
         &:hover {
             background-color: @color-blue-7;
         }
@@ -82,17 +79,8 @@
 
 .fcui2-list-oneux3-blue {
     .list-normal-item {
-        font-family: @font-normal;
-        font-size: 12px;
-        line-height: 28px;
-        white-space: nowrap;
-        text-align: left;
-        cursor: default;
         color: @oneux3-color-c8;
         background-color: @oneux3-bgcolor-c20;
-        span {
-            margin: 0 10px;
-        }
         &:hover {
             background-color: @oneux3-bgcolor-c25;
         }

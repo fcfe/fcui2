@@ -25,6 +25,18 @@
     {
       "name": "Hao Cuicui",
       "email": "haocuicui@baidu.com"
+    },
+    {
+      "name": "Han Cong",
+      "email": "hancong05@baidu.com"
+    },
+    {
+      "name": "Sun WenFei",
+      "email": "sunwenfei@baidu.com"
+    },
+    {
+      "name": "Chen Xiao",
+      "email": "chenxiao09@baidu.com"
     }
   ],
   "dependencies": {

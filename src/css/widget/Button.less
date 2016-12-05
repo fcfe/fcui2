@@ -1,6 +1,4 @@
-// version 0.0.2
-
-
+// version 0.0.3
 // 基础样式只负责定位和尺寸
 .fcui2-button {
     display: inline-block;
@@ -11,10 +9,12 @@
     height: 28px;
     line-height: 28px;
     border: 1px solid;
+    min-width: 58px;
     .font-icon {
         position: absolute;
         height: 28px;
         line-height: 28px;
+        font-size: 12px;
     }
     input {
         position: relative;
@@ -26,26 +26,20 @@
         height: 32px;
         line-height: 32px;
         background-color: transparent;
+        font-family: @font-normal;
         text-align: center !important; // 如果设置了icon，react会给input加上align:left，显然这是为了hack react的bug
         cursor: pointer;
     }
 }
-
 // 皮肤样式负责颜色和字体
 .fcui2-button-normal {
-    min-width: 58px;
     background-color: @color-bg-btn;
     border-color: @color-outer-border;
-    .font-icon {
-        font-size: 12px;
-    }
     input {
-        font-family: @font-normal;
         color: @color-text-3;
     }
 }
 .fcui2-button-important {
-    min-width: 58px;
     border-color: @color-btn;
     background-color: @color-btn;
     input,.font-icon {
@@ -71,18 +65,28 @@
 }
 
 
-// OneUX3
-.fcui2-button-oneux3-normal {
+// OneUX3皮肤
+.fcui2-button-oneux3-normal,
+.fcui2-button-oneux3-active,
+.fcui2-button-oneux3-grey1,
+.fcui2-button-oneux3-grey,
+.fcui2-button-oneux3-blue,
+.fcui2-button-oneux3-important,
+.fcui2-button-oneux3-disabled {
     top: 1px;
-    background-color: @oneux3-bgcolor-c1;
-    border-color: @oneux3-bgcolor-c11;
     height: 26px;
     line-height: 26px;
     input {
         font-family: @font-normal;
-        color: @oneux3-color-c1;
-        height: 30px;
+        height: 28px;
         line-height: 30px;
+    }
+}
+.fcui2-button-oneux3-normal {
+    background-color: @oneux3-bgcolor-c1;
+    border-color: @oneux3-bgcolor-c11;  
+    input {
+        color: @oneux3-color-c1;
     }
     .font-icon {
         color: @oneux3-color-c1;
@@ -93,16 +97,10 @@
     }
 }
 .fcui2-button-oneux3-active {
-    top: 1px;
     background-color: @oneux3-bgcolor-c20;
     border-color: @oneux3-bgcolor-c20;
-    height: 26px;
-    line-height: 26px;
     input {
-        font-family: @font-normal;
         color: @oneux3-color-c8;
-        height: 30px;
-        line-height: 30px;
     }
     .font-icon {
         color: @oneux3-color-c4;
@@ -113,16 +111,10 @@
     }
 }
 .fcui2-button-oneux3-grey1 {
-    top: 1px;
     background-color: @oneux3-bgcolor-c10;
     border-color: @oneux3-bgcolor-c10;
-    height: 26px;
-    line-height: 26px;
     input {
-        font-family: @font-normal;
         color: @oneux3-color-c1;
-        height: 30px;
-        line-height: 30px;
     }
     .font-icon {
         color: @oneux3-color-c1;
@@ -133,16 +125,10 @@
     }
 }
 .fcui2-button-oneux3-grey {
-    top: 1px;
     background-color: @oneux3-bgcolor-c10;
     border-color: @oneux3-bgcolor-c10;
-    height: 26px;
-    line-height: 26px;
     input {
-        font-family: @font-normal;
         color: @oneux3-color-c4;
-        height: 30px;
-        line-height: 30px;
     }
     .font-icon {
         color: @oneux3-color-c4;
@@ -153,16 +139,10 @@
     }
 }
 .fcui2-button-oneux3-blue {
-    top: 1px;
     background-color: @oneux3-bgcolor-c14;
     border-color: @oneux3-bgcolor-c14;
-    height: 26px;
-    line-height: 26px;
     input {
-        font-family: @font-normal;
         color: @oneux3-color-c4;
-        height: 30px;
-        line-height: 30px;
     }
     .font-icon {
         color: @oneux3-color-c4;
@@ -173,16 +153,10 @@
     }
 }
 .fcui2-button-oneux3-important {
-    top: 1px;
     background-color: @oneux3-bgcolor-c16;
     border-color: @oneux3-bgcolor-c16;
-    height: 26px;
-    line-height: 26px;
     input {
-        font-family: @font-normal;
         color: @oneux3-color-c8;
-        height: 30px;
-        line-height: 30px;
     }
     .font-icon {
         color: @oneux3-color-c8;
@@ -193,16 +167,10 @@
     }
 }
 .fcui2-button-oneux3-disabled {
-    top: 1px;
     background-color: @oneux3-bgcolor-c18;
     border-color: @oneux3-bgcolor-c18;
-    height: 26px;
-    line-height: 26px;
     input {
-        font-family: @font-normal;
         color: @oneux3-color-c3;
-        height: 30px;
-        line-height: 30px;
     }
     .font-icon {
         color: @oneux3-color-c3;

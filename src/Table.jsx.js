@@ -240,7 +240,7 @@ define(function (require) {
                 shadowFixedFieldsContainer.style.top = -dataAreaHeight + 'px';
                 shadowNormalFieldsScrollContainer.style.top = -dataAreaHeight + 'px';
             }
-            shadowTableContainer.style.height = (realTableContainer.offsetHeight - dataAreaHeight) + 'px';
+            shadowTableContainer.style.height = (realTableContainer.offsetHeight - dataAreaHeight - 1) + 'px';
         },
         onRowSelect: function (e) {
             if (this.props.disabled) return;
