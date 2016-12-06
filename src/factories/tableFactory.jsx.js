@@ -83,7 +83,7 @@ define(function (require) {
         },
 
         // 生成行
-        lineFactory: function (me) {
+        lineFactory: function (me, isShadow) {
             var lines = [];
             var config = tools.fieldConfigFactory(me, Others);;
             var datasource = me.props.datasource instanceof Array ? me.props.datasource : [];
@@ -100,6 +100,8 @@ define(function (require) {
             }
             // 渲染行
             for (var index = 0; index < datasource.length; index++) {
+                // 影子没必要所有行全显示，只显示一部分行就差不多了。出现对不起的情况几率会大大降低，并且提高性能
+                if (isShadow && index % 5 !== 0) continue;
                 var td = [];
                 var item = datasource[index];
                 var selectState = tools.getRowSelectedState(index, me.___getValue___());

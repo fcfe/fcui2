@@ -203,6 +203,7 @@ define(function (require) {
             var shadowNormalFieldsContainer = this.refs.shadowNormalFieldsContainer;
             var shadowFixedFieldsContainer = this.refs.shadowFixedFieldsContainer;
             var shadowFixedTable = this.refs.shadowFixedTable;
+            var shadowMessageBar = this.refs.shadowMessageBar;
 
             var componentWidth = container.offsetWidth;
             // 修正table区域各种尺寸
@@ -218,7 +219,7 @@ define(function (require) {
                 normalFieldsScrollContainer.style.marginLeft = fixedFieldsContainer.style.width = fixedWidth + 'px';
                 table.style.marginLeft = (-fixedWidth) + 'px';
                 normalFieldsContainer.style.width = (table.offsetWidth - fixedWidth) + 'px';
-                // 修正表头
+                // 修正表头宽度
                 shadowFixedTable.style.width = table.offsetWidth + 'px';
                 shadowFixedFieldsContainer.style.width = fixedWidth + 'px';
                 shadowTable.style.width = table.offsetWidth + 'px';
@@ -233,14 +234,27 @@ define(function (require) {
                     = shadowTable.style.minWidth
                     = componentWidth + 'px';
             }
-            var dataAreaHeight = getTableDataAreaHeight(this.refs.tbody);
             // 修正表头尺寸
             shadowTableContainer.style.width = componentWidth + 'px';
             if (shadowNormalFieldsScrollContainer) {
+                var dataAreaHeight = getTableDataAreaHeight(this.refs.tbody);
+                shadowMessageBar.style.width = componentWidth + 'px';
                 shadowFixedFieldsContainer.style.top = -dataAreaHeight + 'px';
                 shadowNormalFieldsScrollContainer.style.top = -dataAreaHeight + 'px';
+                shadowTableContainer.style.height =
+                    shadowNormalFieldsScrollContainer.offsetHeight
+                    - dataAreaHeight
+                    + shadowMessageBar.offsetHeight - 1
+                    + 'px';
+                container.style.paddingTop =
+                    shadowNormalFieldsScrollContainer.offsetHeight
+                    - dataAreaHeight
+                    - getTableHeaderHeight(this.refs.tbody)
+                    + 'px';
             }
-            shadowTableContainer.style.height = (realTableContainer.offsetHeight - dataAreaHeight - 1) + 'px';
+            else {
+                shadowTableContainer.style.height = getTableHeaderHeight(this.refs.tbody, true) +'px';
+            }
         },
         onRowSelect: function (e) {
             if (this.props.disabled) return;
@@ -271,7 +285,7 @@ define(function (require) {
                 <div ref="realTableContainer" className="table-container">
                     <table ref="table" cellSpacing="0" cellPadding="0">
                         {factory.colgroupFactory(me)}
-                        <tbody ref="tbody">
+                        <tbody>
                             {factory.headerFactory(me)}
                             {factory.messageFactory(me)}
                             {factory.summaryFactory(me)}
@@ -282,7 +296,7 @@ define(function (require) {
                 <div ref="shadowTableContainer" className="shadow-container">
                     <table ref="shadowTable" cellSpacing="0" cellPadding="0">
                         {factory.colgroupFactory(me)}
-                        <tbody>
+                        <tbody ref="tbody">
                             {factory.summaryFactory(me)}
                             {factory.lineFactory(me)}
                             {factory.headerFactory(me)}
@@ -324,7 +338,7 @@ define(function (require) {
                         <div ref="normalFieldsContainer">
                             <table ref="table" cellSpacing="0" cellPadding="0">
                                 {factory.colgroupFactory(me)}
-                                <tbody ref="tbody">
+                                <tbody ref="readTbody">
                                     {factory.headerFactory(me)}
                                     {factory.messageFactory(me)}
                                     {factory.summaryFactory(me)}
@@ -339,11 +353,8 @@ define(function (require) {
                         <table ref="shadowFixedTable" cellSpacing="0" cellPadding="0">
                             {factory.colgroupFactory(me)}
                             <tbody>
-                                {factory.summaryFactory(me)}
-                                {factory.lineFactory(me)}
+                                {factory.lineFactory(me, true)}
                                 {factory.headerFactory(me)}
-                                {factory.messageFactory(me)}
-                                
                             </tbody>
                         </table>
                     </div>
@@ -351,14 +362,19 @@ define(function (require) {
                         <div ref="shadowNormalFieldsContainer">
                             <table ref="shadowTable" cellSpacing="0" cellPadding="0">
                                 {factory.colgroupFactory(me)}
-                                <tbody>
-                                    {factory.summaryFactory(me)}
-                                    {factory.lineFactory(me)}
+                                <tbody ref="tbody">
+                                    {factory.lineFactory(me, true)}
                                     {factory.headerFactory(me)}
-                                    {factory.messageFactory(me)}
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                    <div className="message-bar-in-scrolling-header" ref="shadowMessageBar">
+                        <table cellSpacing="0" cellPadding="0">
+                            <tbody>
+                                {factory.messageFactory(me)}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -367,9 +383,9 @@ define(function (require) {
 
 
     function getFixedFieldsWidth(me) {
-        if (!me.refs || !me.refs.tbody) return 0;
+        if (!me.refs || !me.refs.readTbody) return 0;
         var fields = tools.fieldConfigFactory(me, {});
-        var tbody = me.refs.tbody;
+        var tbody = me.refs.readTbody;
         if (!tbody.childNodes.length) return 0;
         var tr = tbody.childNodes[0];
         if (tr.childNodes.length !== fields.length) return 0;
@@ -393,5 +409,14 @@ define(function (require) {
         return result;
     }
 
+
+    function getTableHeaderHeight(tbody, includeMessageBar) {
+        var result = 0;
+        for (var i = 0; i < tbody.childNodes.length; i++) {
+            var tr = tbody.childNodes[i];
+            result += tr.className.indexOf('tr-header') > -1 || (includeMessageBar && tr.className.indexOf('tr-message') > -1) ? tr.offsetHeight : 0;
+        }
+        return result;
+    }
 
 });

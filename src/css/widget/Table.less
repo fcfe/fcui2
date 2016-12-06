@@ -55,7 +55,16 @@
             overflow-x: auto;
         }
     }
-    
+    .message-bar-in-scrolling-header {
+        width: 100%;
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        table {
+            width: 100%;
+            border-bottom: 0px;
+        }
+    }
 }
 
 
@@ -70,6 +79,9 @@
     }
     tr:hover {
         background-color: @color-bg-hover-table;
+    }
+    .shadow-container-with-scroll {
+        background-color: @color-bg;
     }
 }
 
@@ -86,6 +98,9 @@
     }
     tr:hover {
         background-color: @oneux3-bgcolor-c4;
+    }
+    .shadow-container-with-scroll {
+        background-color: @oneux3-bgcolor-c1;
     }
 }
 

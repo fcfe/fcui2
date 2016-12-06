@@ -91,14 +91,15 @@ define(function (require) {
                 : (info.i !== -1 && info.i > 0);
             var virtualCheckboxProps = {
                 onClick: this.onMainSelectorChange,
-                style: {
-                    position: 'absolute',
-                    top: 0,
-                    left: 7
-                },
+                
                 className: 'iconfont icon-checkbox'
                     + (!checked && indeterminate ? '-minus' : (checked ? '-checked' : ''))
                     + (disabled ? ' iconfont-disabled ' : '')
+            };
+            var virtualCheckboxStyle = {
+                position: 'absolute',
+                top: 0,
+                left: 7
             };
             if (info.workMode === SELECT_MODE.CURRENT_PAGE || info.workMode === SELECT_MODE.ALL) {  
                 return (
@@ -132,7 +133,7 @@ define(function (require) {
                     <div {...containerProp}>
                         <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
                         &nbsp;
-                        <span {...virtualCheckboxProps}/>
+                        <span {...virtualCheckboxProps} style={virtualCheckboxStyle}/>
                         <Layer {...layerProp}>
                             <List datasource={this.props.datasource} onClick={this.onListClick}/>
                         </Layer>
