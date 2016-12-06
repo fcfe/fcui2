@@ -108,6 +108,7 @@ define(function (require) {
                 ref: 'inputbox',
                 disabled: this.props.disabled,
                 spellCheck: false,
+                wrap: 'off',
                 // 其实不应该这样写，可是textarea的padding和border会导致整体尺寸变大
                 style: {
                     width: width - 50,
