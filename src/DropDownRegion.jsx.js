@@ -37,6 +37,10 @@ define(function (require) {
          * @fire Import src\mixins\InputWidget.js XXX onChange
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
@@ -179,7 +183,8 @@ define(function (require) {
                 location: 'bottom right',
                 style: {padding: '5px 0'},
                 onMouseEnter: this.onLayerMouseEnter,
-                onMouseLeave: this.onLayerMouseLeave
+                onMouseLeave: this.onLayerMouseLeave,
+                skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };
             var regionProp = {
                 ref: 'region',
@@ -212,7 +217,9 @@ define(function (require) {
             else if (this.props.openLayerType !== 'onMouseEnter') {
                 containerProp[this.props.openLayerType] = this.open;
             }
-            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
+            var skin = this.props.skin ? this.props.skin : 'normal';
+            skin = this.context.appSkin ? (this.context.appSkin + '-' + skin) : skin;
+            containerProp.className += layerProp.isOpen ? (' fcui2-dropdownlist-' + skin + '-hover') : '';
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>

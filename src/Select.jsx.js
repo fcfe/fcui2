@@ -33,6 +33,10 @@ define(function (require) {
          * @fire Import src\mixins\InputWidget.js XXX onChange
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
@@ -45,7 +49,7 @@ define(function (require) {
                 // mixin
                 placeholder: 'please select',
                 openLayerType: 'onMouseEnter',
-                layerLocation: '6',
+                layerLocation: '',
                 hideLayerScroll: false,
                 datasource: [],
                 // mixin
@@ -87,7 +91,8 @@ define(function (require) {
                 isOpen: this.state.layerOpen && this.props.datasource.length && !this.props.disabled,
                 anchor: this.refs.container,
                 onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
-                location: this.props.layerLocation
+                location: this.props.layerLocation,
+                skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };
             var listProp = {
                 datasource: this.props.datasource,
@@ -110,8 +115,9 @@ define(function (require) {
                     break;
                 }
             }
-            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
-
+            var skin = this.props.skin ? this.props.skin : 'normal';
+            skin = this.context.appSkin ? (this.context.appSkin + '-' + skin) : skin;
+            containerProp.className += layerProp.isOpen ? (' fcui2-dropdownlist-' + skin + '-hover') : '';
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>

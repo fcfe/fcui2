@@ -26,6 +26,7 @@ define(function (require) {
          * @param {Object} labels 话术配置
          * @param {String} labels.expand 面板关闭后展开按钮的话术
          * @param {String} labels.hide 面板展开后关闭按钮的话术
+         * @param {String} switchLocation 展开关闭按钮的位置，top或bottom
          * @param {Import|Properties} src\mixins\InputWidget.js
          *      value onChange name validations customErrorTemplates valueTemplate
          */
@@ -44,6 +45,7 @@ define(function (require) {
                 disabled: false,
                 // self
                 labels: labels,
+                switchLocation: 'top',
                 // mixin
                 valueTemplate: ''
             };
@@ -63,17 +65,33 @@ define(function (require) {
             var labels = _.extend({}, labels, this.props.labels);
             return (
                 <div {...containerProp}>
+                    {
+                        this.props.switchLocation === 'top' ? (
+                            <div className="opt-bar">
+                                <span onClick={this.onChange} className="opt-link">
+                                    {value === 'expand' ? labels.hide : labels.expand}
+                                </span>
+                                <span onClick={this.onChange}
+                                    className={'font-icon font-icon-caret-' + (value === 'expand' ? 'up' : 'down')}
+                                ></span>
+                            </div>
+                        ) : null
+                    }
                     <div className="content-bar" style={{display: value === 'expand' ? 'block' : 'none'}}>
                         {this.props.children}
                     </div>
-                    <div className="opt-bar">
-                        <span onClick={this.onChange} className="opt-link">
-                            {value === 'expand' ? labels.hide : labels.expand}
-                        </span>
-                        <span onClick={this.onChange}
-                            className={'font-icon font-icon-caret-' + (value === 'expand' ? 'up' : 'down')}
-                        ></span>
-                    </div>
+                    {
+                        this.props.switchLocation !== 'top' ? (
+                            <div className="opt-bar">
+                                <span onClick={this.onChange} className="opt-link">
+                                    {value === 'expand' ? labels.hide : labels.expand}
+                                </span>
+                                <span onClick={this.onChange}
+                                    className={'font-icon font-icon-caret-' + (value === 'expand' ? 'up' : 'down')}
+                                ></span>
+                            </div>
+                        ) : null
+                    }
                 </div>
             );
         }

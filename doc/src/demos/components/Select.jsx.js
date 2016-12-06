@@ -8,6 +8,7 @@ define(function (require) {
             title: 'Normal Select',
             props: {
                 placeholder: 'select',
+                skin: 'grey',
                 datasource: [
                     {label: 'option1', value: 'option1'},
                     {hr: true},
@@ -43,6 +44,7 @@ define(function (require) {
             props: {
                 placeholder: 'select',
                 value: 'option3',
+                skin: 'blue',
                 width: 200,
                 datasource: [
                     {label: 'option1', value: 'option1'},

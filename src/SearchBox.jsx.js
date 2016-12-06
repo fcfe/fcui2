@@ -32,6 +32,10 @@ define(function (require) {
          * @fire Import src\Button.jsx.js button onClick
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         mixins: [InputWidget, InputWidgetImeFixed],
         // @override
         getDefaultProps: function () {

@@ -29,23 +29,28 @@ define(function (require) {
             let config = [
                 {
                     title: 'Normal Layer',
-                    props: {}
+                    props: {
+                        skin: 'oneux3-normal'
+                    }
                 },
                 {
                     title: 'Layer with ClassName',
                     props: {
+                        skin: 'oneux3-blue',
                         className: 'border2'
                     }
                 },
                 {
                     title: 'Layer width Location',
                     props: {
+                        skin: 'oneux3-yellow',
                         location: '4'
                     }
                 },
                 {
                     title: 'Layer that can be closed by window click event',
                     props: {
+                        skin: 'oneux3-normal',
                         closeWithBodyClick: true,
                         onCloseByWindow: this.layerHandlerFactory('layer3', false)
                     }
@@ -53,6 +58,7 @@ define(function (require) {
                 {
                     title: 'Layer that can be located manully',
                     props: {
+                        skin: 'oneux3-red',
                         onOffset(result) {
                             result.top += 10;
                             result.left -= 30;
