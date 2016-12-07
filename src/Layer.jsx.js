@@ -102,6 +102,8 @@ define(function (require) {
             var layer = this.___layerContainer___;
             layer.removeEventListener('mouseenter', this.onLayerMouseEnter);
             layer.removeEventListener('mouseleave', this.onLayerMouseLeave);
+            this.___addFixedIeWidth___ = false;
+            this.___addScrollWidth___ = false;
             this.removeSubTree();
         },
         onLayerMouseEnter: function () {
@@ -192,26 +194,26 @@ define(function (require) {
         fixedSize: function (props) {
             var layer = this.___layerContainer___;
             var content = layer.childNodes[0];
-            if (!content || this.___contentSize___ === layer.offsetWidth + ';' + layer.offsetHeight) return;
+            if (!content) return;
             var width = content.offsetWidth;
             var height = content.offsetHeight;
-            if (content.scrollHeight > height) {
+            if (content.scrollHeight > height && !this.___addScrollWidth___) {
                 width += content.scrollHeight - height > 2 ? 20 : 0;
                 height += content.scrollHeight - height > 2 ? 0 : 2;
+                this.___addScrollWidth___ = true;
             }
             width = props.fixedWidthToAnchor && width < props.anchor.offsetWidth
                 ? props.anchor.offsetWidth - 2 : width;
-            width = layer.offsetWidth > width ? layer.offsetWidth : width;
-            height = layer.offsetHeight > height ? layer.offsetHeight : height;
-            if (!(props.hasOwnProperty('style') && props.style.hasOwnProperty('width'))) {
-                layer.style.width = width + 'px'; 
+            width = props.hasOwnProperty('style') && props.style.hasOwnProperty('width') ? props.width : width;
+            height = props.hasOwnProperty('style') && props.style.hasOwnProperty('height') ? props.height : height;
+            if (this.___contentSize___ === width + ';' + height) return;
+            this.___contentSize___ = width + ';' + height;
+            if (util.getBrowserType() === 'ie' && !this.___addFixedIeWidth___) {
+                width += 1;
+                this.___addFixedIeWidth___ = true;
             }
-            if (!(props.hasOwnProperty('style') && props.style.hasOwnProperty('height'))) {
-                layer.style.height = height + 'px'; 
-            }
-            if (!this.___contentSize___) {
-                this.___contentSize___ = layer.offsetWidth + ';' + layer.offsetHeight;
-            }
+            layer.style.width = parseInt(width, 10) + 'px';
+            layer.style.height = parseInt(height, 10) + 'px';
         },
         fixedVirtualBorder: function (layerPos, anchor) {
             var config = {

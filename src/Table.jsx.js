@@ -183,9 +183,10 @@ define(function (require) {
             if (!this.refs || !this.refs.normalFieldsScrollContainer) return;
             this.refs.normalFieldsScrollContainer.scrollLeft = this.refs.shadowNormalFieldsScrollContainer.scrollLeft;
         },
-        onHorizontalScroll1: function () {
+        onHorizontalScroll1: function (e) {
             if (!this.refs || !this.refs.normalFieldsScrollContainer) return;
-            this.refs.shadowNormalFieldsScrollContainer.scrollLeft = this.refs.normalFieldsScrollContainer.scrollLeft;
+            this.refs.normalFieldsScrollContainer.scrollLeft += e.nativeEvent.deltaX;
+            this.refs.shadowNormalFieldsScrollContainer.scrollLeft += e.nativeEvent.deltaX;
         },
         onRendered: function () {
             if (!this.refs || !this.refs.container) return;
@@ -298,7 +299,7 @@ define(function (require) {
                         {factory.colgroupFactory(me)}
                         <tbody ref="tbody">
                             {factory.summaryFactory(me)}
-                            {factory.lineFactory(me, true)}
+                            {factory.lineFactory(me)}
                             {factory.headerFactory(me)}
                             {factory.messageFactory(me)}
                         </tbody>
@@ -318,7 +319,7 @@ define(function (require) {
         var normalFieldsScrollContainerProps = {
             ref: 'normalFieldsScrollContainer',
             className: 'horizontal-scroll-container',
-            onScroll: me.onHorizontalScroll1
+            onWheel: me.onHorizontalScroll1
         };
         return (
             <div {...cTools.containerBaseProps('table', me)}>

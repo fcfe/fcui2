@@ -46,7 +46,7 @@ define(function (require) {
         },
         {
             title: 'Tip with html in Content',
-            props: {skin: 'grey', title: 'It is tip\'s title', content: '<img width="300px" src="https://www.baidu.com/img/bd_logo1.png"/>'}
+            props: {skin: 'grey', title: 'It is tip\'s title', content: '<img width="300px" height="143" src="https://www.baidu.com/img/bd_logo1.png"/>'}
         },
         {
             title: 'Tip with empty props',

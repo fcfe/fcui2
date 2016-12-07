@@ -29,15 +29,19 @@
 .fcui2-tip-layer {
     min-width: 200px;
     max-width: 400px;
+    >div {
+        padding: 0 10px 10px;
+    }
+    >div:nth-child(1) {
+        padding-top: 10px;
+    }
     .tip-title {
-        margin: 10px 10px 0 10px;
         white-space: nowrap;
         font-size: 12px;
         color: @color-text-3;
         font-weight: 700;
     }
     .tip-content {
-        margin: 10px;
         font-size: 12px;
         line-height: 20px;
     }

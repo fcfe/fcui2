@@ -59,8 +59,7 @@ define(function (require) {
         // @override
         getChildContext: function () {
             return {
-                appSkin: 'oneux3'
-                //appSkin: ''
+                appSkin: typeof this.props.skin === 'string' ? this.props.skin : ''
             };
         },
         // @override
@@ -69,6 +68,7 @@ define(function (require) {
                 file: 'src\\Button.jsx.js',
                 level: 'widget',
                 title: 'FCUI2 Docs',
+                skin: 'oneux3',
                 dispatch: function () {}
             };
         },

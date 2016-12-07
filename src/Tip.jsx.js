@@ -101,8 +101,12 @@ define(function (require) {
                     {typeof Renderer === 'function' ? <Renderer {...this.props.renderProps}/> : null}
                     <Layer {...layerProp}>
                         <div className={'fcui2-tip-layer'}>
-                            <div className="tip-title">{this.props.title}</div>
-                            <div className="tip-content" dangerouslySetInnerHTML={{__html: this.props.content}}></div>
+                            {this.props.title ? <div className="tip-title">{this.props.title}</div> : null}
+                            {
+                                this.props.content
+                                ? <div className="tip-content" dangerouslySetInnerHTML={{__html: this.props.content}}></div>
+                                : null
+                            }
                         </div>
                     </Layer>
                 </div>
