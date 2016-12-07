@@ -1,6 +1,7 @@
 
 define(function (require) {
 
+    var _ = require('underscore');
     var React = require('react');
     var TableMessage = require('../components/table/MessageBar.jsx');
     var TableHeader = require('../components/table/NormalHeader.jsx');
@@ -73,13 +74,10 @@ define(function (require) {
                 return null;
             }
             var fields = tools.fieldConfigFactory(me, Others);
-            var prop = {
-                message: me.props.message && me.props.message.content ? me.props.message.content : '',
-                buttonLabel: me.props.message && me.props.message.buttonLabel ? me.props.message.buttonLabel : '',
-                onClick: me.props.onAction,
-                colSpan: fields.length
-            };
-            return (<TableMessage {...prop}/>);
+            var messageConfig = _.extend({}, me.props.message);
+            var Message = typeof messageConfig.renderer === 'function' ? messageConfig.renderer : TableMessage;
+            delete messageConfig.renderer;
+            return (<Message {...messageConfig} onAction={me.props.onAction} colSpan={fields.length}/>);
         },
 
         // 生成行

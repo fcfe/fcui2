@@ -192,10 +192,9 @@ define(function (require) {
         fixedSize: function (props) {
             var layer = this.___layerContainer___;
             var content = layer.childNodes[0];
-            if (!content) return;
+            if (!content || this.___contentSize___ === layer.offsetWidth + ';' + layer.offsetHeight) return;
             var width = content.offsetWidth;
             var height = content.offsetHeight;
-            if (this.___contentSize___ === width + ';' + height) return;
             if (content.scrollHeight > height) {
                 width += content.scrollHeight - height > 2 ? 20 : 0;
                 height += content.scrollHeight - height > 2 ? 0 : 2;
@@ -211,7 +210,7 @@ define(function (require) {
                 layer.style.height = height + 'px'; 
             }
             if (!this.___contentSize___) {
-                this.___contentSize___ = content.offsetWidth + ';' + content.offsetHeight;
+                this.___contentSize___ = layer.offsetWidth + ';' + layer.offsetHeight;
             }
         },
         fixedVirtualBorder: function (layerPos, anchor) {

@@ -15,21 +15,23 @@ define(function (require) {
     var cTools = require('../core/componentTools');
     var _ = require('underscore');
 
+
     var defaultFilter = function (datasource, filter) {
         filter = filter.trim();
         var filteredData = [];
         if (filter.length > 0) {
-            for (var i = 0; i < datasource.length; i++) {
-                if (datasource[i].label.indexOf(filter) > -1) {
-                    filteredData.push(datasource[i]);
+            datasource.map(function (item) {
+                if (typeof item.label === 'string' && item.label.indexOf(filter) > -1) {
+                    filteredData.push(item);
                 }
-            }
+            });
         }
         else {
             filteredData = datasource;
         }
         return filteredData;
     };
+
 
     return React.createClass({
         /**
@@ -50,6 +52,10 @@ define(function (require) {
         /**
          * @fire Import src\mixins\InputWidget.js XXX onChange
          */
+        // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
         // @override
         mixins: [InputWidget],
         // @override
@@ -74,7 +80,6 @@ define(function (require) {
             return {
                 layerOpen: false,
                 mouseenter: false,
-                // filter
                 filter: ''
             };
         },
@@ -111,24 +116,24 @@ define(function (require) {
                 isOpen: this.state.layerOpen && this.props.datasource.length && !this.props.disabled,
                 anchor: this.refs.container,
                 onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
-                style: {
-                    maxHeight: '280px',
-                    overflow: 'hidden'
-                }
+                skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };
-
-            var filter = this.state.filter;
-            var datasource = typeof this.props.defaultFilter === 'function'
-                ? this.props.defaultFilter(this.props.datasource, filter)
-                : defaultFilter(this.props.datasource, filter);
+            var filter = typeof this.props.defaultFilter === 'function' ? this.props.defaultFilter : defaultFilter;
+            var datasource = filter(this.props.datasource, this.state.filter);
             var listProp = {
                 datasource: datasource instanceof Array ? datasource : [],
                 ref: 'list',
-                onClick: this.onListClick
+                onClick: this.onListClick,
+                style: {
+                    maxHeight: '242px',
+                    minWidth: '200px',
+                    overflowY: 'auto',
+                    overflowX: 'hidden'
+                }
             };
             var searchProp = {
                 placeholder: this.props.searchPlaceholder,
-                value: filter,
+                value: this.state.filter,
                 onChange: this.onFilterChange
             };
             containerProp[this.props.openLayerType] = this.onMouseEnter;
@@ -139,8 +144,9 @@ define(function (require) {
                     break;
                 }
             }
-            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
-
+            var skin = this.props.skin ? this.props.skin : 'normal';
+            skin = this.context.appSkin ? (this.context.appSkin + '-' + skin) : skin;
+            containerProp.className += layerProp.isOpen ? (' fcui2-dropdownlist-' + skin + '-hover') : '';
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
@@ -150,9 +156,13 @@ define(function (require) {
                             <div className="filter-select-box">
                                 <SearchBox {...searchProp} />
                             </div>
-                            <div className="filter-select-list">
-                                <List {...listProp} />
-                            </div>
+                            {
+                                datasource.length ? (
+                                    <div className="filter-select-list">
+                                        <List {...listProp} />
+                                    </div>
+                                ) : null
+                            }
                         </div>
                     </Layer>
                 </div>

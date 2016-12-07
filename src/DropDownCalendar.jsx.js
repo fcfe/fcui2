@@ -30,6 +30,10 @@ define(function (require) {
          * @fire Import src\mixins\InputWidget.js XXX onChange
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
@@ -79,7 +83,8 @@ define(function (require) {
                 isOpen: this.state.layerOpen && !this.props.disabled,
                 anchor: this.refs.container,
                 onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
-                ref: 'layer'
+                ref: 'layer',
+                skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };
             var calendarProp = {
                 min: this.props.min,
@@ -89,7 +94,9 @@ define(function (require) {
             };
             containerProp[this.props.openLayerType] = this.onMouseEnter;
             containerProp['onMouseLeave'] = this.onMouseLeave;
-            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
+            var skin = this.props.skin ? this.props.skin : 'normal';
+            skin = this.context.appSkin ? (this.context.appSkin + '-' + skin) : skin;
+            containerProp.className += layerProp.isOpen ? (' fcui2-dropdownlist-' + skin + '-hover') : '';
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-calendar"></div>

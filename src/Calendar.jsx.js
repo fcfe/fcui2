@@ -34,6 +34,20 @@ define(function (require) {
          * @fire Import src\mixins\InputWidget.js XXX onChange
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
+        childContextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
+        getChildContext: function () {
+            return {
+                appSkin: ''
+            };
+        },
+        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
@@ -136,6 +150,8 @@ define(function (require) {
         },
         render: function () {
             var containerProp = cTools.containerBaseProps('calendar', this);
+            var skin = this.props.skin ? this.props.skin : 'normal';
+            skin = this.context.appSkin ? (this.context.appSkin + '-' + skin) : skin;
             var yearInputProp = {
                 ref: 'inputYear',
                 min: 0,
@@ -143,7 +159,8 @@ define(function (require) {
                 onChange: this.onYearChange,
                 value: this.state.inputYear,
                 type: 'int',
-                style: {width: 75, left: 43}
+                style: {width: 75, left: 43},
+                skin: skin
             };
             var monthInputProp = {
                 ref: 'inputMonth',
@@ -152,19 +169,24 @@ define(function (require) {
                 onChange: this.onMonthChange,
                 value: this.state.inputMonth,
                 type: 'int',
-                style: {width: 60, right: 43}
+                style: {width: 60, right: 43},
+                skin: skin
             };
             var subBtnProp = {
                 icon: 'font-icon-largeable-caret-left',
                 label: '',
+                iconLeft: 3,
                 onClick: this.onMonthSub,
-                disabled: this.props.disabled
+                disabled: this.props.disabled,
+                skin: skin
             };
             var addBtnProp = {
                 icon: 'font-icon-largeable-caret-right',
                 label: '',
+                iconLeft: 5,
                 onClick: this.onMonthAdd,
-                disabled: this.props.disabled
+                disabled: this.props.disabled,
+                skin: skin
             };
             return (
                 <div {...containerProp}>

@@ -56,6 +56,10 @@ define(function (require) {
          * @param {Function} getValues 返回值接口
          */
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         mixins: [InputWidget],
         // @override
         getDefaultProps: function () {
@@ -169,9 +173,12 @@ define(function (require) {
                 isOpen: this.state.layerOpen && !this.props.disabled,
                 anchor: this.refs.container,
                 closeWithBodyClick: true,
-                onCloseByWindow: this.onCancelButtonClick
+                onCloseByWindow: this.onCancelButtonClick,
+                skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };
-            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
+            var skin = this.props.skin ? this.props.skin : 'normal';
+            skin = this.context.appSkin ? (this.context.appSkin + '-' + skin) : skin;
+            containerProp.className += layerProp.isOpen ? (' fcui2-dropdownlist-' + skin + '-hover') : '';
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-calendar"></div>

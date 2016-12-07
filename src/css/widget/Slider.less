@@ -115,8 +115,43 @@
         }
     }
 }
+.fcui2-slider-oneux3-normal {
+    cursor: default;
+    .fcui2-slider-base-axis {
+        background-color: @color-outer-border;
+    }
+    .fcui2-slider-value-label {
+        font-size: 12px;
+        background-color: @oneux3-bgcolor-c20;
+        color: @color-bg;
+    }
+    .fcui2-slider-arrow {
+        border-top-color: @oneux3-bgcolor-c20;
+    }
+    .fcui2-slider-left-rule {
+        border-left-color: @oneux3-bgcolor-c20; 
+    }
+    .fcui2-slider-right-rule {
+        border-right-color: @color-outer-border;
+    }
+    .fcui2-slider-value-axis {
+        background-color: @oneux3-bgcolor-c20;
+    }
+    .fcui2-slider-cursor {
+        cursor: pointer;
+        background-color: @color-text-1;
+        border: 3px solid @color-bg;
+        -webkit-box-shadow: 0 0 1px black;  
+        -moz-box-shadow: 0 0 1px black;  
+        box-shadow: 0 0 1px black;
+        &:hover {
+            background-color: @oneux3-bgcolor-c20;
+        }
+    }
+}
 
 
+.fcui2-slider-oneux3-disabled,
 .fcui2-slider-disabled {
     .fcui2-slider-value-axis, .fcui2-slider-cursor:hover {
         background-color: @color-disabled-text !important;

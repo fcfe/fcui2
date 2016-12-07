@@ -45,7 +45,6 @@ define(function (require) {
                 {id: 'src\\TextBox.jsx.js', label: 'TextBox'},
                 {id: 'src\\NumberBox.jsx.js', label: 'NumberBox'},
                 {id: 'src\\TextArea.jsx.js', label: 'TextArea'},
-                {id: 'src\\TextLine.jsx.js', label: 'TextLine'},
                 {id: 'src\\Select.jsx.js', label: 'Select'}
             ]
         },
@@ -64,6 +63,7 @@ define(function (require) {
             level: 'functional',
             label: 'Functional Widgets',
             children: [
+                {id: 'src\\TextLine.jsx.js', label: 'TextLine'},
                 {id: 'src\\ComboList.jsx.js', label: 'ComboList'},
                 {id: 'src\\SearchBox.jsx.js', label: 'SearchBox'},
                 {id: 'src\\Slider.jsx.js', label: 'Slider'},
@@ -88,7 +88,8 @@ define(function (require) {
             children: [
                 {id: 'src\\enterprise\\DualTreeSelector.jsx.js', label: 'DualTreeSelector'},
                 {id: 'src\\enterprise\\ArraySelector.jsx.js', label: 'ArraySelector'},
-                {id: 'src\\enterprise\\Uploader.jsx.js', label: 'Uploader'}
+                {id: 'src\\enterprise\\Uploader.jsx.js', label: 'Uploader'},
+                {id: 'src\\enterprise\\SelectWithFilter.jsx.js', label: 'SelectWithFilter'}
             ]
         },
         components,
@@ -144,7 +145,9 @@ define(function (require) {
         'src\\DeployablePanel.jsx.js': require('./demos/components/DeployablePanel.jsx'),
         'src\\enterprise\\ArraySelector.jsx.js': require('./demos/components/ArraySelectorEnterprise.jsx'),
         'src\\TextLine.jsx.js': require('./demos/components/TextLine.jsx'),
-        'src\\Message.jsx.js': require('./demos/components/Message.jsx')
+        'src\\Message.jsx.js': require('./demos/components/Message.jsx'),
+        'src\\enterprise\\Uploader.jsx.js': require('./demos/components/Uploader.jsx'),
+        'src\\enterprise\\SelectWithFilter.jsx.js': require('./demos/components/SelectWithFilter.jsx')
     };
 
     for (var key in dataset.files) {

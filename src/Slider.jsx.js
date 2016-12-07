@@ -35,6 +35,9 @@ define(function (require) {
         /**
          * @fire Import src\mixins\InputWidget.js XXX onChange
          */
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
         // @override
         mixins: [InputWidget, DragableWidget],
         // @override

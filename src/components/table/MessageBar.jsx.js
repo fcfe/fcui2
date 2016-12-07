@@ -29,7 +29,7 @@ define(function (require) {
              * @fire table onAction
              * @param {String} type TableMessageBarClick: 表头下部信息栏被点击
              */
-            this.props.onClick('TableMessageBarClick', {});
+            this.props.onAction('TableMessageBarClick', {});
         },
         render: function () {
             return (

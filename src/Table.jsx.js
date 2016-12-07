@@ -298,7 +298,7 @@ define(function (require) {
                         {factory.colgroupFactory(me)}
                         <tbody ref="tbody">
                             {factory.summaryFactory(me)}
-                            {factory.lineFactory(me)}
+                            {factory.lineFactory(me, true)}
                             {factory.headerFactory(me)}
                             {factory.messageFactory(me)}
                         </tbody>

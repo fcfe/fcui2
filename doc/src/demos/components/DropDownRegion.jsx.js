@@ -6,12 +6,15 @@ define(function (require) {
     var items = [
         {
             title: 'Normal DropDownRegion',
-            props: {}
+            props: {
+                skin: 'blue'
+            }
         },
         {
             title: 'Single Selection DropDownRegion',
             props: {
-                type: 'single'
+                type: 'single',
+                skin: 'grey'
             }
         },
         {

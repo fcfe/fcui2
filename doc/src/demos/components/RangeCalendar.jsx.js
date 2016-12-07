@@ -11,7 +11,9 @@ define(function (require) {
     var items = [
         {
             title: 'Normal RangeCalendar',
-            props: {}
+            props: {
+                skin: 'blue'
+            }
         },
         {
             title: 'RangeCalendar with ClassName',
@@ -28,6 +30,7 @@ define(function (require) {
         {
             title: 'RangeCalendar with Min and Max',
             props: {
+                skin: 'grey',
                 min: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() - 5),
                 max: timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() + 5)
             }

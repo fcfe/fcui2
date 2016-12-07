@@ -27,6 +27,10 @@ define(function (require) {
 
     return React.createClass({
         // @override
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
+        // @override
         mixins: [InputWidget],
         // @override
         /**
@@ -182,7 +186,8 @@ define(function (require) {
                 anchor: this.refs.dropdownContainer,
                 location: 'bottom',
                 closeWithBodyClick: true,
-                onCloseByWindow: this.onLayerClose
+                onCloseByWindow: this.onLayerClose,
+                skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };
             var enterButtonProp = {
                 disabled: !this.state.___beOperated___,
@@ -191,7 +196,9 @@ define(function (require) {
                 onClick: this.onLayerEnter
             };
             containerProp.ref = 'dropdownContainer';
-            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-hover' : '';
+            var skin = this.props.skin ? this.props.skin : 'normal';
+            skin = this.context.appSkin ? (this.context.appSkin + '-' + skin) : skin;
+            containerProp.className += layerProp.isOpen ? (' fcui2-dropdownlist-' + skin + '-hover') : '';
             return (
                 <div {...containerProp}>
                     <div className="icon-right font-icon font-icon-largeable-caret-down"></div>

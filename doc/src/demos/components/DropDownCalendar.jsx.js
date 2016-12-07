@@ -8,11 +8,16 @@ define(function (require) {
     var items = [
         {
             title: 'Normal DropDownCalendar',
-            props: {}
+            props: {
+                skin: 'blue'
+            }
         },
         {
             title: 'DropDownCalendar with ClassName',
-            props: {className: 'marginLeft100'}
+            props: {
+                className: 'marginLeft100',
+                skin: 'grey'
+            }
         },
         {
             title: 'Readonly DropDownCalendar',
