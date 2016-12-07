@@ -148,7 +148,7 @@ define(function (require) {
                     ]
                 });
                 expect(dom.refs.container.childNodes[0].childNodes[0].childNodes[1].childNodes.length).toBe(3);
-                expect(dom.refs.container.childNodes[1].childNodes[0].childNodes[1].childNodes.length).toBe(1);
+                expect(dom.refs.container.childNodes[1].childNodes[0].childNodes[1].childNodes.length).toBe(3);
                 let element1 = React.createElement(Table, {
                     datasource: datasource,
                     fieldConfig: [
@@ -181,7 +181,7 @@ define(function (require) {
                     ]
                 });
                 expect(dom.refs.container.childNodes[0].childNodes[0].childNodes[1].childNodes.length).toBe(5);
-                expect(dom.refs.container.childNodes[1].childNodes[0].childNodes[1].childNodes.length).toBe(3);
+                expect(dom.refs.container.childNodes[1].childNodes[0].childNodes[1].childNodes.length).toBe(5);
             });
 
             it('message', () => {
@@ -206,7 +206,7 @@ define(function (require) {
                     }
                 });
                 expect(dom.refs.container.childNodes[0].childNodes[0].childNodes[1].childNodes.length).toBe(5);
-                expect(dom.refs.container.childNodes[1].childNodes[0].childNodes[1].childNodes.length).toBe(3);
+                expect(dom.refs.container.childNodes[1].childNodes[0].childNodes[1].childNodes.length).toBe(5);
                 let msgBar = dom.refs.container.childNodes[0].childNodes[0].childNodes[1].childNodes[1];
                 expect(msgBar.childNodes.length).toBe(1);
                 expect(msgBar.childNodes[0].childNodes[0].innerHTML).toBe('这是一条信息');
