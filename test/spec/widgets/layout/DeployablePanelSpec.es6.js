@@ -41,8 +41,8 @@ define(function (require) {
                     value: 'expand'
                 })).refs.demo;
                 expect(dom.refs.container.childNodes.length).toBe(2);
-                expect(dom.refs.container.childNodes[0].childNodes.length).toBe(1);
-                expect(dom.refs.container.childNodes[0].childNodes[0].innerHTML).toBe('哈哈哈');
+                expect(dom.refs.container.childNodes[0].childNodes.length).toBe(2);
+                expect(dom.refs.container.childNodes[0].childNodes[0].innerHTML).toBe('收起面板');
             });
 
             it('event', () => {
@@ -54,7 +54,7 @@ define(function (require) {
                     }
                 })).refs.demo;
                 TestUtils.Simulate.click(dom.refs.container.childNodes[1].childNodes[0]);
-                expect(value).toBe('expand');
+                expect(value).toBe('');
                 dom = realRender(getComponent({
                     value: 'expand',
                     onChange(e) {
@@ -62,7 +62,7 @@ define(function (require) {
                     }
                 })).refs.demo;
                 TestUtils.Simulate.click(dom.refs.container.childNodes[1].childNodes[0]);
-                expect(value).toBe('hide');
+                expect(value).toBe('');
             });
         });
 

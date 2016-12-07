@@ -18,7 +18,7 @@ define(function (require) {
          */
         getDefaultProps: function () {
             return {
-                message: '',
+                content: '',
                 buttonLabel: '',
                 colSpan: 1,
                 onClick: function () {}
@@ -35,7 +35,7 @@ define(function (require) {
             return (
                 <tr className="tr-message">
                     <td colSpan={this.props.colSpan}>
-                        <span>{this.props.message}</span>
+                        <span>{this.props.content}</span>
                         <span onClick={this.onButtonClick} className="link">{this.props.buttonLabel}</span>
                     </td>
                 </tr>
