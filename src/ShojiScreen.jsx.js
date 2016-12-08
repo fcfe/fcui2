@@ -18,6 +18,11 @@ define(function (require) {
     var noop = function () {};
 
 
+    var windowNum = 0;
+    var overflowX = null;
+    var overflowY = null;
+
+
     return React.createClass({
 
 
@@ -135,8 +140,12 @@ define(function (require) {
         onHidden: function (e) {
             if (!this.___container___ || !this.props.isOpen || !this.___appended___) return; 
             document.body.removeChild(this.___container___);
-            document.body.style.overflow = this.___oldOverflow___;
             document.body.appendChild(this.___expandButton___);
+            windowNum--;
+            if (windowNum === 0) {
+                document.body.style.overflowX = overflowX;
+                document.body.style.overflowY = overflowY;
+            }
             tools.addExpandButton(this.___expandButton___);
             tools.freshExpandButton();
             typeof this.props.onAction === 'function' && this.props.onAction('HideButtonClick');
@@ -146,8 +155,10 @@ define(function (require) {
         onExpand: function (e) {
             if (!this.___container___ || !this.props.isOpen || !this.___appended___) return;
             document.body.appendChild(this.___container___);
-            document.body.style.overflow = 'hidden';
             document.body.removeChild(this.___expandButton___);
+            document.body.style.overflowX = 'hidden';
+            document.body.style.overflowY = 'hidden';
+            windowNum++;
             typeof this.props.onAction === 'function' && this.props.onAction('ExpandButtonClick');
         },
 
@@ -195,9 +206,12 @@ define(function (require) {
                 this.___footBarContent___.innerHTML = typeof props.footBarInnerHtml === 'string'
                     ? props.footBarInnerHtml : '';
                 if (!this.___appended___) {
-                    this.___oldOverflow___ = util.getStyle(document.body, 'overflow');
+                    overflowX = windowNum === 0 ? util.getStyle(document.body, 'overflowX') : overflowX;
+                    overflowY = windowNum === 0 ? util.getStyle(document.body, 'overflowY') : overflowY;
+                    windowNum++;
                     document.body.appendChild(this.___container___);
-                    document.body.style.overflow = 'hidden';
+                    document.body.style.overflowX = 'hidden';
+                    document.body.style.overflowY = 'hidden';
                     this.___appended___ = true;
                 }
                 renderSubtreeIntoContainer(this, props.children, this.___content___, function () {
@@ -213,15 +227,10 @@ define(function (require) {
         // 销毁窗体，不会触发任何事件，直接干掉
         removeSubTree: function () {
             if (!this.___appended___) return;
+            windowNum--;
             ReactDOM.unmountComponentAtNode(this.___content___);
             try {
                 document.body.removeChild(this.___container___);
-                document.body.style.overflow = this.___oldOverflow___;
-            }
-            catch (e) {
-                // DO NOTHING
-            }
-            try {
                 document.body.removeChild(this.___expandButton___);
             }
             catch (e) {
@@ -230,6 +239,10 @@ define(function (require) {
             tools.removeExpandButton(this.___expandButton___);
             tools.freshExpandButton();
             this.___appended___ = false;
+            if (windowNum === 0) {
+                document.body.style.overflowX = overflowX;
+                document.body.style.overflowY = overflowY;
+            }
         },
 
 
