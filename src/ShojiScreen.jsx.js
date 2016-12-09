@@ -108,8 +108,8 @@ define(function (require) {
 
             this.___container___ = container;
             this.___workspace___ = workspace;
-            this.___content___ = workspace.childNodes[0];
             this.___expandButton___ = expandButton;
+            this.___content___ = workspace.childNodes[0];
             this.___enterButton___ = workspace.childNodes[1].childNodes[0];
             this.___cancelButton___ = workspace.childNodes[1].childNodes[1];
             this.___hideButton___ = workspace.childNodes[2];
@@ -141,13 +141,14 @@ define(function (require) {
             if (!this.___container___ || !this.props.isOpen || !this.___appended___) return; 
             document.body.removeChild(this.___container___);
             document.body.appendChild(this.___expandButton___);
+            tools.addExpandButton(this.___expandButton___);
+            tools.freshExpandButton();
             windowNum--;
             if (windowNum === 0) {
                 document.body.style.overflowX = overflowX;
                 document.body.style.overflowY = overflowY;
             }
-            tools.addExpandButton(this.___expandButton___);
-            tools.freshExpandButton();
+            this.___alreadyHide___ = true;
             typeof this.props.onAction === 'function' && this.props.onAction('HideButtonClick');
         },
 
@@ -156,9 +157,10 @@ define(function (require) {
             if (!this.___container___ || !this.props.isOpen || !this.___appended___) return;
             document.body.appendChild(this.___container___);
             document.body.removeChild(this.___expandButton___);
+            windowNum++;
             document.body.style.overflowX = 'hidden';
             document.body.style.overflowY = 'hidden';
-            windowNum++;
+            this.___alreadyHide___ = false;
             typeof this.props.onAction === 'function' && this.props.onAction('ExpandButtonClick');
         },
 
@@ -227,10 +229,14 @@ define(function (require) {
         // 销毁窗体，不会触发任何事件，直接干掉
         removeSubTree: function () {
             if (!this.___appended___) return;
-            windowNum--;
             ReactDOM.unmountComponentAtNode(this.___content___);
             try {
                 document.body.removeChild(this.___container___);
+            }
+            catch (e) {
+                // DO NOTHING
+            }
+            try {
                 document.body.removeChild(this.___expandButton___);
             }
             catch (e) {
@@ -239,6 +245,9 @@ define(function (require) {
             tools.removeExpandButton(this.___expandButton___);
             tools.freshExpandButton();
             this.___appended___ = false;
+            if (!this.___alreadyHide___) {
+                windowNum--;
+            }
             if (windowNum === 0) {
                 document.body.style.overflowX = overflowX;
                 document.body.style.overflowY = overflowY;
