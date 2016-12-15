@@ -12,7 +12,8 @@
         top: 0px;
         width: 100%;
         line-height: 28px;
-        text-align: center;
+        text-align: left;
+        padding-left: 14px;
     }
     input {
         position: absolute;
@@ -20,7 +21,7 @@
         top: 0;
         outline: none;
         border: 1px solid;
-        text-align: center;
+        text-align: left;
     }
     .btn-container {
         position: absolute;
@@ -84,7 +85,7 @@
     }
     .fcui2-numberbox-placeholder {
         color: @color-disabled-text;
-        font-size: 12px;
+        font-size: 12px; 
     }
     .btn-container {
         background-color: @color-bg-btn;
@@ -96,13 +97,14 @@
         }
         .font-icon {
             cursor: pointer;
-            color: @oneux3-bgcolor-c20;
+            color: @oneux3-bgcolor-c30;
+            background-color: @oneux3-bgcolor-c1;
             &:hover {
-                background-color:  @oneux3-bgcolor-c20;
-                color: #FFF;
+                color: @oneux3-bgcolor-c1;
+                background-color: @oneux3-bgcolor-c20;
             }
             &:active {
-                background-color: @color-btn-hover;
+                color: @oneux3-bgcolor-c30;
             }
         }
         .font-icon-largeable-caret-up {

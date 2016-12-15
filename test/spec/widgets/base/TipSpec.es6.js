@@ -43,7 +43,7 @@ define(function (require) {
             it('Renders a tip with default props', () => {
                 let tip = shallowRender(Tip);
                 expect(tip.type).toBe('div');
-                expect(tip.props.className).toBe('fcui2-tip fcui2-tip-normal browser-chrome font-icon font-icon-hint-question-s');
+                expect(tip.props.className).toBe('fcui2-tip fcui2-tip-normal browser-chrome font-icon iconfont icon-wenhao');
                 expect(tip.props.style).toEqual({display: 'none'});
                 expect(tip.props.children[0]).toBeNull();
                 expect(tip.props.children[1].type).toEqual(Layer);
@@ -54,7 +54,7 @@ define(function (require) {
                 expect(tip.type).toBe('div');
                 expect(tip.props.className).toBe(
                     'fcui2-tip fcui2-tip-test-skin fcui2-tip-test fcui2-tip-disabled browser-chrome'
-                        + ' font-icon font-icon-hint-question-s'
+                        + ' font-icon iconfont icon-wenhao'
                 );
                 expect(tip.props.style).toEqual({color: '#FFF'});
 
@@ -101,12 +101,12 @@ define(function (require) {
                 };
                 let dom = realRender(Tip, {});
                 dom.offsetLayerPosition(e);
-                expect(e.left).toBe(40);
-                expect(e.top).toBe(45);
+                expect(e.left).toBe(55);
+                expect(e.top).toBe(42);
                 e.clockPosition = '7';
                 dom.offsetLayerPosition(e);
-                expect(e.left).toBe(25);
-                expect(e.top).toBe(55);
+                expect(e.left).toBe(40);
+                expect(e.top).toBe(52);
                 dom = realRender(Tip, {
                     onOffset(e) {
                         e.left = 0;

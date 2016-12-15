@@ -93,8 +93,8 @@ define(function (require) {
                 onClick: this.onMainSelectorChange,
                 
                 className: 'iconfont icon-checkbox'
-                    + (!checked && indeterminate ? '-minus' : (checked ? '-checked' : ''))
-                    + (disabled ? ' iconfont-disabled ' : '')
+                    + (!checked && indeterminate ? '-indeterminate' : (checked ? '-selected' : '-unselected'))
+                    + (disabled ? '-disabled' : '')
             };
             var virtualCheckboxStyle = {
                 position: 'absolute',

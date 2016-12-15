@@ -217,14 +217,14 @@ define(function (require) {
         },
         fixedVirtualBorder: function (layerPos, anchor) {
             var config = {
-                1: [0, 1, anchor.offsetWidth - 2, 2, 0, null, null, -2],
-                3: [-1, -1, 2, anchor.offsetHeight - 2, -2, null, null, 0],
-                4: [-1, 0, 2, anchor.offsetHeight - 2, -2, null, 0, null],
-                6: [0, -1, anchor.offsetWidth - 2, 2, 0, null, -2, null],
-                7: [0, -1, anchor.offsetWidth - 2, 2, null, 0, -2, null],
-                9: [1, 0, 2, anchor.offsetHeight - 2, null, -2, 0, null],
-                10: [1, -1, 2, anchor.offsetHeight - 2, null, -2, null, 0],
-                12: [0, 1, anchor.offsetWidth - 2, 2, null, 0, null, -2]
+                1: [0, 2, anchor.offsetWidth - 2, 2, 0, null, null, -2],
+                3: [-2, -1, 2, anchor.offsetHeight - 2, -2, null, null, 0],
+                4: [-2, 0, 2, anchor.offsetHeight - 2, -2, null, 0, null],
+                6: [0, -2, anchor.offsetWidth - 2, 2, 0, null, -2, null],
+                7: [0, -2, anchor.offsetWidth - 2, 2, null, 0, -2, null],
+                9: [2, 0, 2, anchor.offsetHeight - 2, null, -2, 0, null],
+                10: [2, -1, 2, anchor.offsetHeight - 2, null, -2, null, 0],
+                12: [0, 2, anchor.offsetWidth - 2, 2, null, 0, null, -2]
             };
             if (!config[layerPos.clockPosition]) return;
             var arr = config[layerPos.clockPosition];

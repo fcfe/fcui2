@@ -98,7 +98,8 @@ define(function (require) {
             };
             var virtualCheckboxProp = {
                 className: 'iconfont icon-checkbox'
-                    + (!checked && this.props.indeterminate ? '-minus' : (checked ? '-checked' : '')),
+                    + (!checked && this.props.indeterminate ? '-indeterminate' : (checked ? '-selected' : '-unselected'))
+                    + (this.props.disabled ? '-disabled' : ''),
                 onClick: this.onClick
             };
             return (

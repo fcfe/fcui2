@@ -43,7 +43,7 @@ define(function (require) {
                 // self
                 title: '',
                 content: '',
-                icon: 'font-icon-hint-question-s',
+                icon: 'iconfont icon-wenhao',
                 renderer: null,
                 renderProps: {},
                 layerLocation: 'right left top bottom',
@@ -72,8 +72,8 @@ define(function (require) {
                 return;
             }
             if (typeof this.props.renderer === 'function') return;
-            result.left += '1_6_'.indexOf(result.clockPosition + '_') > -1 ? 10 : -15;
-            result.top += '12_1_'.indexOf(result.clockPosition + '_') > -1  ? -5 : 10;
+            result.left += '1_6_'.indexOf(result.clockPosition + '_') > -1 ? 25 : -15;
+            result.top += '12_1_'.indexOf(result.clockPosition + '_') > -1  ? -8 : 10;
         },
         render: function () {
             var containerProp = cTools.containerBaseProps('tip', this, {

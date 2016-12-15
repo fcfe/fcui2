@@ -139,6 +139,7 @@ body {
     .fcui2-numberbox input,
     .fcui2-textarea textarea,
     .fcui2-layer-warning,
+    .fcui2-layer,
     .fcui2-searchbox input,
     .fcui2-layer-normal {
         -moz-border-radius: 2px;
@@ -157,8 +158,8 @@ body {
             border-radius: 3px;
         }
         >div::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
+            width: 6px;
+            height: 6px;
             background-color: transparent;
         }
         >div::-webkit-scrollbar-thumb {
@@ -176,6 +177,15 @@ body {
             scrollbar-track-color: #FFF;
         }
     }
-
-
+    .fcui2-layer-oneux3-blue {
+        >div::-webkit-scrollbar-thumb {
+            background-color: rgba(250, 250, 250, 0.4);
+        }
+    }
+    .fcui2-table .shadow-container-with-scroll {
+        >div::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+    }
 }

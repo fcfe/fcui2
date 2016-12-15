@@ -8,11 +8,18 @@
     height: 28px;
     border: 1px solid;
     .icon-right {
+        position: relative;
+        display: inline-block;
+        top: -1px;
+        left: 1px;
         float: right;
         width: 20px;
-        display: inline-block;
-        line-height: 28px;
+        line-height: 30px;
+        height: 28px !important;
         text-align: center;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
     }
     .label-container {
         display: block;
@@ -106,6 +113,9 @@
         }
     }
     .icon-right {
+        left: 0px;
+        top: 0px;
+        height: 26px !important;
         color: @color-disabled-text;
         background-color: @color-bg-btn;
         &:hover {
