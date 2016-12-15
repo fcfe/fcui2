@@ -67,7 +67,7 @@ define(function (require) {
             return {
                 file: 'src\\Button.jsx.js',
                 level: 'widget',
-                title: 'FCUI2 Docs',
+                title: 'FCUI2 Docs OneUX3',
                 skin: 'oneux3',
                 dispatch: function () {}
             };

@@ -26,7 +26,13 @@ define(function (require) {
         },
         {
             title: 'Tip with Icon',
-            props: {title: 'It is tip\'s title', content: 'blablablabla', icon: 'font-icon-warning'}
+            props: {
+                title: 'It is tip\'s title', content: 'blablablabla', icon: 'font-icon-hint-exclamation-s',
+                style: {
+                    fontWeight: 200,
+                    fontSize: 18
+                }
+            }
         },
         {
             title: 'Tip with Style',
