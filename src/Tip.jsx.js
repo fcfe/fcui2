@@ -43,7 +43,7 @@ define(function (require) {
                 // self
                 title: '',
                 content: '',
-                icon: 'iconfont icon-wenhao',
+                icon: 'font-icon-hint-question-s',
                 renderer: null,
                 renderProps: {},
                 layerLocation: 'right left top bottom',

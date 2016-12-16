@@ -29,7 +29,8 @@ define(function (require) {
                         <span style={{textDecoration: 'underline',fontSize: 12}}>Display Base Line:</span>
                         <Tip title="这是啥"/>
                         <Button/>
-                        <DropDownList/>
+                        <Button label="按钮也是对不齐"/>
+                        <DropDownList label="为啥一到业务里就对不齐"/>
                         <ComboList/>
                         <TextBox/>
                         <SearchBox/>
