@@ -10,7 +10,7 @@ define(function (require) {
 
     var datasource = [
         {
-            label: 'option1',
+            label: 'option1option1option1option1option1option1option1',
             value: 'option1',
             children: [
                 {label: 'option1-1', value: 'option1-1'},
