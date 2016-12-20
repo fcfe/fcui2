@@ -31,7 +31,7 @@ define(function (require) {
         },
         render: function () {
             var className = 'fcui2-dialog-'
-                + (this.context.appSkin ? this.context.appSkin + '-alert' : '-alert');
+                + (this.context.appSkin ? this.context.appSkin + '-alert' : 'alert');
             var buttonProps = {
                 skin: 'important',
                 width: 67,
