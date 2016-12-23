@@ -31,7 +31,12 @@ define(function (require) {
                 title: this.props.title,
             };
             return (
-                <td {...tdProp}>{this.props.content}</td>
+                <td {...tdProp}>
+                    <div style={{
+                        margin: '5px 0',
+                        lineHeight: '20px'
+                    }}>{this.props.content}</div>
+                </td>
             );
         }
     });

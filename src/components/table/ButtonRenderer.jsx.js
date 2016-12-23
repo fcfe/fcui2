@@ -60,7 +60,8 @@ define(function (require) {
                 className: 'font-icon'
                     + (typeof this.props.buttonIcon === 'string' ? ' ' + this.props.buttonIcon : ''),
                 style: {
-                    float: tdProp.style.textAlign === 'right' ? 'left' : 'right'
+                    float: tdProp.style.textAlign === 'right' ? 'left' : 'right',
+                    marginTop: 2
                 },
                 onClick: this.onIconClick
             };
@@ -74,9 +75,12 @@ define(function (require) {
             var hideButton = this.props.item['hideButton-' + this.props.field];
             return (
                 <td {...tdProp}>
-                    {value}
                     {!hideButton ? <div {...iconProp}></div> : null}
                     {this.props.buttonLabel && !hideButton ? <div {...labelProp}>{this.props.buttonLabel}</div> : null}
+                    <div style={{
+                        margin: '10px 0 5px',
+                        lineHeight: '20px'
+                    }}>{value}</div>
                 </td>
             );
         }
