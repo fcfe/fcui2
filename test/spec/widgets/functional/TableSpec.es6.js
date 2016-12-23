@@ -319,35 +319,6 @@ define(function (require) {
                 });
                 expect(value).toBe('');
             });
-
-            it('td renderer', () => {
-                let actionType = '';
-                let dom = realRender(Table, {
-                    datasource: datasource,
-                    fieldConfig: [
-                        fieldConfig.numberInt,
-                        fieldConfig.buttonField,
-                        _.extend({}, fieldConfig.buttonField, {align: 'right'}),
-                        _.extend({}, fieldConfig.numberInt, {renderType: 'float', fixed: 'a'}),
-                        _.extend({}, fieldConfig.numberInt, {renderType: 'int'}),
-                        _.extend({}, fieldConfig.numberInt, {renderType: 'percent'}),
-                        _.extend({}, fieldConfig.numberInt, {renderType: ''}),
-                        _.extend({}, fieldConfig.numberInt, {renderType: '', prepare(item){item.content='a';}})
-                    ],
-                    onAction(type) {
-                        actionType = type;
-                    }
-                });
-                let tr1 = dom.refs.container.childNodes[0].childNodes[0].childNodes[1].childNodes[1];
-                expect(tr1.childNodes[1].childNodes[3].className.indexOf('font-icon')).toBe(0);
-                TestUtils.Simulate.click(tr1.childNodes[1].childNodes[3]);
-                expect(actionType).toBe('ButtonRendererClick');
-                expect(tr1.childNodes[3].innerHTML).toBe('18.00');
-                expect(tr1.childNodes[4].innerHTML).toBe('18');
-                expect(tr1.childNodes[5].innerHTML).toBe('1800.00%');
-                expect(tr1.childNodes[6].innerHTML).toBe('18');
-                expect(tr1.childNodes[7].innerHTML).toBe('-');
-            });
         });
 
     });

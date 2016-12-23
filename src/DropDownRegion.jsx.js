@@ -202,7 +202,7 @@ define(function (require) {
                 label: buttonLabels.enter,
                 skin: 'important',
                 style: {margin: '5px 10px'},
-                disabled: this.state.multiValue === me.props.value,
+                disabled: this.state.multiValue === me.props.value || !this.state.multiValue,
                 onClick: this.onEnterClick
             };
             var cancelProp = {
