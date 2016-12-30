@@ -14,11 +14,6 @@ define(function (require) {
     var noop = function () {};
 
 
-    var windowNum = 0;
-    var overflowX = null;
-    var overflowY = null;
-
-
     return React.createClass({
         /**
          * @properties
@@ -188,9 +183,14 @@ define(function (require) {
             var me = this;
             if (props.isOpen) {
                 if (!this.___appended___) {
-                    overflowX = windowNum === 0 ? util.getStyle(document.body, 'overflowX') : overflowX;
-                    overflowY = windowNum === 0 ? util.getStyle(document.body, 'overflowY') : overflowY;
-                    windowNum++;
+                    // 记录滚动条组航太
+                    var bodyStatus = util.getNamespace('fcui2-body-scroll-status') || {};
+                    bodyStatus.windowNum = isNaN(bodyStatus.windowNum) ? 1 : bodyStatus.windowNum + 1;
+                    bodyStatus.overflowX = !bodyStatus.hasOwnProperty('overflowX')
+                        ? util.getStyle(document.body, 'overflowX') : bodyStatus.overflowX;
+                    bodyStatus.overflowY = !bodyStatus.hasOwnProperty('overflowY')
+                        ? util.getStyle(document.body, 'overflowY') : bodyStatus.overflowY;
+                    // 添加容器
                     document.body.appendChild(this.___container___);
                     document.body.style.overflow = 'hidden';
                     if (props.size) {
@@ -238,17 +238,19 @@ define(function (require) {
 
         removeSubTree: function () {
             if (!this.___appended___) return;
-            windowNum--;
+            // 恢复滚动条状态
+            var bodyStatus = util.getNamespace('fcui2-body-scroll-status') || {};
+            bodyStatus.windowNum--;
+            if (bodyStatus.windowNum === 0) {
+                document.body.style.overflowX = bodyStatus.overflowX;
+                document.body.style.overflowY = bodyStatus.overflowY;
+            }
             ReactDOM.unmountComponentAtNode(this.___content___);
             this.___workspace___.style.left = '-9999px';
             this.___workspace___.style.top = '-9999px'; 
             this.___content___.style.width = 'auto';
             this.___content___.style.height = 'auto'; 
             document.body.removeChild(this.___container___);
-            if (windowNum === 0) {
-                document.body.style.overflowX = overflowX;
-                document.body.style.overflowY = overflowY;
-            }
             clearInterval(this.___workerTimer___);
             this.___appended___ = false;
         },

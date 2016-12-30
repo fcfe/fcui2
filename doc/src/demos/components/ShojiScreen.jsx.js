@@ -10,6 +10,8 @@ define(function (require) {
     let ShojiScreen = require('fcui/ShojiScreen.jsx');
     let Information = require('../Information.jsx');  
     let DropDownRegion = require('fcui/DropDownRegion.jsx');
+    let Dialog = require('fcui/Dialog.jsx');
+    let dialog = new Dialog();
 
     return React.createClass({
         // @override
@@ -38,6 +40,12 @@ define(function (require) {
         onClose: function () {
             this.setState({window2: false});
         },
+        onAlert: function () {
+            dialog.alert({
+                title: 'Dialog',
+                content: 'abc'
+            });
+        },
         render() {
             let config = [
                 {
@@ -58,7 +66,12 @@ define(function (require) {
                     }
                 }
             ];
-            return (<div>{itemFactory(config, this)}</div>);
+            return (
+                <div>
+                    {itemFactory(config, this)}
+                    <Button label="alert" onClick={this.onAlert}/>
+                </div>
+            );
         }
     });
 

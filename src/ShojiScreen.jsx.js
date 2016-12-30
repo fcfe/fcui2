@@ -18,11 +18,6 @@ define(function (require) {
     var noop = function () {};
 
 
-    var windowNum = 0;
-    var overflowX = null;
-    var overflowY = null;
-
-
     return React.createClass({
 
 
@@ -143,10 +138,11 @@ define(function (require) {
             document.body.appendChild(this.___expandButton___);
             tools.addExpandButton(this.___expandButton___);
             tools.freshExpandButton();
-            windowNum--;
-            if (windowNum === 0) {
-                document.body.style.overflowX = overflowX;
-                document.body.style.overflowY = overflowY;
+            var bodyStatus = util.getNamespace('fcui2-body-scroll-status') || {};
+            bodyStatus.windowNum--;
+            if (bodyStatus.windowNum === 0) {
+                document.body.style.overflowX = bodyStatus.overflowX;
+                document.body.style.overflowY = bodyStatus.overflowY;
             }
             this.___alreadyHide___ = true;
             typeof this.props.onAction === 'function' && this.props.onAction('HideButtonClick');
@@ -157,7 +153,8 @@ define(function (require) {
             if (!this.___container___ || !this.props.isOpen || !this.___appended___) return;
             document.body.appendChild(this.___container___);
             document.body.removeChild(this.___expandButton___);
-            windowNum++;
+            var bodyStatus = util.getNamespace('fcui2-body-scroll-status') || {};
+            bodyStatus.windowNum++;
             document.body.style.overflowX = 'hidden';
             document.body.style.overflowY = 'hidden';
             this.___alreadyHide___ = false;
@@ -208,9 +205,14 @@ define(function (require) {
                 this.___footBarContent___.innerHTML = typeof props.footBarInnerHtml === 'string'
                     ? props.footBarInnerHtml : '';
                 if (!this.___appended___) {
-                    overflowX = windowNum === 0 ? util.getStyle(document.body, 'overflowX') : overflowX;
-                    overflowY = windowNum === 0 ? util.getStyle(document.body, 'overflowY') : overflowY;
-                    windowNum++;
+                    // 记录滚动条组航太
+                    var bodyStatus = util.getNamespace('fcui2-body-scroll-status') || {};
+                    bodyStatus.windowNum = isNaN(bodyStatus.windowNum) ? 1 : bodyStatus.windowNum + 1;
+                    bodyStatus.overflowX = !bodyStatus.hasOwnProperty('overflowX')
+                        ? util.getStyle(document.body, 'overflowX') : bodyStatus.overflowX;
+                    bodyStatus.overflowY = !bodyStatus.hasOwnProperty('overflowY')
+                        ? util.getStyle(document.body, 'overflowY') : bodyStatus.overflowY;
+                    // 添加容器
                     document.body.appendChild(this.___container___);
                     document.body.style.overflowX = 'hidden';
                     document.body.style.overflowY = 'hidden';
@@ -245,12 +247,13 @@ define(function (require) {
             tools.removeExpandButton(this.___expandButton___);
             tools.freshExpandButton();
             this.___appended___ = false;
+            var bodyStatus = util.getNamespace('fcui2-body-scroll-status') || {};
             if (!this.___alreadyHide___) {
-                windowNum--;
+                bodyStatus.windowNum--;
             }
-            if (windowNum === 0) {
-                document.body.style.overflowX = overflowX;
-                document.body.style.overflowY = overflowY;
+            if (bodyStatus.windowNum === 0) {
+                document.body.style.overflowX = bodyStatus.overflowX;
+                document.body.style.overflowY = bodyStatus.overflowY;
             }
         },
 
