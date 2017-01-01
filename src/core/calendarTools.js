@@ -265,16 +265,18 @@ define(function (require) {
              * @interface getDataRange.lastQuarter
              * @return {CalendarRangeData} 日期区间
              */
-            lastQuarter: function () {
-                var tmp = new Date();
-                var cMonth = tmp.getMonth();
-                var cYear = tmp.getFullYear();
-                var cQ = Math.floor((cMonth % 3 == 0 ? (cMonth / 3) : (cMonth / 3 + 1 ))) - 1;
-                var year = [cYear - 1, cYear, cYear, cYear];
+            lastQuarter: function (data) {
+                var tmp = data || new Date();
+                var currentYear = tmp.getFullYear();
+                var quarter = [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4];
+                var year = [currentYear - 1, currentYear, currentYear, currentYear];
                 var month = [[10, 12], [1, 3], [4, 6], [7, 9]];
-                var end = [null, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-                var value1 = me.str2date(year[cQ] + '-' + month[cQ][0] + '-1');
-                var value2 = me.str2date(year[cQ] + '-' + month[cQ][1] + '-' + end[month[cQ][1]]);
+                var day = [null, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+                var currentQuarter = quarter[tmp.getMonth()];
+                var displayYear = year[currentQuarter - 1];
+                var displayMonth = month[currentQuarter - 1];
+                var value1 = me.str2date(displayYear + '-' + displayMonth[0] + '-1');
+                var value2 = me.str2date(displayYear + '-' + displayMonth[1] + '-' + day[displayMonth[1]]);
                 return {
                     value1: value1,
                     value2: value2
