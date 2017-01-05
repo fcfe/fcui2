@@ -29,6 +29,11 @@
         top: 6px;
         right: 5px;
     }
+    .font-icon-times {
+        position: absolute;
+        top: 6px;
+        right: 5px;
+    }
 }
 
 
@@ -41,6 +46,13 @@
         }
     }
     .font-icon-search {
+        color: @color-disabled-text;
+        cursor: pointer;
+        &:hover {
+            color: @color-btn;
+        }
+    }
+    .font-icon-times {
         color: @color-disabled-text;
         cursor: pointer;
         &:hover {
@@ -73,6 +85,13 @@
             color: @oneux3-bgcolor-c20;
         }
     }
+    .font-icon-times {
+        color: @oneux3-color-c3;
+        cursor: pointer;
+        &:hover {
+            color: @oneux3-bgcolor-c20;
+        }
+    }
     .placeholder {
         color: @oneux3-color-c3;
         font-size: 12px;
@@ -89,6 +108,10 @@
         }
     }
     .font-icon-search:hover {
+        cursor: default;
+        color: @color-disabled-text;
+    }
+    .font-icon-times:hover {
         cursor: default;
         color: @color-disabled-text;
     }

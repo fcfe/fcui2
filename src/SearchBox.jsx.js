@@ -44,6 +44,7 @@ define(function (require) {
                 skin: '',
                 className: '',
                 style: {},
+                icon: 'font-icon-search',
                 disabled: false,
                 // self
                 placeholder: '',
@@ -103,7 +104,7 @@ define(function (require) {
                 <div {...containerProp}>
                     <div {...placeholderProp}>{this.props.placeholder}</div>
                     <input {...inputProp}/>
-                    <div className="font-icon font-icon-search" onClick={this.onButtonClick}></div>
+                    <div className={"font-icon " + this.props.icon} onClick={this.onButtonClick}></div>
                 </div>
             );
         }
