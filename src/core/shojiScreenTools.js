@@ -55,7 +55,7 @@ define(function (require) {
                 ? fcui2.shojiScreenExpandButtonArray : [];
             var arr = fcui2.shojiScreenExpandButtonArray;
             for (var i = 0; i < arr.length; i++) {
-                arr[i].style.top = ((i + 1) * 51 + 50) + 'px';
+                arr[i].style.top = ((i + 1) * 51 + 74) + 'px';
             }
         }
     };

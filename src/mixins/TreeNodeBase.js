@@ -35,7 +35,7 @@ define(function (require) {
              * @param {Object} param 回调参数
              * @param {Array.<String>} param.index 叶子序列
              */
-            if (!item.children.length && typeof this.props.onAction === 'function') {
+            if (!(item.children && item.children.length) && typeof this.props.onAction === 'function') {
                 this.props.onAction('TreeLoadChildren', {index: this.props.index.split(',')});
             }
         }
