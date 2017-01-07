@@ -177,3 +177,4 @@ $ edp build --config edp-build-doc-config.js
 * email: lbxxlht@163.com
 * weibo: http://weibo.com/lbxx1984
 * blog: http://blog.csdn.net/lbxx1984
+## Contributors
