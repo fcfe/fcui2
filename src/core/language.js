@@ -491,6 +491,9 @@ define(function (require) {
                 'new-refresh': '数据加载失败',
                 'fail': '加载失败',
                 'success': '加载成功'
+            },
+            toast: {
+                'success': '保存成功'
             }
         }
     };
