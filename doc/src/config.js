@@ -33,7 +33,8 @@ define(function (require) {
                 {id: 'src\\Wizard.jsx.js', label: 'Wizard'},
                 {id: 'src\\Switch.jsx.js', label: 'Switch'},
                 {id: 'src\\WarningLayer.jsx.js', label: 'WarningLayer'},
-                {id: 'src\\Message.jsx.js', label: 'Message'}
+                {id: 'src\\Message.jsx.js', label: 'Message'},
+                {id: 'src\\Toast.jsx.js', label: 'Toast'}
             ]
         },
         {

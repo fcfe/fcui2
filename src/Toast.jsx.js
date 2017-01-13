@@ -1,8 +1,7 @@
 /**
- * @file 全局提示
+ * 全局提示
  * @author zhangjialin
  * @email zhangjialin03@baidu.com
- * @date Mon Jan 11 2017
  * @version 0.0.2.1
  * @note
  *      全局展示操作反馈信息，居中显示并自动消失，单例模式，可提供“成功”等反馈信息
@@ -57,7 +56,6 @@ define(function(require) {
         *
         * @name pop
         * @className Toast
-        * @param {Import|Properties} src\core\componentTools.js skin className style disabled
         * @param {Object} param 弹出配置
         * @param {String} param.className 挂在到Toast窗体DOM上的class
         * @param {String} param.type 当前的状态,默认返回success样式(现在也只有success样式)
