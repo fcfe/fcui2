@@ -78,6 +78,7 @@ define(function (require) {
                 {id: 'src\\RangeCalendar.jsx.js', label: 'RangeCalendar'},
                 {id: 'src\\DropDownCalendar.jsx.js', label: 'DropDownCalendar'},
                 '',
+                {id: 'src\\ColorPicker.jsx.js', label: 'ColorPicker'},
                 {id: 'src\\Schedule.jsx.js', label: 'Schedule'},
                 {id: 'src\\Form.jsx.js', label: 'Form'},
                 {id: 'src\\Table.jsx.js', label: 'Table'}
@@ -148,7 +149,8 @@ define(function (require) {
         'src\\TextLine.jsx.js': require('./demos/components/TextLine.jsx'),
         'src\\Message.jsx.js': require('./demos/components/Message.jsx'),
         'src\\enterprise\\Uploader.jsx.js': require('./demos/components/Uploader.jsx'),
-        'src\\enterprise\\SelectWithFilter.jsx.js': require('./demos/components/SelectWithFilter.jsx')
+        'src\\enterprise\\SelectWithFilter.jsx.js': require('./demos/components/SelectWithFilter.jsx'),
+        'src\\ColorPicker.jsx.js': require('./demos/components/ColorPicker.jsx')
     };
 
     for (var key in dataset.files) {
