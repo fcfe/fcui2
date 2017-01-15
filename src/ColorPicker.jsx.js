@@ -165,7 +165,7 @@ define(function (require) {
                 backgroundColor: value.css,
                 width:80,
                 height: 30,
-                marginLeft: 11
+                marginLeft: 15
             };
             var rProps = _.extend({}, defaultRGBprops, {
                 value: value.rgb[0],

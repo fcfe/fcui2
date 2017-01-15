@@ -10,7 +10,7 @@ define(function (require) {
 
         /**
          * RGB颜色转CSS串
-         *
+         * @interface RGB2CSS
          * @param {number} r 红色0 - 255
          * @param {number} g 绿色0 - 255
          * @param {number} b 蓝色0 - 255
@@ -28,7 +28,7 @@ define(function (require) {
 
         /**
          * CSS串转RGB颜色
-         *
+         * @interface CSS2RGB
          * @param {string} s CSS颜色#000000，必须是6位
          * @return {Array.<number>} RGB颜色数组，0-255
          */
@@ -42,7 +42,7 @@ define(function (require) {
 
         /**
          * HSL颜色转RGB颜色
-         *
+         * @interface HSL2RGB
          * @param {number} h 色相
          * @param {number} s 饱和度
          * @param {number} l 亮度
@@ -73,7 +73,7 @@ define(function (require) {
 
         /**
          * RGB颜色转HSL颜色
-         *
+         * @interface RGB2HSL
          * @param {number} r 红色0 - 255
          * @param {number} g 绿色0 - 255
          * @param {number} b 蓝色0 - 255
@@ -100,6 +100,9 @@ define(function (require) {
         },
 
         getValueObject: function (value) {
+            if (value == null) {
+                value = {};
+            }
             try {
                 value = JSON.parse(value);
             }

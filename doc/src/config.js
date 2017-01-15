@@ -79,6 +79,8 @@ define(function (require) {
                 {id: 'src\\DropDownCalendar.jsx.js', label: 'DropDownCalendar'},
                 '',
                 {id: 'src\\ColorPicker.jsx.js', label: 'ColorPicker'},
+                {id: 'src\\DropDownColorPicker.jsx.js', label: 'DropDownColorPicker'},
+                '',
                 {id: 'src\\Schedule.jsx.js', label: 'Schedule'},
                 {id: 'src\\Form.jsx.js', label: 'Form'},
                 {id: 'src\\Table.jsx.js', label: 'Table'}
@@ -150,7 +152,8 @@ define(function (require) {
         'src\\Message.jsx.js': require('./demos/components/Message.jsx'),
         'src\\enterprise\\Uploader.jsx.js': require('./demos/components/Uploader.jsx'),
         'src\\enterprise\\SelectWithFilter.jsx.js': require('./demos/components/SelectWithFilter.jsx'),
-        'src\\ColorPicker.jsx.js': require('./demos/components/ColorPicker.jsx')
+        'src\\ColorPicker.jsx.js': require('./demos/components/ColorPicker.jsx'),
+        'src\\DropDownColorPicker.jsx.js': require('./demos/components/DropDownColorPicker.jsx')
     };
 
     for (var key in dataset.files) {

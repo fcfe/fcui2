@@ -69,11 +69,11 @@ exports.getProcessors = function () {
         new ModuleCompiler({
             configFile: './edp-build-doc.conf'
         }),
-        new JsCompressor({
-            files: [
-                'doc/src/main.js'
-            ]
-        }),
+        // new JsCompressor({
+        //     files: [
+        //         'doc/src/main.js'
+        //     ]
+        // }),
         new OutputCleaner({
             files: [
                 '*.js',
