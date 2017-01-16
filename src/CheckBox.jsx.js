@@ -48,6 +48,7 @@ define(function (require) {
                 disabled: false,
                 // self
                 label: '',
+                title: '',
                 value: '',
                 indeterminate: false,
                 labelPosition: 'right',
@@ -83,6 +84,9 @@ define(function (require) {
         },
         render: function () {
             var containerProp = cTools.containerBaseProps('checkbox', this);
+            if (this.props.title) {
+                containerProp.title = this.props.title;
+            }
             var checked = this.___getValue___();
             var labelProp = {
                 className: 'fcui2-checkbox-label',

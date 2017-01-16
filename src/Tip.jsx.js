@@ -25,6 +25,7 @@ define(function (require) {
          * @param {String} layerLocation 浮层的定位配置，具体见src\core\layerTools.js
          * @param {Function} contentFactory 浮层展开前，可以通过此属性方法获取新的content
          * @param {Function} onOffset 浮层位置修正回调
+         * @param {Function} layerClassName 浮层的自定义样式
          */
         /**
          * @fire Import src\Layer.jsx.js layer onOffset
@@ -49,7 +50,8 @@ define(function (require) {
                 renderProps: {},
                 layerLocation: 'right left top bottom',
                 contentFactory: null,
-                onOffset: null
+                onOffset: null,
+                layerClassName: ''
             };
         },
         getInitialState: function () {
@@ -123,11 +125,12 @@ define(function (require) {
             };
             var Renderer = this.props.renderer;
             containerProp.className += typeof Renderer === 'function' ? '' : ' font-icon ' + this.props.icon;
+            var layerClassName = 'fcui2-tip-layer' + (this.props.layerClassName ? ' ' + this.props.layerClassName : '');
             return (
                 <div {...containerProp}>
                     {typeof Renderer === 'function' ? <Renderer {...this.props.renderProps}/> : null}
                     <Layer {...layerProp}>
-                        <div className={'fcui2-tip-layer'}>
+                        <div className={layerClassName}>
                             {this.props.title ? <div className="tip-title">{this.props.title}</div> : null}
                             {
                                 content

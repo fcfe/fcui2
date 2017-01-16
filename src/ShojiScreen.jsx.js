@@ -133,7 +133,10 @@ define(function (require) {
 
 
         onHidden: function (e) {
-            if (!this.___container___ || !this.props.isOpen || !this.___appended___) return; 
+            if (!this.___container___ || !this.props.isOpen || !this.___appended___) return;
+            if (typeof this.props.onAction === 'function' && this.props.onAction('HideButtonClick') === false) {
+                return;
+            }
             document.body.removeChild(this.___container___);
             document.body.appendChild(this.___expandButton___);
             tools.addExpandButton(this.___expandButton___);
@@ -145,7 +148,6 @@ define(function (require) {
                 document.body.style.overflowY = bodyStatus.overflowY;
             }
             this.___alreadyHide___ = true;
-            typeof this.props.onAction === 'function' && this.props.onAction('HideButtonClick');
         },
 
 
