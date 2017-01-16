@@ -79,7 +79,12 @@ define(function (require) {
         },
         // @override
         getInitialState: function () {
-            return {};
+            var value = tools.getValueObject(this.___getValue___());
+            return {
+                canvasLeftMainColor: value.rgb,
+                cursorLeft: null,
+                cursorRight: null
+            };
         },
         // @override
         componentDidMount: function () {
@@ -92,22 +97,62 @@ define(function (require) {
         renderColors: function () {
             var value = tools.getValueObject(this.___getValue___());
             // 渲染大色块颜色
-            var ctxLeft = this.refs.canvasLeft.getContext('2d');
-            var lineGradientLeft = ctxLeft.createLinearGradient(231, 0, 0, 231);  
-            lineGradientLeft.addColorStop(0, 'rgba(' + value.rgb.join(', ') + ', 1)');    
-            lineGradientLeft.addColorStop(1, 'rgba(255, 255, 255, 1)');    
+            var canvasLeft = this.refs.canvasLeft;
+            var ctxLeft = canvasLeft.getContext('2d');
+            var lineGradientLeft = ctxLeft.createLinearGradient(canvasLeft.width, canvasLeft.height, 0, 0);  
+            lineGradientLeft.addColorStop(0, 'rgba(0, 0, 0, 1)');
+            lineGradientLeft.addColorStop(0.5, 'rgba(' + this.state.canvasLeftMainColor.join(', ') + ', 1)');
+            lineGradientLeft.addColorStop(1, 'rgba(255, 255, 255, 1)');   
             ctxLeft.fillStyle = lineGradientLeft;    
-            ctxLeft.fillRect(0, 0, 231, 231);
+            ctxLeft.fillRect(0, 0, canvasLeft.width, canvasLeft.height);
             // 渲染右侧颜色选择区
-            var ctxRight = this.refs.canvasRight.getContext('2d');
-            var lineGradientRight = ctxRight.createLinearGradient(1, 0, 1, 231);
+            var canvasRight = this.refs.canvasRight;
+            var ctxRight = canvasRight.getContext('2d');
+            var lineGradientRight = ctxRight.createLinearGradient(1, 0, 1, canvasRight.height);
             for (var n = 0; n < 256; n++) {
                 var rgb = tools.HSL2RGB(n / 255, 1, 0.5);
                 lineGradientRight.addColorStop(n / 255, tools.RGB2CSS(rgb[0], rgb[1], rgb[2]));
             }
             ctxRight.fillStyle = lineGradientRight;
-            ctxRight.fillRect(0, 0, 10, 231); 
+            ctxRight.fillRect(0, 0, canvasRight.width, canvasRight.height); 
             ctxRight.stroke();
+            // 渲染虚拟鼠标位置
+            if (this.state.cursorLeft) {
+                return;
+            }
+            var imgDataLeft = ctxLeft.getImageData(0, 0, canvasLeft.width, canvasLeft.height);
+            var posLeft = {left: 0, top: 0};
+            for (var i = 0; i < imgDataLeft.data.length; i += 4) {
+                if (
+                    Math.abs(imgDataLeft.data[i] - value.rgb[0]) <= 2
+                    && Math.abs(imgDataLeft.data[i + 1] - value.rgb[1]) <= 2
+                    && Math.abs(imgDataLeft.data[i + 2] - value.rgb[2]) <= 2
+                ) {
+                    var p = i / 4;
+                    posLeft.top = p % canvasLeft.width - 3;
+                    posLeft.left = (p - posLeft.top) / canvasLeft.width - 3;
+                    break;
+                }
+            }
+            // 获取右侧渲染去value的位置
+            var imgDataRight = ctxRight.getImageData(0, 0, canvasRight.width, canvasRight.height);
+            var posRight = {left: 5, top: -100};
+            for (var i = 0; i < imgDataRight.data.length; i += 4) {
+                if (
+                    Math.abs(imgDataRight.data[i] - value.rgb[0]) <= 2
+                    && Math.abs(imgDataRight.data[i + 1] - value.rgb[1]) <= 2
+                    && Math.abs(imgDataRight.data[i + 2] - value.rgb[2]) <= 2
+                ) {
+                    var p = i / 4;
+                    posRight.top = parseInt(p / canvasRight.width, 10) - 3;
+                    posRight.left = 2;
+                    break;
+                }
+            }
+            this.setState({
+                cursorLeft: posLeft,
+                cursorRight: posRight
+            });
         },
         onCanvasClick: function (e) {
             var x = e.nativeEvent.offsetX;
@@ -117,6 +162,17 @@ define(function (require) {
             value.rgb = [rgb[0], rgb[1], rgb[2]];
             value.css = tools.RGB2CSS(rgb[0], rgb[1], rgb[2]);
             value.hsl = tools.RGB2HSL(rgb[0], rgb[1], rgb[2]);
+            var pos = {};
+            pos[e.target.className.indexOf('canvas-right') > -1 ? 'cursorRight' : 'cursorLeft'] = {
+                left: e.target.className.indexOf('canvas-right') > -1 ? 2 : x - 3,
+                top: y - 3
+            };
+            this.setState(pos);
+            if (e.target.className.indexOf('canvas-right') > -1) {
+                this.setState({
+                    canvasLeftMainColor: value.rgb
+                });
+            }
             e.target = this.refs.container;
             e.target.value = JSON.stringify(value);
             this.___dispatchChange___(e);
@@ -149,23 +205,17 @@ define(function (require) {
             var value = tools.getValueObject(this.___getValue___());
             var canvasLeftProps = {
                 ref: 'canvasLeft',
-                width: 231,
-                height: 231,
+                width: 200,
+                height: 200,
                 className: 'canvas-left',
                 onClick: this.onCanvasClick
             };
             var canvasRightProps = {
                 ref: 'canvasRight',
-                width: 10,
-                height: 231,
+                width: 11,
+                height: 200,
                 className: 'canvas-right',
                 onClick: this.onCanvasClick
-            };
-            var labelStyle = {
-                backgroundColor: value.css,
-                width:80,
-                height: 30,
-                marginLeft: 15
             };
             var rProps = _.extend({}, defaultRGBprops, {
                 value: value.rgb[0],
@@ -191,6 +241,16 @@ define(function (require) {
                 value: value.hsl[2],
                 onChange: this.numberBoxChangeHandlerFactory('hsl', 2)
             });
+            var cursor1Style = {
+                left: this.state.cursorLeft ? this.state.cursorLeft.left + 10 : -100,
+                top: this.state.cursorLeft ? this.state.cursorLeft.top + 10 : -100,
+                borderColor: tools.RGB2CSS(255 - value.rgb[0], 255 - value.rgb[1], 255 - value.rgb[2])
+            };
+            var cursor2Style = {
+                left: this.state.cursorRight ? this.state.cursorRight.left + 216 : -100,
+                top: this.state.cursorRight ? this.state.cursorRight.top + 10 : -100,
+                borderColor: tools.RGB2CSS(255 - value.rgb[0], 255 - value.rgb[1], 255 - value.rgb[2])
+            };
             return (
                 <div {...cTools.containerBaseProps('colorpicker', this)}>
                     <canvas {...canvasLeftProps}></canvas>
@@ -203,8 +263,9 @@ define(function (require) {
                         <div><span>H</span><NumberBox {...hProps}/></div>
                         <div><span>S</span><NumberBox {...sProps}/></div>
                         <div><span>L</span><NumberBox {...lProps}/></div>
-                        <div style={labelStyle}></div>
                     </div>
+                    <div style={cursor2Style} className="virtual-cursor"></div>
+                    <div style={cursor1Style} className="virtual-cursor"></div>
                 </div>
             );
         }

@@ -10,7 +10,7 @@ define(function (require) {
         },
         {
             title: 'Readonly ColorPicker',
-            props: {value: '{"css": "#FFFF00"}'}
+            props: {value: '{"css": "#8C8C00"}'}
         }
     ];
 
