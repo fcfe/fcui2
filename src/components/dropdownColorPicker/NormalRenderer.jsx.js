@@ -22,8 +22,10 @@ define(function (require) {
         render: function () {
             var value = tools.getValueObject(this.props.value);
             var containerStyle = {
+                position: 'relative',
+                top: -10,
+                marginTop: 10,
                 marginLeft: -10,
-                fontWeight: 700,
                 width: 28,
                 textAlign: 'center'
             };
@@ -32,7 +34,8 @@ define(function (require) {
                 containerStyle.color = tools.RGB2CSS(255 - value.rgb[0], 255 - value.rgb[1], 255 - value.rgb[2])
             }
             else {
-                containerStyle.color = value.css;
+                containerStyle.borderBottom = '5px solid ' + value.css;
+                containerStyle.height = 23;
             }
             return (<div style={containerStyle}>A</div>);
         }

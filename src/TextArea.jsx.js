@@ -7,6 +7,7 @@
 define(function (require) {
 
 
+    var _ = require('underscore');
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
     var InputWidgetImeFixed = require('./mixins/InputWidgetImeFixed');
@@ -19,6 +20,7 @@ define(function (require) {
          *
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {String} placeholder 文本域中无内容时显示的提示文字
+         * @param {Object} inputBoxStyle 输入框中字体的样式
          * @param {Function} onFocus 输入框获取焦点后的回调
          * @param {Function} onBlur 输入框失去焦点后的回调
          * @param {Import|Properties} src\mixins\InputWidget.js
@@ -42,6 +44,7 @@ define(function (require) {
                 disabled: false,
                 // self
                 placeholder: '',
+                inputBoxStyle: {},
                 // mixin
                 valueTemplate: ''
             };
@@ -78,10 +81,10 @@ define(function (require) {
                 disabled: this.props.disabled,
                 spellCheck: false,
                 // 其实不应该这样写，可是textarea的padding和border会导致整体尺寸变大
-                style: {
+                style: _.extend({}, this.props.inputBoxStyle, {
                     width: width - 22,
                     height: height - 22
-                },
+                }),
                 onCompositionStart: this.___onCompositionStart___,
                 onCompositionEnd: this.___onCompositionEnd___,
                 onKeyUp: this.___onKeyUp___,

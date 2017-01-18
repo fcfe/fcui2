@@ -86,6 +86,7 @@ define(function (require) {
                 anchor: this.refs.container,
                 location: this.props.layerLocation,
                 closeWithBodyClick: true,
+                onCloseByWindow: this.onCancelClick,
                 skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };
             containerProp.onClick = this.onMainBtnClick;

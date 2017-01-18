@@ -9,7 +9,7 @@ define(function (require) {
 
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
-    
+
     var Layer = require('./Layer.jsx');
     var List = require('./List.jsx');
     var cTools = require('./core/componentTools');
@@ -50,6 +50,7 @@ define(function (require) {
                 placeholder: 'please select',
                 openLayerType: 'onMouseEnter',
                 layerLocation: '',
+                onLayerOffset: function () {},
                 hideLayerScroll: false,
                 datasource: [],
                 // mixin
@@ -92,6 +93,7 @@ define(function (require) {
                 anchor: this.refs.container,
                 onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
                 location: this.props.layerLocation,
+                onOffset: this.props.onLayerOffset,
                 skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };
             var listProp = {
