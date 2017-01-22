@@ -10,6 +10,7 @@
 define(function(require) {
     const React = require('react');
     const ReactDOM = require('react-dom');
+    var _ = require('underscore');
     var cTools = require('./core/componentTools');
     var language = require('./core/language').toast;
 
@@ -72,7 +73,7 @@ define(function(require) {
         pop(props) {
             // 创建元素
             let me = this;
-            props = Object.assign({}, defaultProps, props);
+            props = _.extend({}, defaultProps, props);
             document.body.appendChild(this.___container___);
             me.___ui___ = null;
 
