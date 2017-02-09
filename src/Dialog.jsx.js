@@ -43,6 +43,7 @@ define(function (require) {
      * @param {Object} param.size Dialog窗体的尺寸，与isFullScreen互斥
      * @param {Number} param.size.width Dialog渲染后的宽度
      * @param {Number} param.size.height Dialog渲染后的高度
+     * @param {Number} param.zIndex Dialog渲染后的z-index（层次）
      * @param {Boolean} param.isFullScreen Dialog弹出后时候直接全屏显示
      * @param {Boolean} param.showCloseButton 是否显示Dialog标题栏中的关闭按钮
      * @param {Function} param.onBeforeClose 同TitleWindow props.onBeforeClose
@@ -218,6 +219,7 @@ define(function (require) {
                     isOpen: this.state.isOpen,
                     title: param.title,
                     size: param.size,
+                    zIndex: param.zIndex,
                     isFullScreen: param.isFullScreen,
                     showCloseButton: param.hasOwnProperty('showCloseButton') ? param.showCloseButton : true,
                     onBeforeClose: (typeof param.onBeforeClose === 'function') ? param.onBeforeClose : noop,

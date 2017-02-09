@@ -24,6 +24,7 @@ define(function (require) {
          * @param {Object} size TitleWindow窗体的尺寸，与isFullScreen互斥
          * @param {Number} size.width TitleWindow渲染后的宽度
          * @param {Number} size.height TitleWindow渲染后的高度
+         * @param {Number} zIndex TitleWindow渲染后的z-index（层次）
          * @param {Boolean} isFullScreen TitleWindow弹出后时候直接全屏显示：true，全屏；'height'，高度全屏宽度自适应；'width'，宽度全屏高度自适应；其他，自适应
          * @param {Boolean} isAutoResize TitleWindow是否根据内容变化自动调整宽度
          * @param {Boolean} showCloseButton 是否显示TitleWindow标题栏中的关闭按钮
@@ -49,6 +50,7 @@ define(function (require) {
                 isOpen: false,
                 title: 'Title Window',
                 size: {},
+                zIndex: null,
                 isFullScreen: false,
                 isAutoResize: true,
                 showCloseButton: true,
@@ -73,6 +75,9 @@ define(function (require) {
             workspace.className = 'fcui2-titlewindow';
             workspace.style.left = '-9999px';
             workspace.style.top = '-9999px';
+            if (this.props.zIndex !== null) {
+                container.style.zIndex = this.props.zIndex;
+            }
             workspace.innerHTML = [
                 '<div class="title-bar">',
                     '<span></span>',
