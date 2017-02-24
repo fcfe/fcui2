@@ -82,7 +82,7 @@ define(function (require) {
                 valuePosition: newPos
             });
             var newValue = tool.position2value(newPos, this, 10);
-            this.props.onDrag(newValue);
+            typeof this.props.onDrag === 'function' && this.props.onDrag(newValue);
         },
         onDrop: function (dx, dy) {
             this.setState({
