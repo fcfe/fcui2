@@ -30,7 +30,7 @@ define(function (require) {
          * @param {Boolean} showCloseButton 是否显示TitleWindow标题栏中的关闭按钮
          * @param {Function} onRender TitleWindow渲染完成后的回调
          * @param {Function} onBeforeClose TitleWindow关闭前触发的回调，可以在这个回调中阻止窗体关闭
-         * @param {Function} onClose TitleWindow关闭后的回调 
+         * @param {Function} onClose TitleWindow关闭后的回调
          */
         /**
          * @fire TitleWindow onBeforeClose
@@ -152,6 +152,12 @@ define(function (require) {
             var doc = document.documentElement;
             var width = 0;
             var height = 0;
+            var contentScrollTop = content.scrollTop;
+            // content设置class后，若有滚动条，此时scrollTop为0
+            // 后面再将content的class设置为'content content-fixed',此时chrome和firefox的scrollTop会变为contentScrollTop
+            // 但IE11下，content的scrolTop为0
+            // 需要手动更新
+            // @wujianwei01@baidu.com
             content.className = 'content';
             container.style.left = container.style.top = '-9999px';
             container.style.width = container.style.height = '9999px;'
@@ -166,6 +172,10 @@ define(function (require) {
             container.style.left = 0.5 * (doc.clientWidth - container.clientWidth) + 'px';
             container.style.top = 0.38 * (doc.clientHeight - container.clientHeight) + 'px';
             content.className = 'content content-fixed';
+            // content设置class后，chrome和firefox的scrollTop会变为contentScrollTop所在位置
+            // 但IE11会变为0,若此时有滚动条会直接跳转到顶部
+            // @wujianwei01@baidu.com
+            content.scrollTop = contentScrollTop;
         },
 
 
@@ -205,7 +215,7 @@ define(function (require) {
                             this.___content___.style.width = width + 'px';
                         }
                         if (!isNaN(height)) {
-                            this.___content___.style.height = height + 'px';  
+                            this.___content___.style.height = height + 'px';
                         }
                     }
                     var doc = document.documentElement;
@@ -230,7 +240,7 @@ define(function (require) {
                     ) {
                         me.___workerTimer___ = setInterval(function () {
                             me.onWorkerRunning();
-                        }, 100); 
+                        }, 100);
                     }
                     typeof props.onRender === 'function' && props.onRender();
                 });
@@ -252,9 +262,9 @@ define(function (require) {
             }
             ReactDOM.unmountComponentAtNode(this.___content___);
             this.___workspace___.style.left = '-9999px';
-            this.___workspace___.style.top = '-9999px'; 
+            this.___workspace___.style.top = '-9999px';
             this.___content___.style.width = 'auto';
-            this.___content___.style.height = 'auto'; 
+            this.___content___.style.height = 'auto';
             document.body.removeChild(this.___container___);
             clearInterval(this.___workerTimer___);
             this.___appended___ = false;

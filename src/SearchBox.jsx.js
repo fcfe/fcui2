@@ -11,6 +11,7 @@ define(function (require) {
     var InputWidget = require('./mixins/InputWidget');
     var InputWidgetImeFixed = require('./mixins/InputWidgetImeFixed');
     var cTools = require('./core/componentTools');
+    var Button = require('./Button.jsx');
 
 
     return React.createClass({
@@ -19,6 +20,7 @@ define(function (require) {
          *
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {String} placeholder 文本框中无内容时显示的提示文字
+         * @param {String} mode 搜索组件模式，withButton为带button的搜索框
          * @param {Function} onFocus 输入框获取焦点后的回调
          * @param {Function} onBlur 输入框失去焦点后的回调
          * @param {Import|Properties} src\mixins\InputWidget.js
@@ -41,10 +43,12 @@ define(function (require) {
         getDefaultProps: function () {
             return {
                 // base
+                mode: '',
                 skin: '',
                 className: '',
                 style: {},
                 icon: 'font-icon-search',
+                clearIcon: 'font-icon-times',
                 disabled: false,
                 // self
                 placeholder: '',
@@ -66,6 +70,12 @@ define(function (require) {
             e.target = this.refs.container;
             e.target.value = this.___getValue___();
             this.props.onClick(e);
+        },
+        onClearButtonClick: function (e) {
+            e.target = this.refs.container;
+            e.target.value = '';
+            this.___dispatchChange___(e);
+            this.refs.inputbox.focus();
         },
         onEnterPress: function () {
             this.onButtonClick({});
@@ -100,11 +110,31 @@ define(function (require) {
                 onBlur: this.___onBlur___,
                 onInput: this.___onInput___
             };
+            var iconProps = {
+                className: this.props.mode === 'withButton'
+                    ? 'font-icon ' + this.props.clearIcon
+                    : 'font-icon ' + this.props.icon,
+                onClick: this.props.mode === 'withButton'
+                    ? this.onClearButtonClick
+                    : this.onButtonClick
+            };
+            var searchButtonProps = {
+                onClick: this.onButtonClick,
+                className: 'search-button',
+                style: {
+                    left: width
+                }
+            };
             return (
                 <div {...containerProp}>
                     <div {...placeholderProp}>{this.props.placeholder}</div>
                     <input {...inputProp}/>
-                    <div className={"font-icon " + this.props.icon} onClick={this.onButtonClick}></div>
+                    <div {...iconProps}></div>
+                    {
+                        this.props.mode === 'withButton'
+                            ? <div {...searchButtonProps}>搜索</div>
+                            : null
+                    }
                 </div>
             );
         }

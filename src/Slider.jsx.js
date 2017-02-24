@@ -27,6 +27,7 @@ define(function (require) {
          * @param {Number} step 滑动后最小变动值
          * @param {String} type 数字的类型，float或int
          * @param {Number} fixed 保留的小数位数，只有当type为float时有效
+         * @param {Function} onDrag 拖拽时的回调函数
          * @param {String} measure 说明框上显示的单位
          * @param {Boolean} showLabel 是否显示说明框
          * @param {Import|Properties} src\mixins\InputWidget.js
@@ -80,6 +81,8 @@ define(function (require) {
             this.setState({
                 valuePosition: newPos
             });
+            var newValue = tool.position2value(newPos, this, 10);
+            this.props.onDrag(newValue);
         },
         onDrop: function (dx, dy) {
             this.setState({
