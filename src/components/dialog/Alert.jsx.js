@@ -40,7 +40,11 @@ define(function (require) {
             };
             return (
                 <div className={className}>
-                    <div className="message">{this.props.message}</div>
+                    <div
+                        className="message"
+                        dangerouslySetInnerHTML={{__html: this.props.message}}
+                    >
+                    </div>
                     <div className="button-bar">
                         <Button {...buttonProps}/>
                     </div>

@@ -13,7 +13,6 @@ define(function (require) {
     var ReactDOM = require('react-dom');
     var renderSubtreeIntoContainer = require("react-dom").unstable_renderSubtreeIntoContainer;
     var util = require('./core/util');
-    var tools = require('./core/shojiScreenTools');
     var language = require('./core/language').shojiScreen;
     var noop = function () {};
 
@@ -133,6 +132,7 @@ define(function (require) {
 
 
         onHidden: function (e) {
+            var tools = require('./core/shojiScreenTools');
             if (!this.___container___ || !this.props.isOpen || !this.___appended___) return;
             if (typeof this.props.onAction === 'function' && this.props.onAction('HideButtonClick') === false) {
                 return;
@@ -232,6 +232,7 @@ define(function (require) {
 
         // 销毁窗体，不会触发任何事件，直接干掉
         removeSubTree: function () {
+            var tools = require('./core/shojiScreenTools');
             if (!this.___appended___) return;
             ReactDOM.unmountComponentAtNode(this.___content___);
             try {
