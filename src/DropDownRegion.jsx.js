@@ -54,6 +54,7 @@ define(function (require) {
                 label: 'DropDownRegion',
                 openLayerType: 'onMouseEnter',
                 type: 'multi',
+                allowEmpty: false,
                 noLinkage: false,
                 provinceRenderer: undefined,
                 regionRenderer: undefined,
@@ -211,6 +212,9 @@ define(function (require) {
             };
             containerProp.onMouseEnter = this.onMainMouseEnter;
             containerProp.onMouseLeave = this.onMainMouseLeave;
+            if (this.props.allowEmpty && !this.state.multiValue) {
+                enterProp.disabled = false;
+            }
             if (this.props.type !== 'single') {
                 containerProp.onClick = this.open;
             }
