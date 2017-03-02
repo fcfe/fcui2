@@ -1,10 +1,9 @@
 /**
- * @file ColorGrid - 栅格形式的色彩选择器
+ * 栅格形式的色彩选择器
  * @author Wang Yi
  * @email wangyispaceman@gmail.com
  * @version 0.0.2.2
  */
-
 define(function (require) {
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
@@ -19,7 +18,7 @@ define(function (require) {
          * @properties
          *
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
-         * @param {Array.<String>} 可选择的颜色集合，以#为前缀的CSS色值，六位十六进制数组成
+         * @param {Array.<String>} colors 可选择的颜色集合，以#为前缀的CSS色值，六位十六进制数组成
          * @param {ReactClass} renderer 组件主体部分渲染器
          * @param {String} mode 选择器的工作模式：'font'前景颜色，'background'背景颜色
          * @param {String} layerLocation 浮层的定位配置，具体见src\core\layerTools.js
@@ -42,18 +41,7 @@ define(function (require) {
          * @param {Number} rgb.g 绿色通道色值
          * @param {Number} rgb.b 蓝色通道色值
          */
-        /**
-         * mixins
-         *
-         * @override
-         */
         mixins: [InputWidget],
-
-        /**
-         * 默认props
-         *
-         * @override
-         */
         getDefaultProps: function () {
             return {
                 // base
@@ -77,32 +65,18 @@ define(function (require) {
             };
         },
 
-        /**
-         * 初始state
-         *
-         * @override
-         */
         getInitialState: function () {
             return {
                 isLayerOpen: false
             };
         },
 
-        /**
-         * 点击控件主体并打开浮层
-         */
         onMainClick: function () {
             this.setState({
                 isLayerOpen: true
             });
         },
 
-        /**
-         * 点击色块选择颜色
-         *
-         * @param {Object} data 选择的色值
-         * @param {Event} e 点击色块事件对象
-         */
         onColorClick: function (data, e) {
             var hex = data.color;
             var rgbArray = tools.CSS2RGB(hex);
@@ -121,9 +95,6 @@ define(function (require) {
             });
         },
 
-        /**
-         * 取消选择并关闭浮层
-         */
         onCancelClick: function () {
             this.setState({
                 isLayerOpen: false
