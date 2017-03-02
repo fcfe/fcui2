@@ -204,8 +204,8 @@ define(function (require) {
             }
             width = props.fixedWidthToAnchor && width < props.anchor.offsetWidth
                 ? props.anchor.offsetWidth - 2 : width;
-            width = props.hasOwnProperty('style') && props.style.hasOwnProperty('width') ? props.width : width;
-            height = props.hasOwnProperty('style') && props.style.hasOwnProperty('height') ? props.height : height;
+            width = props.hasOwnProperty('style') && props.style.hasOwnProperty('width') ? props.style.width : width;
+            height = props.hasOwnProperty('style') && props.style.hasOwnProperty('height') ? props.style.height : height;
             if (this.___contentSize___ === width + ';' + height) return;
             this.___contentSize___ = width + ';' + height;
             if (util.getBrowserType() === 'ie' && !this.___addFixedIeWidth___) {
@@ -235,7 +235,7 @@ define(function (require) {
                 + (arr[4] != null ? ';left:' + arr[4] + 'px' : '')
                 + (arr[5] != null ? ';right:' + arr[5] + 'px' : '')
                 + (arr[6] != null ? ';top:' + arr[6] + 'px' : '')
-                + (arr[7] != null ? ';bottom:' + arr[7] + 'px' : ''); 
+                + (arr[7] != null ? ';bottom:' + arr[7] + 'px' : '');
         },
         fixedPosition: function (props) {
             this.fixedSize(props);
