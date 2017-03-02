@@ -14,7 +14,7 @@ define(function (require) {
     };
     var mixins = {
         level: 'mixin',
-        label: 'Mixins', 
+        label: 'Mixins',
         children: []
     };
     var menu = [
@@ -78,6 +78,7 @@ define(function (require) {
                 {id: 'src\\RangeCalendar.jsx.js', label: 'RangeCalendar'},
                 {id: 'src\\DropDownCalendar.jsx.js', label: 'DropDownCalendar'},
                 '',
+                {id: 'src\\ColorGrid.jsx.js', label: 'ColorGrid'},
                 {id: 'src\\ColorPicker.jsx.js', label: 'ColorPicker'},
                 {id: 'src\\DropDownColorPicker.jsx.js', label: 'DropDownColorPicker'},
                 '',
@@ -152,6 +153,7 @@ define(function (require) {
         'src\\Message.jsx.js': require('./demos/components/Message.jsx'),
         'src\\enterprise\\Uploader.jsx.js': require('./demos/components/Uploader.jsx'),
         'src\\enterprise\\SelectWithFilter.jsx.js': require('./demos/components/SelectWithFilter.jsx'),
+        'src\\ColorGrid.jsx.js': require('./demos/components/ColorGrid.jsx'),
         'src\\ColorPicker.jsx.js': require('./demos/components/ColorPicker.jsx'),
         'src\\DropDownColorPicker.jsx.js': require('./demos/components/DropDownColorPicker.jsx')
     };

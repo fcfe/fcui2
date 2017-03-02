@@ -6,7 +6,7 @@
     "test": "node node_modules/edp/bin/edp-cli build -f && node node_modules/karma/bin/karma start",
     "spec": "./node_modules/.bin/edp build -f && ./node_modules/.bin/edp test start",
     "coverage": "cat ./coverage/lcov/lcov.info | ./node_modules/.bin/coveralls",
-    "docs": "node ./FcDocsBuilder.js"
+    "docs": "node ./FcDocsBuilder.js | ./node_modules/.bin/edp build -f --config=edp-build-doc-config.js"
   },
   "maintainers": [
     {
