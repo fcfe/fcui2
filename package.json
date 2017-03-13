@@ -72,7 +72,7 @@
     "babel-preset-react": "^6.5.0",
     "coveralls": "^2.11.11",
     "edp": "^1.1.1",
-    "edp-build": "^1.1.2",
+    "edp-build": "1.1.1",
     "edp-test": "^1.1.1",
     "edp-webserver": "^1.2.6",
     "eslint": "^2.11.1",
