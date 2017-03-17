@@ -22,7 +22,7 @@ define(function (require) {
                 position: 'relative',
                 width: 16,
                 height: 16,
-                border: '1px solid #5DB3FA',
+                border: '1px solid #169AFF',
                 cursor: this.props.disabled ? 'not-allowed' : 'pointer'
             };
             var innerBlockStyle = {

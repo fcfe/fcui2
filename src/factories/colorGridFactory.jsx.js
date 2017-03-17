@@ -9,11 +9,11 @@ define(function (require) {
     var React = require('react');
 
     var DEFAULT_COLORS = [
-        '#CF5E60', '#F15C5D', '#EB7560', '#FD7374', '#FD9191', '#E35A8F', '#FB8FBA', '#FD8E8E', '#F7B6B7', '#FED6D6',
-        '#CFA171', '#C7B6A6', '#DCB98D', '#FA9226', '#F6C745', '#FDD765', '#E5BC44', '#E2D98C', '#E5E7A1', '#FFFCDF',
-        '#615AB2', '#7167D9', '#7F75EC', '#A88BBA', '#ABA3FD', '#D09DF5', '#AD7AD2', '#9DACF9', '#A88BBB', '#ECD4FE',
-        '#4664FB', '#537BE8', '#1483D6', '#269CFC', '#4AAFFC', '#4AAFFD', '#84B6DB', '#34C2E8', '#99E3F6', '#DFEFF3',
-        '#1F8A78', '#579D92', '#2BB177', '#2CB19A', '#41CCB4', '#9CBB74', '#92C452', '#AADFD6', '#BDE2AA', '#ECFFD4'
+        '#D15D5D', '#F35A59', '#EE745D', '#FF7271', '#FF908F', '#E6578F', '#FD8EB9', '#FF8D8C', '#F8B6B7', '#FFD5D6',
+        '#D0A26D', '#C8B7A5', '#DDBA8A', '#FC9300', '#F7C834', '#FED85B', '#E6BD35', '#E2DA88', '#E5E89D', '#FFFCDE',
+        '#6157B5', '#7163DC', '#7F71EF', '#8D66A5', '#ABA1FF', '#D19BF7', '#AE77D5', '#9CABFB', '#A98ABC', '#ECD2FF',
+        '#425EFF', '#5078EA', '#0082DA', '#00A1DD', '#169AFF', '#43AEFF', '#82B6DD', '#26C2EA', '#96E3F7', '#E0EFF4',
+        '#168B78', '#559E93', '#1FB275', '#1FB19A', '#37CDB4', '#9CBC70', '#92C64A', '#AADFD7', '#BCE4A8', '#ECFFD2'
     ];
 
     return {
@@ -26,7 +26,7 @@ define(function (require) {
                 marginRight: 1,
                 marginBottom: 1,
                 border: '1px solid transparent',
-                borderColor: active ? '#5DB3FA' : 'transparent',
+                borderColor: active ? '#169AFF' : 'transparent',
                 cursor: 'pointer'
             };
             var innerBlockStyle = {

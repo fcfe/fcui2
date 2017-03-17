@@ -42,14 +42,21 @@ define(function(require) {
      */
 
     class Toast {
-        constructor() {
-            if (!window || !document)
+        getContainer() {
+            if (!document)
                 return;
 
-            let container = document.createElement('div');
+            if (this.___container___) {
+                return this.___container___;
+            }
+            else {
+                let className = defaultProps.classPrefix + '-container';
+                let container = document.createElement('div');
 
-            container.className = defaultProps.classPrefix + '-container';
-            this.___container___ = container;
+                container.className = className;
+                this.___container___ = container;
+                return container;
+            }
         }
 
       /**
@@ -74,10 +81,10 @@ define(function(require) {
             // 创建元素
             let me = this;
             props = _.extend({}, defaultProps, props);
-            document.body.appendChild(this.___container___);
+            document.body.appendChild(this.getContainer());
             me.___ui___ = null;
 
-            ReactDOM.render(<ToastComponent {...props}/>, me.___container___, function(ref) {
+            ReactDOM.render(<ToastComponent {...props}/>, me.getContainer(), function(ref) {
                 me.___ui___ = this;
                 me.resize(props);
             });
@@ -91,7 +98,7 @@ define(function(require) {
         }
 
         resize(props) {
-            let content = this.___container___.childNodes[0];
+            let content = this.getContainer().childNodes[0];
             if (!content) {
                 return;
             }
@@ -110,8 +117,8 @@ define(function(require) {
         }
 
         dispose() {
-            ReactDOM.unmountComponentAtNode(this.___container___);
-            document.body.removeChild(this.___container___);
+            ReactDOM.unmountComponentAtNode(this.getContainer());
+            document.body.removeChild(this.getContainer());
         }
     }
 

@@ -20,7 +20,6 @@ define(function (require) {
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {Array.<String>} colors 可选择的颜色集合，以#为前缀的CSS色值，六位十六进制数组成
          * @param {ReactClass} renderer 组件主体部分渲染器
-         * @param {String} mode 选择器的工作模式：'font'前景颜色，'background'背景颜色
          * @param {String} layerLocation 浮层的定位配置，具体见src\core\layerTools.js
          * @param {Import|Properties} src\mixins\InputWidget.js
          *     value onChange name validations customErrorTemplates valueTemplate
@@ -55,11 +54,11 @@ define(function (require) {
                 layerLocation: 4,
                 // mixin
                 valueTemplate: JSON.stringify({
-                    hex: '#CF5E60',
+                    hex: '#F35A59',
                     rgb: {
-                        r: 207,
-                        g: 94,
-                        b: 96
+                        r: 243,
+                        g: 90,
+                        b: 89
                     }
                 })
             };
