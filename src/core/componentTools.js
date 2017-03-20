@@ -111,6 +111,10 @@ define(function (require) {
             };
             var key = '';
             var appSkin = me.context.appSkin ? ('-' + me.context.appSkin) : '';
+            // uuid
+            if (me.props.uuid) {
+                result['data-uuid'] = me.props.uuid;
+            };
             // style
             result.style = _.extend({}, result.style, me.props.style);
             // skin
