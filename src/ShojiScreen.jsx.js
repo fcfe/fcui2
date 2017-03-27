@@ -202,6 +202,7 @@ define(function (require) {
                 this.___container___.className = 'fcui2-shojiscreen'
                     + (typeof className === 'string' && className ? (' ' + className) : '')
                     + ' fcui2-shojiscreen-' + (typeof skin === 'string' && skin ? skin : 'normal')
+                    + (props.className ? ' ' + props.className : '')
                     + (props.showFootBar ? '' : ' fcui2-shojiscreen-hide-foot-bar');
                 this.___workspace___.style.width = (isNaN(width) ? 1000 : width) + 'px';
                 this.___footBarContent___.innerHTML = typeof props.footBarInnerHtml === 'string'
