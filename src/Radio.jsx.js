@@ -55,6 +55,12 @@ define(function (require) {
             };
         },
         // @override
+        componentWillReceiveProps: function (nextProps) {
+            if (nextProps.checked !== this.props.checked) {
+                this.refs.inputbox.checked = nextProps.checked;
+            }
+        },
+        // @override
         getInitialState: function () {
             return {};
         },

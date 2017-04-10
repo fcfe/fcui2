@@ -98,3 +98,39 @@
         }
     }
 }
+
+// 有子菜单样式
+.fcui2-list .list-normal-item {
+    position: relative;
+    overflow: visible;
+    .font-icon-caret-right {
+        display: inline-block;
+        position: relative;
+        top: 2px;
+        left: -10px;
+    }
+    .children-container {
+        display: none;
+        border: 1px solid @oneux3-bgcolor-c20;
+        position: absolute;
+        left: 150px;
+        top: 0;
+        z-index: 1;
+    }
+    &:hover {
+        .children-container {
+            display: block;
+        }
+        .font-icon-caret-right {
+            color: @oneux3-bgcolor-c20;
+        }
+    }
+    &.list-normal-item-disabled {
+        .children-container {
+            display: none;
+        }
+        .font-icon-caret-right {
+            color: @color-disabled-icon
+        }
+    }
+}

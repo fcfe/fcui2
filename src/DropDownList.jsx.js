@@ -43,6 +43,7 @@ define(function (require) {
                 skin: '',
                 className: '',
                 style: {},
+                layerListStyle: undefined,
                 disabled: false,
                 // self
                 itemRenderer: undefined,
@@ -89,11 +90,14 @@ define(function (require) {
                 itemRenderer: this.props.itemRenderer,
                 datasource: this.props.datasource,
                 onClick: this.onListClick,
-                style: {
-                    maxHeight: '242px',
-                    overflowY: 'auto',
-                    overflowX: 'hidden'
-                }
+                parentComponent: this,
+                style: this.props.layerListStyle
+                    ? this.props.layerListStyle
+                    : {
+                        maxHeight: '242px',
+                        overflowY: 'auto',
+                        overflowX: 'hidden'
+                    }
             };
             if (this.props.hideLayerScroll) {
                 delete listProp.style;
