@@ -61,7 +61,7 @@ define(function (require) {
             };
             var iconProp = {
                 className: 'expand-button font-icon font-icon-caret-' + (expand[item.value] ? 'down' : 'right'),
-                style: {visibility: !(item.children instanceof Array) ? 'hidden' : 'auto'},
+                style: {visibility: !(item.children instanceof Array) ? 'hidden' : 'visible'},
                 onClick: this.onExpand // from TreeNodeBase Mixin
             };
             return (
