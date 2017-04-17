@@ -102,7 +102,13 @@ define(function (require) {
         ___onKeyUp___: function (e) {
             this.___isPressing___ = false;
             this.___lastCursorPos___ = util.getCursorPosition(e.target);
+            // 特殊处理回车
             e.keyCode === 13 && typeof this.onEnterPress === 'function' && this.onEnterPress();
+            // 处理其他快捷键
+            if (typeof this.props.hotkeyAnalyzer === 'function' && typeof this.props.onHotKey === 'function') {
+                var hotkey = this.props.hotkeyAnalyzer(e);
+                typeof hotkey === 'string' && hotkey.length && this.props.onHotKey(hotkey);
+            }
             if (this.___imeStart___ || this.___lastFiredValue___ === this.refs.inputbox.value) return;
             this.______callDispatch______(e);
         },
