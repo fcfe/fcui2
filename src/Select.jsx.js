@@ -23,6 +23,7 @@ define(function (require) {
          * @param {String} placeholder 组件为选择且无初始值时，下拉按钮上显示的值
          * @param {String} openLayerType 控制浮层打开的动作，onMouseEnter或onClick
          * @param {Array.<ListItemObject>} datasource 列表数据源
+         * @param {ReactClass} itemRenderer 列表项渲染器
          * @param {Import|Properties} src\mixins\InputWidget.js
          *      value onChange name validations customErrorTemplates valueTemplate
          */
@@ -54,7 +55,8 @@ define(function (require) {
                 hideLayerScroll: false,
                 datasource: [],
                 // mixin
-                valueTemplate: ''
+                valueTemplate: '',
+                itemRenderer: null
             };
         },
         // @override
@@ -98,6 +100,7 @@ define(function (require) {
             };
             var listProp = {
                 datasource: this.props.datasource,
+                itemRenderer: this.props.itemRenderer,
                 ref: 'list',
                 onClick: this.onListClick,
                 style: {

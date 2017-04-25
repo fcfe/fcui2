@@ -204,6 +204,7 @@ define(function (require) {
             if (callbackParam.isValid) {
                 typeof this.props.onSubmit === 'function' && this.props.onSubmit(validationResults.dataset);
             }
+            return callbackParam;
         }
     });
 
