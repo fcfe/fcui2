@@ -86,6 +86,7 @@ define(function (require) {
             var disabled = table.props.disabled;
             var checked = info.i === -1
                 || (info.workMode === SELECT_MODE.CURRENT_PAGE && info.i === table.props.datasource.length);
+            table.props.datasource.length === 0 && (checked = false);
             var indeterminate = info.workMode === SELECT_MODE.CURRENT_PAGE
                 ? (info.i > 0 && info.i < table.props.datasource.length)
                 : (info.i !== -1 && info.i > 0);

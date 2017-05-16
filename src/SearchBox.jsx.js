@@ -75,7 +75,7 @@ define(function (require) {
             e.target = this.refs.container;
             e.target.value = '';
             this.___dispatchChange___(e);
-            this.refs.inputbox.focus();
+            this.props.onClick(e);
         },
         onEnterPress: function () {
             this.onButtonClick({});
