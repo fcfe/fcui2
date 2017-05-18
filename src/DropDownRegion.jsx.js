@@ -28,9 +28,6 @@ define(function (require) {
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {String} label 下拉按钮上显示的文字，如果type为'single'并且value的值合法，将显示地域名称
          * @param {String} openLayerType 控制浮层打开的动作，onMouseEnter或onClick
-         * @param {boolean} readonly 为true时region浮层只读。
-         *                           region设置为multi时，内部状态控件内部维护且由ok点击传出，不能
-         *                           通过不设置handler表达只读，设置额外的flag。
          * @param {Import|Properties} src\Region.jsx.js type noLinkage provinceRenderer regionRenderer countryRenderer
          * @param {Import|Properties} src\Region.jsx.js countries
          * @param {Import|Properties} src\mixins\InputWidget.js
@@ -53,7 +50,6 @@ define(function (require) {
                 className: '',
                 style: {},
                 disabled: false,
-                readonly: false,
                 // self
                 label: 'DropDownRegion',
                 openLayerType: 'onMouseEnter',
@@ -201,7 +197,7 @@ define(function (require) {
                 regionRenderer: this.props.regionRenderer,
                 countryRenderer: this.props.countryRenderer,
                 countries: this.props.countries,
-                onChange: this.props.readonly ? null : this.onRegionChange
+                onChange: this.onRegionChange
             };
             var enterProp = {
                 label: buttonLabels.enter,
@@ -235,8 +231,8 @@ define(function (require) {
                     <Layer {...layerProp}>
                         <div style={{maxWidth: 600}}>
                             <Region {...regionProp}/>
-                            {this.props.type === 'multi' && !this.props.readonly ? <Button {...enterProp}/> : null}
-                            {this.props.type === 'multi' && !this.props.readonly ? <Button {...cancelProp}/> : null}
+                            {this.props.type === 'single' ? null : <Button {...enterProp}/>}
+                            {this.props.type === 'single' ? null : <Button {...cancelProp}/>}
                         </div>
                     </Layer>
                 </div>
