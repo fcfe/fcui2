@@ -128,9 +128,6 @@ define(function (require) {
                 clearInterval(this.___workerTimer___);
                 return;
             }
-            if (!util.isDOMVisible(this.props.anchor)) {
-                return;
-            }
             var pos = util.getDOMPosition(this.props.anchor);
             pos = pos.x + ';' + pos.y + ';' + pos.left + ';' + pos.top;
             if (this.___anchorPosition___ !== pos) {
@@ -241,6 +238,9 @@ define(function (require) {
                 + (arr[7] != null ? ';bottom:' + arr[7] + 'px' : '');
         },
         fixedPosition: function (props) {
+            if (!util.isDOMVisible(this.props.anchor)) {
+                return;
+            }
             this.fixedSize(props);
             var layer = this.___layerContainer___;
             var anchorPos = util.getDOMPosition(props.anchor);
