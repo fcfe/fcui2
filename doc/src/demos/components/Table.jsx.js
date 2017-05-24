@@ -182,7 +182,8 @@ define(function (require) {
                     sortEnable: true,
                     showMessage: true,
                     showSummary: true,
-                    showHorizontalScroll: true
+                    showHorizontalScroll: true,
+                    showGroupNameInHeader: true
                 },
                 fixedPosition: [
                     {ref: 'shadowTableContainer', top: 60, zIndex: 8}
@@ -197,14 +198,30 @@ define(function (require) {
                 },
                 datasource: datasource.concat(datasource, datasource, datasource),
                 fieldConfig: [
-                    fieldConfig.styleName, fieldConfig.tipName, fieldConfig.tipAge,
-                    fieldConfig.buttonField, fieldConfig.numberInt, fieldConfig.buttonField, fieldConfig.numberInt,
-                    fieldConfig.buttonField, fieldConfig.numberInt
+                    {isSelector: true, fixed: true},
+                    fieldConfig.normalName,
+                    fieldConfig.normalAge,
+                    fieldConfig.normalBirth,
+                    fieldConfig.tipName,
+                    fieldConfig.tipAge,
+                    fieldConfig.tipBirth,
+                    fieldConfig.styleName,
+                    fieldConfig.styleAge,
+                    fieldConfig.styleBirth,
+                    fieldConfig.numberInt,
+                    fieldConfig.buttonField
                 ]
             }
         }
     ];
-    items2[0].props.fieldConfig[0].fixed = true;
+    items2[0].props.fieldConfig[1].groupName = '基础信息';
+    items2[0].props.fieldConfig[2].groupName = '基础信息';
+    items2[0].props.fieldConfig[3].groupName = '垃圾信息';
+    items2[0].props.fieldConfig[4].groupName = '垃圾信息';
+    items2[0].props.fieldConfig[5].groupName = '基础信息';
+    items2[0].props.fieldConfig[6].groupName = '基础信息';
+    items2[0].props.fieldConfig[7].groupName = '基础信息';
+
     var Example1 = Creater(Table, items1, 'onChange');
     var Example2 = Creater(Table, items2, 'onChange');
 

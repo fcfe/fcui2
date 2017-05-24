@@ -130,7 +130,7 @@ define(function (require) {
                  skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };
             return (
-                <th className="th-header table-selector">
+                <th className="th-header table-selector" rowSpan={this.props.rowSpan}>
                     <div {...containerProp}>
                         <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
                         &nbsp;

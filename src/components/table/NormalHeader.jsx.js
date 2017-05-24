@@ -70,6 +70,7 @@ define(function (require) {
             };
             var thProp = {
                 className: 'th-header',
+                rowSpan: this.props.rowSpan + '',
                 style: {
                     textAlign: fieldConfig.align || 'left',
                     verticalAlign: fieldConfig.verticalAlign || 'top'
