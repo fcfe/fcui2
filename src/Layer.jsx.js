@@ -128,6 +128,9 @@ define(function (require) {
                 clearInterval(this.___workerTimer___);
                 return;
             }
+            if (!util.isDOMVisible(this.props.anchor)) {
+                return;
+            }
             var pos = util.getDOMPosition(this.props.anchor);
             pos = pos.x + ';' + pos.y + ';' + pos.left + ';' + pos.top;
             if (this.___anchorPosition___ !== pos) {
