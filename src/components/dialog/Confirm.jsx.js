@@ -24,6 +24,10 @@ define(function (require) {
         getDefaultProps : function () {
             return {
                 message: 'Message',
+                labels: {
+                    enter: '确定',
+                    cancel: '取消'
+                },
                 onEnter: null,
                 onCancel: null
             };
@@ -42,18 +46,18 @@ define(function (require) {
             var enterProps = {
                 skin: 'important',
                 width: 67,
-                label: '确定',
+                label: this.props.labels.enter,
                 onClick: this.onEnterClick
             };
             var cancelProps = {
                 skin: (this.context.appSkin ? 'grey1' : ''),
-                label: '取消',
+                label: this.props.labels.cancel,
                 width: 67,
                 onClick: this.onCancelClick
             };
             return (
                 <div className={className}>
-                    <div className="message">{this.props.message}</div> 
+                    <div className="message" dangerouslySetInnerHTML={{__html: this.props.message}}></div> 
                     <div className="button-bar">
                         <Button {...enterProps}/>
                         <Button {...cancelProps}/>

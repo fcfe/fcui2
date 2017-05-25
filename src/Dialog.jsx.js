@@ -126,7 +126,8 @@ define(function (require) {
     Dialog.prototype.alert = function (param) {
         param = param || {};
         var contentProps ={
-            message: param.message
+            message: param.message,
+            labels: param.labels
         };
         var dialogProp = _.extend({}, param, {
             content: AlertContent,
@@ -153,6 +154,7 @@ define(function (require) {
         param = param || {};
         var contentProps = {
             message: param.message,
+            labels: param.labels,
             onEnter:  typeof param.onEnter === 'function' ? param.onEnter : noop,
             onCancel: typeof param.onCancel === 'function' ? param.onCancel : noop
         };
