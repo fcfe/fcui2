@@ -17,11 +17,13 @@ define(function(require) {
     let toastInstance;
 
     const toastType = {
-        SUCCESS: 'success'
+        SUCCESS: 'success',
+        ERROR: 'error'
     };
 
     const iconType = {
         success: 'font-icon font-icon-check-circle-s',
+        error: 'font-icon font-icon-times-circle'
     };
 
     let defaultProps = {
@@ -66,7 +68,7 @@ define(function(require) {
         * @className Toast
         * @param {Object} param 弹出配置
         * @param {String} param.className 挂在到Toast窗体DOM上的class
-        * @param {String} param.type 当前的状态,默认返回success样式(现在也只有success样式)
+        * @param {String} param.type 当前的状态,默认返回success样式
         * @param {String} param.icon 展示的icon,可自定义图标样式
         * @param {String} param.message 展示的信息文本，默认为'保存成功',配置message后type原有话术将被替换
         * @param {Object} param.size Toast的宽高

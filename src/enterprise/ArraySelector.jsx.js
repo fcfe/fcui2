@@ -222,6 +222,7 @@ define(function (require) {
                 ref: 'container',
                 className: 'fcui2-arrayselector-enterprise fcui2-arrayselector-enterprise-'
                     + (me.props.skin ? me.props.skin : 'normal')
+                    + ' ' + (me.props.className ? me.props.className : '')
             } : cTools.containerBaseProps('arrayselector-enterprise', me);
         try {
             value = JSON.parse(value);
