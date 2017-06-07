@@ -1,6 +1,7 @@
 node_modules
 build
-build-doc
+build.doc/doc
+build.doc/src
 *.log
 output
 coverage

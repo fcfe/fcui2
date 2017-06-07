@@ -10,35 +10,39 @@
 
 ## See FCUI2 examples
 
-* Enter FCUI2 root directory, install scaffold tools by running:
-```
-    npm install edp
+* Visit [http://fcfe.github.com/products/fcui2/](http://fcfe.github.com/products/fcui2/).
+
+## See FCUI2 Docs locally
+
+* Clone a copy of the main git repo by running:
+
+```bash
+    git clone https://github.com/fcfe/fcui2.git
 ```
 
-* Start a http server by running:
-```
-    edp webserver start
-```
-or by running
-```
+* Enter FCUI2 root directory, install dependencies by running:
+
+```bash
     npm install
-    mkdir -p node_modules/edp/node_modules
+```
+
+* Start a local http server by running:
+
+```bash
     npm start
 ```
 
-* Using a browser to access URL:
-
-        http://localhost:8847/index.html
+* Visit [http://localhost:8847/](http://localhost:8847/)
 
 
-## Use FCUI2 in browsers
+## Use FCUI2 in browser
 
 * Clone a copy of the main git repo by running:
 ```bash
     git clone https://github.com/fcfe/fcui2.git
 ```
 
-* Compile fcui2/src/css/main.less, fcui2/src/css/icon/fc-icon.less to css file, or add less compiling module to your development environment, then import style sheet in your home page:
+* Compile fcui2/src/css/main.less, fcui2/src/css/icon/fc-icon.less to css file, or add less compiling module to your developping environment, then import style sheet in your home page:
 ```html
     <link rel="stylesheet" href="./dep/fcui2/src/css/icon/fc-icon.css"/>
     <link rel="stylesheet" href="./dep/fcui2/src/css/main.css"/>
@@ -157,24 +161,30 @@ or by running
 
 ## How to run FCUI2 test
 
-```shell
-$ npm install
+```bash
 $ npm test
 ```
 or
-```shell
-$ npm install
+```bash
+$ npm install edp -g
 $ edp test start
 ```
 
 ## How to build FCUI2 Doc System
 
-```shell
-$ edp build --config edp-build-doc-config.js
+```bash
+$ npm run build
 ```
 
 ## Author
+* Brian Li
 * email: lbxxlht@163.com
 * weibo: http://weibo.com/lbxx1984
-* blog: http://blog.csdn.net/lbxx1984
+
 ## Contributors
+* Han Bingfeng: hanbingfeng@baidu.com
+* Wang Yi: wangyispaceman@gmail.com
+* Hao Cuicui: haocuicui@baidu.com
+* Han Cong: hancong05@baidu.com
+* Sun WenFei: sunwenfei@baidu.com
+* Chen Xiao: chenxiao09@baidu.com

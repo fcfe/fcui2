@@ -1,0 +1,39 @@
+
+var webpack = require('webpack');
+var path = require('path');
+
+module.exports = {
+    entry: [
+        './doc/src/main.webpack.js'
+    ],
+    output: {
+        path: path.resolve(__dirname, 'build.doc'),
+        filename: 'src/build.js'
+    },
+    module: {
+        loaders: [
+            {
+                test: /\.(jsx|es6).js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/
+            },
+            {
+                test: /\.less$/,
+                loader: 'style-loader!css-loader!less-loader'
+            },
+            {
+                test: /\.(gif|jpg|png|woff|svg|eot|ttf|html)\??.*$/,
+                loader: 'url-loader?limit=8096&name=[path][name].[ext]'
+            }
+        ]
+    },
+    resolve: {
+        extensions: ['.js'],
+        alias: {
+            'react': path.resolve(__dirname, 'dep/react-with-addons.min.js'),
+            'react-dom': path.resolve(__dirname, 'dep/react-dom.min.js'),
+            'fcui2': path.join(__dirname, 'src'),
+            'js-formatter': path.join(__dirname, 'dep/formatterJS')
+        }
+    }
+};
