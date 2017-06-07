@@ -1,6 +1,4 @@
 # FCUI2
-[![Build Status](https://travis-ci.org/fcfe/fcui2.svg?branch=master)](https://travis-ci.org/fcfe/fcui2)
-[![Coverage Status](https://coveralls.io/repos/github/fcfe/fcui2/badge.svg)](https://coveralls.io/github/fcfe/fcui2)
 
 ## What is FCUI2?
 

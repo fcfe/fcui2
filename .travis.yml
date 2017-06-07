@@ -6,7 +6,5 @@ after_script:
 notifications:
   email:
     recipients:
-      - lihaitao03@baidu.com
-      - hanbingfeng@baidu.com
     on_success: change
     on_failure: always
