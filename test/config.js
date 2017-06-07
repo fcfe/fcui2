@@ -11,8 +11,8 @@ module.exports = {
     requireConfig: {
         baseUrl: '../src',
         paths: {
-            'react': '../dep/react-with-addons.min',
-            'react-dom': '../dep/react-dom.min'
+            'react': '../dep/react-with-addons',
+            'react-dom': '../dep/react-dom'
         },
         packages: [
             {
