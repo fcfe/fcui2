@@ -12,7 +12,7 @@ module.exports = {
         baseUrl: '../src',
         paths: {
             'react': '../dep/react-with-addons',
-            'react-dom': '../dep/react-dom'
+            'react-dom': '../dep/react-dom.min'
         },
         packages: [
             {

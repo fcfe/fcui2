@@ -2,11 +2,11 @@
   "name": "fcui",
   "version": "2.0.2",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.js --progress --colors --content-base build.doc --hot --port 8847 --host 0.0.0.0",
+    "start": "node node_modules/edp/bin/edp-cli webserver start",
     "test": "node node_modules/edp/bin/edp-cli build -f && node node_modules/karma/bin/karma start",
-    "build": "node ./FcDocsBuilder.js | webpack",
     "spec": "./node_modules/.bin/edp build -f && ./node_modules/.bin/edp test start",
-    "coverage": "cat ./coverage/lcov/lcov.info | ./node_modules/.bin/coveralls"
+    "coverage": "cat ./coverage/lcov/lcov.info | ./node_modules/.bin/coveralls",
+    "docs": "node ./FcDocsBuilder.js | ./node_modules/.bin/edp build -f --config=edp-build-doc-config.js"
   },
   "maintainers": [
     {
@@ -49,7 +49,7 @@
   "homepage": "https://github.com/fcfe/fcui2",
   "repository": "git@github.com:fcfe/fcui2.git",
   "devDependencies": {
-    "babel-core": "^5.8.25",
+    "babel-core": "^6.7.7",
     "babel-plugin-check-es2015-constants": "^6.7.2",
     "babel-plugin-transform-es2015-arrow-functions": "^6.7.7",
     "babel-plugin-transform-es2015-block-scoped-functions": "^6.6.5",
@@ -71,15 +71,6 @@
     "babel-plugin-transform-object-rest-spread": "^6.6.5",
     "babel-preset-react": "^6.5.0",
     "coveralls": "^2.11.11",
-    "webpack": ">=0.0.0",
-    "webpack-dev-server": ">=0.0.0",
-    "babel-loader": "^5.3.2",
-    "style-loader": "^0.13.0",
-    "css-loader": "^0.23.0",
-    "less": "^2.5.3",
-    "less-loader": "^2.2.2",
-    "url-loader": ">=0.0.0",
-    "file-loader": ">=0.0.0",
     "edp": "^1.1.1",
     "edp-build": "1.1.1",
     "edp-test": "^1.1.1",
