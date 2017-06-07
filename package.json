@@ -2,7 +2,8 @@
   "name": "fcui",
   "version": "2.0.2",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.js --progress --colors --content-base build.doc --hot --port 8847 --host 0.0.0.0","test": "node node_modules/edp/bin/edp-cli build -f && node node_modules/karma/bin/karma start",
+    "start": "webpack-dev-server --config webpack.config.js --progress --colors --content-base build.doc --hot --port 8847 --host 0.0.0.0",
+    "test": "node node_modules/edp/bin/edp-cli build -f && node node_modules/karma/bin/karma start",
     "build": "node ./FcDocsBuilder.js | webpack",
     "spec": "./node_modules/.bin/edp build -f && ./node_modules/.bin/edp test start",
     "coverage": "cat ./coverage/lcov/lcov.info | ./node_modules/.bin/coveralls"
@@ -48,7 +49,7 @@
   "homepage": "https://github.com/fcfe/fcui2",
   "repository": "git@github.com:fcfe/fcui2.git",
   "devDependencies": {
-    "babel-core": "^5.8.25",
+    "babel-core": "^6.7.7",
     "babel-plugin-check-es2015-constants": "^6.7.2",
     "babel-plugin-transform-es2015-arrow-functions": "^6.7.7",
     "babel-plugin-transform-es2015-block-scoped-functions": "^6.6.5",
