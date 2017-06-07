@@ -34,8 +34,8 @@ require.config({
   ],
 
   'paths': {
-    'react': '../../dep/react-with-addons',
-    'react-dom': '../../dep/react-dom',
+    'react': '../../dep/react-with-addons.min',
+    'react-dom': '../../dep/react-dom.min',
     'underscore': '../../dep/underscore/1.8.5/src/underscore'
   }
 });
