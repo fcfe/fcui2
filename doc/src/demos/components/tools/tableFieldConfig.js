@@ -82,7 +82,7 @@ define(function (require) {
             align: 'right',
             renderType: 'float',
             fixed: 1,
-            renderer: require('fcui/components/table/NumberRenderer.jsx'),
+            renderer: require('fcui2/components/table/NumberRenderer.jsx'),
             prepare: function (props, item) {
                 props.content = item.age;
             }
@@ -93,7 +93,7 @@ define(function (require) {
             width: 150,
             content: '-',
             sortDisable: true,
-            renderer: require('fcui/components/table/ButtonRenderer.jsx'),
+            renderer: require('fcui2/components/table/ButtonRenderer.jsx'),
             prepare: function (props, item, row, column) {
                 if (item.name === 'Tom Chros') {
                     props.buttonIcon = 'font-icon-mobilephone';

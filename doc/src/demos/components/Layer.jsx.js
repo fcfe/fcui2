@@ -7,8 +7,8 @@ define(function (require) {
 
 
     let React = require('react');
-    let Button = require('fcui/Button.jsx');
-    let Layer = require('fcui/Layer.jsx');
+    let Button = require('fcui2/Button.jsx');
+    let Layer = require('fcui2/Layer.jsx');
     let Information = require('../Information.jsx');
 
 

@@ -1,7 +1,7 @@
 define(function (require) {
 
     var Creater = require('../Main.jsx');
-    var SearchBox = require('fcui/SearchBox.jsx');
+    var SearchBox = require('fcui2/SearchBox.jsx');
 
     var items = [
         {

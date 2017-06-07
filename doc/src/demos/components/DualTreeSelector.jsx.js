@@ -2,9 +2,9 @@ define(function (require) {
 
 
     var Creater = require('../Main.jsx');
-    var DualTreeSelector = require('fcui/DualTreeSelector.jsx');
+    var DualTreeSelector = require('fcui2/DualTreeSelector.jsx');
     var Information = require('../Information.jsx');
-    var treeTools = require('fcui/core/treeTools');
+    var treeTools = require('fcui2/core/treeTools');
     var React = require('react');
 
 

@@ -6,9 +6,9 @@
 define(function (require) {
 
     let React = require('react');
-    let DeployablePanel = require('fcui/DeployablePanel.jsx');    
+    let DeployablePanel = require('fcui2/DeployablePanel.jsx');    
     let Information = require('../Information.jsx');
-    let Button = require('fcui/Button.jsx');
+    let Button = require('fcui2/Button.jsx');
 
     return React.createClass({
         // @override

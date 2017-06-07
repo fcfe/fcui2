@@ -1,7 +1,7 @@
 define(function (require) {
 
     var Creater = require('../Main.jsx');
-    var Slider = require('fcui/Slider.jsx');
+    var Slider = require('fcui2/Slider.jsx');
 
     var items = [
         {

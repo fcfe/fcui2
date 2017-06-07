@@ -2,8 +2,8 @@ define(function (require) {
 
 
     var React = require('react');
-    var util = require('fcui/core/util');
-    var Form = require('fcui/Form.jsx');
+    var util = require('fcui2/core/util');
+    var Form = require('fcui2/Form.jsx');
 
 
     // 以下所有组件都能在Form中使用
@@ -12,23 +12,23 @@ define(function (require) {
         'Slider', 'Region', 'Pager', 'Calendar', 'RangeCalendar', 'Wizard', 'DropDownRegion', 'Tab', 'Table'
     ];
     var components = {
-        textbox: require('fcui/TextBox.jsx'),
-        numberbox: require('fcui/NumberBox.jsx'),
-        checkbox: require('fcui/CheckBox.jsx'),
-        radio: require('fcui/Radio.jsx'),
-        select: require('fcui/Select.jsx'),
-        textarea: require('fcui/TextArea.jsx'),
-        searchbox: require('fcui/SearchBox.jsx'),
-        dropdowncalendar: require('fcui/DropDownCalendar.jsx'),
-        slider: require('fcui/Slider.jsx'),
-        region: require('fcui/Region.jsx'),
-        pager: require('fcui/Pager.jsx'),
-        calendar: require('fcui/Calendar.jsx'),
-        rangecalendar: require('fcui/RangeCalendar.jsx'),
-        wizard: require('fcui/Wizard.jsx'),
-        dropdownregion: require('fcui/DropDownRegion.jsx'),
-        tab: require('fcui/Tab.jsx'),
-        table: require('fcui/Table.jsx')
+        textbox: require('fcui2/TextBox.jsx'),
+        numberbox: require('fcui2/NumberBox.jsx'),
+        checkbox: require('fcui2/CheckBox.jsx'),
+        radio: require('fcui2/Radio.jsx'),
+        select: require('fcui2/Select.jsx'),
+        textarea: require('fcui2/TextArea.jsx'),
+        searchbox: require('fcui2/SearchBox.jsx'),
+        dropdowncalendar: require('fcui2/DropDownCalendar.jsx'),
+        slider: require('fcui2/Slider.jsx'),
+        region: require('fcui2/Region.jsx'),
+        pager: require('fcui2/Pager.jsx'),
+        calendar: require('fcui2/Calendar.jsx'),
+        rangecalendar: require('fcui2/RangeCalendar.jsx'),
+        wizard: require('fcui2/Wizard.jsx'),
+        dropdownregion: require('fcui2/DropDownRegion.jsx'),
+        tab: require('fcui2/Tab.jsx'),
+        table: require('fcui2/Table.jsx')
     };
     var defaultFormValue = {
         textbox: 'textbox',

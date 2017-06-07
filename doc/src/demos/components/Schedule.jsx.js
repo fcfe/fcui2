@@ -7,7 +7,7 @@
 
 define(function (require) {
 
-    var Schedule = require('fcui/Schedule.jsx');
+    var Schedule = require('fcui2/Schedule.jsx');
     var Creater = require('../Main.jsx');
 
     function strToArray(str) {

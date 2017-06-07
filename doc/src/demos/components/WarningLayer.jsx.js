@@ -1,8 +1,8 @@
 define(function (require) {
 
-    var TextBox = require('fcui/TextBox.jsx');
+    var TextBox = require('fcui2/TextBox.jsx');
     var React = require('react');
-    var WarningLayer = require('fcui/WarningLayer.jsx');
+    var WarningLayer = require('fcui2/WarningLayer.jsx');
 
     return React.createClass({
         // @override

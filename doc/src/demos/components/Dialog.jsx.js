@@ -2,11 +2,11 @@ define(function (require) {
 
 
     var React = require('react');
-    var Button = require('fcui/Button.jsx');
+    var Button = require('fcui2/Button.jsx');
     var Information = require('../Information.jsx');
-    var Dialog = require('fcui/Dialog.jsx');
+    var Dialog = require('fcui2/Dialog.jsx');
     var dialog = new Dialog();
-    var DropDownRegion = require('fcui/DropDownRegion.jsx');
+    var DropDownRegion = require('fcui2/DropDownRegion.jsx');
 
 
     var SubApp = React.createClass({
@@ -213,7 +213,7 @@ define(function (require) {
                     title: 'Alert',
                     onClick: this.alert,
                     content: [
-                        '           var Dialog = require(\'fcui/Dialog.jsx\');',
+                        '           var Dialog = require(\'fcui2/Dialog.jsx\');',
                         '           var dialog = new Dialog();',
                         '           var me = this;',
                         '           dialog.alert({',
@@ -230,7 +230,7 @@ define(function (require) {
                     title: 'Confirm',
                     onClick: this.confirm,
                     content: [
-                        '           var Dialog = require(\'fcui/Dialog.jsx\');',
+                        '           var Dialog = require(\'fcui2/Dialog.jsx\');',
                         '           var dialog = new Dialog();',
                         '           var me = this;',
                         '           dialog.confirm({',
@@ -250,7 +250,7 @@ define(function (require) {
                     title: 'Sub App',
                     onClick: this.subapp,
                     content: [
-                        '           var Dialog = require(\'fcui/Dialog.jsx\');',
+                        '           var Dialog = require(\'fcui2/Dialog.jsx\');',
                         '           var dialog = new Dialog();',
                         '           var me = this;',
                         '           dialog.pop({',
@@ -269,7 +269,7 @@ define(function (require) {
                     title: 'Closing need confirm',
                     onClick: this.closeConfirm,
                     content: [
-                        '            var Dialog = require(\'fcui/Dialog.jsx\');',
+                        '            var Dialog = require(\'fcui2/Dialog.jsx\');',
                         '            var dialog = new Dialog();',
                         '            var me = this;',
                         '            dialog.pop({',
@@ -294,7 +294,7 @@ define(function (require) {
                     title: 'Auto Resize Dialog',
                     onClick: this.autoResize,
                     content:  [
-                        '            var Dialog = require(\'fcui/Dialog.jsx\');',
+                        '            var Dialog = require(\'fcui2/Dialog.jsx\');',
                         '            var dialog = new Dialog();',
                         '            var AutoSizeApp = React.createClass({',
                         '                timer: null,',
@@ -340,7 +340,7 @@ define(function (require) {
                     title: 'Update Content Props after Pop',
                     onClick: this.update,
                     content:  [
-                        '           var Dialog = require(\'fcui/Dialog.jsx\');',
+                        '           var Dialog = require(\'fcui2/Dialog.jsx\');',
                         '           var dialog = new Dialog();',
                         '           clearInterval(this.updateTimer);',
                         '           dialog.pop({',
@@ -361,7 +361,7 @@ define(function (require) {
                     title: 'Fullscreen Dialog',
                     onClick: this.fullscreen,
                     content:  [
-                        '           var Dialog = require(\'fcui/Dialog.jsx\');',
+                        '           var Dialog = require(\'fcui2/Dialog.jsx\');',
                         '           var dialog = new Dialog();',
                         '           dialog.pop({',
                         '               title: \'Fullscreen Dialog\',',
@@ -380,7 +380,7 @@ define(function (require) {
                     title: 'Dialog with Size',
                     onClick: this.size,
                     content:  [
-                        '           var Dialog = require(\'fcui/Dialog.jsx\');',
+                        '           var Dialog = require(\'fcui2/Dialog.jsx\');',
                         '           var dialog = new Dialog();',
                         '           dialog.pop({',
                         '               title: \'Dialog with Size\',',

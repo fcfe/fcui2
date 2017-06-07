@@ -6,8 +6,8 @@
 define(function (require) {
 
     let React = require('react');
-    let Button = require('fcui/Button.jsx');
-    let TitleWindow = require('fcui/TitleWindow.jsx');    
+    let Button = require('fcui2/Button.jsx');
+    let TitleWindow = require('fcui2/TitleWindow.jsx');    
     let Information = require('../Information.jsx');
 
     return React.createClass({

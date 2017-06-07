@@ -3,7 +3,7 @@ define(function (require) {
 
     var React = require('react');
     var Creater = require('../Main.jsx');
-    var Table = require('fcui/Table.jsx');
+    var Table = require('fcui2/Table.jsx');
     var Information = require('../Information.jsx');
     var datasource = require('./tools/tableDatasource');
     var fieldConfig = require('./tools/tableFieldConfig');
@@ -28,7 +28,7 @@ define(function (require) {
                 flags: {
                     showHeader: true
                 },
-                noDataRenderer: require('fcui/Button.jsx'),
+                noDataRenderer: require('fcui2/Button.jsx'),
                 fieldConfig: [
                     fieldConfig.normalName, fieldConfig.normalAge, fieldConfig.normalBirth
                 ]

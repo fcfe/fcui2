@@ -1,6 +1,6 @@
 define(function (require) {
 
-    var Button = require('fcui/Message.jsx');
+    var Button = require('fcui2/Message.jsx');
     var Creater = require('../Main.jsx');
 
     var items = [

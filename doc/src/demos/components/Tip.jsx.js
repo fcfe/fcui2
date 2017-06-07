@@ -2,8 +2,8 @@ define(function (require) {
 
 
     var Creater = require('../Main.jsx');
-    var Tip = require('fcui/Tip.jsx');
-    var Button = require('fcui/Button.jsx');
+    var Tip = require('fcui2/Tip.jsx');
+    var Button = require('fcui2/Button.jsx');
 
 
     var items = [

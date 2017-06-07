@@ -1,7 +1,7 @@
 define(function (require) {
 
     var Creater = require('../Main.jsx');
-    var DropDownColorPicker = require('fcui/DropDownColorPicker.jsx');
+    var DropDownColorPicker = require('fcui2/DropDownColorPicker.jsx');
 
     var items = [
         {

@@ -1,7 +1,7 @@
 define(function (require) {
 
     var Creater = require('../Main.jsx');
-    var TextArea = require('fcui/TextArea.jsx');
+    var TextArea = require('fcui2/TextArea.jsx');
 
     var items = [
         {

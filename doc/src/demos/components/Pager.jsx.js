@@ -1,7 +1,7 @@
 define(function (require) {
 
     var Creater = require('../Main.jsx');
-    var Pager = require('fcui/Pager.jsx');
+    var Pager = require('fcui2/Pager.jsx');
 
     var items = [
         {

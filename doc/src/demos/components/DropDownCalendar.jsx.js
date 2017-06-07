@@ -1,7 +1,7 @@
 define(function (require) {
 
     var Creater = require('../Main.jsx');
-    var DropDownCalendar = require('fcui/DropDownCalendar.jsx');
+    var DropDownCalendar = require('fcui2/DropDownCalendar.jsx');
 
     var timer = new Date();
 

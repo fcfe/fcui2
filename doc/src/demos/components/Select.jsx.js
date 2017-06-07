@@ -1,7 +1,7 @@
 define(function (require) {
 
     var Creater = require('../Main.jsx');
-    var Select = require('fcui/Select.jsx');
+    var Select = require('fcui2/Select.jsx');
 
     var items = [
         {

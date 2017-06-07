@@ -22,7 +22,7 @@ define(function (require) {
             {
                 isEmptyHeader: true,
                 width: 30,
-                renderer: require('fcui/components/table/Expander.jsx'),
+                renderer: require('fcui2/components/table/Expander.jsx'),
                 prepare: function (props, item, row, column, table) {
                     var value = JSON.parse(table.___getValue___());
                     props.tableExpandId = value.tableExpandId;

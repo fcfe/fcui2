@@ -1,7 +1,7 @@
 define(function (require) {
 
     var Creater = require('../Main.jsx');
-    var ColorGrid = require('fcui/ColorGrid.jsx');
+    var ColorGrid = require('fcui2/ColorGrid.jsx');
 
     var items = [
         {

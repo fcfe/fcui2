@@ -1,8 +1,8 @@
 define(function (require) {
 
     var Creater = require('../Main.jsx');
-    var RangeCalendar = require('fcui/RangeCalendar.jsx');
-    var calendarTools = require('fcui/core/calendarTools');
+    var RangeCalendar = require('fcui2/RangeCalendar.jsx');
+    var calendarTools = require('fcui2/core/calendarTools');
 
     var timer = new Date();
     var tmpValue = timer.getFullYear() + '-' + (timer.getMonth() + 1) + '-' + (timer.getDate() - 5)

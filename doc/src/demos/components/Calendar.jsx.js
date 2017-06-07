@@ -2,7 +2,7 @@ define(function (require) {
 
 
     var Creater = require('../Main.jsx');
-    var Calendar = require('fcui/Calendar.jsx');
+    var Calendar = require('fcui2/Calendar.jsx');
     var timer = new Date();
 
     var items = [

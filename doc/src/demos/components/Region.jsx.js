@@ -1,7 +1,7 @@
 define(function (require) {
 
     var Creater = require('../Main.jsx');
-    var Region = require('fcui/Region.jsx');
+    var Region = require('fcui2/Region.jsx');
 
     var items = [
         {
@@ -17,7 +17,7 @@ define(function (require) {
         {
             title: 'Region with ProvinceRenderer',
             props: {
-                provinceRenderer: require('fcui/components/region/StatisticsProvince.jsx')
+                provinceRenderer: require('fcui2/components/region/StatisticsProvince.jsx')
             }
         },
         {

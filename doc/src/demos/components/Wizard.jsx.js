@@ -1,7 +1,7 @@
 define(function (require) {
 
     var Creater = require('../Main.jsx');
-    var Wizard = require('fcui/Wizard.jsx');
+    var Wizard = require('fcui2/Wizard.jsx');
 
     var items = [
         {

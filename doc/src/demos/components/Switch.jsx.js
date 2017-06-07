@@ -1,7 +1,7 @@
 define(function (require) {
 
     var Creater = require('../Main.jsx');
-    var Switch = require('fcui/Switch.jsx');
+    var Switch = require('fcui2/Switch.jsx');
 
     var items = [
         {

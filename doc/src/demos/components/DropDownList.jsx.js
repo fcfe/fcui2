@@ -1,7 +1,7 @@
 define(function (require) {
 
 
-    var DropDownList = require('fcui/DropDownList.jsx');
+    var DropDownList = require('fcui2/DropDownList.jsx');
     var Creater = require('../Main.jsx');
 
 

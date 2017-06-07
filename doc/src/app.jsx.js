@@ -4,7 +4,7 @@ define(function (require) {
     var React = require('react');
     var Parser = require('./parsers/Main.jsx');
     var config = require('./config');
-    var util = require('fcui/core/util');
+    var util = require('fcui2/core/util');
 
     function menuFactory(me) {
         var doms = [];
