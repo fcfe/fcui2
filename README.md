@@ -5,14 +5,14 @@
 ## What is FCUI2?
 
 * FCUI2 is a lightweight UI based on React and underscore.js.
-* FCUI2 adhere to AMD mechanism, your project need to employ javascript module loaders such as RequireJS, curl, Dojo to import FCUI2 modules.
-* All widgets in FCUI2 are written in JSX, you need to import compilation tools such as Babel to your development environment and package tools.
+* FCUI2 adhere to AMD coding mechanism, your project need to employ javascript module loaders such as RequireJS, Webpack to import FCUI2 modules.
+* All widgets in FCUI2 are written in JSX, you need to import compilation tools such as Babel to your developping environment and package tools.
 
 ## See FCUI2 examples
 
 * Visit [http://fcfe.github.com/products/fcui2/](http://fcfe.github.com/products/fcui2/).
 
-## See FCUI2 Docs locally
+## See FCUI2 Doc locally
 
 * Clone a copy of the main git repo by running:
 
@@ -20,7 +20,7 @@
     git clone https://github.com/fcfe/fcui2.git
 ```
 
-* Enter FCUI2 root directory, install dependencies by running:
+* Enter FCUI2 root directory, and install dependencies by running:
 
 ```bash
     npm install
@@ -42,11 +42,12 @@
     git clone https://github.com/fcfe/fcui2.git
 ```
 
-* Compile fcui2/src/css/main.less, fcui2/src/css/icon/fc-icon.less to css file, or add less compiling module to your developping environment, then import style sheet in your home page:
+* Compile fcui2/src/css/main.less, fcui2/src/css/icon/fc-icon.less to css files, then import style sheet in your home page:
 ```html
     <link rel="stylesheet" href="./dep/fcui2/src/css/icon/fc-icon.css"/>
     <link rel="stylesheet" href="./dep/fcui2/src/css/main.css"/>
 ```
+or add less compiling module to your developping environment.
 
 * Configure the underlying dependency like:
 ```javascript

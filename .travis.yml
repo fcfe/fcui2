@@ -8,6 +8,5 @@ notifications:
     recipients:
       - lihaitao03@baidu.com
       - hanbingfeng@baidu.com
-      - wangyi25@baidu.com
     on_success: change
     on_failure: always
