@@ -78,15 +78,17 @@ define(function (require) {
         render: function () {
             var me = this;
             var containerProp = cTools.containerBaseProps('dropdownlist', this, {widthCorrect: -12});
+            var skin = this.props.skin || 'normal';
             var layerProp = {
                 ref: 'layer',
                 onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
                 isOpen: this.state.layerOpen && !this.props.disabled && !!this.props.datasource.length,
                 anchor: this.refs.container,
                 location: this.props.layerLocation,
-                skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
+                skin: this.context.appSkin ? (this.context.appSkin + '-' + skin) : skin
             };
             var listProp = {
+                skin: this.props.skin,
                 itemRenderer: this.props.itemRenderer,
                 datasource: this.props.datasource,
                 onClick: this.onListClick,
@@ -104,7 +106,6 @@ define(function (require) {
             }
             containerProp[this.props.openLayerType] = this.onMouseEnter;
             containerProp.onMouseLeave = this.onMouseLeave;
-            var skin = this.props.skin ? this.props.skin : 'normal';
             skin = this.context.appSkin ? (this.context.appSkin + '-' + skin) : skin;
             containerProp.className += layerProp.isOpen ? (' fcui2-dropdownlist-' + skin + '-hover') : '';
             return (
