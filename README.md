@@ -24,6 +24,7 @@
 
 ```bash
     npm install
+    npm install babel-loader@^5.3.2
 ```
 
 * Start a local http server by running:
@@ -167,7 +168,6 @@ $ npm test
 ```
 or
 ```bash
-$ npm install edp -g
 $ edp test start
 ```
 
