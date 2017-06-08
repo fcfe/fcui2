@@ -15,7 +15,7 @@ module.exports = {
             {
                 test: /\.(jsx|es6).js$/,
                 loader: 'babel-loader',
-                exclude: /node_modules/
+                exclude: /(node_modules|dep)/
             },
             {
                 test: /\.less$/,
@@ -33,7 +33,8 @@ module.exports = {
             'react': path.resolve(__dirname, 'dep/react-with-addons.min.js'),
             'react-dom': path.resolve(__dirname, 'dep/react-dom.min.js'),
             'fcui2': path.join(__dirname, 'src'),
-            'js-formatter': path.join(__dirname, 'dep/formatterJS')
+            'js-formatter': path.join(__dirname, 'dep/formatterJS'),
+            'markdown': path.join(__dirname, 'dep/markdown.min')
         }
     }
 };
