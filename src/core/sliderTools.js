@@ -24,6 +24,23 @@ define(function (require) {
         return parseInt(width, 10);
     }
 
+    /**
+    * 获取有效的步长，非数字和非正数返回默认值1，其他情况下取整
+    * @interface getValidStep
+    * @param {Number} step 设置的步长
+    * @return {Number} 对应的有效步长
+    */
+    function getValidStep(step) {
+        var res = step;
+        if (isNaN(step) || step <= 0) {
+            res = 1;
+        }
+        else {
+            res = parseFloat(step);
+        }
+        return res;
+    }
+
     return {
         /**
          * 根据滑竿配置将值换算成屏幕相对
@@ -66,10 +83,10 @@ define(function (require) {
         },
         /**
          * 根据滑竿配置将值转换成可显示的值
-         * @interface displayValue 
+         * @interface displayValue
          * @param {Number} value 某个值
          * @param {ReactComponent} 滑竿组件实例
-         * @return {String} 符合滑竿配置要求的数字字符串 
+         * @return {String} 符合滑竿配置要求的数字字符串
          */
         displayValue: function (value, me) {
             var min = isNaN(me.props.min) ? 0 : me.props.min * 1;
@@ -80,6 +97,8 @@ define(function (require) {
                 min = max;
                 max = tmp;
             }
+            var step = getValidStep(me.props.step);
+            value = min + Math.round((value - min) / step) * step;
             value = value < min ? min : value;
             value = value > max ? max : value;
             if (me.props.type === 'int') return parseInt(value, 10);
@@ -93,6 +112,15 @@ define(function (require) {
                 }
             }
             return value;
+        },
+        /**
+        * 获取有效的步长，非数字和非正数返回默认值1，其他情况下取整
+        * @interface getValidStep
+        * @param {Number} step 设置的步长
+        * @return {Number} 对应的有效步长
+        */
+        getValidStep: function (step) {
+            return getValidStep(step);
         }
     }
 });

@@ -104,7 +104,7 @@ define(function (require) {
 
             var newValue = tool.position2value(newPos, this, 10);
             var oldValue = tool.displayValue(this.___getValue___(), this) * 1;
-            var step = isNaN(this.props.step) ? 1: this.props.step * 1;
+            var step = tool.getValidStep(this.props.step);
             var dValue = Math.abs(newValue - oldValue);
             var dDirect = newValue - oldValue > 0 ? 1 : -1;
 
