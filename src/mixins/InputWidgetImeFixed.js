@@ -95,6 +95,15 @@ define(function (require) {
         },
         ___onCompositionEnd___: function (e) {
             this.___imeStart___ = false;
+            // 使用中文输入法，直接敲回车英文上屏，会触发compositionend，但不会触发keyup，导致change无法派发，这是底层bug
+            // 因此在compositionend中手动调用一次keyup，以解决这个问题
+            // 注：这个bug并不是所有输入法，所有操作系统都存在。
+            // 如果没有这个bug，这个keyup调用是多余的，但在keyup的处理中，已经屏蔽了多次调用，组件对外不会派发多个onChange
+            this.___onKeyUp___({
+                keyCode: 13,
+                target: e.nativeEvent.target,
+                nativeEvent: e.nativeEvent
+            });
         },
         ___onKeyDown___: function (e) {
             this.___isPressing___ = true;

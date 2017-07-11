@@ -129,6 +129,9 @@ define(function (require) {
                     visibility: hidePlaceHolder ? 'hidden' : 'visible',
                     paddingTop: this.state.paddingTop,
                     lineHeight: this.state.lineHeight
+                },
+                dangerouslySetInnerHTML: {
+                    __html: this.props.placeholder
                 }
             };
             var numProp = {
@@ -143,7 +146,7 @@ define(function (require) {
             containerProp.className += this.state.hasFocus ? ' fcui2-textline-' + skin + '-hover' : '';
             return (
                 <div {...containerProp}>
-                    <div {...labelProp}>{this.props.placeholder}</div>
+                    <div {...labelProp}></div>
                     <textarea {...inputProp}/>
                     <div {...numProp}>{hidePlaceHolder ? renderNumer(this) : null}</div>
                 </div>
