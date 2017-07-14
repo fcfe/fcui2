@@ -100,7 +100,7 @@ define(function (require) {
             // 注：这个bug并不是所有输入法，所有操作系统都存在。
             // 如果没有这个bug，这个keyup调用是多余的，但在keyup的处理中，已经屏蔽了多次调用，组件对外不会派发多个onChange
             this.___onKeyUp___({
-                keyCode: 13,
+                keyCode: 0,
                 target: e.nativeEvent.target,
                 nativeEvent: e.nativeEvent
             });
