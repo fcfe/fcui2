@@ -97,13 +97,17 @@ define(function (require) {
             this.___imeStart___ = false;
             // 使用中文输入法，直接敲回车英文上屏，会触发compositionend，但不会触发keyup，导致change无法派发，这是底层bug
             // 因此在compositionend中手动调用一次keyup，以解决这个问题
-            // 注：这个bug并不是所有输入法，所有操作系统都存在。
+            // 这个bug并不是所有输入法，所有浏览器，所有操作系统都存在。
+            // 在windows下，chrome和IE存在，firefox不存在。
             // 如果没有这个bug，这个keyup调用是多余的，但在keyup的处理中，已经屏蔽了多次调用，组件对外不会派发多个onChange
-            this.___onKeyUp___({
-                keyCode: 0,
-                target: e.nativeEvent.target,
-                nativeEvent: e.nativeEvent
-            });
+            // 而且更可恶的是，在firefox下如果执行下面的方法，输入框在派发完正确值之后还会派发一次空值
+            if (util.getBrowserType() !== 'firefox') {
+                this.___onKeyUp___({
+                    keyCode: 0,
+                    target: e.nativeEvent.target,
+                    nativeEvent: e.nativeEvent
+                });
+            }
         },
         ___onKeyDown___: function (e) {
             this.___isPressing___ = true;
