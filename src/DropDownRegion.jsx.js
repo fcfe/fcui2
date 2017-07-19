@@ -64,6 +64,8 @@ define(function (require) {
                 regionRenderer: undefined,
                 countryRenderer: undefined,
                 countries: undefined,
+                layerLocation: 'bottom right',
+                onLayerOffset: undefined,
                 // mixin
                 valueTemplate: ''
             };
@@ -185,12 +187,15 @@ define(function (require) {
                 ref: 'layer',
                 isOpen: this.state.layerOpen && !this.props.disabled,
                 anchor: this.refs.container,
-                location: 'bottom right',
+                location: this.props.layerLocation,
                 style: {padding: '5px 0'},
                 onMouseEnter: this.onLayerMouseEnter,
                 onMouseLeave: this.onLayerMouseLeave,
                 skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };
+            if (typeof this.props.onLayerOffset === 'function') {
+                layerProp.onOffset = this.props.onLayerOffset;
+            }
             var regionProp = {
                 ref: 'region',
                 value: this.props.type === 'single' ? this.___getValue___() : this.state.multiValue,

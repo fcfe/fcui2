@@ -90,6 +90,8 @@ define(function (require) {
                 labels: defaultLabels,
                 onBeforeLayerClose: cTools.noop,
                 onLayerClose: cTools.noop,
+                layerLocation: 'bottom right left',
+                onLayerOffset: undefined,
                 // mixin
                 valueTemplate: JSON.stringify({selected: {}})
             };
@@ -232,12 +234,15 @@ define(function (require) {
                     width: '545px',
                     height: '485px'
                 },
-                location: 'bottom right left',
+                location: this.props.layerLocation,
                 closeWithBodyClick: true,
                 onCloseByWindow: this.onLayerClose,
                 onRender: this.onLayerRender,
                 skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };
+            if (typeof this.props.onLayerOffset === 'function') {
+                layerProp.onOffset = this.props.onLayerOffset;
+            }
             var enterButtonProp = {
                 disabled: !this.state.___beOperated___,
                 label: language.enter,

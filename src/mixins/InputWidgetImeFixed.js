@@ -95,13 +95,23 @@ define(function (require) {
         },
         ___onCompositionEnd___: function (e) {
             this.___imeStart___ = false;
-            // 使用中文输入法，直接敲回车英文上屏，会触发compositionend，但不会触发keyup，导致change无法派发，这是底层bug
-            // 因此在compositionend中手动调用一次keyup，以解决这个问题
-            // 这个bug并不是所有输入法，所有浏览器，所有操作系统都存在。
-            // 在windows下，chrome和IE存在，firefox不存在。
-            // 如果没有这个bug，这个keyup调用是多余的，但在keyup的处理中，已经屏蔽了多次调用，组件对外不会派发多个onChange
-            // 而且更可恶的是，在firefox下如果执行下面的方法，输入框在派发完正确值之后还会派发一次空值
-            if (util.getBrowserType() !== 'firefox') {
+            /**
+             * 背景：
+             *      使用中文输入法，直接敲回车英文上屏，会触发compositionend，但不会触发keyup，
+             *      导致输入框的onChange事件无法派发，这是浏览器底层bug。
+             * 解决方案：
+             *      compositionend中手动调用一次keyup，将值派发出去。
+             * 难点：
+             *      这个bug不是在所有浏览器、所有输入法、所有操作系统下都存在。
+             *      目前只发现在chrome和IE下存在；
+             *      有些使用chrome内核的浏览器，比如百度浏览器，则不存在这个问题。
+             * 优化方案：
+             *      为了不引起副作用，只在存在问题的浏览器中手动调用keyup。
+             * 附录：手动调用keyup的已知副作用
+             *      （1）在firefox中，如果输入组件在form中，第一次会派发正确值，紧跟着会派发一次空值；
+             *      （2）在百度浏览器中，如果输入组件在form中，会再派发值的尾部增加空格或拼音（win10是空格，win7是拼音）
+             */
+            if (['ie', 'chrome'].indexOf(util.getBrowserEnterprise()) > -1) {
                 this.___onKeyUp___({
                     keyCode: 0,
                     target: e.nativeEvent.target,

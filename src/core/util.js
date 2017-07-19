@@ -46,13 +46,38 @@ define(function (require) {
             if (!!window.ActiveXObject || 'ActiveXObject' in window) {
                 return 'ie';
             }
-            if (ua.indexOf("chrome") > -1) {
+            if (ua.indexOf('chrome') > -1) {
                 return 'chrome';
             }
-            if (ua.indexOf("firefox") > -1) {
+            if (ua.indexOf('firefox') > -1) {
                 return 'firefox';
             }
             return 'chrome';
+        },
+
+        /**
+         * 获取浏览器厂商
+         */
+        getBrowserEnterprise: function () {
+            // in NodeJS
+            if (!(typeof window !== 'undefined' && window.document && window.document.createElement)) {
+                return 'chrome';
+            }
+            // 按浏览器份额排序
+            var ua = navigator.userAgent.toLowerCase();
+            if (!!window.ActiveXObject || 'ActiveXObject' in window) {
+                return 'ie';
+            }
+            if (ua.indexOf('bidubrowser') > -1) {
+                return 'baidu';
+            }
+            if (ua.indexOf('chrome') > -1) {
+                return 'chrome';
+            }
+            if (ua.indexOf('firefox') > -1) {
+                return 'firefox';
+            }
+            return 'unknow';
         },
 
         /**
