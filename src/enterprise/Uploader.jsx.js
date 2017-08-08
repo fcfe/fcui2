@@ -169,6 +169,7 @@ define(function (require) {
         },
 
         onUploaded: function (result) {
+            if (!result) {return;}
             this.refs.container.value = result;
             this.___dispatchChange___({target: this.refs.container});
             ReactDOM.unmountComponentAtNode(this.uploadContainer);
