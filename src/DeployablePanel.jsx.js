@@ -72,7 +72,7 @@ define(function (require) {
                                     {value === 'expand' ? labels.hide : labels.expand}
                                 </span>
                                 <span onClick={this.onChange}
-                                    className={'font-icon font-icon-caret-' + (value === 'expand' ? 'up' : 'down')}
+                                    className={'fcui2-icon fcui2-icon-arrow-' + (value === 'expand' ? 'up' : 'down')}
                                 ></span>
                             </div>
                         ) : null
@@ -87,7 +87,7 @@ define(function (require) {
                                     {value === 'expand' ? labels.hide : labels.expand}
                                 </span>
                                 <span onClick={this.onChange}
-                                    className={'font-icon font-icon-caret-' + (value === 'expand' ? 'up' : 'down')}
+                                    className={'fcui2-icon fcui2-icon-arrow-' + (value === 'expand' ? 'up' : 'down')}
                                 ></span>
                             </div>
                         ) : null

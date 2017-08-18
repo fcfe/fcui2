@@ -255,7 +255,7 @@ define(function (require) {
             containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-' + skin + '-hover' : '';
             return (
                 <div {...containerProp}>
-                    <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
+                    <div className="icon-right fcui2-icon fcui2-icon-arrow-down"></div>
                     <span className="label-container">{labels.dropdownLabel ? labels.dropdownLabel : ''}</span>
                     <Layer {...layerProp}>
                         <div style={{padding: 10}}>

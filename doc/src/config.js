@@ -155,7 +155,8 @@ define(function (require) {
         'src\\enterprise\\SelectWithFilter.jsx.js': require('./demos/components/SelectWithFilter.jsx'),
         'src\\ColorGrid.jsx.js': require('./demos/components/ColorGrid.jsx'),
         'src\\ColorPicker.jsx.js': require('./demos/components/ColorPicker.jsx'),
-        'src\\DropDownColorPicker.jsx.js': require('./demos/components/DropDownColorPicker.jsx')
+        'src\\DropDownColorPicker.jsx.js': require('./demos/components/DropDownColorPicker.jsx'),
+        'src\\Toast.jsx.js': require('./demos/components/Toast.jsx')
     };
 
     for (var key in dataset.files) {

@@ -34,7 +34,7 @@ define(function (require) {
             return (
                 <div>
                     <h4 onClick={this.togglePropsBoxFactory}>
-                        <span className={'font-icon font-icon-caret-' + (this.state.isOpen ? 'down' : 'right')}></span>
+                        <span className={'fcui2-icon fcui2-icon-arrow-' + (this.state.isOpen ? 'down' : 'right')}></span>
                         {this.props.title}
                     </h4>
                     <div {...propboxProp}></div>

@@ -72,7 +72,7 @@ define(function (require) {
                         this.props.children && this.props.children.length
                         ? <div>
                             <span>{this.props.label}</span>
-                            <div className="icon-right font-icon font-icon-caret-right"></div>
+                            <div className="icon-right fcui2-icon fcui2-icon-arrow-right"></div>
                             <div className="children-container">
                                 <List {...listProp} />
                             </div>

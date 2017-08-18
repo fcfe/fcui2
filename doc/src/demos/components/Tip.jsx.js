@@ -27,7 +27,7 @@ define(function (require) {
         {
             title: 'Tip with Icon',
             props: {
-                title: 'It is tip\'s title', content: 'blablablabla', icon: 'font-icon-hint-exclamation-s',
+                title: 'It is tip\'s title', content: 'blablablabla', icon: 'fcui2-icon fcui2-icon-radio-selected',
                 style: {
                     fontWeight: 200,
                     fontSize: 18

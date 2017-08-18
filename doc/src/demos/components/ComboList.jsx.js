@@ -70,9 +70,9 @@ define(function (require) {
             title: 'ComboList with Icon and long datasource',
             props: {
                 value: 'Main Command6',
-                label: ' 星星',
+                label: ' 成功',
                 width: 200,
-                icon: 'font-icon-star-half',
+                icon: 'fcui2-icon fcui2-icon-success',
                 datasource: [
                     {label: 'option1option1option1option1option1option1option1option1option1', value: 'option1'},
                     {label: 'option2', value: 'option2', disabled: true},

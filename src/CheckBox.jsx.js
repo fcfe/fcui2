@@ -101,7 +101,7 @@ define(function (require) {
                 onChange: this.onChange
             };
             var virtualCheckboxProp = {
-                className: 'iconfont icon-checkbox'
+                className: 'fcui2-icon fcui2-icon-checkbox'
                     + (!checked && this.props.indeterminate ? '-indeterminate' : (checked ? '-selected' : '-unselected'))
                     + (this.props.disabled ? '-disabled' : ''),
                 onClick: this.onClick

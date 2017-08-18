@@ -28,7 +28,7 @@ define(function (require) {
             label: '年龄',
             field: 'age',
             width: 100,
-            tip: {title: 'It is tip\'s title', content: '<img width="300px" src="https://www.baidu.com/img/bd_logo1.png"/>', icon: 'font-icon-warning'}
+            tip: {title: 'It is tip\'s title', content: '<img width="300px" src="https://www.baidu.com/img/bd_logo1.png"/>', icon: 'fcui2-icon fcui2-icon-exclamation'}
         },
         tipBirth: {
             label: '日期',
@@ -96,14 +96,14 @@ define(function (require) {
             renderer: require('fcui2/components/table/ButtonRenderer.jsx'),
             prepare: function (props, item, row, column) {
                 if (item.name === 'Tom Chros') {
-                    props.buttonIcon = 'font-icon-mobilephone';
+                    props.buttonIcon = 'fcui2-icon fcui2-icon-calendar';
                     props.content = '移动在线';
                     props.style = {
                         color: 'green'
                     };
                 }
                 else if (item.name === 'Brian Li') {
-                    props.buttonIcon = 'font-icon-phone';
+                    props.buttonIcon = 'fcui2-icon fcui2-icon-search';
                     props.content = '固话可用';
                     props.style = {
                         color: 'red'

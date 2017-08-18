@@ -45,7 +45,7 @@ define(function (require) {
                 // self
                 title: '',
                 content: '',
-                icon: 'font-icon-hint-question-s',
+                icon: 'fcui2-icon fcui2-icon-question',
                 renderer: null,
                 renderProps: {},
                 layerLocation: 'right left top bottom',

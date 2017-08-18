@@ -81,7 +81,7 @@ define(function (require) {
             workspace.innerHTML = [
                 '<div class="title-bar">',
                     '<span></span>',
-                    '<div class="font-icon font-icon-times" data-ui-cmd="title-window-close"></div>',
+                    '<div class="fcui2-icon fcui2-icon-close" data-ui-cmd="title-window-close"></div>',
                 '</div>',
                 '<div class="content">',
                 '</div>'

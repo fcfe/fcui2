@@ -90,7 +90,7 @@ define(function (require) {
                 disabled: this.props.disabled
             };
             var virtualCheckboxProp = {
-                className: 'iconfont icon-radio' + (checked ? '-checked' : ''),
+                className: 'fcui2-icon fcui2-icon-radio' + (checked ? '-checked' : ''),
                 onClick: this.onClick
             };
             return (

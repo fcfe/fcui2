@@ -19,7 +19,7 @@ define(function (require) {
                 <div {...prop}>
                     <span data-level={config.menu[i].level}
                         className={
-                            'font-icon  font-icon-largeable-caret-'
+                            'fcui2-icon fcui2-icon-arrow-'
                                 + (me.props.level !== config.menu[i].level ? 'right' : 'down')
                         }>
                     </span>

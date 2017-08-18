@@ -47,8 +47,8 @@ define(function (require) {
                 skin: '',
                 className: '',
                 style: {},
-                icon: 'font-icon-search',
-                clearIcon: 'font-icon-times',
+                icon: 'fcui2-icon fcui2-icon-search',
+                clearIcon: 'fcui2-icon fcui2-icon-close',
                 disabled: false,
                 // self
                 placeholder: '',

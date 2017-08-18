@@ -181,7 +181,7 @@ define(function (require) {
             containerProp.className += layerProp.isOpen ? (' fcui2-dropdownlist-' + skin + '-hover') : '';
             return (
                 <div {...containerProp}>
-                    <div className="icon-right font-icon font-icon-calendar"></div>
+                    <div className="icon-right fcui2-icon fcui2-icon-calendar"></div>
                     <span className="label-container">{label}</span>
                     <Layer {...layerProp}>{factory.layerContentFactory(me)}</Layer>
                 </div>

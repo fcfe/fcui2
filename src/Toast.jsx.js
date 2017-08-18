@@ -22,8 +22,8 @@ define(function(require) {
     };
 
     const iconType = {
-        success: 'font-icon font-icon-check-circle-s',
-        error: 'font-icon font-icon-times-circle'
+        success: 'fcui2-icon fcui2-icon-success',
+        error: 'fcui2-icon fcui2-icon-failed'
     };
 
     let defaultProps = {
@@ -36,7 +36,7 @@ define(function(require) {
         subComponent: '',
         autoHideTime: 2000,
         onClose: cTools.noop
-    }
+    };
 
     /**
      * @constructor

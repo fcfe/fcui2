@@ -173,17 +173,17 @@ define(function (require) {
                 skin: skin
             };
             var subBtnProp = {
-                icon: 'font-icon-largeable-caret-left',
+                icon: 'fcui2-icon fcui2-icon-arrow-left',
                 label: '',
-                iconLeft: 3,
+                iconLeft: 5,
                 onClick: this.onMonthSub,
                 disabled: this.props.disabled,
                 skin: skin
             };
             var addBtnProp = {
-                icon: 'font-icon-largeable-caret-right',
+                icon: 'fcui2-icon fcui2-icon-arrow-right',
                 label: '',
-                iconLeft: 5,
+                iconLeft: 7,
                 onClick: this.onMonthAdd,
                 disabled: this.props.disabled,
                 skin: skin
