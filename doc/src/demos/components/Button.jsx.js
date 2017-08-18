@@ -30,11 +30,11 @@ define(function (require) {
         },
         {
             title: 'Button with Icon',
-            props: {label: 'Find', icon: 'font-icon-enlarge', skin: 'grey1', value: 'button width icon', width: 80}
+            props: {label: 'Find', icon: 'fcui2-icon fcui2-icon-question', skin: 'grey1', value: 'button width icon', width: 80}
         },
         {
             title: 'Button with Style',
-            props: {skin: 'important', label: 'Width', icon: 'font-icon-enlarge', iconLeft: 110, style: {width: 300}, value: 'button with Width'}
+            props: {skin: 'important', label: 'Width', icon: 'fcui2-icon fcui2-icon-question', iconLeft: 110, style: {width: 300}, value: 'button with Width'}
         }
     ];
 
