@@ -77,3 +77,37 @@
         }
     }
 }
+
+.fcui2-textbox-oneux4-normal {
+    input {
+        background-color: transparent;
+        border-color: @oneux4-color-c5;
+        color: @oneux4-color-c1;
+        &:hover,&:focus {
+            border-color: @oneux4-color-c3;
+        }
+    }
+    // placeholder
+    div {
+        color: @oneux4-color-c3;
+        font-size: 12px;
+    }
+}
+
+.fcui2-textbox-oneux4-disabled {
+    background-color: @oneux4-bgcolor-c5 !important;
+    input {
+        background-color: @oneux4-bgcolor-c5 !important;
+        border-color: @oneux4-bgcolor-c5;
+        color: @oneux4-color-c3 !important;
+        &:hover {
+            border-color: @oneux4-bgcolor-c5 !important;
+        }
+    }
+}
+
+.fcui2-textbox-oneux4-reject {
+    input {
+        border-color: @oneux4-color-c8 !important;
+    }
+}

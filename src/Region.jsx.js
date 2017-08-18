@@ -50,6 +50,7 @@ define(function (require) {
                 regionRenderer: RegionRenderer,
                 countryRenderer: RegionRenderer,
                 countries: [998, 999],
+                regionFilter: () => true,
                 // mixin
                 valueTemplate: ''
             };

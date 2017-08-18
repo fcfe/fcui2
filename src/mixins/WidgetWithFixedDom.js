@@ -44,7 +44,6 @@ define(function (require) {
                 // 检查位置并设置fixed
                 var pos = util.getDOMPosition(dom);
                 var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
-                var maxScrollY = document.body.scrollHeight - document.body.clientHeight;
                 var fixedClass = 'fcui2-fixed-with-scroll';
                 if (scrollY - oldData.posTop + obj.top < 0) {
                     dom.className = dom.className.replace(/ fcui2-fixed-with-scroll/g, '');
@@ -52,7 +51,7 @@ define(function (require) {
                     dom.style.top = oldData.top;
                     typeof this.onDomPositionUnFixed === 'function' && this.onDomPositionUnFixed(obj.ref);
                 }
-                else if ((dom.offsetHeight <= maxScrollY - scrollY) && (pos.y < obj.top)) {
+                else if (pos.y < obj.top) {
                     dom.className += dom.className.indexOf(fixedClass) > -1 ? '' : ' ' + fixedClass;
                     dom.style.top = obj.top + 'px';
                     dom.style.zIndex = obj.zIndex;

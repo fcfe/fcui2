@@ -75,3 +75,35 @@
         background-color: @oneux3-bgcolor-c10 !important;
     }
 }
+
+.fcui2-checkbox-oneux4-normal {
+    .fcui2-checkbox-label {
+        cursor: pointer;
+        font-size: 12px;
+        color: @oneux4-color-c1;
+    }
+    .icon-checkbox-unselected,.icon-radio {
+        color: @oneux4-color-c2;
+        &:hover {
+            color: @oneux4-color-c1;
+        }
+    }
+    .icon-checkbox-selected,.icon-checkbox-indeterminate,.icon-radio-checked {
+        color: @oneux4-color-c1;
+    }
+}
+
+.fcui2-checkbox-oneux4-disabled {
+    .fcui2-checkbox-label {
+        cursor: default;
+        color: @oneux4-color-c3 !important;
+    }
+    .iconfont {
+        color: @oneux4-color-c9 !important;
+    }
+    .icon-checkbox-selected-disabled:before,
+    .icon-checkbox-unselected-disabled:before,
+    .icon-checkbox-indeterminate-disabled:before {
+        background-color: @oneux4-bgcolor-c5 !important;
+    }
+}
