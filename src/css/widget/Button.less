@@ -1,5 +1,7 @@
 // version 0.0.3
 // 基础样式只负责定位和尺寸
+
+
 .fcui2-button {
     display: inline-block;
     position: relative;
@@ -9,8 +11,7 @@
     height: 28px;
     line-height: 28px;
     border: 1px solid;
-    .font-icon,
-    .fcui2-icon {
+    .is-icon {
         position: absolute;
         height: 28px;
         line-height: 28px;
@@ -31,6 +32,8 @@
         cursor: pointer;
     }
 }
+
+
 // 皮肤样式负责颜色和字体
 .fcui2-button-normal {
     background-color: @color-bg-btn;
@@ -38,11 +41,14 @@
     input {
         color: @color-text-3;
     }
+    &:active {
+        border-color: @color-btn-hover;
+    }
 }
 .fcui2-button-important {
     border-color: @color-btn;
     background-color: @color-btn;
-    input,.font-icon {
+    input,.is-icon {
         color: @color-gray-1;
     }
     &:hover {
@@ -51,9 +57,6 @@
     &:active {
         background-color: @color-btn;
     }
-}
-.fcui2-button-active {
-    border-color: @color-btn-hover;
 }
 .fcui2-button-disabled {
     background-color: @color-bg-btn !important;
@@ -88,7 +91,7 @@
     input {
         color: @oneux3-color-c1;
     }
-    .font-icon {
+    .is-icon {
         color: @oneux3-color-c1;
     }
     &:hover {
@@ -102,7 +105,7 @@
     input {
         color: @oneux3-color-c8;
     }
-    .font-icon {
+    .is-icon {
         color: @oneux3-color-c4;
     }
     &:hover {
@@ -116,7 +119,7 @@
     input {
         color: @oneux3-color-c1;
     }
-    .font-icon {
+    .is-icon {
         color: @oneux3-color-c1;
     }
     &:hover {
@@ -130,7 +133,7 @@
     input {
         color: @oneux3-color-c4;
     }
-    .font-icon {
+    .is-icon {
         color: @oneux3-color-c4;
     }
     &:hover {
@@ -144,7 +147,7 @@
     input {
         color: @oneux3-color-c4;
     }
-    .font-icon {
+    .is-icon {
         color: @oneux3-color-c4;
     }
     &:hover {
@@ -158,7 +161,7 @@
     input {
         color: @oneux3-color-c8;
     }
-    .font-icon {
+    .is-icon {
         color: @oneux3-color-c8;
     }
     &:hover {
@@ -172,7 +175,7 @@
     input {
         color: @oneux3-color-c3;
     }
-    .font-icon {
+    .is-icon {
         color: @oneux3-color-c3;
     }
     &:hover {
@@ -180,6 +183,7 @@
         border-color: @oneux3-bgcolor-c18;
     }
 }
+
 
 // OneUX4皮肤,如果还是用的oneux3的颜色说明该地方还没改
 .fcui2-button-oneux4-normal,
@@ -201,7 +205,7 @@
     input {
         color: @oneux4-color-c1;
     }
-    .font-icon {
+    .is-icon {
         color: @oneux3-color-c1;
     }
     &:hover {
@@ -219,7 +223,7 @@
     input {
         color: @oneux4-color-c1;
     }
-    .font-icon {
+    .is-icon {
         color: @oneux3-color-c4;
     }
     &:hover {
@@ -237,7 +241,7 @@
     input {
         color: @oneux4-color-c4;
     }
-    .font-icon {
+    .is-icon {
         color: @oneux3-color-c8;
     }
     &:hover {
@@ -255,7 +259,7 @@
     input {
         color: @oneux4-color-c12;
     }
-    .font-icon {
+    .is-icon {
         color: @oneux3-color-c3;
     }
     &:hover {

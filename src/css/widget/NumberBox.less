@@ -4,7 +4,7 @@
     display: inline-block;
     position: relative;
     top: 11px;
-    margin-top: -11px; // 为了维护inline-block元素的上下间距，需要利用margin把差距补回来，也是醉了
+    margin-top: -11px;
     height: 30px;
     .fcui2-numberbox-placeholder {
         position: absolute;
@@ -28,14 +28,18 @@
         top: 1px;
         right: 1px;
         width: 20px;
-        height: 26px;
+        height: 28px;
         border-left: 1px solid;
-        .font-icon {
-            line-height: 13px;
+        .fcui2-icon {
+            line-height: 14px;
             text-align: center;
         }
     }
+    .fcui2-icon {
+        font-size: 12px;
+    }
 }
+
 
 .fcui2-numberbox-normal {
     background-color: @color-bg;
@@ -51,7 +55,7 @@
     .btn-container {
         background-color: @color-bg-btn;
         border-left-color: @color-outer-border;
-        .font-icon {
+        .fcui2-icon {
             cursor: pointer;
             &:hover {
                 background-color: @color-btn;
@@ -61,17 +65,14 @@
                 background-color: @color-btn-hover;
             }
         }
-        .font-icon-largeable-caret-up {
-            border-bottom-color: @color-outer-border;
+    }
+    &-hover,&:hover {
+        input {
+            border-color: @color-btn-hover;
         }
     }
 }
 
-.fcui2-numberbox-normal-hover, .fcui2-numberbox-normal:hover{
-    input {
-        border-color: @color-btn-hover;
-    }
-}
 
 .fcui2-numberbox-oneux3-normal,
 .fcui2-numberbox-oneux3-reject {
@@ -91,12 +92,10 @@
     .btn-container {
         background-color: @color-bg-btn;
         border-left-color: @oneux3-bgcolor-c2;
-        height: 24px;
-        .font-icon {
-            line-height: 12px;
+        height: 26px;
+        .fcui2-icon {
+            line-height: 13px;
             text-align: center;
-        }
-        .font-icon {
             cursor: pointer;
             color: @oneux3-bgcolor-c30;
             background-color: @oneux3-bgcolor-c1;
@@ -107,9 +106,6 @@
             &:active {
                 color: @oneux3-bgcolor-c30;
             }
-        }
-        .font-icon-largeable-caret-up {
-            border-bottom-color: @color-outer-border;
         }
     }
 }
@@ -133,7 +129,7 @@
             border-color: @color-outer-border !important;
         }
     }
-    .font-icon {
+    .fcui2-icon {
         color: @color-disabled-text !important;
         &:hover,&:active {
             background-color: @color-bg-btn !important;

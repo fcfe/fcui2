@@ -26,29 +26,37 @@
     top: -9999px;
     width: 9999px;
     height: 9999px;
+    .title-bar {
+        position: relative;
+        cursor: default;
+    }
+    .fcui2-icon-close {
+        position: absolute;
+        top: 0px;
+        right: 5px;
+        float: right;
+        font-size: 14px;
+        line-height: 40px;
+        z-index: 1;
+        &:hover {
+            cursor: pointer; 
+        }
+    }
 }
 
 .fcui2-titlewindow-normal {
     background-color: @color-bg;
     .title-bar {
-        position: relative;
-        cursor: default;
         padding: 0 10px;
         font-weight: 700;
         line-height: 40px;
         color: @color-bg;
         background-color: @color-blue-8;
-        .font-icon-times {
-            position: absolute;
-            top: 0px;
-            right: 5px;
-            float: right;
-            font-size: 20px;
-            line-height: 40px;
+        .fcui2-icon-close {
+            font-size: 12px;
+            right: 10px;
             color: @color-bg;
-            z-index: 1;
             &:hover {
-                cursor: pointer; 
                 color: @color-blue-7;
             }
         }
@@ -69,8 +77,6 @@
 .fcui2-titlewindow-oneux3-normal {
     background-color: @oneux3-bgcolor-c1;
     .title-bar {
-        position: relative;
-        cursor: default;
         margin: 0 2px 0 30px;
         font-weight: 700;
         line-height: 60px;
@@ -79,16 +85,10 @@
         color: @oneux3-color-c1;
         background-color: @oneux3-bgcolor-c1;
         border-bottom: 1px solid @oneux3-bgcolor-c29;
-        .font-icon-times {
-            position: absolute;
-            top: 5px;
+        .fcui2-icon-close {
             right: 12px;
-            float: right;
-            font-size: 20px;
-            line-height: 40px;
+            top: 4px;
             color: @oneux3-color-c12;
-            z-index: 1;
-            cursor: pointer;
             &:hover {
                 color: @oneux3-color-c3;
             }
