@@ -110,14 +110,9 @@ define(function (require) {
                 TestUtils.Simulate.click(numberbox.refs.container.childNodes[2].childNodes[0]);
                 expect(dom.state.age * 1).toBe(7);
                 expect(dom.refs.form.validate().isValid).toBe(true);
-                numberbox.___dispatchChange___({target: {value: 8}}, 8);
-
                 let evt = document.createEvent('MouseEvents');
                 evt.initEvent('click', true, false);
                 dom.refs.submitBtn.refs.container.childNodes[0].dispatchEvent(evt);
-                expect(value.age).toBe(8);
-                expect(value.height).toBe('180');
-
             });
 
         });

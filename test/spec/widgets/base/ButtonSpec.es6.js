@@ -57,7 +57,7 @@ define(function (require) {
                 expect(button.props.title).toBe('testing title');
                 expect(button.props.style).toEqual({color: '#FFF'});
                 expect(button.props.children).toEqual([
-                    <div className="font-icon icon-test" style={{left: 10}}/>,
+                    <div className="is-icon font-icon icon-test" style={{left: 10}}/>,
                     <input type="button" name="test" value="testing label" style={{textAlign: 'left'}} disabled={false}/>
                 ]);
             });
