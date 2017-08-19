@@ -176,12 +176,19 @@ define(function (require) {
                 onCloseByWindow: this.onCancelButtonClick,
                 skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };
+            var iconProps = {
+                className: 'icon-right fcui2-icon fcui2-icon-calendar',
+                style: {
+                    fontSize: 14,
+                    marginRight: 3
+                }
+            };
             var skin = this.props.skin ? this.props.skin : 'normal';
             skin = this.context.appSkin ? (this.context.appSkin + '-' + skin) : skin;
             containerProp.className += layerProp.isOpen ? (' fcui2-dropdownlist-' + skin + '-hover') : '';
             return (
                 <div {...containerProp}>
-                    <div className="icon-right fcui2-icon fcui2-icon-calendar"></div>
+                    <div {...iconProps}></div>
                     <span className="label-container">{label}</span>
                     <Layer {...layerProp}>{factory.layerContentFactory(me)}</Layer>
                 </div>

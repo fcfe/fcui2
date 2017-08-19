@@ -46,7 +46,7 @@ define(function (require) {
             typeof this.props.onAction === 'function' && this.props.onAction('TableExpanderClick', value);
         },
         render: function () {
-            var buttonClass = 'font-icon'; 
+            var buttonClass = ''; 
             if (
                 this.props.hasOwnProperty('tableExpandId')
                 && this.props.item.hasOwnProperty('expandId')

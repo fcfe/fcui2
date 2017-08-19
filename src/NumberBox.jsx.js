@@ -148,7 +148,6 @@ define(function (require) {
             };
             var skin = (this.context.appSkin ? this.context.appSkin + '-' : '')
                 + (this.props.skin ? this.props.skin : 'normal');
-            containerProp.className += this.state.hasFocus ? ' fcui2-numberbox-' + skin + '-hover' : '';
             return (
                 <div {...containerProp}>
                     <div {...placeholderProp}>{this.props.placeholder}</div>

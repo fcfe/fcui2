@@ -56,9 +56,9 @@ define(function (require) {
                 style: this.props.style,
                 title: this.props.title
             };
+            var buttonIcon = this.props.buttonIcon;
             var iconProp = {
-                className: 'font-icon'
-                    + (typeof this.props.buttonIcon === 'string' ? ' ' + this.props.buttonIcon : ''),
+                className: 'is-icon font-icon' + (typeof buttonIcon === 'string' ? ' ' + buttonIcon : ''),
                 style: {
                     float: tdProp.style.textAlign === 'right' ? 'left' : 'right',
                     marginTop: 2

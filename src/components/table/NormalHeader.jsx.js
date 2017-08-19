@@ -60,7 +60,7 @@ define(function (require) {
                 sortType = 'desc'; //desc 降序 asc升序
             }
             var sortButtonProp = {
-                className: 'sort-button font-icon fcui2-icon '
+                className: 'sort-button fcui2-icon '
                     + (sortType === 'asc' ? 'fcui2-icon-asc' : 'fcui2-icon-desc'),
                 style: {
                     display: sortEnable ? 'inline-block' : 'none',

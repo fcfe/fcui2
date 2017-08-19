@@ -111,9 +111,7 @@ define(function (require) {
                 onInput: this.___onInput___
             };
             var iconProps = {
-                className: this.props.mode === 'withButton'
-                    ? 'font-icon ' + this.props.clearIcon
-                    : 'font-icon ' + this.props.icon,
+                className: this.props.mode === 'withButton' ? this.props.clearIcon : this.props.icon,
                 onClick: this.props.mode === 'withButton'
                     ? this.onClearButtonClick
                     : this.onButtonClick
