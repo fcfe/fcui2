@@ -13,6 +13,12 @@ define(function (require) {
             props: {className: 'marginLeft100'}
         },
         {
+            title: 'SearchBox width Button',
+            props: {
+                mode: 'withButton'
+            }
+        },
+        {
             title: 'Readonly SearchBox',
             props: {value: 'readonly'}
         },

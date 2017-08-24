@@ -13,6 +13,8 @@ define(function (require) {
     var cTools = require('./core/componentTools');
     var Button = require('./Button.jsx');
 
+    var SEARCH_ICON = 'fcui2-icon fcui2-icon-search';
+    var CLEAR_ICON = 'fcui2-icon fcui2-icon-remove';
 
     return React.createClass({
         /**
@@ -47,8 +49,6 @@ define(function (require) {
                 skin: '',
                 className: '',
                 style: {},
-                icon: 'fcui2-icon fcui2-icon-search',
-                clearIcon: 'fcui2-icon fcui2-icon-close',
                 disabled: false,
                 // self
                 placeholder: '',
@@ -111,7 +111,7 @@ define(function (require) {
                 onInput: this.___onInput___
             };
             var iconProps = {
-                className: this.props.mode === 'withButton' ? this.props.clearIcon : this.props.icon,
+                className: this.props.mode === 'withButton' ? CLEAR_ICON : SEARCH_ICON,
                 onClick: this.props.mode === 'withButton'
                     ? this.onClearButtonClick
                     : this.onButtonClick
