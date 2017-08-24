@@ -35,6 +35,9 @@ define(function (require) {
         /**
          * @fire Import src\Layer.jsx.js layer onOffset
          */
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
         // @override
         getDefaultProps: function () {
             return {
@@ -64,7 +67,7 @@ define(function (require) {
         },
         render: function () {
             var layerProp = {
-                skin: 'warning',
+                skin: (this.context.appSkin ? this.context.appSkin + '-' : '') + 'warning',
                 isOpen: this.props.message && !this.props.disabled,
                 anchor: this.props.anchor,
                 location: this.props.location,

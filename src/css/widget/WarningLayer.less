@@ -3,7 +3,6 @@
     line-height: 26px;
     height: 26px;
     padding: 0 10px;
-    background-color: @color-bg;
     .arrow-bg,.up-arrow,.down-arrow,.left-arrow,.right-arrow {
         position: absolute;
         width: 0;
@@ -13,26 +12,26 @@
         top: -6px;
         border-left: 6px solid transparent;
         border-right: 6px solid transparent;
-        border-bottom: 6px solid @color-error;
+        border-bottom: 6px solid;
         .arrow-bg {
             top: 1px;
             left: -5px;
             border-left: 5px solid transparent;
             border-right: 5px solid transparent;
-            border-bottom: 5px solid @color-bg;
+            border-bottom: 5px solid;
         }
     }
     .down-arrow {
         top: 26px;
         border-left: 6px solid transparent;
         border-right: 6px solid transparent;
-        border-top: 6px solid @color-error;
+        border-top: 6px solid;
         .arrow-bg {
             top: -6px;
             left: -5px;
             border-left: 5px solid transparent;
             border-right: 5px solid transparent;
-            border-top: 5px solid @color-bg;
+            border-top: 5px solid;
         }
     }
     .left-arrow {
@@ -40,13 +39,13 @@
         left: -6px;
         border-top: 6px solid transparent;
         border-bottom: 6px solid transparent;
-        border-right: 6px solid @color-error;
+        border-right: 6px solid;
         .arrow-bg {
             top: -5px;
             left: 1px;
             border-top: 5px solid transparent;
             border-bottom: 5px solid transparent;
-            border-right: 5px solid @color-bg;
+            border-right: 5px solid;
         }
     }
     .right-arrow {
@@ -54,13 +53,71 @@
         right: -6px;
         border-top: 6px solid transparent;
         border-bottom: 6px solid transparent;
-        border-left: 6px solid @color-error;
+        border-left: 6px solid;
         .arrow-bg {
             top: -5px;
             left: -6px;
             border-top: 5px solid transparent;
             border-bottom: 5px solid transparent;
-            border-left: 5px solid @color-bg;
+            border-left: 5px solid;
+        }
+    }
+}
+
+
+.fcui2-warninglayer-normal,
+.fcui2-warninglayer-oneux3-normal {
+    background-color: @color-bg;
+    .up-arrow {
+        border-bottom-color: @color-error;
+        .arrow-bg {
+            border-bottom-color: @color-bg;
+        }
+    }
+    .down-arrow {
+        border-top-color: @color-error;
+        .arrow-bg {
+            border-top-color: @color-bg;
+        }
+    }
+    .left-arrow {
+        border-right-color: @color-error;
+        .arrow-bg {
+            border-right-color: @color-bg;
+        }
+    }
+    .right-arrow {
+        border-left-color: @color-error;
+        .arrow-bg {
+            border-left-color: @color-bg;
+        }
+    }
+}
+
+.fcui2-warninglayer-oneux4-normal {
+    background-color: @oneux4-bgcolor-c9;
+    .up-arrow {
+        border-bottom-color: @oneux4-bgcolor-c9;
+        .arrow-bg {
+            border-bottom-color: @oneux4-bgcolor-c9;
+        }
+    }
+    .down-arrow {
+        border-top-color: @oneux4-bgcolor-c9;
+        .arrow-bg {
+            border-top-color: @oneux4-bgcolor-c9;
+        }
+    }
+    .left-arrow {
+        border-right-color: @oneux4-bgcolor-c9;
+        .arrow-bg {
+            border-right-color: @oneux4-bgcolor-c9;
+        }
+    }
+    .right-arrow {
+        border-left-color: @oneux4-bgcolor-c9;
+        .arrow-bg {
+            border-left-color: @oneux4-bgcolor-c9;
         }
     }
 }
