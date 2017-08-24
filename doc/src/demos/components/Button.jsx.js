@@ -9,6 +9,14 @@ define(function (require) {
             props: {label: '确定', value: 'enter button'}
         },
         {
+            title: 'Normal Button',
+            props: {label: 'oneux4-normal-blue', skin: 'normal-blue'}
+        },
+        {
+            title: 'Normal Button',
+            props: {label: 'oneux4-grey-blue', skin: 'grey-blue'}
+        },
+        {
             title: 'Button with Title',
             props: {label: 'Button', value: 'title button', title: 'Button With Title', skin: 'grey'}
         },

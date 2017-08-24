@@ -77,7 +77,7 @@ define(function (require) {
             var inputProp = {
                 ref: 'inputbox',
                 disabled: this.props.disabled,
-                type: 'text',
+                type: this.props.type || 'text',
                 style: {width: width - 22},
                 onCompositionStart: this.___onCompositionStart___,
                 onCompositionEnd: this.___onCompositionEnd___,

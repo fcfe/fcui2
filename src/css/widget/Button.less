@@ -1,7 +1,7 @@
-// version 0.0.3
+// version 0.0.4
+
+
 // 基础样式只负责定位和尺寸
-
-
 .fcui2-button {
     display: inline-block;
     position: relative;
@@ -34,11 +34,11 @@
 }
 
 
-// 皮肤样式负责颜色和字体
+// 普通皮肤
 .fcui2-button-normal {
     background-color: @color-bg-btn;
     border-color: @color-outer-border;
-    input {
+    input,.is-icon {
         color: @color-text-3;
     }
     &:active {
@@ -88,10 +88,7 @@
 .fcui2-button-oneux3-normal {
     background-color: @oneux3-bgcolor-c1;
     border-color: @oneux3-bgcolor-c11;  
-    input {
-        color: @oneux3-color-c1;
-    }
-    .is-icon {
+    input,.is-icon {
         color: @oneux3-color-c1;
     }
     &:hover {
@@ -100,26 +97,20 @@
     }
 }
 .fcui2-button-oneux3-active {
-    background-color: @oneux3-bgcolor-c20;
-    border-color: @oneux3-bgcolor-c20;
-    input {
-        color: @oneux3-color-c8;
-    }
-    .is-icon {
-        color: @oneux3-color-c4;
+    background-color: @oneux3-bgcolor-c1;
+    border-color: @oneux3-bgcolor-c16;  
+    input,.is-icon {
+        color: @oneux3-color-c1;
     }
     &:hover {
-        background-color: @oneux3-bgcolor-c17;
-        border-color: @oneux3-bgcolor-c17;
+        background-color: @oneux3-bgcolor-c12;
+        border-color: @oneux3-bgcolor-c13;
     }
 }
 .fcui2-button-oneux3-grey1 {
     background-color: @oneux3-bgcolor-c10;
     border-color: @oneux3-bgcolor-c10;
-    input {
-        color: @oneux3-color-c1;
-    }
-    .is-icon {
+    input,.is-icon {
         color: @oneux3-color-c1;
     }
     &:hover {
@@ -130,10 +121,7 @@
 .fcui2-button-oneux3-grey {
     background-color: @oneux3-bgcolor-c10;
     border-color: @oneux3-bgcolor-c10;
-    input {
-        color: @oneux3-color-c4;
-    }
-    .is-icon {
+    input,.is-icon {
         color: @oneux3-color-c4;
     }
     &:hover {
@@ -144,10 +132,7 @@
 .fcui2-button-oneux3-blue {
     background-color: @oneux3-bgcolor-c14;
     border-color: @oneux3-bgcolor-c14;
-    input {
-        color: @oneux3-color-c4;
-    }
-    .is-icon {
+    input,.is-icon {
         color: @oneux3-color-c4;
     }
     &:hover {
@@ -158,10 +143,7 @@
 .fcui2-button-oneux3-important {
     background-color: @oneux3-bgcolor-c16;
     border-color: @oneux3-bgcolor-c16;
-    input {
-        color: @oneux3-color-c8;
-    }
-    .is-icon {
+    input,.is-icon {
         color: @oneux3-color-c8;
     }
     &:hover {
@@ -172,11 +154,9 @@
 .fcui2-button-oneux3-disabled {
     background-color: @oneux3-bgcolor-c18;
     border-color: @oneux3-bgcolor-c18;
-    input {
+    input,.is-icon {
         color: @oneux3-color-c3;
-    }
-    .is-icon {
-        color: @oneux3-color-c3;
+        cursor: default;
     }
     &:hover {
         background-color: @oneux3-bgcolor-c18;
@@ -185,11 +165,14 @@
 }
 
 
-// OneUX4皮肤,如果还是用的oneux3的颜色说明该地方还没改
+// OneUX4皮肤
 .fcui2-button-oneux4-normal,
 .fcui2-button-oneux4-grey,
+.fcui2-button-oneux4-active,
 .fcui2-button-oneux4-important,
-.fcui2-button-oneux4-disabled {
+.fcui2-button-oneux4-normal-blue,
+.fcui2-button-oneux4-disabled,
+.fcui2-button-oneux4-grey-blue {
     top: 1px;
     height: 26px;
     line-height: 26px;
@@ -200,74 +183,88 @@
     }
 }
 .fcui2-button-oneux4-normal {
-    background-color: @oneux4-bgcolor-c5;
-    border-color: @oneux4-bgcolor-c5;
-    input {
+    background-color: @oneux4-bgcolor-c1;
+    border-color: @oneux4-border-color-c1;
+    .is-icon, input {
         color: @oneux4-color-c1;
     }
-    .is-icon {
-        color: @oneux3-color-c1;
-    }
     &:hover {
-        background-color: @oneux4-bgcolor-c8;
-        border-color: @oneux4-bgcolor-c8;
+        background-color: @oneux4-bgcolor-c2;
     }
     &:active {
-        background-color: @oneux4-bgcolor-c9;
-        border-color: @oneux4-bgcolor-c9;
+        background-color: @oneux4-bgcolor-c3;
+    }
+}
+.fcui2-button-oneux4-active {
+    background-color: @oneux4-bgcolor-c1;
+    border-color: @oneux4-bgcolor-c6;
+    .is-icon, input {
+        color: @oneux4-color-c1;
+    }
+    &:hover {
+        background-color: @oneux4-bgcolor-c2;
+    }
+    &:active {
+        background-color: @oneux4-bgcolor-c3;
+    }
+}
+.fcui2-button-oneux4-normal-blue {
+    background-color: @oneux4-bgcolor-c1;
+    border-color: @oneux4-border-color-c1;
+    .is-icon,input {
+        color: @oneux4-color-c2;
+    }
+    &:hover {
+        background-color: @oneux4-bgcolor-c2;
+    }
+    &:active {
+        background-color: @oneux4-bgcolor-c3;
     }
 }
 .fcui2-button-oneux4-grey {
-    background-color: @oneux4-color-c4;
-    border-color: @oneux4-color-c10;
-    input {
+    background-color: @oneux4-bgcolor-c4;
+    border-color: @oneux4-border-color-c2;
+    .is-icon, input {
         color: @oneux4-color-c1;
     }
-    .is-icon {
-        color: @oneux3-color-c4;
-    }
     &:hover {
-        background-color: @oneux4-bgcolor-c6;
-        border-color: @oneux4-bgcolor-c6;
+        background-color: @oneux4-bgcolor-c3;
     }
     &:active {
-        background-color: @oneux4-bgcolor-c7;
-        border-color: @oneux4-bgcolor-c7;
+        background-color: @oneux4-bgcolor-c5;
+    }
+}
+.fcui2-button-oneux4-grey-blue {
+    background-color: @oneux4-bgcolor-c4;
+    border-color: @oneux4-border-color-c2;
+    .is-icon, input {
+        color: @oneux4-color-c2;
+    }
+    &:hover {
+        background-color: @oneux4-bgcolor-c3;
+    }
+    &:active {
+        background-color: @oneux4-bgcolor-c5;
     }
 }
 .fcui2-button-oneux4-important {
-    background-color: @oneux4-bgcolor-c13;
-    border-color: @oneux4-bgcolor-c13;
-    input {
-        color: @oneux4-color-c4;
-    }
-    .is-icon {
-        color: @oneux3-color-c8;
+    background-color: @oneux4-bgcolor-c6;
+    border-color: @oneux4-bgcolor-c6;
+    .is-icon, input {
+        color: @oneux4-color-c0;
     }
     &:hover {
-        background-color: @oneux4-bgcolor-c10;
-        border-color: @oneux4-bgcolor-c10;
+        background-color: @oneux4-bgcolor-c7;
     }
     &:active {
-        background-color: @oneux4-bgcolor-c11;
-        border-color: @oneux4-bgcolor-c11;
+        background-color: @oneux4-bgcolor-c8;
     }
 }
 .fcui2-button-oneux4-disabled {
-    background-color: @oneux4-bgcolor-c5;
-    border-color: @oneux4-bgcolor-c5;
-    input {
-        color: @oneux4-color-c12;
-    }
-    .is-icon {
-        color: @oneux3-color-c3;
-    }
-    &:hover {
-        background-color: @oneux4-bgcolor-c5;
-        border-color: @oneux4-bgcolor-c5;
-    }
-    &:active {
-        background-color: @oneux4-bgcolor-c5;
-        border-color: @oneux4-bgcolor-c5;
+    background-color: @oneux4-bgcolor-c4;
+    border-color: @oneux4-bgcolor-c4;
+    .is-icon, input {
+        color: @oneux4-color-c3;
+        cursor: not-allowed;
     }
 }

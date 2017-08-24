@@ -29,6 +29,10 @@ define(function (require) {
             props: {placeholder: 'please input'}
         },
         {
+            title: 'Reject TextBox',
+            props: {value: 'asdasdt', skin: 'reject'}
+        },
+        {
             title: 'TextBox with Placeholder and value',
             props: {value: 1, placeholder: 'please input'}
         },

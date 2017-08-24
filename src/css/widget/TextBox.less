@@ -1,4 +1,4 @@
-// version 0.0.2
+// version 0.0.4
 
 .fcui2-textbox {
     display: inline-block;
@@ -25,6 +25,8 @@
     }
 }
 
+
+// 普通皮肤
 .fcui2-textbox-normal {
     input {
         background-color: transparent;
@@ -39,7 +41,23 @@
         font-size: 12px;
     }
 }
+.fcui2-textbox-reject {
+    input {
+        border-color: @color-error !important;
+    }
+}
+.fcui2-textbox-disabled,
+.fcui2-textbox-oneux3-disabled {
+    background-color: @color-bg-btn !important;
+    input {
+        color: @color-disabled-text !important;
+        &:hover {
+            border-color: @color-outer-border !important;
+        }
+    }
+}
 
+// oneux3皮肤
 .fcui2-textbox-oneux3-normal {
     input {
         background-color: transparent;
@@ -55,59 +73,41 @@
         padding-left: 14px;
     }
 }
-
-.fcui2-textbox-reject {
-    input {
-        border-color: @color-error !important;
-    }
-}
 .fcui2-textbox-oneux3-reject {
     input {
         border-color: @oneux3-bgcolor-c27 !important;
     }
 }
 
-.fcui2-textbox-oneux3-disabled,
-.fcui2-textbox-disabled {
-    background-color: @color-bg-btn !important;
-    input {
-        color: @color-disabled-text !important;
-        &:hover {
-            border-color: @color-outer-border !important;
-        }
-    }
-}
-
+// oneux4皮肤
 .fcui2-textbox-oneux4-normal {
     input {
         background-color: transparent;
-        border-color: @oneux4-color-c5;
+        border-color: @oneux4-border-color-c1;
         color: @oneux4-color-c1;
         &:hover,&:focus {
-            border-color: @oneux4-color-c3;
+            border-color: @oneux4-border-color-c3;
         }
     }
-    // placeholder
     div {
-        color: @oneux4-color-c3;
+        color: @oneux4-color-c4;
         font-size: 12px;
     }
 }
-
-.fcui2-textbox-oneux4-disabled {
-    background-color: @oneux4-bgcolor-c5 !important;
+.fcui2-textbox-oneux4-reject {
     input {
-        background-color: @oneux4-bgcolor-c5 !important;
-        border-color: @oneux4-bgcolor-c5;
+        border-color: @oneux4-border-color-c4 !important;
+    }
+}
+.fcui2-textbox-oneux4-disabled {
+    background-color: @oneux4-bgcolor-c2 !important;
+    input {
+        background-color: @oneux4-bgcolor-c2 !important;
+        border-color: @oneux4-border-color-c1;
         color: @oneux4-color-c3 !important;
         &:hover {
-            border-color: @oneux4-bgcolor-c5 !important;
+            border-color: @oneux4-border-color-c1 !important;
         }
     }
 }
 
-.fcui2-textbox-oneux4-reject {
-    input {
-        border-color: @oneux4-color-c8 !important;
-    }
-}
