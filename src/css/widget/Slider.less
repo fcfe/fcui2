@@ -1,4 +1,4 @@
-// version 0.0.2
+// version 0.0.4
 
 .fcui2-slider {
     position: relative;
@@ -115,6 +115,8 @@
         }
     }
 }
+
+
 .fcui2-slider-oneux3-normal {
     cursor: default;
     .fcui2-slider-base-axis {
@@ -151,6 +153,52 @@
 }
 
 
+.fcui2-slider-oneux4-normal {
+    cursor: default;
+    .fcui2-slider-base-axis {
+        height: 8px;
+        border-radius: 3px;
+        background-color: @oneux4-bgcolor-c5;
+    }
+    .fcui2-slider-value-axis {
+        height: 8px;
+        border-radius: 4px;
+        background-color: @oneux4-bgcolor-c6;
+    }
+    .fcui2-slider-value-label {
+        font-size: 14px;
+        background-color: rgba(0,0,0,0.7);
+        color: @oneux4-color-c0;
+        border-radius: 0px;
+        top: -28px;
+        line-height: 30px;
+        height: 30px;
+    }
+    .fcui2-slider-arrow {
+        border-top-color: rgba(0,0,0,0.7);
+        top: 30px;
+    }
+    .fcui2-slider-left-rule {
+        display: none;
+        border-left-color: @oneux3-bgcolor-c20; 
+    }
+    .fcui2-slider-right-rule {
+        display: none;
+        border-right-color: @color-outer-border;
+    }
+    .fcui2-slider-cursor {
+        cursor: pointer;
+        background-color: @oneux4-bgcolor-c1;
+        border: 3px solid @oneux4-bgcolor-c6;
+        width: 9px;
+        height: 9px;
+        top: 6px;
+        border-radius: 10px;
+    }
+}
+
+
+.fcui2-slider-oneux4-disabled,
 .fcui2-slider-oneux3-disabled,
 .fcui2-slider-disabled {
     .fcui2-slider-value-axis, .fcui2-slider-cursor:hover {
