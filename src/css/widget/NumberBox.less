@@ -1,4 +1,4 @@
-// version 0.0.2
+// version 0.0.4
 
 .fcui2-numberbox {
     display: inline-block;
@@ -109,31 +109,70 @@
         }
     }
 }
-
-.fcui2-numberbox-oneux3-normal-hover,.fcui2-numberbox-oneux3-normal:hover {
+.fcui2-numberbox-oneux3-normal-hover,
+.fcui2-numberbox-oneux3-normal:hover {
     input {
         border-color: @oneux3-bgcolor-c20;
     }
 }
 
-.fcui2-numberbox-reject,.fcui2-numberbox-oneux3-reject {
+
+.fcui2-numberbox-oneux4-normal,
+.fcui2-numberbox-oneux4-reject {
+    height: 26px;
+    background-color: @color-bg;
+    top: 9px;
+    margin-top: -9px;
+    input {
+        height: 24px;
+        border-color: @oneux4-border-color-c1;
+        background-color: transparent;
+    }
+    .fcui2-numberbox-placeholder {
+        color: @color-disabled-text;
+        font-size: 12px;
+    }
+    .btn-container {
+        border-left-color: @oneux3-bgcolor-c2;
+        height: 26px;
+        .fcui2-icon {
+            line-height: 13px;
+            text-align: center;
+            cursor: pointer;
+            color: @oneux4-color-c6;
+            &:hover {
+                color: @oneux4-color-c1;
+                background-color: @oneux4-bgcolor-c2;
+            }
+        }
+    }
+}
+.fcui2-numberbox-oneux4-normal-hover,
+.fcui2-numberbox-oneux4-normal:hover {
+    input {
+        border-color: @oneux4-border-color-c3;
+    }
+}
+
+
+.fcui2-numberbox-reject,
+.fcui2-numberbox-oneux3-reject,
+.fcui2-numberbox-oneux4-reject {
     input {
         border-color: @color-error !important;
     }
 }
 
-.fcui2-numberbox-disabled,.fcui2-numberbox-oneux3-disabled {
+
+.fcui2-numberbox-disabled,
+.fcui2-numberbox-oneux3-disabled,
+.fcui2-numberbox-oneux4-disabled {
     input {
         background-color: @color-bg-btn;
-        &:hover,&:active {
-            border-color: @color-outer-border !important;
-        }
+        border-color: @color-outer-border !important;
     }
     .fcui2-icon {
         color: @color-disabled-text !important;
-        &:hover,&:active {
-            background-color: @color-bg-btn !important;
-            color: @color-disabled-text !important;
-        }
+        background-color: @color-bg-btn !important;
     }
 }

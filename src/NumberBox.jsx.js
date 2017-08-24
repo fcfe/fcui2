@@ -153,9 +153,9 @@ define(function (require) {
                     <div {...placeholderProp}>{this.props.placeholder}</div>
                     <input {...inputProp} disabled={this.props.disabled} ref="inputbox"/>
                     <div {...btnContainerProp}>
-                        <div className="fcui2-icon fcui2-icon-arrow-up"
+                        <div className="fcui2-icon fcui2-icon-small-arrow-up"
                             data-ui-cmd="add" onClick={this.onSpinButtonClick}></div>
-                        <div className="fcui2-icon fcui2-icon-arrow-down"
+                        <div className="fcui2-icon fcui2-icon-small-arrow-down"
                             data-ui-cmd="sub" onClick={this.onSpinButtonClick}></div>
                     </div>
                 </div>

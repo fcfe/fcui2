@@ -1,4 +1,4 @@
-// version 0.0.2
+// version 0.0.4
 
 .fcui2-layer {
     position: absolute;
@@ -14,14 +14,15 @@
     }
 }
 
-
+// 普通皮肤
 .fcui2-layer-grey,
 .fcui2-layer-normal {
     background-color: @color-bg;
     border-color: @color-outer-border;
     font-family: @font-normal;
 }
-.fcui2-layer-warning {
+.fcui2-layer-warning,
+.fcui2-layer-oneux3-warning {
     overflow: visible;
     background-color: @color-bg;
     border-color: @color-error;
@@ -29,8 +30,7 @@
     font-size: 12px;
     font-family: @font-normal;
 }
-
-
+.fcui2-layer-blue,
 .fcui2-layer-oneux3-blue,
 .fcui2-layer-oneux3-normal {
     background-color: @oneux3-bgcolor-c1;
@@ -40,7 +40,13 @@
     font-family: @font-normal;
     border-color: @oneux3-bgcolor-c20;
 }
-.fcui2-layer-oneux3-important {
+.fcui2-layer-oneux4-normal {
+    background-color: @color-bg;
+    border-color: @color-outer-border;
+    font-family: @font-normal;
+}
+.fcui2-layer-oneux3-important,
+.fcui2-layer-oneux4-important {
     background-color: @oneux3-bgcolor-c20;
     .fcui2-layer-virtual-border {
         display: block;
@@ -49,21 +55,33 @@
     font-family: @font-normal;
     border-color: @oneux3-bgcolor-c20;
 }
-.fcui2-layer-oneux3-red {
+.fcui2-layer-red,
+.fcui2-layer-oneux3-red,
+.fcui2-layer-oneux4-red {
     background-color: @oneux3-bgcolor-c7;
     font-family: @font-normal;
     border-color: @oneux3-color-c7;
     color: @oneux3-color-c7;
 }
-.fcui2-layer-oneux3-yellow {
+.fcui2-layer-yellow,
+.fcui2-layer-oneux3-yellow,
+.fcui2-layer-oneux4-yellow {
     background-color: @oneux3-bgcolor-c8;
     font-family: @font-normal;
     border-color: @oneux3-bgcolor-c28;
     color: @oneux3-color-c1;
 }
-.fcui2-layer-oneux3-grey {
+.fcui2-layer-oneux3-grey,
+.fcui2-layer-oneux4-grey {
     background-color: @oneux3-bgcolor-c9;
     font-family: @font-normal;
     border-color: @oneux3-bgcolor-c2;
     color: @oneux3-color-c1;
+}
+.fcui2-layer-oneux4-warning {
+    background-color: @oneux4-bgcolor-c9;
+    border-color: @oneux4-bgcolor-c9;
+    font-family: @font-normal;
+    color: @oneux4-color-c5;
+    font-size: 12px;
 }
