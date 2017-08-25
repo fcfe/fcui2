@@ -47,7 +47,7 @@ define(function (require) {
                         value = e.target.value;
                     }
                 });
-                expect(dom.refs.container.childNodes[1].style.width).toBe('670px');
+                expect(dom.refs.container.childNodes[1].style.width).toBe('668px');
                 TestUtils.Simulate.click(dom.refs.container.childNodes[2]);
                 expect(value).toBe(null);
             });
