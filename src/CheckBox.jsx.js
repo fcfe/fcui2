@@ -102,8 +102,7 @@ define(function (require) {
             };
             var virtualCheckboxProp = {
                 className: 'fcui2-icon fcui2-icon-checkbox'
-                    + (!checked && this.props.indeterminate ? '-indeterminate' : (checked ? '-selected' : '-unselected'))
-                    + (this.props.disabled ? '-disabled' : ''),
+                    + (!checked && this.props.indeterminate ? '-indeterminate' : (checked ? '-selected' : '-unselected')),
                 onClick: this.onClick
             };
             return (

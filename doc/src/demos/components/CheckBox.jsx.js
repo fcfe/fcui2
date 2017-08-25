@@ -33,8 +33,12 @@ define(function (require) {
             props: {disabled: true, label: '请选择'}
         },
         {
-            title: 'Readonly CheckBox',
+            title: 'Disabled CheckBox',
             props: {checked: true, label: '请选择', disabled: true}
+        },
+        {
+            title: 'Disabled CheckBox',
+            props: {indeterminate: true, label: '请选择', disabled: true}
         }
     ];
 
