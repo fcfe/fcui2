@@ -1,4 +1,4 @@
-// version 0.0.2
+// version 0.0.4
 
 
 .fcui2-searchbox {
@@ -39,6 +39,13 @@
         font-weight: 200;
         line-height: 16px;
     }
+    .search-button {
+        display: inline-block;
+        position: absolute;
+        text-align: center;
+        width: 50px;
+        cursor: pointer;
+    }
 }
 
 
@@ -67,6 +74,12 @@
     .placeholder {
         color: @color-disabled-text;
         font-size: 12px;
+    }
+    .search-button {
+        height: 30px;
+        line-height: 30px;
+        background-color: @oneux3-bgcolor-c16;
+        color: @oneux3-bgcolor-c1;
     }
 }
 
@@ -105,34 +118,78 @@
         font-size: 12px;
     }
     .search-button {
-        display: inline-block;
-        position: absolute;
         height: 28px;
         line-height: 28px;
-        text-align: center;
-        width: 50px;
         background-color: @oneux3-bgcolor-c16;
         color: @oneux3-bgcolor-c1;
-        cursor: pointer;
     }
 }
 
+
+.fcui2-searchbox-oneux4-normal {
+    height: 28px;
+    top: 9px;
+    margin-top: -9px;
+    input {
+        height: 26px;
+        background-color: transparent;
+        border-color: @oneux4-border-color-c1;
+        &:hover,&:focus {
+            border-color: @oneux4-border-color-c3;
+        }
+    }
+    input[type="text"]::-ms-clear {
+        display:none;
+    }
+    .fcui2-icon-search {
+        color: @oneux4-color-c6;
+        cursor: pointer;
+        &:hover {
+            color: @oneux4-color-c1;
+        }
+    }
+    .fcui2-icon-remove {
+        color: @oneux4-color-c6;
+        cursor: pointer;
+        &:hover {
+            color: @oneux4-color-c1;
+        }
+    }
+    .placeholder {
+        color: @oneux4-color-c4;
+        font-size: 12px;
+    }
+    .search-button {
+        height: 28px;
+        line-height: 28px;
+        background-color: @oneux4-bgcolor-c6;
+        color: @oneux4-color-c0;
+        &:hover {
+            background-color: @oneux4-bgcolor-c7;
+        }
+        &:active {
+            background-color: @oneux4-bgcolor-c11;   
+        }
+    }
+}
+
+
 .fcui2-searchbox-oneux3-disabled,
+.fcui2-searchbox-oneux4-disabled,
 .fcui2-searchbox-disabled {
     background-color: @color-bg-btn !important;
     input {
         color: @color-disabled-text !important;
         &:hover {
-            border-color: @color-outer-border !important;
+            border-color: @oneux3-bgcolor-c2 !important;
         }
     }
-    .fcui2-icon-search:hover {
+    .fcui2-icon-search,.fcui2-icon-search:hover {
         cursor: default;
         color: @color-disabled-text;
     }
-    .fcui2-icon-times:hover {
+    .fcui2-icon-search,.fcui2-icon-times:hover {
         cursor: default;
         color: @color-disabled-text;
     }
 }
-

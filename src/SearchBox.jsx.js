@@ -13,8 +13,6 @@ define(function (require) {
     var cTools = require('./core/componentTools');
     var Button = require('./Button.jsx');
 
-    var SEARCH_ICON = 'fcui2-icon fcui2-icon-search';
-    var CLEAR_ICON = 'fcui2-icon fcui2-icon-remove';
 
     return React.createClass({
         /**
@@ -74,6 +72,8 @@ define(function (require) {
         onClearButtonClick: function (e) {
             e.target = this.refs.container;
             e.target.value = '';
+            this.refs.inputbox.focus();
+            this.___stopBlur___ = true;
             this.___dispatchChange___(e);
             this.props.onClick(e);
         },
@@ -98,11 +98,20 @@ define(function (require) {
                     visibility: ((value && value.length) || this.state.hasFocus) ? 'hidden' : 'visible'
                 }
             };
+            var inputWidth = width - 32;
+            var inputPaddingRight = 20;
+            if (this.props.mode !== 'withButton' && this.state.hasFocus) {
+                inputPaddingRight += 20;
+                inputWidth -= 20;
+            }
             var inputProp = {
                 ref: 'inputbox',
                 type: 'text',
                 disabled: this.props.disabled,
-                style: {width: width - 30},
+                style: {
+                    width: inputWidth,
+                    paddingRight: inputPaddingRight
+                },
                 onCompositionStart: this.___onCompositionStart___,
                 onCompositionEnd: this.___onCompositionEnd___,
                 onKeyUp: this.___onKeyUp___,
@@ -110,11 +119,16 @@ define(function (require) {
                 onBlur: this.___onBlur___,
                 onInput: this.___onInput___
             };
-            var iconProps = {
-                className: this.props.mode === 'withButton' ? CLEAR_ICON : SEARCH_ICON,
-                onClick: this.props.mode === 'withButton'
-                    ? this.onClearButtonClick
-                    : this.onButtonClick
+            var searchIconProps = {
+                className: 'fcui2-icon fcui2-icon-search',
+                onClick: this.onButtonClick 
+            };
+            var removeIconProps = {
+                className: 'fcui2-icon fcui2-icon-remove',
+                style: {
+                    right: this.props.mode === 'withButton' ? 5 : 25
+                },
+                onClick: this.onClearButtonClick
             };
             var searchButtonProps = {
                 onClick: this.onButtonClick,
@@ -127,12 +141,9 @@ define(function (require) {
                 <div {...containerProp}>
                     <div {...placeholderProp}>{this.props.placeholder}</div>
                     <input {...inputProp}/>
-                    <div {...iconProps}></div>
-                    {
-                        this.props.mode === 'withButton'
-                            ? <div {...searchButtonProps}>搜索</div>
-                            : null
-                    }
+                    {this.state.hasFocus ? <div {...removeIconProps}></div> : null}
+                    {this.props.mode === 'withButton' ? null : <div {...searchIconProps}></div>}
+                    {this.props.mode === 'withButton' ? <div {...searchButtonProps}>搜索</div> : null}
                 </div>
             );
         }

@@ -150,7 +150,14 @@ define(function (require) {
             typeof this.props.onFocus === 'function' && this.props.onFocus(e);
         },
         ___onBlur___: function (e) {
-            this.setState({hasFocus: false});
+            var me = this;
+            setTimeout(function () {
+                if (me.___stopBlur___) {
+                    me.___stopBlur___ = false;
+                    return;
+                }
+                me.setState({hasFocus: false});
+            }, 200);
             typeof this.props.onBlur === 'function' && this.props.onBlur(e);
         },
         ______callDispatch______: function (e) {
