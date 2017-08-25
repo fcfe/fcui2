@@ -43,6 +43,19 @@ define(function (require) {
             }
         },
         {
+            title: 'Tab Level-4',
+            props: {
+                skin: 'level-4',
+                datasource: [
+                    {label: 'option1', value: 'option1'},
+                    {label: 'option2', value: 'option2'},
+                    {label: 'option3', value: 'option3'},
+                    {label: 'option4', value: 'option4'},
+                    {label: 'option5', value: 'option5'}
+                ]
+            }
+        },
+        {
             title: 'Disabled Tab',
             props: {
                 disabled: true,
