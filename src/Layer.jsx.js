@@ -44,6 +44,9 @@ define(function (require) {
         /**
          * @fire layer onMouseEnter
          */
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
         // @override
         getDefaultProps: function () {
             return {
@@ -246,7 +249,7 @@ define(function (require) {
             this.fixedSize(props);
             var layer = this.___layerContainer___;
             var anchorPos = util.getDOMPosition(props.anchor);
-            var pos = tools.getLayerPosition(layer, props.anchor, props.location + '');
+            var pos = tools.getLayerPosition(layer, props.anchor, props.location + '', this.context.appSkin);
             var newPos = JSON.parse(JSON.stringify(pos));
             typeof props.onOffset === 'function' && props.onOffset(newPos);
             if (newPos.left === pos.left && newPos.top === pos.top && newPos.clockPosition === pos.clockPosition) {

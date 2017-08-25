@@ -128,7 +128,7 @@ define(function (require) {
          * @param {Number} top layer显示的top坐标
          * @param {Number} clock layer相对与anchor的时钟位置
          */ 
-        getLayerPosition: function (layer, anchor, layerLocation) {
+        getLayerPosition: function (layer, anchor, layerLocation, skin) {
             // 准备数据
             var layerHeight = layer.offsetHeight;
             var layerWidth = layer.offsetWidth;
@@ -141,6 +141,7 @@ define(function (require) {
                 left: anchorPosition.left + anchorWidth - layerWidth,
                 right: anchorPosition.left
             };
+            var dTop = skin === 'oneux4' ? 4 : 0;
             var clockPosition = {
                 '1': [tempPosition.right, tempPosition.top],
                 '2': [tempPosition.right + anchorWidth, tempPosition.top],
@@ -166,11 +167,20 @@ define(function (require) {
                 }
             }
             if (clock !== '') {
+                if (clock === '1' || clock === '12') {
+                    dTop = -dTop;
+                }
+                else if (clock === '6' || clock === '7') {
+                    // do nothing
+                }
+                else {
+                    dTop = 0;
+                }
                 return {
                     left: clockPosition[clock][0],
-                    top: clockPosition[clock][1],
+                    top: clockPosition[clock][1] + dTop,
                     clockPosition: clock
-                }
+                };
             }
             // 展开定位
             var topIndex = layerLocation.indexOf('top');
@@ -223,7 +233,16 @@ define(function (require) {
                     break;
                 }
             }
-
+            if (result.clockPosition === '1' || result.clockPosition === '12') {
+                dTop = -dTop;
+            }
+            else if (result.clockPosition === '6' || result.clockPosition === '7') {
+                // do nothing
+            }
+            else {
+                dTop = 0;
+            }
+            result.top += dTop;
             return result;
         }
     };
