@@ -1,5 +1,5 @@
+// version 0.0.4
 
-// version 0.0.2
 
 .fcui2-textarea {
     position: relative;
@@ -25,6 +25,7 @@
     }
 }
 
+
 .fcui2-textarea-normal {
     textarea {
         background-color: transparent;
@@ -38,6 +39,22 @@
         font-size: 12px;
     }
 }
+.fcui2-textarea-reject {
+    textarea {
+        border-color: @color-error !important;
+    }
+}
+.fcui2-textarea-disabled {
+    background-color: @color-bg-btn !important;
+    textarea {
+        color: @color-disabled-text !important;
+        &:hover {
+            border-color: @color-outer-border !important;
+        }
+    }
+}
+
+
 .fcui2-textarea-oneux3-normal {
     textarea {
         background-color: transparent;
@@ -51,26 +68,47 @@
         font-size: 12px;
     }
 }
-
-.fcui2-textarea-reject {
-    textarea {
-        border-color: @color-error !important;
-    }
-}
-
 .fcui2-textarea-oneux3-reject {
     textarea {
         border-color: @oneux3-bgcolor-c27 !important;
     }
 }
-
-.fcui2-textarea-oneux3-disabled,
-.fcui2-textarea-disabled {
+.fcui2-textarea-oneux3-disabled {
     background-color: @color-bg-btn !important;
     textarea {
         color: @color-disabled-text !important;
         &:hover {
-            border-color: @color-outer-border !important;
+            border-color: @oneux3-bgcolor-c2 !important;
+        }
+    }
+}
+
+
+.fcui2-textarea-oneux4-normal {
+    textarea {
+        background-color: transparent;
+        border-color: @oneux4-border-color-c1;
+        &:hover,&:focus {
+            border-color: @oneux4-border-color-c3;
+        }
+    }
+    div {
+        color: @oneux4-color-c4;
+        font-size: 12px;
+    }
+}
+.fcui2-textarea-oneux4-reject {
+    textarea {
+        border-color: @oneux4-border-color-c4 !important;
+    }
+}
+.fcui2-textarea-oneux4-disabled {
+    background-color: @color-bg-btn !important;
+    textarea {
+        color: @color-disabled-text !important;
+        border-color: @oneux4-border-color-c1 !important;
+        &:hover {
+            border-color: @oneux4-border-color-c1 !important;
         }
     }
 }
