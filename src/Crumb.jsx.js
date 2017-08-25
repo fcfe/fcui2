@@ -16,7 +16,6 @@ define(function (require) {
          *
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {Array.<CrumbItemObject>} datasource 面包屑数据源
-         * @param {String} separator 链接间分隔符
          */
         /**
          * @structure CrumbItemObject
@@ -39,8 +38,7 @@ define(function (require) {
                 style: {},
                 disabled: false,
                 // self
-                datasource: [],
-                separator: '>'
+                datasource: []
             };
         },
         // @override

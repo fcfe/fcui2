@@ -15,7 +15,7 @@ define(function (require) {
                     doms.push(<a key={'l' + i} href={item.href} target={item.target}>{item.label}</a>);
                 }
                 if (i < me.props.datasource.length - 1) {
-                    doms.push(<div key={'s' + i} className="fcui2-crumb-separator">{me.props.separator}</div>);
+                    doms.push(<div key={'s' + i} className="fcui2-crumb-separator"></div>);
                 }
             }
             return doms;
