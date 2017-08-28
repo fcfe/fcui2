@@ -197,29 +197,37 @@ define(function (require) {
          * @param {Number} y dom相对于可视区域右侧距离
          */
         getDOMPosition: function (e) {
-            var initDom = e;
-            var t = e.offsetTop;   
-            var l = e.offsetLeft;
-            var isFixed = this.getStyle(e, 'position') === 'fixed';
-            while (e = e.offsetParent) {
-                t += e.offsetTop;   
-                l += e.offsetLeft; 
-                isFixed = isFixed || this.getStyle(e, 'position') === 'fixed';           
-            }
-            e = initDom;
-            while((e = e.parentNode) && e.tagName !== 'BODY') {
-                t -= e.scrollTop;
-                l -= e.scrollLeft;
-            }
-            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-            var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
-            var pos = {
-                x: l + (isFixed ? 0 : -scrollLeft),
-                y: t + (isFixed ? 0 : -scrollTop),
-                left: l + (isFixed ? scrollLeft : 0),
-                top: t + (isFixed ? scrollTop : 0)
+            function getCompatElement(elem) {
+                var doc = elem && elem.ownerDocument || document;
+                var compatMode = doc.compatMode;
+                return (!compatMode || compatMode === 'CSS1Compat') ? doc.documentElement : doc.body;
             };
-            return pos;
+            function getPositionInViewport(elem) {
+                var bounding = elem.getBoundingClientRect();
+                var clientTop = getCompatElement().clientTop;
+                var clientLeft = getCompatElement().clientLeft;
+                return {
+                    top: bounding.top - clientTop,
+                    left: bounding.left - clientLeft
+                };
+            };
+            function getPositionInDocument(elem) {
+                var scrollTop = 'pageYOffset' in window ? window.pageYOffset : getCompatElement().scrollTop;
+                var scrollLeft = 'pageXOffset' in window ? window.pageXOffset : getCompatElement().scrollLeft;
+                var positionInViewport = getPositionInViewport(elem);
+                return {
+                    top: positionInViewport.top + scrollTop,
+                    left: positionInViewport.left + scrollLeft
+                };
+            };
+            var positionInViewport = getPositionInViewport(e);
+            var positionInDocument = getPositionInDocument(e);
+            return {
+                x: positionInViewport.left,
+                y: positionInViewport.top,
+                left: positionInDocument.left,
+                top: positionInDocument.top,
+            };
         },
 
         /**
