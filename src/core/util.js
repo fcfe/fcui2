@@ -119,7 +119,7 @@ define(function (require) {
          * 获取输入框光标位置
          * @interface getCursorPosition
          * @param {HtmlElement} dom 正在输入的dom元素
-         * @return {number} 鼠标位置，如果为-1，表示dom没有获得焦点 
+         * @return {number} 鼠标位置，如果为-1，表示dom没有获得焦点
          */
         getCursorPosition: function (dom) {
             var result = -1;
@@ -158,7 +158,7 @@ define(function (require) {
             }
         },
 
-        /** 
+        /**
          * 获取DOM是否可见，组件自身或者祖先中，只要visibility:hidden或display:none，即为不可见
          * @interface isDOMVisible
          * @param {HtmlElement} dom dom节点
@@ -201,7 +201,7 @@ define(function (require) {
                 var doc = elem && elem.ownerDocument || document;
                 var compatMode = doc.compatMode;
                 return (!compatMode || compatMode === 'CSS1Compat') ? doc.documentElement : doc.body;
-            };
+            }
             function getPositionInViewport(elem) {
                 var bounding = elem.getBoundingClientRect();
                 var clientTop = getCompatElement().clientTop;
@@ -210,7 +210,7 @@ define(function (require) {
                     top: bounding.top - clientTop,
                     left: bounding.left - clientLeft
                 };
-            };
+            }
             function getPositionInDocument(elem) {
                 var scrollTop = 'pageYOffset' in window ? window.pageYOffset : getCompatElement().scrollTop;
                 var scrollLeft = 'pageXOffset' in window ? window.pageXOffset : getCompatElement().scrollLeft;
@@ -219,7 +219,7 @@ define(function (require) {
                     top: positionInViewport.top + scrollTop,
                     left: positionInViewport.left + scrollLeft
                 };
-            };
+            }
             var positionInViewport = getPositionInViewport(e);
             var positionInDocument = getPositionInDocument(e);
             return {
@@ -268,12 +268,12 @@ define(function (require) {
             date = date || new Date();
             tpl = tpl || 'YYYY-MM-DD hh:mm:ss';
             var o = {
-                'M+': date.getMonth() + 1, //月份 
-                'D+': date.getDate(), //日 
-                'h+': date.getHours(), //小时 
-                'm+': date.getMinutes(), //分 
-                's+': date.getSeconds(), //秒 
-                'S+': date.getMilliseconds() //毫秒 
+                'M+': date.getMonth() + 1, //月份
+                'D+': date.getDate(), //日
+                'h+': date.getHours(), //小时
+                'm+': date.getMinutes(), //分
+                's+': date.getSeconds(), //秒
+                'S+': date.getMilliseconds() //毫秒
             };
             if (/(Y+)/.test(tpl)) {
                 tpl = tpl.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
