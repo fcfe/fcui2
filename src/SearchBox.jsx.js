@@ -48,6 +48,7 @@ define(function (require) {
                 className: '',
                 style: {},
                 disabled: false,
+                showClearButton: false,
                 // self
                 placeholder: '',
                 onClick: function () {},
@@ -100,7 +101,7 @@ define(function (require) {
             };
             var inputWidth = width - 32;
             var inputPaddingRight = 20;
-            if (this.props.mode !== 'withButton' && this.state.hasFocus) {
+            if (this.props.mode !== 'withButton' && this.state.hasFocus && this.props.showClearButton) {
                 inputPaddingRight += 20;
                 inputWidth -= 20;
             }
@@ -141,7 +142,7 @@ define(function (require) {
                 <div {...containerProp}>
                     <div {...placeholderProp}>{this.props.placeholder}</div>
                     <input {...inputProp}/>
-                    {this.state.hasFocus ? <div {...removeIconProps}></div> : null}
+                    {this.state.hasFocus && this.props.showClearButton ? <div {...removeIconProps}></div> : null}
                     {this.props.mode === 'withButton' ? null : <div {...searchIconProps}></div>}
                     {this.props.mode === 'withButton' ? <div {...searchButtonProps}>搜索</div> : null}
                 </div>

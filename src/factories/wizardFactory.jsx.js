@@ -29,11 +29,16 @@ define(function (require) {
                 else {
                     props.className += ' fcui2-wizard-item-normal';
                 }
+                if (value === i) {
+                    props.className += ' fcui2-wizard-item-current';
+                }
                 doms.push(
                     <div {...props}>
                         <span data-ui-cmd={i}>{me.props.datasource[i]}</span>
                         <div data-ui-cmd={i} className="fcui2-wizard-arrow-bg"></div>
-                        <div data-ui-cmd={i} className="fcui2-wizard-arrow"></div>
+                        <div data-ui-cmd={i} className="fcui2-wizard-arrow">
+                            <span data-ui-cmd={i}>{i + 1}</span>
+                        </div>
                     </div>
                 );
             }

@@ -6,7 +6,9 @@ define(function (require) {
     var items = [
         {
             title: 'Normal SearchBox',
-            props: {}
+            props: {
+                showClearButton: true
+            }
         },
         {
             title: 'SearchBox with ClassName',

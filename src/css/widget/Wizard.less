@@ -1,4 +1,4 @@
-// version 0.0.3
+// version 0.0.4
 
 .fcui2-wizard {
     position: relative;
@@ -22,6 +22,9 @@
             border-top: 20px solid;
             border-bottom: 20px solid;
             border-left: 20px solid; 
+            span {
+                display: none;
+            }
         }
         .fcui2-wizard-arrow-bg {
             position: absolute;
@@ -159,6 +162,103 @@
             background-color: @oneux3-bgcolor-c17;
             .fcui2-wizard-arrow {
                 border-left-color: @oneux3-bgcolor-c17;
+            }
+        }
+    }
+}
+
+.fcui2-wizard-oneux4-normal {
+    .fcui2-wizard-item {
+        cursor: pointer;
+        color: @oneux4-color-c1;
+        .fcui2-wizard-arrow-bg {
+            display: block;
+            position: absolute;
+            z-index: -1;
+            top: 20px;
+            left: 0px;
+            width: calc(100% - 3em);
+            height: 1px;
+            border: 0px;
+            background-color: @oneux4-border-color-c6; 
+        }
+        .fcui2-wizard-arrow {
+            top: 7px;
+            right: auto;
+            left: 0px;
+            width: 26px;
+            height: 26px;
+            border: 0px;
+            border-radius: 26px;
+            text-align: center;
+            line-height: 27px;
+            background-color: @oneux4-bgcolor-c5;
+            &:hover {
+                background-color: @oneux4-bgcolor-c13;
+            }
+            span {
+                display: inline;
+                font-size: 16px;
+                color: @oneux4-color-c0;
+            }
+        }
+        >span {
+            margin-left: 26px;
+            background-color: @oneux4-bgcolor-c1;
+            padding: 0 10px;
+        }
+        &:first-child {
+            >span {
+                margin-left: 26px;
+            }
+        }
+        &:last-child {
+            .fcui2-wizard-arrow {
+                display: block;
+            }
+        }
+    }
+    .fcui2-wizard-item-active {
+        .fcui2-wizard-arrow-bg {
+            background-color: @oneux4-color-c1; 
+        }
+        .fcui2-wizard-arrow {
+            border: 1px solid @oneux4-border-color-c5;
+            height: 24px;
+            width: 24px;
+            background-color: @oneux4-bgcolor-c1;
+            font-family: 'fcui2-icon';
+            &:before {
+                content: "\e612";
+                font-size: 16px;
+                color: @oneux4-border-color-c5;
+                line-height: 24px; 
+            }
+            &:hover {
+                background-color: @oneux4-bgcolor-c1;
+            }
+            span {
+                display: none;
+            }
+        }
+    }
+    .fcui2-wizard-item-current {
+        .fcui2-wizard-arrow-bg {
+            background-color: @oneux4-border-color-c6; 
+        }
+        .fcui2-wizard-arrow {
+            border: 0px;
+            height: 26px;
+            width: 26px;
+            background-color: @oneux4-color-c6;
+            &:before {
+                content: "";
+            }
+            span {
+                display: inline;
+            }
+            &:hover {
+                background-color: @oneux4-bgcolor-c13;
             }
         }
     }

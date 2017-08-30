@@ -1,4 +1,4 @@
-// version 0.0.2
+// version 0.0.4
 
 .fcui2-calendar {
     position: relative;
@@ -169,6 +169,60 @@
             input {
                 color: #FFF;
             }
+        }
+    }
+}
+
+.fcui2-calendar-oneux4-normal {
+    .calendar-operation {
+        background-color: @color-bg-caption;
+        .fcui2-numberbox {
+            top: 11px;
+        }
+        .fcui2-icon-arrow-right {
+            color: @oneux4-color-c6;
+            transform:rotate(270deg);
+            -ms-transform:rotate(270deg);
+            -moz-transform:rotate(270deg);
+            -webkit-transform:rotate(270deg);
+            -o-transform:rotate(270deg);
+            &:before {
+                content: "\e60e";
+            }
+        }
+        .fcui2-icon-arrow-left {
+            color: @oneux4-color-c6;
+            transform:rotate(90deg);
+            -ms-transform:rotate(90deg);
+            -moz-transform:rotate(90deg);
+            -webkit-transform:rotate(90deg);
+            -o-transform:rotate(90deg);
+            &:before {
+                content: "\e60e";
+            }
+        }
+    }
+    .calendar-day-label {
+        font-size: 12px;
+        background-color: @color-bg-btn;
+        div {
+            color: @color-text-3;
+        }
+    }
+    .calendar-buttons {
+        .fcui2-button-calendar {
+            border-color: @color-bg;
+            &:hover {
+                border-color: @oneux4-border-color-c1;
+            }
+        }
+        .fcui2-button-disabled {
+            background-color: @color-bg !important;
+            border-color: @color-bg !important;
+        }
+        .fcui2-button-active {
+            background-color: @oneux4-bgcolor-c6;
+            border-color: @oneux4-bgcolor-c6;
         }
     }
 }
