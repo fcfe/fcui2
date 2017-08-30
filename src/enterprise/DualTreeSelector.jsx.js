@@ -228,6 +228,7 @@ define(function (require) {
             var labels = _.extend({}, defaultLabels, this.props.labels);
             var layerProp = {
                 ref: 'layer',
+                className: this.props.className,
                 isOpen: this.state.layerOpen,
                 anchor: this.refs.dropdownContainer,
                 style: {
