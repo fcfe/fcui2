@@ -98,7 +98,7 @@ define(function (require) {
             var target = this.refs.inputbox;
             var value = parseFloat(target.value);
             target.value = tools.numberFormater(value + op * parseFloat(this.props.step), this.props);
-            e.target = target;
+            e = {target: target};
             this.___dispatchChange___(e);
         },
         /**

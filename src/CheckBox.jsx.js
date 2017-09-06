@@ -73,7 +73,7 @@ define(function (require) {
         // 复选框label文字点击后触发
         onClick: function (e) {
             if (this.props.disabled) return;
-            e.target = this.refs.inputbox;
+            e = {target: this.refs.inputbox};
             e.target.checked = !e.target.checked;
             this.___dispatchChange___(e);
         },

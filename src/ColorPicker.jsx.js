@@ -173,7 +173,7 @@ define(function (require) {
                     canvasLeftMainColor: value.rgb
                 });
             }
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = JSON.stringify(value);
             this.___dispatchChange___(e);
         },
@@ -196,7 +196,7 @@ define(function (require) {
                         value.css = tools.RGB2CSS(value.rgb[0], value.rgb[1], value.rgb[2]);
                     }
                 }
-                e.target = me.refs.container;
+                e = {target: me.refs.container};
                 e.target.value = JSON.stringify(value);
                 me.___dispatchChange___(e);
             };

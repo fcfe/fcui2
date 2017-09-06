@@ -41,7 +41,7 @@ define(function (require) {
         onRegionClick: function (e) {
             var dataset = util.getDataset(e.target);
             if (!dataset.uiValue || this.props.disabled) return;
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = dataset.uiValue;
             typeof this.props.onClick === 'function' && this.props.onClick(e);
         },

@@ -97,7 +97,7 @@ define(function (require) {
             this.setState({layerOpen: true});
         },
         onEnterButtonClick: function (e) {
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = this.state.value1 + ';' + this.state.value2;
             this.___dispatchChange___(e);
             this.setState({layerOpen: false});

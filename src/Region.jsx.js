@@ -78,7 +78,7 @@ define(function (require) {
                     tools.deleteValue(e.target.value, value, this.props.noLinkage);
                 }
             }
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = tools.stringifyValue(value);
             this.___dispatchChange___(e);
         },

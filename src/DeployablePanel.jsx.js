@@ -55,7 +55,7 @@ define(function (require) {
             return {};
         },
         onChange: function (e) {
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = this.___getValue___() === 'expand' ? 'hide' : 'expand';
             this.___dispatchChange___(e);
         },

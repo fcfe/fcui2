@@ -70,7 +70,7 @@ define(function (require) {
             v = v < min ? min : v;
             v = v > max ? max : v;
 
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = v;
             this.___dispatchChange___(e);
         },

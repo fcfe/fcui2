@@ -65,7 +65,7 @@ define(function (require) {
         // 主按钮被点击
         onMainButtonClick: function (e) {
             if (this.props.disabled) return;
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = this.props.value;
             this.setState({layerOpen: false});
             this.props.onClick(e);

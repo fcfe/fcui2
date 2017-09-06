@@ -79,7 +79,7 @@ define(function (require) {
         onColorClick: function (data, e) {
             var hex = data.color;
             var rgbArray = tools.CSS2RGB(hex);
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = JSON.stringify({
                 hex: hex,
                 rgb: {

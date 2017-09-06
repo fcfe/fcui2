@@ -61,7 +61,7 @@ define(function (require) {
         },
         onClick: function (e) {
             if (this.props.disabled) return;
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = this.props.value;
             e.target.checked = !e.target.checked;
             this.___dispatchChange___(e);
