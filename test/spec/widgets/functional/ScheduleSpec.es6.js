@@ -30,13 +30,13 @@ define(function (require) {
             it('mouse move', () => {
                 let dom = realRender(Schedule, {value: '[1,1,"",""]'});
                 dom.onOptMouseMove({clientX: 10, clientY: 10});
-                expect(dom.refs.legendLayer.___layerContainer___.childNodes[0].innerHTML).toBe('1');
+                expect(dom.refs.legendLayer.___renderContainer___.childNodes[0].innerHTML).toBe('1');
                 dom.onOptMouseMove({clientX: 50, clientY: 10});
-                expect(dom.refs.legendLayer.___layerContainer___.childNodes[0].innerHTML).toBe('2:00 - 4:00');
+                expect(dom.refs.legendLayer.___renderContainer___.childNodes[0].innerHTML).toBe('2:00 - 4:00');
                 dom.onOptMouseMove({clientX: 50, clientY: 80});
-                expect(dom.refs.legendLayer.___layerContainer___.childNodes[0].innerHTML).toBe('2:00 - 3:00');
+                expect(dom.refs.legendLayer.___renderContainer___.childNodes[0].innerHTML).toBe('2:00 - 3:00');
                 dom.onOptMouseOut();
-                expect(dom.refs.legendLayer.___layerContainer___.childNodes.length).toBe(0);
+                expect(dom.refs.legendLayer.___renderContainer___.childNodes.length).toBe(1);
             });
 
             it('dragging', () => {
@@ -54,13 +54,13 @@ define(function (require) {
             it('disabled', () => {
                 let dom = realRender(Schedule, {disabled: true});
                 dom.onOptMouseMove({clientX: 10, clientY: 10});
-                expect(dom.refs.legendLayer.___layerContainer___.childNodes.length).toBe(0);
+                expect(dom.refs.legendLayer.___renderContainer___.childNodes.length).toBe(0);
                 dom.onOptMouseMove({clientX: 50, clientY: 10});
-                expect(dom.refs.legendLayer.___layerContainer___.childNodes.length).toBe(0);
+                expect(dom.refs.legendLayer.___renderContainer___.childNodes.length).toBe(0);
                 dom.onOptMouseMove({clientX: 50, clientY: 80});
-                expect(dom.refs.legendLayer.___layerContainer___.childNodes.length).toBe(0);
+                expect(dom.refs.legendLayer.___renderContainer___.childNodes.length).toBe(0);
                 dom.onOptMouseOut();
-                expect(dom.refs.legendLayer.___layerContainer___.childNodes.length).toBe(0);
+                expect(dom.refs.legendLayer.___renderContainer___.childNodes.length).toBe(0);
                 let drapLayer = dom.refs.container.childNodes[0].childNodes[3];
                 TestUtils.Simulate.mouseDown(drapLayer, {clientX: 40, clientY: 40});
                 let evt = document.createEvent('MouseEvents');
