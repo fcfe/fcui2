@@ -7,3 +7,4 @@ output
 coverage
 .idea
 .jscsrc
+package-lock.json

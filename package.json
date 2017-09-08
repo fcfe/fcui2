@@ -4,7 +4,7 @@
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js --progress --colors --content-base build.doc --hot --port 8847 --host 0.0.0.0",
     "test": "node node_modules/edp/bin/edp-cli build -f && node node_modules/karma/bin/karma start",
-    "build": "node ./FcDocsBuilder.js | webpack",
+    "build": "node ./FcDocsBuilder.js | webpack --config webpack.public.doc.config.js --progress --colors",
     "spec": "./node_modules/.bin/edp build -f && ./node_modules/.bin/edp test start",
     "coverage": "cat ./coverage/lcov/lcov.info | ./node_modules/.bin/coveralls"
   },
@@ -41,7 +41,9 @@
     }
   ],
   "dependencies": {
+    "babel-loader": "^5.3.2",
     "react": "~15.0.0",
+    "uglifyjs-webpack-plugin": "^0.4.6",
     "underscore": "~1.8.3"
   },
   "main": "main",
