@@ -58,7 +58,7 @@ define(function (require) {
         onClick: function (e) {
             if (this.props.disabled || e.target.value === this.___getValue___()) return;
             var value = e.target.value;
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = value;
             this.___dispatchChange___(e);
         },

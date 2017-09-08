@@ -39,7 +39,7 @@ define(function (require) {
          */
         onClick: function (e) {
             if (this.props.disabled || this.props.children && this.props.children.length) return;
-            e.target = this.refs.listItem;
+            e = {target: this.refs.listItem};
             e.target.value = this.props.value;
             this.props.onClick(e);
         },

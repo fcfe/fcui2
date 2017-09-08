@@ -111,7 +111,7 @@ define(function (require) {
         },
         onEnterClick: function (e) {
             if (this.props.disabled) return;
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = this.state.multiValue;
             this.___dispatchChange___(e);
             this.setState({layerOpen: false});

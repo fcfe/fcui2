@@ -26,7 +26,7 @@ define(function (require) {
             else {
                 delete value.expand[item.value];
             }
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = JSON.stringify(value);
             this.props.treeComponent.___dispatchChange___(e);
             /**

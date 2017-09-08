@@ -66,12 +66,12 @@ define(function (require) {
             if (this.props.disabled) {
                 return;
             }
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = this.___getValue___();
             this.props.onClick(e);
         },
         onClearButtonClick: function (e) {
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = '';
             this.refs.inputbox.focus();
             this.___stopBlur___ = true;

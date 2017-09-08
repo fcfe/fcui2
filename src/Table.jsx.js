@@ -272,7 +272,7 @@ define(function (require) {
                 this.___getValue___(),
                 this.props.datasource
             );
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = JSON.stringify(tableValue);
             this.___dispatchChange___(e);
         },
@@ -408,6 +408,7 @@ define(function (require) {
         var result = 0;
         for (var i = 0; i < tbody.childNodes.length; i++) {
             var tr = tbody.childNodes[i];
+            if (!tr.tagName) continue;
             result += tr.className.indexOf('tr-data') > -1 || tr.className.indexOf('tr-summary') > -1
                 ? tr.offsetHeight : 0;
         }
@@ -419,6 +420,7 @@ define(function (require) {
         var result = 0;
         for (var i = 0; i < tbody.childNodes.length; i++) {
             var tr = tbody.childNodes[i];
+            if (!tr.tagName) continue;
             result += tr.className.indexOf('tr-header') > -1 || (includeMessageBar && tr.className.indexOf('tr-message') > -1) ? tr.offsetHeight : 0;
         }
         return result;

@@ -82,14 +82,11 @@ define(function (require) {
                 TestUtils.Simulate.click(c1.refs.container.childNodes[2].childNodes[5]);
                 TestUtils.Simulate.click(dom.refs.enterButton.refs.container);
                 expect(value).toBe('2016-07-02;2016-07-31');
-                expect(dom.refs.c1).toBe(undefined);
-
                 TestUtils.Simulate.click(dom.refs.container);
                 let c2 = dom.refs.c2;
                 TestUtils.Simulate.click(c2.refs.container.childNodes[2].childNodes[5]);
                 TestUtils.Simulate.click(dom.refs.cancelButton.refs.container);
                 expect(value).toBe('2016-07-02;2016-07-31');
-                expect(dom.refs.c1).toBe(undefined);
             });
 
             it('short cut', () => {
@@ -104,7 +101,7 @@ define(function (require) {
                     }
                 });
                 TestUtils.Simulate.click(dom.refs.container);
-                let shortCutContainer = dom.refs.layer.___layerContainer___.childNodes[0].childNodes[0];
+                let shortCutContainer = dom.refs.layer.___renderContainer___.childNodes[0].childNodes[0];
                 expect(shortCutContainer.childNodes.length).toBe(shortCut.length);
                 TestUtils.Simulate.click(shortCutContainer.childNodes[0]);
                 TestUtils.Simulate.click(dom.refs.enterButton.refs.container);
@@ -125,7 +122,7 @@ define(function (require) {
                     }
                 });
                 TestUtils.Simulate.click(dom.refs.container);
-                shortCutContainer = dom.refs.layer.___layerContainer___.childNodes[0].childNodes[0];
+                shortCutContainer = dom.refs.layer.___renderContainer___.childNodes[0].childNodes[0];
                 TestUtils.Simulate.click(shortCutContainer.childNodes[0]);
                 TestUtils.Simulate.click(dom.refs.enterButton.refs.container);
                 expect(value).toBe(
@@ -133,7 +130,7 @@ define(function (require) {
                 );
 
                 TestUtils.Simulate.click(dom.refs.container);
-                shortCutContainer = dom.refs.layer.___layerContainer___.childNodes[0].childNodes[0];
+                shortCutContainer = dom.refs.layer.___renderContainer___.childNodes[0].childNodes[0];
                 TestUtils.Simulate.click(shortCutContainer.childNodes[shortCut.length]);
 
                 value = '';
@@ -185,25 +182,23 @@ define(function (require) {
                 });
                 value = '';
                 TestUtils.Simulate.click(dom.refs.container);
-                shortCutContainer = dom.refs.layer.___layerContainer___.childNodes[0].childNodes[0];
+                shortCutContainer = dom.refs.layer.___renderContainer___.childNodes[0].childNodes[0];
                 TestUtils.Simulate.click(shortCutContainer.childNodes[0]);
                 TestUtils.Simulate.click(dom.refs.enterButton.refs.container);
                 expect(value).toBe('2016-07-01;2016-07-31');
                 value = '';
                 TestUtils.Simulate.click(dom.refs.container);
-                shortCutContainer = dom.refs.layer.___layerContainer___.childNodes[0].childNodes[0];
+                shortCutContainer = dom.refs.layer.___renderContainer___.childNodes[0].childNodes[0];
                 TestUtils.Simulate.click(shortCutContainer.childNodes[1]);
                 TestUtils.Simulate.click(dom.refs.enterButton.refs.container);
                 expect(value).toBe('2016-07-01;2016-07-31');
                 value = '';
                 TestUtils.Simulate.click(dom.refs.container);
-                shortCutContainer = dom.refs.layer.___layerContainer___.childNodes[0].childNodes[0];
+                shortCutContainer = dom.refs.layer.___renderContainer___.childNodes[0].childNodes[0];
                 TestUtils.Simulate.click(shortCutContainer.childNodes[2]);
                 expect(dom.refs.enterButton.props.disabled).toBe(true);
                 TestUtils.Simulate.click(dom.refs.enterButton.refs.container);
                 expect(value).toBe('');
-                TestUtils.Simulate.click(dom.refs.cancelButton.refs.container);
-                expect(dom.refs.cancelButton).toBe(undefined);
             });
 
         });

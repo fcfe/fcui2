@@ -80,7 +80,7 @@ define(function (require) {
             var timer = tool.str2date(
                 this.state.displayYear + '-' + (this.state.displayMonth + 1) + '-' + e.target.value
             );
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = util.dateFormat(timer, 'YYYY-MM-DD');
             this.___dispatchChange___(e);
         },

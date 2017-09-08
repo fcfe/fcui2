@@ -112,7 +112,7 @@ define(function (require) {
             dValue = dValue < Math.abs(newValue - oldValue) ? (dValue + step) : dValue;
             newValue = oldValue + dValue * dDirect;
             var e = {};
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = tool.displayValue(newValue, this);
             this.___dispatchChange___(e);
 

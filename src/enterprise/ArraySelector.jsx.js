@@ -337,7 +337,7 @@ define(function (require) {
     }
 
     function setValue(e, me, value) {
-        e.target = me.refs.container;
+        e = {target: me.refs.container};
         e.target.value = JSON.stringify(value);
         if (me.props.isDropDown) {
             me.setState({

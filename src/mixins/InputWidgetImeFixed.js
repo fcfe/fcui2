@@ -163,7 +163,7 @@ define(function (require) {
         ______callDispatch______: function (e) {
             var me = this;
             var lastValue = this.___lastFiredValue___;
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = this.___lastFiredValue___ = this.refs.inputbox.value;
             this.___dispatchChange___(e, this.___lastFiredValue___, lastValue);
             clearInterval(me.___workerTimer___);

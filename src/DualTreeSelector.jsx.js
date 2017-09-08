@@ -111,7 +111,7 @@ define(function (require) {
             // 选择和反选
             var selected = (JSON.parse(this.___getValue___()  || '{}')).selected || {};
             this.props.selectorEngine[type === 'TreeSelectLeaf' ? 'select' : 'unselect'](selected, param.item);
-            param.e.target = this.refs.container;
+            param.e = {target: this.refs.container};
             param.e.target.value = JSON.stringify({selected: selected});
             this.___dispatchChange___(param.e);
         },

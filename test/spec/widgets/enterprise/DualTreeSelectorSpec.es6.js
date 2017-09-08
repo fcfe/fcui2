@@ -76,7 +76,7 @@ define(function (require) {
                     }
                 });
                 expect(dom.state.dropdownValue).toBe('{"selected":{"1":true}}');
-                let enterButton = dom.refs.layer.___layerContainer___.childNodes[0].childNodes[1];
+                let enterButton = dom.refs.layer.___renderContainer___.childNodes[0].childNodes[1];
                 TestUtils.Simulate.click(enterButton);
                 expect(value).toBe('{"selected":{"1":true}}');
 
@@ -90,7 +90,7 @@ define(function (require) {
                         })
                     }
                 });
-                let cancelButton = dom.refs.layer.___layerContainer___.childNodes[0].childNodes[2];
+                let cancelButton = dom.refs.layer.___renderContainer___.childNodes[0].childNodes[2];
                 TestUtils.Simulate.click(cancelButton);
                 expect(value).toBe('');
                 expect(dom.state.layerOpen).toBe(false);
@@ -177,12 +177,12 @@ define(function (require) {
                     }
                 });
                 expect(dom.state.dropdownValue).toBe('{"selected":{"2":true}}');
-                let cancelButton = dom.refs.layer.___layerContainer___.childNodes[0].childNodes[2];
+                let cancelButton = dom.refs.layer.___renderContainer___.childNodes[0].childNodes[2];
                 TestUtils.Simulate.click(cancelButton);
                 expect(dom.state.dropdownValue).toBe('{"selected":{"1":true}}');
                 TestUtils.Simulate.click(dom.refs.dropdownContainer);
                 selector = dom.refs.dualTreeSelector;
-                let enterButton = dom.refs.layer.___layerContainer___.childNodes[0].childNodes[1];
+                let enterButton = dom.refs.layer.___renderContainer___.childNodes[0].childNodes[1];
                 TestUtils.Simulate.click(enterButton);
             });
         });

@@ -73,7 +73,7 @@ define(function (require) {
             });
         },
         onEnterClick: function (e) {
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = this.state.pickerValue;
             this.___dispatchChange___(e);
             this.setState({layerOpen: false});

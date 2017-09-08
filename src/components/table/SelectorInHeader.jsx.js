@@ -68,7 +68,7 @@ define(function (require) {
         onMainSelectorChange: function (e) {
             var table = this.props.tableComponent;
             var info = getInformationFromTable(table);
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             if (info.workMode === SELECT_MODE.CURRENT_PAGE) {
                 e.target.value = info.i === table.props.datasource.length
                     ? SELECT_COMMAND.CLEAR : SELECT_COMMAND.CURRENT_PAGE;
