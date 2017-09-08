@@ -4,7 +4,7 @@
 
 ## What is FCUI2?
 
-* FCUI2 is a lightweight UI based on React and underscore.js.
+* FCUI2 is a lightweight UI based on React(preact) and underscore.js.
 * FCUI2 adhere to AMD coding mechanism, your project need to employ javascript module loaders such as RequireJS, Webpack to import FCUI2 modules.
 * All widgets in FCUI2 are written in JSX, you need to import compilation tools such as Babel to your developping environment and package tools.
 
