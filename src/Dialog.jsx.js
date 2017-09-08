@@ -62,12 +62,11 @@ define(function (require) {
             ReactElement = React.createElement(dialogComponentFactory(param, me), {});
         }
 
-        me.___ui___ = null;
-        ReactDOM.render(
+        me.___ui___ = ReactDOM.render(
             ReactElement,
             me.___tempContainer___,
             function () {
-                me.___ui___ = this;
+                if (this) me.___ui___ = this;
             }
         );
     };

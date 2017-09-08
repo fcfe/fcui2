@@ -84,10 +84,8 @@ define(function(require) {
             let me = this;
             props = _.extend({}, defaultProps, props);
             document.body.appendChild(this.getContainer());
-            me.___ui___ = null;
-
-            ReactDOM.render(<ToastComponent {...props}/>, me.getContainer(), function(ref) {
-                me.___ui___ = this;
+            me.___ui___ = ReactDOM.render(<ToastComponent {...props}/>, me.getContainer(), function(ref) {
+                if (this) me.___ui___ = this;
                 me.resize(props);
             });
 

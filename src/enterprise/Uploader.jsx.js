@@ -158,8 +158,8 @@ define(function (require) {
                 });
                 me.uploadContainer = document.createElement('div');
                 document.body.appendChild(me.uploadContainer);
-                ReactDOM.render(element, me.uploadContainer, function () {
-                    me.uploadElement = this;
+                me.uploadElement = ReactDOM.render(element, me.uploadContainer, function () {
+                    if (this) me.uploadElement = this;
                     this.refs.uploadInput.click();
                 });
             }

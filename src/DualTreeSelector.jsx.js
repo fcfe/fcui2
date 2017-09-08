@@ -7,6 +7,7 @@
 define(function (require) {
 
 
+    var _ = require('underscore');
     var React = require('react');
     var cTools = require('./core/componentTools');
     var Tree = require('./Tree.jsx');
@@ -69,14 +70,23 @@ define(function (require) {
         },
         // @override
         componentDidUpdate: function () {
-            var selected = JSON.parse(this.___getValue___() || '{}').selected || {};
-            var selectorEngine = this.props.selectorEngine;
             var datasource = this.props.datasource;
+            if (!this.___lastDatasource___) {
+                this.___lastDatasource___ = JSON.stringify(datasource);
+                return;
+            }
+            var lastDatasource = JSON.parse(this.___lastDatasource___);
+            if (_.isEqual(lastDatasource, datasource)) return;
+            var selected = JSON.parse(this.___getValue___() || '{}').selected || {};
             // 检查selected中标记为1的item的children是否加载完毕了。
-            if (tools.targetAsyncLeaf(selected, selectorEngine, datasource)) {
+            if (tools.targetAsyncLeaf(selected, this.props.selectorEngine, datasource)) {
+                this.___lastDatasource___ = JSON.stringify(datasource);
+                var me = this;
                 var e = {target: this.refs.container};
                 e.target.value = JSON.stringify({selected: selected});
-                this.___dispatchChange___(e);
+                setTimeout(function () {
+                    me.___dispatchChange___(e);
+                }, 200);
             }
         },
         /**

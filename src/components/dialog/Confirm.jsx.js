@@ -45,8 +45,8 @@ define(function (require) {
                 + (this.context.appSkin ? this.context.appSkin + '-alert' : 'alert');
             var enterProps = {
                 skin: 'important',
-                width: 67,
                 label: this.props.labels.enter,
+                width: this.props.labels.enter.length < 4 ? 67 : undefined,
                 onClick: this.onEnterClick
             };
             var cancelProps = {

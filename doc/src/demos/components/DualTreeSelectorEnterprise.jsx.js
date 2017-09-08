@@ -32,7 +32,6 @@ define(function (require) {
         {
             title: 'Normal DualTreeSelector',
             props: {
-                value: '{"selected":{"option3":true}}',
                 datasource: datasource
             }
         }
