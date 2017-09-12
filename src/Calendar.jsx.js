@@ -16,8 +16,6 @@ define(function (require) {
 
 
     var InputWidget = require('./mixins/InputWidget');
-    var Button = require('./Button.jsx');
-    var NumberBox = require('./NumberBox.jsx');
 
 
     return React.createClass({
@@ -149,53 +147,13 @@ define(function (require) {
             });
         },
         render: function () {
-            var containerProp = cTools.containerBaseProps('calendar', this);
-            var skin = this.props.skin ? this.props.skin : 'normal';
-            skin = this.context.appSkin ? (this.context.appSkin + '-' + skin) : skin;
-            var yearInputProp = {
-                ref: 'inputYear',
-                min: 0,
-                max: 9999,
-                onChange: this.onYearChange,
-                value: this.state.inputYear,
-                type: 'int',
-                style: {width: 75, left: 43},
-                skin: skin
-            };
-            var monthInputProp = {
-                ref: 'inputMonth',
-                min: 1,
-                max: 12,
-                onChange: this.onMonthChange,
-                value: this.state.inputMonth,
-                type: 'int',
-                style: {width: 60, right: 43},
-                skin: skin
-            };
-            var subBtnProp = {
-                icon: 'fcui2-icon fcui2-icon-arrow-left',
-                label: '',
-                iconLeft: 5,
-                onClick: this.onMonthSub,
-                disabled: this.props.disabled,
-                skin: skin
-            };
-            var addBtnProp = {
-                icon: 'fcui2-icon fcui2-icon-arrow-right',
-                label: '',
-                iconLeft: 7,
-                onClick: this.onMonthAdd,
-                disabled: this.props.disabled,
-                skin: skin
-            };
             return (
-                <div {...containerProp}>
-                    <div className="calendar-operation">
-                        <Button {...subBtnProp}/>
-                        <NumberBox {...yearInputProp} disabled={this.props.disabled}/>
-                        <NumberBox {...monthInputProp} disabled={this.props.disabled}/>
-                        <Button {...addBtnProp}/>
-                    </div>
+                <div {...cTools.containerBaseProps('calendar', this)}>
+                    {
+                        this.context.appSkin !== 'oneux4'
+                        ? factory.normalOperationBarFactory(this)
+                        : factory.oneux4OperationBarFactory(this)
+                    }
                     <div className="calendar-day-label">{
                         this.state.inRange
                             ? language.calendar.day.map(factory.dayLabelFactory)
@@ -206,5 +164,6 @@ define(function (require) {
             );
         }
     });
+
 
 });

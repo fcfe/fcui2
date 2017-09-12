@@ -175,7 +175,13 @@
 
 .fcui2-calendar-oneux4-normal {
     .calendar-operation {
-        background-color: @color-bg-caption;
+        background-color: @oneux4-bgcolor-c1;
+        .fcui2-button {
+            border-color: transparent;
+            input {
+                color: @oneux4-color-c1;
+            }
+        }
         .fcui2-numberbox {
             top: 11px;
         }
@@ -186,6 +192,7 @@
             -moz-transform:rotate(270deg);
             -webkit-transform:rotate(270deg);
             -o-transform:rotate(270deg);
+            top: -1px;
             &:before {
                 content: "\e60e";
             }
@@ -197,6 +204,7 @@
             -moz-transform:rotate(90deg);
             -webkit-transform:rotate(90deg);
             -o-transform:rotate(90deg);
+            top: -1px;
             &:before {
                 content: "\e60e";
             }
@@ -204,16 +212,24 @@
     }
     .calendar-day-label {
         font-size: 12px;
-        background-color: @color-bg-btn;
+        background-color: @oneux4-bgcolor-c1;
         div {
             color: @color-text-3;
         }
     }
     .calendar-buttons {
         .fcui2-button-calendar {
-            border-color: @color-bg;
+            border-color: transparent;
+        }
+        .fcui2-button {
+            -webkit-box-shadow: 0 0 0;
+            -moz-box-shadow: 0 0 0;
+            box-shadow: 0 0 0;
             &:hover {
-                border-color: @oneux4-border-color-c1;
+                border-color: @oneux4-bgcolor-c15;
+            }
+            input:hover {
+                background-color: @oneux4-bgcolor-c15;
             }
         }
         .fcui2-button-disabled {
@@ -221,8 +237,43 @@
             border-color: @color-bg !important;
         }
         .fcui2-button-active {
-            background-color: @oneux4-bgcolor-c6;
-            border-color: @oneux4-bgcolor-c6;
+            background-color: @oneux4-bgcolor-c14;
+            border-color: @oneux4-bgcolor-c14;
+            &:hover {
+                border-color: @oneux4-bgcolor-c16;
+            }
+            input:hover {
+                background-color: @oneux4-bgcolor-c16;
+            }
+            input {
+                color: @oneux4-color-c1;
+            }
+        }
+    }
+}
+
+.fcui2-calendar-oneux4-disabled {
+    .calendar-operation {
+        background-color: @oneux4-bgcolor-c1;
+        .fcui2-button {
+            border-color: transparent !important;
+            background-color: transparent !important;
+        }
+    }
+    .calendar-day-label {
+        background-color: @oneux4-bgcolor-c1;
+        div {
+            color: @oneux4-color-c3;
+        }
+    }
+    .calendar-buttons {
+        .fcui2-button {
+            &:hover {
+                border-color: @oneux4-bgcolor-c1;
+            }
+            input:hover {
+                background-color: @oneux4-bgcolor-c1;
+            }
         }
     }
 }

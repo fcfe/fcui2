@@ -66,10 +66,8 @@
             }
         }
     }
-    &-hover,&:hover {
-        input {
-            border-color: @color-btn-hover;
-        }
+    input:focus,&:hover input {
+        border-color: @color-btn-hover;
     }
 }
 
@@ -109,11 +107,9 @@
         }
     }
 }
-.fcui2-numberbox-oneux3-normal-hover,
-.fcui2-numberbox-oneux3-normal:hover {
-    input {
-        border-color: @oneux3-bgcolor-c20;
-    }
+.fcui2-numberbox-oneux3-normal input:focus,
+.fcui2-numberbox-oneux3-normal:hover input {
+    border-color: @oneux3-bgcolor-c20;
 }
 
 
@@ -127,6 +123,7 @@
         height: 24px;
         border-color: @oneux4-border-color-c1;
         background-color: transparent;
+        text-align: center;
     }
     .fcui2-numberbox-placeholder {
         color: @color-disabled-text;
@@ -144,14 +141,15 @@
                 color: @oneux4-color-c1;
                 background-color: @oneux4-bgcolor-c2;
             }
+            &:active {
+                background-color: @oneux4-bgcolor-c3;
+            }
         }
     }
 }
-.fcui2-numberbox-oneux4-normal-hover,
-.fcui2-numberbox-oneux4-normal:hover {
-    input {
-        border-color: @oneux4-border-color-c3;
-    }
+.fcui2-numberbox-oneux4-normal input:focus,
+.fcui2-numberbox-oneux4-normal:hover input {
+    border-color: @oneux4-border-color-c3;
 }
 
 
@@ -174,5 +172,6 @@
     .fcui2-icon {
         color: @color-disabled-text !important;
         background-color: @color-bg-btn !important;
+        cursor: default !important;
     }
 }

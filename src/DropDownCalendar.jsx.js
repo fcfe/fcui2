@@ -109,7 +109,9 @@ define(function (require) {
                     <div {...iconProps}></div>
                     <span className="label-container">{label}</span>
                     <Layer {...layerProp}>
-                        <Calendar {...calendarProp} />
+                        <div style={{padding: this.context.appSkin === 'oneux4' ? 30 : 0}}>
+                            <Calendar {...calendarProp} />
+                        </div>
                     </Layer>
                 </div>
             );
