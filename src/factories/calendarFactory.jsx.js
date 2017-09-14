@@ -126,6 +126,7 @@ define(function (require) {
                 icon: 'fcui2-icon fcui2-icon-arrow-left-2',
                 label: '',
                 iconLeft: 5,
+                style: {left: 0},
                 onClick: function () {
                     var year = me.state.displayYear;
                     if (isNaN(year)) return;
@@ -142,7 +143,7 @@ define(function (require) {
                 iconLeft: 5,
                 onClick: me.onMonthSub,
                 disabled: me.props.disabled,
-                style: {left: 35},
+                style: {left: 32},
                 skin: skin
             };
             var yearInputProp = {
@@ -164,14 +165,14 @@ define(function (require) {
                 onChange: me.onMonthChange,
                 value: me.state.inputMonth,
                 type: 'int',
-                style: {width: 36, right: 66},
+                style: {width: 38, right: 64},
                 skin: skin
             };
             var addMonthBtnProp = {
                 icon: 'fcui2-icon fcui2-icon-arrow-right',
                 label: '',
                 iconLeft: 7,
-                style: {right: 35},
+                style: {right: 32},
                 onClick: me.onMonthAdd,
                 disabled: me.props.disabled,
                 skin: skin
@@ -180,6 +181,7 @@ define(function (require) {
                 icon: 'fcui2-icon fcui2-icon-arrow-right-2',
                 label: '',
                 iconLeft: 7,
+                style: {right: 2},
                 onClick: function () {
                     var year = me.state.displayYear;
                     if (isNaN(year)) return;

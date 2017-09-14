@@ -225,8 +225,10 @@
             -webkit-box-shadow: 0 0 0;
             -moz-box-shadow: 0 0 0;
             box-shadow: 0 0 0;
+            border-color: transparent;
             &:hover {
                 border-color: @oneux4-bgcolor-c15;
+                background-color: @oneux4-bgcolor-c15;
             }
             input:hover {
                 background-color: @oneux4-bgcolor-c15;
@@ -235,12 +237,20 @@
         .fcui2-button-disabled {
             background-color: @color-bg !important;
             border-color: @color-bg !important;
+            &:hover {
+                border-color: @color-bg !important;
+                background-color: @color-bg !important;
+            }
+            input:hover {
+                background-color: @color-bg !important;
+            }
         }
         .fcui2-button-active {
             background-color: @oneux4-bgcolor-c14;
             border-color: @oneux4-bgcolor-c14;
             &:hover {
                 border-color: @oneux4-bgcolor-c16;
+                background-color: @oneux4-bgcolor-c16;
             }
             input:hover {
                 background-color: @oneux4-bgcolor-c16;
