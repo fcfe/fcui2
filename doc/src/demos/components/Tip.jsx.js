@@ -9,7 +9,7 @@ define(function (require) {
     var items = [
         {
             title: 'Normal Tip',
-            props: {title: 'It is tip\'s title', content: 'blablablabla'}
+            props: {title: '这里是一个标题', content: '这是一个非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长非常长的文本'}
         },
         {
             title: 'Tip with Renderer',
@@ -40,15 +40,11 @@ define(function (require) {
         },
         {
             title: 'Tip with ClassName',
-            props: {className: 'colorRed', title: 'It is tip\'s title', content: 'blablablabla'}
+            props: {className: 'colorRed', title: 'It is tip\'s title', content: 'blablablabla' , skin: 'yellow'}
         },
         {
             title: 'Tip without Title',
             props: {content: 'blablablabla', skin: 'red'}
-        },
-        {
-            title: 'Tip without Content',
-            props: {title: 'It is tip\'s title', skin: 'yellow'}
         },
         {
             title: 'Tip with html in Content',

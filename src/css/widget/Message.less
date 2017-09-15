@@ -1,7 +1,6 @@
 .fcui2-message {
     position: relative;
     text-align: center;
-    height: 30px;
     span {
         display: inline-block;
     }
@@ -11,12 +10,14 @@
         margin-right: 10px;
         position: relative;
         top: 3px;
+        background-image: url(@image-loading);
     }
     .refresh-icon {
         display: inline-block;
         height: 29px;
         width: 29px;
         vertical-align: middle;
+        background-image: url(@image-refresh);
     }
     .refresh-text {
         cursor: pointer;
@@ -36,14 +37,9 @@
         border: 1px solid;
     }
 }
+
 .fcui2-message-normal {
     font-family: @font-normal;
-    .loading-icon {
-        background-image: url(@image-loading);
-    }
-    .refresh-icon {
-        background-image: url(@image-refresh);
-    }
     .refresh-text {
         color: @color-blue-4;
         &:hover {
@@ -61,5 +57,55 @@
     &.layer-message {
         border-color: @color-gray-6;
         background-color: @color-gray-1;
+    }
+}
+
+
+.fcui2-message-oneux4-red {
+    background-color: @oneux4-bgcolor-c17;
+    color: @oneux4-color-c6;
+}
+.fcui2-message-oneux4-yellow {
+    background-color: @oneux4-bgcolor-c18;
+    color: @oneux4-color-c6;
+}
+.fcui2-message-oneux4-yellow,
+.fcui2-message-oneux4-red {
+    min-height: 14px;
+    text-align: left;
+    padding: 9px 10px 9px 20px;
+    .fcui2-icon-remove {
+        float: right;
+        cursor: pointer;
+        background-image: none;
+        margin-right: 0;
+    }
+    .fcui2-button {
+        float: right;
+        border: 0;
+        background-color: transparent;
+        top: -3px;
+        input {
+            color: @oneux4-color-c2;
+            &:hover {
+                color: @oneux4-color-c7;
+            }
+            &:active {
+                color: @oneux4-color-c8;
+            }
+        }
+    }
+}
+.fcui2-message-multi-lines {
+    .message-title {
+        margin: 3px 20px 10px 10px;
+        font-size: 14px;
+        .fcui2-icon {
+            margin-right: 10px;
+        }
+    }
+    .message-content {
+        margin: 3px 12px 12px 35px;
+        line-height: 26px;
     }
 }

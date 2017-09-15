@@ -125,7 +125,11 @@ define(function (require) {
             };
             var Renderer = this.props.renderer;
             containerProp.className += typeof Renderer === 'function' ? '' : ' font-icon ' + this.props.icon;
-            var layerClassName = 'fcui2-tip-layer' + (this.props.layerClassName ? ' ' + this.props.layerClassName : '');
+            var layerClassName = [
+                'fcui2-tip-layer',
+                'fcui2-tip-layer-' + skin,
+                this.props.layerClassName ? this.props.layerClassName : ''
+            ].join(' ');
             return (
                 <div {...containerProp}>
                     {typeof Renderer === 'function' ? <Renderer {...this.props.renderProps}/> : null}
