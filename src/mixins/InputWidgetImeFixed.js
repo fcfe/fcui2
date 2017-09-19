@@ -95,7 +95,7 @@ define(function (require) {
         },
         ___onCompositionEnd___: function (e) {
             this.___imeStart___ = false;
-            /**
+            /*
              * 背景：
              *      使用中文输入法，直接敲回车英文上屏，会触发compositionend，但不会触发keyup，
              *      导致输入框的onChange事件无法派发，这是浏览器底层bug。

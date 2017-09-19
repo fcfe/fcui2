@@ -4,7 +4,7 @@ define(function (require) {
     var Code = require('./components/Code.jsx');
     var Params = require('./components/Params.jsx');
     var classitems = require('../config').items;
-    var tools = require('../demos/tools');
+    var tools = require('./tools');
 
     function getStructure(tmp, url, structureName) {
         if (!classitems[url] || typeof structureName !== 'string' || !structureName.length) return null;

@@ -6,6 +6,7 @@ define(function (require) {
     var config = require('./config');
     var util = require('fcui2/core/util');
 
+
     function menuFactory(me) {
         var doms = [];
         for (var i = 0; i < config.menu.length; i++) {
@@ -59,7 +60,7 @@ define(function (require) {
         // @override
         getChildContext: function () {
             return {
-                appSkin: typeof this.props.skin === 'string' ? this.props.skin : ''
+                appSkin: ''
             };
         },
         // @override
@@ -72,16 +73,6 @@ define(function (require) {
                 dispatch: function () {}
             };
         },
-        // @override
-        getInitialState: function () {
-            return {
-                message: ''
-            };
-        },
-        // @override
-        componentDidMount: function () {
-            this.messageTimer = null;
-        },
         onLevelChange: function (e) {
             var level = util.getDataset(e.target).level;
             level = level === this.props.level ? '' : level;
@@ -92,31 +83,31 @@ define(function (require) {
             if (file === this.props.file) return;
             this.props.dispatch('changeHash', {file: file});
         },
-        onMessage: function (str) {
-            clearTimeout(this.messageTimer);
-            this.setState({message: str});
-            var me = this;
-            this.messageTimer = setTimeout(function () {
-                me.setState({message: ''});
-            }, 2000);
-        },
         render: function () {
             var Demo = config.demos[this.props.file.replace(/_/g, '\\')];
+            console.log(this.props.file);
+            var componentSource = 'https://github.com/fcfe/fcui2/tree/master/'
+                + this.props.file.replace(/_/g, '/');
+            var demoSource = 'https://github.com/fcfe/fcui2/tree/master/doc/src/demos'
+                + this.props.file.replace(/_/g, '/').replace('src', '');
             return (
                 <div>
                     <div className="logo">{this.props.title}</div>
                     <div className="left-container">{menuFactory(this)}</div>
-                    <div className="right-top-container">{this.state.message}</div>
                     <div className="right-middle-container">
                         <Parser file={this.props.file}/>
                         {
                             Demo ? 
                                 <div className="demo-container">
                                     <h3>Demos</h3>
-                                    <Demo alert={this.onMessage}/>
+                                    <Demo/>
                                 </div> 
                             : null
                         }
+                    </div>
+                    <div className="right-bottom-container">
+                        <a href={componentSource} target="_blank">View Component Source</a>
+                        <a href={demoSource} target="_blank">View Demo Source</a>
                     </div>
                 </div>
             );
