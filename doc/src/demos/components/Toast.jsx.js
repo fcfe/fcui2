@@ -12,15 +12,20 @@ define(function (require) {
     const Message = require('fcui2/Message.jsx');
 
     return React.createClass({
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
         popSuccess() {
             Toast.pop({
                 type: 'success',
+                skin: this.context.appSkin,
                 message: 'It is OK!'
             });
         },
         popFail() {
             Toast.pop({
                 type: 'error',
+                skin: this.context.appSkin,
                 message: 'It is NOT OK!'
             });
         },
@@ -32,7 +37,7 @@ define(function (require) {
                 subComponentCloseHandlerName: 'onIconClick',
                 subComponentProps: {
                     skin: 'white',
-                    message: '提示文案',
+                    message: '<span class="fcui2-icon fcui2-icon-failed-2"></span>提示文案',
                     icon: 'fcui2-icon fcui2-icon-remove',
                     status: 'new-refresh',
                     onRefreshClick() {
