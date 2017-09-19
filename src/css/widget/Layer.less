@@ -15,13 +15,54 @@
 }
 
 
-.fcui2-layer-grey,
-.fcui2-layer-normal {
+// skin
+.fcui2-layer-normal,
+.fcui2-layer-grey {
     background-color: @color-bg;
     border-color: @color-outer-border;
     font-family: @font-normal;
 }
-.fcui2-layer-warning,
+.fcui2-layer-warning {
+    overflow: visible;
+    background-color: @color-bg;
+    border-color: @color-error;
+    color: @color-error;
+    font-size: 12px;
+    font-family: @font-normal;
+}
+.fcui2-layer-blue {
+    background-color: @oneux3-bgcolor-c1;
+    .fcui2-layer-virtual-border {
+        display: block;
+    }
+    font-family: @font-normal;
+    border-color: @oneux3-bgcolor-c20;
+}
+.fcui2-layer-red {
+    background-color: @oneux3-bgcolor-c7;
+    font-family: @font-normal;
+    border-color: @oneux3-color-c7;
+    color: @oneux3-color-c7;
+}
+.fcui2-layer-yellow {
+    background-color: @oneux3-bgcolor-c8;
+    font-family: @font-normal;
+    border-color: @oneux3-bgcolor-c28;
+    color: @oneux3-color-c1;
+}
+
+
+// oneux3
+.fcui2-layer-oneux3-normal,
+.fcui2-layer-oneux3-grey,
+.fcui2-layer-oneux3-blue {
+    background-color: @oneux3-bgcolor-c1;
+    .fcui2-layer-virtual-border {
+        display: block;
+    }
+    font-family: @font-normal;
+    border-color: @oneux3-bgcolor-c20;
+}
 .fcui2-layer-oneux3-warning {
     overflow: visible;
     background-color: @color-bg;
@@ -30,23 +71,45 @@
     font-size: 12px;
     font-family: @font-normal;
 }
-.fcui2-layer-blue,
-.fcui2-layer-oneux3-grey,
-.fcui2-layer-oneux3-blue,
-.fcui2-layer-oneux3-normal {
-    background-color: @oneux3-bgcolor-c1;
+.fcui2-layer-oneux3-important {
+    background-color: @oneux3-bgcolor-c20;
     .fcui2-layer-virtual-border {
         display: block;
+        background-color: @oneux3-bgcolor-c20;
     }
     font-family: @font-normal;
     border-color: @oneux3-bgcolor-c20;
+}
+.fcui2-layer-oneux3-red {
+    background-color: @oneux3-bgcolor-c7;
+    font-family: @font-normal;
+    border-color: @oneux3-color-c7;
+    color: @oneux3-color-c7;
+}
+.fcui2-layer-oneux3-yellow {
+    background-color: @oneux3-bgcolor-c8;
+    font-family: @font-normal;
+    border-color: @oneux3-bgcolor-c28;
+    color: @oneux3-color-c1;
+}
+
+
+// oneux4
+.fcui2-layer-oneux4-normal,
+.fcui2-layer-oneux4-important,
+.fcui2-layer-oneux4-warning,
+.fcui2-layer-oneux4-grey,
+.fcui2-layer-oneux4-yellow,
+.fcui2-layer-oneux4-red {
+    .fcui2-layer-virtual-border {
+        display: none;
+    }
 }
 .fcui2-layer-oneux4-normal {
     background-color: @color-bg;
     border-color: @color-outer-border;
     font-family: @font-normal;
 }
-.fcui2-layer-oneux3-important,
 .fcui2-layer-oneux4-important {
     background-color: @oneux3-bgcolor-c20;
     .fcui2-layer-virtual-border {
@@ -56,21 +119,10 @@
     font-family: @font-normal;
     border-color: @oneux3-bgcolor-c20;
 }
-.fcui2-layer-red,
-.fcui2-layer-oneux3-red,
-.fcui2-layer-oneux4-red {
-    background-color: @oneux3-bgcolor-c7;
-    font-family: @font-normal;
-    border-color: @oneux3-color-c7;
-    color: @oneux3-color-c7;
-}
-.fcui2-layer-yellow,
-.fcui2-layer-oneux3-yellow,
 .fcui2-layer-oneux4-yellow {
-    background-color: @oneux3-bgcolor-c8;
-    font-family: @font-normal;
-    border-color: @oneux3-bgcolor-c28;
-    color: @oneux3-color-c1;
+    background-color: @oneux4-bgcolor-c18;
+    border-color: @oneux4-bgcolor-c18;
+    color: @oneux4-color-c6;
 }
 .fcui2-layer-oneux4-grey {
     background-color: @oneux3-bgcolor-c9;
@@ -85,14 +137,8 @@
     color: @oneux4-color-c5;
     font-size: 12px;
 }
-
-.fcui2-layer-oneux4-normal,
-.fcui2-layer-oneux4-important,
-.fcui2-layer-oneux4-warning,
-.fcui2-layer-oneux4-grey,
-.fcui2-layer-oneux4-yellow,
 .fcui2-layer-oneux4-red {
-    .fcui2-layer-virtual-border {
-        display: none;
-    }
+    background-color: @oneux4-bgcolor-c17;
+    border-color: @oneux4-bgcolor-c17;
+    color: @oneux4-color-c6;
 }

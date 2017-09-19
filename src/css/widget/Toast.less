@@ -3,14 +3,16 @@
 .fcui2-toast-container {
     position: fixed;
     z-index: 10000;
-    top: 50%;
-    left: 50%;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
     .fcui2-toast {
+        position: absolute;
         margin-top: -26px;
-        padding: 0 14px;
-        height: 53px;
-        line-height: 53px;
         display: block;
+        top: 40%;
+        left: 50%;
         &-mask {
             position: fixed;
             z-index: 1000;
@@ -33,6 +35,9 @@
 
 // 皮肤样式负责颜色和字体
 .fcui2-toast-normal {
+    padding: 0 14px;
+    height: 53px;
+    line-height: 53px;
     text-align: center;
     background: white;
     border-radius: 5px;
@@ -44,4 +49,10 @@
             color: #f00;
         }
     }
+}
+
+.fcui2-toast-oneux4 {
+    text-align: center;
+    background: white;
+    box-shadow: 0 0 6px rgba(0,0,0,0.3);
 }

@@ -10,6 +10,7 @@
 define(function(require) {
     const React = require('react');
     const ReactDOM = require('react-dom');
+    const Skin = require('./Skin.jsx');
     var _ = require('underscore');
     var cTools = require('./core/componentTools');
     var language = require('./core/language').toast;
@@ -33,7 +34,9 @@ define(function(require) {
         icon: '',
         message: '',
         size: '',
-        subComponent: '',
+        subComponent: null,
+        subComponentCloseHandlerName: 'close',
+        subComponentProps: {},
         autoHideTime: 2000,
         onClose: cTools.noop
     };
@@ -45,20 +48,13 @@ define(function(require) {
 
     class Toast {
         getContainer() {
-            if (!document)
-                return;
-
-            if (this.___container___) {
-                return this.___container___;
-            }
-            else {
-                let className = defaultProps.classPrefix + '-container';
-                let container = document.createElement('div');
-
-                container.className = className;
-                this.___container___ = container;
-                return container;
-            }
+            if (!document) return;
+            if (this.___container___) return this.___container___;
+            let className = defaultProps.classPrefix + '-container';
+            let container = document.createElement('div');
+            container.className = className;
+            this.___container___ = container;
+            return container;
         }
 
       /**
@@ -75,14 +71,18 @@ define(function(require) {
         * @param {Number} param.size.width 宽度
         * @param {Number} param.size.height 高度
         * @param {Object} param.subComponent 传入React组件，作为Toast的内容
-        * @param {Number} param.autoHideTime 自动隐藏时间容迟，单位：毫秒
+        * @param {Object} param.subComponentProps subComponent初始化事传入的props
+        * @param {String} param.subComponentCloseHandlerName 透传给subComponent的关闭事件属性名
+        * @param {Number} param.autoHideTime 自动隐藏时间容迟，单位：毫秒，如果设置为0，不自动关闭
         * @param {Function} param.onClose Toast关闭的回调函数
         */
 
         pop(props) {
             // 创建元素
             let me = this;
-            props = _.extend({}, defaultProps, props);
+            props = _.extend({}, defaultProps, props, {
+                close: () => {me.dispose()}
+            });
             document.body.appendChild(this.getContainer());
             me.___ui___ = ReactDOM.render(<ToastComponent {...props}/>, me.getContainer(), function(ref) {
                 if (this) me.___ui___ = this;
@@ -91,7 +91,7 @@ define(function(require) {
 
             this.___ui___ = null;
             // 销毁元素
-            setTimeout(function() {
+            props.autoHideTime && setTimeout(function() {
                 me.dispose();
                 typeof props.onClose === 'function' && props.onClose();
             }, props.autoHideTime);
@@ -127,21 +127,23 @@ define(function(require) {
         getInitialState() {
             return {};
         },
-
         render() {
-            let {message, type, icon, subComponent, onClose, classPrefix} = this.props;
+            let {message, type, icon, subComponent, subComponentProps, subComponentCloseHandlerName, onClose, classPrefix} = this.props;
             let toastMsg = message || language[type] || null;
             let toastIcon = icon || iconType[type];
             let Component = subComponent;
-
+            let componentProps = _.extend({}, subComponentProps, {
+                [subComponentCloseHandlerName]: this.props.close
+            });
             let containerProp = cTools.containerBaseProps('toast', this, {
                 mergeFromProps: Object.keys(this.props).filter(e => e !== 'classPrefix' && e !== 'subComponent')
             });
-
             return (
                 <div {...containerProp}>
                     {subComponent
-                        ? <Component />
+                        ? <Skin skin={this.props.skin}>
+                            <Component {...componentProps}/>
+                        </Skin>
                         : <div>
                             <div className={classPrefix + '-mask'}></div>
                                 <div className={classPrefix + '-content'}>
