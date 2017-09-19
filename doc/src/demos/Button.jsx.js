@@ -1,51 +1,56 @@
 define(function (require) {
 
+    const React = require('react');
+    const Skin = require('fcui2/Skin.jsx');
+    const Button = require('fcui2/Button.jsx');
 
-    var Button = require('fcui2/Button.jsx');
 
-    var items = [
-        {
-            title: 'Normal Button',
-            props: {label: '确定', value: 'enter button'}
-        },
-        {
-            title: 'Normal Button',
-            props: {label: 'oneux4-normal-blue', skin: 'normal-blue'}
-        },
-        {
-            title: 'Normal Button',
-            props: {label: 'oneux4-grey-blue', skin: 'grey-blue'}
-        },
-        {
-            title: 'Button with Title',
-            props: {label: 'Button', value: 'title button', title: 'Button With Title', skin: 'grey'}
-        },
-        {
-            title: 'Button with ClassName',
-            props: {label: 'Button', value: 'class button', className: 'marginLeft100 border2'}
-        },
-        {
-            title: 'Submit Button',
-            props: {label: 'Submit', type:'submit', name: 'submit1', skin: 'blue', value: 'submit button'}
-        },
-        {
-            title: 'Active Button',
-            props: {label: 'Active', skin: 'active', value: 'active button'}
-        },
-        {
-            title: 'Disabled Button',
-            props: {label: 'Button Disabled', disabled: true, value: 'disabled button'}
-        },
-        {
-            title: 'Button with Icon',
-            props: {label: 'Find', icon: 'fcui2-icon fcui2-icon-question', skin: 'grey1', value: 'button width icon', width: 80}
-        },
-        {
-            title: 'Button with Style',
-            props: {skin: 'important', label: 'Width', icon: 'fcui2-icon fcui2-icon-question', iconLeft: 110, style: {width: 300}, value: 'button with Width'}
+    return React.createClass({
+        render() {
+            return (
+                <div>
+                    <div className="demo-item">
+                        <h4>OneUX 4</h4>
+                        <Skin skin="oneux4">
+                            <h5>Skin</h5>
+                            <Button label="确定"/>&nbsp;
+                            <Button label="grey" skin="grey"/>&nbsp;
+                            <Button label="important" skin="important"/>&nbsp;
+                            <Button label="opacity" skin="opacity"/>&nbsp;
+                            <Button label="normal-blue" skin="normal-blue"/>&nbsp;
+                            <Button label="grey-blue" skin="grey-blue"/>&nbsp;
+                            <Button label="light-blue" skin="light-blue"/>&nbsp;
+                            <Button label="disabled" skin="disabled"/>&nbsp;
+                            <h5>Size</h5>
+                            <Button label="确定" className="fcui2-button-small"/>&nbsp;
+                            <Button label="确定"/>&nbsp;
+                            <Button label="确定" className="fcui2-button-big"/>
+                        </Skin>
+                    </div>
+                    <div className="demo-item">
+                        <h4>OneUX 3</h4>
+                        <Skin skin="oneux3">
+                            <Button label="确定"/>&nbsp;
+                            <Button label="active" skin="active"/>&nbsp;
+                            <Button label="grey1" skin="grey1"/>&nbsp;
+                            <Button label="grey" skin="grey"/>&nbsp;
+                            <Button label="blue" skin="blue"/>&nbsp;
+                            <Button label="important" skin="important"/>&nbsp;
+                            <Button label="disabled" skin="disabled"/>&nbsp;
+                        </Skin>
+                    </div>
+                    <div className="demo-item">
+                        <h4>Normal</h4>
+                        <Skin skin="">
+                            <Button label="确定"/>&nbsp;
+                            <Button label="active" skin="active"/>&nbsp;
+                            <Button label="important" skin="important"/>&nbsp;
+                            <Button label="disabled" skin="disabled"/>&nbsp;
+                        </Skin>
+                    </div>
+                </div>
+            );
         }
-    ];
-
-    return null;
+    });
 
 });
