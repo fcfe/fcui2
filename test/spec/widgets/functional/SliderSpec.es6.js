@@ -27,8 +27,7 @@ define(function (require) {
                     width: 200,
                     value: 100
                 });
-                expect(dom.refs.container.childNodes.length).toBe(7);
-                TestUtils.Simulate.mouseDown(dom.refs.container.childNodes[6]);
+                expect(dom.refs.container.childNodes.length).toBe(6);
                 TestUtils.Simulate.click(dom.refs.container, {clientX: 9});
                 dom.onDrop(0, 2);
             });
@@ -44,7 +43,6 @@ define(function (require) {
                         value = +e.target.value;
                     }
                 });
-                TestUtils.Simulate.mouseDown(dom.refs.container.childNodes[6]);
                 TestUtils.Simulate.click(dom.refs.container, {clientX: 9});
                 expect(value).toBe(-1);
             });
@@ -60,7 +58,6 @@ define(function (require) {
                         value = e.target.value * 1;
                     }
                 });
-                TestUtils.Simulate.mouseDown(dom.refs.container.childNodes[6]);
                 let moveEvent = document.createEvent('MouseEvents');
                 moveEvent.initEvent('mousemove', true, false);
                 window.dispatchEvent(moveEvent);
