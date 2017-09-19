@@ -64,6 +64,16 @@ define(function (require) {
          *                         +--------|       3      |
          *                         | anchor |              |
          *                         +--------+--------------+
+         * ######2.3.5 layer在anchor右侧垂直居中的位置
+         *                                  +--------------+
+         *                                  |              |
+         *                                  |              |
+         *                         +--------+              |
+         *                         | anchor |      3.5     |
+         *                         +--------+              |
+         *                                  |              |
+         *                                  |              |
+         *                                  +--------------+
          * ######2.4 layer左上角与anchor右上角重合         
          *                         +--------+--------------+
          *                         | anchor |       4      |
@@ -83,6 +93,13 @@ define(function (require) {
          *                         |       6      |
          *                         |              |
          *                         +--------------+
+         * ######2.6.5 layer在anchor下方水平居中
+         *                         +--------+
+         *                         | anchor |
+         *                      +--------------+
+         *                      |      6.5     |
+         *                      |              |
+         *                      +--------------+
          * ######2.7 layer右上角与anchor右下角重合
          *                         +--------+
          *                         | anchor |
@@ -102,6 +119,16 @@ define(function (require) {
          *          |       9      | anchor |
          *          |              |--------+ 
          *          +--------------+
+         * ######2.9.5 layer右上角和anchor左上角重合
+         *          +--------------+
+         *          |              |
+         *          |              |
+         *          |              +--------+
+         *          |      9.5     | anchor | 
+         *          |              +--------+
+         *          |              |
+         *          |              |
+         *          +--------------+
          * ######2.10 layer右下角与anchor左下角重合
          *          +--------------+
          *          |      10      |--------+
@@ -119,6 +146,13 @@ define(function (require) {
          *                   |      12      |
          *                   |              |
          *                   +--------------+
+         *                         | anchor |
+         *                         +--------+
+         * ######2.12.5 layer在anchor上方水平居中
+         *                      +--------------+
+         *                      |     12.5     |
+         *                      |              |
+         *                      +--------------+
          *                         | anchor |
          *                         +--------+
          */
@@ -146,15 +180,19 @@ define(function (require) {
                 '1': [tempPosition.right, tempPosition.top],
                 '2': [tempPosition.right + anchorWidth, tempPosition.top],
                 '3': [tempPosition.right + anchorWidth, tempPosition.bottom - layerHeight + 1],
+                '3.5': [tempPosition.right + anchorWidth, anchorPosition.top + anchorHeight / 2 - layerHeight / 2],
                 '4': [tempPosition.right + anchorWidth, anchorPosition.top],
                 '5': [tempPosition.right + anchorWidth, tempPosition.bottom + 1],
                 '6': [tempPosition.right, tempPosition.bottom],
+                '6.5': [anchorPosition.left + anchorWidth / 2 - layerWidth / 2, tempPosition.bottom],
                 '7': [tempPosition.left, tempPosition.bottom],
                 '8': [anchorPosition.left - layerWidth, tempPosition.bottom],
                 '9': [anchorPosition.left - layerWidth, anchorPosition.top],
+                '9.5': [anchorPosition.left - layerWidth, anchorPosition.top + anchorHeight / 2 - layerHeight / 2],
                 '10': [anchorPosition.left - layerWidth, tempPosition.bottom - layerHeight + 1],
                 '11': [anchorPosition.left - layerWidth, tempPosition.top],
-                '12': [tempPosition.left, tempPosition.top]
+                '12': [tempPosition.left, tempPosition.top],
+                '12.5': [anchorPosition.left + anchorWidth / 2 - layerWidth / 2, tempPosition.top]
             };
             // 时钟定位
             var clock = '';

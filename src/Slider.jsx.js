@@ -10,6 +10,7 @@ define(function (require) {
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
     var DragableWidget = require('./mixins/DragableWidget');
+    var WarningLayer = require('./WarningLayer.jsx');
 
 
     var cTools = require('./core/componentTools');
@@ -64,8 +65,12 @@ define(function (require) {
         // @override
         getInitialState: function () {
             return {
-                valuePosition: -1
+                valuePosition: -1,
+                anchor: null
             };
+        },
+        componentDidMount: function () {
+            this.setState({anchor: this.refs.cursor});
         },
         onDragStart: function (e) {
             if (this.props.disabled) return;
@@ -128,27 +133,20 @@ define(function (require) {
                 style: {left: valuePosition - 8},
                 onMouseDown: this.onDragStart
             };
+            var warningLayerProps = {
+                message: tool.displayValue(tool.position2value(valuePosition, this, 10), this) + this.props.measure,
+                location: '12.5',
+                skin: this.context.appSkin === 'oneux4' ? 'black' : 'blue',
+                anchor: this.props.showLabel ? this.state.anchor : null
+            };
             return (
                 <div {...cTools.containerBaseProps('slider', this)} onClick={this.onClick}>
                     <div className="fcui2-slider-base-axis"></div>
                     <div className="fcui2-slider-left-rule"></div>
                     <div className="fcui2-slider-right-rule"></div>
-                    <div className="fcui2-slider-label-container"
-                        style={{display: this.props.showLabel ? 'block' : 'none'}}
-                    >
-                        <span className="fcui2-slider-left-label">{this.props.min + this.props.measure}</span>
-                        <span className="fcui2-slider-right-label">{this.props.max + this.props.measure}</span>
-                    </div>
-                    <div className="fcui2-slider-value-label"
-                        style={{
-                            left: valuePosition - 25,
-                            display: this.props.showLabel ? 'block' : 'none'
-                        }}>
-                        {tool.displayValue(tool.position2value(valuePosition, this, 10), this) + this.props.measure}
-                        <span className="fcui2-slider-arrow"></span>
-                    </div>
                     <div className="fcui2-slider-value-axis" style={{width: valuePosition + 7}}></div>
                     <div {...cursorProp}></div>
+                    <WarningLayer {...warningLayerProps}/>
                 </div>
             );
         }

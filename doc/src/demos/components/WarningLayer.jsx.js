@@ -12,44 +12,80 @@ define(function (require) {
         // @override
         getInitialState: function () {
             return {
-                warningAnchor: null
+                anchor: null
             };
         },
         // @override
         componentDidMount: function () {
             this.setState({
-                warningAnchor1: this.refs.tb1.refs.container,
-                warningAnchor2: this.refs.tb2.refs.container,
-                warningAnchor3: this.refs.tb3.refs.container,
-                warningAnchor4: this.refs.tb4.refs.container
+                anchor: this.refs.anchor
             });
         },
         render: function () {
             return (
                 <div>
-                    <h4>./doc/src/demos/components/WarningLayer.jsx.js</h4>
-                    <div className="demo-item">
-                        <h4>WarningLayer with location '6'</h4>
-                        <TextBox ref="tb1"/>
-                        <WarningLayer message="这是一个错误信息" location="6" anchor={this.state.warningAnchor1}/>
+                    <div ref="anchor" style="margin-top:100px;width:1000px;height:500px;border:1px solid;line-height:300px;margin:auto;text-align:center;">
+                        <h1>Anchor</h1>
                     </div>
-                    <br/><br/>
-                    <div className="demo-item">
-                        <h4>WarningLayer with location '1'</h4>
-                        <br/><br/>
-                        <TextBox ref="tb2"/>
-                        <WarningLayer message="这是一个错误信息" location="1" anchor={this.state.warningAnchor2}/>
-                    </div>
-                    <div className="demo-item">
-                        <h4>WarningLayer with location '9'</h4>
-                        <TextBox ref="tb3" style={{marginLeft: 300}}/>
-                        <WarningLayer message="这是一个错误信息" location="9" anchor={this.state.warningAnchor3}/>
-                    </div>
-                    <div className="demo-item">
-                        <h4>WarningLayer with location '4'</h4>
-                        <TextBox ref="tb4" style={{marginLeft: 300}}/>
-                        <WarningLayer message="这是一个错误信息" location="4" anchor={this.state.warningAnchor4}/>
-                    </div>
+                    <WarningLayer
+                        message="location 12.5<br/>这里是内容<br/>非常长的一个内容，<br/>甚至需要换行的内容"
+                        location="12.5"
+                        skin="white"
+                        anchor={this.state.anchor}
+                    />
+                    <WarningLayer
+                        message="location 1<br/>这里是内容<br/>非常长的一个内容，<br/>甚至需要换行的内容"
+                        location="1"
+                        anchor={this.state.anchor}
+                    />
+                    <WarningLayer
+                        message="location 2<br/>这里是内容<br/>非常长的一个内容，<br/>甚至需要换行的内容"
+                        location="2"
+                        anchor={this.state.anchor}
+                    />
+                    <WarningLayer
+                        message="location 3.5<br/>这里是内容<br/>非常长的一个内容，<br/>甚至需要换行的内容"
+                        location="3.5"
+                        skin="white"
+                        anchor={this.state.anchor}
+                    />
+                    <WarningLayer
+                        message="location 4。这是单行内容"
+                        location="4"
+                        anchor={this.state.anchor}
+                    />
+                    <WarningLayer
+                        message="location 5<br/>这里是内容<br/>非常长的一个内容，<br/>甚至需要换行的内容"
+                        location="5"
+                        anchor={this.state.anchor}
+                    />
+                    <WarningLayer
+                        message="location 6.5<br/>这里是内容<br/>非常长的一个内容，<br/>甚至需要换行的内容"
+                        location="6.5"
+                        skin="white"
+                        anchor={this.state.anchor}
+                    />
+                    <WarningLayer
+                        message="location 6。这是单行内容"
+                        location="6"
+                        anchor={this.state.anchor}
+                    />
+                    <WarningLayer
+                        message="location 8<br/>这里是内容<br/>非常长的一个内容，<br/>甚至需要换行的内容"
+                        location="8"
+                        anchor={this.state.anchor}
+                    />
+                    <WarningLayer
+                        message="location 9.5<br/>这里是内容<br/>非常长的一个内容，<br/>甚至需要换行的内容"
+                        location="9.5"
+                        skin="white"
+                        anchor={this.state.anchor}
+                    />
+                    <WarningLayer
+                        message="location 9。这是单行内容"
+                        location="9"
+                        anchor={this.state.anchor}
+                    />
                 </div>
             );
         }
