@@ -85,7 +85,6 @@ define(function (require) {
         },
         render: function () {
             var Demo = config.demos[this.props.file.replace(/_/g, '\\')];
-            console.log(this.props.file);
             var componentSource = 'https://github.com/fcfe/fcui2/tree/master/'
                 + this.props.file.replace(/_/g, '/');
             var demoSource = 'https://github.com/fcfe/fcui2/tree/master/doc/src/demos'
