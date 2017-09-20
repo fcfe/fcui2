@@ -187,6 +187,11 @@
         line-height: 30px;
         padding: 0 14px;
     }
+    &.browser-firefox,&.browser-ie {
+        input {
+            line-height: 24px;
+        }
+    }
 }
 .fcui2-button-oneux4-normal {
     background-color: @oneux4-bgcolor-c1;
@@ -299,6 +304,13 @@
     .is-icon, input {
         color: @oneux4-color-c3;
         cursor: not-allowed;
+    }
+    &:hover {
+        background-color: @oneux4-bgcolor-c4;
+        border-color: @oneux4-bgcolor-c4;
+    }
+    &:active {
+        background-color: @oneux4-bgcolor-c4;
     }
 }
 

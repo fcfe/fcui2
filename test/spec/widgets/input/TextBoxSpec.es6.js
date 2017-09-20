@@ -33,10 +33,10 @@ define(function (require) {
                 expect(dom.props.children[0]).toEqual(
                     <div style={{visibility: 'visible'}}>{''}</div>
                 );
-                let child1 = dom.props.children[1];
+                let child1 = dom.props.children[2];
                 expect(child1).toEqual(
                     <input
-                        type="text" ref="inputbox" disabled={false} style={{width: 178}}
+                        type="text" ref="inputbox" disabled={false} style={{width: 178, paddingRight: 10}}
                         onCompositionStart={child1.props.onCompositionStart}
                         onCompositionEnd={child1.props.onCompositionEnd}
                         onKeyUp={child1.props.onKeyUp}
@@ -53,13 +53,13 @@ define(function (require) {
                 let dom = shallowRender(TextBox, {
                     value: 'abc'
                 });
-                let child1 = dom.props.children[1];
+                let child1 = dom.props.children[2];
                 expect(dom.props.children[0]).toEqual(
                     <div style={{visibility: 'hidden'}}>{''}</div>
                 );
                 expect(child1).toEqual(
                     <input
-                        type="text" ref="inputbox" disabled={false} style={{width: 178}}
+                        type="text" ref="inputbox" disabled={false} style={{width: 178, paddingRight: 10}}
                         onCompositionStart={child1.props.onCompositionStart}
                         onCompositionEnd={child1.props.onCompositionEnd}
                         onKeyUp={child1.props.onKeyUp}
@@ -74,10 +74,10 @@ define(function (require) {
                 let dom = shallowRender(TextBox, {
                     width: 'abc'
                 });
-                let child1 = dom.props.children[1];
+                let child1 = dom.props.children[2];
                 expect(child1).toEqual(
                     <input
-                        type="text" ref="inputbox" disabled={false} style={{width: 178}}
+                        type="text" ref="inputbox" disabled={false} style={{width: 178, paddingRight: 10}}
                         onCompositionStart={child1.props.onCompositionStart}
                         onCompositionEnd={child1.props.onCompositionEnd}
                         onKeyUp={child1.props.onKeyUp}

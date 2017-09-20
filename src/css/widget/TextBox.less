@@ -20,8 +20,12 @@
         position: absolute;
         left: 0px;
         top: 0px;
-        line-height: 26px;
+        line-height: 30px;
         padding: 0 10px;
+    }
+    .count-label {
+        left: auto;
+        right: 0px;
     }
 }
 
@@ -43,6 +47,7 @@
 }
 .fcui2-textbox-reject {
     input {
+        height: 28px;
         border-color: @color-error !important;
     }
 }
@@ -96,7 +101,11 @@
 }
 .fcui2-textbox-oneux4-reject {
     input {
+        background-color: transparent;
         border-color: @oneux4-border-color-c4 !important;
+    }
+    .count-label {
+        color: @oneux4-border-color-c4;
     }
 }
 .fcui2-textbox-oneux4-disabled {
@@ -105,9 +114,33 @@
         background-color: @oneux4-bgcolor-c2 !important;
         border-color: @oneux4-border-color-c1;
         color: @oneux4-color-c3 !important;
+        cursor: not-allowed;
         &:hover {
             border-color: @oneux4-border-color-c1 !important;
         }
     }
 }
 
+
+.fcui2-textbox-small {
+    height: 22px;
+    top: 6px;
+    margin-top: -6px;
+    div {
+        line-height: 22px;
+    }
+    input {
+        height: 20px;
+    }
+}
+.fcui2-textbox-big {
+    height: 36px;
+    top: 13px;
+    margin-top: -13px;
+    div {
+        line-height: 36px;
+    }
+    input {
+        height: 34px;
+    }
+}
