@@ -1,34 +1,38 @@
 define(function (require) {
 
-    var Creater = require('./Main.jsx');
-    var TextArea = require('fcui2/TextArea.jsx');
+    const React = require('react');
+    const Skin = require('fcui2/Skin.jsx');
+    const TextArea = require('fcui2/TextArea.jsx');
 
-    var items = [
-        {
-            title: 'Normal TextArea',
-            props: {}
+
+    return React.createClass({
+        getInitialState() {
+            return {
+                value: '百度\n腾讯\n阿里\n腾讯\n阿里'
+            };
         },
-        {
-            title: 'TextArea with ClassName',
-            props: {className: 'marginLeft100'}
+        onChange(e) {
+            this.setState({value: e.target.value});
         },
-        {
-            title: 'Readonly TextArea',
-            props: {value: 'readonly'}
-        },
-        {
-            title: 'TextArea with Placeholder',
-            props: {placeholder: 'please input'}
-        },
-        {
-            title: 'Disabled TextArea',
-            props: {disabled: true, placeholder: 'please input'}
-        },
-        {
-            title: 'TextArea with Size',
-            props: {width: 500, height: 300}
+        render() {
+            return (
+                <div>
+                    <div className="demo-item">
+                        <h4>OneUX 4</h4>
+                        <Skin skin="oneux4">
+                            <h5>Skin</h5>
+                            <TextArea placeholder="placeholder" value={this.state.value} onChange={this.onChange}/>&nbsp;
+                        </Skin>
+                    </div>
+                    <div className="demo-item">
+                        <h4>OneUX 3</h4>
+                    </div>
+                    <div className="demo-item">
+                        <h4>Normal</h4>
+                    </div>
+                </div>
+            );
         }
-    ];
+    });
 
-    return Creater(TextArea, items, 'onChange');
 });
