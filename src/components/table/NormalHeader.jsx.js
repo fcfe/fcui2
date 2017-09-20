@@ -68,9 +68,10 @@ define(function (require) {
                 },
                 onClick: this.onSortClick
             };
+            var rowSpan = +this.props.rowSpan;
             var thProp = {
                 className: 'th-header',
-                rowSpan: this.props.rowSpan + '',
+                rowSpan: isNaN(rowSpan) || !rowSpan ? undefined : rowSpan,
                 style: {
                     textAlign: fieldConfig.align || 'left',
                     verticalAlign: fieldConfig.verticalAlign || 'top'
