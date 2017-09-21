@@ -1,14 +1,14 @@
 define(function (require) {
 
-    const React = require('react');
-    const Skin = require('fcui2/Skin.jsx');
+    const React = require('react'); 
     const TextArea = require('fcui2/TextArea.jsx');
+
 
 
     return React.createClass({
         getInitialState() {
             return {
-                value: '百度\n腾讯\n阿里\n腾讯\n阿里'
+                value: 'asd'
             };
         },
         onChange(e) {
@@ -17,22 +17,10 @@ define(function (require) {
         render() {
             return (
                 <div>
-                    <div className="demo-item">
-                        <h4>OneUX 4</h4>
-                        <Skin skin="oneux4">
-                            <h5>Skin</h5>
-                            <TextArea placeholder="placeholder" value={this.state.value} onChange={this.onChange}/>&nbsp;
-                        </Skin>
-                    </div>
-                    <div className="demo-item">
-                        <h4>OneUX 3</h4>
-                    </div>
-                    <div className="demo-item">
-                        <h4>Normal</h4>
-                    </div>
+                    <h4>{this.state.value}</h4>
+                    <TextArea value={this.state.value} onChange={this.onChange}/>
                 </div>
             );
         }
     });
-
 });
