@@ -7,7 +7,7 @@ define(function (require) {
     return React.createClass({
         getInitialState() {
             return {
-                value: '百度\n腾讯\n阿里\n腾讯\n阿里'
+                value: 12
             };
         },
         onChange(e) {
