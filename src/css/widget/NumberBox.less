@@ -70,6 +70,11 @@
         border-color: @color-btn-hover;
     }
 }
+.fcui2-numberbox-reject {
+    input {
+        height: 26px;
+    }
+}
 
 
 .fcui2-numberbox-oneux3-normal,
@@ -123,7 +128,6 @@
         height: 24px;
         border-color: @oneux4-border-color-c1;
         background-color: transparent;
-        text-align: center;
     }
     .fcui2-numberbox-placeholder {
         color: @color-disabled-text;
@@ -173,5 +177,43 @@
         color: @color-disabled-text !important;
         background-color: @color-bg-btn !important;
         cursor: default !important;
+    }
+}
+
+
+.fcui2-numberbox-small {
+    height: 20px;
+    top: 5px;
+    margin-top: -5px;
+    input {
+        height: 18px;
+    }
+    .fcui2-numberbox-placeholder {
+        line-height: 22px;
+    }
+    .btn-container {
+        height: 20px;
+        .fcui2-icon {
+            height: 10px;
+            line-height: 10px;
+        }
+    }
+}
+.fcui2-numberbox-big {
+    height: 36px;
+    top: 12px;
+    margin-top: -12px;
+    input {
+        height: 34px;
+    }
+    .fcui2-numberbox-placeholder {
+        line-height: 36px;
+    }
+    .btn-container {
+        height: 36px;
+        .fcui2-icon {
+            height: 18px;
+            line-height: 18px;
+        }
     }
 }

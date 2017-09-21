@@ -22,7 +22,7 @@ define(function (require) {
                             <h5>Skin</h5>
                             <TextBox/>&nbsp;
                             <TextBox placeholder="placeholder"/>&nbsp;
-                            <TextBox skin="reject"/>&nbsp;
+                            <TextBox skin="reject"/><br/><br/>
                             <TextBox disabled={true} value="value"/>&nbsp;
                             <TextBox disabled={true} placeholder="placeholder"/>&nbsp;
                             <TextBox disabled={true}/>
@@ -40,7 +40,7 @@ define(function (require) {
                         <Skin skin="oneux3">
                             <TextBox value="value"/>&nbsp;
                             <TextBox placeholder="placeholder"/>&nbsp;
-                            <TextBox skin="reject"/>&nbsp;
+                            <TextBox skin="reject"/><br/><br/>
                             <TextBox disabled={true} value="value"/>&nbsp;
                             <TextBox disabled={true} placeholder="placeholder"/>&nbsp;
                             <TextBox disabled={true}/>
@@ -51,7 +51,7 @@ define(function (require) {
                         <Skin skin="">
                             <TextBox value="value"/>&nbsp;
                             <TextBox placeholder="placeholder"/>&nbsp;
-                            <TextBox skin="reject"/>&nbsp;
+                            <TextBox skin="reject"/><br/><br/>
                             <TextBox disabled={true} value="value"/>&nbsp;
                             <TextBox disabled={true} placeholder="placeholder"/>&nbsp;
                             <TextBox disabled={true}/>

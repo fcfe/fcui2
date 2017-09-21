@@ -15,7 +15,8 @@ define(function (require) {
             this.___imeStart___ = false;
             this.___lastFireValue___ = null;
             this.___lastCursorPos___ = -1;
-            this.refs.inputbox.value = this.___getValue___();
+            var value = this.___getValue___() || '';
+            this.refs.inputbox.value = value;
         },
         shouldComponentUpdate: function (nextProps, nextState) {
             if (this.___fireTimeout___) {
@@ -26,8 +27,9 @@ define(function (require) {
             if (this.___fireTimeout___) {
                 return false;
             }
-            this.refs.inputbox.value = this.props.value;
-            util.setCursorPosition(this.refs.inputbox, this.___lastCursorPos___);
+            var value = this.___getValue___() || '';
+            this.refs.inputbox.value = value;
+            if (this.___lastCursorPos___ > -1) util.setCursorPosition(this.refs.inputbox, this.___lastCursorPos___);
         },
         ___onCompositionStart___: function () {
             clearTimeout(this.___fireTimeout___);
@@ -51,6 +53,22 @@ define(function (require) {
             this.___fireTimeout___ = setTimeout(function () {
                 me.___fireChange___();
             }, fireTimerSpan);
+        },
+        ___onFocus___: function (e) {
+            this.setState({hasFocus: true});
+            typeof this.props.onFocus === 'function' && this.props.onFocus(e);
+        },
+        ___onBlur___: function (e) {
+            var me = this;
+            setTimeout(function () {
+                if (me.___stopBlur___) {
+                    me.___stopBlur___ = false;
+                    return;
+                }
+                me.setState({hasFocus: false});
+            }, 200);
+            this.___lastCursorPos___ = -1;
+            typeof this.props.onBlur === 'function' && this.props.onBlur(e);
         },
         ___fireChange___: function () {
             clearTimeout(this.___fireTimeout___);

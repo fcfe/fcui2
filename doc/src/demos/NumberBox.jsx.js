@@ -1,58 +1,58 @@
 define(function (require) {
 
-    var Creater = require('./Main.jsx');
-    var NumberBox = require('fcui2/NumberBox.jsx');
+    const React = require('react');
+    const NumberBox = require('fcui2/NumberBox.jsx');
+    const Skin = require('fcui2/Skin.jsx');
 
-    var items = [
-        {
-            title: 'Normal NumberBox',
-            props: {}
+    return React.createClass({
+        getInitialState() {
+            return {
+                value: '百度\n腾讯\n阿里\n腾讯\n阿里'
+            };
         },
-        {
-            title: 'NumberBox without SpinButton',
-            props: {showSpinButton: false}
+        onChange(e) {
+            this.setState({value: e.target.value});
         },
-        {
-            title: 'Readonly NumberBox',
-            props: {value: 235}
-        },
-        {
-            title: 'NumberBox can input Integer only',
-            props: {type: 'int'}
-        },
-        {
-            title: 'NumberBox with Max',
-            props: {max: 10}
-        },
-        {
-            title: 'NumberBox with PlaceHolder',
-            props: {placeholder: '请输入数字'}
-        },
-        {
-            title: 'NumberBox with Min, and an incorrect Value',
-            props: {min: 10, value: 1}
-        },
-        {
-            title: 'NumberBox with Step',
-            props: {min: -100, max: 100, step: 10}
-        },
-        {
-            title: 'NumberBox with Fixed',
-            props: {fixed: 3, width: 100}
-        },
-        {
-            title: 'NumberBox with ClassName',
-            props: {className: 'marginLeft100'}
-        },
-        {
-            title: 'Disabled NumberBox',
-            props: {disabled: true}
-        },
-        {
-            title: 'NumberBox with Width',
-            props: {width: 500}
+        render() {
+            return (
+                <div>
+                    <div className="demo-item">
+                        <h4>OneUX 4</h4>
+                        <Skin skin="oneux4">
+                            <h5>Skin</h5>
+                            <NumberBox placeholder="placeholder"/>&nbsp;
+                            <NumberBox skin="reject"/>&nbsp;
+                            <NumberBox disabled={true}/>&nbsp;
+                            <NumberBox showSpinButton={true}/>
+                            <h5>Size</h5>
+                            <NumberBox placeholder="placeholder" showSpinButton={true} className="fcui2-numberbox-small"/>&nbsp;
+                            <NumberBox placeholder="placeholder" showSpinButton={true}/>&nbsp;
+                            <NumberBox placeholder="placeholder"showSpinButton={true} className="fcui2-numberbox-big"/>
+                        </Skin>
+                    </div>
+                    <div className="demo-item">
+                        <h4>OneUX 3</h4>
+                        <Skin skin="oneux3">
+                            <NumberBox placeholder="placeholder" value={this.state.value} onChange={this.onChange}/>&nbsp;
+                            <NumberBox skin="reject" value={this.state.value}/>&nbsp;
+                            <NumberBox disabled={true} value={this.state.value}/>&nbsp;
+                            <NumberBox showSpinButton={true}/>
+                        </Skin>
+                    </div>
+                    <div className="demo-item">
+                        <h4>Normal</h4>
+                        <Skin skin="">
+                            <NumberBox placeholder="placeholder"/>&nbsp;
+                            <NumberBox skin="reject"/>&nbsp;
+                            <NumberBox disabled={true}/>&nbsp;
+                            <NumberBox showSpinButton={true}/>
+                        </Skin>
+                    </div>
+                </div>
+            );
         }
-    ];
+    });
 
-    return Creater(NumberBox, items, 'onChange');
+
 });
+

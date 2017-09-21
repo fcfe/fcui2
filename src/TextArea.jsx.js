@@ -94,7 +94,9 @@ define(function (require) {
                 _.extend(inputProp, {
                     onCompositionStart: this.___onCompositionStart___,
                     onCompositionEnd: this.___onCompositionEnd___,
-                    onKeyUp: this.___onKeyUp___
+                    onKeyUp: this.___onKeyUp___,
+                    onFocus: this.___onFocus___,
+                    onBlur: this.___onBlur___
                 });
             }
             else {

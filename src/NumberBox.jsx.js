@@ -49,13 +49,14 @@ define(function (require) {
                 style: {},
                 disabled: false,
                 // self
+                width: 100,
                 placeholder: '',
                 max: Number.POSITIVE_INFINITY,
                 min: Number.NEGATIVE_INFINITY,
                 step: 1.00,
                 type: 'float', // int, float
                 fixed: Number.POSITIVE_INFINITY,
-                showSpinButton: true,
+                showSpinButton: false,
                 // mixin
                 valueTemplate: ''
             };
