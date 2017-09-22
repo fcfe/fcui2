@@ -61,7 +61,7 @@ define(function (require) {
                 expect(wizard.props.children[0]).toEqual(
                     <div
                          key="0"
-                         className="fcui2-wizard-item fcui2-wizard-item-active"
+                         className="fcui2-wizard-item fcui2-wizard-item-active fcui2-wizard-item-pre"
                          data-ui-cmd={0}
                          style={{width: '33.33%', zIndex: 3}}
                          onClick={onClick}

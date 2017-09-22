@@ -106,7 +106,7 @@ define(function (require) {
                     </div>
                     <div className="right-bottom-container">
                         <a href={componentSource} target="_blank">View Component Source</a>
-                        <a href={demoSource} target="_blank">View Demo Source</a>
+                        {Demo ? <a href={demoSource} target="_blank">View Demo Source</a> : null}
                     </div>
                 </div>
             );

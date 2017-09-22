@@ -24,7 +24,8 @@ define(function (require) {
                     props.className += ' fcui2-wizard-item-disabled';
                 }
                 else if (i < value + 1) {
-                    props.className += ' fcui2-wizard-item-active';
+                    props.className += ' fcui2-wizard-item-active'
+                        + (i === value - 1 ? ' fcui2-wizard-item-pre' : '');
                 }
                 else {
                     props.className += ' fcui2-wizard-item-normal';
