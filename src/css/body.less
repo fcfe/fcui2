@@ -4,9 +4,11 @@
 
 body {
 
+
     input::-ms-clear {
         display: none;
     }
+
 
     // 浏览器display base line兼容
     .fcui2-searchbox-normal.browser-ie,
@@ -80,21 +82,10 @@ body {
     }
 
 
-
-    // 行内错误提示
-    .fcui2-error-msg {
-        color: @color-error;
-        font-size: 12px;
-        margin-left: 10px;
-    }
-
-
-
     // 固定DOM位置
     .fcui2-fixed-with-scroll {
         position: fixed !important;
     }
-
 
 
     // 禁止组件内部被选中
@@ -128,7 +119,8 @@ body {
 
 
     // 添加组件阴影
-    .fcui2-button:hover,
+    .fcui2-button-normal:hover,
+    .fcui2-button-important:hover,
     .fcui2-layer-normal {
         -webkit-box-shadow: 0 1px 3px @color-gray-5;
         -moz-box-shadow: 0 1px 3px @color-gray-5;
@@ -136,75 +128,23 @@ body {
     }
 
 
-    // 禁用状态下去除阴影
-    .fcui2-button-oneux3-normal:hover,
-    .fcui2-button-oneux3-grey:hover,
-    .fcui2-button-oneux3-grey1:hover,
-    .fcui2-button-oneux3-blue:hover,
-    .fcui2-button-oneux3-important:hover,
-    .fcui2-button-oneux3-disabled:hover,
-    .fcui2-button-oneux3-active:hover,
-    .fcui2-button-oneux4-normal:hover,
-    .fcui2-button-oneux4-grey:hover,
-    .fcui2-button-oneux4-active:hover,
-    .fcui2-button-oneux4-important:hover,
-    .fcui2-button-oneux4-disabled:hover,
-    .fcui2-button-oneux4-normal-blue:hover,
-    .fcui2-button-oneux4-grey-blue:hover,
-    .fcui2-button-disabled:hover {
-        -webkit-box-shadow: 0 0 0;
-        -moz-box-shadow: 0 0 0;
-        box-shadow: 0 0 0;
-    }
-
-
     // 圆角
-    .fcui2-button,
-    .fcui2-dropdownlist,
-    .fcui2-combolist,
-    .fcui2-textbox input,
-    .fcui2-numberbox input,
-    .fcui2-textarea textarea,
+    .fcui2-button-normal,
+    .fcui2-button-important,
+    .fcui2-dropdownlist-normal,
+    .fcui2-combolist-normal,
+    .fcui2-textbox-normal input,
+    .fcui2-textbox-reject input,
+    .fcui2-numberbox-normal input,
+    .fcui2-numberbox-reject input,
+    .fcui2-textarea-normal textarea,
+    .fcui2-textarea-reject textarea,
+    .fcui2-searchbox-normal input,
     .fcui2-layer-warning,
-    .fcui2-layer,
-    .fcui2-searchbox input,
     .fcui2-layer-normal {
         -moz-border-radius: 2px;
         -webkit-border-radius: 2px;
         border-radius: 2px;
-    }
-
-
-    // 无圆角
-    .fcui2-layer-oneux4-black,
-    .fcui2-button-oneux4-normal,
-    .fcui2-button-oneux4-grey,
-    .fcui2-button-oneux4-important,
-    .fcui2-button-oneux4-active,
-    .fcui2-button-oneux4-disabled,
-    .fcui2-button-oneux4-normal-blue,
-    .fcui2-button-oneux4-grey-blue,
-    .fcui2-button-oneux4-light-blue,
-    .fcui2-button-oneux4-opacity,
-    .fcui2-textbox-oneux4-normal input,
-    .fcui2-textbox-oneux4-reject input,
-    .fcui2-textbox-oneux4-disabled input,
-    .fcui2-searchbox-oneux4-normal input,
-    .fcui2-searchbox-oneux4-disabled input,
-    .fcui2-numberbox-oneux4-normal input,
-    .fcui2-numberbox-oneux4-reject input,
-    .fcui2-numberbox-oneux4-disabled input,
-    .fcui2-dropdownlist-oneux4-normal,
-    .fcui2-dropdownlist-oneux4-grey,
-    .fcui2-dropdownlist-oneux4-disabled,
-    .fcui2-combolist-oneux4-normal,
-    .fcui2-combolist-oneux4-disabled,
-    .fcui2-textarea-oneux4-normal textarea,
-    .fcui2-textarea-oneux4-reject textarea,
-    .fcui2-textarea-oneux4-disabled textarea {
-        -moz-border-radius: 0px;
-        -webkit-border-radius: 0px;
-        border-radius: 0px;
     }
 
 
