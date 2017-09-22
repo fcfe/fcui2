@@ -91,7 +91,10 @@ define(function (require) {
             var width = cTools.getValueFromPropsAndStyle(this.props, 'width', 200);
             width = isNaN(width) ? 200 : +width;
             var containerProp = cTools.containerBaseProps('searchbox', this, {
-                style: {width: width}
+                style: {
+                    width: width,
+                    marginRight: this.props.mode !== 'withButton' ? 0 : 50
+                }
             });
             var placeholderProp = {
                 className: 'placeholder',
@@ -101,7 +104,7 @@ define(function (require) {
             };
             var inputWidth = width - 32;
             var inputPaddingRight = 20;
-            if (this.props.mode !== 'withButton' && this.state.hasFocus && this.props.showClearButton) {
+            if (this.props.mode !== 'withButton' && this.state.hasFocus && this.props.showClearButton && value) {
                 inputPaddingRight += 20;
                 inputWidth -= 20;
             }
@@ -135,14 +138,14 @@ define(function (require) {
                 onClick: this.onButtonClick,
                 className: 'search-button',
                 style: {
-                    left: width
+                    left: width - 1
                 }
             };
             return (
                 <div {...containerProp}>
                     <div {...placeholderProp}>{this.props.placeholder}</div>
                     <input {...inputProp}/>
-                    {this.state.hasFocus && this.props.showClearButton ? <div {...removeIconProps}></div> : null}
+                    {this.state.hasFocus && this.props.showClearButton && value ? <div {...removeIconProps}></div> : null}
                     {this.props.mode === 'withButton' ? null : <div {...searchIconProps}></div>}
                     {this.props.mode === 'withButton' ? <div {...searchButtonProps}>搜索</div> : null}
                 </div>
