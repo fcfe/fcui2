@@ -7,7 +7,6 @@
 define(function (require) {
 
 
-    var _ = require('underscore');
     var React = require('react');
     var NumberBox = require('./NumberBox.jsx');
 
@@ -15,6 +14,7 @@ define(function (require) {
     var InputWidget = require('./mixins/InputWidget');
     var tools = require('./core/colorPickerTools');
     var cTools = require('./core/componentTools');
+    var util = require('./core/util');
 
 
     var defaultRGBprops = {
@@ -217,27 +217,27 @@ define(function (require) {
                 className: 'canvas-right',
                 onClick: this.onCanvasClick
             };
-            var rProps = _.extend({}, defaultRGBprops, {
+            var rProps = util.extend({}, defaultRGBprops, {
                 value: value.rgb[0],
                 onChange: this.numberBoxChangeHandlerFactory('rgb', 0)
             });
-            var gProps = _.extend({}, defaultRGBprops, {
+            var gProps = util.extend({}, defaultRGBprops, {
                 value: value.rgb[1],
                 onChange: this.numberBoxChangeHandlerFactory('rgb', 1)
             });
-            var bProps = _.extend({}, defaultRGBprops, {
+            var bProps = util.extend({}, defaultRGBprops, {
                 value: value.rgb[2],
                 onChange: this.numberBoxChangeHandlerFactory('rgb', 2)
             });
-            var hProps = _.extend({}, defaultHSLprops, {
+            var hProps = util.extend({}, defaultHSLprops, {
                 value: value.hsl[0],
                 onChange: this.numberBoxChangeHandlerFactory('hsl', 0)
             });
-            var sProps = _.extend({}, defaultHSLprops, {
+            var sProps = util.extend({}, defaultHSLprops, {
                 value: value.hsl[1],
                 onChange: this.numberBoxChangeHandlerFactory('hsl', 1)
             });
-            var lProps = _.extend({}, defaultHSLprops, {
+            var lProps = util.extend({}, defaultHSLprops, {
                 value: value.hsl[2],
                 onChange: this.numberBoxChangeHandlerFactory('hsl', 2)
             });

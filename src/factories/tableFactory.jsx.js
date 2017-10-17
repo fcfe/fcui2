@@ -1,7 +1,7 @@
 
 define(function (require) {
 
-    var _ = require('underscore');
+
     var React = require('react');
     var TableMessage = require('../components/table/MessageBar.jsx');
     var TableHeader = require('../components/table/NormalHeader.jsx');
@@ -13,6 +13,8 @@ define(function (require) {
     };
     var cTools = require('../core/componentTools');
     var tools = require('../core/tableTools');
+    var util = require('../core/util');
+
 
     return {
 
@@ -115,7 +117,7 @@ define(function (require) {
                 return null;
             }
             var fields = tools.fieldConfigFactory(me, Others);
-            var messageConfig = _.extend({}, me.props.message);
+            var messageConfig = util.extend({}, me.props.message);
             var Message = typeof messageConfig.renderer === 'function' ? messageConfig.renderer : TableMessage;
             delete messageConfig.renderer;
             return (<Message {...messageConfig} onAction={me.props.onAction} colSpan={fields.length}/>);

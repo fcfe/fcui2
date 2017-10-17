@@ -11,7 +11,7 @@ define(function (require) {
     var InputWidget = require('./mixins/InputWidget');
     var cTools = require('./core/componentTools');
     var language = require('./core/language').deployablePanel;
-    var _ = require('underscore');
+    var util = require('./core/util');
     var labels = {
         expand: language.expand,
         hide: language.hide
@@ -62,7 +62,7 @@ define(function (require) {
         render: function () {
             var containerProp = cTools.containerBaseProps('deployablepanel', this);
             var value = this.___getValue___();
-            var labels = _.extend({}, labels, this.props.labels);
+            var labels = util.extend({}, labels, this.props.labels);
             return (
                 <div {...containerProp}>
                     {

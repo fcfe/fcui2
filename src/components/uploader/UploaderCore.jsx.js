@@ -8,7 +8,6 @@ define(function (require) {
 
 
     var React = require('react');
-    var _ = require('underscore');
     var util = require('../../core/util');
 
 
@@ -23,7 +22,7 @@ define(function (require) {
     return React.createClass({
         getDefaultProps: function () {
             return {
-                onUploaded: _.noop,
+                onUploaded: util.noop,
                 formData: {},
                 uploadConfig: {}
             };

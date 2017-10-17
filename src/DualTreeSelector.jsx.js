@@ -7,13 +7,13 @@
 define(function (require) {
 
 
-    var _ = require('underscore');
     var React = require('react');
     var cTools = require('./core/componentTools');
     var Tree = require('./Tree.jsx');
     var Renderer = require('./components/tree/SelectRenderer.jsx');
     var InputWidget = require('./mixins/InputWidget');
     var tools = require('./core/treeTools');
+    var util = require('./core/util');
 
 
     return React.createClass({
@@ -76,7 +76,7 @@ define(function (require) {
                 return;
             }
             var lastDatasource = JSON.parse(this.___lastDatasource___);
-            if (_.isEqual(lastDatasource, datasource)) return;
+            if (util.isEqual(lastDatasource, datasource)) return;
             var selected = JSON.parse(this.___getValue___() || '{}').selected || {};
             // 检查selected中标记为1的item的children是否加载完毕了。
             if (tools.targetAsyncLeaf(selected, this.props.selectorEngine, datasource)) {

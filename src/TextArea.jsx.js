@@ -7,13 +7,13 @@
 define(function (require) {
 
 
-    var _ = require('underscore');
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
     var InputWidgetImeFixed = require('./mixins/InputWidgetImeFixed');
     var InputWidgetImeFixedForPreactIE = require('./mixins/InputWidgetImeFixedForPreactIE');
     var cTools = require('./core/componentTools');
     var util = require('./core/util');
+
 
     var isPreactAndIE = typeof React.render === 'function' && util.getBrowserEnterprise() === 'ie';
 
@@ -85,13 +85,13 @@ define(function (require) {
                 disabled: this.props.disabled,
                 spellCheck: false,
                 // 其实不应该这样写，可是textarea的padding和border会导致整体尺寸变大
-                style: _.extend({}, this.props.inputBoxStyle, {
+                style: util.extend({}, this.props.inputBoxStyle, {
                     width: width - 22,
                     height: height - 22
                 })
             };
             if (isPreactAndIE) {
-                _.extend(inputProp, {
+                util.extend(inputProp, {
                     onCompositionStart: this.___onCompositionStart___,
                     onCompositionEnd: this.___onCompositionEnd___,
                     onKeyUp: this.___onKeyUp___,
@@ -100,7 +100,7 @@ define(function (require) {
                 });
             }
             else {
-                _.extend(inputProp, {
+                util.extend(inputProp, {
                     onCompositionStart: this.___onCompositionStart___,
                     onCompositionEnd: this.___onCompositionEnd___,
                     onKeyUp: this.___onKeyUp___,

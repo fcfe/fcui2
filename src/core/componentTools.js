@@ -7,7 +7,6 @@
 define(function (require) {
 
 
-    var _ = require('underscore');
     var util = require('./util');
     var MERGE_FROM_PROPS_TO_STYLE = [
         'width',
@@ -26,9 +25,7 @@ define(function (require) {
          * @interface noop
          * @return {Function} 空函数
          */
-        noop: function () {
-
-        },
+        noop: new Function(),
 
         /**
          * 从props和props.style中取值
@@ -116,7 +113,7 @@ define(function (require) {
                 result['data-uuid'] = me.props.uuid;
             };
             // style
-            result.style = _.extend({}, result.style, me.props.style);
+            result.style = util.extend({}, result.style, me.props.style);
             // skin
             result.className += ' fcui2-' + type + appSkin + '-' + (
                 typeof me.props.skin === 'string' && me.props.skin.length ? me.props.skin : 'normal'

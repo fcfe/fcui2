@@ -6,7 +6,6 @@
  */
 define(function (require) {
 
-    var _ = require('underscore');
     var language = require('./language').schedule;
     var CELL_LENGTH = 24;
 
@@ -52,8 +51,17 @@ define(function (require) {
          * 将内部结构的二维数组以行优先形式合并成一个数组，并转成JSON返回
          */
         stringifyValue: function (rawValue) {
-            if (!rawValue) return '';
-            return JSON.stringify(_.flatten(rawValue));
+            if (!(rawValue instanceof Array)) return '';
+            var result = [];
+            rawValue.map(function (item) {
+                if (item instanceof Array) {
+                    result = result.concat(item);
+                }
+                else {
+                    result.push(item);
+                }
+            });
+            return JSON.stringify(result);
         },
         /**
          * 获取虚拟鼠标尺寸

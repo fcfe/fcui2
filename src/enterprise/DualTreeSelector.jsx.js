@@ -13,7 +13,6 @@ define(function (require) {
     var Button = require('../Button.jsx');
     var Layer = require('../Layer.jsx');
     var InputWidget = require('../mixins/InputWidget');
-    var _ = require('underscore');
 
     var cTools = require('../core/componentTools');
     var treeTools = require('../core/treeTools');
@@ -108,7 +107,7 @@ define(function (require) {
         componentWillReceiveProps: function (nextProps) {
             if (
                 nextProps.isDropDown
-                && !_.isEqual(
+                && !util.isEqual(
                     JSON.parse(nextProps.value || '{}'),
                     JSON.parse(this.state && this.state.dropdownValue ? this.state.dropdownValue : '{}')
                 )
@@ -225,7 +224,7 @@ define(function (require) {
                 },
                 widthCorrect: -12
             });
-            var labels = _.extend({}, defaultLabels, this.props.labels);
+            var labels = util.extend({}, defaultLabels, this.props.labels);
             var layerProp = {
                 ref: 'layer',
                 className: this.props.className,
@@ -285,7 +284,7 @@ define(function (require) {
             onChange: me.props.isDropDown ? me.onDropDownTreeChange : me.onTreeChange,
             onAction: me.onTreeAction
         };
-        var labels = _.extend({}, defaultLabels, me.props.labels);
+        var labels = util.extend({}, defaultLabels, me.props.labels);
         var count = treeTools.getLeafCount(me.props.datasource);
         var selected = 0;
         try {

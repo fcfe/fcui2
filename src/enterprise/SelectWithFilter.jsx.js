@@ -13,7 +13,6 @@ define(function (require) {
     var List = require('../List.jsx');
     var SearchBox = require('../SearchBox.jsx');
     var cTools = require('../core/componentTools');
-    var _ = require('underscore');
 
 
     var defaultFilter = function (datasource, filter) {

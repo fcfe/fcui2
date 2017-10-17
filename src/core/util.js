@@ -6,13 +6,79 @@
  * @note
  * 1. 此工具库所有方法，不但fcui2可以使用，其他任何项目都可以拿出去单独使用
  * 2. 此工具库不支持ES6语法，确保所有方法在所有浏览器基础环境中都能正确运行
- * 3. 不允许在此工具集中引入或使用或合并其他任何库，比如underscore, jQuery等
+ * 3. 不允许在此工具集中引入或使用或合并其他任何库，比如jQuery等
  * 4. 此工具集包含了操作原生DOM的方法，不能在node中使用
  * 5. 目前符合AMD规范，将来会支持CMD和直接引入
  */
 define(function (require) {
 
     var exports = {
+
+        noop: new Function(),
+
+        extend: Object.assign || function (target) {
+            if (!target) return;
+            target = Object(target);
+            for (var index = 1; index < arguments.length; index++) {
+                var source = arguments[index];
+                if (source != null) {
+                    for (var key in source) {
+                        if (Object.prototype.hasOwnProperty.call(source, key)) {
+                            target[key] = source[key];
+                        }
+                    }
+                }
+            }
+            return target;
+        },
+
+        /**
+         * 深度比较两个对象是否相等
+         *
+         * @param {object} x 对象1
+         * @param {object} y 对象2
+         */
+        isEqual: function(x, y) {
+            var i, l, leftChain = [], rightChain = [];
+            if (arguments.length < 1) return true;
+            return compare2Objects(x, y);
+            function compare2Objects(x, y) {
+                if (isNaN(x) && isNaN(y) && typeof x === 'number' && typeof y === 'number') return true;
+                if (x === y) return true;
+                if (typeof x === 'function' && typeof y === 'function') return x.toString() === y.toString();
+                if (x instanceof Date && y instanceof Date) return x.toString() === y.toString();
+                if (x instanceof RegExp && y instanceof RegExp) return x.toString() === y.toString();
+                if (x instanceof String && y instanceof String) return x.toString() === y.toString();
+                if (x instanceof Number && y instanceof Number)  return x.toString() === y.toString();
+                if (!(x instanceof Object && y instanceof Object)) return false;
+                if (x.isPrototypeOf(y) || y.isPrototypeOf(x)) return false;
+                if (x.constructor !== y.constructor) return false;
+                if (leftChain.indexOf(x) > -1 || rightChain.indexOf(y) > -1) return false;
+                var p;
+                for (p in y) {
+                    if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) return false;
+                    if (typeof y[p] !== typeof x[p]) return false;
+                }
+                for (p in x) {
+                    if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) return false;
+                    if (typeof y[p] !== typeof x[p]) return false;
+                    switch (typeof(x[p])) {
+                        case 'object':
+                        case 'function':
+                            leftChain.push(x);
+                            rightChain.push(y);
+                            if (!compare2Objects(x[p], y[p])) return false;
+                            leftChain.pop();
+                            rightChain.pop();
+                            break;
+                        default:
+                            if (x[p] !== y[p]) return false;
+                            break;
+                    }
+                }
+                return true;
+            }  
+        },
 
         /**
          * uuid生成器

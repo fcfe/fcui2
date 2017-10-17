@@ -11,7 +11,7 @@ define(function(require) {
     const React = require('react');
     const ReactDOM = require('react-dom');
     const Skin = require('./Skin.jsx');
-    var _ = require('underscore');
+    var util = require('./core/util');
     var cTools = require('./core/componentTools');
     var language = require('./core/language').toast;
 
@@ -80,7 +80,7 @@ define(function(require) {
         pop(props) {
             // 创建元素
             let me = this;
-            props = _.extend({}, defaultProps, props, {
+            props = util.extend({}, defaultProps, props, {
                 close: () => {me.dispose()}
             });
             document.body.appendChild(this.getContainer());
@@ -132,7 +132,7 @@ define(function(require) {
             let toastMsg = message || language[type] || null;
             let toastIcon = icon || iconType[type];
             let Component = subComponent;
-            let componentProps = _.extend({}, subComponentProps, {
+            let componentProps = util.extend({}, subComponentProps, {
                 [subComponentCloseHandlerName]: this.props.close
             });
             let containerProp = cTools.containerBaseProps('toast', this, {

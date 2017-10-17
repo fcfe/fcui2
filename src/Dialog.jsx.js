@@ -9,14 +9,13 @@ define(function (require) {
 
     var React = require('react');
     var ReactDOM = require('react-dom');
-    var _ = require('underscore');
 
 
     var AlertContent = require('./components/dialog/Alert.jsx');
     var ConfirmContent = require('./components/dialog/Confirm.jsx');
     var TitleWindow = require('./TitleWindow.jsx');
     var ShojiScreen = require('./ShojiScreen.jsx');
-    var noop = function () {};
+    var util = require('./core/util');
 
 
     /**
@@ -128,7 +127,7 @@ define(function (require) {
             message: param.message,
             labels: param.labels
         };
-        var dialogProp = _.extend({}, param, {
+        var dialogProp = util.extend({}, param, {
             content: AlertContent,
             contentProps: contentProps
         });
@@ -154,10 +153,10 @@ define(function (require) {
         var contentProps = {
             message: param.message,
             labels: param.labels,
-            onEnter:  typeof param.onEnter === 'function' ? param.onEnter : noop,
-            onCancel: typeof param.onCancel === 'function' ? param.onCancel : noop
+            onEnter:  typeof param.onEnter === 'function' ? param.onEnter : util.noop,
+            onCancel: typeof param.onCancel === 'function' ? param.onCancel : util.noop
         };
-        var dialogProp = _.extend({}, param, {
+        var dialogProp = util.extend({}, param, {
             content: ConfirmContent,
             contentProps: contentProps
         });
@@ -229,7 +228,7 @@ define(function (require) {
                         hide: '关闭'
                     },
                     onAction: this.onAction,
-                    onBeforeClose: (typeof param.onBeforeClose === 'function') ? param.onBeforeClose : noop,
+                    onBeforeClose: (typeof param.onBeforeClose === 'function') ? param.onBeforeClose : util.noop,
                     onClose: this.close
                 };
                 return (
@@ -309,7 +308,7 @@ define(function (require) {
                     zIndex: param.zIndex,
                     isFullScreen: param.isFullScreen,
                     showCloseButton: param.hasOwnProperty('showCloseButton') ? param.showCloseButton : true,
-                    onBeforeClose: (typeof param.onBeforeClose === 'function') ? param.onBeforeClose : noop,
+                    onBeforeClose: (typeof param.onBeforeClose === 'function') ? param.onBeforeClose : util.noop,
                     onClose: this.close
                 };
                 return (

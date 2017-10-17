@@ -6,7 +6,7 @@
  */
 define(function (require) {
 
-    var _ = require('underscore');
+
     var React = require('react');
     var Button = require('../Button.jsx');
     var Layer = require('../Layer.jsx');
@@ -176,7 +176,7 @@ define(function (require) {
                 },
                 widthCorrect: -12
             });
-            var labels = _.extend({}, defaultLabels, this.props.labels);
+            var labels = util.extend({}, defaultLabels, this.props.labels);
             var layerProp = {
                 ref: 'layer',
                 style: {
@@ -217,7 +217,7 @@ define(function (require) {
 
     function mainContentFactory(me) {
         var value = me.props.isDropDown ? me.state.dropdownValue : me.___getValue___();
-        var labels = _.extend({}, defaultLabels, me.props.labels);
+        var labels = util.extend({}, defaultLabels, me.props.labels);
         var containerProp = me.props.isDropDown ? {
                 ref: 'container',
                 className: 'fcui2-arrayselector-enterprise fcui2-arrayselector-enterprise-'

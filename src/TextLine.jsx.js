@@ -7,7 +7,6 @@
 define(function (require) {
 
 
-    var _ = require('underscore');
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
     var InputWidgetImeFixed = require('./mixins/InputWidgetImeFixed');
@@ -123,7 +122,7 @@ define(function (require) {
                 }
             };
             if (isPreactAndIE) {
-                _.extend(inputProp, {
+                util.extend(inputProp, {
                     onCompositionStart: this.___onCompositionStart___,
                     onCompositionEnd: this.___onCompositionEnd___,
                     onKeyUp: this.___onKeyUp___,
@@ -132,7 +131,7 @@ define(function (require) {
                 });
             }
             else {
-                _.extend(inputProp, {
+                util.extend(inputProp, {
                     onCompositionStart: this.___onCompositionStart___,
                     onCompositionEnd: this.___onCompositionEnd___,
                     onKeyUp: this.___onKeyUp___,
