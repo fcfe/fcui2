@@ -41,8 +41,7 @@
     }
   ],
   "dependencies": {
-    "react": "~15.0.0",
-    "underscore": "~1.8.3"
+    "react": "^15.6.2"
   },
   "main": "main",
   "description": "FCUI2, a lightweight UI based on React and underscore.js.",
