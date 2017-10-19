@@ -1,10 +1,2 @@
-node_modules
-build
-build.doc/doc
-build.doc/src
-*.log
-output
-coverage
-.idea
-.jscsrc
+/node_modules
 package-lock.json
