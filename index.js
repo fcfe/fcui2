@@ -1,4 +1,3 @@
-import './src/css/main.less';
 
 
 const util = require('./src/core/util');
