@@ -45,7 +45,9 @@ compileIndex();
 
 // 编译入口文件
 function compileIndex() {
-    fs.writeFileSync(OUTPUT + '/index.js', fs.readFileSync(path.resolve(__dirname, './index.js'), 'utf8'));
+    let index = fs.readFileSync(path.resolve(__dirname, './index.js'), 'utf8');
+    index = index.replace(/.\/src\//g, '.\/');
+    fs.writeFileSync(OUTPUT + '/index.js', index);
 }
 
 

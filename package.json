@@ -44,7 +44,7 @@
   "dependencies": {
     "react": "^15.6.2"
   },
-  "main": "main",
+  "main": "dist/index.js",
   "description": "FCUI2, a lightweight UI based on React and underscore.js.",
   "homepage": "https://github.com/fcfe/fcui2",
   "repository": "git@github.com:fcfe/fcui2.git",
