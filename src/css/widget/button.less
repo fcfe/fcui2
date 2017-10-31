@@ -1,0 +1,24 @@
+
+
+.fcui2-button {
+    display: inline-block;
+    box-sizing: border-box;
+    position: relative;
+    border: 1px solid;
+    width: 200px;
+    height: 30px;
+}
+
+@count: 3;
+@skins: normal, reject, disabled;
+
+.loop(@counter) when (@counter > 0) {
+    .loop((@counter - 1));
+    @skin: extract(@skins, @counter);
+    .fcui2-button-@{skin} {
+        font-family: @skin;
+    }
+}
+
+
+.loop(@count);
