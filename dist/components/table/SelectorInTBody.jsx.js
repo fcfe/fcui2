@@ -1,0 +1,56 @@
+/**
+ * Table 有选择功能的单元格渲染器
+ * @author Brian Li
+ * @email lbxxlht@163.com
+ * @version 0.0.2.1
+ */
+define(function (require) {
+
+    var React = require('react');
+    var CheckBox = require('../../CheckBox.jsx');
+
+    return React.createClass({
+        // @override
+        /**
+         * @properties
+         * @param {Number} ___isRowSelected___ 行选择状态：
+         * -1: 未选择
+         *  0: 选择
+         *  1: 半选择 （有倒霉的业务需要半选择状态，这个一般跟有折叠功能的表格一起使用）
+         * @param {Boolean} disabled 是否禁用行选择，可通过fieldConfig的prepare方法灌入
+         * @param {String} className 单元格的样式，可通过fieldConfig的prepare方法灌入
+         * @param {Function} onRowSelect 回调函数，一般为table.props.onAction
+         */
+        getDefaultProps: function getDefaultProps() {
+            return {
+                ___isRowSelected___: -1,
+                row: -1,
+                disabled: false,
+                onRowSelect: function onRowSelect() {},
+                className: ''
+            };
+        },
+        // @override
+        getInitialState: function getInitialState() {
+            return {};
+        },
+        render: function render() {
+            if (this.props.item.hideSelector) {
+                return React.createElement('td', { key: 'row-select' });
+            }
+            var checkboxProp = {
+                value: this.props.row + '',
+                // checked: this.props.___isRowSelected___ === 0 && !this.props.disabled,
+                checked: this.props.___isRowSelected___ === 0,
+                indeterminate: this.props.___isRowSelected___ === 1,
+                disabled: this.props.disabled,
+                onChange: this.props.onRowSelect
+            };
+            return React.createElement(
+                'td',
+                { key: 'row-select', className: 'td-selector ' + this.props.className, style: this.props.style },
+                React.createElement(CheckBox, checkboxProp)
+            );
+        }
+    });
+});
