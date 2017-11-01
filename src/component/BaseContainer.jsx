@@ -10,14 +10,33 @@ import PropTypes from 'prop-types';
 export default class Main extends Component {
 
     static contextTypes = {
+        // 系统级别皮肤
         skin: PropTypes.string
     }
 
     static defaultProps = {
+        // 组件皮肤
         skin: 'normal',
+        // 组件尺寸
         size: 'normal',
+        // 组件根容器外挂样式
         className: '',
-        style: {}
+        // 组件根容器行内样式
+        style: {},
+        // 组件state
+        state: {},
+        // 组件可用状态
+        disabled: false,
+        // 鼠标移入容器
+        onMouseEnter: null,
+        // 鼠标移除容器
+        onMouseLeave: null,
+        // 鼠标按下
+        onMouseDown: null,
+        // 鼠标抬起
+        onMouseUp: null,
+        // 鼠标点击
+        onClick: null
     }
 
     getClassName() {
@@ -50,8 +69,14 @@ export default class Main extends Component {
     }
 
     render() {
+        const {style, onMouseEnter, onMouseLeave, onMouseDown, onMouseUp, onClick} = this.props;
+        const props = {
+            ref: 'container',
+            className: this.getClassName(),
+            ...{style, onMouseEnter, onMouseLeave, onMouseDown, onMouseUp, onClick}     
+        };
         return (
-            <div className={this.getClassName()} style={this.props.style}>
+            <div {...props}>
                 {this.props.children}
             </div>
         );

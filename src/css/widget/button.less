@@ -1,24 +1,60 @@
 
 
+@import '../var.less';
+@import '../oneux4colors.less';
+
+
+// 基础样式
 .fcui2-button {
     display: inline-block;
     box-sizing: border-box;
     position: relative;
+    white-space: nowrap;
     border: 1px solid;
-    width: 200px;
-    height: 30px;
-}
-
-@count: 3;
-@skins: normal, reject, disabled;
-
-.loop(@counter) when (@counter > 0) {
-    .loop((@counter - 1));
-    @skin: extract(@skins, @counter);
-    .fcui2-button-@{skin} {
-        font-family: @skin;
+    .fcui2-icon {
+        position: absolute;
+    }
+    input {
+        position: relative; 
+        border: 0;
+        outline: 0;
+        height: 23px;
+        background-color: transparent;
+        font-family: @font-normal;
+        text-align: center; 
+        cursor: pointer;
     }
 }
 
 
-.loop(@count);
+// 皮肤样式
+@skinRow: 2;
+@skinColumn: 6;
+// skinName, backgroundColor, borderColor, fontColor, hoverBackgroundColor, activeBackgroundColor
+@skin:
+    normal @oneux4-bgcolor-c1 @oneux4-border-color-c1 @oneux4-color-c1 @oneux4-bgcolor-c2 @oneux4-bgcolor-c3
+    active @oneux4-bgcolor-c1 @oneux4-bgcolor-c6 @oneux4-color-c1 @oneux4-bgcolor-c2 @oneux4-bgcolor-c3;
+
+.skinLoop(@i) when (@i < @skinRow) {
+    @skinName: extract(@skin, @i * @skinColumn + 1);
+    @backgroundColor: extract(@skin, @i * @skinColumn + 2);
+    @borderColor: extract(@skin, @i * @skinColumn + 3);
+    @fontColor: extract(@skin, @i * @skinColumn + 4);
+    @hoverBackgroundColor: extract(@skin, @i * @skinColumn + 5);
+    @activeBackgroundColor: extract(@skin, @i * @skinColumn + 6);
+    .fcui2-button-oneux4-@{skinName} {
+        background-color: @backgroundColor;
+        border-color: @borderColor;
+        .fcui2-icon, input {
+            color: @fontColor;
+        }
+        &:hover {
+            background-color: @hoverBackgroundColor;
+        }
+        &:active {
+            background-color: @activeBackgroundColor;
+        }
+    }
+    .skinLoop((@i + 1));
+}
+.skinLoop(0);
