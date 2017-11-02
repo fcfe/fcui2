@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import * as util from '../core/util';
 
 
 export default class Main extends Component {
@@ -48,7 +49,7 @@ export default class Main extends Component {
         // 尺寸样式
         className.push('fcui2-' + ui + '-size-' + size);
         // 皮肤样式
-        const appSkin = this.context.skin ? this.context.skin : 'default';
+        const appSkin = this.context.skin ? this.context.skin : 'oneux4';
         const skinClass = ['fcui2', ui, appSkin];
         if (this.props.state.reject) {
             skinClass.push('reject');
@@ -65,6 +66,8 @@ export default class Main extends Component {
         // 导入样式
         className.push(skinClass.join('-'));
         this.props.className && className.push(this.props.className);
+        // 导入浏览器
+        className.push('browser-' + util.getBrowserType());
         return className.join(' ');
     }
 

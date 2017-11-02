@@ -18,7 +18,7 @@
         position: relative; 
         border: 0;
         outline: 0;
-        height: 23px;
+        padding: 0 14px;
         background-color: transparent;
         font-family: @font-normal;
         text-align: center; 
@@ -28,13 +28,19 @@
 
 
 // 皮肤样式
-@skinRow: 2;
+@skinRow: 10;
 @skinColumn: 6;
-// skinName, backgroundColor, borderColor, fontColor, hoverBackgroundColor, activeBackgroundColor
 @skin:
     normal @oneux4-bgcolor-c1 @oneux4-border-color-c1 @oneux4-color-c1 @oneux4-bgcolor-c2 @oneux4-bgcolor-c3
-    active @oneux4-bgcolor-c1 @oneux4-bgcolor-c6 @oneux4-color-c1 @oneux4-bgcolor-c2 @oneux4-bgcolor-c3;
-
+    active @oneux4-bgcolor-c1 @oneux4-bgcolor-c6 @oneux4-color-c1 @oneux4-bgcolor-c2 @oneux4-bgcolor-c3
+    blue @oneux4-bgcolor-c1 @oneux4-border-color-c1 @oneux4-color-c2 @oneux4-bgcolor-c2 @oneux4-bgcolor-c3
+    grey @oneux4-bgcolor-c4 @oneux4-border-color-c2 @oneux4-color-c1 @oneux4-bgcolor-c3 @oneux4-bgcolor-c5
+    greyblue @oneux4-bgcolor-c4 @oneux4-border-color-c2 @oneux4-color-c2 @oneux4-bgcolor-c3 @oneux4-bgcolor-c5
+    lightblue @oneux4-bgcolor-c20 @oneux4-bgcolor-c20 @oneux4-color-c0 @oneux4-bgcolor-c7 @oneux4-bgcolor-c8
+    important @oneux4-bgcolor-c6 @oneux4-bgcolor-c6 @oneux4-color-c0 @oneux4-bgcolor-c7 @oneux4-bgcolor-c8
+    opacity rgba(0,0,0,.7) #4C4C4C @oneux4-color-c0 rgba(0,0,0,.8) rgba(0,0,0,.8)
+    nocolor transparent transparent @oneux4-color-c1 transparent transparent
+    disabled @oneux4-bgcolor-c4 @oneux4-bgcolor-c4 @oneux4-color-c3 @oneux4-bgcolor-c4 @oneux4-bgcolor-c4;
 .skinLoop(@i) when (@i < @skinRow) {
     @skinName: extract(@skin, @i * @skinColumn + 1);
     @backgroundColor: extract(@skin, @i * @skinColumn + 2);
@@ -58,3 +64,41 @@
     .skinLoop((@i + 1));
 }
 .skinLoop(0);
+.fcui2-button-oneux4-disabled {
+    .fcui2-icon, input {
+        cursor: not-allowed;
+    }
+    &:hover {
+        border-color: @oneux4-bgcolor-c4;
+    }
+}
+
+
+// 尺寸样式
+@sizeRow: 3;
+@sizeColumn: 3;
+@size:
+    small 20px 12px
+    normal 26px 12px
+    large 36px 14px;
+.sizeLoop(@i) when (@i < @sizeRow) {
+    @sizeName: extract(@size, @i * @sizeColumn + 1);
+    @height: extract(@size, @i * @sizeColumn + 2);
+    @fontSize: extract(@size, @i * @sizeColumn + 3);
+    .fcui2-button-size-@{sizeName} {
+        height: @height;
+        .fcui2-icon, input {
+            height: @height;
+            line-height: @height;
+            font-size: @fontSize;
+        }
+    }
+    .sizeLoop((@i + 1));
+}
+.sizeLoop(0);
+.fcui2-button-size-small.browser-chrome {
+    input {
+        position: relative;
+        top: -4px;
+    }
+}
