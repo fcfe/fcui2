@@ -146,7 +146,7 @@ define(function (require) {
         ___onBlur___: function ___onBlur___(e) {
             var me = this;
             setTimeout(function () {
-                if (me.___stopBlur___) {
+                if (me.___stopBlur___ || !me.__isMounted) {
                     me.___stopBlur___ = false;
                     return;
                 }
