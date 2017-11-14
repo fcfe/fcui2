@@ -19,6 +19,7 @@ define(function (require) {
                 var Renderer = item.renderer;
                 prop.key = prop.hasOwnProperty('key') ? prop.key : i;
                 prop.onClick = typeof me.props.onClick === 'function' ? me.props.onClick : cTools.noop;
+                prop.onMouseOver = typeof me.props.onMouseOver === 'function' ? me.props.onMouseOver : cTools.noop;
                 prop.disabled = prop.disabled || me.props.disabled;
                 prop.parentComponent = me;
                 prop.ref = 'list-item-' + i;
