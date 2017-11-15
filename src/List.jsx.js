@@ -48,6 +48,7 @@ define(function (require) {
                 // self
                 datasource: [],
                 onClick: cTools.noop,
+                onMouseOver: cTools.noop,
                 itemRenderer: NormalRenderer
             };
         },
