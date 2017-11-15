@@ -50,6 +50,7 @@
   "repository": "git@github.com:fcfe/fcui2.git",
   "devDependencies": {
     "babel-core": "^6.7.7",
+    "babel-loader": "^5.3.2",
     "babel-plugin-check-es2015-constants": "^6.7.2",
     "babel-plugin-transform-es2015-arrow-functions": "^6.7.7",
     "babel-plugin-transform-es2015-block-scoped-functions": "^6.6.5",
