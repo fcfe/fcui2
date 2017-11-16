@@ -4,6 +4,7 @@ define(function (require) {
     var React = require('react');
     var util = require('fcui2/core/util');
     var Form = require('fcui2/Form.jsx');
+    var Schedule = require('fcui2/Schedule.jsx');
 
 
     // 以下所有组件都能在Form中使用
@@ -113,6 +114,7 @@ define(function (require) {
                 <div>
                     <h3>Test Form Field [{order.length}]</h3>
                     <hr/>
+                    <Schedule/>
                     <Form onFieldChange={this.onFormFieldChange}>
                         <table><tbody>{inputsFactory(this.state)}</tbody></table>
                     </Form>
