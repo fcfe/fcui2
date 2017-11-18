@@ -14,10 +14,6 @@ define(function (require) {
                 for (var j = 0; j < 24; j++) {
                     var props = {
                         type: 'grid',
-                        axis: {
-                            x: (j + '') * 1,
-                            y: (i + '') * 1
-                        },
                         key: j + '-' + i,
                         style: {left: j * 24, top: i * 24}
                     };
