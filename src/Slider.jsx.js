@@ -31,6 +31,7 @@ define(function (require) {
          * @param {Function} onDrag 拖拽时的回调函数
          * @param {String} measure 说明框上显示的单位
          * @param {Boolean} showLabel 是否显示说明框
+         * @param {Boolean} showRangeLabel 是否显示Range值
          * @param {Import|Properties} src\mixins\InputWidget.js
          *      value onChange name validations customErrorTemplates valueTemplate
          */
@@ -58,6 +59,7 @@ define(function (require) {
                 type: 'int',
                 fixed: 2,
                 showLabel: false,
+                showRangeLabel: false,
                 // mixin
                 valueTemplate: 0
             };
@@ -141,7 +143,24 @@ define(function (require) {
             };
             return (
                 <div {...cTools.containerBaseProps('slider', this)} onClick={this.onClick}>
-                    <div className="fcui2-slider-base-axis"></div>
+                    {
+                        this.props.showRangeLabel
+                        ? (
+                            <div className="fcui2-slider-range-label">
+                                {this.props.min}
+                                {this.props.measure}
+                            </div>
+                        ) : null
+                    }
+                    <div className="fcui2-slider-base-axis" />
+                    {
+                        this.props.showRangeLabel ? (
+                            <div className="fcui2-slider-range-label">
+                                {this.props.max}
+                                {this.props.measure}
+                            </div>
+                        ) : null
+                    }
                     <div className="fcui2-slider-left-rule"></div>
                     <div className="fcui2-slider-right-rule"></div>
                     <div className="fcui2-slider-value-axis" style={{width: valuePosition + 7}}></div>
