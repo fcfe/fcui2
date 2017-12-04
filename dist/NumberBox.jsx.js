@@ -88,6 +88,9 @@ define(function (require) {
         onInputBoxBlur: function onInputBoxBlur() {
             this.___cursorPosition___ = -1;
             this.setState({ hasFocus: false });
+            typeof this.props.onBlur === 'function' && this.props.onBlur({
+                target: this.refs.inputbox
+            });
         },
         onSpinButtonClick: function onSpinButtonClick(e) {
             if (this.props.disabled || isNaN(this.refs.inputbox.value) || this.refs.inputbox.value.length === 0) {
@@ -111,6 +114,9 @@ define(function (require) {
         },
         onInputBoxFocus: function onInputBoxFocus() {
             this.setState({ hasFocus: true });
+            typeof this.props.onFocus === 'function' && this.props.onFocus({
+                target: this.refs.inputbox
+            });
         },
         render: function render() {
             var value = this.___getValue___();
