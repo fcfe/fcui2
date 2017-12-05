@@ -136,7 +136,7 @@ define(function(require) {
                 [subComponentCloseHandlerName]: this.props.close
             });
             let containerProp = cTools.containerBaseProps('toast', this, {
-                mergeFromProps: Object.keys(this.props).filter(e => e !== 'classPrefix' && e !== 'subComponent')
+                mergeFromProps: Object.keys(this.props).filter(e => e === 'className' || e === 'style')
             });
             return (
                 <div {...containerProp}>
