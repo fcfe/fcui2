@@ -1,0 +1,57 @@
+
+// version 0.0.3
+.fcui2-colorpicker {
+    position: relative;
+    width: 340px;
+    height: 222px;
+    // border: 1px solid;
+    overflow: hidden;
+    .canvas-left {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        border: 1px solid;
+    }
+    .canvas-right {
+        position: absolute;
+        left: 216px;
+        top: 10px;
+        border: 1px solid;
+    }
+    .input-container {
+        position: absolute;
+        width: 100px;
+        left: 236px;
+        top: 10px;
+        padding: 2px 0;
+        hr {
+            margin: 2px 5px 6px 0;
+            border-top: 0px;
+        }
+        >div {
+            height: 32px;
+            >span {
+                margin-right: 5px;
+                display: inline-block;
+                width: 10px;
+            }
+        }
+    }
+    .virtual-cursor {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border: 2px solid;
+        border-radius: 5px;
+    }
+}
+
+.fcui2-colorpicker-normal {
+    border-color: @oneux3-bgcolor-c11;
+    .canvas-left, .canvas-right {
+        border-color: @oneux3-bgcolor-c11;
+    }
+    hr {
+        border-bottom-color: @oneux3-bgcolor-c11;
+    }
+}

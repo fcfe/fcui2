@@ -9,13 +9,13 @@ define(function (require) {
 
     var React = require('react');
     var ReactDOM = require('react-dom');
-    var _ = require('underscore');
 
 
     var AlertContent = require('./components/dialog/Alert.jsx');
     var ConfirmContent = require('./components/dialog/Confirm.jsx');
     var TitleWindow = require('./TitleWindow.jsx');
-    var noop = function () {};
+    var ShojiScreen = require('./ShojiScreen.jsx');
+    var util = require('./core/util');
 
 
     /**
@@ -33,6 +33,7 @@ define(function (require) {
      * @name pop
      * @className Dialog
      * @param {Object} param 弹出配置
+     * @param {String} param.popType 弹窗类型，目前支持普通弹窗和侧拉门
      * @param {ReactClass} param.content Dialog内部组件
      * @param {Object} param.contentProps Dialog内部组件初始化时的属性集
      * @param {String} param.className 挂在到Dialog窗体DOM上的class
@@ -43,6 +44,7 @@ define(function (require) {
      * @param {Object} param.size Dialog窗体的尺寸，与isFullScreen互斥
      * @param {Number} param.size.width Dialog渲染后的宽度
      * @param {Number} param.size.height Dialog渲染后的高度
+     * @param {Number} param.zIndex Dialog渲染后的z-index（层次）
      * @param {Boolean} param.isFullScreen Dialog弹出后时候直接全屏显示
      * @param {Boolean} param.showCloseButton 是否显示Dialog标题栏中的关闭按钮
      * @param {Function} param.onBeforeClose 同TitleWindow props.onBeforeClose
@@ -50,13 +52,20 @@ define(function (require) {
      */
     Dialog.prototype.pop = function (param) {
         var me = this;
-        var ReactElement = React.createElement(dialogComponentFactory(param, me), {});
-        me.___ui___ = null;
-        ReactDOM.render(
+        var ReactElement;
+
+        if (param.popType === 'shoji') {
+            ReactElement = React.createElement(shojiComponentFactory(param, me), {});
+        }
+        else {
+            ReactElement = React.createElement(dialogComponentFactory(param, me), {});
+        }
+
+        me.___ui___ = ReactDOM.render(
             ReactElement,
             me.___tempContainer___,
             function () {
-                me.___ui___ = this;
+                if (this) me.___ui___ = this;
             }
         );
     };
@@ -115,9 +124,10 @@ define(function (require) {
     Dialog.prototype.alert = function (param) {
         param = param || {};
         var contentProps ={
-            message: param.message
+            message: param.message,
+            labels: param.labels
         };
-        var dialogProp = _.extend({}, param, {
+        var dialogProp = util.extend({}, param, {
             content: AlertContent,
             contentProps: contentProps
         });
@@ -142,16 +152,93 @@ define(function (require) {
         param = param || {};
         var contentProps = {
             message: param.message,
-            onEnter:  typeof param.onEnter === 'function' ? param.onEnter : noop,
-            onCancel: typeof param.onCancel === 'function' ? param.onCancel : noop
+            labels: param.labels,
+            onEnter:  typeof param.onEnter === 'function' ? param.onEnter : util.noop,
+            onCancel: typeof param.onCancel === 'function' ? param.onCancel : util.noop
         };
-        var dialogProp = _.extend({}, param, {
+        var dialogProp = util.extend({}, param, {
             content: ConfirmContent,
             contentProps: contentProps
         });
         this.pop(dialogProp);
     };
 
+    /**
+     * Shoji Component Factory
+     *
+     * @param  {Object} param  Dialog配置，见Dialog.pop注释
+     * @param  {Object} dialog 弹出此component的dialog实例
+     */
+    function shojiComponentFactory(param, dialog) {
+        return React.createClass({
+            // @override
+            childContextTypes: {
+                appSkin: React.PropTypes.string
+            },
+            // @override
+            getChildContext: function () {
+                return {
+                    appSkin: typeof param.appSkin === 'string' && param.appSkin ? param.appSkin : ''
+                };
+            },
+            // @override
+            getDefaultProps: function () {
+                return {};
+            },
+            // @override
+            getInitialState: function () {
+                return {
+                    isOpen: true,
+                    contentProps: param.contentProps || {}
+                };
+            },
+            close: function () {
+                this.setState({isOpen: false});
+                typeof param.onClose === 'function' && param.onClose();
+                dialog.close();
+            },
+            onAction: function (actionType) {
+                if (actionType === 'HideButtonClick') {
+                    this.close();
+                }
+            },
+            contentFactory: function () {
+                if (typeof param.content !== 'function') {
+                    return (<div>No Content</div>);
+                }
+                var Content = param.content;
+                var contentProps = {};
+                // 潜克隆一次
+                for (var key in this.state.contentProps) {
+                    if (!this.state.contentProps.hasOwnProperty(key)) continue;
+                    contentProps[key] = this.state.contentProps[key];
+                }
+                // 挂content窗体回调
+                contentProps.close = this.close;
+                return (<Content {...contentProps}/>);
+            },
+            render: function () {
+                var ShojiScreenProp = {
+                    className: param.className,
+                    skin: param.skin,
+                    workspaceWidth: param.workspaceWidth,
+                    isOpen: this.state.isOpen,
+                    showFootBar: false,
+                    buttonLabels: {
+                        hide: '关闭'
+                    },
+                    onAction: this.onAction,
+                    onBeforeClose: (typeof param.onBeforeClose === 'function') ? param.onBeforeClose : util.noop,
+                    onClose: this.close
+                };
+                return (
+                    <ShojiScreen {...ShojiScreenProp}>
+                        {this.contentFactory()}
+                    </ShojiScreen>
+                );
+            }
+        });
+    }
 
     /*
      * Dialog Component Factory
@@ -218,9 +305,10 @@ define(function (require) {
                     isOpen: this.state.isOpen,
                     title: param.title,
                     size: param.size,
+                    zIndex: param.zIndex,
                     isFullScreen: param.isFullScreen,
                     showCloseButton: param.hasOwnProperty('showCloseButton') ? param.showCloseButton : true,
-                    onBeforeClose: (typeof param.onBeforeClose === 'function') ? param.onBeforeClose : noop,
+                    onBeforeClose: (typeof param.onBeforeClose === 'function') ? param.onBeforeClose : util.noop,
                     onClose: this.close
                 };
                 return (

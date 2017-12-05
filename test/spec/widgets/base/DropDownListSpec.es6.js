@@ -43,7 +43,7 @@ define(function (require) {
                 expect(dropdownlist.props.className).toBe('fcui2-dropdownlist fcui2-dropdownlist-normal browser-chrome');
                 expect(dropdownlist.props.style).toEqual({});
                 expect(dropdownlist.props.children[0]).toEqual(
-                    <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
+                    <div className="icon-right fcui2-icon fcui2-icon-arrow-down"></div>
                 );
                 expect(dropdownlist.props.children[1]).toEqual(
                     <span className="label-container">DropDownList</span>
@@ -60,7 +60,7 @@ define(function (require) {
                 expect(dropdownlist.props.className).toBe('fcui2-dropdownlist fcui2-dropdownlist-test-skin fcui2-dropdownlist-test browser-chrome');
                 expect(dropdownlist.props.style).toEqual({color: '#FFF'});
                 expect(dropdownlist.props.children[0]).toEqual(
-                    <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
+                    <div className="icon-right fcui2-icon fcui2-icon-arrow-down"></div>
                 );
                 expect(dropdownlist.props.children[1]).toEqual(
                     <span className="label-container">TestDropDownList</span>
@@ -132,7 +132,7 @@ define(function (require) {
                 expect(dropdownlist.state.mouseenter).toBe(true);
                 expect(dropdownlist.refs.layer.props.isOpen).toBe(true);
 
-                let listItems = dropdownlist.refs.layer.___layerContainer___.querySelectorAll('.list-normal-item');
+                let listItems = dropdownlist.refs.layer.___renderContainer___.querySelectorAll('.list-normal-item');
                 TestUtils.Simulate.click(listItems[0]);
                 expect(dropdownlist.props.onClick.calls.any()).toBeTruthy();
                 expect(dropdownlist.props.onClick.calls.count()).toBe(1);

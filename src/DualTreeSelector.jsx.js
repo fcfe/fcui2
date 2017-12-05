@@ -13,6 +13,7 @@ define(function (require) {
     var Renderer = require('./components/tree/SelectRenderer.jsx');
     var InputWidget = require('./mixins/InputWidget');
     var tools = require('./core/treeTools');
+    var util = require('./core/util');
 
 
     return React.createClass({
@@ -69,14 +70,23 @@ define(function (require) {
         },
         // @override
         componentDidUpdate: function () {
-            var selected = JSON.parse(this.___getValue___() || '{}').selected || {};
-            var selectorEngine = this.props.selectorEngine;
             var datasource = this.props.datasource;
+            if (!this.___lastDatasource___) {
+                this.___lastDatasource___ = JSON.stringify(datasource);
+                return;
+            }
+            var lastDatasource = JSON.parse(this.___lastDatasource___);
+            if (util.isEqual(lastDatasource, datasource)) return;
+            var selected = JSON.parse(this.___getValue___() || '{}').selected || {};
             // 检查selected中标记为1的item的children是否加载完毕了。
-            if (tools.targetAsyncLeaf(selected, selectorEngine, datasource)) {
+            if (tools.targetAsyncLeaf(selected, this.props.selectorEngine, datasource)) {
+                this.___lastDatasource___ = JSON.stringify(datasource);
+                var me = this;
                 var e = {target: this.refs.container};
                 e.target.value = JSON.stringify({selected: selected});
-                this.___dispatchChange___(e);
+                setTimeout(function () {
+                    me.___dispatchChange___(e);
+                }, 200);
             }
         },
         /**
@@ -111,7 +121,7 @@ define(function (require) {
             // 选择和反选
             var selected = (JSON.parse(this.___getValue___()  || '{}')).selected || {};
             this.props.selectorEngine[type === 'TreeSelectLeaf' ? 'select' : 'unselect'](selected, param.item);
-            param.e.target = this.refs.container;
+            param.e = {target: this.refs.container};
             param.e.target.value = JSON.stringify({selected: selected});
             this.___dispatchChange___(param.e);
         },
@@ -143,7 +153,7 @@ define(function (require) {
                 <div {...cTools.containerBaseProps('dualtreeselector', this)}>
                     <div className="tree-container">
                         <Tree {...treeProp1}/>
-                        <span className="cut-rule font-icon font-icon-caret-right"></span>
+                        <span className="cut-rule fcui2-icon fcui2-icon-arrow-right"></span>
                         <Tree {...treeProp2}/>
                     </div>
                 </div>

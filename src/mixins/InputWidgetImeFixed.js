@@ -95,6 +95,29 @@ define(function (require) {
         },
         ___onCompositionEnd___: function (e) {
             this.___imeStart___ = false;
+            /*
+             * 背景：
+             *      使用中文输入法，直接敲回车英文上屏，会触发compositionend，但不会触发keyup，
+             *      导致输入框的onChange事件无法派发，这是浏览器底层bug。
+             * 解决方案：
+             *      compositionend中手动调用一次keyup，将值派发出去。
+             * 难点：
+             *      这个bug不是在所有浏览器、所有输入法、所有操作系统下都存在。
+             *      目前只发现在chrome和IE下存在；
+             *      有些使用chrome内核的浏览器，比如百度浏览器，则不存在这个问题。
+             * 优化方案：
+             *      为了不引起副作用，只在存在问题的浏览器中手动调用keyup。
+             * 附录：手动调用keyup的已知副作用
+             *      （1）在firefox中，如果输入组件在form中，第一次会派发正确值，紧跟着会派发一次空值；
+             *      （2）在百度浏览器中，如果输入组件在form中，会再派发值的尾部增加空格或拼音（win10是空格，win7是拼音）
+             */
+            if (['ie', 'chrome'].indexOf(util.getBrowserEnterprise()) > -1) {
+                this.___onKeyUp___({
+                    keyCode: 0,
+                    target: e.nativeEvent.target,
+                    nativeEvent: e.nativeEvent
+                });
+            }
         },
         ___onKeyDown___: function (e) {
             this.___isPressing___ = true;
@@ -102,7 +125,13 @@ define(function (require) {
         ___onKeyUp___: function (e) {
             this.___isPressing___ = false;
             this.___lastCursorPos___ = util.getCursorPosition(e.target);
+            // 特殊处理回车
             e.keyCode === 13 && typeof this.onEnterPress === 'function' && this.onEnterPress();
+            // 处理其他快捷键
+            if (typeof this.props.hotkeyAnalyzer === 'function' && typeof this.props.onHotKey === 'function') {
+                var hotkey = this.props.hotkeyAnalyzer(e);
+                typeof hotkey === 'string' && hotkey.length && this.props.onHotKey(hotkey);
+            }
             if (this.___imeStart___ || this.___lastFiredValue___ === this.refs.inputbox.value) return;
             this.______callDispatch______(e);
         },
@@ -121,13 +150,20 @@ define(function (require) {
             typeof this.props.onFocus === 'function' && this.props.onFocus(e);
         },
         ___onBlur___: function (e) {
-            this.setState({hasFocus: false});
+            var me = this;
+            setTimeout(function () {
+                if (me.___stopBlur___ || !me.__isMounted) {
+                    me.___stopBlur___ = false;
+                    return;
+                }
+                me.setState({hasFocus: false});
+            }, 200);
             typeof this.props.onBlur === 'function' && this.props.onBlur(e);
         },
         ______callDispatch______: function (e) {
             var me = this;
             var lastValue = this.___lastFiredValue___;
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = this.___lastFiredValue___ = this.refs.inputbox.value;
             this.___dispatchChange___(e, this.___lastFiredValue___, lastValue);
             clearInterval(me.___workerTimer___);

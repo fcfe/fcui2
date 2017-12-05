@@ -70,7 +70,7 @@ define(function (require) {
 
 
         /**
-         * 截取小数点，只截取不补充
+         * 截取小数点，四舍五入
          * @interface fixed
          * @param {String} value 是合法数字字符串
          * @param {Number} fixed 小数位数
@@ -81,7 +81,10 @@ define(function (require) {
             fixed = isNaN(fixed) ? 2 : parseInt(fixed, 10);
             var arr = value.split('.').slice(0, 2);
             if (arr.length > 1 && arr[1].length > fixed) {
-                arr[1] = arr[1].slice(0, fixed);
+                var chart = +(arr[1].charAt(fixed + 1));
+                arr[1] = +(arr[1].slice(0, fixed));
+                arr[1] += chart >= 5 ? 1 : 0;
+                arr[1] += '';
             }
             if (arr.length > 1) {
                 return arr.join('.');

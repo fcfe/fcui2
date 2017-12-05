@@ -6,11 +6,17 @@
  */
 define(function (require) {
 
+
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
     var InputWidgetImeFixed = require('./mixins/InputWidgetImeFixed');
+    var InputWidgetImeFixedForPreactIE = require('./mixins/InputWidgetImeFixedForPreactIE');
     var cTools = require('./core/componentTools');
     var util = require('./core/util');
+
+
+    var isPreactAndIE = typeof React.render === 'function' && util.getBrowserEnterprise() === 'ie';
+
 
     return React.createClass({
         /**
@@ -30,7 +36,7 @@ define(function (require) {
             appSkin: React.PropTypes.string
         },
         // @override
-        mixins: [InputWidget, InputWidgetImeFixed],
+        mixins: isPreactAndIE ? [InputWidget, InputWidgetImeFixedForPreactIE] : [InputWidget, InputWidgetImeFixed],
         // @override
         getDefaultProps: function () {
             return {
@@ -113,14 +119,27 @@ define(function (require) {
                 style: {
                     width: width - 50,
                     height: height - 20
-                },
-                onCompositionStart: this.___onCompositionStart___,
-                onCompositionEnd: this.___onCompositionEnd___,
-                onKeyUp: this.___onKeyUp___,
-                onFocus: this.___onFocus___,
-                onBlur: this.___onBlur___,
-                onInput: this.___onInput___
+                }
             };
+            if (isPreactAndIE) {
+                util.extend(inputProp, {
+                    onCompositionStart: this.___onCompositionStart___,
+                    onCompositionEnd: this.___onCompositionEnd___,
+                    onKeyUp: this.___onKeyUp___,
+                    onFocus: this.___onFocus___,
+                    onBlur: this.___onBlur___
+                });
+            }
+            else {
+                util.extend(inputProp, {
+                    onCompositionStart: this.___onCompositionStart___,
+                    onCompositionEnd: this.___onCompositionEnd___,
+                    onKeyUp: this.___onKeyUp___,
+                    onFocus: this.___onFocus___,
+                    onBlur: this.___onBlur___,
+                    onInput: this.___onInput___
+                });
+            }
             // 由于IE和Chrome下placeholder表现不一致，所以自己做IE下得到焦点后，placeholder会消失，chrome不会
             var hidePlaceHolder = ((value && value.length) || this.state.hasFocus);
             var labelProp = {
@@ -129,6 +148,9 @@ define(function (require) {
                     visibility: hidePlaceHolder ? 'hidden' : 'visible',
                     paddingTop: this.state.paddingTop,
                     lineHeight: this.state.lineHeight
+                },
+                dangerouslySetInnerHTML: {
+                    __html: this.props.placeholder
                 }
             };
             var numProp = {
@@ -143,7 +165,7 @@ define(function (require) {
             containerProp.className += this.state.hasFocus ? ' fcui2-textline-' + skin + '-hover' : '';
             return (
                 <div {...containerProp}>
-                    <div {...labelProp}>{this.props.placeholder}</div>
+                    <div {...labelProp}></div>
                     <textarea {...inputProp}/>
                     <div {...numProp}>{hidePlaceHolder ? renderNumer(this) : null}</div>
                 </div>

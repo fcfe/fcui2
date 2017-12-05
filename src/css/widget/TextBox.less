@@ -1,6 +1,9 @@
-// version 0.0.2
+// version 0.0.4
 
 .fcui2-textbox {
+    * {
+        box-sizing: content-box;
+    }
     display: inline-block;
     position: relative;
     left: 0px;
@@ -20,11 +23,17 @@
         position: absolute;
         left: 0px;
         top: 0px;
-        line-height: 26px;
+        line-height: 30px;
         padding: 0 10px;
+    }
+    .count-label {
+        left: auto;
+        right: 0px;
     }
 }
 
+
+// 普通皮肤
 .fcui2-textbox-normal {
     input {
         background-color: transparent;
@@ -39,7 +48,24 @@
         font-size: 12px;
     }
 }
+.fcui2-textbox-reject {
+    input {
+        height: 28px;
+        border-color: @color-error !important;
+    }
+}
+.fcui2-textbox-disabled,
+.fcui2-textbox-oneux3-disabled {
+    background-color: @color-bg-btn !important;
+    input {
+        color: @color-disabled-text !important;
+        &:hover {
+            border-color: @color-outer-border !important;
+        }
+    }
+}
 
+// oneux3皮肤
 .fcui2-textbox-oneux3-normal {
     input {
         background-color: transparent;
@@ -55,25 +81,68 @@
         padding-left: 14px;
     }
 }
-
-.fcui2-textbox-reject {
-    input {
-        border-color: @color-error !important;
-    }
-}
 .fcui2-textbox-oneux3-reject {
     input {
         border-color: @oneux3-bgcolor-c27 !important;
     }
 }
 
-.fcui2-textbox-oneux3-disabled,
-.fcui2-textbox-disabled {
-    background-color: @color-bg-btn !important;
+// oneux4皮肤
+.fcui2-textbox-oneux4-normal {
     input {
-        color: @color-disabled-text !important;
-        &:hover {
-            border-color: @color-outer-border !important;
+        background-color: transparent;
+        border-color: @oneux4-border-color-c1;
+        color: @oneux4-color-c1;
+        &:hover,&:focus {
+            border-color: @oneux4-border-color-c3;
         }
+    }
+    div {
+        color: @oneux4-color-c4;
+        font-size: 12px;
+    }
+}
+.fcui2-textbox-oneux4-reject {
+    input {
+        background-color: transparent;
+        border-color: @oneux4-border-color-c4 !important;
+    }
+    .count-label {
+        color: @oneux4-border-color-c4;
+    }
+}
+.fcui2-textbox-oneux4-disabled {
+    background-color: @oneux4-bgcolor-c2 !important;
+    input {
+        border-color: @oneux4-border-color-c1;
+        color: @oneux4-color-c3 !important;
+        cursor: not-allowed;
+        &:hover {
+            border-color: @oneux4-border-color-c1 !important;
+        }
+    }
+}
+
+
+.fcui2-textbox-small {
+    height: 22px;
+    top: 6px;
+    margin-top: -6px;
+    div {
+        line-height: 22px;
+    }
+    input {
+        height: 20px;
+    }
+}
+.fcui2-textbox-big {
+    height: 36px;
+    top: 13px;
+    margin-top: -13px;
+    div {
+        line-height: 36px;
+    }
+    input {
+        height: 34px;
     }
 }

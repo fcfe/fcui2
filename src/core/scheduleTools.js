@@ -6,7 +6,6 @@
  */
 define(function (require) {
 
-    var _ = require('underscore');
     var language = require('./language').schedule;
     var CELL_LENGTH = 24;
 
@@ -52,8 +51,17 @@ define(function (require) {
          * 将内部结构的二维数组以行优先形式合并成一个数组，并转成JSON返回
          */
         stringifyValue: function (rawValue) {
-            if (!rawValue) return '';
-            return JSON.stringify(_.flatten(rawValue));
+            if (!(rawValue instanceof Array)) return '';
+            var result = [];
+            rawValue.map(function (item) {
+                if (item instanceof Array) {
+                    result = result.concat(item);
+                }
+                else {
+                    result.push(item);
+                }
+            });
+            return JSON.stringify(result);
         },
         /**
          * 获取虚拟鼠标尺寸
@@ -286,19 +294,29 @@ define(function (require) {
          * @param {String} value schedule的值
          * @param {ScheduleAxis} axis1 区域左上角坐标
          * @param {ScheduleAxis} axis2 区域右下角坐标
-         * @param {?String} v 选中值，如果不制定，则反选
+         * @param {?String} v 选中值，如果不制定，则进行如下操作
+         * 当前操作区域，如果都选中了，则取消选中；如果存在未选中的，则选中未选中的区域
          */
         updateValueByAxis: function (value, axis1, axis2, v) {
             value = this.parseValue(value);
+            var selectedAll = true;
             for (var y = axis1.y; y < axis2.y + 1; y++) {
-                if (y > value.length - 1) {
-                    continue;
-                }
+                if (!selectedAll) break;
+                if (y > value.length - 1) continue;
                 for (var x = axis1.x; x < axis2.x + 1; x++) {
-                    if (x > value[y].length - 1) {
-                        continue;
-                    }
-                    value[y][x] = (v == null || v === undefined) ? (value[y][x] == null ? '' : null) : v;
+                    if (!selectedAll) break;
+                    if (x > value[y].length - 1) continue;
+                    if (value[y][x] == null || value[y][x] === undefined) selectedAll = false;
+                }
+            }
+            if (v == null || v === undefined) {
+                v = selectedAll ? null : '';
+            }
+            for (var y = axis1.y; y < axis2.y + 1; y++) {
+                if (y > value.length - 1) continue;
+                for (var x = axis1.x; x < axis2.x + 1; x++) {
+                    if (x > value[y].length - 1) continue;
+                    value[y][x] = v;
                 }
             }
             return this.stringifyValue(value);

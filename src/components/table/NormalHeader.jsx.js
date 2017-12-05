@@ -60,16 +60,18 @@ define(function (require) {
                 sortType = 'desc'; //desc 降序 asc升序
             }
             var sortButtonProp = {
-                className: 'sort-button font-icon '
-                    + (sortType === 'asc' ? 'font-icon-largeable-arrow-up' : 'font-icon-largeable-arrow-down'),
+                className: 'sort-button fcui2-icon '
+                    + (sortType === 'asc' ? 'fcui2-icon-asc' : 'fcui2-icon-desc'),
                 style: {
                     display: sortEnable ? 'inline-block' : 'none',
                     color: sortField !== fieldConfig.field ? '#DEDEDE' : '#2F82F5'
                 },
                 onClick: this.onSortClick
             };
+            var rowSpan = +this.props.rowSpan;
             var thProp = {
                 className: 'th-header',
+                rowSpan: isNaN(rowSpan) || !rowSpan ? undefined : rowSpan,
                 style: {
                     textAlign: fieldConfig.align || 'left',
                     verticalAlign: fieldConfig.verticalAlign || 'top'

@@ -14,18 +14,7 @@
         color: @color-btn-hover;
     }
 }
-.fcui2-tip-oneux3-normal,.fcui2-tip-oneux3-grey {
-    color: @oneux3-color-c3;
-    &:hover {
-        color: @oneux3-bgcolor-c16;
-    }
-}
-.fcui2-tip-oneux3-red {
-    color: @oneux3-color-c7;
-}
-.fcui2-tip-oneux3-yellow {
-    color: @oneux3-color-c11;
-}
+
 .fcui2-tip-layer {
     min-width: 200px;
     max-width: 400px;
@@ -44,5 +33,54 @@
     .tip-content {
         font-size: 12px;
         line-height: 20px;
+    }
+
+    &-width-auto {
+        max-width: none;
+    }
+}
+
+
+.fcui2-tip-oneux3-normal,
+.fcui2-tip-oneux3-grey {
+    color: @oneux3-color-c3;
+    &:hover {
+        color: @oneux3-bgcolor-c16;
+    }
+}
+.fcui2-tip-oneux3-red {
+    color: @oneux3-color-c7;
+}
+.fcui2-tip-oneux3-yellow {
+    color: @oneux3-color-c11;
+}
+
+
+.fcui2-tip-oneux4-normal {
+    color: @oneux4-color-c6;
+    &:hover {
+        color: @oneux4-color-c1;
+    }
+}
+.fcui2-tip-layer-oneux4-normal,
+.fcui2-tip-layer-oneux4-red,
+.fcui2-tip-layer-oneux4-yellow {
+    padding: 20px 30px;
+    .tip-title {
+        font-size: 14px;
+        font-weight: 200;
+        color: @oneux4-color-c6;
+        margin-bottom: 10px;
+        margin-top: 5px;
+    }
+    .tip-content {
+        line-height: 26px;
+        color: @oneux4-color-c6;
+    }
+    >div {
+        padding: 0;
+    }
+    >div:nth-child(1) {
+        padding-top: 0;
     }
 }

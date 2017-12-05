@@ -19,6 +19,7 @@ define(function (require) {
          *
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {String} placeholder 文本框中无内容时显示的提示文字
+         * @param {String} count 文本框右侧显示的输入长度统计信息，此信息由外界配入
          * @param {Function} onFocus 输入框获取焦点后的回调
          * @param {Function} onBlur 输入框失去焦点后的回调
          * @param {Import|Properties} src\mixins\InputWidget.js
@@ -43,6 +44,7 @@ define(function (require) {
                 disabled: false,
                 // self
                 placeholder: '',
+                count: '',
                 // mixin
                 valueTemplate: ''
             };
@@ -50,8 +52,25 @@ define(function (require) {
         // @override
         getInitialState: function () {
             return {
-                hasFocus: false
+                hasFocus: false,
+                countLabelWidth: 0
             };
+        },
+        componentDidMount: function () {
+            var me = this;
+            this.___countLabelTimer___ = setInterval(function () {
+                if (!me.refs.countLabel) {
+                    clearInterval(me.___countLabelTimer___);
+                    return;
+                }
+                if (me.refs.countLabel.offsetWidth - 15 === me.state.countLabelWidth) {
+                    return;
+                }
+                me.setState({countLabelWidth: me.refs.countLabel.offsetWidth - 15});
+            }, 100);
+        },
+        componentWillUnmount: function () {
+            clearInterval(this.___countLabelTimer___);
         },
         /**
          * 让输入框获得焦点
@@ -77,8 +96,11 @@ define(function (require) {
             var inputProp = {
                 ref: 'inputbox',
                 disabled: this.props.disabled,
-                type: 'text',
-                style: {width: width - 22},
+                type: this.props.type || 'text',
+                style: {
+                    width: width - 22 - this.state.countLabelWidth,
+                    paddingRight: this.state.countLabelWidth + 10
+                },
                 onCompositionStart: this.___onCompositionStart___,
                 onCompositionEnd: this.___onCompositionEnd___,
                 onFocus: this.___onFocus___,
@@ -89,6 +111,7 @@ define(function (require) {
             return (
                 <div {...containerProp}>
                     <div {...placeholderProp}>{this.props.placeholder}</div>
+                    {this.props.count ? <div className="count-label" ref="countLabel">{this.props.count}</div> : null}
                     <input {...inputProp}/>
                 </div>
             );

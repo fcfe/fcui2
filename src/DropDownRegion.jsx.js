@@ -28,6 +28,9 @@ define(function (require) {
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {String} label 下拉按钮上显示的文字，如果type为'single'并且value的值合法，将显示地域名称
          * @param {String} openLayerType 控制浮层打开的动作，onMouseEnter或onClick
+         * @param {boolean} readonly 为true时region浮层只读。
+         *                           region设置为multi时，内部状态控件内部维护且由ok点击传出，不能
+         *                           通过不设置handler表达只读，设置额外的flag。
          * @param {Import|Properties} src\Region.jsx.js type noLinkage provinceRenderer regionRenderer countryRenderer
          * @param {Import|Properties} src\Region.jsx.js countries
          * @param {Import|Properties} src\mixins\InputWidget.js
@@ -50,15 +53,21 @@ define(function (require) {
                 className: '',
                 style: {},
                 disabled: false,
+                readonly: false,
                 // self
                 label: 'DropDownRegion',
                 openLayerType: 'onMouseEnter',
                 type: 'multi',
+                allowEmpty: false,
                 noLinkage: false,
                 provinceRenderer: undefined,
                 regionRenderer: undefined,
                 countryRenderer: undefined,
                 countries: undefined,
+                layerLocation: 'bottom right',
+                onLayerOffset: undefined,
+                // hidden the checkbox and the label of a region when regionFilter returns false
+                regionFilter: () => true,
                 // mixin
                 valueTemplate: ''
             };
@@ -102,7 +111,7 @@ define(function (require) {
         },
         onEnterClick: function (e) {
             if (this.props.disabled) return;
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = this.state.multiValue;
             this.___dispatchChange___(e);
             this.setState({layerOpen: false});
@@ -178,25 +187,30 @@ define(function (require) {
             var containerProp = cTools.containerBaseProps('dropdownlist', this, {widthCorrect: -12});
             var layerProp = {
                 ref: 'layer',
+                className: this.props.className,
                 isOpen: this.state.layerOpen && !this.props.disabled,
                 anchor: this.refs.container,
-                location: 'bottom right',
+                location: this.props.layerLocation,
                 style: {padding: '5px 0'},
                 onMouseEnter: this.onLayerMouseEnter,
                 onMouseLeave: this.onLayerMouseLeave,
                 skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };
+            if (typeof this.props.onLayerOffset === 'function') {
+                layerProp.onOffset = this.props.onLayerOffset;
+            }
             var regionProp = {
                 ref: 'region',
                 value: this.props.type === 'single' ? this.___getValue___() : this.state.multiValue,
                 disabled: this.props.disabled,
                 type: this.props.type,
                 noLinkage: this.props.noLinkage,
+                regionFilter: this.props.regionFilter,
                 provinceRenderer: this.props.provinceRenderer,
                 regionRenderer: this.props.regionRenderer,
                 countryRenderer: this.props.countryRenderer,
                 countries: this.props.countries,
-                onChange: this.onRegionChange
+                onChange: this.props.readonly ? null : this.onRegionChange
             };
             var enterProp = {
                 label: buttonLabels.enter,
@@ -211,6 +225,9 @@ define(function (require) {
             };
             containerProp.onMouseEnter = this.onMainMouseEnter;
             containerProp.onMouseLeave = this.onMainMouseLeave;
+            if (this.props.allowEmpty && !this.state.multiValue) {
+                enterProp.disabled = false;
+            }
             if (this.props.type !== 'single') {
                 containerProp.onClick = this.open;
             }
@@ -222,13 +239,13 @@ define(function (require) {
             containerProp.className += layerProp.isOpen ? (' fcui2-dropdownlist-' + skin + '-hover') : '';
             return (
                 <div {...containerProp}>
-                    <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
+                    <div className="icon-right fcui2-icon fcui2-icon-arrow-down"></div>
                     <span className="label-container">{label}</span>
                     <Layer {...layerProp}>
                         <div style={{maxWidth: 600}}>
                             <Region {...regionProp}/>
-                            {this.props.type === 'single' ? null : <Button {...enterProp}/>}
-                            {this.props.type === 'single' ? null : <Button {...cancelProp}/>}
+                            {this.props.type === 'multi' && !this.props.readonly ? <Button {...enterProp}/> : null}
+                            {this.props.type === 'multi' && !this.props.readonly ? <Button {...cancelProp}/> : null}
                         </div>
                     </Layer>
                 </div>

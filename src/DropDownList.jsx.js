@@ -43,6 +43,7 @@ define(function (require) {
                 skin: '',
                 className: '',
                 style: {},
+                layerListStyle: undefined,
                 disabled: false,
                 // self
                 itemRenderer: undefined,
@@ -77,35 +78,39 @@ define(function (require) {
         render: function () {
             var me = this;
             var containerProp = cTools.containerBaseProps('dropdownlist', this, {widthCorrect: -12});
+            var skin = this.props.skin || 'normal';
             var layerProp = {
                 ref: 'layer',
                 onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
                 isOpen: this.state.layerOpen && !this.props.disabled && !!this.props.datasource.length,
                 anchor: this.refs.container,
                 location: this.props.layerLocation,
-                skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
+                skin: this.context.appSkin ? (this.context.appSkin + '-' + skin) : skin
             };
             var listProp = {
+                skin: this.props.skin,
                 itemRenderer: this.props.itemRenderer,
                 datasource: this.props.datasource,
                 onClick: this.onListClick,
-                style: {
-                    maxHeight: '242px',
-                    overflowY: 'auto',
-                    overflowX: 'hidden'
-                }
+                parentComponent: this,
+                style: this.props.layerListStyle
+                    ? this.props.layerListStyle
+                    : {
+                        maxHeight: '242px',
+                        overflowY: 'auto',
+                        overflowX: 'hidden'
+                    }
             };
             if (this.props.hideLayerScroll) {
                 delete listProp.style;
             }
             containerProp[this.props.openLayerType] = this.onMouseEnter;
             containerProp.onMouseLeave = this.onMouseLeave;
-            var skin = this.props.skin ? this.props.skin : 'normal';
             skin = this.context.appSkin ? (this.context.appSkin + '-' + skin) : skin;
             containerProp.className += layerProp.isOpen ? (' fcui2-dropdownlist-' + skin + '-hover') : '';
             return (
                 <div {...containerProp}>
-                    <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
+                    <div className="icon-right fcui2-icon fcui2-icon-arrow-down"></div>
                     <span className="label-container">{this.props.label}</span>
                     <Layer {...layerProp}>
                         <List {...listProp} />

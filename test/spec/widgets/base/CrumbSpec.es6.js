@@ -63,16 +63,15 @@ define(function (require) {
                 expect(crumb.props.style).toEqual({color: '#FFF'});
                 expect(crumb.props.children).toEqual([
                     <a key="l0" href="http://www.baidu.com/1" target="_blank">账户</a>,
-                    <div key="s0" className="fcui2-crumb-separator">></div>,
+                    <div key="s0" className="fcui2-crumb-separator"></div>,
                     <a key="l1" href="http://www.baidu.com/2" target="_blank">计划</a>,
-                    <div key="s1" className="fcui2-crumb-separator">></div>,
+                    <div key="s1" className="fcui2-crumb-separator"></div>,
                     <a key="l2" href="http://www.baidu.com/3" target="_blank">单元</a>
                 ]);
             });
 
             it('Renders a crumb with disabled item', () => {
                 datasource[datasource.length - 1].disabled = true;
-                crumbProps.separator = '-';
                 crumbProps.datasource = datasource;
                 let crumb = shallowRender(Crumb, crumbProps);
                 expect(crumb.type).toBe('div');
@@ -80,9 +79,9 @@ define(function (require) {
                 expect(crumb.props.style).toEqual({color: '#FFF'});
                 expect(crumb.props.children).toEqual([
                     <a key="l0" href="http://www.baidu.com/1" target="_blank">账户</a>,
-                    <div key="s0" className="fcui2-crumb-separator">-</div>,
+                    <div key="s0" className="fcui2-crumb-separator"></div>,
                     <a key="l1" href="http://www.baidu.com/2" target="_blank">计划</a>,
-                    <div key="s1" className="fcui2-crumb-separator">-</div>,
+                    <div key="s1" className="fcui2-crumb-separator"></div>,
                     <span key="n2" className="fcui2-crumb-label">单元</span>
                 ]);
             });

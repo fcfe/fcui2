@@ -61,27 +61,31 @@ define(function (require) {
                 expect(wizard.props.children[0]).toEqual(
                     <div
                          key="0"
-                         className="fcui2-wizard-item fcui2-wizard-item-active"
+                         className="fcui2-wizard-item fcui2-wizard-item-active fcui2-wizard-item-pre"
                          data-ui-cmd={0}
                          style={{width: '33.33%', zIndex: 3}}
                          onClick={onClick}
                     >
                         <span data-ui-cmd={0}>Step1</span>
                         <div data-ui-cmd={0} className="fcui2-wizard-arrow-bg"></div>
-                        <div data-ui-cmd={0} className="fcui2-wizard-arrow"></div>
+                        <div data-ui-cmd={0} className="fcui2-wizard-arrow">
+                            <span data-ui-cmd={0}>{1}</span>
+                        </div>
                     </div>
                 );
                 expect(wizard.props.children[1]).toEqual(
                     <div
                          key="1"
-                         className="fcui2-wizard-item fcui2-wizard-item-active"
+                         className="fcui2-wizard-item fcui2-wizard-item-active fcui2-wizard-item-current"
                          data-ui-cmd={1}
                          style={{width: '33.33%', zIndex: 2}}
                          onClick={onClick}
                     >
                         <span data-ui-cmd={1}>Step2</span>
                         <div data-ui-cmd={1} className="fcui2-wizard-arrow-bg"></div>
-                        <div data-ui-cmd={1} className="fcui2-wizard-arrow"></div>
+                        <div data-ui-cmd={1} className="fcui2-wizard-arrow">
+                            <span data-ui-cmd={1}>{2}</span>
+                        </div>
                     </div>
                 );
                 expect(wizard.props.children[2]).toEqual(
@@ -94,7 +98,9 @@ define(function (require) {
                     >
                         <span data-ui-cmd={2}>Step3</span>
                         <div data-ui-cmd={2} className="fcui2-wizard-arrow-bg"></div>
-                        <div data-ui-cmd={2} className="fcui2-wizard-arrow"></div>
+                        <div data-ui-cmd={2} className="fcui2-wizard-arrow">
+                            <span data-ui-cmd={2}>{3}</span>
+                        </div>
                     </div>
                 );
             });

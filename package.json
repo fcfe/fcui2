@@ -1,9 +1,11 @@
 {
-  "name": "fcui",
-  "version": "2.0.2",
+  "name": "fcui2",
+  "version": "2.0.12",
   "scripts": {
-    "start": "node node_modules/edp/bin/edp-cli webserver start",
+    "start": "webpack-dev-server --config webpack.config.js --progress --colors --content-base build.doc --hot --port 8847 --host 0.0.0.0",
     "test": "node node_modules/edp/bin/edp-cli build -f && node node_modules/karma/bin/karma start",
+    "build": "node ./FcDocsBuilder.js | webpack --config webpack.public.doc.config.js --progress --colors",
+    "dist": "node ./buildDist.js",
     "spec": "./node_modules/.bin/edp build -f && ./node_modules/.bin/edp test start",
     "coverage": "cat ./coverage/lcov/lcov.info | ./node_modules/.bin/coveralls"
   },
@@ -40,10 +42,9 @@
     }
   ],
   "dependencies": {
-    "react": "~15.0.0",
-    "underscore": "~1.8.3"
+    "react": "^15.6.2"
   },
-  "main": "main",
+  "main": "dist/index.js",
   "description": "FCUI2, a lightweight UI based on React and underscore.js.",
   "homepage": "https://github.com/fcfe/fcui2",
   "repository": "git@github.com:fcfe/fcui2.git",
@@ -68,15 +69,18 @@
     "babel-plugin-transform-es2015-typeof-symbol": "^6.6.0",
     "babel-plugin-transform-es2015-unicode-regex": "^6.5.0",
     "babel-plugin-transform-object-rest-spread": "^6.6.5",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.5.0",
     "coveralls": "^2.11.11",
+    "css-loader": "^0.23.0",
     "edp": "^1.1.1",
-    "edp-build": "^1.1.2",
+    "edp-build": "1.1.1",
     "edp-test": "^1.1.1",
     "edp-webserver": "^1.2.6",
     "eslint": "^2.11.1",
     "eslint-plugin-jasmine": "^1.8.1",
     "eslint-plugin-react": "^5.1.1",
+    "file-loader": ">=0.0.0",
     "istanbul": "^0.4.3",
     "jasmine": "^2.4.1",
     "karma": "^0.13.22",
@@ -88,8 +92,15 @@
     "karma-jasmine": "^0.3.8",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-requirejs": "^0.2.6",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.2",
     "phantomjs-prebuilt": "^2.1.7",
     "requirejs": "^2.2.0",
+    "style-loader": "^0.13.0",
+    "uglify-js": "^3.1.6",
+    "url-loader": ">=0.0.0",
+    "webpack": "^2.2.0",
+    "webpack-dev-server": "^2.4.5",
     "yuidocjs": "^0.10.1"
   },
   "license": "MIT"

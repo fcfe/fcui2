@@ -32,6 +32,7 @@ define(function (require) {
          * @param {Boolean} flags.showHeader 是否显示表头，默认false
          * @param {Boolean} flags.showMessage 是否显示通知栏
          * @param {Boolean} flags.showSummary 是否在表头下方显示汇总栏，默认false
+         * @param {Boolean} flags.showGroupNameInHeader 是否在表头显示列的分组名称，默认false
          * @param {Boolean} flags.showHorizontalScroll 是否显示横向滚动条。
          * 若开启此功能，表格左侧连续设定为fxied的列，不随横向滚动条滚动，永远固定在左侧。
          * @param {Boolean} flags.showSelector 是否在第一列显示行选择器，默认false，不建议使用，改在fieldConfig中添加。此属性改为配置选择器工作模式：
@@ -61,6 +62,7 @@ define(function (require) {
          *      content: function (dataItem, rowIndex, columnIndex, tableComponent)) <optional>
          *      renderer: <optional>
          *      disabled: <optional>
+         *      groupName: <optional>
          *      isEmptyHeader: <optional>
          *      thRenderer: <optional>
          *      prepare: function (tdRendererProps, dataItem, rowIndex, columnIndex, tableComponent) <optional>
@@ -74,7 +76,8 @@ define(function (require) {
          * @param {String} field 域名称，如果不设置content属性，会根据此属性最终content的值
          * @param {String|Function} content 列显示的数据域或域处理函数；如果为字符串，则此处会被替换为dataItem[content]。如果是函数，此处将被替换函数的返回值。
          * @param {ReactClass} renderer 列单元格渲染器
-         * @param {Boolean} disabled 该列是否禁用 
+         * @param {Boolean} disabled 该列是否禁用
+         * @param {Boolean} groupName 该列的分组名称
          * @param {Boolean} isEmptyHeader 表头是否留空，如果为true，则thRenderer无效
          * @param {ReactClass} thRenderer 列表头渲染器
          * @param {Function} prepare 单元格renderer渲染前，生成的props属性集以及一些其他参数会以指针形式调用此回调。
@@ -142,7 +145,8 @@ define(function (require) {
                     showHeader: false,
                     showSummary: false,
                     showSelector: false,
-                    showMessage: false
+                    showMessage: false,
+                    showGroupNameInHeader: false
                 },
                 datasource: [],
                 summary: {},
@@ -268,7 +272,7 @@ define(function (require) {
                 this.___getValue___(),
                 this.props.datasource
             );
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = JSON.stringify(tableValue);
             this.___dispatchChange___(e);
         },
@@ -354,7 +358,7 @@ define(function (require) {
                         <table ref="shadowFixedTable" cellSpacing="0" cellPadding="0">
                             {factory.colgroupFactory(me)}
                             <tbody>
-                                {factory.lineFactory(me, true)}
+                                {factory.lineFactory(me)}
                                 {factory.headerFactory(me)}
                             </tbody>
                         </table>
@@ -364,7 +368,7 @@ define(function (require) {
                             <table ref="shadowTable" cellSpacing="0" cellPadding="0">
                                 {factory.colgroupFactory(me)}
                                 <tbody ref="tbody">
-                                    {factory.lineFactory(me, true)}
+                                    {factory.lineFactory(me)}
                                     {factory.headerFactory(me)}
                                 </tbody>
                             </table>
@@ -404,6 +408,7 @@ define(function (require) {
         var result = 0;
         for (var i = 0; i < tbody.childNodes.length; i++) {
             var tr = tbody.childNodes[i];
+            if (!tr.tagName) continue;
             result += tr.className.indexOf('tr-data') > -1 || tr.className.indexOf('tr-summary') > -1
                 ? tr.offsetHeight : 0;
         }
@@ -415,6 +420,7 @@ define(function (require) {
         var result = 0;
         for (var i = 0; i < tbody.childNodes.length; i++) {
             var tr = tbody.childNodes[i];
+            if (!tr.tagName) continue;
             result += tr.className.indexOf('tr-header') > -1 || (includeMessageBar && tr.className.indexOf('tr-message') > -1) ? tr.offsetHeight : 0;
         }
         return result;

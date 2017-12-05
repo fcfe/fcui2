@@ -9,6 +9,9 @@
     .fast-operation-bar {
         margin-left: 10px;
         font-size: 12px;
+        .selected-region {
+            font-weight: 700;
+        }
         >div:last-child {
             border-right: 0px;
         }
@@ -48,6 +51,41 @@
             line-height: 30px;
             top: -12px;
             left: 10px;
+        }
+    }
+}
+
+
+.fcui2-layer-oneux4-normal .fcui2-range-calendar {
+    padding: 10px 10px 27px 20px;
+    .resuit-display-bar {
+        display: none;
+    }
+    .fcui2-calendar {
+        margin: 15px 20px 10px 0;
+    }
+    .left-calendar {
+        padding-right: 20px;
+        margin: 15px 20px 10px 0;
+        border-right: 1px solid @oneux4-border-color-c2;
+    }
+    .fast-operation-bar {
+        padding-top: 15px;
+        .selected-region {
+            font-weight: 200;
+            background-color: @oneux4-bgcolor-c4;
+            color: @oneux4-color-c1;
+        }
+        >div {
+            line-height: 20px;
+            border: 0px;
+            &:hover {
+                background-color: @oneux4-bgcolor-c4;
+                color: @oneux4-color-c1;
+            }
+            &:active {
+                background-color: @oneux4-bgcolor-c5;
+            }
         }
     }
 }

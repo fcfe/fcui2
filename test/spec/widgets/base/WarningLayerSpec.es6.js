@@ -25,8 +25,8 @@ define(function (require) {
                     message: 'hehe',
                     anchor: document.createElement('div')
                 });
-                expect(dom.refs.container.className).toBe('fcui2-warninglayer fcui2-warninglayer-normal browser-chrome');
-                expect(dom.refs.container.childNodes.length).toBe(4);
+                expect(dom.refs.container.className).toBe('fcui2-warninglayer fcui2-warninglayer-warning browser-chrome');
+                expect(dom.refs.container.childNodes.length).toBe(2);
             });
 
         });

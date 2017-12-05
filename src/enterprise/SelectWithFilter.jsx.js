@@ -13,7 +13,6 @@ define(function (require) {
     var List = require('../List.jsx');
     var SearchBox = require('../SearchBox.jsx');
     var cTools = require('../core/componentTools');
-    var _ = require('underscore');
 
 
     var defaultFilter = function (datasource, filter) {
@@ -149,7 +148,7 @@ define(function (require) {
             containerProp.className += layerProp.isOpen ? (' fcui2-dropdownlist-' + skin + '-hover') : '';
             return (
                 <div {...containerProp}>
-                    <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
+                    <div className="icon-right fcui2-icon fcui2-icon-arrow-down"></div>
                     <span className="label-container">{label}</span>
                     <Layer {...layerProp}>
                         <div className="fcui2-filter-select-layer-content">

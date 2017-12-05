@@ -60,8 +60,8 @@ define(function (require) {
                 style: {paddingLeft: (this.props.index.split(',').length - 1) * 12}
             };
             var iconProp = {
-                className: 'expand-button font-icon font-icon-caret-' + (expand[item.value] ? 'down' : 'right'),
-                style: {visibility: !(item.children instanceof Array) ? 'hidden' : 'auto'},
+                className: 'expand-button fcui2-icon fcui2-icon-arrow-' + (expand[item.value] ? 'down' : 'right'),
+                style: {visibility: !(item.children instanceof Array) ? 'hidden' : 'visible'},
                 onClick: this.onExpand // from TreeNodeBase Mixin
             };
             return (

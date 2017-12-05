@@ -79,32 +79,25 @@ h6 {
         border-bottom: 0;
     }
 }
-.right-top-container {
-    position: fixed;
-    top: 0px;
-    left: @left-width;
-    right: 0px;
-    height: 60px;
-    text-align: center;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 60px;
-    border-bottom: 1px solid #C1C1C1;
-    color: #333333;
-    background-color: #F8F8F8;
-    z-index: 1;
-    moz-user-select: -moz-none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
 .right-middle-container {
     margin-left: @left-width + 1;
-    margin-top: 60px;
-    margin: 60px 0 300px @left-width + 1;
-    padding: 50px;
+    margin: 0px 0 300px @left-width + 1;
+    padding: 10px 50px;
     font-size: 12px;
+}
+.right-bottom-container {
+    position: fixed;
+    right: 50px;
+    bottom: 10px;
+    a {
+        display: inline-block;
+        line-height: 40px;
+        font-size: 20px;
+        background-color: #F8F8F8;
+        color: #333;
+        border: 1px solid #C1C1C1;
+        cursor: pointer;
+        margin-left: 10px;
+        padding: 10px;
+    }
 }

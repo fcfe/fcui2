@@ -3,6 +3,7 @@ define(function (require) {
     var React = require('react');
     var tool = require('../core/calendarTools');
     var Button = require('../Button.jsx');
+    var NumberBox = require('../NumberBox.jsx');
 
     return {
 
@@ -67,7 +68,141 @@ define(function (require) {
             }
        
             return buttons;
+        },
+
+        normalOperationBarFactory: function (me) {
+            var skin = me.props.skin ? me.props.skin : 'normal';
+            skin = me.context.appSkin ? (me.context.appSkin + '-' + skin) : skin;
+            var subBtnProp = {
+                icon: 'fcui2-icon fcui2-icon-arrow-left',
+                label: '',
+                iconLeft: 5,
+                onClick: me.onMonthSub,
+                disabled: me.props.disabled,
+                skin: skin
+            };
+            var yearInputProp = {
+                ref: 'inputYear',
+                min: 0,
+                max: 9999,
+                onChange: me.onYearChange,
+                value: me.state.inputYear,
+                type: 'int',
+                style: {width: 75, left: 43},
+                skin: skin
+            };
+            var monthInputProp = {
+                ref: 'inputMonth',
+                min: 1,
+                max: 12,
+                onChange: me.onMonthChange,
+                value: me.state.inputMonth,
+                type: 'int',
+                style: {width: 60, right: 43},
+                skin: skin
+            };
+            var addBtnProp = {
+                icon: 'fcui2-icon fcui2-icon-arrow-right',
+                label: '',
+                iconLeft: 7,
+                onClick: me.onMonthAdd,
+                disabled: me.props.disabled,
+                skin: skin
+            };
+            return (
+                <div className="calendar-operation">
+                    <Button {...subBtnProp}/>
+                    <NumberBox {...yearInputProp} disabled={me.props.disabled}/>
+                    <NumberBox {...monthInputProp} disabled={me.props.disabled}/>
+                    <Button {...addBtnProp}/>
+                </div>
+            );
+        },
+
+        oneux4OperationBarFactory: function (me) {
+            var skin = me.props.skin ? me.props.skin : 'normal';
+            skin = me.context.appSkin ? (me.context.appSkin + '-' + skin) : skin;
+            var subYearBtnProp = {
+                icon: 'fcui2-icon fcui2-icon-arrow-left-2',
+                label: '',
+                iconLeft: 5,
+                style: {left: 0},
+                onClick: function () {
+                    var year = me.state.displayYear;
+                    if (isNaN(year)) return;
+                    me.onYearChange({
+                        target: {value: year * 1 - 1}
+                    });
+                },
+                disabled: me.props.disabled,
+                skin: skin
+            };
+            var subMonthBtnProp = {
+                icon: 'fcui2-icon fcui2-icon-arrow-left',
+                label: '',
+                iconLeft: 5,
+                onClick: me.onMonthSub,
+                disabled: me.props.disabled,
+                style: {left: 32},
+                skin: skin
+            };
+            var yearInputProp = {
+                ref: 'inputYear',
+                min: 0,
+                max: 9999,
+                showSpinButton: false,
+                onChange: me.onYearChange,
+                value: me.state.inputYear,
+                type: 'int',
+                style: {width: 55, left: 65},
+                skin: skin
+            };
+            var monthInputProp = {
+                ref: 'inputMonth',
+                min: 1,
+                max: 12,
+                showSpinButton: false,
+                onChange: me.onMonthChange,
+                value: me.state.inputMonth,
+                type: 'int',
+                style: {width: 38, right: 64},
+                skin: skin
+            };
+            var addMonthBtnProp = {
+                icon: 'fcui2-icon fcui2-icon-arrow-right',
+                label: '',
+                iconLeft: 7,
+                style: {right: 32},
+                onClick: me.onMonthAdd,
+                disabled: me.props.disabled,
+                skin: skin
+            };
+            var addYearBtnProp = {
+                icon: 'fcui2-icon fcui2-icon-arrow-right-2',
+                label: '',
+                iconLeft: 7,
+                style: {right: 2},
+                onClick: function () {
+                    var year = me.state.displayYear;
+                    if (isNaN(year)) return;
+                    me.onYearChange({
+                        target: {value: year * 1 + 1}
+                    });
+                },
+                disabled: me.props.disabled,
+                skin: skin
+            };
+            return (
+                <div className="calendar-operation">
+                    <Button {...subYearBtnProp}/>
+                    <Button {...subMonthBtnProp}/>
+                    <NumberBox {...yearInputProp} disabled={me.props.disabled}/>
+                    <NumberBox {...monthInputProp} disabled={me.props.disabled}/>
+                    <Button {...addMonthBtnProp}/>
+                    <Button {...addYearBtnProp}/>
+                </div>
+            );
         }
     };
 
-});
+})

@@ -26,7 +26,11 @@ define(function (require) {
             for (var i = 0; i < arr.length; i++) {
                 doms.push(
                     <div className="country-area" key={arr[i]}>
-                        <Renderer {...this.rendererPropsFactory(arr[i], value, me)} />
+                        {
+                            me.props.regionFilter(arr[i]) === false
+                            ? null
+                            : <Renderer {...this.rendererPropsFactory(arr[i], value, me)} />
+                        }
                     </div>
                 );
                 doms = doms.concat(this.regionFactory(tools.filiation[arr[i]], value, me));
@@ -45,7 +49,11 @@ define(function (require) {
                     doms.push(
                         <div key={arr[i]} className="region-area">
                             <div className="region-left-container">
-                                <Renderer {...this.rendererPropsFactory(id, value, me)}/>
+                                {
+                                    me.props.regionFilter(arr[i]) === false
+                                    ? null
+                                    : <Renderer {...this.rendererPropsFactory(id, value, me)}/>
+                                }
                             </div>
                             <div className="region-right-container">
                                {this.provinceFactory(tools.filiation[id], value, me)}
@@ -72,7 +80,9 @@ define(function (require) {
             var doms = [];
             var Renderer = typeof me.props.provinceRenderer === 'function' ? me.props.provinceRenderer : ProvinceRenderer;
             for (var i = 0; i < arr.length; i++) {
-                doms.push(<Renderer {...this.rendererPropsFactory(arr[i], value, me)} />);
+                if (me.props.regionFilter(arr[i]) !== false) {
+                    doms.push(<Renderer {...this.rendererPropsFactory(arr[i], value, me)} />)
+                }
             }
             return doms;
         }

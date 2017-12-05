@@ -1,10 +1,13 @@
-// version 0.0.2
+// version 0.0.4
 
 .fcui2-numberbox {
+    * {
+        box-sizing: content-box;
+    }
     display: inline-block;
     position: relative;
     top: 11px;
-    margin-top: -11px; // 为了维护inline-block元素的上下间距，需要利用margin把差距补回来，也是醉了
+    margin-top: -11px;
     height: 30px;
     .fcui2-numberbox-placeholder {
         position: absolute;
@@ -30,12 +33,16 @@
         width: 20px;
         height: 28px;
         border-left: 1px solid;
-        .font-icon {
+        .fcui2-icon {
             line-height: 14px;
             text-align: center;
         }
     }
+    .fcui2-icon {
+        font-size: 12px;
+    }
 }
+
 
 .fcui2-numberbox-normal {
     background-color: @color-bg;
@@ -51,7 +58,7 @@
     .btn-container {
         background-color: @color-bg-btn;
         border-left-color: @color-outer-border;
-        .font-icon {
+        .fcui2-icon {
             cursor: pointer;
             &:hover {
                 background-color: @color-btn;
@@ -61,19 +68,20 @@
                 background-color: @color-btn-hover;
             }
         }
-        .font-icon-largeable-caret-up {
-            border-bottom-color: @color-outer-border;
-        }
     }
-}
-
-.fcui2-numberbox-normal-hover, .fcui2-numberbox-normal:hover{
-    input {
+    input:focus,&:hover input {
         border-color: @color-btn-hover;
     }
 }
+.fcui2-numberbox-reject {
+    input {
+        height: 26px;
+    }
+}
 
-.fcui2-numberbox-oneux3-normal {
+
+.fcui2-numberbox-oneux3-normal,
+.fcui2-numberbox-oneux3-reject {
     height: 28px;
     background-color: @color-bg;
     top: 9px;
@@ -91,11 +99,9 @@
         background-color: @color-bg-btn;
         border-left-color: @oneux3-bgcolor-c2;
         height: 26px;
-        .font-icon {
+        .fcui2-icon {
             line-height: 13px;
             text-align: center;
-        }
-        .font-icon {
             cursor: pointer;
             color: @oneux3-bgcolor-c30;
             background-color: @oneux3-bgcolor-c1;
@@ -107,36 +113,113 @@
                 color: @oneux3-bgcolor-c30;
             }
         }
-        .font-icon-largeable-caret-up {
-            border-bottom-color: @color-outer-border;
+    }
+}
+.fcui2-numberbox-oneux3-normal input:focus,
+.fcui2-numberbox-oneux3-normal:hover input {
+    border-color: @oneux3-bgcolor-c20;
+}
+
+
+.fcui2-numberbox-oneux4-normal,
+.fcui2-numberbox-oneux4-reject {
+    height: 26px;
+    background-color: @color-bg;
+    top: 7px;
+    margin-top: -7px;
+    input {
+        height: 24px;
+        border-color: @oneux4-border-color-c1;
+        background-color: transparent;
+    }
+    .fcui2-numberbox-placeholder {
+        color: @color-disabled-text;
+        font-size: 12px;
+    }
+    .btn-container {
+        border-left-color: @oneux3-bgcolor-c2;
+        height: 26px;
+        .fcui2-icon {
+            line-height: 12px;
+            text-align: center;
+            cursor: pointer;
+            color: @oneux4-color-c6;
+            &:hover {
+                color: @oneux4-color-c1;
+                background-color: @oneux4-bgcolor-c2;
+            }
+            &:active {
+                background-color: @oneux4-bgcolor-c3;
+            }
         }
     }
 }
-
-.fcui2-numberbox-oneux3-normal-hover,.fcui2-numberbox-oneux3-normal:hover {
-    input {
-        border-color: @oneux3-bgcolor-c20;
-    }
+.fcui2-numberbox-oneux4-normal input:focus,
+.fcui2-numberbox-oneux4-normal:hover input {
+    border-color: @oneux4-border-color-c3;
 }
 
-.fcui2-numberbox-reject,.fcui2-numberbox-oneux3-reject {
+
+.fcui2-numberbox-reject,
+.fcui2-numberbox-oneux3-reject,
+.fcui2-numberbox-oneux4-reject {
     input {
         border-color: @color-error !important;
     }
 }
 
-.fcui2-numberbox-disabled,.fcui2-numberbox-oneux3-disabled {
+
+.fcui2-numberbox-disabled,
+.fcui2-numberbox-oneux3-disabled,
+.fcui2-numberbox-oneux4-disabled {
     input {
         background-color: @color-bg-btn;
-        &:hover,&:active {
-            border-color: @color-outer-border !important;
+        border-color: @color-outer-border !important;
+    }
+    .fcui2-icon {
+        color: @color-disabled-text !important;
+        background-color: @color-bg-btn !important;
+        cursor: default !important;
+    }
+}
+.fcui2-numberbox-oneux4-disabled input {
+    cursor: not-allowed;
+}
+       
+
+.fcui2-numberbox-small {
+    height: 20px;
+    top: 5px;
+    margin-top: -5px;
+    input {
+        height: 18px;
+    }
+    .fcui2-numberbox-placeholder {
+        line-height: 22px;
+    }
+    .btn-container {
+        height: 20px;
+        .fcui2-icon {
+            height: 10px;
+            line-height: 10px;
         }
     }
-    .font-icon {
-        color: @color-disabled-text !important;
-        &:hover,&:active {
-            background-color: @color-bg-btn !important;
-            color: @color-disabled-text !important;
+}
+.fcui2-numberbox-big {
+    height: 36px;
+    top: 12px;
+    margin-top: -12px;
+    input {
+        height: 34px;
+    }
+    .fcui2-numberbox-placeholder {
+        line-height: 36px;
+    }
+    .btn-container {
+        height: 36px;
+        .fcui2-icon {
+            height: 18px;
+            line-height: 18px;
         }
     }
 }

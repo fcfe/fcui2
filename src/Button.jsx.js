@@ -74,7 +74,7 @@ define(function (require) {
         },
         onClick: function (e) {
             if (this.props.disabled) return;
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = this.props.value;
             this.props.onClick(e);
         },
@@ -103,7 +103,7 @@ define(function (require) {
                 widthCorrect: -2
             });
             var iconProps = {
-                className: 'font-icon ' + this.props.icon,
+                className: 'is-icon font-icon ' + this.props.icon,
                 style: {
                     left: this.props.iconLeft
                 }
@@ -111,7 +111,6 @@ define(function (require) {
             if (this.props.icon.length > 0) {
                  inputProp.style = {textAlign: 'left'};
             }
-            containerProp.className += this.state.mousedown ? ' fcui2-button-active' : '';
             return (
                 <div {...containerProp}>
                     {this.props.icon.length > 0 ? <div {...iconProps}></div> : null}

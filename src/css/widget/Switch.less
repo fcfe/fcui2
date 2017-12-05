@@ -1,4 +1,4 @@
-// version 0.0.3
+// version 0.0.4
 
 .fcui2-switch {
     display: inline-block;
@@ -51,10 +51,29 @@
     }
 }
 
-.fcui2-switch-disabled,.fcui2-switch-oneux3-disabled {
+.fcui2-switch-disabled,
+.fcui2-switch-oneux3-disabled {
     cursor: default;
     background-color: @oneux3-color-c3 !important;
     .fcui2-switch-cursor {
         background-color: @oneux3-bgcolor-c18 !important;
     }
+}
+
+.fcui2-switch-oneux4-normal.fcui2-switch-on {
+    background-color: @oneux4-bgcolor-c6;
+}
+.fcui2-switch-oneux4-normal.fcui2-switch-off {
+    background-color: @oneux4-color-c3;
+}
+.fcui2-switch-oneux4-disabled {
+    .fcui2-switch-cursor {
+        background-color: @oneux4-bgcolor-c13 !important;
+    }
+}
+.fcui2-switch-oneux4-disabled.fcui2-switch-off {
+    background-color: @oneux4-bgcolor-c5 !important;
+}
+.fcui2-switch-oneux4-disabled.fcui2-switch-on {
+    background-color: @oneux4-bgcolor-c14 !important;
 }

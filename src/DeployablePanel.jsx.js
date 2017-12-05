@@ -11,7 +11,7 @@ define(function (require) {
     var InputWidget = require('./mixins/InputWidget');
     var cTools = require('./core/componentTools');
     var language = require('./core/language').deployablePanel;
-    var _ = require('underscore');
+    var util = require('./core/util');
     var labels = {
         expand: language.expand,
         hide: language.hide
@@ -55,14 +55,14 @@ define(function (require) {
             return {};
         },
         onChange: function (e) {
-            e.target = this.refs.container;
+            e = {target: this.refs.container};
             e.target.value = this.___getValue___() === 'expand' ? 'hide' : 'expand';
             this.___dispatchChange___(e);
         },
         render: function () {
             var containerProp = cTools.containerBaseProps('deployablepanel', this);
             var value = this.___getValue___();
-            var labels = _.extend({}, labels, this.props.labels);
+            var labels = util.extend({}, labels, this.props.labels);
             return (
                 <div {...containerProp}>
                     {
@@ -72,7 +72,7 @@ define(function (require) {
                                     {value === 'expand' ? labels.hide : labels.expand}
                                 </span>
                                 <span onClick={this.onChange}
-                                    className={'font-icon font-icon-caret-' + (value === 'expand' ? 'up' : 'down')}
+                                    className={'fcui2-icon fcui2-icon-arrow-' + (value === 'expand' ? 'up' : 'down')}
                                 ></span>
                             </div>
                         ) : null
@@ -87,7 +87,7 @@ define(function (require) {
                                     {value === 'expand' ? labels.hide : labels.expand}
                                 </span>
                                 <span onClick={this.onChange}
-                                    className={'font-icon font-icon-caret-' + (value === 'expand' ? 'up' : 'down')}
+                                    className={'fcui2-icon fcui2-icon-arrow-' + (value === 'expand' ? 'up' : 'down')}
                                 ></span>
                             </div>
                         ) : null

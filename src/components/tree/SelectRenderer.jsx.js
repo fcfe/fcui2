@@ -81,7 +81,7 @@ define(function (require) {
                 style: {paddingLeft: (me.props.index.split(',').length - 1) * 12}
             };
             var iconProp = {
-                className: 'expand-button font-icon font-icon-caret-' + (expand[item.value] ? 'down' : 'right'),
+                className: 'expand-button fcui2-icon fcui2-icon-arrow-' + (expand[item.value] ? 'down' : 'right'),
                 style: {visibility: !(item.children instanceof Array) ? 'hidden' : 'visible'},
                 onClick: me.onExpand // from TreeNodeBase Mixin
             };
@@ -89,16 +89,16 @@ define(function (require) {
             if (display === 'all') {
                 var disabled = me.props.disabled || (select.selected === select.total && select.total > 0);
                 selectBtnProp = {
-                    className: 'select-button font-icon '
+                    className: 'select-button fcui2-icon '
                         + (disabled ? ' select-button-disabled' : '')
                         + ((select.selected === select.total && select.total > 0)
-                            ? ' font-icon-largeable-check' : ' font-icon-plus'),
+                            ? ' fcui2-icon-check' : ' fcui2-icon-plus'),
                     onClick: disabled ? undefined : me.onOperate
                 };
             }
             else {
                 selectBtnProp = {
-                    className: 'select-button font-icon font-icon-times',
+                    className: 'select-button fcui2-icon fcui2-icon-remove',
                     onClick: me.onOperate
                 };
             }

@@ -6,7 +6,7 @@
  */
 define(function (require) {
 
-    var _ = require('underscore');
+
     var React = require('react');
     var Button = require('../Button.jsx');
     var Layer = require('../Layer.jsx');
@@ -176,7 +176,7 @@ define(function (require) {
                 },
                 widthCorrect: -12
             });
-            var labels = _.extend({}, defaultLabels, this.props.labels);
+            var labels = util.extend({}, defaultLabels, this.props.labels);
             var layerProp = {
                 ref: 'layer',
                 style: {
@@ -201,7 +201,7 @@ define(function (require) {
             containerProp.className += layerProp.isOpen ? (' fcui2-dropdownlist-' + skin + '-hover') : '';
             return (
                 <div {...containerProp}>
-                    <div className="icon-right font-icon font-icon-largeable-caret-down"></div>
+                    <div className="icon-right fcui2-icon fcui2-icon-arrow-down"></div>
                     <span className="label-container">{labels.dropdownLabel ? labels.dropdownLabel : ''}</span>
                     <Layer {...layerProp}>
                         <div style={{padding: 10, width: 555}}>
@@ -217,11 +217,12 @@ define(function (require) {
 
     function mainContentFactory(me) {
         var value = me.props.isDropDown ? me.state.dropdownValue : me.___getValue___();
-        var labels = _.extend({}, defaultLabels, me.props.labels);
+        var labels = util.extend({}, defaultLabels, me.props.labels);
         var containerProp = me.props.isDropDown ? {
                 ref: 'container',
                 className: 'fcui2-arrayselector-enterprise fcui2-arrayselector-enterprise-'
                     + (me.props.skin ? me.props.skin : 'normal')
+                    + ' ' + (me.props.className ? me.props.className : '')
             } : cTools.containerBaseProps('arrayselector-enterprise', me);
         try {
             value = JSON.parse(value);
@@ -243,7 +244,7 @@ define(function (require) {
                     {labels.selectedLabel}
                     <span className="selected-option-title-info">
                         {'(' + language.click}
-                        <span className="font-icon font-icon-times"></span>
+                        <span className="fcui2-icon fcui2-icon-remove"></span>
                         {language.delete + ')'}
                     </span>
                 </div>
@@ -254,7 +255,7 @@ define(function (require) {
                     {labels.unselectedLabel}
                     <span className="selected-option-title-info">
                         {'(' + language.click}
-                        <span className="font-icon font-icon-plus"></span>
+                        <span className="fcui2-icon fcui2-icon-plus"></span>
                         {language.add + ')'}
                     </span>
                 </div>
@@ -270,19 +271,19 @@ define(function (require) {
         for (var i = 0; i < arr.length; i++) {
             var disabled = me.props.disabled || arr[i].disabled;
             var leftProp = {
-                className: 'font-icon font-icon-largeable-arrow-left'
-                    + (i === 0 || disabled? ' font-icon-disabled' : ''),
+                className: 'fcui2-icon fcui2-icon-arrow-left'
+                    + (i === 0 || disabled? ' icon-disabled' : ''),
                 onClick: i === 0 || disabled ? undefined : me.onMoveForward,
                 'data-ui-cmd': i + ''
             };
             var rightProp = {
-                className: 'font-icon font-icon-largeable-arrow-right'
-                    + (i === arr.length - 1 || disabled  ? ' font-icon-disabled' : ''),
+                className: 'fcui2-icon fcui2-icon-arrow-right'
+                    + (i === arr.length - 1 || disabled  ? ' icon-disabled' : ''),
                 onClick: i === arr.length - 1 || disabled ? undefined : me.onMoveBackward,
                 'data-ui-cmd': i + ''
             };
             var deleteProp = {
-                className: 'font-icon font-icon-times' + (disabled ? ' font-icon-disabled' : ''),
+                className: 'fcui2-icon fcui2-icon-remove' + (disabled ? ' icon-disabled' : ''),
                 onClick: me.props.disabled || disabled ? undefined : me.onRemove,
                 'data-ui-cmd': i + ''
             };
@@ -304,7 +305,7 @@ define(function (require) {
         for (var i = 0; i < arr.length; i++) {
             var disabled = me.props.disabled || arr[i].disabled;
             var addBtn = {
-                className: 'font-icon font-icon-plus' + (disabled ? ' font-icon-disabled' : ''),
+                className: 'fcui2-icon fcui2-icon-plus' + (disabled ? ' icon-disabled' : ''),
                 onClick:  disabled ? undefined : me.onAdd,
                 'data-ui-cmd': i + ''
             };
@@ -336,7 +337,7 @@ define(function (require) {
     }
 
     function setValue(e, me, value) {
-        e.target = me.refs.container;
+        e = {target: me.refs.container};
         e.target.value = JSON.stringify(value);
         if (me.props.isDropDown) {
             me.setState({

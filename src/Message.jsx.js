@@ -19,16 +19,21 @@ define(function (require) {
     };
 
     return React.createClass({
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
         /**
          * @properties
          *
          * @param {Import|Properties} src\core\componentTools.js skin className style disabled
          * @param {string} status 当前的状态,默认有5种状态值:loading, refresh, new-refresh, success, fail
          * @param {string} icon 展示的icon,可自定义图标样式
-         * @param {String} message 展示的信息文本
+         * @param {String} message 展示的信息文本，如果不设置，根据status显示默认的文本
          * @param {boolean} autoHide 是否自动消失，默认false
          * @param {Number} autoHideTime 自动隐藏时间容迟，单位：毫秒，仅在autoHide为true时有效
+         * @param {Object} buttonProps 被无条件灌入到内部按钮的属性集
          * @param {Function} onRefreshClick 刷新，重新加载的回调函数
+         * @param {Function} onIconClick 
          */
         // @override
         getDefaultProps: function () {
@@ -39,7 +44,9 @@ define(function (require) {
                 message: '',
                 autoHide: false,
                 autoHideTime: 0,
-                onRefreshClick: cTools.noop
+                buttonProps: {},
+                onRefreshClick: cTools.noop,
+                onIconClick: cTools.noop
             };
         },
 
@@ -50,6 +57,10 @@ define(function (require) {
 
         onRefreshClick: function () {
             typeof this.props.onRefreshClick === 'function' && this.props.onRefreshClick();
+        },
+
+        onIconClick: function () {
+            typeof this.props.onIconClick === 'function' && this.props.onIconClick();
         },
 
         componentDidMount: function () {
@@ -75,16 +86,12 @@ define(function (require) {
                 label: '重新加载',
                 onClick: status === messageType.NEW_REFRESH ? this.onRefreshClick : undefined
             };
+            var text = props.message ? props.message : (language.hasOwnProperty(status) ? language[status] : '');
             return (
                 <div {...containerProp}>
-                    <span className={status + '-icon ' + this.props.icon}></span>
-                    <span className={status + '-text'}>
-                        {props.message ? props.message : (language.hasOwnProperty(status) ? language[status] : null)}
-                        {status === messageType.NEW_REFRESH
-                            ? <Button {...refreshButtonProp} />
-                            : null
-                        }
-                    </span>
+                    <span className={status + '-icon ' + this.props.icon} onClick={this.onIconClick}></span>
+                    <span className={status + '-text'} dangerouslySetInnerHTML={{__html: text}}></span>
+                    {status === messageType.NEW_REFRESH ? <Button {...refreshButtonProp} {...this.props.buttonProps}/> : null}
                 </div>
             );
         }

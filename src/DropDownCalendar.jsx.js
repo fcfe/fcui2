@@ -94,15 +94,24 @@ define(function (require) {
             };
             containerProp[this.props.openLayerType] = this.onMouseEnter;
             containerProp['onMouseLeave'] = this.onMouseLeave;
+            var iconProps = {
+                className: 'icon-right fcui2-icon fcui2-icon-calendar',
+                style: {
+                    fontSize: 14,
+                    marginRight: 3
+                }
+            };
             var skin = this.props.skin ? this.props.skin : 'normal';
             skin = this.context.appSkin ? (this.context.appSkin + '-' + skin) : skin;
             containerProp.className += layerProp.isOpen ? (' fcui2-dropdownlist-' + skin + '-hover') : '';
             return (
                 <div {...containerProp}>
-                    <div className="icon-right font-icon font-icon-calendar"></div>
+                    <div {...iconProps}></div>
                     <span className="label-container">{label}</span>
                     <Layer {...layerProp}>
-                        <Calendar {...calendarProp} />
+                        <div style={{padding: this.context.appSkin === 'oneux4' ? 30 : 0}}>
+                            <Calendar {...calendarProp} />
+                        </div>
                     </Layer>
                 </div>
             );

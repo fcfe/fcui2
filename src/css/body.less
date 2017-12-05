@@ -5,6 +5,11 @@
 body {
 
 
+    input::-ms-clear {
+        display: none;
+    }
+
+
     // 浏览器display base line兼容
     .fcui2-searchbox-normal.browser-ie,
     .fcui2-searchbox-disabled.browser-ie {
@@ -62,13 +67,18 @@ body {
         top: 4px;
         margin-top: -4px;
     }
-
-
-    // 行内错误提示
-    .fcui2-error-msg {
-        color: @color-error;
-        font-size: 12px;
-        margin-left: 10px;
+    .fcui2-button-normal.browser-ie {
+        top: 3px;
+        margin-top: -3px;
+    }
+    .fcui2-button-oneux3-normal.browser-ie,
+    .fcui2-button-disabled.browser-ie {
+        top: 2px;
+        margin-top: -2px;
+    }
+    .fcui2-button-oneux3-disabled.browser-ie {
+        top: 1px;
+        margin-top: -1px;
     }
 
 
@@ -109,7 +119,8 @@ body {
 
 
     // 添加组件阴影
-    .fcui2-button:hover,
+    .fcui2-button-normal:hover,
+    .fcui2-button-important:hover,
     .fcui2-layer-normal {
         -webkit-box-shadow: 0 1px 3px @color-gray-5;
         -moz-box-shadow: 0 1px 3px @color-gray-5;
@@ -117,30 +128,19 @@ body {
     }
 
 
-    // 禁用状态下去除阴影
-    .fcui2-button-oneux3-normal:hover,
-    .fcui2-button-oneux3-grey:hover,
-    .fcui2-button-oneux3-grey1:hover,
-    .fcui2-button-oneux3-blue:hover,
-    .fcui2-button-oneux3-important:hover,
-    .fcui2-button-oneux3-disabled:hover,
-    .fcui2-button-disabled:hover {
-        -webkit-box-shadow: 0 0 0;
-        -moz-box-shadow: 0 0 0;
-        box-shadow: 0 0 0;
-    }
-
-
     // 圆角
-    .fcui2-button,
-    .fcui2-dropdownlist,
-    .fcui2-combolist,
-    .fcui2-textbox input,
-    .fcui2-numberbox input,
-    .fcui2-textarea textarea,
+    .fcui2-button-normal,
+    .fcui2-button-important,
+    .fcui2-dropdownlist-normal,
+    .fcui2-combolist-normal,
+    .fcui2-textbox-normal input,
+    .fcui2-textbox-reject input,
+    .fcui2-numberbox-normal input,
+    .fcui2-numberbox-reject input,
+    .fcui2-textarea-normal textarea,
+    .fcui2-textarea-reject textarea,
+    .fcui2-searchbox-normal input,
     .fcui2-layer-warning,
-    .fcui2-layer,
-    .fcui2-searchbox input,
     .fcui2-layer-normal {
         -moz-border-radius: 2px;
         -webkit-border-radius: 2px;
@@ -153,7 +153,7 @@ body {
     .fcui2-table .table-container,
     .fcui2-table .shadow-container-with-scroll,
     .fcui2-filter-select-layer-content .filter-select-list,
-    .fcui2-layer {
+    .fcui2-layer>div {
         >div::-webkit-scrollbar-track {
             border-radius: 3px;
         }
@@ -191,4 +191,6 @@ body {
             background-color: #DCDCDC;
         }
     }
+
+
 }

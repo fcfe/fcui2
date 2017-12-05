@@ -56,19 +56,19 @@ define(function (require) {
                 });
                 TestUtils.Simulate.mouseEnter(dom.refs.container);
                 expect(dom.refs.layer.props.isOpen).toBe(true);
-                let layerContainer = dom.refs.layer.___layerContainer___.childNodes[0];
+                let layerContainer = dom.refs.layer.___renderContainer___.childNodes[0];
                 expect(layerContainer.childNodes.length).toBe(3);   
                 TestUtils.Simulate.click(layerContainer.childNodes[0]);  
                 expect(value).toBe('item 1');
                 TestUtils.Simulate.mouseLeave(dom.refs.container);
                 expect(dom.refs.layer.props.isOpen).toBe(false);
-                expect(dom.refs.layer.___layerContainer___.childNodes.length).toBe(0);
+                expect(dom.refs.layer.___renderContainer___.childNodes.length).toBe(1);
 
                 TestUtils.Simulate.mouseEnter(dom.refs.container);
                 expect(dom.refs.layer.props.isOpen).toBe(true);
 
-                ReactDOM.unmountComponentAtNode(dom.refs.layer.___layerContainer___);
-                expect(dom.refs.layer.___layerContainer___.childNodes.length).toBe(0);
+                ReactDOM.unmountComponentAtNode(dom.refs.layer.___renderContainer___);
+                expect(dom.refs.layer.___renderContainer___.childNodes.length).toBe(0);
 
             });
 

@@ -15,6 +15,7 @@
         margin-left: -2px;
         float: right;
         width: 20px;
+        font-size: 12px;
         line-height: 30px !important;
         height: 28px !important;
         text-align: center;
@@ -100,6 +101,37 @@
     }
 }
 
+.fcui2-combolist-oneux4-normal {
+    cursor: pointer;
+    background-color: @oneux4-bgcolor-c6; 
+    border-color: @oneux4-bgcolor-c6; 
+    .label-container {
+        color: @color-gray-1;
+        background-color: @oneux4-bgcolor-c6;
+        &:hover {
+            background-color: @oneux4-bgcolor-c7;
+        }
+    }
+    .icon-right {
+        color: @color-gray-1;
+        background-color: @oneux4-bgcolor-c6;
+        &:before {
+            content: "\e60e";
+        }
+        &:hover {
+            background-color: @oneux4-bgcolor-c7;
+        }
+    }
+    .layerOpen {
+        &:before {
+            content: "\e60f";
+        }
+        background-color: @oneux4-bgcolor-c7;
+    }
+    .spliter {
+        background-color: rgba(255,255,255,.6);
+    }
+}
 
 .fcui2-combolist-oneux3-disabled,
 .fcui2-combolist-disabled {
@@ -127,9 +159,39 @@
         background-color: @color-outer-border;
     }
 }
+.fcui2-combolist-oneux4-disabled {
+    cursor: default;
+    background-color: @oneux4-bgcolor-c4;
+    border-color: @oneux4-bgcolor-c4; 
+    .label-container {
+        color: @color-disabled-text;
+        background-color: @oneux4-bgcolor-c4;
+        &:hover {
+            background-color: @oneux4-bgcolor-c4;
+        }
+    }
+    .icon-right {
+        left: 0px;
+        top: 0px;
+        height: 26px !important;
+        color: @color-disabled-text;
+        background-color: @oneux4-bgcolor-c4;
+        &:before {
+            content: "\e60e";
+        }
+        &:hover {
+            background-color: @oneux4-bgcolor-c4;
+        }
+    }
+    .spliter {
+        background-color: @color-outer-border;
+    }
+}
 
-
-.fcui2-combolist-oneux3-normal, .fcui2-combolist-oneux3-disabled {
+.fcui2-combolist-oneux3-normal,
+.fcui2-combolist-oneux4-normal,
+.fcui2-combolist-oneux4-disabled,
+.fcui2-combolist-oneux3-disabled {
     height: 26px;
     top: 8px;
     .icon-right,.label-container {

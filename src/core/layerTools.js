@@ -64,6 +64,16 @@ define(function (require) {
          *                         +--------|       3      |
          *                         | anchor |              |
          *                         +--------+--------------+
+         * ######2.3.5 layer在anchor右侧垂直居中的位置
+         *                                  +--------------+
+         *                                  |              |
+         *                                  |              |
+         *                         +--------+              |
+         *                         | anchor |      3.5     |
+         *                         +--------+              |
+         *                                  |              |
+         *                                  |              |
+         *                                  +--------------+
          * ######2.4 layer左上角与anchor右上角重合         
          *                         +--------+--------------+
          *                         | anchor |       4      |
@@ -83,6 +93,13 @@ define(function (require) {
          *                         |       6      |
          *                         |              |
          *                         +--------------+
+         * ######2.6.5 layer在anchor下方水平居中
+         *                         +--------+
+         *                         | anchor |
+         *                      +--------------+
+         *                      |      6.5     |
+         *                      |              |
+         *                      +--------------+
          * ######2.7 layer右上角与anchor右下角重合
          *                         +--------+
          *                         | anchor |
@@ -101,6 +118,16 @@ define(function (require) {
          *          +--------------+--------+
          *          |       9      | anchor |
          *          |              |--------+ 
+         *          +--------------+
+         * ######2.9.5 layer右上角和anchor左上角重合
+         *          +--------------+
+         *          |              |
+         *          |              |
+         *          |              +--------+
+         *          |      9.5     | anchor | 
+         *          |              +--------+
+         *          |              |
+         *          |              |
          *          +--------------+
          * ######2.10 layer右下角与anchor左下角重合
          *          +--------------+
@@ -121,6 +148,13 @@ define(function (require) {
          *                   +--------------+
          *                         | anchor |
          *                         +--------+
+         * ######2.12.5 layer在anchor上方水平居中
+         *                      +--------------+
+         *                      |     12.5     |
+         *                      |              |
+         *                      +--------------+
+         *                         | anchor |
+         *                         +--------+
          */
         /**
          * @structure LayerPosition
@@ -128,7 +162,7 @@ define(function (require) {
          * @param {Number} top layer显示的top坐标
          * @param {Number} clock layer相对与anchor的时钟位置
          */ 
-        getLayerPosition: function (layer, anchor, layerLocation) {
+        getLayerPosition: function (layer, anchor, layerLocation, skin) {
             // 准备数据
             var layerHeight = layer.offsetHeight;
             var layerWidth = layer.offsetWidth;
@@ -141,19 +175,24 @@ define(function (require) {
                 left: anchorPosition.left + anchorWidth - layerWidth,
                 right: anchorPosition.left
             };
+            var dTop = skin === 'oneux4' ? 4 : 0;
             var clockPosition = {
                 '1': [tempPosition.right, tempPosition.top],
                 '2': [tempPosition.right + anchorWidth, tempPosition.top],
                 '3': [tempPosition.right + anchorWidth, tempPosition.bottom - layerHeight + 1],
+                '3.5': [tempPosition.right + anchorWidth, anchorPosition.top + anchorHeight / 2 - layerHeight / 2],
                 '4': [tempPosition.right + anchorWidth, anchorPosition.top],
                 '5': [tempPosition.right + anchorWidth, tempPosition.bottom + 1],
                 '6': [tempPosition.right, tempPosition.bottom],
+                '6.5': [anchorPosition.left + anchorWidth / 2 - layerWidth / 2, tempPosition.bottom],
                 '7': [tempPosition.left, tempPosition.bottom],
                 '8': [anchorPosition.left - layerWidth, tempPosition.bottom],
                 '9': [anchorPosition.left - layerWidth, anchorPosition.top],
+                '9.5': [anchorPosition.left - layerWidth, anchorPosition.top + anchorHeight / 2 - layerHeight / 2],
                 '10': [anchorPosition.left - layerWidth, tempPosition.bottom - layerHeight + 1],
                 '11': [anchorPosition.left - layerWidth, tempPosition.top],
-                '12': [tempPosition.left, tempPosition.top]
+                '12': [tempPosition.left, tempPosition.top],
+                '12.5': [anchorPosition.left + anchorWidth / 2 - layerWidth / 2, tempPosition.top]
             };
             // 时钟定位
             var clock = '';
@@ -166,11 +205,20 @@ define(function (require) {
                 }
             }
             if (clock !== '') {
+                if (clock === '1' || clock === '12') {
+                    dTop = -dTop;
+                }
+                else if (clock === '6' || clock === '7') {
+                    // do nothing
+                }
+                else {
+                    dTop = 0;
+                }
                 return {
                     left: clockPosition[clock][0],
-                    top: clockPosition[clock][1],
+                    top: clockPosition[clock][1] + dTop,
                     clockPosition: clock
-                }
+                };
             }
             // 展开定位
             var topIndex = layerLocation.indexOf('top');
@@ -223,7 +271,16 @@ define(function (require) {
                     break;
                 }
             }
-
+            if (result.clockPosition === '1' || result.clockPosition === '12') {
+                dTop = -dTop;
+            }
+            else if (result.clockPosition === '6' || result.clockPosition === '7') {
+                // do nothing
+            }
+            else {
+                dTop = 0;
+            }
+            result.top += dTop;
             return result;
         }
     };

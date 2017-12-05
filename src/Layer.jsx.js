@@ -44,6 +44,9 @@ define(function (require) {
         /**
          * @fire layer onMouseEnter
          */
+        contextTypes: {
+            appSkin: React.PropTypes.string
+        },
         // @override
         getDefaultProps: function () {
             return {
@@ -74,6 +77,7 @@ define(function (require) {
         componentDidMount: function () {
             if (!window || !document) return;
             var layer = document.createElement('div');
+            var renderContainer = document.createElement('div');
             var virtualBorder = document.createElement('div');
             virtualBorder.className = 'fcui2-layer-virtual-border';
             layer.style.left = '-9999px';
@@ -83,11 +87,14 @@ define(function (require) {
             layer.addEventListener('mouseleave', this.onLayerMouseLeave);
             // 记录实例变量
             this.___layerContainer___ = layer;
+            this.___renderContainer___ = renderContainer;
             this.___virtualBorder___ = virtualBorder;
             this.___layerAppended___ = false;
             this.___workerTimer___ = null;
             this.___anchorPosition___ = '';
             this.___contentSize___ = '';
+            this.___layerContainer___.appendChild(renderContainer);
+            this.___layerContainer___.appendChild(virtualBorder);
             // 渲染子树
             this.fixedContainer(this.props);
             this.renderSubTree(this.props);
@@ -128,7 +135,9 @@ define(function (require) {
                 clearInterval(this.___workerTimer___);
                 return;
             }
+
             var pos = util.getDOMPosition(this.props.anchor);
+
             pos = pos.x + ';' + pos.y + ';' + pos.left + ';' + pos.top;
             if (this.___anchorPosition___ !== pos) {
                 this.fixedPosition(this.props);
@@ -143,7 +152,7 @@ define(function (require) {
                 if (!this.___layerAppended___) {
                     document.body.appendChild(this.___layerContainer___);
                 }
-                renderSubtreeIntoContainer(this, props.children, this.___layerContainer___, function () {
+                renderSubtreeIntoContainer(this, props.children, this.___renderContainer___, function () {
                     me.fixedPosition(props);
                     if (!me.___layerAppended___) {
                         me.___layerAppended___ = true;
@@ -204,8 +213,8 @@ define(function (require) {
             }
             width = props.fixedWidthToAnchor && width < props.anchor.offsetWidth
                 ? props.anchor.offsetWidth - 2 : width;
-            width = props.hasOwnProperty('style') && props.style.hasOwnProperty('width') ? props.width : width;
-            height = props.hasOwnProperty('style') && props.style.hasOwnProperty('height') ? props.height : height;
+            width = props.hasOwnProperty('style') && props.style.hasOwnProperty('width') ? props.style.width : width;
+            height = props.hasOwnProperty('style') && props.style.hasOwnProperty('height') ? props.style.height : height;
             if (this.___contentSize___ === width + ';' + height) return;
             this.___contentSize___ = width + ';' + height;
             if (util.getBrowserType() === 'ie' && !this.___addFixedIeWidth___) {
@@ -235,13 +244,16 @@ define(function (require) {
                 + (arr[4] != null ? ';left:' + arr[4] + 'px' : '')
                 + (arr[5] != null ? ';right:' + arr[5] + 'px' : '')
                 + (arr[6] != null ? ';top:' + arr[6] + 'px' : '')
-                + (arr[7] != null ? ';bottom:' + arr[7] + 'px' : ''); 
+                + (arr[7] != null ? ';bottom:' + arr[7] + 'px' : '');
         },
         fixedPosition: function (props) {
+            if (!util.isDOMVisible(props.anchor)) {
+                return;
+            }
             this.fixedSize(props);
             var layer = this.___layerContainer___;
             var anchorPos = util.getDOMPosition(props.anchor);
-            var pos = tools.getLayerPosition(layer, props.anchor, props.location + '');
+            var pos = tools.getLayerPosition(layer, props.anchor, props.location + '', this.context.appSkin);
             var newPos = JSON.parse(JSON.stringify(pos));
             typeof props.onOffset === 'function' && props.onOffset(newPos);
             if (newPos.left === pos.left && newPos.top === pos.top && newPos.clockPosition === pos.clockPosition) {

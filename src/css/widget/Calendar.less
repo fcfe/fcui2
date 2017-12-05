@@ -1,4 +1,4 @@
-// version 0.0.2
+// version 0.0.4
 
 .fcui2-calendar {
     position: relative;
@@ -15,10 +15,9 @@
             -moz-border-radius: 0;
             -webkit-border-radius: 0;
             border-radius: 0;
-            .font-icon {
-                line-height: 24px;
-                font-size: 20px;
-                left:4px;
+            .fcui2-icon {
+                line-height: 26px;
+                font-size: 14px;
             }
             &:hover {
                 color: @color-btn-hover;
@@ -36,18 +35,6 @@
         .fcui2-numberbox {
             position: absolute;
             top: 15px;
-            input {
-                height: 24px !important;
-            }
-            .btn-container {
-                height: 26px;
-            }
-            .font-icon-largeable-caret-up {
-                height: 13px;
-            }
-            .font-icon-largeable-caret-down {
-                height: 13px;
-            }
         }
     }
     .calendar-day-label {
@@ -93,17 +80,17 @@
             }
         }
         .fcui2-button {
-            .font-icon {
+            .fcui2-icon {
                 color: @color-gray-7
             }
             &:hover {
-                .font-icon {
+                .fcui2-icon {
                     color: @color-btn-hover;
                 }
                 border-color: @color-btn-hover;
             }
         }
-        .fcui2-numberbox .font-icon {
+        .fcui2-numberbox .fcui2-icon {
             color: @color-gray-7;
         }
     }
@@ -136,17 +123,17 @@
             top: 13px;
         }
         .fcui2-button {
-            .font-icon {
+            .fcui2-icon {
                 color: @color-gray-7;
             }
             &:hover {
-                .font-icon {
+                .fcui2-icon {
                     color: @oneux3-bgcolor-c20;
                 }
                 border-color: @oneux3-bgcolor-c20;
             }
         }
-        .fcui2-numberbox .font-icon {
+        .fcui2-numberbox .fcui2-icon {
             color: @color-gray-7;
             &:hover {
                 color: #FFF;
@@ -181,6 +168,121 @@
             background-color: @oneux3-bgcolor-c20;
             input {
                 color: #FFF;
+            }
+        }
+    }
+}
+
+.fcui2-calendar-oneux4-normal {
+    .calendar-operation {
+        background-color: @oneux4-bgcolor-c1;
+        .fcui2-button {
+            border-color: transparent;
+            input {
+                color: @oneux4-color-c1;
+            }
+        }
+        .fcui2-numberbox {
+            top: 11px;
+        }
+        .fcui2-icon-arrow-right {
+            color: @oneux4-color-c6;
+            transform:rotate(270deg);
+            -ms-transform:rotate(270deg);
+            -moz-transform:rotate(270deg);
+            -webkit-transform:rotate(270deg);
+            -o-transform:rotate(270deg);
+            top: -1px;
+            &:before {
+                content: "\e60e";
+            }
+        }
+        .fcui2-icon-arrow-left {
+            color: @oneux4-color-c6;
+            transform:rotate(90deg);
+            -ms-transform:rotate(90deg);
+            -moz-transform:rotate(90deg);
+            -webkit-transform:rotate(90deg);
+            -o-transform:rotate(90deg);
+            top: -1px;
+            &:before {
+                content: "\e60e";
+            }
+        }
+    }
+    .calendar-day-label {
+        font-size: 12px;
+        background-color: @oneux4-bgcolor-c1;
+        div {
+            color: @color-text-3;
+        }
+    }
+    .calendar-buttons {
+        .fcui2-button-calendar {
+            border-color: transparent;
+        }
+        .fcui2-button {
+            -webkit-box-shadow: 0 0 0;
+            -moz-box-shadow: 0 0 0;
+            box-shadow: 0 0 0;
+            border-color: transparent;
+            &:hover {
+                border-color: @oneux4-bgcolor-c15;
+                background-color: @oneux4-bgcolor-c15;
+            }
+            input:hover {
+                background-color: @oneux4-bgcolor-c15;
+            }
+        }
+        .fcui2-button-disabled {
+            background-color: @color-bg !important;
+            border-color: @color-bg !important;
+            &:hover {
+                border-color: @color-bg !important;
+                background-color: @color-bg !important;
+            }
+            input:hover {
+                background-color: @color-bg !important;
+            }
+        }
+        .fcui2-button-active {
+            background-color: @oneux4-bgcolor-c14;
+            border-color: @oneux4-bgcolor-c14;
+            &:hover {
+                border-color: @oneux4-bgcolor-c16;
+                background-color: @oneux4-bgcolor-c16;
+            }
+            input:hover {
+                background-color: @oneux4-bgcolor-c16;
+            }
+            input {
+                color: @oneux4-color-c1;
+            }
+        }
+    }
+}
+
+.fcui2-calendar-oneux4-disabled {
+    .calendar-operation {
+        background-color: @oneux4-bgcolor-c1;
+        .fcui2-button {
+            border-color: transparent !important;
+            background-color: transparent !important;
+        }
+    }
+    .calendar-day-label {
+        background-color: @oneux4-bgcolor-c1;
+        div {
+            color: @oneux4-color-c3;
+        }
+    }
+    .calendar-buttons {
+        .fcui2-button {
+            &:hover {
+                border-color: @oneux4-bgcolor-c1;
+            }
+            input:hover {
+                background-color: @oneux4-bgcolor-c1;
             }
         }
     }

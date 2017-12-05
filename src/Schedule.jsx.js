@@ -37,6 +37,8 @@ define(function (require) {
          * @param {Function} onScheduleSelected 鼠标选中某片区域后的回调
          * @param {Import|Properties} src\mixins\InputWidget.js
          *      value onChange name validations customErrorTemplates valueTemplate
+         * @param {Function} axisYFactory 自定义纵坐标
+         * @param {Function} axisXFactory 自定义横坐标
          */
         /**
          * @fire Import src\mixins\InputWidget.js XXX onChange
@@ -199,8 +201,12 @@ define(function (require) {
                         <div {...cursorProp}></div>
                         <div className="drag-layer" {...dragLayerProp}></div>
                     </div>
-                    <div className="axis-y-area">{factory.axisYFactory(this)}</div>
-                    <div className="axis-x-area">{factory.axisXFactory()}</div>
+                    <div className="axis-y-area">{typeof this.props.axisYFactory === 'function' 
+                        ? this.props.axisYFactory(this) : factory.axisYFactory(this)}
+                    </div>
+                    <div className="axis-x-area">{typeof this.props.axisXFactory === 'function' 
+                        ? this.props.axisXFactory() : factory.axisXFactory()}
+                    </div>
                     <Layer {...layerProp}>
                         <LegendRenderer {...legendProp}/>
                     </Layer>

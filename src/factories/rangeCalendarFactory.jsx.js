@@ -23,6 +23,7 @@ define(function (require) {
             }
             var c1Prop = {
                 ref: 'c1',
+                className: 'left-calendar',
                 min: util.dateFormat(min, tpl),
                 value: me.state.value1,
                 max: util.dateFormat(me.state.value2, tpl),
@@ -30,6 +31,7 @@ define(function (require) {
             };
             var c2Prop = {
                 ref: 'c2',
+                className: 'right-calendar',
                 min: util.dateFormat(me.state.value1, tpl),
                 value: me.state.value2,
                 max: util.dateFormat(max, tpl),
@@ -43,9 +45,10 @@ define(function (require) {
                 skin: 'important',
                 onClick: me.onEnterButtonClick
             };
+            var shorts = this.shortCutFactory(me);
             return (
                 <div className="fcui2-range-calendar">
-                    <div className="fast-operation-bar">{this.shortCutFactory(me)}</div>
+                    {shorts.length ? <div className="fast-operation-bar">{shorts}</div> : null}
                     <div className="resuit-display-bar">
                         <div>{language.startTime + me.state.value1}</div>
                         <div>{language.endTime + me.state.value2}</div>
@@ -66,13 +69,12 @@ define(function (require) {
             var doms = [];
             for (var i = 0; i < shortCut.length; i++) {
                 var dataRange = shortCut[i].getValues();
+                var selected = util.dateFormat(dataRange.value1, 'YYYY-MM-DD') === me.state.value1
+                    && util.dateFormat(dataRange.value2, 'YYYY-MM-DD') === me.state.value2;
                 var props = {
+                    className: selected ? 'selected-region' : '',
                     key: 'shortcut-' + i,
                     'data-ui-cmd': i,
-                    style: {
-                        fontWeight: util.dateFormat(dataRange.value1, 'YYYY-MM-DD') === me.state.value1
-                            && util.dateFormat(dataRange.value2, 'YYYY-MM-DD') === me.state.value2 ? 700 : 200
-                    },
                     onClick: me.onShortCutClick
                 };
                 doms.push(<div {...props}>{shortCut[i].label}</div>);

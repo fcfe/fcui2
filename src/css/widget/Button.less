@@ -1,6 +1,12 @@
-// version 0.0.3
+// version 0.0.4
+
+
 // 基础样式只负责定位和尺寸
 .fcui2-button {
+    box-sizing: border-box !important;
+    * {
+        box-sizing: border-box !important;
+    }
     display: inline-block;
     position: relative;
     top: 2px; // 为了对齐显示基线，不能删
@@ -9,15 +15,14 @@
     height: 28px;
     line-height: 28px;
     border: 1px solid;
-    .font-icon {
+    .is-icon {
         position: absolute;
         height: 28px;
         line-height: 28px;
-        font-size: 12px;
     }
     input {
         position: relative;
-        top: -2px; // 为了对齐显示基线，不能删
+        top: -1px; // 为了对齐显示基线，不能删
         padding: 0 10px;
         border: 0;
         outline: 0;
@@ -30,18 +35,24 @@
         cursor: pointer;
     }
 }
-// 皮肤样式负责颜色和字体
+
+
+// 普通皮肤
 .fcui2-button-normal {
     background-color: @color-bg-btn;
     border-color: @color-outer-border;
-    input {
+    input,.is-icon {
         color: @color-text-3;
     }
+    &:active {
+        border-color: @color-btn-hover;
+    }
 }
+.fcui2-button-active,
 .fcui2-button-important {
     border-color: @color-btn;
     background-color: @color-btn;
-    input,.font-icon {
+    input,.is-icon {
         color: @color-gray-1;
     }
     &:hover {
@@ -51,10 +62,10 @@
         background-color: @color-btn;
     }
 }
-.fcui2-button-active {
-    border-color: @color-btn-hover;
-}
 .fcui2-button-disabled {
+    -webkit-box-shadow: 0px 0px 0px !important;
+    -moz-box-shadow: 0px 0px 0px !important;
+    box-shadow: 0px 0px 0px !important;
     background-color: @color-bg-btn !important;
     border-color: @color-outer-border !important;
     input {
@@ -73,8 +84,8 @@
 .fcui2-button-oneux3-important,
 .fcui2-button-oneux3-disabled {
     top: 1px;
-    height: 26px;
-    line-height: 26px;
+    height: 28px;
+    line-height: 28px;
     input {
         font-family: @font-normal;
         height: 28px;
@@ -84,10 +95,7 @@
 .fcui2-button-oneux3-normal {
     background-color: @oneux3-bgcolor-c1;
     border-color: @oneux3-bgcolor-c11;  
-    input {
-        color: @oneux3-color-c1;
-    }
-    .font-icon {
+    input,.is-icon {
         color: @oneux3-color-c1;
     }
     &:hover {
@@ -96,26 +104,20 @@
     }
 }
 .fcui2-button-oneux3-active {
-    background-color: @oneux3-bgcolor-c20;
-    border-color: @oneux3-bgcolor-c20;
-    input {
-        color: @oneux3-color-c8;
-    }
-    .font-icon {
-        color: @oneux3-color-c4;
+    background-color: @oneux3-bgcolor-c1;
+    border-color: @oneux3-bgcolor-c16;  
+    input,.is-icon {
+        color: @oneux3-color-c1;
     }
     &:hover {
-        background-color: @oneux3-bgcolor-c17;
-        border-color: @oneux3-bgcolor-c17;
+        background-color: @oneux3-bgcolor-c12;
+        border-color: @oneux3-bgcolor-c13;
     }
 }
 .fcui2-button-oneux3-grey1 {
     background-color: @oneux3-bgcolor-c10;
     border-color: @oneux3-bgcolor-c10;
-    input {
-        color: @oneux3-color-c1;
-    }
-    .font-icon {
+    input,.is-icon {
         color: @oneux3-color-c1;
     }
     &:hover {
@@ -126,10 +128,7 @@
 .fcui2-button-oneux3-grey {
     background-color: @oneux3-bgcolor-c10;
     border-color: @oneux3-bgcolor-c10;
-    input {
-        color: @oneux3-color-c4;
-    }
-    .font-icon {
+    input,.is-icon {
         color: @oneux3-color-c4;
     }
     &:hover {
@@ -140,10 +139,7 @@
 .fcui2-button-oneux3-blue {
     background-color: @oneux3-bgcolor-c14;
     border-color: @oneux3-bgcolor-c14;
-    input {
-        color: @oneux3-color-c4;
-    }
-    .font-icon {
+    input,.is-icon {
         color: @oneux3-color-c4;
     }
     &:hover {
@@ -154,10 +150,7 @@
 .fcui2-button-oneux3-important {
     background-color: @oneux3-bgcolor-c16;
     border-color: @oneux3-bgcolor-c16;
-    input {
-        color: @oneux3-color-c8;
-    }
-    .font-icon {
+    input,.is-icon {
         color: @oneux3-color-c8;
     }
     &:hover {
@@ -168,14 +161,217 @@
 .fcui2-button-oneux3-disabled {
     background-color: @oneux3-bgcolor-c18;
     border-color: @oneux3-bgcolor-c18;
-    input {
+    input,.is-icon {
         color: @oneux3-color-c3;
-    }
-    .font-icon {
-        color: @oneux3-color-c3;
+        cursor: default;
     }
     &:hover {
         background-color: @oneux3-bgcolor-c18;
         border-color: @oneux3-bgcolor-c18;
+    }
+}
+
+
+// OneUX4皮肤
+.fcui2-button-oneux4-normal,
+.fcui2-button-oneux4-grey,
+.fcui2-button-oneux4-active,
+.fcui2-button-oneux4-important,
+.fcui2-button-oneux4-normal-blue,
+.fcui2-button-oneux4-light-blue,
+.fcui2-button-oneux4-disabled,
+.fcui2-button-oneux4-opacity,
+.fcui2-button-oneux4-grey-blue {
+    top: 1px;
+    height: 28px;
+    line-height: 28px;
+    .is-icon {
+        line-height: 28px;
+    }
+    input {
+        font-family: @font-normal;
+        height: 28px;
+        line-height: 30px;
+        padding: 0 14px;
+    }
+    &.browser-firefox,&.browser-ie {
+        input {
+            line-height: 24px;
+        }
+    }
+}
+.fcui2-button-oneux4-normal {
+    background-color: @oneux4-bgcolor-c1;
+    border-color: @oneux4-border-color-c1;
+    .is-icon, input {
+        color: @oneux4-color-c1;
+    }
+    &:hover {
+        background-color: @oneux4-bgcolor-c2;
+    }
+    &:active {
+        background-color: @oneux4-bgcolor-c3;
+    }
+}
+.fcui2-button-oneux4-active {
+    background-color: @oneux4-bgcolor-c1;
+    border-color: @oneux4-bgcolor-c6;
+    .is-icon, input {
+        color: @oneux4-color-c1;
+    }
+    &:hover {
+        background-color: @oneux4-bgcolor-c2;
+    }
+    &:active {
+        background-color: @oneux4-bgcolor-c3;
+    }
+}
+.fcui2-button-oneux4-normal-blue {
+    background-color: @oneux4-bgcolor-c1;
+    border-color: @oneux4-border-color-c1;
+    .is-icon,input {
+        color: @oneux4-color-c2;
+    }
+    &:hover {
+        background-color: @oneux4-bgcolor-c2;
+    }
+    &:active {
+        background-color: @oneux4-bgcolor-c3;
+    }
+}
+.fcui2-button-oneux4-grey {
+    background-color: @oneux4-bgcolor-c4;
+    border-color: @oneux4-border-color-c2;
+    .is-icon, input {
+        color: @oneux4-color-c1;
+    }
+    &:hover {
+        background-color: @oneux4-bgcolor-c3;
+    }
+    &:active {
+        background-color: @oneux4-bgcolor-c5;
+    }
+}
+.fcui2-button-oneux4-grey-blue {
+    background-color: @oneux4-bgcolor-c4;
+    border-color: @oneux4-border-color-c2;
+    .is-icon, input {
+        color: @oneux4-color-c2;
+    }
+    &:hover {
+        background-color: @oneux4-bgcolor-c3;
+    }
+    &:active {
+        background-color: @oneux4-bgcolor-c5;
+    }
+}
+.fcui2-button-oneux4-light-blue {
+    background-color: @oneux4-bgcolor-c20;
+    border-color: @oneux4-bgcolor-c20;
+    .is-icon, input {
+        color: @oneux4-color-c0;
+    }
+    &:hover {
+        background-color: @oneux4-bgcolor-c7;
+    }
+    &:active {
+        background-color: @oneux4-bgcolor-c8;
+    }
+}
+.fcui2-button-oneux4-important {
+    background-color: @oneux4-bgcolor-c6;
+    border-color: @oneux4-bgcolor-c6;
+    -webkit-transition: background-color 0.2s ease-out;;
+    -moz-transition: background-color 0.2s ease-out;
+    -o-transition: background-color 0.2s ease-out;
+    .is-icon, input {
+        color: @oneux4-color-c0;
+    }
+    &:hover {
+        background-color: @oneux4-bgcolor-c7;
+    }
+    &:active {
+        background-color: #2E82D2;
+        background-color: @oneux4-bgcolor-c8;
+    }
+}
+.fcui2-button-oneux4-opacity {
+    background-color: rgba(0,0,0,.7);
+    border-color: #4C4C4C;
+    .is-icon, input {
+        color: @oneux4-color-c0;
+    }
+    &:hover {
+        background-color: rgba(0,0,0,.8);
+        border-color: #333;
+    }
+    &:active {
+        background-color: rgba(0,0,0,.8);
+    }
+}
+.fcui2-button-oneux4-opacity2 {
+    border-color: #4C4C4C;
+    .is-icon, input {
+        color: #333;
+    }
+    &:hover {
+        background-color: rgba(0,0,0,.8);
+        border-color: #333;
+        .is-icon, input {
+            color: @oneux4-color-c0;
+        }
+    }
+    &:active {
+        background-color: rgba(0,0,0,.8);
+        .is-icon, input {
+            color: @oneux4-color-c0;
+        }
+    }
+}
+.fcui2-button-oneux4-disabled {
+    background-color: @oneux4-bgcolor-c4;
+    border-color: @oneux4-bgcolor-c4;
+    .is-icon, input {
+        color: @oneux4-color-c3;
+        cursor: not-allowed;
+    }
+    &:hover {
+        background-color: @oneux4-bgcolor-c4;
+        border-color: @oneux4-bgcolor-c4;
+    }
+    &:active {
+        background-color: @oneux4-bgcolor-c4;
+    }
+}
+
+
+.fcui2-button-nocolor {
+    background-color: transparent;
+    border-color: transparent;
+    &:hover {
+        background-color: transparent;
+        border-color: transparent;
+    }
+    &:active {
+        background-color: transparent;
+    }
+}
+.fcui2-button-small {
+    top: 2px;
+    height: 20px;
+    input {
+        top: -2px;
+        height: 20px;
+        line-height: 20px;
+    }
+}
+.fcui2-button-big {
+    top: 0px;
+    height: 36px;
+    input {
+        top: 0px;
+        height: 36px;
+        line-height: 36px;
+        font-size: 14px;
     }
 }

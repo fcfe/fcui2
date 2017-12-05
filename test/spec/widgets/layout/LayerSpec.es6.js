@@ -54,7 +54,7 @@ define(function (require) {
                 }));
                 dom.refs.layer.onBodyClick({returnValue: true});
                 expect(onBeforeCloseByWindowDone).toBe(true);
-                expect(dom.refs.layer.___layerContainer___.childNodes.length).toBe(0);
+                expect(dom.refs.layer.___renderContainer___.childNodes.length).toBe(0);
                 dom.setState({disposeLayer: true});
                 expect(dom.refs.layer).toBe(undefined);
             });

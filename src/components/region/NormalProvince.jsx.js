@@ -50,6 +50,7 @@ define(function (require) {
         },
         onMouseLeave: function (e) {
             var me = this;
+            me.mouseenter = false;
             // 延迟关闭
             setTimeout(function () {
                 if (me.refs.layer && me.refs.layer.state.mouseenter) return;
@@ -60,14 +61,25 @@ define(function (require) {
             }, 100);
         },
         onMouseEnter: function (e) {
+            this.mouseenter = true;
             if (this.props.disabled || !tools.filiation[this.props.id] || tools.filiation[this.props.id].length < 1) {
                 return;
             }
-            this.setState({layerShow: true});
-            if (this.props.parent.___currentLayer___) {
+            if (this.props.parent.___currentLayer___ && this.props.parent.___currentLayer___ !== this) {
                 this.props.parent.___currentLayer___.setState({layerShow: false});
             }
             this.props.parent.___currentLayer___ = this;
+            this.setState({layerShow: true});
+        },
+        onLayerMouseLeave: function (e) {
+            var me = this;
+            setTimeout(function () {
+                if (me.mouseenter) return;
+                if (me.props.parent.___currentLayer___ === me) {
+                    me.props.parent.___currentLayer___ = null;
+                }
+                me.setState({layerShow: false});
+            }, 100);
         },
         render: function () {
             var containerProp = {
@@ -82,7 +94,7 @@ define(function (require) {
                 isOpen: this.state.layerShow,
                 anchor: this.refs.container,
                 ref: 'layer',
-                onMouseLeave: this.onMouseLeave
+                onMouseLeave: this.onLayerMouseLeave
             };
             return(
                 <div {...containerProp}>

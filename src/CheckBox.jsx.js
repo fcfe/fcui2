@@ -48,6 +48,7 @@ define(function (require) {
                 disabled: false,
                 // self
                 label: '',
+                title: '',
                 value: '',
                 indeterminate: false,
                 labelPosition: 'right',
@@ -72,7 +73,7 @@ define(function (require) {
         // 复选框label文字点击后触发
         onClick: function (e) {
             if (this.props.disabled) return;
-            e.target = this.refs.inputbox;
+            e = {target: this.refs.inputbox};
             e.target.checked = !e.target.checked;
             this.___dispatchChange___(e);
         },
@@ -83,6 +84,9 @@ define(function (require) {
         },
         render: function () {
             var containerProp = cTools.containerBaseProps('checkbox', this);
+            if (this.props.title) {
+                containerProp.title = this.props.title;
+            }
             var checked = this.___getValue___();
             var labelProp = {
                 className: 'fcui2-checkbox-label',
@@ -97,9 +101,8 @@ define(function (require) {
                 onChange: this.onChange
             };
             var virtualCheckboxProp = {
-                className: 'iconfont icon-checkbox'
-                    + (!checked && this.props.indeterminate ? '-indeterminate' : (checked ? '-selected' : '-unselected'))
-                    + (this.props.disabled ? '-disabled' : ''),
+                className: 'fcui2-icon fcui2-icon-checkbox'
+                    + (!checked && this.props.indeterminate ? '-indeterminate' : (checked ? '-selected' : '-unselected')),
                 onClick: this.onClick
             };
             return (

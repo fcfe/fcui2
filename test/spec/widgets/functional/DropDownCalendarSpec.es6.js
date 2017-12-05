@@ -37,7 +37,7 @@ define(function (require) {
                 });
                 TestUtils.Simulate.mouseEnter(dom.refs.container);
                 expect(dom.state.layerOpen).toBe(true);
-                let layer = dom.refs.layer.___layerContainer___.childNodes[0];
+                let layer = dom.refs.layer.___renderContainer___.childNodes[0].childNodes[0];
                 expect(layer.childNodes.length).toBe(3);
                 TestUtils.Simulate.click(layer.childNodes[2].childNodes[34]);
                 expect(value).toBe('');

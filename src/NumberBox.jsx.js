@@ -49,13 +49,14 @@ define(function (require) {
                 style: {},
                 disabled: false,
                 // self
+                width: 100,
                 placeholder: '',
                 max: Number.POSITIVE_INFINITY,
                 min: Number.NEGATIVE_INFINITY,
                 step: 1.00,
                 type: 'float', // int, float
                 fixed: Number.POSITIVE_INFINITY,
-                showSpinButton: true,
+                showSpinButton: false,
                 // mixin
                 valueTemplate: ''
             };
@@ -88,6 +89,9 @@ define(function (require) {
         onInputBoxBlur: function () {
             this.___cursorPosition___ = -1;
             this.setState({hasFocus: false});
+            typeof this.props.onBlur === 'function' && this.props.onBlur({
+                target: this.refs.inputbox
+            });
         },
         onSpinButtonClick: function (e) {
             if (this.props.disabled || isNaN(this.refs.inputbox.value) || this.refs.inputbox.value.length === 0) {
@@ -98,7 +102,7 @@ define(function (require) {
             var target = this.refs.inputbox;
             var value = parseFloat(target.value);
             target.value = tools.numberFormater(value + op * parseFloat(this.props.step), this.props);
-            e.target = target;
+            e = {target: target};
             this.___dispatchChange___(e);
         },
         /**
@@ -111,6 +115,9 @@ define(function (require) {
         },
         onInputBoxFocus: function () {
             this.setState({hasFocus: true});
+            typeof this.props.onFocus === 'function' && this.props.onFocus({
+                target: this.refs.inputbox
+            });
         },
         render: function () {
             var value = this.___getValue___();
@@ -148,15 +155,14 @@ define(function (require) {
             };
             var skin = (this.context.appSkin ? this.context.appSkin + '-' : '')
                 + (this.props.skin ? this.props.skin : 'normal');
-            containerProp.className += this.state.hasFocus ? ' fcui2-numberbox-' + skin + '-hover' : '';
             return (
                 <div {...containerProp}>
                     <div {...placeholderProp}>{this.props.placeholder}</div>
                     <input {...inputProp} disabled={this.props.disabled} ref="inputbox"/>
                     <div {...btnContainerProp}>
-                        <div className="font-icon font-icon-largeable-caret-up"
+                        <div className="fcui2-icon fcui2-icon-small-arrow-up"
                             data-ui-cmd="add" onClick={this.onSpinButtonClick}></div>
-                        <div className="font-icon font-icon-largeable-caret-down"
+                        <div className="fcui2-icon fcui2-icon-small-arrow-down"
                             data-ui-cmd="sub" onClick={this.onSpinButtonClick}></div>
                     </div>
                 </div>

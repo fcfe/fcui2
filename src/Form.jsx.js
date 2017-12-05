@@ -63,10 +63,18 @@ define(function (require) {
             // 存储输入域组件
             this.___inputs___ = {};
         },
+        onFormKeyDown: function (e) {
+            var me = this;
+            clearInterval(me.timer);
+            me.lastKeyCode = e.keyCode;
+            me.timer = setInterval(function () {
+                me.lastKeyCode = '';
+            }, 100);
+        },
         // @override
         render: function () {
             return (
-                <form className={this.props.className} onSubmit={this.submit}>
+                <form className={this.props.className} onSubmit={this.submit} onKeyDown={this.onFormKeyDown}>
                     {this.props.children}
                 </form>
             );
@@ -191,6 +199,7 @@ define(function (require) {
         },
         submit: function (event) {
             event && event.preventDefault();
+            if (this.lastKeyCode === 13) return;
             var validationResults = this.validate();
             var validations = validationResults.fieldResult;
             validations.form = validationResults.formResult;
@@ -204,6 +213,7 @@ define(function (require) {
             if (callbackParam.isValid) {
                 typeof this.props.onSubmit === 'function' && this.props.onSubmit(validationResults.dataset);
             }
+            return callbackParam;
         }
     });
 

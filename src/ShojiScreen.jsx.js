@@ -13,7 +13,6 @@ define(function (require) {
     var ReactDOM = require('react-dom');
     var renderSubtreeIntoContainer = require("react-dom").unstable_renderSubtreeIntoContainer;
     var util = require('./core/util');
-    var tools = require('./core/shojiScreenTools');
     var language = require('./core/language').shojiScreen;
     var noop = function () {};
 
@@ -133,7 +132,11 @@ define(function (require) {
 
 
         onHidden: function (e) {
-            if (!this.___container___ || !this.props.isOpen || !this.___appended___) return; 
+            var tools = require('./core/shojiScreenTools');
+            if (!this.___container___ || !this.props.isOpen || !this.___appended___) return;
+            if (typeof this.props.onAction === 'function' && this.props.onAction('HideButtonClick') === false) {
+                return;
+            }
             document.body.removeChild(this.___container___);
             document.body.appendChild(this.___expandButton___);
             tools.addExpandButton(this.___expandButton___);
@@ -145,7 +148,6 @@ define(function (require) {
                 document.body.style.overflowY = bodyStatus.overflowY;
             }
             this.___alreadyHide___ = true;
-            typeof this.props.onAction === 'function' && this.props.onAction('HideButtonClick');
         },
 
 
@@ -200,6 +202,7 @@ define(function (require) {
                 this.___container___.className = 'fcui2-shojiscreen'
                     + (typeof className === 'string' && className ? (' ' + className) : '')
                     + ' fcui2-shojiscreen-' + (typeof skin === 'string' && skin ? skin : 'normal')
+                    + (props.className ? ' ' + props.className : '')
                     + (props.showFootBar ? '' : ' fcui2-shojiscreen-hide-foot-bar');
                 this.___workspace___.style.width = (isNaN(width) ? 1000 : width) + 'px';
                 this.___footBarContent___.innerHTML = typeof props.footBarInnerHtml === 'string'
@@ -230,6 +233,7 @@ define(function (require) {
 
         // 销毁窗体，不会触发任何事件，直接干掉
         removeSubTree: function () {
+            var tools = require('./core/shojiScreenTools');
             if (!this.___appended___) return;
             ReactDOM.unmountComponentAtNode(this.___content___);
             try {

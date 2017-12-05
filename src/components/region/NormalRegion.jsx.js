@@ -58,6 +58,7 @@ define(function (require) {
                 indeterminate: selected.indeterminate,
                 onChange: this.onRegionChange
             };
+
             if (this.props.type === 'single') {
                 return (<Radio {...prop} />);
             }

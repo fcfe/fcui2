@@ -16,7 +16,7 @@ define(function (require) {
                 <div className="introduction-container">
                     <div className="parser-introduction">
                         <h3>{item.description}</h3>
-                        <div style={{float: 'right'}}>{'v' + item.version}</div>
+                        <div style={{float: 'right', marginRight: 100}}>{'v' + item.version}</div>
                         <div>{item.author + ' (' + item.email + ')'}</div>
                     </div>
                     {item.note ? <Code codes={[item.note]}/> : null}

@@ -1,7 +1,7 @@
 
 define(function (require) {
 
-    var _ = require('underscore');
+
     var React = require('react');
     var TableMessage = require('../components/table/MessageBar.jsx');
     var TableHeader = require('../components/table/NormalHeader.jsx');
@@ -13,6 +13,8 @@ define(function (require) {
     };
     var cTools = require('../core/componentTools');
     var tools = require('../core/tableTools');
+    var util = require('../core/util');
+
 
     return {
 
@@ -30,22 +32,63 @@ define(function (require) {
         // 生成表头
         headerFactory: function (me) {
             if (!me.props.flags || !me.props.flags.showHeader) return null;
-            var td = [];
             var fields = tools.fieldConfigFactory(me, Others);
-            for (var i = 0; i < fields.length; i++) {
-                if (fields[i].isEmptyHeader) {
-                    td.push(<th className="th-header" key={'header-' + i}></th>);
-                    continue;
+            if (me.props.flags.showGroupNameInHeader) {
+                var td1 = [];
+                var td2 = [];
+                var lastGroupName = '';
+                for (var i = 0; i < fields.length; i++) {
+                    var field = fields[i];
+                    if (typeof field.groupName === 'string' && field.groupName.length) {
+                        if (field.groupName === lastGroupName) {
+                            td1[td1.length - 1].colspan += 1;
+                        }
+                        else {
+                            td1.push({groupName: field.groupName, colspan: 1});
+                            lastGroupName = field.groupName;
+                        }
+                        td2.push({index: i});
+                    }
+                    else {
+                        td1.push({index: i});
+                    }
                 }
-                var Renderer = typeof fields[i].thRenderer === 'function' ? fields[i].thRenderer : TableHeader;
-                var props = {
-                    fieldConfig: fields[i],
-                    tableComponent: me,
-                    key: 'header-' + i
-                };
-                td.push(<Renderer {...props} />);
+                td1 = td1.map(function (item, index) {
+                    if (item.hasOwnProperty('index')) {
+                        return getHeadDom(fields[item.index], item.index, null, 2);
+                    }
+                    else {
+                        return (
+                            <th className="tr-header-groupname" colSpan={item.colspan} key={'group-name-' + index}>
+                                {item.groupName}
+                            </th>
+                        );
+                    }
+                });
+                td2 = td2.map(function (item) {
+                    return getHeadDom(fields[item.index], item.index);
+                });
+                var result = [];
+                td1.length && (result.push(<tr className="tr-header" key="tr-header-1">{td1}</tr>));
+                td2.length && (result.push(<tr className="tr-header" key="tr-header-2">{td2}</tr>));
+                return result;
             }
-            return <tr className="tr-header" key="tr-header">{td}</tr>;
+            else {
+                return <tr className="tr-header" key="tr-header">{fields.map(getHeadDom)}</tr>;
+            }
+            function getHeadDom(field, i, arr, rowspan) {
+                if (field.isEmptyHeader) {
+                    return <th className="th-header" key={'header-' + i} rowspan={rowspan}></th>;
+                }
+                var Renderer = typeof field.thRenderer === 'function' ? field.thRenderer : TableHeader;
+                var props = {
+                    fieldConfig: field,
+                    tableComponent: me,
+                    key: 'header-' + i,
+                    rowSpan: rowspan
+                };
+                return <Renderer {...props}/>;
+            }
         },
 
         // 生成统计栏
@@ -74,7 +117,7 @@ define(function (require) {
                 return null;
             }
             var fields = tools.fieldConfigFactory(me, Others);
-            var messageConfig = _.extend({}, me.props.message);
+            var messageConfig = util.extend({}, me.props.message);
             var Message = typeof messageConfig.renderer === 'function' ? messageConfig.renderer : TableMessage;
             delete messageConfig.renderer;
             return (<Message {...messageConfig} onAction={me.props.onAction} colSpan={fields.length}/>);

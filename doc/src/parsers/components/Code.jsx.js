@@ -3,14 +3,17 @@ define(function (require) {
 
     var React = require('react');
     var markdown = require('markdown');
-    var tools = require('../../demos/tools');
+    var tools = require('../tools');
 
 
     function factory(codes, isNotMD) {
         var doms = [];
         for (var i = 0; i < codes.length; i++) {
             var content = isNotMD ? tools.trans2html(codes[i]) : markdown.toHTML(codes[i]);
-            doms.push(<div key={i} dangerouslySetInnerHTML={{__html: content}}></div>);
+            content = content.replace(/&nbsp;/g, '　');
+            doms.push(
+                <div key={i} dangerouslySetInnerHTML={{__html: content}}></div>
+            );
         }
         return doms;
     }

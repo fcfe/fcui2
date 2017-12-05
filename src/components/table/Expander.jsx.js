@@ -46,13 +46,13 @@ define(function (require) {
             typeof this.props.onAction === 'function' && this.props.onAction('TableExpanderClick', value);
         },
         render: function () {
-            var buttonClass = 'font-icon'; 
+            var buttonClass = ''; 
             if (
                 this.props.hasOwnProperty('tableExpandId')
                 && this.props.item.hasOwnProperty('expandId')
             ) {
                 buttonClass += (this.props.tableExpandId + '' === this.props.item.expandId + '')
-                    ? ' font-icon-largeable-caret-down' : ' font-icon-largeable-caret-right';
+                    ? ' fcui2-icon fcui2-icon-arrow-down' : ' fcui2-icon fcui2-icon-arrow-right';
             }
             else {
                 buttonClass = '';
