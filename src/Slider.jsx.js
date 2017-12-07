@@ -146,7 +146,7 @@ define(function (require) {
                     {
                         this.props.showRangeLabel
                         ? (
-                            <div className="fcui2-slider-range-label">
+                            <div className="fcui2-slider-range-label min-label">
                                 {this.props.min}
                                 {this.props.measure}
                             </div>
@@ -155,7 +155,7 @@ define(function (require) {
                     <div className="fcui2-slider-base-axis" />
                     {
                         this.props.showRangeLabel ? (
-                            <div className="fcui2-slider-range-label">
+                            <div className="fcui2-slider-range-label max-label">
                                 {this.props.max}
                                 {this.props.measure}
                             </div>
