@@ -1,6 +1,6 @@
 {
   "name": "fcui2",
-  "version": "2.0.13",
+  "version": "2.0.14",
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js --progress --colors --content-base build.doc --hot --port 8847 --host 0.0.0.0",
     "test": "node node_modules/edp/bin/edp-cli build -f && node node_modules/karma/bin/karma start",
