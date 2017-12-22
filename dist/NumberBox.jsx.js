@@ -99,8 +99,24 @@ define(function (require) {
             var dataset = util.getDataset(e.target);
             var op = dataset.uiCmd === 'add' ? 1 : -1;
             var target = this.refs.inputbox;
-            var value = parseFloat(target.value);
-            target.value = tools.numberFormater(value + op * parseFloat(this.props.step), this.props);
+            function add(a, b) {
+                var sa = a + '';
+                var sb = b + '';
+                var pa = 0;
+                var pb = 0;
+                if (sa.indexOf('.') > 0) {
+                    pa = sa.split('.')[1].length;
+                }
+                if (sb.indexOf('.') > 0) {
+                    pb = sb.split('.')[1].length;
+                }
+                var fixed = Math.max(pa, pb);
+                a = Number(a);
+                b = Number(b);
+                return +parseFloat(a + b).toFixed(fixed);
+            }
+            var newValue = add(target.value, this.props.step);
+            target.value = tools.numberFormater(newValue, this.props);
             e = { target: target };
             this.___dispatchChange___(e);
         },

@@ -17,6 +17,7 @@ define(function (require) {
         charFilter: function charFilter(value) {
             value = typeof value === 'string' || typeof value === 'number' ? value + '' : '';
             if (value.length === 0) return value;
+            value = value.replace(/。/g, '.');
             // 过滤非法字符
             var str = '-.0123456789';
             var result = '';

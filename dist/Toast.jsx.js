@@ -167,7 +167,7 @@ define(function (require) {
             var componentProps = util.extend({}, subComponentProps, _defineProperty({}, subComponentCloseHandlerName, this.props.close));
             var containerProp = cTools.containerBaseProps('toast', this, {
                 mergeFromProps: Object.keys(this.props).filter(function (e) {
-                    return e !== 'classPrefix' && e !== 'subComponent';
+                    return e === 'className' || e === 'style';
                 })
             });
             return React.createElement(

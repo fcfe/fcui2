@@ -144,14 +144,14 @@ define(function (require) {
                 _extends({}, cTools.containerBaseProps('slider', this), { onClick: this.onClick }),
                 this.props.showRangeLabel ? React.createElement(
                     'div',
-                    { className: 'fcui2-slider-range-label' },
+                    { className: 'fcui2-slider-range-label min-label' },
                     this.props.min,
                     this.props.measure
                 ) : null,
                 React.createElement('div', { className: 'fcui2-slider-base-axis' }),
                 this.props.showRangeLabel ? React.createElement(
                     'div',
-                    { className: 'fcui2-slider-range-label' },
+                    { className: 'fcui2-slider-range-label max-label' },
                     this.props.max,
                     this.props.measure
                 ) : null,
