@@ -49,7 +49,6 @@ define(function (require) {
             this.props.onChange(e);
         },
         onMouseLeave: function (e) {
-            return;
             var me = this;
             me.mouseenter = false;
             // 延迟关闭
