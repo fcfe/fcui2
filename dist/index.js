@@ -4,6 +4,7 @@ const util = require('./core/util');
 const validations = require('./core/validations');
 const language = require('./core/language');
 const regionTools = require('./core/regionTools');
+const calendarTools = require('./core/calendarTools');
 
 
 const AlphabetRegion = require('./AlphabetRegion.jsx');
@@ -58,6 +59,7 @@ export {
     validations,
     language,
     regionTools,
+    calendarTools,
     AlphabetRegion,
     Button,
     Calendar,
