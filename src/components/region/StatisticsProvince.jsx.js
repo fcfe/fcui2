@@ -86,7 +86,6 @@ define(function (require) {
             var containerProp = {
                 ref: 'container',
                 className: 'fcui2-region-province',
-                style: this.state.layerShow ? {border: '1px solid #C8C8C8'} : undefined,
                 onMouseLeave: this.onMouseLeave,
                 onMouseEnter: this.onMouseEnter
             };
