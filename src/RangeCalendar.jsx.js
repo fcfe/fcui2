@@ -173,6 +173,7 @@ define(function (require) {
                 isOpen: this.state.layerOpen && !this.props.disabled,
                 anchor: this.refs.container,
                 closeWithBodyClick: true,
+                location: 'bottom',
                 onCloseByWindow: this.onCancelButtonClick,
                 skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
             };

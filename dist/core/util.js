@@ -345,8 +345,8 @@ define(function (require) {
                 'h+': date.getHours(), //小时
                 'm+': date.getMinutes(), //分
                 's+': date.getSeconds(), //秒
-                'S+': date.getMilliseconds() //毫秒
-            };
+                'S+': date.getMilliseconds //毫秒
+                () };
             if (/(Y+)/.test(tpl)) {
                 tpl = tpl.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
             }

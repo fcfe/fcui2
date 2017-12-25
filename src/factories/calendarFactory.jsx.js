@@ -172,7 +172,7 @@ define(function (require) {
                 icon: 'fcui2-icon fcui2-icon-arrow-right',
                 label: '',
                 iconLeft: 7,
-                style: {right: 32},
+                style: {right: 29},
                 onClick: me.onMonthAdd,
                 disabled: me.props.disabled,
                 skin: skin
