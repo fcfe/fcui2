@@ -99,7 +99,7 @@ define(function (require) {
             var dataset = util.getDataset(e.target);
             var op = dataset.uiCmd === 'add' ? 1 : -1;
             var target = this.refs.inputbox;
-            function add(a, b) {
+            function change(a, b, c) {
                 var sa = a + '';
                 var sb = b + '';
                 var pa = 0;
@@ -113,9 +113,9 @@ define(function (require) {
                 var fixed = Math.max(pa, pb);
                 a = Number(a);
                 b = Number(b);
-                return +parseFloat(a + b).toFixed(fixed);
+                return +parseFloat(a + c * b).toFixed(fixed);
             }
-            var newValue = add(target.value, this.props.step);
+            var newValue = change(target.value, this.props.step, op);
             target.value = tools.numberFormater(newValue, this.props);
             e = { target: target };
             this.___dispatchChange___(e);

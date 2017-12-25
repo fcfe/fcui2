@@ -1,6 +1,6 @@
 {
   "name": "fcui2",
-  "version": "2.0.16",
+  "version": "2.0.17",
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js --progress --colors --content-base build.doc --hot --port 8847 --host 0.0.0.0",
     "test": "node node_modules/edp/bin/edp-cli build -f && node node_modules/karma/bin/karma start",
@@ -39,6 +39,10 @@
     {
       "name": "Chen Xiao",
       "email": "chenxiao09@baidu.com"
+    },
+    {
+      "name": "Shan Qianmin",
+      "email": "shanqianmin@baidu.com"
     }
   ],
   "dependencies": {
