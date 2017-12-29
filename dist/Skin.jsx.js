@@ -28,9 +28,10 @@ define(function (require) {
             };
         },
         render: function render() {
+            var className = 'fcui2-' + this.props.skin + '-wrapper' + (this.props.className ? ' ' + this.props.className : '');
             return React.createElement(
                 'div',
-                { className: 'fcui2-' + this.props.skin + '-wrapper' },
+                { className: className },
                 this.props.children
             );
         }
