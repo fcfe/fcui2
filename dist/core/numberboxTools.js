@@ -75,10 +75,7 @@ define(function (require) {
             _fixed = isNaN(_fixed) ? 2 : parseInt(_fixed, 10);
             var arr = value.split('.').slice(0, 2);
             if (arr.length > 1 && arr[1].length > _fixed) {
-                var chart = +arr[1].charAt(_fixed + 1);
-                arr[1] = +arr[1].slice(0, _fixed);
-                arr[1] += chart >= 5 ? 1 : 0;
-                arr[1] += '';
+                arr[1] = arr[1].slice(0, _fixed);
             }
             if (arr.length > 1) {
                 return arr.join('.');
