@@ -1,7 +1,5 @@
 /**
  * @file 为 React child components 提供'oneux4'的appSkin值刀到child context type中
- *
- * @author hanbingfeng@baidu.com
  */
 define(function (require) {
 

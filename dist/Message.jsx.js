@@ -3,7 +3,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /**
  * 信息框
  * @author chenxiao
- * @email chenxiao09@baidu.com
  * @version 0.0.2.1
  */
 

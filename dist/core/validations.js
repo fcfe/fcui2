@@ -1,6 +1,6 @@
 /**
  * 常用校验机
- * @author Hu Jian (hujian02@baidu.com), Brian Li (lbxxlht@163.com)
+ * @author Hu Jian, Brian Li (lbxxlht@163.com)
  * @version 0.0.2.1
  */
 define(function (require) {

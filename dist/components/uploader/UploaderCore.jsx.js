@@ -1,7 +1,6 @@
 /**
  * 实际负责上传的子组件，添加到body中，不可见
  * @author Sun Wenfei
- * @email sunwenfei@baidu.com
  * @version 0.0.2.1
  */
 define(function (require) {

@@ -7,7 +7,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /**
  * 全局提示
  * @author zhangjialin
- * @email zhangjialin03@baidu.com
  * @version 0.0.2.1
  * @note
  *      全局展示操作反馈信息，居中显示并自动消失，单例模式，可提供“成功”等反馈信息

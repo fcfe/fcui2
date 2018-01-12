@@ -170,12 +170,11 @@ $ npm run build
 ## Author
 * Brian Li
 * email: lbxxlht@163.com
-* weibo: http://weibo.com/lbxx1984
 
 ## Contributors
-* Han Bingfeng: hanbingfeng@baidu.com
-* Wang Yi: wangyispaceman@gmail.com
-* Hao Cuicui: haocuicui@baidu.com
-* Han Cong: hancong05@baidu.com
-* Sun WenFei: sunwenfei@baidu.com
-* Chen Xiao: chenxiao09@baidu.com
+* Han Bingfeng
+* Wang Yi
+* Hao Cuicui
+* Han Cong
+* Sun WenFei
+* Chen Xiao

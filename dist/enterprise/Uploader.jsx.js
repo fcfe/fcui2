@@ -3,7 +3,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /**
  * 文件上传组件
  * @author Sun Wenfei
- * @email sunwenfei@baidu.com
  * @version 0.0.2.1
  */
 define(function (require) {

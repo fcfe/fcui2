@@ -1,6 +1,6 @@
 /**
  * @file 带选择状态的List渲染器
- * @author mahaina (mahaina@baidu.com)
+ * @author mahaina
  * @date 2016/11/16.
  */
 define(function (require) {

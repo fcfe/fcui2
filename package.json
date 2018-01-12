@@ -17,32 +17,25 @@
   ],
   "contributors": [
     {
-      "name": "Han Bingfeng",
-      "email": "hanbingfeng@baidu.com"
+      "name": "Han Bingfeng"
     },
     {
-      "name": "Wang Yi",
-      "email": "wangyispaceman@gmail.com"
+      "name": "Wang Yi"
     },
     {
-      "name": "Hao Cuicui",
-      "email": "haocuicui@baidu.com"
+      "name": "Hao Cuicui"
     },
     {
-      "name": "Han Cong",
-      "email": "hancong05@baidu.com"
+      "name": "Han Cong"
     },
     {
-      "name": "Sun WenFei",
-      "email": "sunwenfei@baidu.com"
+      "name": "Sun WenFei"
     },
     {
-      "name": "Chen Xiao",
-      "email": "chenxiao09@baidu.com"
+      "name": "Chen Xiao"
     },
     {
-      "name": "Shan Qianmin",
-      "email": "shanqianmin@baidu.com"
+      "name": "Shan Qianmin"
     }
   ],
   "dependencies": {

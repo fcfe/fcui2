@@ -1,6 +1,6 @@
 /**
  * Cascade Item默认级联菜单渲染器
- * @author Chen Xiao (chenxiao09@baidu.com)
+ * @author Chen Xiao
  */
 define(function (require) {
     var React = require('react');

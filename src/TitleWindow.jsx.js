@@ -157,7 +157,6 @@ define(function (require) {
             // 后面再将content的class设置为'content content-fixed',此时chrome和firefox的scrollTop会变为contentScrollTop
             // 但IE11下，content的scrolTop为0
             // 需要手动更新
-            // @wujianwei01@baidu.com
             content.className = 'content';
             container.style.left = container.style.top = '-9999px';
             container.style.width = container.style.height = '9999px;'
@@ -174,7 +173,6 @@ define(function (require) {
             content.className = 'content content-fixed';
             // content设置class后，chrome和firefox的scrollTop会变为contentScrollTop所在位置
             // 但IE11会变为0,若此时有滚动条会直接跳转到顶部
-            // @wujianwei01@baidu.com
             content.scrollTop = contentScrollTop;
         },
 

@@ -1,7 +1,6 @@
 /**
  * 信息框
  * @author chenxiao
- * @email chenxiao09@baidu.com
  * @version 0.0.2.1
  */
 

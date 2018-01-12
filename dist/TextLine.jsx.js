@@ -1,7 +1,6 @@
 /**
  * 行号文本域
  * @author Hao Cuicui
- * @email haocuicui@baidu.com
  * @version 0.0.2.1
  */
 define(function (require) {

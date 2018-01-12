@@ -4,7 +4,6 @@
  *  默认选项中增加了es6.js和jsx.js的parse。默认增加了es2015和react的presets。
  * @author zhanglili[otakustay@gmail.com]
  *         leeight[leeight@gmail.com]
- *          Han Bing Feng (hanbingfeng@baidu.com)
  */
 
 var util = require('util');
