@@ -282,6 +282,40 @@ define(function (require) {
                     value2: value2
                 };
             }
+        },
+        /**
+         * [getSimpleModeValue 获取精简模式下的显示]
+         * @Author   zhangzhicheng03@baidu.com
+         * @DateTime 2018-02-08T14:52:21+0800
+         * [simpleMode 显示规则]
+         * 1. 同一天，第二个日期不显示
+         * 2. 跨周不跨月，第二个日期只显示日
+         * 3. 跨月不跨年，第二个日期只显示月 日
+         * 4. 跨年，显示全部
+         * @param    {[type]}                  v1 [日期1 的str]
+         * @param    {[type]}                  v2 [日期2 的str]
+         * @return   {[type]}                     [v1 + ';' + v2]
+         */
+        getSimpleModeValue: function getSimpleModeValue(v1, v2) {
+            var v1Date = me.str2date(v1);
+            var v2Date = me.str2date(v2);
+            var monthShow = v2Date.getMonth() + 1 < 10
+                    ? '0' + (v2Date.getMonth() + 1)
+                    : v2Date.getMonth() + 1;
+            var dayShow = v2Date.getDate() <10
+                    ? '0' + v2Date.getDate()
+                    : v2Date.getDate();
+
+            if (v1Date.getFullYear() !== v2Date.getFullYear()) {
+                return v1 + ';' + v2;
+            }
+            if (v1Date.getMonth() !== v2Date.getMonth()) {
+                return v1 + ';' + monthShow + '-' + dayShow;
+            }
+            if (v1Date.getDate() !== v2Date.getDate()) {
+                return v1 + ';' + dayShow;
+            }
+            return v1;
         }
     };
 
