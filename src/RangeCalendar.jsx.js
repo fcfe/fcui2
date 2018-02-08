@@ -76,7 +76,9 @@ define(function (require) {
                 shortCut: [],
                 rangeValidator: function () {},
                 // mixin
-                valueTemplate: ''
+                valueTemplate: '',
+                // 默认不启动精简显示
+                simpleMode: false
             };
         },
         // @override
@@ -99,6 +101,9 @@ define(function (require) {
         onEnterButtonClick: function (e) {
             e = {target: this.refs.container};
             e.target.value = this.state.value1 + ';' + this.state.value2;
+            if (this.props.simpleMode) {
+                e.target.value = tools.getSimpleModeValue(this.state.value1, this.state.value2);
+            }
             this.___dispatchChange___(e);
             this.setState({layerOpen: false});
         },
