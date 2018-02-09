@@ -77,8 +77,8 @@ define(function (require) {
                 rangeValidator: function () {},
                 // mixin
                 valueTemplate: '',
-                // 默认不启动精简显示
-                simpleMode: false
+                // 自定义显示规则
+                customizeShowRule: function customizeShowRule() {}
             };
         },
         // @override
@@ -101,9 +101,6 @@ define(function (require) {
         onEnterButtonClick: function (e) {
             e = {target: this.refs.container};
             e.target.value = this.state.value1 + ';' + this.state.value2;
-            if (this.props.simpleMode) {
-                e.target.value = tools.getSimpleModeValue(this.state.value1, this.state.value2);
-            }
             this.___dispatchChange___(e);
             this.setState({layerOpen: false});
         },
@@ -171,7 +168,7 @@ define(function (require) {
                 merge: {onClick: this.onMainButtonClick},
                 widthCorrect: -12
             });
-            var label = this.___getValue___() || this.props.placeholder;
+            var label = this.props.customizeShowRule() || this.___getValue___() || this.props.placeholder;
             label = label.replace(/-/g, '.').replace(/;/g, ' - ');
             var layerProp = {
                 ref: 'layer',
