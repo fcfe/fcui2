@@ -292,11 +292,16 @@ define(function (require) {
          * 2. 跨周不跨月，第二个日期只显示日
          * 3. 跨月不跨年，第二个日期只显示月 日
          * 4. 跨年，显示全部
-         * @param    {[type]}                  v1 [日期1 的str]
-         * @param    {[type]}                  v2 [日期2 的str]
-         * @return   {[type]}                     [v1 + ';' + v2]
+        * @param    {[type]}                  value [v1 + ';' + v2]
+         * @return   {[type]}                     [转换之后的显示结果]
          */
-        getSimpleModeValue: function getSimpleModeValue(v1, v2) {
+        getSimpleModeValue: function getSimpleModeValue(value) {
+            if (!value) {
+                console.error('getSimpleModeValue: value is undefined');
+                return;
+            }
+            var v1 = value.split(';')[0];
+            var v2 = value.split(';')[1];
             var v1Date = me.str2date(v1);
             var v2Date = me.str2date(v2);
             var monthShow = v2Date.getMonth() + 1 < 10
