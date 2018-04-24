@@ -6,14 +6,11 @@
  */
 define(function (require) {
 
-
     var React = require('react');
     var InputWidget = require('./mixins/InputWidget');
     var Layer = require('./Layer.jsx');
     var Calendar = require('./Calendar.jsx');
     var cTools = require('./core/componentTools');
-
-
 
     return React.createClass({
         /**
@@ -36,7 +33,7 @@ define(function (require) {
         // @override
         mixins: [InputWidget],
         // @override
-        getDefaultProps: function () {
+        getDefaultProps: function getDefaultProps() {
             return {
                 // base
                 skin: '',
@@ -44,6 +41,7 @@ define(function (require) {
                 style: {},
                 disabled: false,
                 // self
+                label: '',
                 placeholder: 'please select',
                 openLayerType: 'onMouseEnter',
                 min: '0-1-1',
@@ -53,38 +51,38 @@ define(function (require) {
             };
         },
         // @override
-        getInitialState: function () {
+        getInitialState: function getInitialState() {
             return {
                 layerOpen: false,
                 mouseenter: false
             };
         },
-        onChange: function (e) {
+        onChange: function onChange(e) {
             var value = this.___getValue___();
             if (this.props.disabled || value === e.target.value) return;
             this.___dispatchChange___(e);
-            this.setState({layerOpen: false});
+            this.setState({ layerOpen: false });
         },
-        onMouseEnter: function () {
+        onMouseEnter: function onMouseEnter() {
             this.setState({
                 mouseenter: true,
                 layerOpen: true
             });
         },
-        onMouseLeave: function () {
-            this.setState({mouseenter: false});
+        onMouseLeave: function onMouseLeave() {
+            this.setState({ mouseenter: false });
             cTools.closeLayerHandlerFactory(this, 'layerOpen')();
         },
-        render: function () {
+        render: function render() {
             var me = this;
-            var containerProp = cTools.containerBaseProps('dropdownlist', this, {widthCorrect: -12});
-            var label = this.___getValue___() || this.props.placeholder;
+            var containerProp = cTools.containerBaseProps('dropdownlist', this, { widthCorrect: -12 });
+            var label = this.props.label || this.___getValue___() || this.props.placeholder;
             var layerProp = {
                 isOpen: this.state.layerOpen && !this.props.disabled,
                 anchor: this.refs.container,
                 onMouseLeave: cTools.closeLayerHandlerFactory(this, 'layerOpen'),
                 ref: 'layer',
-                skin: this.context.appSkin ? (this.context.appSkin + '-normal') : 'normal'
+                skin: this.context.appSkin ? this.context.appSkin + '-normal' : 'normal'
             };
             var calendarProp = {
                 min: this.props.min,
@@ -102,18 +100,26 @@ define(function (require) {
                 }
             };
             var skin = this.props.skin ? this.props.skin : 'normal';
-            skin = this.context.appSkin ? (this.context.appSkin + '-' + skin) : skin;
-            containerProp.className += layerProp.isOpen ? (' fcui2-dropdownlist-' + skin + '-hover') : '';
-            return (
-                <div {...containerProp}>
-                    <div {...iconProps}></div>
-                    <span className="label-container">{label}</span>
-                    <Layer {...layerProp}>
-                        <div style={{padding: this.context.appSkin === 'oneux4' ? 30 : 0}}>
-                            <Calendar {...calendarProp} />
-                        </div>
-                    </Layer>
-                </div>
+            skin = this.context.appSkin ? this.context.appSkin + '-' + skin : skin;
+            containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-' + skin + '-hover' : '';
+            return React.createElement(
+                'div',
+                containerProp,
+                React.createElement('div', iconProps),
+                React.createElement(
+                    'span',
+                    { className: 'label-container' },
+                    label
+                ),
+                React.createElement(
+                    Layer,
+                    layerProp,
+                    React.createElement(
+                        'div',
+                        { style: { padding: this.context.appSkin === 'oneux4' ? 30 : 0 } },
+                        React.createElement(Calendar, calendarProp)
+                    )
+                )
             );
         }
     });

@@ -74,7 +74,9 @@ define(function (require) {
                 shortCut: [],
                 rangeValidator: function rangeValidator() {},
                 // mixin
-                valueTemplate: ''
+                valueTemplate: '',
+                // 自定义显示规则
+                customizeShowRule: function customizeShowRule() {}
             };
         },
         // @override
@@ -165,7 +167,7 @@ define(function (require) {
                 merge: { onClick: this.onMainButtonClick },
                 widthCorrect: -12
             });
-            var label = this.___getValue___() || this.props.placeholder;
+            var label = this.props.customizeShowRule() || this.___getValue___() || this.props.placeholder;
             label = label.replace(/-/g, '.').replace(/;/g, ' - ');
             var layerProp = {
                 ref: 'layer',

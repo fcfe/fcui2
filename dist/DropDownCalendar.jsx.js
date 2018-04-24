@@ -41,6 +41,7 @@ define(function (require) {
                 style: {},
                 disabled: false,
                 // self
+                label: '',
                 placeholder: 'please select',
                 openLayerType: 'onMouseEnter',
                 min: '0-1-1',
@@ -75,7 +76,7 @@ define(function (require) {
         render: function render() {
             var me = this;
             var containerProp = cTools.containerBaseProps('dropdownlist', this, { widthCorrect: -12 });
-            var label = this.___getValue___() || this.props.placeholder;
+            var label = this.props.label || this.___getValue___() || this.props.placeholder;
             var layerProp = {
                 isOpen: this.state.layerOpen && !this.props.disabled,
                 anchor: this.refs.container,
@@ -101,25 +102,7 @@ define(function (require) {
             var skin = this.props.skin ? this.props.skin : 'normal';
             skin = this.context.appSkin ? this.context.appSkin + '-' + skin : skin;
             containerProp.className += layerProp.isOpen ? ' fcui2-dropdownlist-' + skin + '-hover' : '';
-            return React.createElement(
-                'div',
-                containerProp,
-                React.createElement('div', iconProps),
-                React.createElement(
-                    'span',
-                    { className: 'label-container' },
-                    label
-                ),
-                React.createElement(
-                    Layer,
-                    layerProp,
-                    React.createElement(
-                        'div',
-                        { style: { padding: this.context.appSkin === 'oneux4' ? 30 : 0 } },
-                        React.createElement(Calendar, calendarProp)
-                    )
-                )
-            );
+            return React.createElement('div', containerProp, React.createElement('div', iconProps), React.createElement('span', { className: 'label-container' }, label), React.createElement(Layer, layerProp, React.createElement('div', { style: { padding: this.context.appSkin === 'oneux4' ? 30 : 0 } }, React.createElement(Calendar, calendarProp))));
         }
     });
 });
