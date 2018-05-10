@@ -1,6 +1,6 @@
 {
   "name": "fcui2",
-  "version": "2.0.24",
+  "version": "2.0.25",
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js --progress --colors --content-base build.doc --hot --port 8847 --host 0.0.0.0",
     "test": "node node_modules/edp/bin/edp-cli build -f && node node_modules/karma/bin/karma start",
@@ -38,14 +38,13 @@
       "name": "Shan Qianmin"
     }
   ],
-  "dependencies": {
-    "react": "^15.6.2"
-  },
+  "dependencies": {},
   "main": "dist/index.js",
-  "description": "FCUI2, a lightweight UI based on React and underscore.js.",
+  "description": "FCUI2, a lightweight UI based on React.",
   "homepage": "https://github.com/fcfe/fcui2",
   "repository": "git@github.com:fcfe/fcui2.git",
   "devDependencies": {
+    "react": "^15.6.2",
     "babel-core": "^6.7.7",
     "babel-plugin-check-es2015-constants": "^6.7.2",
     "babel-plugin-transform-es2015-arrow-functions": "^6.7.7",
