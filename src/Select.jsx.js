@@ -68,8 +68,10 @@ define(function (require) {
         },
         onListClick: function (e) {
             var value = this.___getValue___();
-            if (this.props.disabled || value === e.target.value) return;
-            this.___dispatchChange___(e);
+            if (this.props.disabled) return;
+            if (value !== e.target.value) {
+                this.___dispatchChange___(e);
+            }
             this.setState({layerOpen: false});
         },
         onMouseEnter: function () {
