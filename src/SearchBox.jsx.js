@@ -73,6 +73,7 @@ define(function (require) {
         onClearButtonClick: function (e) {
             e = {target: this.refs.container};
             e.target.value = '';
+            this.refs.inputbox.value = '';
             this.refs.inputbox.focus();
             this.___stopBlur___ = true;
             this.___dispatchChange___(e);
